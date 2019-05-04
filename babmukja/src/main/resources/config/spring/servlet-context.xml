@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"		
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jdbc
+                           http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                           http://mybatis.org/schema/mybatis-spring
+                           http://mybatis.org/schema/mybatis-spring-1.2.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+		
+	<context:component-scan base-package="kr.co.babmukja" />
+	
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url"
+            value="jdbc:mysql://127.0.0.1:3306/babmukja?useSSL=false&amp;serverTimezone=UTC">
+        </property>
+        <property name="username" value="babbab"></property>
+        <property name="password" value="babbab"></property>
+    </bean>
+    
+    <!-- MyBatis -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml"></property>
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations" value="classpath:config/sqlmap/*.xml"></property>
+    </bean>    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="kr.co.babmukja" />
+    </bean>
+            
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
