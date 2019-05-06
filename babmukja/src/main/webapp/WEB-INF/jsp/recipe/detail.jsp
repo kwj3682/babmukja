@@ -29,16 +29,16 @@
             
                 
                 <div class="post-container"><!-- post-container start -->
-                    <img class="post-main-img" src="/images/food1.jpg">
+                    <img class="post-main-img" src="/babmukja/WEB-INF/images/food1.jpg">
                     <div class="post-thumbs">
-                        <img src="/images/foodthumbnail1.jpg">
-                        <img src="/images/foodthumbnail2.jpg">
-                        <img src="/images/foodthumbnail3.jpg">
-                        <img src="/images/foodthumbnail4.jpg">
-                        <img src="/images/foodthumbnail5.jpg">
-                        <img src="/images/foodthumbnail6.jpg">
-                        <img src="/images/foodthumbnail8.jpg">
-                        <img src="/images/foodthumbnail7.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail1.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail2.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail3.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail4.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail5.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail6.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail8.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail7.jpg">
                     </div>
                     <div>
                         <p class="post-content">야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 </p>
@@ -47,16 +47,16 @@
                 
                 <!-- 컨텐트 하드코딩 부분 -->
                 <div class="post-container">
-                    <img class="post-main-img" src="/images/food1.jpg">
+                    <img class="post-main-img" src="/babmukja/WEB-INF/images/food1.jpg">
                     <div class="post-thumbs">
-                        <img src="/images/foodthumbnail1.jpg">
-                        <img src="/images/foodthumbnail2.jpg">
-                        <img src="/images/foodthumbnail3.jpg">
-                        <img src="/images/foodthumbnail4.jpg">
-                        <img src="/images/foodthumbnail5.jpg">
-                        <img src="/images/foodthumbnail6.jpg">
-                        <img src="/images/foodthumbnail8.jpg">
-                        <img src="/images/foodthumbnail7.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail1.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail2.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail3.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail4.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail5.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail6.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail8.jpg">
+                        <img src="/babmukja/WEB-INF/images/foodthumbnail7.jpg">
                     </div>
                     <div>
                         <p class="post-content">야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 </p>
@@ -73,7 +73,7 @@
                 <div id="comment-container"><!-- comment-container start -->
 
                     <div id="comment-mine"><!-- comment-mine start -->
-                        <img src="/images/profile2.jpg">
+                        <img src="/babmukja/WEB-INF/images/profile2.jpg">
                         <div id="comment-input-wrapper">
                             <textarea id="comment-input"></textarea>
                         </div>
@@ -83,7 +83,7 @@
                     <div id="comment-other"><!-- comment-other start -->
                         
                         <div class="comment-other-wrapper">
-                            <img class="other-profile" src="/images/profile19.jpg">
+                            <img class="other-profile" src="/babmukja/WEB-INF/images/profile19.jpg">
                             <div class="other-content-wrapper">
                                 <div>
                                     <div class="other-id">박보검이다</div>
@@ -97,7 +97,7 @@
 
                         <!-- 컨텐트 하드코딩 부분 -->
                         <div class="comment-other-wrapper">
-                            <img class="other-profile" src="/images/profile17.jpg">
+                            <img class="other-profile" src="/babmukja/WEB-INF/images/profile17.jpg">
                             <div class="other-content-wrapper">
                                 <div>
                                     <div class="other-id">주부9단빛찬맘</div>
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="comment-other-wrapper">
-                            <img class="other-profile" src="/images/profile13.jpg">
+                            <img class="other-profile" src="/babmukja/WEB-INF/images/profile13.jpg">
                             <div class="other-content-wrapper">
                                 <div>
                                     <div class="other-id">렁래렁래</div>
@@ -143,7 +143,7 @@
                 <div id="writer-info"><!-- writer-info start -->
 
                     <div id="profile-wrapper"> <!-- profile-wrapper start -->
-                        <img id="profile-img" src="/images/profile20.jpg">
+                        <img id="profile-img" src="/babmukja/WEB-INF/images/profile20.jpg">
                         <div id="profile-id">
                             <div>bitchanmom</div>
                             <div>#level9</div>
@@ -152,10 +152,10 @@
                     </div><!-- profile-wrapper end -->
 
                     <div id="writer-post"><!-- writer-post start -->
-                        <a href="#"><img id="post-img1" src="/images/f8.jpg"></a>
-                        <a href="#"><img id="post-img2" src="/images/f2.jpg"></a>
-                        <a href="#"><img id="post-img3" src="/images/f3.jpg"></a>
-                        <a href="#"><img id="post-img4" src="/images/f4.jpg"></a>
+                        <a href="#"><img id="post-img1" src="/babmukja/WEB-INF/images/f8.jpg"></a>
+                        <a href="#"><img id="post-img2" src="/babmukja/WEB-INF/images/f2.jpg"></a>
+                        <a href="#"><img id="post-img3" src="/babmukja/WEB-INF/images/f3.jpg"></a>
+                        <a href="#"><img id="post-img4" src="/babmukja/WEB-INF/images/f4.jpg"></a>
                     </div><!-- writer-post end -->
 
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
