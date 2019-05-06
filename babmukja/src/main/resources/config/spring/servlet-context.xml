@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	   xmlns:tx="http://www.springframework.org/schema/tx" 
 	   xmlns:aop="http://www.springframework.org/schema/aop" 
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
@@ -15,11 +16,16 @@
                            http://mybatis.org/schema/mybatis-spring
                            http://mybatis.org/schema/mybatis-spring-1.2.xsd
                            http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 		
 	<context:component-scan base-package="kr.co.babmukja" />
 	
+	<!-- JDBC -->
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
@@ -29,7 +35,23 @@
         <property name="username" value="babbab"></property>
         <property name="password" value="babbab"></property>
     </bean>
-    
+    <!-- 트랜잭션 관리 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" rollback-for="Exception" />
+			<tx:method name="delete*" rollback-for="Exception" />
+			<tx:method name="update*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="pCut" expression="execution(public * kr.co.babmukja..service.*Impl.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pCut"/>
+	</aop:config>
+	
     <!-- MyBatis -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml"></property>
@@ -40,6 +62,27 @@
         <property name="basePackage" value="kr.co.babmukja" />
     </bean>
             
+	<!-- 시작전 디폴트 작업 -->
+   <mvc:annotation-driven> 
+      <mvc:message-converters>
+         <bean class="org.springframework.http.converter.StringHttpMessageConverter">         
+            <property name="supportedMediaTypes">
+               <list>
+                  <value>text/plain; charset=UTF-8</value>
+                  <value>text/html; charset=UTF-8</value>
+               </list>
+            </property>
+         </bean>
+      </mvc:message-converters>
+   </mvc:annotation-driven> 
+   
+	<!-- 리소스 파일 -->
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	
+   <mvc:default-servlet-handler/>
+   <mvc:view-resolvers> 
+      <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp"/>
+   </mvc:view-resolvers>
 </beans>
 
 
