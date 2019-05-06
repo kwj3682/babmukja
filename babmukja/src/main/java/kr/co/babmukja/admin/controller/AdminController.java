@@ -12,5 +12,5 @@ public class AdminController {
 //	private AdminService service;
 	
 	@RequestMapping("/main.do")
-	public void mainLoading(){}
+	public void main(){}
 }

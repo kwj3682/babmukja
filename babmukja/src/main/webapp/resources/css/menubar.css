@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+#menubarContainer{
+    position : sticky;
+    top:0;
+    left : 0;
+    width: 100%;
+    background : WHITE;
+    margin: 0 auto;
+    padding : 0;
+    opacity: 0.8;
+    transition: .2s;
+    height: 80px;
+}
+#menubarContainer:hover{
+    opacity : 1;
+}
+ul {
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: rgb(81,81,81);
+}
+a:visited{
+    text-decoration: none;
+}
+li{
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bolder;
+    margin-left : 5px;
+}
+li > a{
+    transition: .3s;
+}
+li > a:hover{
+    color: #7db341;
+}
+#home{
+    display: flex;
+    font-weight: bolder;
+    justify-content: left;
+    align-content: left;
+    font-size: 45px;
+    color: #7db341;
+    float : left;
+}
+#menuContent{
+    float : left;
+}
+
+#search{
+    float: left;
+    margin-left : 140px;
+    margin-top: 10px; 
+    margin-right: 100px;
+    display : flex;
+    justify-content: right;
+    align-content: right;
+    height: 40px;
+}
+#search > input{
+    font-size: 20px;
+    padding-left: 10px;
+    border : 1px solid #7db341;
+    border-radius: 10px;
+    width: 300px;
+    color : gray;
+}
+#search > i{
+    line-height: 45px;
+    margin-left: 10px;
+    color: #7db341;
+}
+#sign{
+    display: flex;
+    justify-content: right;
+    align-content: right;
+    position: absolute;
+    top: 1px;
+    right: 20px;
+    height : 100%;
+    padding-top: 5px;
+}
+#sign > a{
+    line-height: 50px;
+    margin-left:10px;
+}
+#sign >a:first{
+    border-right: 1px solid #7db341;
+}
+#sign> i{
+    color: #7db341;
+}
