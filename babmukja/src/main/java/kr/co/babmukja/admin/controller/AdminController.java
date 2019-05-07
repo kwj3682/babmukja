@@ -17,4 +17,7 @@ public class AdminController {
 	public void test() {
 		
 	}
+	public void test2() {
+		
+	}
 }
