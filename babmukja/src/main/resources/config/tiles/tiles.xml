@@ -12,7 +12,7 @@
     </definition>
     
     <definition name="*/*" extends="template">
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/main.jsp" />
+        <put-attribute name="body"   value="/WEB-INF/jsp/{1}/{2}.jsp" />
     </definition>
 
 </tiles-definitions>
