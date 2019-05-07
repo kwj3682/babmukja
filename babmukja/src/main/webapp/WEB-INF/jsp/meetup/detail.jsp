@@ -1,12 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+
+<!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
@@ -252,7 +264,8 @@
                 <div class="subInfoPic">
                     <i class="fas fa-map-marker-alt fa-3x"></i>
                 </div>
-                <div class="subInfoPic"><i class="fas fa-won-sign fa-3x"></i>
+                <div class="subInfoPic">
+                	<i class="fas fa-won-sign fa-3x"></i>
                 </div>
                 <div class="subInfoPic">
                     <i class="fas fa-users fa-3x"></i>
@@ -299,6 +312,9 @@
 
     </div>
     <script>
+
+   
+    
         $(".area").click(function () {
             $(".area").animate({ left: -600 }, 1000);
         });
@@ -306,16 +322,16 @@
 
 
         for (let i = 0; i <= 4; i++) {
-	
+        	let number = i;
 
-            $(`td:eq(${i})`).click(function () {
-            	alert("왜 안나오지?");
+            $("td:eq(" + number +")").click(function () {
+            	
                 $(`td`).css("background-color", "white");
                 $(`td`).css("color", "black");
                 $(".tabPanel").css("display", "none");
-                $(`td:eq(${i})`).css("background-color", "#7db341");
-                $(`td:eq(${i})`).css("color", "white");
-                $(`.tabPanel:eq(${i})`).css("display", "block");
+                $("td:eq(" + number +")").css("background-color", "#7db341");
+                $("td:eq(" + number +")").css("color", "white");
+                $(".tabPanel:eq(" + number +")").css("display", "block");
 
             });
 
@@ -323,23 +339,19 @@
 
 
 
-        for (let i = 0; i <= 4; i++) {
+        for (let k = 0; k < 4; k++) {
+				
+        	console.log("k 시작 :" +k);
+            $(".subInfo > .subInfoPic > i:eq(" + k + ")").mouseover(function () {
 
-
-            $(`i:eq(${i})`).mouseover(function () {
-
-                $(`.infoTag:eq(${i})`).addClass("pseudo");
-
-
-
-
+            	console.log("aaa : " + k);
+            	$(".infoTag:eq(" + k + ")").addClass("pseudo");
+            	console.log(k);
 
             });
-            $(`i:eq(${i})`).mouseleave(function () {
+            $(".subInfo > .subInfoPic > i:eq(" + k + ")").mouseleave(function () {
 
-                $(`.infoTag:eq(${i})`).removeClass("pseudo");
-
-
+                $(".infoTag:eq(" + k + ")").removeClass("pseudo");
 
 
 
@@ -350,13 +362,20 @@
         //소개 글쓰기 생성시 박스 생성
         $(".writeIntro").click(function () {
 
-            $("#tabPanel1").html(` <div>
- <div id="introHeader" >모임을 소개해 주세요~^^</div>
-        <textarea name="intro" id="introBox"></textarea>
-        <div id="introSave">저장</div>
-        </div>`);
+            $("#tabPanel1").html(`<div><div id="introHeader">모임을 소개해 주세요~^^</div>
+       		<textarea id="summernote" name="editordata"></textarea>
+          <div id="introSave">저장</div></div>`);
+        
         });
 
+        
+       
+    </script>
+    
+    <script>
+    $(document).ready(function () {
+        $('#summernote').summernote();
+    });
     </script>
 
 </body>
