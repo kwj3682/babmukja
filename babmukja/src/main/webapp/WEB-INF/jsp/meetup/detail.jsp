@@ -235,10 +235,10 @@
             border: 1px solid gainsboro;
             width: 70px;
             height: 30px;
-
+            margin-top: -10px;
             text-align: center;
             line-height: 30px;
-            margin-left: 78%;
+            margin-left: 94%;
         }
 
         #introSave:hover {
@@ -359,24 +359,61 @@
 
         }//for
 
-        //소개 글쓰기 생성시 박스 생성
         $(".writeIntro").click(function () {
 
-            $("#tabPanel1").html(`<div><div id="introHeader">모임을 소개해 주세요~^^</div>
-       		<textarea id="summernote" name="editordata"></textarea>
-          <div id="introSave">저장</div></div>`);
-        
+            $("#tabPanel1").html(` <div>
+ <div id="introHeader" >모임을 소개해 주세요~^^</div>
+ <textarea id="summernote" name="editordata"></textarea>
+        <div id="introSave">저장</div>
+        </div>  
+`);
+        });
+
+
+        $(document).on("mouseover", document, function () {
+            $('#summernote').summernote({
+                height: 500,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true                  // set focus to editable area after initializing summernote
+           
+                callbacks: {
+                    onImageUpload: function(files, editor, welEditable) {
+                      for (var i = files.length - 1; i >= 0; i--) {
+                        sendFile(files[i], this);
+                      }
+                    }
+                  }
+
+            
+            });
         });
 
         
+        function sendFile(file, el) {
+            var form_data = new FormData();
+            form_data.append('file', file);
+            $.ajax({
+              data: form_data,
+              type: "POST",
+              url: '/image',
+              cache: false,
+              contentType: false,
+              enctype: 'multipart/form-data',
+              processData: false,
+              success: function(url) {
+                $(el).summernote('editor.insertImage', url);
+                $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+              }
+            });
+          }
+
+
+      출처: https://devofhwb.tistory.com/90 [이든의 생활코딩]
        
     </script>
     
-    <script>
-    $(document).ready(function () {
-        $('#summernote').summernote();
-    });
-    </script>
+
 
 </body>
 </html>

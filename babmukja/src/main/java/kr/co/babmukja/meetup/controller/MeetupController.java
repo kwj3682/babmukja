@@ -9,7 +9,5 @@ public class MeetupController {
 
 	@RequestMapping("/detail.do")
 	public void meetupDetail(){}
-
-
 	
 }
