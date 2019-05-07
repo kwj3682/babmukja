@@ -13,4 +13,11 @@ public class AdminController {
 	
 	@RequestMapping("/main.do")
 	public void main(){}
+	
+	public void test() {
+		
+	}
+	public void test2() {
+		
+	}
 }
