@@ -306,9 +306,10 @@
 
 
         for (let i = 0; i <= 4; i++) {
-
+	
 
             $(`td:eq(${i})`).click(function () {
+            	alert("왜 안나오지?");
                 $(`td`).css("background-color", "white");
                 $(`td`).css("color", "black");
                 $(".tabPanel").css("display", "none");

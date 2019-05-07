@@ -9,7 +9,7 @@
 </head>
 <body>
 	<script>
-		location.href="<c:url value='/meetup/main.do'/>";
+		location.href="<c:url value='/meetup/detail.do'/>";
 	</script>
 </body>
 </html>
