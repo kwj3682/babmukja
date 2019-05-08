@@ -8,19 +8,39 @@
 		<result column="title" property="title" />
 		<result column="content" property="content" />
 		<result column="regdate" property="regDate" />
+		<result column="rating" property="rating" />
+		<result column="mem_no" property="memNo" />
+		<result column="mem_nickname" property="memNickname" />
+		<result column="mem_name" property="memName" />				
 	</resultMap> 
 	
 	<select id="selectRecipe" parameterType="int" resultMap="recipeMap">
-		select *
-		  from tb_recipe 
-		 where recipe_no = #{no}		
+		select * 
+		  from tb_recipe r, tb_member m, tb_file f
+		 where r.mem_no = m.mem_no 
+		   and f.mem_no = m.mem_no
+		   and recipe_no = #{no}		
 	</select>
 	
-<!--     <insert id="insertRecipe" parameterType="recipe">
+	<select id="selectRecentRecipe" resultMap="recipeMap">
+	select * 
+	  from tb_recipe r, tb_member m
+	 where r.mem_no = m.mem_no 
+	 order by r.recipe_no desc
+	</select>
+	
+<!-- 	<select id="selectRecipeByRating" parameterType="int" resultMap="recipeMap">
+		select *
+		  from tb_recipe r, tb_member m
+		 where r.mem_no = m.mem_no
+		   and r.rating = #{rating}	
+	</select> -->
+	
+     <insert id="insertRecipe" parameterType="recipe">
     	insert into tb_recipe(
 			mem_no, title, content
 		) values (
-			#{mem_no}, #{title}, #{content}
+			#{memNo}, #{title}, #{content}
 		)
-    </insert> -->
+    </insert>
 </mapper>
