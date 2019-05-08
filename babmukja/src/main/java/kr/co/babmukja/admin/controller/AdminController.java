@@ -14,10 +14,6 @@ public class AdminController {
 	@RequestMapping("/main.do")
 	public void main(){}
 	
-	public void test() {
-		
-	}
-	public void test2() {
-		System.out.println("hi");
-	}
+	@RequestMapping("/memberlist.do")
+	public void list(){}
 }
