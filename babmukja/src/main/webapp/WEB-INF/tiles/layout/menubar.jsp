@@ -34,7 +34,7 @@
         </span>
         <span id="sign">
             <i class="fas fa-user-circle fa-3x"></i>
-            <a href="<c:url value="/member/login.do"/>">로그인</a>
+            <a href="<c:url value="/member/loginform.do"/>">로그인</a>
             <a href="">회원가입</a>
         </span>
     </div>
