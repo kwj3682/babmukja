@@ -22,7 +22,7 @@
         <div>회원 관리</div>
         <div>접속 통계</div>
         <div>게시판 관리</div>
-        <div>상품 관리</div>
+        <div><a href="<c:url value='/store/insertformpb.do'/>">상품 관리</a></div>
         <div>고객 서비스</div>
     </div>
     <div id="main">
