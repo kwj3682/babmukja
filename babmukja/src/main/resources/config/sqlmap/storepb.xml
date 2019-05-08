@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.babmukja.repository.mapper.StorePBMapper">
-	<resultMap id="storepbMap" type="storepb">
+	<resultMap id="storepbMap" type="storePB">
 		<result column="pb_no" property="pbNo" />
 		<result column="name" property="name" />
 		<result column="content" property="content" />
@@ -12,9 +12,9 @@
 		<result column="viewcnt" property="viewCnt" />
 	</resultMap>
 	
-	<select id="selectPBList" resultMap="storepbMap" parameterType="int">
+	<select id="selectPBList" parameterType="int" resultMap="storepbMap">
 		select *
 		  from tb_pb
-		 where pb_no = #{pbNo}
+		 order by pb_no desc
 	</select>
 </mapper>
