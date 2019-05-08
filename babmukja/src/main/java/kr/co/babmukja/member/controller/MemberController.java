@@ -22,21 +22,21 @@ public class MemberController {
 	public void loginForm() {}
 
 	@RequestMapping("/login.do")
-	public String login(HttpSession session){
-		Member member = new Member();
-		member.setMemId("bitchanmom9");
-		member.setMemPass("bitbit");
+	public String login(Member member,HttpSession session){
 		
-//		Member mem = service.selectLogin(member);
+		Member mem = service.selectLogin(member);
 		
+		System.out.println(mem.getMemId());
+		System.out.println(mem.getMemPass());
 		// session에 올리기 없으면 안올리기, 세션도 받기 
 		// 페이지 이동
-//		if (member == null) {
-//			return "redirect:loginform.do";
-//		} else {
-			session.setAttribute("user", member);
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
-//		}
+		if (mem == null) {
+			System.out.println("실패");
+			return "redirect:loginform.do";
+		} 
+		System.out.println("성공");
+		session.setAttribute("user", mem);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
 	
 	@RequestMapping("/logout.do")

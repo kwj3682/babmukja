@@ -24,7 +24,7 @@
         <div id="menu6"><i class="far fa-question-circle"></i>고객 서비스</div>
         <div id="menu7"><i class="fab fa-slack-hash"></i>해시태그관리</div>
         <i class="fas fa-user-circle fa-3x"></i>
-        <a id="login" href="#">로그인</a>
+         <a id="login" href="<c:url value="/member/loginform.do"/>">로그인</a>
         <a id="logout" href="#">회원가입</a>
     </div>
 

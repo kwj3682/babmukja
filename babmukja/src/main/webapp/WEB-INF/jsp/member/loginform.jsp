@@ -29,8 +29,7 @@
 
 		<form action="login.do"  method="post">
 			<div class="login__input">
-				<input placeholder="아이디" type="text" name="memId"
-					autofocus="autofocus" />
+				<input placeholder="아이디" type="text" name="memId" autofocus="autofocus" />
 			</div>
 
 			<div class="login__input">
@@ -41,7 +40,6 @@
 				<button type="submit">로그인</button>
 			</div>
 		</form>
-
 
 		<div class="id__pass_search">
 			<div class="search__id">
@@ -73,7 +71,6 @@
 			</div>
 		</div>
 
-
 		<div class="social__simple-login">
 			<div class="sign__up">
 				밥먹자~ <i class="fas fa-utensils"></i> <a
@@ -81,6 +78,6 @@
 			</div>
 		</div>
 	</div>
-	</main>
+  </main>
 </body>
 </html>
