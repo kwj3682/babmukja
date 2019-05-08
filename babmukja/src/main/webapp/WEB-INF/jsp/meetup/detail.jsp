@@ -375,8 +375,7 @@
                 height: 500,                 // set editor height
                 minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
-                focus: true                  // set focus to editable area after initializing summernote
-           
+                focus: true,                  // set focus to editable area after initializing summernote
                 callbacks: {
                     onImageUpload: function(files, editor, welEditable) {
                       for (var i = files.length - 1; i >= 0; i--) {
@@ -396,7 +395,7 @@
             $.ajax({
               data: form_data,
               type: "POST",
-              url: '/image',
+              url: '/babmukja/meetup/detailIntro.do',
               cache: false,
               contentType: false,
               enctype: 'multipart/form-data',
@@ -409,7 +408,7 @@
           }
 
 
-      출처: https://devofhwb.tistory.com/90 [이든의 생활코딩]
+       
        
     </script>
     
