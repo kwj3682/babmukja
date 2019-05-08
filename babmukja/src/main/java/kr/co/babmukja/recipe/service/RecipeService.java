@@ -1,5 +1,7 @@
 package kr.co.babmukja.recipe.service;
 
-public interface RecipeService {
+import kr.co.babmukja.repository.domain.Recipe;
 
+public interface RecipeService {
+	public void write(Recipe recipe);
 }

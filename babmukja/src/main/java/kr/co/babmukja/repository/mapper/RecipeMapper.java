@@ -1,5 +1,7 @@
 package kr.co.babmukja.repository.mapper;
 
-public interface RecipeMapper {
+import kr.co.babmukja.repository.domain.Recipe;
 
+public interface RecipeMapper {
+	public void insertRecipe(Recipe recipe);
 }

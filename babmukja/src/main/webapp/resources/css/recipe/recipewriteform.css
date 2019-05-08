@@ -32,7 +32,8 @@ button:focus {
     border: 2px solid #7db341;
 }
 #con {
-    border: 5px solid #7db341;            
+    border: 5px solid #7db341;  
+    margin-bottom : 100px;          
 }
 #video {
     width: 1100px; height: 500px;
