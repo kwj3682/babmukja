@@ -20,7 +20,7 @@
             <hr>
         </div>
         <div class="recipe">
-            <img src="<c:url value="/resources/images/food1.jpg"/>">
+            <img src="image/2.jpg">
         </div>
         <div class="profile">
             <span id="member">

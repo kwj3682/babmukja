@@ -19,8 +19,8 @@
         <div id="menuContent">
             <ul>
                 <li><a href="">About us</a></li>
-                <li><a href="<c:url value="/recipe/main.do"/>">레시피</a></li>
-                <li><a href="<c:url value="/store/detailpb.do"/>">스토어</a></li>
+                <li><a href="">레시피</a></li>
+                <li><a href="">스토어</a></li>
                 <li><a href="">쿠킹 미팅</a></li>
             </ul>
         </div>
