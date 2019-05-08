@@ -19,26 +19,27 @@
             <div>이달의 레시피</div>
             <hr>
         </div>
+        
         <div class="recipe">
             <img src="image/2.jpg">
         </div>
         <div class="profile">
             <span id="member">
-                <div id="info">                    
+                <div id="info">    
                     <img src="image/cat.jpg"> 
                     <p>프로필 아이디</p>
                     <p>팔로워 100 팔로우 10</p>                    
                 </div>
                 <div id="content">
-                    <p>1등한 레시피 내용들</p>
-                </div>
+                    <p>${list.content }</p>
+                </div>            
                 <div id="pic">
                     <div></div>
                     <div><img src="image/2.jpg"></div>
                     <div><img src="image/2.jpg"></div>
                     <div><img src="image/2.jpg"></div>
                     <div></div>
-                </div>
+                </div>            
             </span>
         </div>        
         <div class="month">
