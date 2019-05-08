@@ -10,5 +10,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
-	
+
+//	@Override
+//	public Member selectLogin(Member member){
+//		return mapper.selectLogin(member);
+//	}
 }
