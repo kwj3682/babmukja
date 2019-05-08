@@ -309,8 +309,9 @@
         <div class="tabPanel">자유게시판</div>
         <div class="tabPanel">사진첩</div>
         <div class="tabPanel">회원</div>
-
     </div>
+    
+    
     <script>
 
    
@@ -336,7 +337,6 @@
             });
 
         }//for
-
 
 
         for (let k = 0; k < 4; k++) {
@@ -370,44 +370,41 @@
         });
 
 
-        $(document).on("mouseover", document, function () {
+          $(document).on("mouseover", document, function () {
             $('#summernote').summernote({
+
                 height: 500,                 // set editor height
-                minHeight: null,             // set minimum height of editor
+            	minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
-                focus: true,                  // set focus to editable area after initializing summernote
-                callbacks: {
-                    onImageUpload: function(files, editor, welEditable) {
-                      for (var i = files.length - 1; i >= 0; i--) {
-                        sendFile(files[i], this);
-                      }
-                    }
-                  }
-
-            
-            });
-        });
-
+                focus: true                  // set focus to editable area after initializing summernote
+  
+            }); 
+         
         
-        function sendFile(file, el) {
-            var form_data = new FormData();
-            form_data.append('file', file);
+        })
+/*  contentType: "text/xml;charset=utf-8", */
+         $(document).on("click", "#introSave", function () {
+            alert($('#summernote').val() );
+           
+            var text =$('#summernote').val();
+            var encoded = encodeURIComponent(text)
             $.ajax({
-              data: form_data,
-              type: "POST",
-              url: '/babmukja/meetup/detailIntro.do',
-              cache: false,
-              contentType: false,
-              enctype: 'multipart/form-data',
-              processData: false,
-              success: function(url) {
-                $(el).summernote('editor.insertImage', url);
-                $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-              }
-            });
-          }
-
-
+          	  data: "data=" + encoded,
+          	  type: "POST",
+          	  url: '/babmukja/meetup/detailIntro.do',
+          	  enctype: 'multipart/form-data',
+          	  success: function(data) {
+          		  
+          		  $("#tabPanel1").html(data);
+          	  }
+          	  });
+         
+             });
+    
+         
+        	 
+        	  
+ 
        
        
     </script>
