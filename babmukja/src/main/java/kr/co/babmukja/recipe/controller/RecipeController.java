@@ -1,12 +1,29 @@
 package kr.co.babmukja.recipe.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-@Controller("kr.co.babmukja.admin.controller.RecipeController")
+import kr.co.babmukja.recipe.service.RecipeService;
+import kr.co.babmukja.repository.domain.Recipe;
+
+@Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
 public class RecipeController {
-
+	
+	@Autowired
+	private RecipeService service;
+	
 	@RequestMapping("/main.do")
 	public void main(){}
+	
+	@RequestMapping("/writeform.do")
+	public void writeForm() {}
+	
+	@RequestMapping("/write.do")
+	public String write(Recipe recipe) {
+		service.write(recipe);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "main.do";
+	}
 }
