@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+body {
+    color: rgb(81,81,81);
+}
+a {
+    text-decoration: none;
+    color: rgb(81,81,81);            
+}
+button {
+    cursor: pointer;
+}
+button:focus {
+    outline: none;
+}
+.container {        
+    width: 1200px;
+    margin: 0 auto;
+}
+#tit {           
+    height: 200px; 
+}        
+#title {
+    border-radius: 5px;            
+    margin-top: 50px;
+    width: 1200px; height: 80px;
+    font-size: 30px;
+    text-align: center;
+}
+#title:focus {
+    outline: none;
+    border: 2px solid #7db341;
+}
+#con {
+    border: 5px solid #7db341;  
+    margin-bottom : 100px;          
+}
+#video {
+    width: 1100px; height: 500px;
+    border: 2px solid gainsboro;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+    box-sizing:border-box;
+    padding-top:200px;
+}
+
+#video > div > button {
+    width: 100px; height: 100px;
+    border: none;
+    border-radius: 50%;
+    background: #7db341;
+    cursor: pointer;            
+}
+#video > button > img {
+    width: 50px; height: 50px;
+}
+#plus {
+    margin-top: 20px;
+    font-size: 20px;
+}
+#pic {
+    width: 1000px; height: 500px;
+    border: 2px solid gainsboro;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+    box-sizing:border-box;
+    padding-top:200px;
+}
+#pic > div > button {
+    width: 100px; height: 100px;
+    border: none;
+    border-radius: 50%;
+    background: #7db341;                       
+}
+.text {
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 50px;
+    
+}
+.content {
+    width: 1000px; height: 300px;
+    box-sizing: border-box;
+    margin-top: 50px; 
+    margin-left: 50px;
+    font-size: 20px;           
+    resize: none;
+}
+.content:focus {
+    outline: none;
+    border: 2px solid #7db341;
+}        
+.attachresult {
+    width: 800px; height: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border: 2px solid gainsboro;
+}
+.image {
+    margin-top: 10px;
+    text-align: center;
+}
+.add {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 1200px; height: 100px;            
+    text-align:center;         
+}
+.add button {
+    width: 80px; height: 80px;
+    border: none;
+    border-radius: 50%;
+    background: #7db341;    
+    font-size:40px;
+    color:white;
+}
+.circle {  
+    height: 120px;           
+    display: grid;         
+    grid-template-columns: repeat(5, 1fr);
+    width: 800px;
+    margin: 0 auto; 
+    text-align : center;
+}
+.circle div {
+    margin-top: 50px;           
+    width: 120px;
+    margin: 0 auto; 
+    border:1px solid #7db341;
+    border-radius: 50%;
+}
+.tag {
+    margin-bottom: 50px;
+}
+.tag > div {
+    text-align: center;  
+    position: relative;   
+}
+#hash {
+    border-radius: 5px;            
+    margin-top: 50px;
+    width: 800px; height: 50px;
+    font-size: 30px;
+    text-align: center;
+    padding-left: 55px;
+}
+#hash:focus {
+    outline: none;
+    border: 2px solid #7db341;
+}
+.icon {
+    width: 40px; height: 40px;
+    position: absolute;
+    top: 28%;
+    margin-left: 13px;
+    margin-top: 13px;
+    z-index: 1;
+    font-size: 45px;
+    color: #7db341;
+}

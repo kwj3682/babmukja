@@ -62,7 +62,7 @@
         <property name="mapperLocations" value="classpath:config/sqlmap/*.xml"></property>
     </bean>    
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="kr.co.babmukja" />
+        <property name="basePackage" value="kr.co.babmukja.repository.mapper" />
     </bean>
             
 	<!-- 시작전 디폴트 작업 -->
