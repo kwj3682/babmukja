@@ -86,6 +86,7 @@
             <div id="pb_store_popular_product_img">
                 <div id="pb_store_popular_product_imges">
                     <div id="pb_store_popular_product_imges_grid">
+                    <c:forEach var="pbList" items="${pbList}" begin="1" end="4">
                         <a class="pb_store_popular_product_img" href="#">
                             <img src="http://edgerank.co.kr/wp-content/uploads/2016/11/22.png">
                             <div class="pb_store_popular_product_text">
@@ -101,6 +102,8 @@
                                 </div>
                             </div>
                         </a>
+                    </c:forEach>
+<!-- 
                         <a class="pb_store_popular_product_img" href="#">
                             <img src="https://us.123rf.com/450wm/baibakova/baibakova1609/baibakova160900188/63444373-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D-%EA%B0%9C%EB%85%90%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%9D%B0%EC%83%89-%EB%82%98%EB%AC%B4-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D.jpg?ver=6">
                             <div class="pb_store_popular_product_text">
@@ -146,6 +149,7 @@
                                 </div>
                             </div>
                         </a>
+ -->
                      </div>
                 </div>
             </div>
