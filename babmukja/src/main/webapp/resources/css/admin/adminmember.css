@@ -8,57 +8,18 @@ button{
 button:focus{
     outline: none;
 }
-#menubar{
-    width:100%;
-    display: flex;
-    justify-content: space-between;
-    align-content: space-between;
-}
-#menubar > div{
-    width: 260px;
-    height: 70px;
-    text-align: center;
-    color: black;
-    font-weight: bolder;
-    font-size: 20px;
-    background: #7db341;
-    border-radius : 15px 15px 0 0;
-    line-height: 70px;
-}
-#menubar > div:nth-child(2){
-    background: tomato;
-}
-#menubar > div:nth-child(3){
-    background: darkcyan;
-}
-#menubar > div:nth-child(4){
-    background: darkgoldenrod;
-}
-#menubar > div:nth-child(5){
-    background: darkkhaki;
-}
-#menubar > div:nth-child(6){
-    background: darkseagreen;
-}
-#menubar > div:nth-child(7){
-    background: darkslategrey;
-}
-#menubar > span{
-    line-height: 70px;
-    background :white;
-    color: #7db341;
-    font-weight: bolder;
-    font-size: 30px;
-    border-radius : 15px 15px 0 0;
-}
 
 #main{
-    border: 6px solid darkcyan;
-    border-radius: 0 0 10px 10px;
     background: white;
 }
-#main-header{
-    margin: 30px;
+#main-header > h2{
+	margin: 0;
+	padding: 20px;	
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-left : 1px solid gray;
+	border-right : 1px solid gray;
+	color : #7db341;
 }
 #member-search-header{
     font-size: 25px;
