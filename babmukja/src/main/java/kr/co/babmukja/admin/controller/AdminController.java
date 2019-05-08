@@ -21,7 +21,12 @@ public class AdminController {
 	@RequestMapping("/main.do")
 	public void main(){}
 	
-	@RequestMapping("/memberlist.do")
+	
+	@RequestMapping("/member.do")
+	public void memberTab() {}
+	
+	
+	@RequestMapping("/membersearch.do")
 	public ResponseEntity<String> list(){
 		List<Member> list = service.listMember();
 		if(list == null) {

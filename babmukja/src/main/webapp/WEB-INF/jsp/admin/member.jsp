@@ -8,22 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="<c:url value="/resources/css/admin/adminmain.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/adminmember.css"/>">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>Document</title>
+    <title>회원 관리</title>
 </head>
 <body>
-    <div id="menubar">
-            <span>BABMUKJA-ADMIN</span>
-            <div>매출 관리</div>
-            <div>회원 관리</div>
-            <div>접속 통계</div>
-            <div>게시판 관리</div>
-            <div>상품 관리</div>
-            <div>고객 서비스</div>
-    </div>
+
     <div id="main">
         <div id="main-header">
             <h2>회원 관리</h2>
@@ -162,7 +154,7 @@
         });
         $(".selector2").flatpickr({
             enableTime: true,
-            dateFormat: "Y-m-d H:m",
+            dateFormat: "Y-m-d H:i",
         });
     </script>
 
