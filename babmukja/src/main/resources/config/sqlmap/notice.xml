@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.babmukja.repository.mapper.NoticeMapper">
+	
+	<select id="selectNotice" resultType="notice">
+		select *
+		  from tb_notice
+		  order by no desc
+	</select>
+
+	<insert id="insertNotice" parameterType="notice">
+		insert into tb_notice(
+			notice_no, title, content, writer
+		) values (
+			s_notice_no.nextval, #{title}, #{content}, #{writer}
+		)
+	</insert>
+	
+    <delete id="deleteNotice" parameterType="int">
+    	delete 
+    	  from tb_notice
+    	 where no = #{no}
+    </delete>    
+    <update id="updateNotice" parameterType="notice">
+    	update tb_notice
+    	   set title = #{title},
+    	       content = #{content}
+    	 where no = #{no}
+    </update>	
+    
+    <!-- 조회수 증가시키기 -->
+	<update id="updateViewCnt" parameterType="int">
+		update tb_notice
+		   set view_cnt = view_cnt + 1
+		 where no = #{no}  
+	</update>  
+ 
+</mapper>
