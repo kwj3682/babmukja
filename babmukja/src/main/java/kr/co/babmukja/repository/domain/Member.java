@@ -20,7 +20,7 @@ public class Member {
    private Date lastDate;
    private int socialAt;
    private int point;
-   private int gradeCode;
+   private int gradecode;
    private int hintNo;
    private String hintAnswer;
    private String imgPath;
@@ -127,5 +127,29 @@ public class Member {
    public void setPoint(int point) {
       this.point = point;
    }
+	public int getGradecode() {
+		return gradecode;
+	}
+	public void setGradecode(int gradecode) {
+		this.gradecode = gradecode;
+	}
+	public int getHintNo() {
+		return hintNo;
+	}
+	public void setHintNo(int hintNo) {
+		this.hintNo = hintNo;
+	}
+	public String getHintAnswer() {
+		return hintAnswer;
+	}
+	public void setHintAnswer(String hintAnswer) {
+		this.hintAnswer = hintAnswer;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 
 }
