@@ -1,4 +1,4 @@
-package kr.co.babmukja.repository.vo;
+package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
 

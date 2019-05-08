@@ -2,7 +2,7 @@ package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
 
-import kr.co.babmukja.repository.vo.Notice;
+import kr.co.babmukja.repository.domain.Notice;
 
 public interface NoticeMapper {
 	public interface noticeMapper {

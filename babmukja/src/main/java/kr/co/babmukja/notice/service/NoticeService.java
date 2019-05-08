@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.babmukja.repository.vo.Notice;
+import kr.co.babmukja.repository.domain.Notice;
 
 @Service("kr.co.babmukja.notice.service.NoticeService")
 public interface NoticeService {

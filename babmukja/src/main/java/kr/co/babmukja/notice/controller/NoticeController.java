@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import kr.co.babmukja.notice.service.NoticeService;
-import kr.co.babmukja.repository.vo.Notice;
+import kr.co.babmukja.repository.domain.Notice;
 
 @Controller("kr.co.babmukja.notice.controller.NoticeController")
 public class NoticeController {

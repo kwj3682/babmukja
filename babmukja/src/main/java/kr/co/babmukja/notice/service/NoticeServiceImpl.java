@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.babmukja.repository.domain.Notice;
 import kr.co.babmukja.repository.mapper.NoticeMapper;
-import kr.co.babmukja.repository.vo.Notice;
 
 @Service("kr.co.babmukja.notice.service.NoticeService")
 public class NoticeServiceImpl implements NoticeService {
