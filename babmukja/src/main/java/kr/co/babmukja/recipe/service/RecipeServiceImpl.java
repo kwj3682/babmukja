@@ -14,5 +14,13 @@ public class RecipeServiceImpl implements RecipeService {
 	public void insert(Recipe recipe) {
 		mapper.insertRecipe(recipe);
 	}
+
+	public Recipe list(int no) {
+		Recipe recipe = mapper.selectRecipe(no);
+		System.out.println(recipe.getContent() + recipe.getTitle());
+		return mapper.selectRecipe(no);		
+	}
+	
+	
 }
 
