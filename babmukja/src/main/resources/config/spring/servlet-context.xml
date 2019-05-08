@@ -59,10 +59,11 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml"></property>
         <property name="dataSource" ref="dataSource"></property>
+        <property name="typeAliasesPackage" value="kr.co.babmukja.repository.domain" />
         <property name="mapperLocations" value="classpath:config/sqlmap/*.xml"></property>
     </bean>    
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="kr.co.babmukja" />
+        <property name="basePackage" value="kr.co.babmukja.repository.mapper" />
     </bean>
             
 	<!-- 시작전 디폴트 작업 -->
