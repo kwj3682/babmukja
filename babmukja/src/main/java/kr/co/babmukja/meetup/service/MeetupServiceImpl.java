@@ -11,4 +11,15 @@ public class MeetupServiceImpl implements MeetupService{
 	
 	@Autowired
 	public MeetupMapper mapper;
+
+	
+	public String selectIntro() {
+		return mapper.selectIntro();
+	}
+
+	public void insertIntro(String intro) {
+		 mapper.insertIntro(intro);
+	}
+
+
 }
