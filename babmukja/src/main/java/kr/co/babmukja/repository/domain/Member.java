@@ -3,7 +3,6 @@ package kr.co.babmukja.repository.domain;
 import java.util.Date;
 
 public class Member {
-
    private int memNo;
    private String memName;
    private String memPhone;
