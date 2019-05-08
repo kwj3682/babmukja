@@ -11,7 +11,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@Autowired
 	public RecipeMapper mapper;
 	
-	public void write(Recipe recipe) {
+	public void insert(Recipe recipe) {
 		mapper.insertRecipe(recipe);
 	}
 }

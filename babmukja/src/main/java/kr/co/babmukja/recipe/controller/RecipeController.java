@@ -21,9 +21,9 @@ public class RecipeController {
 	@RequestMapping("/writeform.do")
 	public void writeForm() {}
 	
-	@RequestMapping("/write.do")
-	public String write(Recipe recipe) {
-		service.write(recipe);
+	@RequestMapping("/insert.do")
+	public String insert(Recipe recipe) {
+		service.insert(recipe);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "main.do";
 	}
 }

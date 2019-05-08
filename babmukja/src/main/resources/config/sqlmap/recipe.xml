@@ -10,12 +10,12 @@
 		<result column="regdate" property="regDate" />
 	</resultMap> -->
 	
-    <insert id="insertRecipe" parameterType="recipe">
-    	insert into tb_recipe(
-			title, content
-		) values (
-			#{title}, #{content}
-		)
-    </insert>
+<!--     <insert id="insertRecipe" parameterType="recipe"> -->
+<!--     	insert into tb_recipe( -->
+<!-- 			title, content -->
+<!-- 		) values ( -->
+<!-- 			#{title}, #{content} -->
+<!-- 		) -->
+<!--     </insert> -->
     
 </mapper>
