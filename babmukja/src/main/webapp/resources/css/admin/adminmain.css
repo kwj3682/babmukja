@@ -1,52 +1,7 @@
 body{
     background: gainsboro;
 }
-#menubar{
-    width:100%;
-    display: flex;
-    justify-content: space-between;
-    align-content: space-between;
-}
-#menubar > div{
-    width: 260px;
-    height: 70px;
-    text-align: center;
-    color: black;
-    font-weight: bolder;
-    font-size: 20px;
-    background: #7db341;
-    border-radius : 15px 15px 0 0;
-    line-height: 70px;
-}
-#menubar > div:nth-child(2){
-    background: tomato;
-}
-#menubar > div:nth-child(3){
-    background: darkcyan;
-}
-#menubar > div:nth-child(4){
-    background: darkgoldenrod;
-}
-#menubar > div:nth-child(5){
-    background: darkkhaki;
-}
-#menubar > div:nth-child(6){
-    background: darkseagreen;
-}
-#menubar > div:nth-child(7){
-    background: darkslategrey;
-}
-#menubar > span{
-	width: 260px;
-    height: 70px;
-    text-align: center;
-    font-weight: bolder;
-    font-size: 20px;
-    line-height: 70px;
-    background :white;
-    color: #7db341;
-    border-radius : 15px 15px 0 0;
-}
+
 
 #main{
     background: white;
