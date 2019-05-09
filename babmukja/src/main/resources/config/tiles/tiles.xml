@@ -23,6 +23,9 @@
     <definition name="recipe/*" extends="template">
         <put-attribute name="body"   value="/WEB-INF/jsp/recipe/{1}.jsp" />
     </definition>
+    <definition name="meetup/*" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/meetup/{1}.jsp" />
+    </definition>
 
 
     <definition name="admin/*" extends="template2">

@@ -134,7 +134,7 @@
             </div>
         </div>
         <div class="plus">
-            <img src="image/plus.png">
+			+
             <a href="#">더보기</a>
         </div>
     </div>
