@@ -1,86 +1,126 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="<c:url value="/resources/css/recipe/recipewriteform.css"/>">    
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <title>Document</title>
-
+    <script src="<c:url value="/resources/js/editor.min.js"/>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/recipe/recipewriteform.css"/>">
 </head>
 <body>
-    <div class="container">
-        <div id="tit">           
-           <input id="title" type="text" name="title" placeholder="제목을 입력해주세요">
-        </div>
-        <div id="con">
-            <div id="video">
-                <div>
-                    <button style="font-size:40px;color:white;">+</button>                
-                </div>
-                <div id="plus">
-                    메인동영상 추가하기
-                </div>
-            </div>
-            <div id="pic">
-                <div>
-                    <button style="font-size:40px;color:white;">+</button>  
-                </div>
-                <div id="plus">
-                        메인사진 추가하기
-                </div>
-            </div>
-            <div class="text">                
-                <textarea name="content" class="content" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
-                <div class="attachresult"></div>
-                <div class="image">
-                    <input type="file" class="attach" name="attach">
-                </div>
-            </div>
-            <div class="add">
-                    <div>
-                        <button class="addcontent">+</button>
-                    </div>
-                    <div class="plus">
-                            내용 추가하기
-                    </div>
-            </div>
-            
-            <div id="addresult"></div>
-            <div class="circle">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-            </div>
-
-            <div class="tag">
-                <div>
-                    <span class="icon"><i class="fa fa-search"></i></span>
-                    <input type="text" id="hash" name="hash" placeholder="#태그명(최대 5개)">
-                </div>
-            </div>
-            <div><button id="submit">등록하기</button></div>
-            </div>
-        </div>
+    <div id="writeform-header">레시피 작성</div>
     
-<script>
-    $(".addcontent").click(function () {
-        $(".text").append(
-            '<textarea name="content" class="content" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>'
-            +    '<div class="attachresult"></div>'
-            +    '<div class="image">'
-            +    '<input type="file" class="attach" name="attach">'
-            +    '</div>'
-        );
-    });
+    <div id="editorjs"></div>
+    <button>저장</button>
+    <script>
+        /*
+            이미지의 경우 확장자가 이미지 확장자로 종료되어야 한다.
 
-</script>
+        */ 
+        const editor = new EditorJS({
+            holderId: 'editorjs',
+
+            autofocus: true,
+            data: {"time":1557295973064,"blocks":[{"type":"quote","data":{"title":"","message":""}},{"type":"warning","data":{"title":"","message":""}}],"version":"2.13.0"},
+            tools: { 
+                warning: {
+                    class: Warning,
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+W',
+                    config: {
+                        titlePlaceholder: '주의사항',
+                        messagePlaceholder: '내용을 입력해주세요',
+                    },
+                },
+     
+                table: {
+                    class: Table,
+                    inlineToolbar: true,
+                    config: {
+                        rows: 2,
+                        cols: 3,
+                    },
+                },                       
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+O',
+                    config: {
+                        quotePlaceholder: '내용을 입력해주세요',
+                        captionPlaceholder: '출처',
+                    },
+                },
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                        byFile: 'http://localhost:8085/babmukja/file/upload.do' // Your backend file uploader endpoint
+                        }
+                    }
+                },
+                header: {
+                    class: Header,
+                    inlineToolbar: ['link']
+                }, 
+                checklist: {
+                    class: Checklist,
+                    inlineToolbar: true,
+                },
+                linkTool: {
+                    class: LinkTool,
+                    config: {
+                        endpoint: 'http://127.0.0.1:5500', // Your backend endpoint for url data fetching
+                    }
+                },
+                marker: {
+                    class: Marker,
+                    shortcut: 'ALT+M'
+                },
+                list: {
+                    class: List,
+                    inlineToolbar: ['link', 'bold']
+                },
+                embed: {
+                    class: Embed,
+                    inlineToolbar: false,
+                    config: {
+                        services: {
+                            youtube: true,
+                            coub: true
+                        }    
+                    }
+                }
+            }
+        });
+
+        let saveBtn = document.querySelector("button");
+        saveBtn.addEventListener("click", function () {
+            console.dir(editor)
+            editor.save().then((outputData) => {
+                console.log("Article data : ", outputData);
+                console.log(JSON.stringify(outputData));
+            }).catch((error) => {
+                console.log("Saving failed : ", error);
+            });
+        });
+    </script>
 </body>
 </html>
