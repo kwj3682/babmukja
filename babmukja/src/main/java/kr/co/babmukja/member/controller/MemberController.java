@@ -1,6 +1,5 @@
 package kr.co.babmukja.member.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,12 @@ public class MemberController {
 		
 		Member mem = service.selectLogin(member);
 		
-		System.out.println(mem.getMemId());
-		System.out.println(mem.getMemPass());
+//		System.out.println(mem.getMemId());
+//		System.out.println(mem.getMemPass()); // 주석처리 안해주면 잘못된 아이디나 비밀번호를 입력할 때 에러가 나서 밑에가 실행이 안됨
+		
 		// session에 올리기 없으면 안올리기, 세션도 받기 
 		// 페이지 이동
+		
 		if (mem == null) {
 			System.out.println("실패");
 			return "redirect:loginform.do";
@@ -43,6 +44,6 @@ public class MemberController {
 	public String logOut(HttpSession session) {
 		session.invalidate();
 		
-		return "/admin/main.do";
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
 }

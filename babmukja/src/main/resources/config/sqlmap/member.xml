@@ -1,45 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.babmukja.repository.mapper.MemberMapper">
-   <resultMap id="memberMap" type="member">
-      <result column="mem_no" property="memNo" />
-      <result column="mem_name" property="memName" />
-      <result column="mem_phone" property="memPhone" />
-      <result column="mem_email" property="memEmail" />
-      <result column="mem_id" property="memId" />
-      <result column="mem_nickname" property="memNickname" />
-      <result column="mem_pass" property="memPass" />
-      <result column="post_no" property="postNo" />
-      <result column="addr_default" property="addrDefault" />
-      <result column="addr_detail" property="addrDetail" />
-      <result column="manager_at" property="managerAt" />
-      <result column="img_orgname" property="imgOrgname" />
-      <result column="img_sysname" property="imgSysname" />
-      <result column="sign_date" property="signDate" />
-      <result column="last_date" property="lastDate" />
-      <result column="social_at" property="socialAt" />
-      <result column="point" property="point" />
-      <result column="gradecode" property="gradecode" />
-      <result column="hint_no" property="hintNo" />
-      <result column="hint_answer" property="hintAnswer" />
-      <result column="img_path" property="imgPath" />
-   </resultMap>   
+	<resultMap id="memberMap" type="member">
+		<result column="mem_no" property="memNo" />
+		<result column="mem_name" property="memName" />
+		<result column="mem_phone" property="memPhone" />
+		<result column="mem_email" property="memEmail" />
+		<result column="mem_id" property="memId" />
+		<result column="mem_nickname" property="memNickname" />
+		<result column="mem_pass" property="memPass" />
+		<result column="post_no" property="postNo" />
+		<result column="addr_default" property="addrDefault" />
+		<result column="addr_detail" property="addrDetail" />
+		<result column="manager_at" property="managerAt" />
+		<result column="img_orgname" property="imgOrgname" />
+		<result column="img_sysname" property="imgSysname" />
+		<result column="sign_date" property="signDate" />
+		<result column="last_date" property="lastDate" />
+		<result column="social_at" property="socialAt" />
+		<result column="point" property="point" />
+		<result column="gradecode" property="gradecode" />
+		<result column="hint_no" property="hintNo" />
+		<result column="hint_answer" property="hintAnswer" />
+		<result column="img_path" property="imgPath" />
+	</resultMap>
 
-	<!-- 회원등록  -->
-<!-- 	<insert id="insertMember" parameterType="member"> -->
-<!-- 		insert into tb_member( -->
-<!-- 		mem_name,mem_phone,mem_email,mem_id,mem_nickname,mem_pass,post_no,addr_default,addr_detail,manager_at,sign_date,last_date,social_at,point,gradecode -->
-<!-- 		) -->
-<!-- 		values( -->
-<!-- 		#{memName}, #{memPhone}, #{memEmail}, #{memId}, #{memNickname},#{memPass},#{postNo}, #{addrDefault}, #{addrDetail}, 1, now(), now(),0 , 0, 0 -->
-<!-- 		) -->
-<!-- 	</insert> -->
-	
-	<!-- 로그인  -->
-	<select id="selectLogin" parameterType="member" resultMap="memberMap" >
+
+	<!-- 로그인 -->
+	<select id="selectLogin" parameterType="member"
+		resultMap="memberMap">
 		select *
-		  from tb_member
-		 where mem_id = #{memId}
-		   and mem_pass = #{memPass}
- 	</select>
+		from tb_member
+		where mem_id = #{memId}
+		and mem_pass = #{memPass}
+	</select>
 </mapper>
