@@ -11,13 +11,13 @@ public class FileVO {
 	private String orgname;
 	private String path;
 	private int memNo;
-	private List<MultipartFile> attach;	
+	private List<MultipartFile> imageList;	
 	
-	public List<MultipartFile> getAttach() {
-		return attach;
+	public List<MultipartFile> getImageList() {
+		return imageList;
 	}
-	public void setAttach(List<MultipartFile> attach) {
-		this.attach = attach;
+	public void setImageList(List<MultipartFile> imageList) {
+		this.imageList = imageList;
 	}
 	public int getFileNo() {
 		return fileNo;

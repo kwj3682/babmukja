@@ -6,6 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.babmukja.recipe.service.RecipeService;
+<<<<<<< HEAD
+=======
+import kr.co.babmukja.repository.domain.Recipe;
+>>>>>>> master
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
@@ -15,20 +19,28 @@ public class RecipeController {
 	private RecipeService service;
 	
 	@RequestMapping("/main.do")
-	public void main(Model model) {
-		
-		System.out.println(service.list(1));
+	public void main(Model model) {		
 		model.addAttribute("list", service.list(1));
 	}
 	
 	@RequestMapping("/writeform.do")
 	public void writeForm() {}
 	
+<<<<<<< HEAD
 //	@RequestMapping("/write.do")
 //	public String write(List<MultipartFile> attach, Recipe recipe) {
 //	
 //		
 //		
 //	}
+=======
+	@RequestMapping("/cadetail.do")
+	public void ca_detail() {}
+	
+	@RequestMapping("/")
+	public void selectRecentRecipe() {
+		
+	}
+>>>>>>> master
 	
 }

@@ -8,8 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body> 
+	<a href="<c:url value='/admin/main.do'/>">관리자</a>
+	<a href="<c:url value='/store/mainpb.do'/>">스토어</a>
+	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a>
 	<script>
-		location.href="<c:url value='/recipe/writeform.do'/>";
 	</script>
 </body>
 </html>

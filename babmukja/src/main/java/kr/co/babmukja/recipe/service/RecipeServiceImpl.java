@@ -1,5 +1,7 @@
 package kr.co.babmukja.recipe.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +21,14 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectMaxMum();
 	}
 	public Recipe list(int no) {
-		Recipe recipe = mapper.selectRecipe(no);
-		System.out.println(recipe.getContent() + recipe.getTitle());
-		return mapper.selectRecipe(no);		
+		return mapper.selectRecipe(no);
 	}
 	
+	public List<Recipe> selectRecentRecipe() {
+		return mapper.selectRecentRecipe();
+	}
+
+
 	
 }
 

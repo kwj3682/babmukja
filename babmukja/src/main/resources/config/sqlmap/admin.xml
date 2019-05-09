@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.babmukja.repository.mapper.AdminMapper">
-	<resultMap id="memberMap" type="member">
+
+	<resultMap id="MemberMap" type="Member">
 		<result column="mem_no" property="memNo" />
 		<result column="mem_name" property="memName" />
 		<result column="mem_phone" property="memPhone" />
@@ -20,12 +21,32 @@
 		<result column="last_date" property="lastDate" />
 		<result column="social_at" property="socialAt" />
 		<result column="point" property="point" />
-		<result column="gradecode" property="gradecode" />
+		<result column="grade_no" property="gradeNo" />
+		<result column="gradename" property="gradeName" />		
 		<result column="hint_no" property="hintNo" />
 		<result column="hint_answer" property="hintAnswer" />
 		<result column="img_path" property="imgPath" />
+		<result column="recipe_cnt" property="recipeCnt" />
+		<result column="selling_cnt" property="sellingCnt" />		
 	</resultMap>	
-    <select id="selectMemberList" resultMap="memberMap">
-    	select * from tb_member
-    </select>
+
+    <!-- 회원 전체목록 페이징추가 -->
+	<select id="selectMemberList" parameterType="page" resultMap="MemberMap">		 
+		select @rownum:=@rownum+1 no, m.* , g.gradename, 
+	           (select sum(order_sum) 
+	              from tb_order 
+	             where buy_mem_no = m.mem_no) 'totalBuy',
+	           (select sum(order_sum) 
+	              from tb_order 
+	             where sell_mem_no = m.mem_no) 'totalSel'
+	      from tb_member m, tb_grademap g
+	     where m.grade_no = g.grade_no
+	     limit #{begin}, #{end}
+	</select> 
+	
+	<!-- 회원 전체수 -->
+	<select id="selectMemberCount" resultType="int">
+		select count(*)
+		  from tb_member
+	</select>
 </mapper>

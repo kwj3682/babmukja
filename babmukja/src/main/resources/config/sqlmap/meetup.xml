@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.babmukja.repository.mapper.MeetupMapper">
+	<resultMap id="meetupMap" type="meetup">
+		<result column="meet_no" property="meetNo" />
+		<result column="host" property="host" />
+		<result column="left_address" property="leftAddress" />
+		<result column="mem_limit" property="memLimit" />
+		<result column="total_mem" property="totalMem" />
+		<result column="fee" property="fee" />
+		<result column="intro" property="intro" />
+		<result column="title" property="title" />
+		<result column="location_code" property="locaitonCode" />
+	</resultMap>	
+    
+    <select id="selectIntro" resultMap="meetupMap">
+    	select intro from tb_meetup WHERE meet_no= 1
+    </select>
+    
+    <update id= "updateIntro" parameterType="String">
+    UPDATE tb_meetup SET intro = #{intro} WHERE meet_no= 1
+    
+    </update>
+    
+</mapper>
