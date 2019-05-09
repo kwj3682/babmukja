@@ -26,5 +26,9 @@ public class RecipeController {
 	@RequestMapping("/cadetail.do")
 	public void ca_detail() {}
 	
+	@RequestMapping("/")
+	public void selectRecentRecipe() {
+		
+	}
 	
 }

@@ -19,14 +19,43 @@ public class Member {
    private Date signDate;
    private Date lastDate;
    private int socialAt;
-   private int point;
-   private int gradecode;
+   private int point;  
    private int hintNo;
    private String hintAnswer;
    private String imgPath;
+   private int gradeNo;
+   private int recipeCnt;
+   private int sellingCnt;
+   private String gradeName;
    
+   	
+   
+   public String getGradeName() {
+	return gradeName;
+   }
+   public void setGradeName(String gradeName) {
+	this.gradeName = gradeName;
+   }	
+	public int getGradeNo() {
+		return gradeNo;
+	}
+   public void setGradeNo(int gradeNo) {
+		this.gradeNo = gradeNo;
+	}
+	public int getRecipeCnt() {
+		return recipeCnt;
+	}
+	public void setRecipeCnt(int recipeCnt) {
+		this.recipeCnt = recipeCnt;
+	}
+	public int getSellingCnt() {
+		return sellingCnt;
+	}
+   public void setSellingCnt(int sellingCnt) {
+	  this.sellingCnt = sellingCnt;
+   }
    public int getMemNo() {
-      return memNo;
+	  return memNo;
    }
    public void setMemNo(int memNo) {
       this.memNo = memNo;
@@ -127,12 +156,6 @@ public class Member {
    public void setPoint(int point) {
       this.point = point;
    }
-	public int getGradecode() {
-		return gradecode;
-	}
-	public void setGradecode(int gradecode) {
-		this.gradecode = gradecode;
-	}
 	public int getHintNo() {
 		return hintNo;
 	}

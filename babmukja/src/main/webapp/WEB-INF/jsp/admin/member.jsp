@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,24 +123,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                        <c:forEach var="m" items="${list}">
+                            <tr>                            
                                 <td><input type="checkbox"></td>
-                                <td>123123123</td>
-                                <td><a href="#">kwjd124</a></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>${m.memNo }</td>
+                                <td><a href="#">${m.memId }</a></td>
+                                <td>${m.memEmail }</td>
+                                <td>${m.memNickname }</td>
+                                <td>${m.memName }</td>
+                                <td><fmt:formatDate value= "${m.signDate }" pattern="yyyy-MM-dd" /></td>
+                                <td><fmt:formatDate value= "${m.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                <td>땀땀</td>
+                                <td>땀땀</td>
+                                <td>${m.recipeCnt }</td>
+                                <td>${m.sellingCnt }</td>
+                                <td>${m.point }</td>
+                                <td>${m.gradeName }</td>                            	
                             </tr>
+                            	</c:forEach>
                         </tbody>
                     </table>
+                    <c:if test="${pageResult.count != 0}">
+							<c:if test="${pageResult.prev eq true}">
+							<a href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
+						</c:if>
+						<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+							<a href="${param.link}?pageNo=${i}">[${i}]</a>
+							</c:forEach>
+						<c:if test="${pageResult.next eq true}">
+							<a href="${param.link}?pageNo=${pageResult.endPage + 1}">다음</a>
+						</c:if>	
+		
+					
+					</c:if>	
                 </div>                
             </div>
             
