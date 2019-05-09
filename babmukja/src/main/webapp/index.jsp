@@ -9,7 +9,7 @@
 </head>
 <body> 
 	<script>
-		location.href="<c:url value='/admin/main.do'/>";
+		location.href="<c:url value='/recipe/writeform.do'/>";
 	</script>
 </body>
 </html>

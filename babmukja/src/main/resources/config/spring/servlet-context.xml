@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:beans="http://www.springframework.org/schema/beans" 
+	   xmlns:p="http://www.springframework.org/schema/p" 
 	   xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	   xmlns:tx="http://www.springframework.org/schema/tx" 
 	   xmlns:aop="http://www.springframework.org/schema/aop" 
@@ -34,16 +35,16 @@
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
 	
-	<!-- JDBC -->
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="url"
-            value="jdbc:mysql://127.0.0.1:3306/babmukja?useSSL=false&amp;serverTimezone=UTC">
-        </property>
-        <property name="username" value="babbab"></property>
-        <property name="password" value="babbab"></property>
-    </bean>
+
+   	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
+	  p:driverClassName="${jdbc.mysql.driver}"
+	  p:url="${jdbc.mysql.url}"
+	  p:username="${jdbc.mysql.username}"
+	  p:password="${jdbc.mysql.password}" />
+    
+    
+    
+    
     <!-- 트랜잭션 관리 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
