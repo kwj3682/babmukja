@@ -4,5 +4,4 @@ public interface MeetupService {
 
 	public String selectIntro();
 	public void updateIntro(String intro);
-	
 }

@@ -19,7 +19,10 @@ public class MeetupController {
 	private MeetupService service;
 	
 	@RequestMapping("/detail.do")
-	public void meetupDetail(){}
+	public void meetupDetail(){
+		service.selectIntro();
+		
+	}
 	
 
 

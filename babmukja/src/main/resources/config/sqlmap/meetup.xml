@@ -15,7 +15,7 @@
 	</resultMap>	
     
     <select id="selectIntro" resultMap="meetupMap">
-    	select intro from tb_meetup;
+    	select intro from tb_meetup WHERE meet_no= 1
     </select>
     
     <update id= "updateIntro" parameterType="String">

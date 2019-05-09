@@ -242,8 +242,9 @@
             line-height: 30px;
         }
         #introDelete {
+            margin-left:10px;
             display: inline-block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             border: 1px solid gainsboro;
             width: 70px;
             height: 30px;
