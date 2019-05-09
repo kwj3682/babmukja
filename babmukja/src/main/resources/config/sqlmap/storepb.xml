@@ -12,7 +12,7 @@
 		<result column="viewcnt" property="viewCnt" />
 	</resultMap>
 	
-	<select id="selectPBList" parameterType="int" resultMap="storepbMap">
+	<select id="selectPBList" resultMap="storepbMap">
 		select *
 		  from tb_pb
 		 order by pb_no desc

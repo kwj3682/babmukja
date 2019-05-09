@@ -22,7 +22,8 @@ public class StorePBController {
 	
 	@RequestMapping("/mainpb.do")
 	public void selectPBList(Model model) {
-		model.addAttribute("pbList", service.selectPBList(3)); 
+		model.addAttribute("pbList", service.selectPBList()); 
 	}
+	
 	
 }
