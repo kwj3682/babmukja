@@ -1,29 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/babmukja/css/adminmember.css">
-    <script src="/babmukja/js/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/adminmember.css"/>">
+    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>Document</title>
+    <title>회원 관리</title>
 </head>
 <body>
-    <div id="menubar">
-            <span>BABMUKJA-ADMIN</span>
-            <div>매출 관리</div>
-            <div>회원 관리</div>
-            <div>접속 통계</div>
-            <div>게시판 관리</div>
-            <div>상품 관리</div>
-            <div>고객 서비스</div>
-    </div>
+
     <div id="main">
         <div id="main-header">
             <h2>회원 관리</h2>
@@ -130,24 +123,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                        <c:forEach var="m" items="${list}">
+                            <tr>                            
                                 <td><input type="checkbox"></td>
-                                <td>123123123</td>
-                                <td><a href="#">kwjd124</a></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>${m.memNo }</td>
+                                <td><a href="#">${m.memId }</a></td>
+                                <td>${m.memEmail }</td>
+                                <td>${m.memNickname }</td>
+                                <td>${m.memName }</td>
+                                <td><fmt:formatDate value= "${m.signDate }" pattern="yyyy-MM-dd" /></td>
+                                <td><fmt:formatDate value= "${m.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                <td>땀땀</td>
+                                <td>땀땀</td>
+                                <td>${m.recipeCnt }</td>
+                                <td>${m.sellingCnt }</td>
+                                <td>${m.point }</td>
+                                <td>${m.gradeName }</td>                            	
                             </tr>
+                            	</c:forEach>
                         </tbody>
                     </table>
+                    <c:if test="${pageResult.count != 0}">
+							<c:if test="${pageResult.prev eq true}">
+							<a href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
+						</c:if>
+						<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+							<a href="${param.link}?pageNo=${i}">[${i}]</a>
+							</c:forEach>
+						<c:if test="${pageResult.next eq true}">
+							<a href="${param.link}?pageNo=${pageResult.endPage + 1}">다음</a>
+						</c:if>	
+		
+					
+					</c:if>	
                 </div>                
             </div>
             
@@ -162,7 +170,7 @@
         });
         $(".selector2").flatpickr({
             enableTime: true,
-            dateFormat: "Y-m-d H:m",
+            dateFormat: "Y-m-d H:i",
         });
     </script>
 

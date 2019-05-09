@@ -1,0 +1,39 @@
+@charset "UTF-8";
+#writeform-header{
+    color: #7db341;
+    font-size : 30px;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+#editorjs{
+    margin : 0 auto;
+
+    justify-content: center;
+    align-content: center;
+    width: 1200px;
+    border-right : 1px solid gainsboro;
+    border-left : 1px solid gainsboro;
+}
+button:focus{
+    outline: none;
+}
+button{
+    display: block;
+    margin : 0 auto;
+    margin-bottom:200px;
+    border  : 0;
+    background :gainsboro;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 140px;
+    font-size: 20px;
+    color :White;
+    border-radius: 5px;
+    transition: .3s;
+}
+button:hover{
+    background :#7db341;
+}

@@ -10,9 +10,26 @@
         <put-attribute name="header"   value="/WEB-INF/tiles/layout/menubar.jsp" />
         <put-attribute name="footer"   value="/WEB-INF/tiles/layout/footer.jsp" />
     </definition>
+
+    <definition name="template2" template="/WEB-INF/tiles/layout/template2.jsp">
+        <put-attribute name="header"   value="/WEB-INF/tiles/layout/adminmenubar.jsp" />
+        <put-attribute name="footer"   value="/WEB-INF/tiles/layout/footer.jsp" />
+    </definition>
+
     
-    <definition name="*/*" extends="template">
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/main.jsp" />
+    <definition name="store/*" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/store/{1}.jsp" />
+    </definition>
+    <definition name="recipe/*" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/recipe/{1}.jsp" />
+    </definition>
+    <definition name="meetup/*" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/meetup/{1}.jsp" />
+    </definition>
+
+
+    <definition name="admin/*" extends="template2">
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/{1}.jsp" />
     </definition>
 
 </tiles-definitions>
