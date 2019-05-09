@@ -74,7 +74,7 @@
 		<div class="social__simple-login">
 			<div class="sign__up">
 				밥먹자~ <i class="fas fa-utensils"></i> <a
-					href="<c:url value="signup.do"/>">회원가입</a>
+					href="<c:url value="/member/signupform.do"/>">회원가입</a>
 			</div>
 		</div>
 	</div>

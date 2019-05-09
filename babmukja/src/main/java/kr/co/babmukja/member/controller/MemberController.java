@@ -46,4 +46,27 @@ public class MemberController {
 		
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
+	
+	@RequestMapping("/jusopopup.do")
+	public void jusoPopUp() {
+		System.out.println("우편번호 검색 버튼");
+	}
+	
+	@RequestMapping("/signupform.do")
+	public void signUpForm() {
+		// 힌트 번호를 가져가야한다 
+	}
+	
+	@RequestMapping("/signup.do")
+	public String signUp(Member member) {
+		
+		service.insertMember(member);
+		
+		if (member == null) {
+			System.out.println("회원가입 실패");
+			return "redirect:signupform.do";
+		}
+		System.out.println("회원가입 성공");
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
+	}
 }
