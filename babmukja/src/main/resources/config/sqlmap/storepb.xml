@@ -10,6 +10,7 @@
 		<result column="regdate" property="regDate" />
 		<result column="mem_no" property="memNo" />
 		<result column="viewcnt" property="viewCnt" />
+		<result column="group_no" property="groupNo" />
 	</resultMap>
 	
 	<resultMap id="fileMap" type="fileVO" >
@@ -27,13 +28,44 @@
 		 order by pb_no desc
 	</select>
 	
-	<insert id="insertPB" parameterType="storePB">
-		insert into tb_pb(name, content, price, mem_no, group_no)
-		values ( #{name}, #{content}, 5000, 3, 1 )
+	<insert id="insertpb" parameterType="storePB">
+		insert into tb_pb
+		(
+			name, 
+			content, 
+			price, 
+			mem_no, 
+			group_no
+		)
+		values 
+		( 
+			#{name}, 
+			#{content}, 
+			#{price}, 
+			3, 
+			1 
+		)
 	</insert>
 	
 	<insert id="insertPBImage" parameterType="fileVO">
-		insert into tb_file (group_no, sysname, orgname, path, mem_no)
-		values (1, #{sysname}, #{orgname}, #{path}, 3)
+		insert into tb_file 
+		(
+			group_no, 
+			sysname, 
+			orgname, 
+			path, 
+			mem_no
+		)
+		values 
+		(
+			#{groupNo}, 
+			#{sysname}, 
+			#{orgname}, 
+			#{path}, 
+			3
+		)
 	</insert>
+	<select id="selectMaxNum" resultType="int">
+		select max(pb_no) from tb_pb
+	</select>
 </mapper>

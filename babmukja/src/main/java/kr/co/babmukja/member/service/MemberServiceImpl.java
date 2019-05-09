@@ -8,7 +8,7 @@ import kr.co.babmukja.repository.mapper.MemberMapper;
 
 @Service("kr.co.babmukja.member.service.MemberService")
 public class MemberServiceImpl implements MemberService {
-	
+	 
 	@Autowired
 	private MemberMapper mapper;
 
@@ -16,4 +16,9 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectLogin(Member member){
 		return mapper.selectLogin(member);
 	} 
+	
+	@Override
+	public void insertMember(Member member) {
+		mapper.insertMember(member);
+	}
 }

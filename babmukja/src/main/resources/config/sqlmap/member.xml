@@ -19,19 +19,29 @@
 		<result column="last_date" property="lastDate" />
 		<result column="social_at" property="socialAt" />
 		<result column="point" property="point" />
-		<result column="gradecode" property="gradecode" />
+		<result column="grade_no" property="gradeNo" />
 		<result column="hint_no" property="hintNo" />
 		<result column="hint_answer" property="hintAnswer" />
 		<result column="img_path" property="imgPath" />
 	</resultMap>
 
-
 	<!-- 로그인 -->
-	<select id="selectLogin" parameterType="member"
-		resultMap="memberMap">
+	<select id="selectLogin" parameterType="member" resultMap="memberMap">
 		select *
 		from tb_member
 		where mem_id = #{memId}
 		and mem_pass = #{memPass}
 	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="member">
+		insert into tb_member(
+		mem_name, mem_email, mem_phone, mem_id, mem_nickname,
+		 mem_pass, post_no, addr_default, addr_detail, hint_no, hint_answer, manager_at, social_at
+		)
+		values(
+		#{memName}, #{memEmail}, #{memPhone}, #{memId}, #{memNickname}, 
+		#{memPass}, #{postNo}, #{addrDefault}, #{addrDetail}, #{hintNo}, #{hintAnswer}, 0, 0
+		)
+	</insert>
 </mapper>
