@@ -15,6 +15,9 @@ public class RecipeServiceImpl implements RecipeService {
 		mapper.insertRecipe(recipe);
 	}
 
+	public int getMaxNum() {
+		return mapper.selectMaxMum();
+	}
 	public Recipe list(int no) {
 		Recipe recipe = mapper.selectRecipe(no);
 		System.out.println(recipe.getContent() + recipe.getTitle());
