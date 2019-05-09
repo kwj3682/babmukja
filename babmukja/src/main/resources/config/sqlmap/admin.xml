@@ -28,6 +28,8 @@
 		<result column="img_path" property="imgPath" />
 		<result column="recipe_cnt" property="recipeCnt" />
 		<result column="selling_cnt" property="sellingCnt" />		
+		<result column="totalBuy" property="totalBuy" />
+		<result column="totalSel" property="totalSel" />		
 	</resultMap>	
 
     <!-- 회원 전체목록 페이징추가 -->
