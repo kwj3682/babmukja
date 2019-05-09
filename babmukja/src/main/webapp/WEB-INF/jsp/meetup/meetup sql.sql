@@ -47,7 +47,7 @@ ALTER TABLE tb_meetup_member
         
 
 --------------------------------------------------------------------------------------------
-        CREATE TABLE tb_meet_keyword
+      CREATE TABLE tb_meetup_keyword
 (
     `keyword_no`       INT    NOT NULL    COMMENT '키워드 번호', 
     `meet_no`          INT    NOT NULL    COMMENT '회원번호', 
@@ -55,6 +55,12 @@ ALTER TABLE tb_meetup_member
     PRIMARY KEY (meet_keyword_no)
 );
 
-ALTER TABLE tb_meet_keyword
-    ADD CONSTRAINT FK_tb_meet_keyword_meet_no_tb_meetup_meet_no FOREIGN KEY (meet_no)
+ALTER TABLE tb_meetup_keyword
+    ADD CONSTRAINT FK_tb_meetup_keyword_meet_no_tb_meetup_meet_no FOREIGN KEY (meet_no)
         REFERENCES tb_meetup (meet_no) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        
+       
+
+ 
+        
+

@@ -17,8 +17,8 @@ public class MeetupServiceImpl implements MeetupService{
 		return mapper.selectIntro();
 	}
 
-	public void insertIntro(String intro) {
-		 mapper.insertIntro(intro);
+	public void updateIntro(String intro) {
+		 mapper.updateIntro(intro);
 	}
 
 

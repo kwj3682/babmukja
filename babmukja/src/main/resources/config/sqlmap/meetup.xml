@@ -18,9 +18,9 @@
     	select intro from tb_meetup;
     </select>
     
-    <insert id="insertIntro" parameterType="String">
-    	insert into tb_meetup(intro) values(#{intro});
-    	
-    </insert>
+    <update id= "updateIntro" parameterType="String">
+    UPDATE tb_meetup SET intro = #{intro} WHERE meet_no= 1
+    
+    </update>
     
 </mapper>

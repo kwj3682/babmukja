@@ -28,7 +28,7 @@ public class MeetupController {
 	public String detailIntro(String data){
 		System.out.println("들어왔음");
 	System.out.println(data);
-		service.insertIntro(data);
+		service.updateIntro(data);
 		return data;
 	}
 	
