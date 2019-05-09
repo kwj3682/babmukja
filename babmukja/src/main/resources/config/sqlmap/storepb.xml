@@ -28,6 +28,7 @@
 		 order by pb_no desc
 	</select>
 	
+	<!--  게시물 등록  -->
 	<insert id="insertpb" parameterType="storePB">
 		insert into tb_pb
 		(
@@ -47,6 +48,7 @@
 		)
 	</insert>
 	
+	<!-- 파일 업로드 -->
 	<insert id="insertPBImage" parameterType="fileVO">
 		insert into tb_file 
 		(
@@ -65,7 +67,13 @@
 			3
 		)
 	</insert>
+	
+	<!--  파일 업로드  -->
 	<select id="selectMaxNum" resultType="int">
-		select max(pb_no) from tb_pb
+		select max(pb_no) 
+		  from tb_pb
 	</select>
+	
+	<!--  -->
+	
 </mapper>
