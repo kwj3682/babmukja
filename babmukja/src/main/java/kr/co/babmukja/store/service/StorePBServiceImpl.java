@@ -14,7 +14,7 @@ public class StorePBServiceImpl implements StorePBService{
 	@Autowired
 	private StorePBMapper mapper;
 	
-	public List<StorePB> selectPBList(int no) {
-		return mapper.selectPBList(no);
+	public List<StorePB> selectPBList() {
+		return mapper.selectPBList();
 	}
 }

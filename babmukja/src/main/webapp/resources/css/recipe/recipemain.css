@@ -133,10 +133,7 @@ hr {
     width: 80px; height: 80px;
     border-radius: 200px;
 }
-.plus {
-    position: relative;
-    left: 1100px;
-}
+
 .plus a {
     position: relative;
     top: -15px;

@@ -27,7 +27,7 @@
             <span id="member">
                 <div id="info">    
                     <img src="image/cat.jpg"> 
-                    <p>프로필 아이디</p>
+                    <p>${list.memNickname}</p>
                     <p>팔로워 100 팔로우 10</p>                    
                 </div>
                 <div id="content">
@@ -42,28 +42,30 @@
                 </div>            
             </span>
         </div>        
-        <div class="month">
+        <div class="month">       
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/1.jpg">
             </div>
+       
+<!-- 
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/3.jpg">
             </div>
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/bab.jpg">
             </div>
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/jab.jpg">
             </div>
-   
+ -->
         </div> 
         <div class="text">
             <div>인기 키워드</div>
@@ -110,31 +112,31 @@
         <div class="today">
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/2.jpg">   
-                <a class="title" href="#">레시피 제목</a>            
+                <a class="title" href="#">${list.title }</a>            
             </div>
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/5.jpg">
-                <a class="title" href="#">레시피 제목</a>
+                <a class="title" href="#">${list.title }</a>
             </div>
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/6.jpg">
-                <a class="title" href="#">레시피 제목</a>
+                <a class="title" href="#">${list.title }</a>
             </div>
             <div>
                 <img class="mem" src="image/dog1.png">
-                <span>회원아이디</span>
+                <span>${list.memNickname}</span>
                 <img src="image/jab.jpg">
-                <a class="title" href="#">레시피 제목</a>
+                <a class="title" href="#">${list.title }</a>
             </div>
         </div>
         <div class="plus">
-            <img src="image/plus.png">
+			+
             <a href="#">더보기</a>
         </div>
     </div>

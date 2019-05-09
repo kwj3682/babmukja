@@ -194,30 +194,22 @@
         .writeIntro {
 
             display: inline-block;
-            border: 1px solid gainsboro;
-            width: 70px;
-            height: 30px;
+            font-size:30px;
+            width: 95px;
+            height: 50px;
             margin-top: 30px;
-            margin-left: 93%;
+            margin-left: 45%;
             text-align: center;
             line-height: 30px;
         }
 
-        .writeIntro:hover {
-            background-color: #7db341;
-            color: white;
+           .fa-plus-circle {
+            color:gainsboro;
         }
-
-        #introHeader {
-            margin-top: 60px;
-            width: 800px;
-            height: 40px;
-            text-align: center;
-
-            border-bottom: 1px solid white;
-            margin-left: 17%;
-            font-size: 20px;
+        .fa-plus-circle:hover {
+            color: #7db341;
         }
+      
 
         #introBox {
             text-decoration: none;
@@ -230,20 +222,79 @@
             margin-left: 17%;
         }
 
-        #introSave {
-            display: block;
+		
+		
+		
+		.editDelete{
+		margin-top:35px;
+		margin-bottom: 200px;
+		display:inline-block;
+		width:1190px;
+		}
+		
+		#introEdit {
+            display: inline-block;
+            margin-bottom: 10px;
             border: 1px solid gainsboro;
             width: 70px;
             height: 30px;
-            margin-top: -10px;
             text-align: center;
             line-height: 30px;
-            margin-left: 94%;
         }
-
+        #introDelete {
+            margin-left:10px;
+            display: inline-block;
+            margin-bottom: 10px;
+            border: 1px solid gainsboro;
+            width: 70px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+        .saveReturn{
+		margin-top:35px;
+		margin-bottom: 200px;
+		display:inline-block;
+		width:1190px;
+		}
+		#introReturn {
+            display: inline-block;
+            margin-bottom: 5px;
+            border: 1px solid gainsboro;
+            width: 70px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+	
+        #introSave {
+        	margin-left:10px;
+            display: inline-block;
+            border: 1px solid gainsboro;
+            width: 70px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+          #introHeader {
+           margin-left: 330px;
+            display:inline-block;
+            text-align: center;
+            border-bottom: 1px solid white;
+            font-size: 20px;
+        }
+		
         #introSave:hover {
             background-color: #7db341;
             color: white;
+        }
+         #introReturn:hover {
+            background-color: #7db341;
+            color: white;
+        }
+        .dataBefore{
+        height:30px;
+        
         }
     </style>
 </head>
@@ -302,15 +353,16 @@
         </table>
 
         <div class="tabPanel" id="tabPanel1">
-            <span class="writeIntro">글쓰기</span>
+            <span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>
 
         </div>
         <div class="tabPanel">모임공지</div>
         <div class="tabPanel">자유게시판</div>
         <div class="tabPanel">사진첩</div>
         <div class="tabPanel">회원</div>
-
     </div>
+    
+    
     <script>
 
    
@@ -338,7 +390,6 @@
         }//for
 
 
-
         for (let k = 0; k < 4; k++) {
 				
         	console.log("k 시작 :" +k);
@@ -361,54 +412,50 @@
 
         $(".writeIntro").click(function () {
 
-            $("#tabPanel1").html(` <div>
- <div id="introHeader" >모임을 소개해 주세요~^^</div>
+            $("#tabPanel1").html(`<div class="saveReturn"><div id="introReturn">돌아가기</div><div id="introSave">저장</div><div id="introHeader" >모임을 소개해 주세요~^^</div><div>
  <textarea id="summernote" name="editordata"></textarea>
-        <div id="introSave">저장</div>
-        </div>  
 `);
         });
 
 
-        $(document).on("mouseover", document, function () {
+          $(document).on("mouseover", document, function () {
             $('#summernote').summernote({
+
                 height: 500,                 // set editor height
-                minHeight: null,             // set minimum height of editor
+            	minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
-                focus: true,                  // set focus to editable area after initializing summernote
-                callbacks: {
-                    onImageUpload: function(files, editor, welEditable) {
-                      for (var i = files.length - 1; i >= 0; i--) {
-                        sendFile(files[i], this);
-                      }
-                    }
-                  }
-
-            
-            });
-        });
-
+                focus: true                  // set focus to editable area after initializing summernote
+  
+            }); 
+         
         
-        function sendFile(file, el) {
-            var form_data = new FormData();
-            form_data.append('file', file);
+        })
+        
+//save 눌렀을 때 데이터 처리
+/*  contentType: "text/xml;charset=utf-8", */
+         $(document).on("click", "#introSave", function () {
+            alert($('#summernote').val() );
+           
+            var text =$('#summernote').val();
+            var encoded = encodeURIComponent(text)
             $.ajax({
-              data: form_data,
-              type: "POST",
-              url: '/babmukja/meetup/detailIntro.do',
-              cache: false,
-              contentType: false,
-              enctype: 'multipart/form-data',
-              processData: false,
-              success: function(url) {
-                $(el).summernote('editor.insertImage', url);
-                $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-              }
-            });
-          }
-
-
-       
+          	  data: "data=" + encoded,
+          	  type: "POST",
+          	  url: '/babmukja/meetup/detailIntro.do',
+          	  enctype: 'multipart/form-data',
+          	  success: function(data) {
+          		  
+          		  $("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` + data);
+          	  }
+          	  });
+         
+             });
+    
+ //되돌아가기를 눌렀을때 작성        
+        	 
+        	  $(document).on("click", "#introreturn", function () {
+ 
+        	  });
        
     </script>
     

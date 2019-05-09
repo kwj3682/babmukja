@@ -12,9 +12,28 @@
 		<result column="viewcnt" property="viewCnt" />
 	</resultMap>
 	
-	<select id="selectPBList" parameterType="int" resultMap="storepbMap">
+	<resultMap id="fileMap" type="fileVO" >
+		<result column="file_no" property="fileNo"/>
+		<result column="group_no" property="groupNo"/>
+		<result column="sysname" property="sysname"/>
+		<result column="orgname" property="orgname"/>
+		<result column="path" property="path"/>
+		<result column="mem_no" property="memNo"/>
+	</resultMap>
+	
+	<select id="selectPBList" resultMap="storepbMap">
 		select *
 		  from tb_pb
 		 order by pb_no desc
 	</select>
+	
+	<insert id="insertPB" parameterType="storePB">
+		insert into tb_pb(name, content, price, mem_no, group_no)
+		values ( #{name}, #{content}, 5000, 3, 1 )
+	</insert>
+	
+	<insert id="insertPBImage" parameterType="fileVO">
+		insert into tb_file (group_no, sysname, orgname, path, mem_no)
+		values (1, #{sysname}, #{orgname}, #{path}, 3)
+	</insert>
 </mapper>
