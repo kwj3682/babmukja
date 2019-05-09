@@ -1,6 +1,5 @@
 package kr.co.babmukja.member.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,27 +21,29 @@ public class MemberController {
 	public void loginForm() {}
 
 	@RequestMapping("/login.do")
-	public String login(HttpSession session){
-		Member member = new Member();
-		member.setMemId("bitchanmom9");
-		member.setMemPass("bitbit");
+	public String login(Member member,HttpSession session){
 		
-//		Member mem = service.selectLogin(member);
+		Member mem = service.selectLogin(member);
+		
+//		System.out.println(mem.getMemId());
+//		System.out.println(mem.getMemPass()); // 주석처리 안해주면 잘못된 아이디나 비밀번호를 입력할 때 에러가 나서 밑에가 실행이 안됨
 		
 		// session에 올리기 없으면 안올리기, 세션도 받기 
 		// 페이지 이동
-//		if (member == null) {
-//			return "redirect:loginform.do";
-//		} else {
-			session.setAttribute("user", member);
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
-//		}
+		
+		if (mem == null) {
+			System.out.println("실패");
+			return "redirect:loginform.do";
+		} 
+		System.out.println("성공");
+		session.setAttribute("user", mem);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
 	
 	@RequestMapping("/logout.do")
 	public String logOut(HttpSession session) {
 		session.invalidate();
 		
-		return "/admin/main.do";
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
 }

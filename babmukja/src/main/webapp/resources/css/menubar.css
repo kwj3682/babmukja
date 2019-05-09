@@ -1,20 +1,19 @@
 @charset "UTF-8";
 
 #menubarContainer{
+	z-index: 60;
     position : sticky;
     top:0;
     left : 0;
     width: 100%;
-    background : WHITE;
+    background : white;
     margin: 0 auto;
     padding : 0;
-    opacity: 0.8;
     transition: .2s;
-    height: 80px;
+    height: 70px;
+    border-bottom: 1px solid gainsboro;
 }
-#menubarContainer:hover{
-    opacity : 1;
-}
+
 ul {
     list-style: none;
 }
@@ -67,6 +66,7 @@ li > a:hover{
     border-radius: 10px;
     width: 300px;
     color : gray;
+    background: white;
 }
 #search > i{
     line-height: 45px;

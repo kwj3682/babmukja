@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>  
+<body> 
 	<script>
-		location.href="<c:url value='/admin/main.do'/>";
+		location.href="<c:url value='/recipe/writeform.do'/>";
 	</script>
 </body>
 </html>

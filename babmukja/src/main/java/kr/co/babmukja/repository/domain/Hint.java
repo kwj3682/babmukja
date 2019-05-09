@@ -16,4 +16,6 @@ public class Hint {
 	public void setHintContent(String hintContent) {
 		this.hintContent = hintContent;
 	}
+	
+	
 }

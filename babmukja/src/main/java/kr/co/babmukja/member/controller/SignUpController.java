@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class SignUpController {
 	
-	@RequestMapping("/signup.do")
-	public void sign() {
-		
-	}
+	
 
 }

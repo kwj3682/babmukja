@@ -10,7 +10,14 @@ public class StorePB {
 	private Date regDate;
 	private int memNo;
 	private int viewCnt;
+	private int groupNo;
 	
+	public int getGroupNo() {
+		return groupNo;
+	}
+	public void setGroupNo(int groupNo) {
+		this.groupNo = groupNo;
+	}
 	public int getPbNo() {
 		return pbNo;
 	}
