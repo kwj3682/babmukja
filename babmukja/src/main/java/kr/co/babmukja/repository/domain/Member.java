@@ -27,10 +27,23 @@ public class Member {
    private int recipeCnt;
    private int sellingCnt;
    private String gradeName;
-   
+   private int totalBuy;
+   private int totalSel;
    	
    
-   public String getGradeName() {
+   public int getTotalBuy() {
+	return totalBuy;
+}
+public void setTotalBuy(int totalBuy) {
+	this.totalBuy = totalBuy;
+}
+public int getTotalSel() {
+	return totalSel;
+}
+public void setTotalSel(int totalSel) {
+	this.totalSel = totalSel;
+}
+public String getGradeName() {
 	return gradeName;
    }
    public void setGradeName(String gradeName) {
