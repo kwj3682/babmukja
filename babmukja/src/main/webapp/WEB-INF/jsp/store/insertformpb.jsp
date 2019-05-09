@@ -14,13 +14,16 @@
  	<div id="container">
 	 	<form method="post" enctype="multipart/form-data" action="<c:url value="/store/insertpb.do"/>">
 		        <div>
-		            제목 : <input type="text" name="pbtitle">
+		            제목 : <input type="text" name="name">
 		        </div>
 		        <div>
-		            내용 : <textarea name="pbcontent" rows="10" cols="50" placeholder="내용을 입력해주세요." ></textarea>
+		            내용 : <textarea name="content" rows="10" cols="50" placeholder="내용을 입력해주세요." ></textarea>
 		        </div>
 		        <div>
-		            파일첨부 : <input type="file" name="attach" multiple="multiple">
+		            가격 : <input type="text" name="price" />   
+		        </div>
+		        <div>
+		            파일첨부 : <input type="file" name="imageList" multiple="multiple">
 		        </div>
 		        <button>등록</button>
 	 	</form>
