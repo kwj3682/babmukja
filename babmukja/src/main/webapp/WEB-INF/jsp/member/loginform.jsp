@@ -8,15 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>Babmukja</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/member/style.css"/>" />
-<link rel="stylesheet"
-	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous" />
-<link
-	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
-	rel="stylesheet" />
+<link rel="stylesheet" href="<c:url value="/resources/css/member/style.css"/>" />
+<link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+<link href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>" rel="stylesheet" />
+<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
 	<main>
@@ -27,17 +22,17 @@
 			</p>
 		</div>
 
-		<form action="login.do"  method="post">
+		<form id="doLogin" action="login.do" method="post">
 			<div class="login__input">
-				<input placeholder="아이디" type="text" name="memId" autofocus="autofocus" />
+				<input placeholder="아이디" type="text" name="memId" id="id" autofocus="autofocus" />
 			</div>
 
 			<div class="login__input">
-				<input placeholder="비밀번호" type="password" name="memPass" />
+				<input placeholder="비밀번호" type="password" name="memPass" id="pass" />
 			</div>
 
 			<div class="login__button">
-				<button type="submit">로그인</button>
+				<button type="button">로그인</button>
 			</div>
 		</form>
 
@@ -78,6 +73,47 @@
 			</div>
 		</div>
 	</div>
-  </main>
+	</main>
+
+	<script>
+	 	// 아이디, 비밀번호 공백일 때
+		$(".login__button").click(function() {
+			let id = $("#id").val();
+			let pass = $("#pass").val();
+
+			if (id == "") {
+				alert("아이디를 입력하세요.");
+				return;
+			}
+			if (pass == "") {
+				alert("비밀번호를 입력하세요.");
+				return;
+			}
+				$("#doLogin").submit();
+		});
+		
+	 	/*
+	 	let complete = 1;
+	 	switch(complete) {
+	 	case 1 : /admin/amin
+	 			breake;
+	 	default :
+	 	}
+	 	
+	 	*/
+	 	const fail = <%= request.getParameter("fail") %>;
+	 	console.log(fail);
+	 	console.log(fail === 1);
+	 	console.log(fail === null);
+// 	 	console.log(${complete} == null);
+	 	
+	 	
+	 	// 로그인 실패 
+	 	$(".login__button").click(function() {
+	 		
+	 	});
+		
+	</script>
+
 </body>
 </html>

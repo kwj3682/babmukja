@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body> 
 	<script>
-		location.href="<c:url value='/recipe/writeform.do'/>";
+		location.href="<c:url value='/admin/main.do'/>";
 	</script>
 </body>
 </html>

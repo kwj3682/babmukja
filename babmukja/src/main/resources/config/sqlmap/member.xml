@@ -23,25 +23,40 @@
 		<result column="hint_no" property="hintNo" />
 		<result column="hint_answer" property="hintAnswer" />
 		<result column="img_path" property="imgPath" />
+		<result column="recipe_Cnt" property="recipeCnt" />
+		<result column="selling_Cnt" property="sellingCnt" />
 	</resultMap>
-
+	
 	<!-- 로그인 -->
 	<select id="selectLogin" parameterType="member" resultMap="memberMap">
 		select *
-		from tb_member
-		where mem_id = #{memId}
-		and mem_pass = #{memPass}
+		  from tb_member
+		 where mem_id = #{memId}
+		   and mem_pass = #{memPass}
 	</select>
-	
+
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="member">
 		insert into tb_member(
 		mem_name, mem_email, mem_phone, mem_id, mem_nickname,
-		 mem_pass, post_no, addr_default, addr_detail, hint_no, hint_answer, manager_at, social_at
+		mem_pass, post_no, addr_default, addr_detail, hint_no, hint_answer, manager_at, social_at
 		)
 		values(
-		#{memName}, #{memEmail}, #{memPhone}, #{memId}, #{memNickname}, 
+		#{memName}, #{memEmail}, #{memPhone}, #{memId}, #{memNickname},
 		#{memPass}, #{postNo}, #{addrDefault}, #{addrDetail}, #{hintNo}, #{hintAnswer}, 0, 0
 		)
 	</insert>
+	
+	<!-- 힌트 -->
+	<resultMap id="hintMap" type="hint">
+		<result column="hint_no" property="hintNo" />
+		<result column="hint_content" property="hintContent" />
+	</resultMap>
+	
+	<!-- 힌트 목록 가져오기 -->
+	<select id="selectHintContent" resultMap="hintMap">
+		select *
+		  from tb_hint
+	</select>
+	
 </mapper>
