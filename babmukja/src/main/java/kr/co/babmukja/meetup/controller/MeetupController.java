@@ -26,8 +26,17 @@ public class MeetupController {
 		
 	}
 	
-
+	@RequestMapping("/main.do")
+	public void meetupMain(){
+		System.out.println("main 들어왔음.");
+		
+	}
 	
+	@RequestMapping("/meetupAddress.do")
+	public void meetupAddress(){
+		System.out.println("주소 들어왔음.");
+		
+	}
 	
 	
 	@RequestMapping("/updateIntro.do")

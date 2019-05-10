@@ -45,7 +45,7 @@
 	display: inline-block;
 	border: 1px solid gainsboro;
 	overflow: hidden;
-	 position: relative; 
+	position: relative;
 	width: 560px;
 	height: 400px;
 	margin-right: 60px;
@@ -70,7 +70,7 @@
 
 .infoTag::after {
 	content: '';
-	  position: absolute; 
+	position: absolute;
 	bottom: 0;
 	left: 50%;
 	width: 0;
@@ -94,7 +94,7 @@
 
 .pseudo::after {
 	content: '';
-	 position: absolute; 
+	position: absolute;
 	bottom: 0;
 	left: 50%;
 	width: 0;
@@ -279,14 +279,17 @@
 	background-color: #7db341;
 	color: white;
 }
+
 #introDelete:hover {
 	background-color: #7db341;
 	color: white;
 }
+
 #introEdit:hover {
 	background-color: #7db341;
 	color: white;
 }
+
 .dataBefore {
 	height: 30px;
 }
@@ -300,7 +303,7 @@
 			<div class=title>오늘은 내가 짜파게티 요리사</div>
 			<div class="subInfo">
 				<div class="infoTagContainer">
-					<span class="infoTag">모임장</span>
+					<span class="infoTag">요일</span>
 				</div>
 				<div class="infoTagContainer">
 					<span class="infoTag">지역</span>
@@ -323,7 +326,7 @@
 				<div class="subInfoPic">
 					<i class="fas fa-users fa-3x"></i>
 				</div>
-				<div class="tagBottom">김우중</div>
+				<div class="tagBottom">월요일</div>
 				<div class="tagBottom">부천,인천</div>
 				<div class="tagBottom">10,000원</div>
 				<div class="tagBottom">50명</div>
@@ -411,6 +414,7 @@
       //intro 를 넘겨 받아서...             
         var intro = `${intro}`;
         
+        dataProcess();
       //save 눌렀을 때 데이터 처리
         /*  contentType: "text/xml;charset=utf-8", */
            $(document).on("click", "#introSave", function () {
@@ -467,17 +471,10 @@
              	  
                      $(document).on("click", "#introReturn", function () {
              	  
-                    	 $("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` + `${intro}`);
-
-                    	 $(document).on("click", ".writeIntro", function () {
-                             $("#tabPanel1").html(`
-                           	<div class="saveReturn"><div id="introReturn">돌아가기</div><div id="introSave">저장</div><div id="introHeader" >모임을 소개해 주세요~^^</div><div>
-                               <textarea id="summernote" name="editordata"></textarea>
-                                `);
-                         });
+                    	  dataProcess();
                      
                      });
-        
+        	
                    		  //삭제를 눌렀을때
                      $(document).on("click", "#introDelete", function () {
                     	   $.ajax({
@@ -491,7 +488,14 @@
                            	  });  
                     	 
                      });
-        if(intro ==""){ // intro가 null 이 아니면 등록 폼 버튼 을 불러준다
+        
+                   		  
+                   		  
+             function dataProcess(){      		  
+                   		  
+             if(intro ==""){ // intro가 null 이 아니면 등록 폼 버튼 을 불러준다
+    
+        	
         	console.log("intro가 null 입니다.");
         	  
         	
@@ -501,7 +505,7 @@
                     <textarea id="summernote" name="editordata"></textarea>
                      `);
               });
-
+	
 
                 $(document).on("mouseover", document, function () {
                   $('#summernote').summernote({
@@ -516,7 +520,6 @@
               
               });
               
-              
            	 
         }else{ //null 이 아니면 원래 자료를 뿌려준다.
         	console.log("intro 는 :" +intro +"정래");
@@ -529,7 +532,9 @@
         }//else
         
        
-
+             }
+             
+          
       
         
 
