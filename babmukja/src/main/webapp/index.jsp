@@ -13,3 +13,4 @@
 	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a>
 </body>
 </html>
+ 

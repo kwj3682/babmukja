@@ -3,12 +3,14 @@
   margin: 0 auto;
   text-align: center;
 }
-.login__container .login__logo {
+.login__logo a {
   font-size: 30px;
   font-weight: bold;
   margin-top: 30px;
   margin-bottom: 40px;
   font-family: "Jua", sans-serif;
+  text-decoration: none;
+  color: black;
 }
 .login__input input {
   padding: 10px;

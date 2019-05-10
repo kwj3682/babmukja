@@ -18,7 +18,7 @@
 	<div class="login__container">
 		<div class="login__logo">
 			<p>
-				밥먹자 ~ <i class="fas fa-utensils"></i>
+				<a href="<c:url value="/admin/main.do" />">밥먹자 ~ <i class="fas fa-utensils"></i></a>
 			</p>
 		</div>
 
@@ -76,6 +76,7 @@
 	</main>
 
 	<script>
+	
 	 	// 아이디, 비밀번호 공백일 때
 		$(".login__button").click(function() {
 			let id = $("#id").val();
@@ -92,27 +93,24 @@
 				$("#doLogin").submit();
 		});
 		
-	 	/*
-	 	let complete = 1;
-	 	switch(complete) {
-	 	case 1 : /admin/amin
-	 			breake;
-	 	default :
-	 	}
-	 	
-	 	*/
-	 	const fail = <%= request.getParameter("fail") %>;
+	 	const fail = <%= request.getParameter("fail") %>
 	 	console.log(fail);
 	 	console.log(fail === 1);
-	 	console.log(fail === null);
-// 	 	console.log(${complete} == null);
-	 	
-	 	
-	 	// 로그인 실패 
-	 	$(".login__button").click(function() {
-	 		
-	 	});
+		console.log(fail === null);
+		$(".login__button").click(function() {
+	 	if(fail===null) {
+	 		alert("아이디와 패스워드가 일치하지 않습니다.");
+	 		return;
+	 	} 
+	}); 
 		
+		const id = <%= request.getParameter("memId") %>
+		console.log(id);
+		console.log(id===1);
+		console.log(id===null);
+		if(id===1) {
+			alert("해당 아이디는 존재하지 않습니다.");
+		}
 	</script>
 
 </body>
