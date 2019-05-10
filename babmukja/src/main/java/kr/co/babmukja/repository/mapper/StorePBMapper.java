@@ -10,4 +10,5 @@ public interface StorePBMapper {
 	public void insertpb(StorePB storepb);
 	public void insertPBImage(FileVO fileVO);
 	public int selectMaxNum();
+	public List<StorePB> selectPBMainList();
 }
