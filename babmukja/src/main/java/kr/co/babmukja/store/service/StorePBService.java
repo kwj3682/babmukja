@@ -10,4 +10,5 @@ public interface StorePBService {
 	public void insertpb(StorePB storepb);
 	public void insertPBImage(FileVO fileVO);
 	public int getMax();
+	public List<StorePB> selectPBMainList();
 }

@@ -84,13 +84,15 @@
   border-color: #7db341;
   transition: border-color 0.5s ease-in-out;
 }
-/*
 .signUp-email input {
   box-sizing: border-box;
   width: 165px;
   height: 30px;
 }
-
+.signUp-email input[name="email1"] {
+  width: 162px;
+  height: 30px;
+}
 .signUp-email {
   display: flex;
   flex-direction: column;
@@ -101,7 +103,6 @@
   display: flex;
   justify-content: space-between;
 }
-*/
 .signUp-id input {
   width: 230px;
   height: 30px;
@@ -157,16 +158,16 @@
   align-items: center;
   text-align: center;
 }
-.signUp__button button {
+.signUp__button a {
   width: 370px;
   height: 50px;
+  text-decoration: none;
   background-color: #7db341;
   color: white;
   font-weight: bold;
   border-radius: 5px;
   font-size: 20px;
   line-height: 45px;
-  border: none;
 }
 .member__login {
   margin-top: 20px;

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -11,7 +11,5 @@
 	<a href="<c:url value='/admin/main.do'/>">관리자</a>
 	<a href="<c:url value='/store/mainpb.do'/>">스토어</a>
 	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a>
-	<script>
-	</script>
 </body>
 </html>

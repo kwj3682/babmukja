@@ -69,11 +69,20 @@
         </div>
     </div>
     <script>
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: options
-    });
+//     var myLineChart = new Chart(ctx, {
+//         type: 'line',
+//         data: data,
+//         options: options
+//     });
+    const complete = <%= request.getParameter("complete") %>;
+    console.log(complete);
+    console.log(complete===null);
+    console.log(complete===1);
+<%-- 		const user = <%= (session.getAttribute("user")==null)? null:1 %>; --%>
+// 		console.log(user);
+// 		console.log(user === null);
+// 		console.log(user !== null);
+    
 </script>
 </body>
 </html>

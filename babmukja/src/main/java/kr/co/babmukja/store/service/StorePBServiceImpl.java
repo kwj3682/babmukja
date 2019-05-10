@@ -29,4 +29,8 @@ public class StorePBServiceImpl implements StorePBService{
 	public int getMax() {
 		return mapper.selectMaxNum();
 	}
+	
+	public List<StorePB> selectPBMainList() {
+		return mapper.selectPBMainList();
+	}
 }

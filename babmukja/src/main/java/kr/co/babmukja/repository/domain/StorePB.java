@@ -1,6 +1,7 @@
 package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class StorePB {
 	private int pbNo;
@@ -11,7 +12,14 @@ public class StorePB {
 	private int memNo;
 	private int viewCnt;
 	private int groupNo;
+	private List<FileVO> images;
 	
+	public List<FileVO> getImages() {
+		return images;
+	}
+	public void setImages(List<FileVO> images) {
+		this.images = images;
+	}
 	public int getGroupNo() {
 		return groupNo;
 	}
