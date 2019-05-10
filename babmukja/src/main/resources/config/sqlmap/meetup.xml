@@ -14,12 +14,17 @@
 		<result column="location_code" property="locaitonCode" />
 	</resultMap>	
     
-    <select id="selectIntro" resultMap="meetupMap">
+    <select id="selectIntro" resultType="String">
     	select intro from tb_meetup WHERE meet_no= 1
     </select>
     
     <update id= "updateIntro" parameterType="String">
     UPDATE tb_meetup SET intro = #{intro} WHERE meet_no= 1
+    
+    </update>
+    
+     <update id= "deleteIntro" parameterType="String">
+    UPDATE tb_meetup SET intro = null WHERE meet_no= 1
     
     </update>
     
