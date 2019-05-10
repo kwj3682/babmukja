@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,15 +14,23 @@
 </head>
 <body>
         <form
-        action="proc.jpg"
+        action="enroll.do"
         method="GET"
-        name="mainForm"
+        name="inqform"
         encType="multipart/form-data"
         class="notice_forms"
       >
         <div class="notice_summary">공지 사항 등록</div>
         <hr class="enrollhr" />
         <table class="notice_commt">
+          <tr>
+            <th class="notice_th2">관리자</th>
+            <td class="notice_td2"><input type="text" name="writer"/></td>
+          </tr>
+          <tr>
+            <th class="notice_th2">공지</th>
+            <td class="notice_td2"><input type="text" name="inform"/></td>
+          </tr>
           <tr>
             <th class="notice_th2">제목</th>
             <td class="notice_td2"><input type="text" name="title"/></td>
@@ -59,5 +69,29 @@
           <h2>BABMUKJA COMPANY</h2>
           <div>Lorem ipsum dolor sit.</div>
   </footer>
+    <script>
+    	$("form").submit(function checkform() {
+    		
+    		var notice_no = document.inqform.notice_no;
+    		var title = document.inqform.title;
+    		var writer = document.inqform.writer;
+    		var content = document.inqform.content;
+    		
+    		var notnull = [notice_no, title, writer, content]
+    		
+    		if (isEmpty(notice_no, "문의번호를 입력하세요.")) return false;
+    		if (isEmpty(title, "제목을 입력하세요.")) return false;
+    		if (isEmpty(writer , "글쓴이를 입력하세요.")) return false;
+    		if (isEmpty(content, "내용을 입력하세요.")) return false;
+    		
+    		function isEmpty(ele, msg) {
+    			if (ele.value == "") {
+    				alert(msg);
+    				ele.focus();
+    				return true;
+    			}
+    			return false;
+    		}
+    	}	
 </body>
 </html>

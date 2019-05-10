@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +49,7 @@
          <div class="inquire">1:1문의하기</div>
          <div class="inquire">전화문의하기</div>
         <div>
-            <p class="inlined"><a href="food List.html">공지사항</a></p>
+            <p class="inlined"><a href="list.do">공지사항</a></p>
                 <div class="inquire2">
                         <h3>리스트</h3>
                         <div>
@@ -57,7 +59,7 @@
     </div> 
     <nav id="pageNav">
             <ul>
-                <li><a href='noticedetail.html'>1</a></li>
+                <li><a href='detail.do'>1</a></li>
                 <li><a href='#'>2</a></li>
                 <li><a href='#'>3</a></li>
                 <li><a href='#'>4</a></li>

@@ -1,24 +1,25 @@
 @charset "UTF-8";
-div{
-    padding: 10px;
-    margin-bottom: 15px;
-    border:2px solid black;
-}
+
 .customer, .customer2{
-margin-top: 0px;margin-bottom: 10px;padding-right: 5px;
+margin-top: 0px;margin-bottom: 10px;padding-right: 5px; font-weight: bold;
 }
 .customer2, .inquire{
-    background-color: gold; padding-top: 5px; padding-bottom: 5px;
+    background-color: gold; padding-top: 5px; padding-bottom: 5px; 
 }
 .inquire{
     display: flex;
     justify-content: center;
     font-size: 1.3em;
     font-weight: bold;
+    border: 1px solid black;
+}
+.inquire2{
+	border: 1px solid black;
+	font-weight: bold;
 }
 
 table.inlined{
-    display: inline-table;
+    display: inline-table; font-weight: bold;
 }
 .inquire3{
     border: 1px solid black;
@@ -28,7 +29,8 @@ table.inlined{
   }
 .customer2{
     display: flex;
-    justify-content: center
+    justify-content: center;
+    font-weight: bold;
 }
 
 .inlined a{

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +36,8 @@
         </tr>
         </table>
         <textarea class="babcomment">댓글을 작성하세요.</textarea>
-        
+        <br>
+        <button class="detail_bn"><a href="enrollform.do">등록하기</a></button>
         <br><br><hr>
     </div>
 </body>

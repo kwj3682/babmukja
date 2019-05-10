@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.babmukja.repository.domain.Notice;
 import kr.co.babmukja.repository.mapper.NoticeMapper;
@@ -14,12 +13,18 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	public NoticeMapper mapper;
 
-	public List<Notice> retrieveNotice() throws Exception{
+	public List<Notice> selectNotice(){
 		return mapper.selectNotice();
 	}
-	@Transactional(rollbackFor = Exception.class)
-	public void updateNotice(Notice notice) throws Exception{
+	public void updateNotice(Notice notice){
+        mapper.updateNotice(notice);
+    }
+	public void insertNotice(Notice notice){
         mapper.insertNotice(notice);
-        
-	}
+    }
+	public void deleteNotice(int notice_no){
+        mapper.deleteNotice(notice_no);
+    }
+	
+	
 }
