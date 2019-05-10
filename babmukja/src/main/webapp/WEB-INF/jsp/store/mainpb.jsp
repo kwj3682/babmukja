@@ -87,8 +87,8 @@
                 <div id="pb_store_popular_product_imges">
                     <div id="pb_store_popular_product_imges_grid">
                     <c:forEach var="pbList" items="${pbList}" begin="0" end="3">
-                        <a class="pb_store_popular_product_img" href="#">
-                            <img src="http://edgerank.co.kr/wp-content/uploads/2016/11/22.png" />
+                        <a class="pb_store_popular_product_img" href="<c:url value="/store/detailpb.do?pbNo=${pbList.pbNo}&groupNo=${pbList.groupNo}"/>">
+                            <img src="<c:url value="/store/downloadpb.do?path=${pbList.images[0].path}&sysname=${pbList.images[0].sysname}"/>" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
                             <div class="pb_store_popular_product_text">
                                 <div class="pb_store_popular_product_title">
                                     <p>${pbList.name}</p>

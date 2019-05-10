@@ -29,4 +29,19 @@ public class StorePBServiceImpl implements StorePBService{
 	public int getMax() {
 		return mapper.selectMaxNum();
 	}
+	
+	public List<StorePB> selectPBMainList() {
+		return mapper.selectPBMainList();
+	}
+	
+	// 상세조회
+	
+	public StorePB selectPBdetail(int pbNo) {
+		return mapper.selectPBdetail(pbNo);
+	}
+	
+	public List<FileVO> selectPBDetailImage(int groupNo) {
+		return mapper.selectPBDetailImage(groupNo);
+	}
+		
 }

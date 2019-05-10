@@ -44,7 +44,7 @@
 			#{content}, 
 			#{price}, 
 			3, 
-			1 
+			#{groupNo}
 		)
 	</insert>
 	
@@ -70,10 +70,63 @@
 	
 	<!--  파일 업로드  -->
 	<select id="selectMaxNum" resultType="int">
-		select max(pb_no) 
+		select ifnull(max(pb_no),1)
 		  from tb_pb
 	</select>
 	
-	<!--  -->
+	<resultMap id="pbListMap" type="storePB" >
+		<result column="pb_no" property="pbNo" />
+		<result column="name" property="name" />
+		<result column="content" property="content" />
+		<result column="price" property="price" />
+		<result column="regdate" property="regDate" />
+		<result column="mem_no" property="memNo" />
+		<result column="viewcnt" property="viewCnt" />
+		<result column="group_no" property="groupNo" />
+		
+		<collection property="images" 
+					column="group_no"
+					select="selectPBListImage"/>
+	</resultMap>
+	<!-- main화면 List 불러오기 -->
+	<select id="selectPBMainList" resultMap="pbListMap">
+		select *
+		  from tb_pb
+		 order by pb_no desc
+	</select>
 	
+	<select id="selectPBListImage" parameterType="int" resultMap="fileMap">
+		select *
+		  from tb_file
+		 where group_no = #{groupNo}
+		 order by group_no desc
+	</select>
+	
+	<resultMap id="pbDetailMap" type="storePB" >
+		<result column="pb_no" property="pbNo" />
+		<result column="name" property="name" />
+		<result column="content" property="content" />
+		<result column="price" property="price" />
+		<result column="regdate" property="regDate" />
+		<result column="mem_no" property="memNo" />
+		<result column="viewcnt" property="viewCnt" />
+		<result column="group_no" property="groupNo" />
+		
+		<collection property="images" 
+					column="group_no"
+					select="selectPBDetailImage"/>
+	</resultMap>
+	
+	<!-- 상세조회 -->
+	<select id="selectPBdetail" parameterType="int" resultMap="pbDetailMap">
+		select *
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</select>
+	
+	<select id="selectPBDetailImage" parameterType="int" resultMap="fileMap">
+		select *
+		  from tb_file
+		 where group_no = #{groupNo}	
+	</select>
 </mapper>

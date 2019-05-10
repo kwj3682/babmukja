@@ -41,6 +41,9 @@
             	location.href="<c:url value='/recipe/main.do'/>";
             });
         });
+        $("#home").click(function(){
+        	location.href="<c:url value='/admin/main.do'/>";
+        });
         $("#move").mouseleave(function(){
             $("#move").slideUp(100);
         });

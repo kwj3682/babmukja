@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
@@ -13,12 +14,11 @@ public class RecipeServiceImpl implements RecipeService {
 	@Autowired
 	public RecipeMapper mapper;
 	
-	public void insert(Recipe recipe) {
-		mapper.insertRecipe(recipe);
+	public void insertRecipeImage(FileVO file) {
+		mapper.insertRecipeImage(file);
 	}
-
 	public int getMaxNum() {
-		return mapper.selectMaxMum();
+		return mapper.selectMaxNum();
 	}
 	public Recipe list(int no) {
 		return mapper.selectRecipe(no);

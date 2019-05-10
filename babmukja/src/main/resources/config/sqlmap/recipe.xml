@@ -35,12 +35,26 @@
 		 where r.mem_no = m.mem_no
 		   and r.rating = #{rating}	
 	</select> -->
-	
-     <insert id="insertRecipe" parameterType="recipe">
-    	insert into tb_recipe(
-			mem_no, title, content
-		) values (
-			#{memNo}, #{title}, #{content}
+    <insert id="insertRecipeImage" parameterType="fileVO">
+ 	insert into tb_file 
+		(
+			group_no, 
+			sysname, 
+			orgname, 
+			path, 
+			mem_no
+		)
+		values 
+		(
+			#{groupNo}, 
+			#{sysname}, 
+			#{orgname}, 
+			#{path}, 
+			3
 		)
     </insert>
+	<select id="selectMaxNum" resultType="int">
+		select max(recipe_no) 
+		  from tb_recipe
+	</select>
 </mapper>
