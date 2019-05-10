@@ -101,4 +101,32 @@
 		 where group_no = #{groupNo}
 		 order by group_no desc
 	</select>
+	
+	<resultMap id="pbDetailMap" type="storePB" >
+		<result column="pb_no" property="pbNo" />
+		<result column="name" property="name" />
+		<result column="content" property="content" />
+		<result column="price" property="price" />
+		<result column="regdate" property="regDate" />
+		<result column="mem_no" property="memNo" />
+		<result column="viewcnt" property="viewCnt" />
+		<result column="group_no" property="groupNo" />
+		
+		<collection property="images" 
+					column="group_no"
+					select="selectPBDetailImage"/>
+	</resultMap>
+	
+	<!-- 상세조회 -->
+	<select id="selectPBdetail" parameterType="int" resultMap="pbDetailMap">
+		select *
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</select>
+	
+	<select id="selectPBDetailImage" parameterType="int" resultMap="fileMap">
+		select *
+		  from tb_file
+		 where group_no = #{groupNo}	
+	</select>
 </mapper>
