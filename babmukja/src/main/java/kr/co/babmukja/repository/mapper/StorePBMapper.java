@@ -11,4 +11,8 @@ public interface StorePBMapper {
 	public void insertPBImage(FileVO fileVO);
 	public int selectMaxNum();
 	public List<StorePB> selectPBMainList();
+	
+	// 상세조회
+	public StorePB selectPBdetail(int pbNo);
+	public List<FileVO> selectPBDetailImage(int groupNo);
 }

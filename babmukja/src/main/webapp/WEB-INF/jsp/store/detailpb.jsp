@@ -14,50 +14,44 @@
         <!-- 상단 컨테이너 -->
         <div id="pb_detail_header_container">
             <div id="pb_detail_header_images">
-                <div id="pb_detail_thumbnail_list">
-                    <img src="images/foodthumbnail14.jpg">
-                    <img src="images/foodthumbnail15.jpg">
-                    <img src="images/foodthumbnail17.jpg">
-                    <img src="images/foodthumbnail20.jpg">
-                </div>
-                <div id="pb_detail_main_image">
-                    <img src="images/foodthumbnail1.jpg">
-                </div>
+	                <div id="pb_detail_thumbnail_list">
+                		<c:forEach var="detailpbIamge" items="${detailpbIamge}">
+	                    	<img src="<c:url value="/store/downloadpb.do?path=${detailpbIamge.path}&sysname=${detailpbIamge.sysname}"/>">
+                		</c:forEach>
+	                </div>
+			     <c:set var="detailpb" value="${detailpb}"/>
+	                <div id="pb_detail_main_image">
+	                    <img src="<c:url value="/store/downloadpb.do?path=${detailpb.images[0].path}&sysname=${detailpb.images[0].sysname}"/>">
+	                </div>
             </div>
 
             <div id="pb_detail_info">
                 <div id="pb_detail_title">
-                    <p>인기 샐러드</p>
+                    <p>${detailpb.name}</p>
                 </div>
                 <div id="pb_detail_rating_point">
                     <p>★★★★☆</p>
                 </div>
                 <div id="pb_detail_price">
-                    <p>17,900원</p>
+                    <p id="pb_detail_price_p">${detailpb.price}원</p>
                 </div>
                 <div id="pb_detail_promotion">
-                    <p>179P</p>
+                    <p id="pb_detail_promotion_price">P</p>
                     <p>적립해드립니다</p>
                 </div>
                 
-                <div id="pb_detail_select_product">
-                    <select name="select_title">
-                        <option value="0">상품을 선택해주세요</option>
-                        <option value="1">인기 샐러드</option>
-                    </select>
-                </div>
                 <div id="pb_detail_select_box">
-                    <div id="select_product_title">인기 샐러드</div>
+                    <div id="select_product_title">${detailpb.name}</div>
                     <div id="select_product_count">
-                        <p><button>-</button></p>
-                        <p>1</p>
-                        <p><button>+</button></p>
-                        <p>17,900원</p>
+                        <p><button id="count_minus">-</button></p>
+                        <p id="total_count">1</p>
+                        <p><button id="count_plus">+</button></p>
+                        <p class="total__price">원</p>
                     </div>
                 </div>
                 <div id="select_product_total-price">
                     <p>총 주문금액</p>
-                    <p class="total__price">17,900원</p>
+                    <p class="total__price">원</p>
                 </div>
                 <div id="pb_detail_btns">
                     <button class="add_to_cart">장바구니</button>
@@ -296,7 +290,33 @@
                 barThis.removeClass("top_bar_fix");
             }
           });
-      })
+      });
+      
+      // 수량 늘리기 줄이기.
+      let price = parseInt($("#pb_detail_price_p").text().replace(",",""));
+      
+      $("#pb_detail_promotion_price").html(price * 0.01);
+      
+      let cnt = $("#total_count").html();
+      $(".total__price").text(price * cnt + "원");
+      
+      $("#count_plus").click(function () {
+          cnt++;
+          console.log(cnt);
+        $("#total_count").text(cnt);
+        $(".total__price").text(price * cnt + "원");
+      });
+
+      $("#count_minus").click(function () {
+        if (cnt == 1) {
+            alert("주문 개수는 1개 이상이어야 합니다.");
+            return;
+        }
+        cnt--;
+        $("#total_count").text(cnt);
+        $(".total__price").text(price * cnt + "원");
+      });
+      
     </script>
 </body>
 </html>

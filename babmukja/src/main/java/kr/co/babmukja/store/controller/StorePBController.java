@@ -7,7 +7,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -79,49 +83,33 @@ public class StorePBController {
 		model.addAttribute("pbList", service.selectPBMainList());
 	}
 	
-//	@RequestMapping("/mainpb.do")
-//	public Map<String,Object> selectPBList(Model model) {
-//		
-//		Map<String,Object> map = new HashMap<>();
-//		
-//		map.put("pbList", service.selectPBMainList());
-//
-//		List<StorePB> list = service.selectPBMainList();
-//		List<String> fileList = new ArrayList<>();
-//		String uploadRoot = "c:/bit2019/upload";
-//		for(StorePB pb : list) {
-//			List<FileVO> files = pb.getImages();
-//			
-//			for(int i = 0; i < files.size();i++) {
-//				FileVO file = files.get(i);
-//				fileList.add(uploadRoot + "/" + file.getPath() + "/" + file.getSysname() );
-//				System.out.println("file 저장됨 : + " + uploadRoot + "/" + file.getPath() + "/" + file.getSysname() );
-//			}
-//		}
-//		map.put("fileList",fileList);
-//		
-//		return map;
-//	}
+	@RequestMapping("/detailpb.do")
+	public void detailpb(StorePB storepb, Model model) {
+		model.addAttribute("detailpb", service.selectPBdetail(storepb.getPbNo()));
+		model.addAttribute("detailpbIamge", service.selectPBDetailImage(storepb.getGroupNo()));
+	}
 	
-//	@RequestMapping("/detailpb.do")
-//	public void detailpb() {
+	/*
+	@RequestMapping("/detailpb.do")
+	public void detailpb() {
 		//return 타입 수정할 것!!
-//		Map<String,Object> map = new HashMap<>();
-//		
-//		map.put("pbList", service.selectPBMainList());
-//
-//		List<StorePB> list = service.selectPBMainList();
-//		List<String> fileList = new ArrayList<>();
-//		String uploadRoot = "c:/bit2019/upload";
-//		for(StorePB pb : list) {
-//			List<FileVO> files = pb.getImages();
-//			for(FileVO file : files) {
-//				fileList.add(uploadRoot + "/" + file.getPath() + "/" + file.getSysname() );
-//			}
-//		}
-//		map.put("fileList",fileList);
+		Map<String,Object> map = new HashMap<>();
+		
+		map.put("pbList", service.selectPBMainList());
 
-//	}
+		List<StorePB> list = service.selectPBMainList();
+		List<String> fileList = new ArrayList<>();
+		String uploadRoot = "c:/bit2019/upload";
+		for(StorePB pb : list) {
+			List<FileVO> files = pb.getImages();
+			for(FileVO file : files) {
+				fileList.add(uploadRoot + "/" + file.getPath() + "/" + file.getSysname() );
+			}
+		}
+		map.put("fileList",fileList);
+
+	}
+	*/
 	
 	@RequestMapping("/insertformpb.do")
 	public void insertformpb() {}
