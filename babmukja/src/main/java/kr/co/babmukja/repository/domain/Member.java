@@ -3,7 +3,6 @@ package kr.co.babmukja.repository.domain;
 import java.util.Date;
 
 public class Member {
-
 	private int memNo;
 	private String memName;
 	private String memPhone;
@@ -28,6 +27,8 @@ public class Member {
 	private int recipeCnt;
 	private int sellingCnt;
 	private String gradeName;
+	private int totalBuy;
+	private int totalSel;
 
 	public int getMemNo() {
 		return memNo;
@@ -219,6 +220,22 @@ public class Member {
 
 	public void setGradeName(String gradeName) {
 		this.gradeName = gradeName;
+	}
+
+	public int getTotalBuy() {
+		return totalBuy;
+	}
+
+	public void setTotalBuy(int totalBuy) {
+		this.totalBuy = totalBuy;
+	}
+
+	public int getTotalSel() {
+		return totalSel;
+	}
+
+	public void setTotalSel(int totalSel) {
+		this.totalSel = totalSel;
 	}
 
 }

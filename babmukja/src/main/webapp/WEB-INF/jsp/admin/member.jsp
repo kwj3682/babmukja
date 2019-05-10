@@ -24,11 +24,11 @@
                 <div id="member-search-header">멤버 조회</div>
                 <div id="member-search-input">
                     <div>
-                        <select>
-                            <option>이름</option>
-                            <option>아이디</option>
-                            <option>닉네임</option>
-                            <option>이메일</option>
+                        <select id="search">
+                            <option value="1">이름</option>
+                            <option value="2">아이디</option>
+                            <option value="3">닉네임</option>
+                            <option value="4">이메일</option>
                         </select>
                         <input type="text">
                         <div>
@@ -100,7 +100,9 @@
         </div>
 
         <div id="search-output">
-            <div id="search-output-header">검색 결과</div>
+        	<c:if test="${count != 0 }">
+            <div id="search-output-header">검색 결과 ${count}명</div>
+            </c:if>
             <div>
                 <div id="search-output-list">
                     <table>
@@ -133,8 +135,8 @@
                                 <td>${m.memName }</td>
                                 <td><fmt:formatDate value= "${m.signDate }" pattern="yyyy-MM-dd" /></td>
                                 <td><fmt:formatDate value= "${m.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                <td>땀땀</td>
-                                <td>땀땀</td>
+                                <td>${m.totalBuy }</td>
+                                <td>${m.totalSel }</td>
                                 <td>${m.recipeCnt }</td>
                                 <td>${m.sellingCnt }</td>
                                 <td>${m.point }</td>
@@ -153,17 +155,23 @@
 						<c:if test="${pageResult.next eq true}">
 							<a href="${param.link}?pageNo=${pageResult.endPage + 1}">다음</a>
 						</c:if>	
-		
-					
 					</c:if>	
                 </div>                
             </div>
-            
         </div>
-
-
-    </div>
+	</div>
+	
     <script>
+    	$("#detail").click(function () {
+    		$.ajax({
+    			url : "<c:url value="/admin/detail.do" />",
+    			data : $("#serach").val()    			
+    				
+    		}).done (function (data) {
+    			alert(data)
+    		});
+    	});
+    
         $(".selector").flatpickr({
             enableTime: true,
             dateFormat: "Y-m-d",

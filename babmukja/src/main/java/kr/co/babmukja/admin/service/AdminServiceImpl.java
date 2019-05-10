@@ -24,4 +24,8 @@ public class AdminServiceImpl implements AdminService {
 		);		
 		return result;
 	}
+
+	public int countMember() {
+		return mapper.selectMemberCount();
+	}
 }

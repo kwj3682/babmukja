@@ -6,4 +6,5 @@ import kr.co.babmukja.repository.domain.Page;
 
 public interface AdminService {
 	public Map<String, Object> listMember(Page page);
+	public int countMember();
 }

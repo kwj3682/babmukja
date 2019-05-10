@@ -86,7 +86,7 @@
             <div id="pb_store_popular_product_img">
                 <div id="pb_store_popular_product_imges">
                     <div id="pb_store_popular_product_imges_grid">
-                    <c:forEach var="pbList" items="${pbList}" begin="1" end="4">
+                    <c:forEach var="pbList" items="${pbList}" begin="0" end="3">
                         <a class="pb_store_popular_product_img" href="#">
                             <img src="http://edgerank.co.kr/wp-content/uploads/2016/11/22.png" />
                             <div class="pb_store_popular_product_text">

@@ -30,13 +30,18 @@
 		<result column="selling_cnt" property="sellingCnt" />		
 	</resultMap>	
 
-    	<!-- 회원 전체목록 페이징추가 -->
+    <!-- 회원 전체목록 페이징추가 -->
 	<select id="selectMemberList" parameterType="page" resultMap="MemberMap">		 
-		select @rownum:=@rownum+1 as no, m.* , g.gradename
-		  from tb_member m, tb_grademap g
-		 where m.grade_no = g.grade_no
-		 limit #{begin}, #{end}
-		 
+		select @rownum:=@rownum+1 no, m.* , g.gradename, 
+	           (select sum(order_sum) 
+	              from tb_order 
+	             where buy_mem_no = m.mem_no) 'totalBuy',
+	           (select sum(order_sum) 
+	              from tb_order 
+	             where sell_mem_no = m.mem_no) 'totalSel'
+	      from tb_member m, tb_grademap g
+	     where m.grade_no = g.grade_no
+	     limit #{begin}, #{end}
 	</select> 
 	
 	<!-- 회원 전체수 -->
