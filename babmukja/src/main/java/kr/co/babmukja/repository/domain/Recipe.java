@@ -13,9 +13,16 @@ public class Recipe {
 	private String content;
 	private Date regDate;
 	private int rating;
+	private int groupNo;
 	
 	
 	
+	public int getGroupNo() {
+		return groupNo;
+	}
+	public void setGroupNo(int groupNo) {
+		this.groupNo = groupNo;
+	}
 	public int getMemNo() {
 		return memNo;
 	}
