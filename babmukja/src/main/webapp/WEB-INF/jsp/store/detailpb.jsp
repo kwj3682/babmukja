@@ -36,8 +36,8 @@
                     <p id="pb_detail_price_p">${detailpb.price}원</p>
                 </div>
                 <div id="pb_detail_promotion">
-                    <p id="pb_detail_promotion_price">P</p>
-                    <p>적립해드립니다</p>
+                    <p id="pb_detail_promotion_price"></p>
+                    <p>&nbsp;적립해드립니다</p>
                 </div>
                 
                 <div id="pb_detail_select_box">
@@ -72,15 +72,17 @@
             <!-- 상품설명 -->
             <div id="product_info_detail" >
                 <div id="product_info">상품정보<br><br></div><br><br><br>
+                <c:forEach var="detailImg" items="${detailpbIamge}">
                 <div id="product_info_img">
-                    <img src="images/foodthumbnail1.jpg">
+                    <img src="downloadpb.do?path=${detailImg.path}&sysname=${detailImg.sysname}">
                 </div>
+                </c:forEach>
                 <div id="product_info_content">
                     <p>
-                        상품의 정보를 작성해주세요~~
-                        상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~
+                        ${detailpb.content}
                     </p>
                 </div>
+                <!-- 
                 <div id="product_info_img">
                     <img src="images/foodthumbnail14.jpg">
                 </div>
@@ -99,6 +101,7 @@
                         상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~상품의 정보를 작성해주세요~~
                     </p>    
                 </div>
+                 -->
             </div>
 
             <!-- 후기 -->
@@ -295,7 +298,7 @@
       // 수량 늘리기 줄이기.
       let price = parseInt($("#pb_detail_price_p").text().replace(",",""));
       
-      $("#pb_detail_promotion_price").html(price * 0.01);
+      $("#pb_detail_promotion_price").html(price * 0.01 + " POINT");
       
       let cnt = $("#total_count").html();
       $(".total__price").text(price * cnt + "원");
