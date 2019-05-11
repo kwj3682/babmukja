@@ -31,10 +31,7 @@
     <div id="editorjs"></div>
     <button>저장</button>
     <script>
-        /*
-            이미지의 경우 확장자가 이미지 확장자로 종료되어야 한다.
 
-        */ 
         const editor = new EditorJS({
             holderId: 'editorjs',
 
@@ -118,9 +115,10 @@
                                             		var obj = JSON.parse(response);
                                                 	console.log(obj.path);
                                                 	console.log(obj.sysname);
+                                                	console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
 			                                        resolve({
 			                                            cnt: 1,
-			                                            url: obj.path + '/' + obj.sysname
+			                                            url: "${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname
 			                                        });
                                                 }
                                             },

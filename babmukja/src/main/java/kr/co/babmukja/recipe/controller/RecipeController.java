@@ -1,9 +1,16 @@
 package kr.co.babmukja.recipe.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +29,10 @@ import kr.co.babmukja.repository.domain.FileVO;
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
 public class RecipeController {
-	
+	MultipartFile mFile;
+
 	@Autowired
-	private RecipeService service;
+	private RecipeService service;	
 	
 	@RequestMapping("/main.do")
 	public void main(Model model) {		
@@ -34,6 +42,7 @@ public class RecipeController {
 	@RequestMapping("/writeform.do")
 	public void writeForm() {}
 	
+	
 	@RequestMapping("/upload.do")
 	@ResponseBody
 	public Object upload(FileVO fileVO) throws Exception {
@@ -41,7 +50,7 @@ public class RecipeController {
 		SimpleDateFormat sdf = new SimpleDateFormat(
 				"/yyyy/MM/dd"
 		);
-		String uploadRoot = "C:/bit2019/tomcat-work/wtpwebapps/babmukja";
+		String uploadRoot = "C:/bit2019/upload";
 		String path = "/recipe" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false) file.mkdirs();
@@ -49,7 +58,7 @@ public class RecipeController {
 		
 		int max = service.getMaxNum();
 		
-		MultipartFile mFile = fileVO.getAttach();
+		mFile = fileVO.getAttach();
 		System.out.println("Try to attach to MultipartFile");
 		if (mFile.isEmpty()) {
 //				return;
@@ -65,8 +74,43 @@ public class RecipeController {
 			fileVO.setSysname(uName);
 //			service.insertRecipeImage(fileVO);
 			System.out.println("Return file!");
-			
+
 			return new Gson().toJson(fileVO);
+	}
+	
+	
+	@RequestMapping("/download.do")
+	public void download(FileVO fileVO, HttpServletResponse response) throws Exception {
+		System.out.println("Download.do");
+		String uploadRoot = "c:/bit2019/upload";
+		String path = fileVO.getPath();
+		String sysname = fileVO.getSysname();
+		String dName = mFile.getOriginalFilename();
+		
+		System.out.println("path : "+ path);
+		System.out.println("sysname : "+ sysname);
+		System.out.println("dName : "+ dName);
+		
+		System.out.println("file 생성");
+		File f = new File(uploadRoot + path + "/" + sysname);
+		
+//		f = new File("c:/bit2019/upload/recipe/2019/05/10/767e829f-78ce-47ed-bd82-a0d85da1a9c820140510_221359.jpg");
+		response.setHeader("Content-Type", "image/jpg");
+		
+		// 파일을 읽고 사용자에게 전송
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		
+		OutputStream out = response.getOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		while(true) {
+			int ch = bis.read();
+			if(ch == -1) break;
+			bos.write(ch);
+		}
+		
+		bis.close();  fis.close();
+		bos.close();  out.close();
 	}
 	
 	
