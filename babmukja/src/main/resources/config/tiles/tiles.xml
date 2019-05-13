@@ -32,4 +32,8 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/{1}.jsp" />
     </definition>
 
+    <definition name="notice/*" extends="template2">
+        <put-attribute name="body"   value="/WEB-INF/jsp/notice/{1}.jsp" />
+    </definition>
+
 </tiles-definitions>
