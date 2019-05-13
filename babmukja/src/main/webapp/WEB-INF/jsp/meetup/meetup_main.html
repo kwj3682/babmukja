@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .main_container {
+
+            width: 1200px;
+            margin-top: 30px;
+            margin-left: auto;
+            margin-right: auto;
+
+
+        }
+
+        .main_header {
+            border-bottom: 3px solid gainsboro;
+        }
+
+        .main_header span {
+            display: inline-block;
+        }
+
+        .header_cooking_meetup {
+
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 30px;
+            color: #7db341;
+        }
+
+        .header_search {
+            margin-top: 20px;
+            display: inline-block;
+            margin-left: 450px;
+            height: 40px;
+        }
+
+        .header_search>input {
+            font-size: 25px;
+            padding-left: 10px;
+            border: 1px solid #7db341;
+            border-radius: 10px;
+            width: 300px;
+            color: gray;
+            background: white;
+        }
+
+        .create_manage_container {
+            width: 240px;
+            margin-left: 67%;
+        }
+
+        .header_meetup_manage {
+            margin-left: 30px;
+        }
+
+        .header_meetup_create,
+        .header_meetup_manage {
+            padding: 10px;
+            font-size: 20px;
+            width: 85px;
+            height: 27px;
+            background-color: #7db341;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .after_click {
+            margin: 0px auto;
+            border: 1px solid gainsboro;
+            width: 800px;
+
+            border-radius: 5px;
+        }
+
+        .location_container {
+
+            border: 1px solid gainsboro;
+            margin: 5px 5px;
+            border-radius: 5px;
+
+            display: block;
+
+
+        }
+
+        .location_title {
+            text-align: center;
+            height: 30px;
+            border-bottom: 1px solid gainsboro;
+            color: #7db341;
+        }
+
+        .location_position {
+            background-color: #fafbfd;
+            height: 70px;
+            border-bottom: 1px solid gainsboro;
+        }
+
+        .food_type_container {
+
+            border: 1px solid gainsboro;
+            margin: 5px 5px;
+            border-radius: 5px;
+            display: block;
+
+        }
+
+        .food_type_title {
+            text-align: center;
+            height: 30px;
+            border-bottom: 1px solid gainsboro;
+            color: #7db341;
+        }
+
+        .food_type_position {
+            background-color: #fafbfd;
+            height: 70px;
+            border-bottom: 1px solid gainsboro;
+            text-align: center;
+            line-height: 65px;
+        }
+
+        .food_type_position input {
+            display: inline-block;
+
+            margin-left: 26px;
+            left: -80px;
+        }
+
+
+
+        .monthly_fee_container {
+
+            border: 1px solid gainsboro;
+            margin: 5px 5px;
+            border-radius: 5px;
+            display: block;
+
+        }
+
+        .monthly_fee_title {
+            text-align: center;
+            height: 30px;
+            border-bottom: 1px solid gainsboro;
+            color: #7db341;
+        }
+
+        .monthly_fee_position {
+            background-color: #fafbfd;
+            height: 70px;
+            border-bottom: 1px solid gainsboro;
+            text-align: center;
+            line-height: 65px;
+        }
+
+        .monthly_fee_position input {
+            display: inline-block;
+
+            margin-left: 45px;
+            left: -80px;
+        }
+
+        .recommend_div {
+            margin: 0 auto;
+            width: 1200px;
+        }
+
+
+        .recommend_title {
+
+            text-align: center;
+            margin: 0 auto;
+            width: 1000px;
+            margin-top: 40px;
+            color: #7db341;
+            font-size: 25px;
+        }
+
+        .selectTab {
+            margin-top: 30px;
+            border: 1px solid black;
+            width: 1200px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .selectTab td {
+            border-right: 1px solid black;
+            height: 50px;
+        }
+
+        .info_block {
+            margin-top: 10px;
+            background: #f3f3f3;
+            grid-row-gap: 1px;
+            display: grid;
+            width: 384px;
+
+            height: 264px;
+            grid-template-rows: 10% 70% 10% 10%
+        }
+
+        .info_block>div {
+            width: 100%;
+            display: grid;
+
+        }
+
+        .info_block>.info_header1 {
+            padding-top: 10px;
+            font-size: 15px;
+        }
+
+        .info_block>.info_header2 {
+            padding-top: 10px;
+            font-size: 15px;
+        }
+
+        .info_block>.info_header3 {
+            padding-top: 10px;
+            font-size: 15px;
+        }
+
+        .info_block>.info_header4 {
+            padding-top: 10px;
+            font-size: 15px;
+        }
+
+        .info_block>.info_pic1 {
+
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        .info_block>.info_pic2 {
+
+
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        .info_block>.info_pic3 {
+
+
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        .info_block>.info_pic3 {
+
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        .info_block>.info_pic4 {
+
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+
+        .info_block>.info_line {
+            font-size: 15px;
+            align-items: center;
+            text-align: center;
+
+        }
+
+        .info_bottom {
+            border-top: 1px solid black;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            font-size: 15px;
+        }
+
+
+
+        .bottom_detail {
+            border: 1px solid black;
+        }
+
+        .bottom_detail>a {
+            text-decoration: none;
+            color: black;
+            padding: 1px;
+        }
+
+        .bottom_detail {
+            text-align: center;
+            cursor: pointer;
+            font-size: 6px;
+            margin: 0 0 0 60px;
+        }
+
+        /*Button Two*/
+        .bottom_detail {
+            border-radius: 4px;
+            background-color: orange;
+            border: none;
+            padding: 4px;
+            width: 70px;
+            height: 3px;
+            transition: all 0.5s;
+            top: -20px;
+            line-height: 17px;
+        }
+
+
+        .bottom_detail span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+
+        }
+
+        .bottom_detail span:after {
+            content: '»';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .bottom_detail:hover span {
+            padding-right: 25px;
+        }
+
+        .bottom_detail:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .info_block_container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-column-gap: 16px;
+            border: 1px solid black;
+            width: 1200px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 쿠킹 모임 메인 컨테이너 -->
+    <div class="main_container">
+        <!-- 쿠킹 모임 헤더  -->
+        <div class=main_header>
+            <span class="header_cooking_meetup">쿠킹모임</span>
+            <span class="create_manage_container"> <span class="header_meetup_create">모임개설</span><span
+                    class="header_meetup_manage">모임관리</span></span>
+        </div>
+        <!--검색 클릭시 세부내용처리 -->
+        <span class="header_search">
+            <input type="text" placeholder="검색">
+            <i class="fas fa-search fa-2x"></i>
+        </span>
+        <div class="after_click">
+            <div class="lcation_container">
+                <!--지역설정 -->
+                <div class="location_title">지역</div>
+                <div class="location_position"></div>
+            </div>
+            <div class="food_type_container">
+                <div class="food_type_title">카테고리</div>
+                <div class="food_type_position">
+
+                    <input type="checkbox" name="category" value="total"> 전체</input>
+                    <input type="checkbox" name="category" value="total"> 한식</input>
+                    <input type="checkbox" name="category" value="total">중식</input>
+                    <input type="checkbox" name="category" value="total">일식</input>
+                    <input type="checkbox" name="category" value="total">양식</input>
+                    <input type="checkbox" name="category" value="total">디저트</input>
+                    <input type="checkbox" name="category" value="total">별미</input>
+                    <input type="checkbox" name="category" value="total">기타</input>
+
+                </div>
+            </div>
+            <div class="monthly_fee_container">
+                <div class="monthly_fee_title">월 회비</div>
+                <div class="monthly_fee_position">
+
+                    <input type="checkbox" name="category" value="all" />무관</input>
+                    <input type="checkbox" name="category" value="10000" />만원 이하</input>
+                    <input type="checkbox" name="category" value="30000" />3만원 이하</input>
+                    <input type="checkbox" name="category" value="50000" />5만원 이하</input>
+                    <input type="checkbox" name="category" value="100000" />10만원 이하</input>
+                </div>
+            </div>
+            <!--클릭 후  끝 -->
+        </div>
+        <!-- 추천모임부분 시작 -->
+        <div class="recommend_div">
+            <div class="recommend_title">추천모임</div>
+
+            <!-- 추천모임 탭 시작 -->
+            <div class="tabContainer">
+                <table class="selectTab">
+                    <tr>
+                        <td>전체</td>
+                        <td>한식</td>
+                        <td>중식</td>
+                        <td>일식</td>
+                        <td>양식</td>
+                    </tr>
+                </table>
+
+                <div class="tabPanel" id="tabPanel1">
+
+
+                </div>
+                <div class="tabPanel">모임공지</div>
+                <div class="tabPanel">자유게시판</div>
+                <div class="tabPanel">사진첩</div>
+                <div class="tabPanel">회원</div>
+            </div>
+            <!-- 추천모임 탭 끝 -->
+            <div class="info_block_container">
+                <!-- 추천모임 박스 -->
+                <div class="info_block">
+                    <div class="info_header2">위치:${board.city}>${board.town} </div>
+                    <div class="info_pic"></div>
+                    <div class="info_line">${board.ment}</div>
+                    <div class="info_bottom">
+                        <div class="bottom_title">${board.name}</div>
+                        <div></div>
+                        <div class="bottom_detail"><a href="detail.do?accNo=${board.accNo}"><span>자세히 보기</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 추천모임 박스끝 -->
+                <!-- 추천모임 박스 -->
+                <div class="info_block">
+                    <div class="info_header2">위치:${board.city}>${board.town} </div>
+                    <div class="info_pic"></div>
+                    <div class="info_line">${board.ment}</div>
+                    <div class="info_bottom">
+                        <div class="bottom_title">${board.name}</div>
+                        <div></div>
+                        <div class="bottom_detail"><a href="detail.do?accNo=${board.accNo}"><span>자세히 보기</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 추천모임 박스끝 -->
+                <!-- 추천모임 박스 -->
+                <div class="info_block">
+                    <div class="info_header2">위치:${board.city}>${board.town} </div>
+                    <div class="info_pic"></div>
+                    <div class="info_line">${board.ment}</div>
+                    <div class="info_bottom">
+                        <div class="bottom_title">${board.name}</div>
+                        <div></div>
+                        <div class="bottom_detail"><a href="detail.do?accNo=${board.accNo}"><span>자세히 보기</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 추천모임 박스끝 -->
+
+            </div>
+        </div>
+        <!--메인 컨테이너 끝 -->
+    </div>
+
+
+</body>
+
+</html>

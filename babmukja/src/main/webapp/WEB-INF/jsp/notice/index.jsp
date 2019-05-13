@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +14,6 @@
     <title>고객센터</title>
 </head>
 <body>
-    <center><h1>밥먹자 고객센터</h1></center>
-    <hr>
     <div class="inquiry">
         <table class="customer2">
             <tr>
@@ -22,55 +22,48 @@
         </table>
         <div class="inquire2">
             <h3>리스트1</h3>
-                 <div>
+                 <div class="answer2">
                      <p>리스트 답변1</p>
                  </div>
         </div>
         <div class="inquire2">
-                <h3>리스트2</h3>
-                <div>
+                <h3>리스트2</h3> 
+                <div class="answer2">
                     <p>리스트 답변2</p>
                 </div>
        </div>
        <div class="inquire2">
             <h3>리스트3</h3>
-            <div>
+            <div class="answer2">
                 <p>리스트 답변3</p>
             </div>
     </div>
     <div class="inquire2">
         <h3>리스트4</h3>
-        <div>
+        <div class="answer2">
             <p>리스트 답변4</p>
         </div>
     </div>
          <div class="inquire">1:1문의하기</div>
          <div class="inquire">전화문의하기</div>
         <div>
-            <p class="inlined"><a href="food List.html">공지사항</a></p>
+            <p class="inlined"><a href="list.do">공지사항</a></p>
                 <div class="inquire2">
-                        <h3>리스트</h3>
-                        <div>
-            <p>리스트 답변</p>
+                        <h3>공지사항1</h3>
+                        <div class="answer2">
+            <p>댓글1</p><hr>
+            <p>댓글2</p><hr>
+            <p>댓글3</p>
                 </div>
         </div>         
     </div> 
-    <nav id="pageNav">
-            <ul>
-                <li><a href='noticedetail.html'>1</a></li>
-                <li><a href='#'>2</a></li>
-                <li><a href='#'>3</a></li>
-                <li><a href='#'>4</a></li>
-                <li><a href='#'>5</a></li>
-                <li><a href='#'>NEXT</a></li>
-            </ul>
-    </nav><br>
     <script>
             $(function() {
               $( ".inquire2" ).accordion({
                 collapsible: true
               });
-            } );        
+            } );   
+           
     </script>
 </body>
 </html>
