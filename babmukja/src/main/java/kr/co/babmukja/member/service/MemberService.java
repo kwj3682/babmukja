@@ -1,9 +1,5 @@
 package kr.co.babmukja.member.service;
 
-import java.util.List;
-import java.util.Map;
-
-import kr.co.babmukja.repository.domain.Hint;
 import kr.co.babmukja.repository.domain.Member;
 
 public interface MemberService {
@@ -11,7 +7,6 @@ public interface MemberService {
 	
 	void insertMember (Member member); // 회원가입
 	
-	List<Hint> selectHintContent(); // 힌트
+	int selectCheckNickName(String memNickname); // 닉네임 중복체크
 	
-	int selectCheckId(String memId); // 아이디 중복체크
 }

@@ -90,27 +90,19 @@
 				alert("비밀번호를 입력하세요.");
 				return;
 			}
-				$("#doLogin").submit();
+		 	const fail = <%= request.getParameter("fail") %>
+		 	console.log(fail);
+		 	console.log(fail === 1);
+			console.log(fail === null);
+			$(".login__button").click(function() {
+			 	if(fail === null) {
+			 		alert("아이디와 패스워드가 일치하지 않습니다.");
+			 		return;
+			 	} 
+			}); 
+			$("#doLogin").submit();
 		});
 		
-	 	const fail = <%= request.getParameter("fail") %>
-	 	console.log(fail);
-	 	console.log(fail === 1);
-		console.log(fail === null);
-		$(".login__button").click(function() {
-	 	if(fail===null) {
-	 		alert("아이디와 패스워드가 일치하지 않습니다.");
-	 		return;
-	 	} 
-	}); 
-		
-		const id = <%= request.getParameter("memId") %>
-		console.log(id);
-		console.log(id===1);
-		console.log(id===null);
-		if(id===1) {
-			alert("해당 아이디는 존재하지 않습니다.");
-		}
 	</script>
 
 </body>

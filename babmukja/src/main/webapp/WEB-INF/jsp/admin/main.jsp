@@ -75,29 +75,11 @@
 //         data: data,
 //         options: options
 //     });
-	
-	
-    const complete = <%=request.getParameter("complete")%>;
-    console.log(complete);
-    console.log(complete===null);
-    console.log(complete===1);
-	if(complete===1) {
-		alert("로그인 성공!");
-	}
-// 	if(complete===null) {
-// 		alert("로그아웃 성공!");
-// 	}
-
-	
     
+    $("#logout").click(function() {
+    	alert("로그아웃 성공!");
+    });
     
-    
-    
-<%-- 		const user = <%= (session.getAttribute("user")==null)? null:1 %>; --%>
-// 		console.log(user);
-// 		console.log(user === null);
-// 		console.log(user !== null);
-    
-</script>
+	</script>
 </body>
 </html>

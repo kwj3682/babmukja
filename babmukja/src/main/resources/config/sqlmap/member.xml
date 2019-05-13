@@ -51,23 +51,12 @@
 		)
 	</insert>
 
-	<!-- 아이디 중복체크 -->
-	<select id="selectCheckId" parameterType="String" resultType="int">
+	<!-- 닉네임 중복체크 -->
+	<select id="selectCheckNickName" parameterType="String" resultType="int">
 		select count(*)
 		  from tb_member
-		 where mem_id = #{memId}
+		 where mem_nickname = #{memNickname}
 	</select>
 
-	<!-- 힌트 -->
-	<resultMap id="hintMap" type="hint">
-		<result column="hint_no" property="hintNo" />
-		<result column="hint_content" property="hintContent" />
-	</resultMap>
-
-	<!-- 힌트 목록 가져오기 -->
-	<select id="selectHintContent" resultMap="hintMap">
-		select *
-		from tb_hint
-	</select>
 
 </mapper>
