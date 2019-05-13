@@ -58,7 +58,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div id="today-cs">
 				<div>
 					<div>
