@@ -9,7 +9,10 @@
 </head>
 <body>  
 	<script>
-		location.href="<c:url value='/admin/main.do'/>";
+ //		location.href="<c:url value='/admin/main.do'/>";
+    	location.href="<c:url value='/notice/index.do'/>";
+ //    	location.href="<c:url value='/notice/list.do'/>";
+ //    	location.href="<c:url value='/notice/enrollform.do'/>";
 	</script>
 </body>
 </html>

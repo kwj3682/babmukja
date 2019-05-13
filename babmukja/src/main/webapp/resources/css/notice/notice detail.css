@@ -53,9 +53,7 @@
     background-color: wheat;
     color: rebeccapurple;
   }
-  
-
-  
+    
 .babnotices, .babitem {
    height: 50px;
    font-size: 2em;
@@ -63,8 +61,6 @@
 }
 
 .babtd5{
-    text-align: center;
-    vertical-align: middle;
     font-size: 1.5em;
     font-weight: bolder;
     border-collapse: collapse;
@@ -88,4 +84,42 @@
 	font-size: 1.3em;
 	background: skyblue;
 	float: right;
+}
+
+.btnView {
+	text-align: center;
+    padding:5px 20px;
+    background-color:#7db341;
+    border-style: none;
+    border-radius: 5px;
+    cursor:pointer;
+    text-decoration: none;
+    color:inherit;
+}
+.btnView2 {
+	text-align: center;
+	}
+
+.btnView button{
+	font-size: 1.5em;
+    font-weight: bolder;
+}	
+	
+#commentres{
+	border: 1px solid black;
+	font-size:1.3em;
+}
+
+#commentres.notice_comm2{
+background-color:#7db341;
+border: 1px solid black;
+border-collapse: none;
+}
+
+#commentres.notice_comm2 input{
+   width:98%;
+   margin: 5px;
+}	
+#commentres.notice_wr2{
+	font-size:1.3em;
 }

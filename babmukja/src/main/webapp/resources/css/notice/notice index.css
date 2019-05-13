@@ -18,6 +18,11 @@ margin-top: 0px;margin-bottom: 10px;padding-right: 5px; font-weight: bold;
 	font-weight: bold;
 }
 
+.answer2{
+	border: 1px solid black;
+	font-weight: bold;
+}
+
 table.inlined{
     display: inline-table; font-weight: bold;
 }
