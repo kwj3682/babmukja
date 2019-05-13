@@ -11,6 +11,7 @@
 	<a href="<c:url value='/admin/main.do'/>">관리자</a>
 	<a href="<c:url value='/store/mainpb.do'/>">스토어</a>
 	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a>
+	<a href="<c:url value='/notice/index.do'/>">공지사항</a>
 <body>  
 </body>
 </html>
