@@ -69,6 +69,7 @@
     cursor:pointer;
     text-decoration: none;
     color:inherit;
+    font-size:1.3em;
 }
 .bntView:hover{
   background-color:black;

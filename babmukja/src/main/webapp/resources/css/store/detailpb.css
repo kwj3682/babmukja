@@ -10,7 +10,7 @@
     height: 550px;
     display: flex;
     justify-content: space-between;
-    margin-left: 50px;
+    margin-left: 80px;
 }
 
 #pb_detail_header_images {
@@ -85,9 +85,6 @@
 #pb_detail_select_product {
     margin-left: 5px;
     margin-top: 20px;
-    
-    
-    
 }
 
 #pb_detail_select_product > select {
@@ -122,11 +119,16 @@
 
 #select_product_count button {
     outline: 0;
-    
     font-size: 10px;
     background-color: white;
     color: rgb(81, 81, 81);
 }
+
+#select_product_count button:hover {
+    background-color: #7db341;
+    color: white;
+}
+
 
 #select_product_total-price {
     display: flex;
@@ -153,6 +155,7 @@
     height: 50px;
     background-color: white;
     border-radius: 5px;
+    color: #7db341;
 }
 
 #pb_detail_btns > button:hover {
@@ -163,6 +166,7 @@
 #pb_detail_menubar {
     display: flex;
     font-size: 30px;
+    width:1200px;
     color: rgb(81, 81, 81);
     padding: 10px;
     text-align: center;
@@ -171,6 +175,8 @@
     border: 2px solid gainsboro;
     margin-top: 50px;
     background-color: white;
+    position: sticky;
+    top:10%;
 }
 
  #detail_product_info {
@@ -202,10 +208,10 @@
 
 #product_info_img {
     width: 1000px;
-    height: 500px;
+    height: 600px;
     margin: 0 auto;
     justify-content: center;
-    
+	margin-top: 100px;    
 }
 
 #product_info_img > img {
@@ -397,13 +403,17 @@
     color: #7db341;
 }
 
-a:link {
+#pb_detail_menubar > div > a:link {
     text-decoration: none;
 }
 
-a:visited {
+#pb_detail_menubar > div > a:visited {
     text-decoration: none;
     color: rgb(81, 81, 81);
+}
+
+#pb_detail_menubar > div > a:hover {
+    color:#7db341;
 }
 
 .jbFixed {
@@ -414,7 +424,6 @@ a:visited {
 .top_bar_fix {
     position: fixed;
     top: -50px;
-    left: 540px;
+    left: 150px;
     width: 1200px;
-    
 }

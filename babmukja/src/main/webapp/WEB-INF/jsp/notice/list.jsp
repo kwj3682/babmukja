@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,12 +26,22 @@
                     <th class="inquirelist"><span>등록일</span></th>
                     <th class="inquirelist"><span>조회</span></th>
                 </tr>
+      <c:forEach var="notice" items="${noticelist}">
+         <tr>
+            <td class="noticeNo">${notice.notice_no}</td>
+            <td class="leftstyle2"><a
+               href='detail.do?no=${notice.notice_no}'>${notice.title}</a></td>   
+            <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일"
+                  value="${notice.regdate}" /></td>
+            <td class="inquirelist2">${notice.viewcnt}</td>
+         </tr>
+      </c:forEach>
                 <tr>
                     <td class="noticeNo">1</td>
                     <td class="leftstyle2">반찬가게 프랜차이즈 밥먹자 MBC 미니시리즈 ‘봄이 오나 봄’ 협찬</td>
                     <td class="inquirelist2">공지</td>
                     <td class="inquirelist2">2018/04/12</td>
-                    <td class="btnView"><button input type="button"><a href="#">확인</a></button></td>
+                    <td class="btnView"><button input type="button"><a href="detail.do">확인</a></button></td>
                 </tr>
                 <tr>
                     <td class="noticeNo">2</td>
@@ -98,25 +111,16 @@
              </table><hr>
                <nav id="pageNav">
                    <ul>
-                       <li><a href='notice detail.html'>1</a></li>
-                       <li><a href='#'>2</a></li>
+                       <li><a href='detail.do'>1</a></li>
+                       <li><a href='enrollform.do'>2</a></li>
                        <li><a href='#'>3</a></li>
                        <li><a href='#'>4</a></li>
                        <li><a href='#'>5</a></li>
-                       <li><a href='#'>></a></li>
+                       <li><a href='index.do'>NEXT</a></li>
                    </ul>
                </nav><br>
         </table>
     </div>
-    <c:forEach inquirys="${inquireList}" var="inquire">
-                <tr class="record">
-                    <td align="center">"${inquire.inquiryNumber}"</td>
-                    <td align="center">"${inquire.inquiryContent}"</td>
-                    <td align="center">"${inquire.inquiryNotice}"</td>
-                    <td align="center">"${inquire.inquireyTime}"</td>
-                    <td align="center">"${inquire.inquiry.viewCnt}"</td>
-                </tr>
-    </c:forEach>
     <footer>
             <h2>BABMUKJA COMPANY</h2>
             <div>Lorem ipsum dolor sit.</div>

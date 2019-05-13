@@ -3,7 +3,7 @@ package kr.co.babmukja.repository.domain;
 import java.util.Date;
 
 public class Notice {
-	 private int no;               
+	 private int notice_no;               
      private String title;        
      private String content;    
      private Date  regdate;     
@@ -11,10 +11,10 @@ public class Notice {
      private String writer;
      
 	 public int getNo() {
-		return no;
+		return notice_no;
 	}
 	public void setNo(int no) {
-		this.no = no;
+		this.notice_no = no;
 	}
 	public String getTitle() {
 		return title;
@@ -46,5 +46,4 @@ public class Notice {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
 }
