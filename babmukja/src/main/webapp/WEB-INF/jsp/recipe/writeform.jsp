@@ -27,9 +27,13 @@
 </head>
 <body>
     <div id="writeform-header">레시피 작성</div>
-    <input type="text" id="title">
-    <div id="editorjs"></div>
-    <button>저장</button>
+    <div id="paragraph">자신만의 레시피를 완성해주세요</div>
+    <div id="editorjs">
+            <input type="text" id="title" placeholder="제목을 입력해주세요.">
+        </div>
+    <div id="buttonWrapper">
+        <button>저장</button>
+    </div>
     <script>
     	const editor = new EditorJS({
             holderId: 'editorjs',
@@ -201,6 +205,7 @@
                 console.log("Article data : ", outputData);
                 console.log("title : "+title);
                 console.log("content : " + content);
+                location.href="<c:url value="/recipe/main.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });

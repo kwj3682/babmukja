@@ -114,8 +114,8 @@
 
                 <div id="content-info"><!-- content-info start -->
                     <div id="content-button-wrapper"><!-- content-button-wrapper start -->
-                        <button><i class="fas fa-hand-holding-heart fa-2x"></i> <b>30</b></button>
-                        <button><i class="fas fa-scroll fa-2x"></i> <b>12</b></button>
+                        <button><i class="fas fa-hand-holding-heart"></i> <b>30</b></button>
+                        <button><i class="fas fa-scroll"></i> <b>12</b></button>
                     </div><!-- content-button-wrapper end -->
                 </div><!-- content-info end -->
 
