@@ -1,18 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/babmukja/WEB-INF/css/recipe-detail.css">
+    
+    <link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="<c:url value="/resources/css/recipe/recipe-detail.css"/>">
+        <script src="<c:url value="/resources/js/editor.min.js"/>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <title>Document</title>
 </head>
 <body>
-    
+<%--     <input id="hiddenValue" type="text" value="${inputData}"/> --%>
     <div id="body"><!-- 전체 body start -->
         <!---------------------------------------------------------------------------------------->
         <div id="left-body"><!-- left-body start -->
@@ -22,50 +38,12 @@
                 <div>#야식만보고삽니다</div>
                 <div id="post-date">방금 전</div>
             </div><!-- post-info end -->
-            
+            <h2>${recipe.title}</h2>
 
-            
-            <div id="post-body"><!-- post-body start -->
-            
-                
-                <div class="post-container"><!-- post-container start -->
-                    <img class="post-main-img" src="/babmukja/WEB-INF/images/food1.jpg">
-                    <div class="post-thumbs">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail1.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail2.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail3.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail4.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail5.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail6.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail8.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail7.jpg">
-                    </div>
-                    <div>
-                        <p class="post-content">야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 </p>
-                    </div>
-                </div><!-- post-container end -->
-                
-                <!-- 컨텐트 하드코딩 부분 -->
-                <div class="post-container">
-                    <img class="post-main-img" src="/babmukja/WEB-INF/images/food1.jpg">
-                    <div class="post-thumbs">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail1.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail2.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail3.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail4.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail5.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail6.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail8.jpg">
-                        <img src="/babmukja/WEB-INF/images/foodthumbnail7.jpg">
-                    </div>
-                    <div>
-                        <p class="post-content">야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 야식은 역시 치킨인가 </p>
-                    </div>
-                 </div>
-                 <!-- 컨텐트 하드코딩 부분 -->
-                
-
-            </div><!-- post-body end -->
+            <div id="hiddenValue" style="display:none">${recipe.content}</div>
+            <!-- post-body start -->
+            <div id="post-body"></div>
+            <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
             <div id="comment-body"><!-- comment-body start -->
                 <div id="comment-header">댓글 <b id="comment-count">3</b></div>
@@ -172,11 +150,87 @@
         </div><!-- right;body end -->
     </div> <!-- 전체 body end -->
     <script>
+        const value = $("#hiddenValue").text();
         $(document).ready(function() {
             $("#comment-input").keyup(function (e){
             $(this).css('height', 'auto' ).height( this.scrollHeight );
             });
         });
+        const editor = new EditorJS({
+            holderId: 'post-body',
+
+            autofocus: true,
+            data: JSON.parse(value),
+            tools: { 
+                warning: {
+                    class: Warning,
+                    inlineToolbar: true,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },
+     
+                table: {
+                    class: Table,
+                    inlineToolbar: true,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },                       
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },
+				image: {
+                    class: ImageTool,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },            
+
+                header: {
+                    class: Header,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                }, 
+                checklist: {
+                    class: Checklist,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },
+                linkTool: {
+                    class: LinkTool,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },
+                marker: {
+                    class: Marker,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },
+                list: {
+                    class: List,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                },
+                embed: {
+                    class: Embed,
+                    "withBorder": false,
+                    "withBackground": false,
+                    "stretched": false
+                }
+            }
+        });
+        $("div").attr("contentEditable","false");
+        
     </script>
     
 </body>
