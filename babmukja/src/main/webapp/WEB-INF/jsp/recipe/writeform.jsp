@@ -27,12 +27,11 @@
 </head>
 <body>
     <div id="writeform-header">레시피 작성</div>
-    
+    <input type="text" id="title">
     <div id="editorjs"></div>
     <button>저장</button>
     <script>
-
-        const editor = new EditorJS({
+    	const editor = new EditorJS({
             holderId: 'editorjs',
 
             autofocus: true,
@@ -99,9 +98,11 @@
                                 function imgUpload() {
                                     console.dir(file);
                                     let fileData = new FormData();
-                                        fileData.append("attach", file);    
+                                    
+                                        fileData.append("attach", file);  
+                                        
                                     return new Promise(function (resolve, reject) {
-										alert("asd");
+										alert("이미지 업로드 중...");
                                         $.ajax({
                                             url: 'upload.do',
                                             type: "post",
@@ -116,7 +117,7 @@
                                                 	console.log(obj.path);
                                                 	console.log(obj.sysname);
                                                 	console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
-			                                        resolve({
+                                                	resolve({
 			                                            cnt: 1,
 			                                            url: "${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname
 			                                        });
@@ -130,7 +131,7 @@
                                 }
 
                                 return imgUpload().then((result) => {
-                                    alert("업로드 성공함");
+                                    alert("업로드 완료!");
                                     console.dir(result);
                                     return {
                                         success: result.cnt,
@@ -164,6 +165,9 @@
                 },
                 list: {
                     class: List,
+                    "data":{
+                    	"style":"ordered"
+                    },
                     inlineToolbar: ['link', 'bold']
                 },
                 embed: {
@@ -181,20 +185,23 @@
 
         let saveBtn = document.querySelector("button");
         saveBtn.addEventListener("click", function () {
+        	let recipeTitle = $("#title").val();
             console.dir(editor)
             editor.save().then((outputData)=>{
+            	let content = JSON.stringify(outputData);
+            	let title= $("#title").val();
             	$.ajax({
 					type: "post",
 	   					url:"write.do",
-	   					processData: false,
-                      	contentType: false,
-						data: outputData,
+						data: {content : content,
+								 title : title},
 						success:function(result){
-// 							location.href="/recipe/main.do";
+							location.href="<c:url value="/recipe/main.do"/>";
 						}
             	});
                 console.log("Article data : ", outputData);
-                console.log(JSON.stringify(outputData));
+                console.log("title : "+title);
+                console.log("content : " + content);
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });
