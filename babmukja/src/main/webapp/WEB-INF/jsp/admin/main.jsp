@@ -79,6 +79,10 @@
     	alert("로그아웃 성공!");
     });
     
+    $("#signUp-button").click(function() {
+    	alert("밥먹자 회원이 되셨습니다!");
+    });
+    
 	</script>
 </body>
 </html>

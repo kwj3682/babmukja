@@ -120,7 +120,7 @@
 			</div>
 
 			<div class="signUp__button">
-				<button>회원가입 하기</button>
+				<button id="signUp-button">회원가입 하기</button>
 			</div>
 		</form>
 
@@ -176,50 +176,6 @@
 				}
 			});
 		});
-		
-		// Pass 처리하기
-		/*
-		$("#memPass").on("keyup",function() {
-			console.log("키업 이벤트 실행됨");
-			let memPass = $(this).val();
-			console.log(memPass);
-			$.ajax({
-				type:'POST',
-				data: "memPass="+memPass,
-				url: 'checkPass.do',
-				dataType: "json",
-				success: function(data) {
-					alert(data.cnt);
-					if(data.cnt != 0) {
-						$(".pass-result .pass-result").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
-						$(".pass-result .pass-result").attr("style", "color:red;");
-						$("#memPass").focus();
-					} else {
-						$(".pass-result .pass-result").text("사용 가능한 비밀번호 입니다.");
-						$(".pass-result .pass-result").attr("style", "color:blue;");
-						$("#memPass").focus();
-						idck = 1;// 아이디가 중복하지 않을 경우  
-					}
-				}
-			});
-		});
-		*/
-		
-		// ajax 처리
-		/*
-		$('#memEmail').on("keyup",function(){
- 			  $("#memEmail").attr('value',1);
-			  const emailVal = $(this).val();
-			  console.log(emailVal);
-			  const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-			  // 검증에 사용할 정규식 변수 regExp에 저장
-			  console.log(emailVal.match(regExp));
-			  if (emailVal.match(regExp) == null) {
-			    alert('이메일형식으로 입력해야 합니다.');
-			  }
-		});
-		*/
-		
 		
 		// 각 항목 조건에 맞는지 확인 
 		function doSignUp() {
@@ -304,7 +260,7 @@
 		    }
 		}
 		
-		// passWord 조건 확인
+		// passWord 정규 표현식
 		function checkPassword(password){
 		    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
 		        $('#pass').val('').focus();

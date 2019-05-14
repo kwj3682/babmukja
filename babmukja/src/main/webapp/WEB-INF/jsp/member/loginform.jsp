@@ -24,7 +24,7 @@
 
 		<form id="doLogin" action="login.do" method="post">
 			<div class="login__input">
-				<input placeholder="아이디" type="text" name="memId" id="id" autofocus="autofocus" />
+				<input placeholder="이메일" type="text" name="memEmail" id="email" />
 			</div>
 
 			<div class="login__input">
@@ -38,7 +38,7 @@
 
 		<div class="id__pass_search">
 			<div class="search__id">
-				<a href="#">아이디 찾기</a>
+				<a href="#">이메일 찾기</a>
 			</div>
 			<div class="search__pass">
 				<a href="#">비밀번호 찾기</a>
@@ -79,11 +79,11 @@
 	
 	 	// 아이디, 비밀번호 공백일 때
 		$(".login__button").click(function() {
-			let id = $("#id").val();
+			let email = $("#email").val();
 			let pass = $("#pass").val();
 
-			if (id == "") {
-				alert("아이디를 입력하세요.");
+			if (email == "") {
+				alert("이메일을 입력하세요.");
 				return;
 			}
 			if (pass == "") {
@@ -96,7 +96,7 @@
 			console.log(fail === null);
 			$(".login__button").click(function() {
 			 	if(fail === null) {
-			 		alert("아이디와 패스워드가 일치하지 않습니다.");
+			 		alert("이메일과 패스워드가 일치하지 않습니다.");
 			 		return;
 			 	} 
 			}); 

@@ -1,13 +1,9 @@
 package kr.co.babmukja.member.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -22,9 +18,11 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	// 로그인 폼
 	@RequestMapping("/loginform.do")
 	public void loginForm() {}
 
+	// 로그인 처리
 	@RequestMapping("/login.do")
 	public String login(Member member,HttpSession session){
 		
@@ -42,6 +40,7 @@ public class MemberController {
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do?complete=1";
 	}
 	
+	// 로그아웃 처리
 	@RequestMapping("/logout.do")
 	public String logOut(HttpSession session) {
 		session.invalidate();
@@ -49,14 +48,17 @@ public class MemberController {
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
 	
+	// 우편번호 폼
 	@RequestMapping("/jusopopup.do")
 	public void jusoPopUp() {
 		System.out.println("우편번호 검색 버튼");
 	}
 	
+	// 회원가입 폼
 	@RequestMapping("/signupform.do")
 	public void signUpForm() {}
 	
+	// 회원가입 처리
 	@RequestMapping("/signup.do")
 	public String signUp(Member member) {
 		System.out.println("회원가입 버튼");
@@ -74,7 +76,4 @@ public class MemberController {
 		System.out.println(memNickname);
 		return service.selectCheckNickName(memNickname);
 	}
-	
-		
-	
 }
