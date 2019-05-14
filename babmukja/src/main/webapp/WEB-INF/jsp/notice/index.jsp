@@ -37,7 +37,7 @@
             <div class="answer2">
                 <p>리스트 답변3</p>
             </div>
-    </div>
+  	  </div>
     <div class="inquire2">
         <h3>리스트4</h3>
         <div class="answer2">
@@ -57,6 +57,7 @@
                 </div>
         </div>         
     </div> 
+    </div>
     <script>
             $(function() {
               $( ".inquire2" ).accordion({
