@@ -79,7 +79,7 @@ public class StorePBController {
 	}
 	
 	@RequestMapping("/mainpb.do")
-	public void selectPBList(Model model) {
+	public void selectPBList(Model model, StorePB storepb) {
 		model.addAttribute("pbList", service.selectPBMainList());
 	}
 	
