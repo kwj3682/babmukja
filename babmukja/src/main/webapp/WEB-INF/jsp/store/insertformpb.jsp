@@ -15,27 +15,50 @@
 		<form method="post" enctype="multipart/form-data" action="<c:url value="/store/insertpb.do"/>">
 	        <div class="pb_product_name">
 	            <p>상품 이름</p>
-	            <input type="text" name="product__name" id="product__name">
+	            <input type="text" name="name" id="product__name">
 	        </div>
 	        <div class="pb_product_price">
 	            <p>상품 가격</p>
-	            <input type="text" name="product__price" id="product__price">
+	            <input type="text" name="price" id="product__price">
 	        </div>
 	        <div class="pb_product_image">
 	            <div class="image_container"></div>
 	            <div class="image_choice">
-	            	<label for="product_img_file">파일선택</label>
-	                <input type="file" name="product_img_file" id="product_img_file" multiple="multiple">
+	            	<label for="product_img_file">사진선택</label>
+	                <input type="file" name="imageList" id="product_img_file" multiple="multiple">
 	            </div>
 	        </div>
 	        <div class="pb_product_content">
-	            <textarea name="product__content" class="product__content" cols="50" rows="15" placeholder="상품의 설명을 입력해주세요."></textarea>
+	            <textarea name="content" class="product__content" cols="50" rows="15" placeholder="상품의 설명을 입력해주세요."></textarea>
 	        </div>
             <div class="pb_insert_submit">
-          	    <button id="pb_insert_cancle_button">취소</button>
           	    <button id="pb_insert_submit_button">등록</button>
       	    </div>
  		</form>
+        	<button id="pb_insert_cancle_button">취소</button>
     </div>
+    <script>
+	    $(function() {
+	        $("#product_img_file").on("change", function(){
+	            var files = !!this.files ? this.files : [];
+	            if (!files.length || !window.FileReader) return; 
+	            if (/^image/.test( files[0].type)){ 
+	                var reader = new FileReader(); 
+	                reader.readAsDataURL(files[0]); 
+	                reader.onloadend = function(){ 
+	                 $('.image_container').css({
+	                     "background-image":
+	                         "url(" + this.result + ")",
+	                         "background-size":
+	                         "contain",
+	                         "background-repeat":
+	                         "no-repeat",
+	                       }
+	                    );
+	                };
+	            }
+	        });
+	    });
+    </script>
 </body>
 </html>

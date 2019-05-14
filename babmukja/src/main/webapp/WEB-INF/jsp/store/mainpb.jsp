@@ -21,11 +21,11 @@
             <!-- 메인 이미지 슬라이드 보여주기 -->
             <div id="pb_store_today_product_img">
                 <div id="pb_store_today_img">
-                   <img id="img1" src="http://cfd.tourtips.com/@cms_800/2014062365/gjdrmb/%EC%89%91%EC%89%91%EB%B2%84%EA%B1%B0(%EB%89%B4%EC%9A%95%EC%9C%A0%EB%AA%85%ED%96%84%EB%B2%84%EA%B1%B0)_2.jpg">
-                    <img id="img2" src="http://edgerank.co.kr/wp-content/uploads/2016/11/22.png">
-                    <img id="img3" src="https://t1.daumcdn.net/cfile/tistory/15298033513ECBD304">
-                    <img id="img4" src="https://us.123rf.com/450wm/baibakova/baibakova1609/baibakova160900188/63444373-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D-%EA%B0%9C%EB%85%90%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%9D%B0%EC%83%89-%EB%82%98%EB%AC%B4-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D.jpg?ver=6">
-                    <img id="img5" src="https://www.spcmagazine.com/wp-content/uploads/2018/02/%E1%84%80%E1%85%A7%E1%84%8B%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B3%E1%86%B7%E1%84%89%E1%85%B5%E1%86%A8_5.png">
+         			<c:forEach var="pbList" items="${pbList}" begin="0" end="4">
+         				<a class="pb_store_today_product_imges" href="<c:url value="/store/detailpb.do?pbNo=${pbList.pbNo}&groupNo=${pbList.groupNo}"/>">
+                        	<img src="<c:url value="/store/downloadpb.do?path=${pbList.images[0].path}&sysname=${pbList.images[0].sysname}"/>" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
+          				</a>
+          			</c:forEach>
                 </div>
             </div>
         </div>
@@ -108,54 +108,6 @@
             </div>
         </div>
     </div>
-<!-- 
-                        <a class="pb_store_popular_product_img" href="#">
-                            <img src="https://us.123rf.com/450wm/baibakova/baibakova1609/baibakova160900188/63444373-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D-%EA%B0%9C%EB%85%90%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%9D%B0%EC%83%89-%EB%82%98%EB%AC%B4-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D.jpg?ver=6">
-                            <div class="pb_store_popular_product_text">
-                                <div class="pb_store_popular_product_title">
-                                    <p>식빵 세트</p>
-                                </div>
-                                <div class="pb_store_popular_product_price">
-                                    <p>4,900</p>
-                                </div>
-                                <div class="pb_store_popular_product_rating">
-                                    <span id="pb_store_popular_product_rating_star">★</span>
-                                    <span>4.3</span>                
-                                </div>
-                            </div>
-                        </a>
-                        <a class="pb_store_popular_product_img" href="#">
-                            <img src="https://t1.daumcdn.net/cfile/tistory/15298033513ECBD304">
-                            <div class="pb_store_popular_product_text">
-                                <div class="pb_store_popular_product_title">
-                                    <p>야채 세트</p>
-                                </div>
-                                <div class="pb_store_popular_product_price">
-                                    <p>9,900</p>
-                                </div>
-                                <div class="pb_store_popular_product_rating">
-                                    <span id="pb_store_popular_product_rating_star">★</span>
-                                    <span>4.3</span>                
-                                </div>
-                            </div>
-                        </a>
-                        <a class="pb_store_popular_product_img" href="#">
-                            <img src="http://cfd.tourtips.com/@cms_800/2014062365/gjdrmb/%EC%89%91%EC%89%91%EB%B2%84%EA%B1%B0(%EB%89%B4%EC%9A%95%EC%9C%A0%EB%AA%85%ED%96%84%EB%B2%84%EA%B1%B0)_2.jpg">
-                            <div class="pb_store_popular_product_text">
-                                <div class="pb_store_popular_product_title">
-                                    <p>쉑쉑버거</p>
-                                </div>
-                                <div class="pb_store_popular_product_price">
-                                    <p>7,900</p>
-                                </div>
-                                <div class="pb_store_popular_product_rating">
-                                    <span id="pb_store_popular_product_rating_star">★</span>
-                                    <span>4.3</span>        
-                                </div>
-                            </div>
-                        </a>
- -->
-
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
