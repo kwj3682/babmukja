@@ -38,17 +38,36 @@ button:focus{
     align-content: center;
     height : 35px;
 }
-#member-search-input > div> select{
+.search {
     width: 150px;
     height: 35px;
     font-size: 15px;
     font-weight: bold;
 }
-#member-search-input > div> input{
+.search_form_input {
     height: 30px;
     font-size : 15px;
     width: 500px;
 }
+
+#detail_button{
+    font-size: 30px;
+    color: white;
+    height: 36px;
+    width: 36px;
+    margin-left : 15px;
+    border-radius: 18px;
+    background: #7db341;
+    border: 0;
+    transition: .3s;
+}
+#detail_button:focus {
+	outline: none;
+}
+#detail_button:hover{
+    background:tomato;
+}
+
 #member-search-button{
     font-size: 15px;
     display: flex;
@@ -67,21 +86,9 @@ button:focus{
     color: white;
     font-weight: bolder;
 }
-#detail{
-    font-size: 30px;
-    color: white;
-    height: 36px;
-    width: 36px;
-    margin-left : 15px;
-    border-radius: 18px;
-    background: #7db341;
-    border: 0;
-    transition: .3s;
-}
-#detail:hover{
-    background:tomato;
-}
+
 #detail-search{
+	display: none;
     padding: 10px;
     border-top: 1px solid gray;
     border-left : 1px solid gray;
