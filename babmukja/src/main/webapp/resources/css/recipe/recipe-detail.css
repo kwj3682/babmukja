@@ -253,4 +253,5 @@
     color: gray;
 }
 #post-body{
+	position: relative;
 }
