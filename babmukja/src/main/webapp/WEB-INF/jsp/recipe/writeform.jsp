@@ -196,7 +196,6 @@
 						data: {content : content,
 								 title : title},
 						success:function(result){
-							location.href="<c:url value="/recipe/main.do"/>";
 						}
             	});
                 console.log("Article data : ", outputData);

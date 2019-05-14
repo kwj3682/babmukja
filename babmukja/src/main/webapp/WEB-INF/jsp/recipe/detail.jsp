@@ -42,7 +42,9 @@
 
             <div id="hiddenValue" style="display:none">${recipe.content}</div>
             <!-- post-body start -->
+            <div id="cover"></div>
             <div id="post-body"></div>
+            
             <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
             <div id="comment-body"><!-- comment-body start -->
@@ -229,7 +231,8 @@
                 }
             }
         });
-        $("div").attr("contentEditable","false");
+        console.log($(".codex-editor_redactor").width() + " " + $(".codex-editor_redactor").height());
+        
         
     </script>
     
