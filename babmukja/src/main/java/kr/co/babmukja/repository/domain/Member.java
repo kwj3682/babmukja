@@ -30,6 +30,58 @@ public class Member {
    private String gradeName;
    private int totalBuy;
    private int totalSel;
+   private int orderNo;
+   private int sellMemNo;
+   private int buyMemNo;
+   private int totCount;
+   private char get;
+   private int orderSum;
+   private String deliveryNo;
+   
+   
+   
+public int getOrderNo() {
+	return orderNo;
+}
+public void setOrderNo(int orderNo) {
+	this.orderNo = orderNo;
+}
+public int getSellMemNo() {
+	return sellMemNo;
+}
+public void setSellMemNo(int sellMemNo) {
+	this.sellMemNo = sellMemNo;
+}
+public int getBuyMemNo() {
+	return buyMemNo;
+}
+public void setBuyMemNo(int buyMemNo) {
+	this.buyMemNo = buyMemNo;
+}
+public int getTotCount() {
+	return totCount;
+}
+public void setTotCount(int totCount) {
+	this.totCount = totCount;
+}
+public char getGet() {
+	return get;
+}
+public void setGet(char get) {
+	this.get = get;
+}
+public int getOrderSum() {
+	return orderSum;
+}
+public void setOrderSum(int orderSum) {
+	this.orderSum = orderSum;
+}
+public String getDeliveryNo() {
+	return deliveryNo;
+}
+public void setDeliveryNo(String deliveryNo) {
+	this.deliveryNo = deliveryNo;
+}
 public int getMemNo() {
 	return memNo;
 }

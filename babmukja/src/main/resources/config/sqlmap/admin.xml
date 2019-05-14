@@ -8,7 +8,6 @@
 		<result column="mem_name" property="memName" />
 		<result column="mem_phone" property="memPhone" />
 		<result column="mem_email" property="memEmail" />
-		<result column="mem_id" property="memId" />
 		<result column="mem_nickname" property="memNickname" />
 		<result column="mem_pass" property="memPass" />
 		<result column="post_no" property="postNo" />
@@ -23,32 +22,96 @@
 		<result column="point" property="point" />
 		<result column="grade_no" property="gradeNo" />
 		<result column="gradename" property="gradeName" />		
-		<result column="hint_no" property="hintNo" />
-		<result column="hint_answer" property="hintAnswer" />
 		<result column="img_path" property="imgPath" />
 		<result column="recipe_cnt" property="recipeCnt" />
 		<result column="selling_cnt" property="sellingCnt" />		
 		<result column="totalBuy" property="totalBuy" />
 		<result column="totalSel" property="totalSel" />		
+		<result column="order_no" property="orderNo" />		
+		<result column="sell_mem_no" property="sellMemNo" />		
+		<result column="but_mem_no" property="buyMemNo" />		
+		<result column="tot_count" property="totCount" />		
+		<result column="get_" property="get" />		
+		<result column="order_sum" property="orderSum" />		
+		<result column="delivery_no" property="deliveryNo" />		
 	</resultMap>	
 
+	<sql id="searchWhere">
+		<choose>
+           <when test="searchType == 'memName'">
+               and mem_name like concat('%', #{input}, '%')
+            </when>
+            <when test="searchType == 'memId'">
+               and mem_id like concat('%', #{input}, '%')
+            </when>
+            <when test="searchType == 'memNickname'">
+               and mem_nickname like concat('%', #{input}, '%')
+            </when>
+            <when test="searchType == 'memEmail'">
+               and mem_email like concat('%', #{input}, '%')
+            </when>
+            <otherwise></otherwise>
+         </choose>
+      	      <if test="signDate1 != null and signDate1 != ''">
+		     <![CDATA[
+	           and sign_date >= STR_TO_DATE(#{signDate1}, '%Y-%m-%d') + interval -1 day
+			   and sign_date <= STR_TO_DATE(#{signDate2},'%Y-%m-%d') + interval 1 day
+			 ]]>            	
+         	</if>
+            <if test="lastDate1 != null and lastDate1 != ''">
+		     <![CDATA[
+	           and last_date >= STR_TO_DATE(#{lastDate1}, '%Y-%m-%d %H:%i:%s') + interval -1 day
+			   and last_date <= STR_TO_DATE(#{lastDate2},'%Y-%m-%d %H:%i:%s') + interval +1 day
+			 ]]>            	
+         	</if> 
+      	      <if test="totalBuy1 != null and totalBuy1 != '' ">
+		     <![CDATA[
+	           and totalBuy >= #{totalBuy1}
+			   and totalBuy <= #{totalBuy2}
+			 ]]>            	
+         	</if>
+      	      <if test="totalSel1 != null and totalSel1 != '' ">
+		     <![CDATA[
+	           and totalSel >= #{totalSel1}
+			   and totalSel <= #{totalSel2}
+			 ]]>            	
+         	</if>
+	</sql>
+	
     <!-- 회원 전체목록 페이징추가 -->
 	<select id="selectMemberList" parameterType="page" resultMap="MemberMap">		 
-		select @rownum:=@rownum+1 no, m.* , g.gradename, 
-	           (select sum(order_sum) 
-	              from tb_order 
-	             where buy_mem_no = m.mem_no) 'totalBuy',
-	           (select sum(order_sum) 
-	              from tb_order 
-	             where sell_mem_no = m.mem_no) 'totalSel'
-	      from tb_member m, tb_grademap g
-	     where m.grade_no = g.grade_no
+		select m.* , g.gradename
+	      from (select a.*, 	           
+	                   (select sum(order_sum) from tb_order where buy_mem_no = a.mem_no) 'totalBuy',
+	                   (select sum(order_sum) from tb_order where sell_mem_no = a.mem_no) 'totalSel' 
+	              from tb_member a) m, tb_grademap g
+	     where m.grade_no = g.grade_no		     
+         <include refid="searchWhere"/>
+         order by m.mem_no
 	     limit #{begin}, #{end}
 	</select> 
 	
 	<!-- 회원 전체수 -->
-	<select id="selectMemberCount" resultType="int">
+	<select id="selectMemberCount" parameterType="page" resultType="int">
 		select count(*)
-		  from tb_member
+		  from (select a.*, 	           
+	                   (select sum(order_sum) from tb_order where buy_mem_no = a.mem_no) 'totalBuy',
+	                   (select sum(order_sum) from tb_order where sell_mem_no = a.mem_no) 'totalSel' 
+	              from tb_member a) m
+		 where 1=1 
+		 <include refid="searchWhere"/>
+	</select>
+	
+	<!-- 회원 상세조회 -->
+	<select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
+		select m.*, g.gradename
+		  from (select a.*, 	           
+	                   (select sum(order_sum) from tb_order where buy_mem_no = a.mem_no) 'totalBuy',
+	                   (select sum(order_sum) from tb_order where sell_mem_no = a.mem_no) 'totalSel',
+	                   (select * from tb_order where buy_mem_no = a.mem_no) 'buyOrder',
+	                   (select * from tb_order where sell_mem_no = a.mem_no) 'selOrder'
+	              from tb_member a) m, tb_grademap g
+		 where m.grade_no = g.grade_no
+		   and mem_no = #{memNo}
 	</select>
 </mapper>
