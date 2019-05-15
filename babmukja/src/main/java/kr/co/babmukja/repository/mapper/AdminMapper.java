@@ -9,5 +9,5 @@ public interface AdminMapper {
 	public List<Member> selectMemberList(Page page);
 	public int selectMemberCount(Page page);
 	
-	public List<Member> selectMemberByNo(int no);
+	public Member selectMemberByNo(int no);
 }
