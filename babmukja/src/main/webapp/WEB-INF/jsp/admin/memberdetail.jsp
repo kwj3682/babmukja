@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/babmukja/css/adminmemberdetail.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/adminmemberdetail.css"/>">
     <script src="/babmukja/js/jquery-3.2.1.min.js"></script>
     <title>Document</title>
 </head>
@@ -21,41 +22,42 @@
             </div>
             <div id="member-profile">
                 <table>
+                <c:forEach var="d" items="${detail}">
                     <tr>
                         <td>아이디</td>
-                        <td>bitchanmom</td>
+                        <td></td>
                         <td>이름</td>
-                        <td>황빛찬</td>
+                        <td>${d.memName }</td>
                     </tr>
                     <tr>
                         <td>닉네임</td>
-                        <td>빛찬맘9단</td>
+                        <td>${d.memNickname }</td>
                         <td>성별</td>
-                        <td>남</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>회원 가입일</td>
-                        <td>2019-05-01</td>
+                        <td><fmt:formatDate value= "${d.signDate }" pattern="yyyy-MM-dd" /></td>
                         <td>최종 접속일</td>
-                        <td>2019-05-05 15:31:30</td>
+                        <td><fmt:formatDate value= "${d.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td colspan="3">bitchanmom9@naver.com</td>
+                        <td colspan="3">${d.memEmail }</td>
                     </tr>
                     <tr>
                         <td>회원 전화 번호</td>
-                        <td>010-1111-2222</td>
+                        <td>${d.memPhone }</td>
                         <td>우편번호</td>
-                        <td>10348</td>
+                        <td>${d.postNo }</td>
                     </tr>
                     <tr>
                         <td>기본 주소</td>
-                        <td colspan="3">경기도 고양시 일산서구</td>
+                        <td colspan="3">${d.addrDefault }</td>
                     </tr>
                     <tr>
                         <td>상세 주소</td>
-                        <td colspan="3">원일로3(신원아침도시2차), 202-1101</td>
+                        <td colspan="3">${d.addrDetail }</td>
                     </tr>
                     <tr>
                         <td>소셜로그인</td>
@@ -67,30 +69,34 @@
                     </tr>
                     <tr>
                         <td>설정 키워드</td>
-                        <td colspan="3">#주부9단입니다lv9</td>
+                        <td colspan="3"></td>
                     </tr>
                     <tr>
                         <td>보유 포인트</td>
-                        <td>1,252</td>
+                        <td>${d.point }</td>
                         <td>회원 등급</td>
-                        <td>우수회원</td>
+                        <td>${d.gradeName }</td>
                     </tr>
                     <tr>
-                        <td>비밀번호 힌트</td>
-                        <td>졸업한 초등학교 이름은?</td>
-                        <td>힌트 답</td>
-                        <td>상탄 초등학교</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>팔로워</td>
-                        <td>50</td>
+                        <td></td>
                         <td>팔로우</td>
-                        <td>125</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>관리자 여부</td>
-                        <td colspan="3">N</td>
+                        <td colspan="3">                       
+                        <c:if test="${d.managerAt eq '1'.charAt(0) }">Y</c:if>              
+                        <c:if test="${d.managerAt eq '0'.charAt(0) }">N</c:if>
+                        </td>
                     </tr>
+                    </c:forEach>
                 </table>
             </div>
             <div id="member-memo">
@@ -128,13 +134,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
+                            <td>${d.orderNo }</td>
+                            <td>${d.sellMemNo }</td>
+                            <td>${d.buyMemNo }</td>
+                            <td>${d.totCount }</td>
+                            <td>
+	                            <c:if test="${d.get eq '1'.charAt(0) }">Y</c:if>   
+	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
+                            </td>
+                            <td>${d.orderSum }</td>
+                            <td>${d.deliveryNo }</td>
                         </tr>
                     </tbody>
                 

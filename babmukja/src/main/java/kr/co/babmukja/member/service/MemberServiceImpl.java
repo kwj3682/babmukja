@@ -1,12 +1,8 @@
 package kr.co.babmukja.member.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.babmukja.repository.domain.Hint;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.mapper.MemberMapper;
 
@@ -28,16 +24,15 @@ public class MemberServiceImpl implements MemberService {
 		mapper.insertMember(member);
 	}
 	
-	// 힌트 목록
 	@Override
-	public List<Hint> selectHintContent() {
-		return mapper.selectHintContent();
-	}
-
-	@Override
-	// 아이디 중복체크
-	public int selectCheckId(String memId) {
-		return mapper.selectCheckId(memId);
+	// 닉네임 중복체크
+	public int selectCheckNickName(String memNickname) {
+		return mapper.selectCheckNickName(memNickname);
 	}
 	
+	@Override
+	// 이메일 중복체크
+	public int selectCheckEmail(String memEmail) {
+		return mapper.selectCheckEmail(memEmail);
+	}
 }

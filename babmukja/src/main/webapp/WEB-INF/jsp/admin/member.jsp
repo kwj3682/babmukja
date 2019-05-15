@@ -23,17 +23,19 @@
             <div id="member-search">
                 <div id="member-search-header">멤버 조회</div>
                 <div id="member-search-input">
-                    <div>
-                        <select id="search">
-                            <option value="1">이름</option>
-                            <option value="2">아이디</option>
-                            <option value="3">닉네임</option>
-                            <option value="4">이메일</option>
+                    <div>     
+                    <form action="<c:url value='/admin/member.do'/>" method="post" >
+                        <select class="search" name="searchType">
+                            <option value="memName">이름</option>
+                            <option value="memId">아이디</option>
+                            <option value="memNickname">닉네임</option>
+                            <option value="memEmail">이메일</option>
                         </select>
-                        <input type="text">
+                        <input class="search_form_input" name="input" type="text">
                         <div>
-                            <button id="detail">+</button>
+                            <input type="button" id="detail_button" value="+">
                         </div>
+                
                     </div>
                 </div>
                 <div id="detail-search">
@@ -53,64 +55,69 @@
                             </div>
                             <div>
                                 <div>
-                                    <input class="selector"> ~
-                                    <input class="selector">
+                                    <input class="selector" name="signDate1"> ~
+                                    <input class="selector" name="signDate2">
                                 </div>
                                 
                                 <div>
-                                    <input class="selector2"> ~
-                                    <input class="selector2">
+                                    <input class="selector2" name="lastDate1"> ~
+                                    <input class="selector2" name="lastDate2">
                                 </div>
                                 <div>
-                                    <input type="text"> ~
-                                    <input  type="text">
+                                    <input type="text" name="totalBuy1"> ~
+                                    <input type="text" name="totalBuy2">
                                 </div>
                                 <div>
-                                    <input  type="text"> ~
-                                    <input  type="text">
+                                    <input type="text" name="totalSel1"> ~
+                                    <input type="text" name="totalSel2">
                                 </div>
                                 <div>
-                                    <input  type="text"> ~
-                                    <input  type="text">
+                                    <input type="text" name="recipeCnt1"> ~
+                                    <input type="text" name="recipeCnt2">
                                 </div>
                                 <div>
-                                    <input  type="text"> ~
-                                    <input  type="text">
+                                    <input type="text" name="sellingCnt1"> ~
+                                    <input type="text" name="sellingCnt2">
                                 </div>
                                 <div>
-                                    <input  type="text"> ~
-                                    <input  type="text">
+                                    <input type="text" name="point1"> ~
+                                    <input type="text" name="point2">
                                 </div>
                                 <div>
-                                    <select>
-                                        <option>일반회원</option>
-                                        <option>우수회원</option>
-                                        <option>VIP</option>
+                                    <select class="grade" name="gradeType">
+                                        <option value="newMem">신규회원</option>
+                                        <option value="normalMem">일반회원</option>
+                                        <option value="goodMem">우수회원</option>
+                                        <option value="bestMem">VIP</option>
                                     </select>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div id="member-search-button">
                     <button>검색</button>
                 </div>
+               </form>
             </div>
         </div>
 
         <div id="search-output">
-        	<c:if test="${count != 0 }">
-            <div id="search-output-header">검색 결과 ${count}명</div>
-            </c:if>
+        	<c:choose>
+        	<c:when test="${count != 0 }">
+        		<div id="search-output-header">검색 결과 ${count}명</div>
+        	</c:when>
+        	<c:otherwise>
+        		<div id="search-output-header">검색 결과 회원이 존재하지 않습니다.</div>
+        	</c:otherwise>
+    		</c:choose>
             <div>
                 <div id="search-output-list">
                     <table>
                         <thead>
                             <tr>
                                 <th>체크</th>
-                                <th>회원 번호</th>
-                                <th>아이디</th>
+                                <th>회원 번호</th>                                
                                 <th>이메일</th>
                                 <th>닉네임</th>
                                 <th>이름</th>
@@ -128,11 +135,10 @@
                         <c:forEach var="m" items="${list}">
                             <tr>                            
                                 <td><input type="checkbox"></td>
-                                <td>${m.memNo }</td>
-                                <td><a href="#">${m.memId }</a></td>
+                                <td><a href="<c:url value='/admin/memberdetail.do?no=${m.memNo }'/>">${m.memNo }</a></td> 
                                 <td>${m.memEmail }</td>
                                 <td>${m.memNickname }</td>
-                                <td>${m.memName }</td>
+                                <td><a href="<c:url value='/admin/memberdetail.do?no=${m.memNo }'/>">${m.memName }</a></td>
                                 <td><fmt:formatDate value= "${m.signDate }" pattern="yyyy-MM-dd" /></td>
                                 <td><fmt:formatDate value= "${m.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td>${m.totalBuy }</td>
@@ -161,17 +167,12 @@
         </div>
 	</div>
 	
-    <script>
-    	$("#detail").click(function () {
-    		$.ajax({
-    			url : "<c:url value="/admin/detail.do" />",
-    			data : $("#serach").val()    			
-    				
-    		}).done (function (data) {
-    			alert(data)
-    		});
+    <script>    
+   		 $("#detail_button").click(function () { 
+       		$("#detail-search").css(
+            	"display", "block"                
+        	);            
     	});
-    
         $(".selector").flatpickr({
             enableTime: true,
             dateFormat: "Y-m-d",

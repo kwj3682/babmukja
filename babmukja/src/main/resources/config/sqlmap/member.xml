@@ -6,7 +6,6 @@
 		<result column="mem_name" property="memName" />
 		<result column="mem_phone" property="memPhone" />
 		<result column="mem_email" property="memEmail" />
-		<result column="mem_id" property="memId" />
 		<result column="mem_nickname" property="memNickname" />
 		<result column="mem_pass" property="memPass" />
 		<result column="post_no" property="postNo" />
@@ -20,54 +19,45 @@
 		<result column="social_at" property="socialAt" />
 		<result column="point" property="point" />
 		<result column="grade_no" property="gradeNo" />
-		<result column="hint_no" property="hintNo" />
-		<result column="hint_answer" property="hintAnswer" />
 		<result column="img_path" property="imgPath" />
 		<result column="recipe_Cnt" property="recipeCnt" />
 		<result column="selling_Cnt" property="sellingCnt" />
+		<result column="total_buy" property="totalBuy" />
+		<result column="total_sel" property="totalSel" />
 	</resultMap>
 
-	<!-- 로그인 -->
+	<!-- 로그인 (암호화 적용) -->
 	<select id="selectLogin" parameterType="member" resultMap="memberMap">
 		select *
 		from tb_member
-		where mem_id = #{memId}
-		and mem_pass = #{memPass}
+		where mem_email = #{memEmail}
 	</select>
 
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="member">
-		insert into tb_member(
-		mem_name, mem_email, mem_phone, mem_id, mem_nickname,
-		mem_pass,
-		post_no, addr_default, addr_detail, hint_no, hint_answer, manager_at,
-		social_at
+		insert into tb_member (
+		mem_name, mem_email, mem_phone, mem_nickname, mem_pass,
+		post_no, addr_default, addr_detail, manager_at, social_at 
 		)
-		values(
-		#{memName}, #{memEmail}, #{memPhone}, #{memId},
-		#{memNickname},
-		#{memPass}, #{postNo}, #{addrDefault}, #{addrDetail},
-		#{hintNo}, #{hintAnswer}, 0, 0
+		values (
+		#{memName}, #{memEmail}, #{memPhone}, #{memNickname}, #{memPass},
+		#{postNo}, #{addrDefault}, #{addrDetail}, 0 , 0
 		)
 	</insert>
 
-	<!-- 아이디 중복체크 -->
-	<select id="selectCheckId" parameterType="String" resultType="int">
+	<!-- 닉네임 중복체크 -->
+	<select id="selectCheckNickName" parameterType="String" resultType="int">
 		select count(*)
-		  from tb_member
-		 where mem_id = #{memId}
+		from tb_member
+		where mem_nickname = #{memNickname}
+	</select>
+	
+	<!-- 이메일 중복체크 -->
+	<select id="selectCheckEmail" parameterType="String" resultType="int">
+		select count(*)
+		from tb_member
+		where mem_email = #{memEmail}
 	</select>
 
-	<!-- 힌트 -->
-	<resultMap id="hintMap" type="hint">
-		<result column="hint_no" property="hintNo" />
-		<result column="hint_content" property="hintContent" />
-	</resultMap>
-
-	<!-- 힌트 목록 가져오기 -->
-	<select id="selectHintContent" resultMap="hintMap">
-		select *
-		from tb_hint
-	</select>
 
 </mapper>

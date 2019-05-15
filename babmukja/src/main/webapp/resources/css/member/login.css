@@ -2,6 +2,7 @@
   width: 1200px;
   margin: 0 auto;
   text-align: center;
+  margin-top : 100px;
 }
 .login__logo a {
   font-size: 30px;
@@ -21,7 +22,9 @@
   border : 1px solid rgba(0,0,0,0.1);
   border-radius: 5px;
 }
-
+#email{
+	margin-bottom:15px;
+}
 .login__input input[name='id']{
   margin-bottom: 5px;
 }

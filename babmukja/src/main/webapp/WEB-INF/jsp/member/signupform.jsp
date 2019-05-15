@@ -17,11 +17,7 @@
 <link
 	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
 	rel="stylesheet" />
-<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script> --%>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
 	<main>
@@ -62,37 +58,35 @@
 						<input type="text" name="memName" id="memName">
 					</div>
 				</div>
-
+ 
 				<div class="signUp-email">
 					<span>이메일</span>
 					<div class="email-input">
-						<input type="text" name="memEmail" id="memEmail">
+						<input type="text" placeholder="ex) babmukja@gmail.com" name="memEmail" id="memEmail"><button type="button" class="email-check-button">중복체크</button>
+						<input type="hidden" id="hEmail" value="0" />
+					</div>
+					
+					<div class="email-result">
+						<span class="email-check"></span>
 					</div>
 				</div>
 
 				<div class="signUp-phone">
 					전화번호
 					<div class="phone-input">
-						<input type="text" name="memPhone" id="memPhone">
+						<input type="text" placeholder="ex) 010-1111-1111" name="memPhone" id="memPhone">
 					</div>
-				</div>
-
-				<div class="signUp-id">
-					아이디
-					<div class="id-input">
-						<div class="id-content">영어, 숫자만 4자리 이상 입력해주세요.</div>
-						<input type="text" name="memId" id="memId"><button type="button" class="id-check-button">중복체크</button>
-						<div class="id-result">
-							<span class="id-check">아이디</span>
-						</div>
-					</div>
-
 				</div>
 
 				<div class="signUp-nickName">
-					별명
+					닉네임
 					<div class="nickname-input">
-						<input type="text" name="memNickname" id="memNickname"> 
+						<input type="text" name="memNickname" id="memNickname"><button type="button" class="Nickname-check-button">중복체크</button>
+						<input type="hidden" id="hNickname" value="0" />
+					</div>
+					
+					<div class="nickName-result">
+						<span class="nickName-check"></span>
 					</div>
 				</div>
 
@@ -102,7 +96,6 @@
 						<div class="pass-content">영어, 숫자 특수문자 합쳐서 8자리 이상 입력해주세요.</div>
 						<input type="password" name="memPass" id="memPass">
 					</div>
-
 				</div>
 
 				<div class="signUp-checkePass">
@@ -115,7 +108,7 @@
 				<div class="signUp-post">
 					우편번호
 					<div class="post-input">
-						<input type="text" name="postNo" readonly="readonly"><button type="button" onclick="goPopup();">우편번호 검색</button>
+						<input type="text" name="postNo"  id="postNo" readonly="readonly"><button type="button" onclick="goPopup();">우편번호 검색</button>
 					</div>
 				</div>
 
@@ -124,25 +117,12 @@
 				</div>
 
 				<div class="detaile-addr">
-					상세주소<input type="text" name="addrDetail">
-				</div>
-
-				<div class="pass-hint">
-					<div class="hint-input">비밀번호 힌트</div>
-					<select name="hint-contetnt">
-						<c:forEach var="hint" items="${hintlist}">
-							<option value="hint1" name="hintNo">${hint.hintContent}</option>
-						</c:forEach>
-					</select>
-				</div>
-
-				<div class="pass-answer">
-					<input type="text" name="hintAnswer">
+					상세주소<input type="text"  id="addrDetail" name="addrDetail">
 				</div>
 			</div>
 
 			<div class="signUp__button">
-				<button>회원가입 하기</button>
+				<button id="signUp-button">회원가입 하기</button>
 			</div>
 		</form>
 
@@ -170,28 +150,62 @@
 			$("#signupform input[name='addrDetail']").val(addrDetail);
 		}
 
-		// 아이디 중복체크 
-		// 아이디 중복일 경우 = 0, 중복이 아닌 경우 = 1
-		$(".id-check-button").click(function() {
+		// 닉네임 중복체크 
+		// 닉네임 중복일 경우 = 0, 중복이 아닌 경우 = 1
+		let nick = 0;
+		$(".Nickname-check-button").click(function() {
 			console.log("클릭 이벤트 실행됨");
-			let memId = $("#memId").val();
-			console.log(memId);
+			let nickName = $("#memNickname").val();
+			console.log(nickName);
 			$.ajax({
 				type:'POST',
-				data: "memId",
-				url: 'checkid.do',
+				data: "memNickname="+nickName,
+				url: 'checknickname.do',
 				dataType: "json",
 				success: function(data) {
-					alert(data.cnt);
-					if(data.cnt == 0) {
-						$(".id-result .id-check").text("사용이 불가능한 아이디 입니다.");
-						$(".id-result .id-check").attr("style", "color:red;");
-						$("#memId").focus();
+					// alert(data.cnt);
+					console.log(data);
+					if(data != 0 || (nickName === "")) {
+						$(".nickName-result .nickName-check").text("사용이 불가능한 닉네임 입니다.");
+						$(".nickName-result .nickName-check").attr("style", "color:red;");
+						$("#memNickname").focus();
+						$("#hNickname").val(1);
 					} else {
-						$(".id-result .id-check").text("사용 가능한 아이디 입니다.");
-						$(".id-result .id-check").attr("style", "color:blue;");
-						$("#memId").focus();
-						idck = 1;// 아이디가 중복하지 않을 경우  
+						$(".nickName-result .nickName-check").text("사용 가능한 닉네임 입니다.");
+						$(".nickName-result .nickName-check").attr("style", "color:blue;");
+						$("#memNickname").focus();
+						$("#hNickname").val(2);
+						nick = 1;
+					}
+				}
+			});
+		});
+		
+		// 이메일 중복검사
+		let em = 0;
+		$(".email-check-button").click(function() {
+			console.log("클릭 이벤트 실행됨");
+			let email = $("#memEmail").val();
+			console.log(email);
+			$.ajax({
+				type:'POST',
+				data: "memEmail="+email,
+				url: 'checkemail.do',
+				dataType: "json",
+				success: function(data) {
+					// alert(data.cnt);
+					console.log(data);
+					if(data != 0 || (email === "")) {
+						$(".email-result .email-check").text("사용 불가능한 이메일 입니다.");
+						$(".email-result .email-check").attr("style", "color:red;");
+						$("#memEmail").focus();
+						$("#hEmail").val(1);
+					} else {
+						$(".email-result .email-check").text("사용 가능한 이메일 입니다.");
+						$(".email-result .email-check").attr("style", "color:blue;");
+						$("#memEmail").focus();
+						$("#hEmail").val(2);
+						em = 1;
 					}
 				}
 			});
@@ -199,17 +213,20 @@
 		
 		// 각 항목 조건에 맞는지 확인 
 		function doSignUp() {
-			var memName = $("#memName").val();
-		    var memEmail = $("#memEmail").val();
-		    var memPhone = $("#memPhone").val();
-		    var memId = $("#memId").val();
-		    var memNickname = $("#memNickname").val();
-		    var memPass = $("#memPass").val();
-		    var checkePass = $("#checkePass").val();
+		    let memName = $("#memName").val();
+		    let memEmail = $("#memEmail").val();
+		    let memPhone = $("#memPhone").val();
+		    let memNickname = $("#memNickname").val();
+		    let memPass = $("#memPass").val();
+		    let checkePass = $("#checkePass").val();
+		    let postNo = $("#postNo").val();
+		    let hEmail = $("#hEmail").val();
+		    let hNickname = $("#hNickname").val();
 		    
 		    if(memName.length == 0){
-		        alert("아이디를 입력해 주세요."); 
-		        $("#userid").focus();
+		        alert("이름을 입력해 주세요."); 
+		        
+		        $("#memName").focus();
 		        return false;
 		    }
 		    if(memEmail.length == 0){
@@ -217,18 +234,23 @@
 		        $("#memEmail").focus();
 		        return false;
 		    }
+		    if(checkEmail() == false){
+		        alert("이메일 형식에 맞게 입력해 주세요."); 
+		        $("#memEmail").focus();
+		        return false; 
+		    }
 		    if(memPhone.length == 0){
 		        alert("전화번호를 입력해 주세요."); 
 		        $("#memPhone").focus();
 		        return false;
 		    }
-		    if(memId.length == 0){
-		        alert("아이디를 입력해 주세요."); 
-		        $("#memId").focus();
+		    if(isCellPhone() == false){
+		        alert("'-'을 사용해서 전화번호를 입력해주세요."); 
+		        $("#memPhone").focus();
 		        return false;
 		    }
 		    if(memNickname.length == 0){
-		        alert("별명을 입력해 주세요."); 
+		        alert("닉네임을 입력해 주세요."); 
 		        $("#memNickname").focus();
 		        return false;
 		    }
@@ -237,15 +259,101 @@
 		        $("#memPass").focus();
 		        return false;
 		    }
+		    if(checkPassword(memPass) == false){
+		    	alert("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
+		        $("#memPass").focus();
+		        return false; 
+		    }
+		    if(checkePass.length == 0){
+		        alert("비밀번호를 확인해 주세요."); 
+		        $("#checkePass").focus();
+		        return false;
+		    }
 		    if(memPass != checkePass){
 		        alert("비밀번호가 서로 다릅니다. 비밀번호를 확인해 주세요."); 
 		        $("#checkePass").focus();
 		        return false; 
 		    }
+		    if(postNo.length == 0){
+		        alert("우편번호를 입력해 주세요."); 
+		        $("#postNo").focus();
+		        return false; 
+		    }
+		    if(hintNo.length == 0){
+		        alert("힌트를 선택해 주세요."); 
+		        $("#hintNo").focus();
+		        return false; 
+		    }
+		    if(hintAnswer.length == 0){
+		        alert("힌트 답변을 입력해 주세요."); 
+		        $("#hintAnswer").focus();
+		        return false; 
+		    }
+		    if(hEmail === '0'){
+		    	alert("이메일 중복체크를 해주세요.");
+		    	return false;
+		    }
+		    if(hEmail === '1'){
+		    	alert("사용 불가능한 이메일 입니다.");
+		    	return false;
+		    }
+		    if(hNickname === '0'){
+		    	alert("닉네임 중복체크를 해주세요.");
+		    	return false;
+		    }
+		    if(hNickname === '1'){
+		    	alert("사용 불가능한 닉네임 입니다.");
+		    	return false;
+		    }
 		    
-		   
+		    
 		}
 		
+		// passWord 정규 표현식
+		function checkPassword(password){
+		    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+		        $('#pass').val('').focus();
+		        return false;
+		    }    
+		    var checkNumber = password.search(/[0-9]/g);
+		    var checkEnglish = password.search(/[a-z]/ig);
+		    if(checkNumber <0 || checkEnglish <0){
+		        alert("숫자와 영문자를 혼용하여야 합니다.");
+		        $('#pass').val('').focus();
+		        return false;
+		    }
+		    if(/(\w)\1\1\1/.test(password)){
+		        alert("같은 문자를 4번 이상 사용하실 수 없습니다.");
+		        $('#pass').val('').focus();
+		        return false;
+		    }
+		    return true;
+		}
+		
+		//2가지 휴대전화 표현중에 하나만 택하기 
+		function isCellPhone() {
+			const phonenum = $("#memPhone").val();
+			const regPhone = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
+			if(!regPhone.test(phonenum)){
+				$("#memPhone").focus();
+				return false;    
+			}
+			return true;
+		}
+		
+		// email 정규 표현식
+		function checkEmail(){
+			  const emailVal = $("#memEmail").val();
+			  $("#memEmail").focus();
+			  console.log(emailVal);
+			  const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			  // 검증에 사용할 정규식 변수 regExp에 저장
+			  console.log(emailVal.match(regExp));
+			  if (emailVal.match(regExp) == null) {
+			    return false;
+			  }
+			  return true;
+		};
 	</script>
 </body>
 </html>

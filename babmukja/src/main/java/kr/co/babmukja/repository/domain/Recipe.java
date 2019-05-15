@@ -13,15 +13,13 @@ public class Recipe {
 	private String content;
 	private Date regDate;
 	private int rating;
-	private int groupNo;
+	private int viewCnt;
 	
-	
-	
-	public int getGroupNo() {
-		return groupNo;
+	public int getViewCnt() {
+		return viewCnt;
 	}
-	public void setGroupNo(int groupNo) {
-		this.groupNo = groupNo;
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
 	}
 	public int getMemNo() {
 		return memNo;
