@@ -1,7 +1,6 @@
 package kr.co.babmukja.admin.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectMemberCount(page);
 	}
 	
-	public List<Member> selectMemberByNo(int no) {
+	public Member selectMemberByNo(int no) {
 		return mapper.selectMemberByNo(no);
 		
 	}

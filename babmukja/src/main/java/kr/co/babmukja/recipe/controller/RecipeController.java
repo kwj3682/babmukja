@@ -118,8 +118,12 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("/detail.do")
-	public void detail(Model model) {
-		
-		model.addAttribute("recipe", service.selectRecipeByNo(31));
+	public void detail(Model model, int no) {		
+		model.addAttribute("recipe", service.selectRecipeByNo(no));
+	}
+	
+	@RequestMapping("/updateform.do")
+	public void updateForm(int no, Model model) {
+		model.addAttribute(service.updateForm(no));
 	}
 }
