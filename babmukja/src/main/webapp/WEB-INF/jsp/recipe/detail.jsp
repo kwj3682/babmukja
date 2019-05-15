@@ -25,6 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Document</title>
 </head>
 <body onload="myTimeWait()">
@@ -138,7 +139,8 @@
                     </div><!-- writer-post end -->
 
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
-                
+                	<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정하기</a>
+                	<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제하기</a>
                 </div><!-- writer-info end -->
                 
                 <div id="share-button">
@@ -152,6 +154,23 @@
     </div> <!-- 전체 body end -->
     <script>
         const value = $("#hiddenValue").text();
+    	$("#delete-button").click(function () {
+    		swal({
+    			  title: "삭제하시겠습니까?",    			  
+    			  icon: "warning",
+    			  buttons: true,
+    			  dangerMode: true,
+    			})
+    			.then((willDelete) => {
+    			  if (willDelete) {
+    			    swal("삭제되었습니다.", {
+    			      icon: "success",
+    			    });
+    			  } else {
+    			   
+    			  }
+    			});
+    	});
         $(document).ready(function() {
             $("#comment-input").keyup(function (e){
             $(this).css('height', 'auto' ).height( this.scrollHeight );

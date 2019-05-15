@@ -45,8 +45,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/memberdetail.do")	
-	public void detail(int no, Model model) {
-		model.addAttribute("detail", service.selectMemberByNo(no));
+	public void detail(int no, Model model) {	
+		model.addAttribute("d", service.selectMemberByNo(no));
+		
 	}
 	
 }

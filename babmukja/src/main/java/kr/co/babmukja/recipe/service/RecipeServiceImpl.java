@@ -1,4 +1,4 @@
-package kr.co.babmukja.recipe.service;
+ package kr.co.babmukja.recipe.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,16 @@ public class RecipeServiceImpl implements RecipeService {
 	public Recipe selectRecipeByNo(int no) {
 		return mapper.selectRecipeByNo(no);
 	}
-
+	
+	public Recipe updateForm(int no) {		
+		return mapper.selectRecipeByNo(no);
+	}
+	public void updateRecipe(Recipe recipe) {
+		mapper.updateRecipe(recipe);
+	}
+	public void deleteRecipe(int no) {
+		mapper.deleteRecipe(no);
+	}
 	
 }
 

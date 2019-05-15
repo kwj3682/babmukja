@@ -21,8 +21,7 @@
                 <div><b>5012.</b>bitchanmom</div>
             </div>
             <div id="member-profile">
-                <table>
-                <c:forEach var="d" items="${detail}">
+                <table>                
                     <tr>
                         <td>아이디</td>
                         <td></td>
@@ -95,12 +94,12 @@
                         <c:if test="${d.managerAt eq '1'.charAt(0) }">Y</c:if>              
                         <c:if test="${d.managerAt eq '0'.charAt(0) }">N</c:if>
                         </td>
-                    </tr>
-                    </c:forEach>
+                    </tr>                                      
                 </table>
             </div>
             <div id="member-memo">
                 <div>
+                
                     <div>memo1</div>
                     <div>레시피를 많이 올렸음. 1대1 상담 많이 올림ㅡ,.ㅡ </div>
                 </div>
@@ -133,8 +132,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>${d.orderNo }</td>
+                        <tr>                        
+                   <%--          <td>${d.orderNo }</td>
                             <td>${d.sellMemNo }</td>
                             <td>${d.buyMemNo }</td>
                             <td>${d.totCount }</td>
@@ -143,10 +142,9 @@
 	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
                             </td>
                             <td>${d.orderSum }</td>
-                            <td>${d.deliveryNo }</td>
+                            <td>${d.deliveryNo }</td> --%>
                         </tr>
-                    </tbody>
-                
+                    </tbody>               
                 </table>
             </div>
             
@@ -168,16 +166,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
+                    <%--        <td>${d.orderNo }</td>
+                            <td>${d.sellMemNo }</td>
+                            <td>${d.buyMemNo }</td>
+                            <td>${d.totCount }</td>
+                            <td>
+	                            <c:if test="${d.get eq '1'.charAt(0) }">Y</c:if>   
+	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
+                            </td>
+                            <td>${d.orderSum }</td>
+                            <td>${d.deliveryNo }</td> --%>
                         </tr>
-                    </tbody>
-                
+                    </tbody>                                                     
                 </table>
             </div>
 
@@ -202,13 +202,15 @@
                             <td>15</td>
                             <td>15</td>
                             <td>15</td>
-                        </tr>
+                        </tr>	                
                     </tbody>
-                
                 </table>
             </div>
         </div>
     </div>
+    <script>
+    	
+    </script>
 </body>
 </html>
 

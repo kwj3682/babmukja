@@ -1,11 +1,8 @@
 package kr.co.babmukja.store.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
 
@@ -14,7 +11,9 @@ public class StorePBServiceImpl implements StorePBService{
 
 	@Autowired
 	private StorePBMapper mapper;
-	
+
+	/*
+	 *   editor 이전
 	public List<StorePB> selectPBList() {
 		return mapper.selectPBList();
 	}
@@ -49,4 +48,14 @@ public class StorePBServiceImpl implements StorePBService{
 	public void deletePBByNo(int pbNo) {
 		mapper.deletePBByNo(pbNo);
 	}
+	*/
+
+	public StorePB selectPBStoreByNo(int no) {
+		return mapper.selectPBStoreByNo(no);
+	}
+	
+	public void insertPBStore(StorePB storepb) {
+		mapper.insertPBStore(storepb);
+	}
+	
 }
