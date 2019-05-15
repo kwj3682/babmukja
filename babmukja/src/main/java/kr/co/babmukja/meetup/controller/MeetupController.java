@@ -1,11 +1,16 @@
 package kr.co.babmukja.meetup.controller;
 
+import java.io.File;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+
 
 import kr.co.babmukja.meetup.service.MeetupService;
 
@@ -25,6 +30,21 @@ public class MeetupController {
 		model.addAttribute("intro",service.selectIntro());
 		
 	}
+	@RequestMapping("/saveFile.do")
+	@ResponseBody
+	public void saveFile(String data1, MultipartFile data){
+//		service.selectIntro();
+		System.out.println("data 들어왔음" +data);
+		System.out.println("data1 들어왔음 :" +data1);
+	//	System.out.println("파일이름: " +data.getOriginalFilename());
+	//	System.out.println("파일크기: " +data.getSize());
+		
+		
+			
+				
+		
+	
+	}
 	
 	@RequestMapping("/main.do")
 	public void meetupMain(){
@@ -41,11 +61,12 @@ public class MeetupController {
 	
 	@RequestMapping("/updateIntro.do")
 	@ResponseBody
-	public String updateIntro(String data){
+	public String updateIntro(){
 		System.out.println("들어왔음");
 
-		service.updateIntro(data);
-		return data;
+		//service.updateIntro(data);
+		return null;
+		//return data;
 	}
 	
 
