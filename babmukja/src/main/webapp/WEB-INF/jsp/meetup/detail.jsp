@@ -534,7 +534,7 @@
                    console.log("file"+file);
                    console.log(data);
                    $.ajax({ // ajax를 통해 파일 업로드 처리
-                       data :"data"=data,
+                       data :"data="data,
                        type:'POST',
                        enctype: 'multipart/form-data',
                    	  url: '/babmukja/meetup/saveFile.do',
