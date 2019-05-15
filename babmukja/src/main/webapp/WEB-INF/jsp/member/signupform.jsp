@@ -17,11 +17,7 @@
 <link
 	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
 	rel="stylesheet" />
-<%-- <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script> --%>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
 	<main>
@@ -62,11 +58,16 @@
 						<input type="text" name="memName" id="memName">
 					</div>
 				</div>
-
+ 
 				<div class="signUp-email">
 					<span>이메일</span>
 					<div class="email-input">
-						<input type="text" placeholder="ex) babmukja@gmail.com" name="memEmail" id="memEmail"><button type="button" class="eamil-check-button">이메일 인증</button>
+						<input type="text" placeholder="ex) babmukja@gmail.com" name="memEmail" id="memEmail"><button type="button" class="email-check-button">중복체크</button>
+						<input type="hidden" id="hEmail" value="0" />
+					</div>
+					
+					<div class="email-result">
+						<span class="email-check"></span>
 					</div>
 				</div>
 
@@ -80,7 +81,8 @@
 				<div class="signUp-nickName">
 					닉네임
 					<div class="nickname-input">
-						<input type="text" name="memNickname" id="memNickname"><button type="button" class="Nickname-check-button">중복체크</button> 
+						<input type="text" name="memNickname" id="memNickname"><button type="button" class="Nickname-check-button">중복체크</button>
+						<input type="hidden" id="hNickname" value="0" />
 					</div>
 					
 					<div class="nickName-result">
@@ -150,7 +152,7 @@
 
 		// 닉네임 중복체크 
 		// 닉네임 중복일 경우 = 0, 중복이 아닌 경우 = 1
-		var nick = 0;
+		let nick = 0;
 		$(".Nickname-check-button").click(function() {
 			console.log("클릭 이벤트 실행됨");
 			let nickName = $("#memNickname").val();
@@ -163,15 +165,47 @@
 				success: function(data) {
 					// alert(data.cnt);
 					console.log(data);
-					if(data != 0) {
+					if(data != 0 || (nickName === "")) {
 						$(".nickName-result .nickName-check").text("사용이 불가능한 닉네임 입니다.");
 						$(".nickName-result .nickName-check").attr("style", "color:red;");
 						$("#memNickname").focus();
+						$("#hNickname").val(1);
 					} else {
 						$(".nickName-result .nickName-check").text("사용 가능한 닉네임 입니다.");
 						$(".nickName-result .nickName-check").attr("style", "color:blue;");
 						$("#memNickname").focus();
+						$("#hNickname").val(2);
 						nick = 1;
+					}
+				}
+			});
+		});
+		
+		// 이메일 중복검사
+		let em = 0;
+		$(".email-check-button").click(function() {
+			console.log("클릭 이벤트 실행됨");
+			let email = $("#memEmail").val();
+			console.log(email);
+			$.ajax({
+				type:'POST',
+				data: "memEmail="+email,
+				url: 'checkemail.do',
+				dataType: "json",
+				success: function(data) {
+					// alert(data.cnt);
+					console.log(data);
+					if(data != 0 || (email === "")) {
+						$(".email-result .email-check").text("사용 불가능한 이메일 입니다.");
+						$(".email-result .email-check").attr("style", "color:red;");
+						$("#memEmail").focus();
+						$("#hEmail").val(1);
+					} else {
+						$(".email-result .email-check").text("사용 가능한 이메일 입니다.");
+						$(".email-result .email-check").attr("style", "color:blue;");
+						$("#memEmail").focus();
+						$("#hEmail").val(2);
+						em = 1;
 					}
 				}
 			});
@@ -179,17 +213,19 @@
 		
 		// 각 항목 조건에 맞는지 확인 
 		function doSignUp() {
-		    var memName = $("#memName").val();
-		    var memEmail = $("#memEmail").val();
-		    var memPhone = $("#memPhone").val();
-		    var memNickname = $("#memNickname").val();
-		    var memPass = $("#memPass").val();
-		    var checkePass = $("#checkePass").val();
-		    var postNo = $("#postNo").val();
-		    var addrDetail = $("#addrDetail").val();
+		    let memName = $("#memName").val();
+		    let memEmail = $("#memEmail").val();
+		    let memPhone = $("#memPhone").val();
+		    let memNickname = $("#memNickname").val();
+		    let memPass = $("#memPass").val();
+		    let checkePass = $("#checkePass").val();
+		    let postNo = $("#postNo").val();
+		    let hEmail = $("#hEmail").val();
+		    let hNickname = $("#hNickname").val();
 		    
 		    if(memName.length == 0){
 		        alert("이름을 입력해 주세요."); 
+		        
 		        $("#memName").focus();
 		        return false;
 		    }
@@ -243,11 +279,6 @@
 		        $("#postNo").focus();
 		        return false; 
 		    }
-		    if(addrDetail.length == 0){
-		        alert("상세주소를 입력해 주세요."); 
-		        $("#addrDetail").focus();
-		        return false; 
-		    }
 		    if(hintNo.length == 0){
 		        alert("힌트를 선택해 주세요."); 
 		        $("#hintNo").focus();
@@ -258,6 +289,24 @@
 		        $("#hintAnswer").focus();
 		        return false; 
 		    }
+		    if(hEmail === '0'){
+		    	alert("이메일 중복체크를 해주세요.");
+		    	return false;
+		    }
+		    if(hEmail === '1'){
+		    	alert("사용 불가능한 이메일 입니다.");
+		    	return false;
+		    }
+		    if(hNickname === '0'){
+		    	alert("닉네임 중복체크를 해주세요.");
+		    	return false;
+		    }
+		    if(hNickname === '1'){
+		    	alert("사용 불가능한 닉네임 입니다.");
+		    	return false;
+		    }
+		    
+		    
 		}
 		
 		// passWord 정규 표현식

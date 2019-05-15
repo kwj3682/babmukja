@@ -9,4 +9,6 @@ public interface MemberService {
 	
 	int selectCheckNickName(String memNickname); // 닉네임 중복체크
 	
+	int selectCheckEmail(String memEmail); // 이메일 중복체크
+	
 }

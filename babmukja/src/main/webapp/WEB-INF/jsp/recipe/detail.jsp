@@ -27,7 +27,7 @@
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <title>Document</title>
 </head>
-<body>
+<body onload="myTimeWait()">
 <%--     <input id="hiddenValue" type="text" value="${inputData}"/> --%>
     <div id="body"><!-- 전체 body start -->
         <!---------------------------------------------------------------------------------------->
@@ -42,7 +42,8 @@
 
             <div id="hiddenValue" style="display:none">${recipe.content}</div>
             <!-- post-body start -->
-            <div id="post-body"></div>
+	        <div id="post-body"></div>
+            
             <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
             <div id="comment-body"><!-- comment-body start -->
@@ -113,8 +114,8 @@
 
                 <div id="content-info"><!-- content-info start -->
                     <div id="content-button-wrapper"><!-- content-button-wrapper start -->
-                        <button><i class="fas fa-hand-holding-heart fa-2x"></i> <b>30</b></button>
-                        <button><i class="fas fa-scroll fa-2x"></i> <b>12</b></button>
+                        <button><i class="fas fa-hand-holding-heart"></i> <b>30</b></button>
+                        <button><i class="fas fa-scroll"></i> <b>12</b></button>
                     </div><!-- content-button-wrapper end -->
                 </div><!-- content-info end -->
 
@@ -165,71 +166,46 @@
                 warning: {
                     class: Warning,
                     inlineToolbar: true,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },
      
                 table: {
                     class: Table,
                     inlineToolbar: true,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },                       
                 quote: {
                     class: Quote,
                     inlineToolbar: true,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },
 				image: {
                     class: ImageTool,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },            
 
                 header: {
                     class: Header,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 }, 
                 checklist: {
                     class: Checklist,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },
                 linkTool: {
                     class: LinkTool,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },
                 marker: {
                     class: Marker,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },
                 list: {
                     class: List,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 },
                 embed: {
                     class: Embed,
-                    "withBorder": false,
-                    "withBackground": false,
-                    "stretched": false
                 }
             }
         });
-        $("div").attr("contentEditable","false");
+		
+       function myTimeWait(){
+	   
+    	   	console.log($("#post-body").width() + " " + $("#post-body").height());
+    	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
+       }
         
     </script>
     

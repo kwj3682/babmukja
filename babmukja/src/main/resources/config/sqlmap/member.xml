@@ -26,14 +26,11 @@
 		<result column="total_sel" property="totalSel" />
 	</resultMap>
 
-	<!-- 로그인 -->
-	<select id="selectLogin" parameterType="member"
-		resultMap="memberMap">
+	<!-- 로그인 (암호화 적용) -->
+	<select id="selectLogin" parameterType="member" resultMap="memberMap">
 		select *
 		from tb_member
 		where mem_email = #{memEmail}
-		and
-		mem_pass = #{memPass}
 	</select>
 
 	<!-- 회원가입 -->
@@ -49,11 +46,17 @@
 	</insert>
 
 	<!-- 닉네임 중복체크 -->
-	<select id="selectCheckNickName" parameterType="String"
-		resultType="int">
+	<select id="selectCheckNickName" parameterType="String" resultType="int">
 		select count(*)
 		from tb_member
 		where mem_nickname = #{memNickname}
+	</select>
+	
+	<!-- 이메일 중복체크 -->
+	<select id="selectCheckEmail" parameterType="String" resultType="int">
+		select count(*)
+		from tb_member
+		where mem_email = #{memEmail}
 	</select>
 
 

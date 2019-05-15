@@ -79,11 +79,11 @@
   border-color: #7db341;
   transition: border-color 0.5s ease-in-out;
 }
-.signUp-email input {
+.signUp-nickName input {
   width: 230px;
   height: 30px;
 }
-.signUp-email  button {
+.signUp-nickName  button {
   margin-left: 16px;
   border: none;
   background: none;
@@ -95,11 +95,11 @@
   font-weight: bold;
   font-size: 16px;
 }
-.signUp-nickName input {
+.signUp-email input {
   width: 230px;
   height: 30px;
 }
-.signUp-nickName  button {
+.signUp-email  button {
   margin-left: 16px;
   border: none;
   background: none;
@@ -159,12 +159,6 @@
 .member__login a:hover {
   opacity: 0.7;
 }
-.signUp__button a:hover {
-  background-color: #749e45;
-}
-.signUp-post button:hover {
-  background-color: #749e45;
-}
-.signUp-id button:hover {
+#signupform button:hover {
   background-color: #749e45;
 }
