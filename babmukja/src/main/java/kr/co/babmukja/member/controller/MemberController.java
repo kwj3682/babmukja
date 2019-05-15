@@ -3,6 +3,7 @@ package kr.co.babmukja.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,26 +19,33 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private BCryptPasswordEncoder passEncoder; // 암호화
+	
 	// 로그인 폼
 	@RequestMapping("/loginform.do")
-	public void loginForm() {}
+	public void loginForm() {
+		
+	}
 
 	// 로그인 처리
 	@RequestMapping("/login.do")
 	public String login(Member member,HttpSession session){
-		
+		String pass = passEncoder.encode(member.getMemPass());
 		Member mem = service.selectLogin(member);
 		
-		// session에 올리기 없으면 안올리기, 세션도 받기 
-		if (mem == null) {
+		boolean passMatch = passEncoder.matches(member.getMemPass(), mem.getMemPass());
+		
+		if(mem != null && passMatch) {
+			session.setAttribute("user", mem);
+			System.out.println("성공");
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do?complete=1";
+		} else {
 			System.out.println("실패");
 			return "redirect:loginform.do?fail=1"; 
 			// complete라는 변수를 만들어서 성공했을 때 1을 넘겨주고 화면에 alert창이 보여지지 않게
 			// 1이 넘어오지 않았을 때는 실패 했으니까 화면에 alert창을 보여주게
-		} 
-		System.out.println("성공");
-		session.setAttribute("user", mem);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do?complete=1";
+		}
 	}
 	
 	// 로그아웃 처리
@@ -63,6 +71,11 @@ public class MemberController {
 	public String signUp(Member member) {
 		System.out.println("회원가입 버튼");
 		
+		// 암호화
+		String inputPass = member.getMemPass();
+		String pass = passEncoder.encode(inputPass);
+		member.setMemPass(pass);
+		
 		service.insertMember(member); 
 		
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
@@ -75,5 +88,14 @@ public class MemberController {
 		System.out.println("ajax 들어옴");
 		System.out.println(memNickname);
 		return service.selectCheckNickName(memNickname);
+	}
+	
+	// 닉네임 중복체크
+	@RequestMapping("/checkemail.do")
+	@ResponseBody
+	public int checkEmail(String memEmail) {
+		System.out.println("ajax 들어옴");
+		System.out.println(memEmail);
+		return service.selectCheckEmail(memEmail);
 	}
 }

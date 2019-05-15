@@ -29,4 +29,10 @@ public class MemberServiceImpl implements MemberService {
 	public int selectCheckNickName(String memNickname) {
 		return mapper.selectCheckNickName(memNickname);
 	}
+	
+	@Override
+	// 이메일 중복체크
+	public int selectCheckEmail(String memEmail) {
+		return mapper.selectCheckEmail(memEmail);
+	}
 }
