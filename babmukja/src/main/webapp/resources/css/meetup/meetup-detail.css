@@ -1,20 +1,20 @@
 @charset "UTF-8";
 .header {
 	width: 1200px;
-	height: 400px;
 	margin: 0 auto;
 	text-align: center;
+	margin-top: 100px;
+	
 }
 
 .headerLeft {
 	display: inline-block;
-	border: 1px solid gainsboro;
+	border: 1px solid gray;
 	overflow: hidden;
 	position: relative;
 	width: 560px;
 	height: 400px;
 	margin-right: 60px;
-	box-shadow: 10px 10px 20px 3px gray;
 	;
 }
 
@@ -73,6 +73,9 @@
 
 .tagBottom {
 	margin-bottom: 30px;
+	color: #7db341;
+	font-size: 16px;
+	margin-top: 5px;
 }
 
 .title {
@@ -87,15 +90,17 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+.subInfo i{
+	color: #7db341;
+}
 
 .headerRight {
 	display: inline-block;
-	border: 1px solid black;
+	border: 1px solid gray;
 	overflow: hidden;
 	position: relative;
 	width: 560px;
 	height: 400px;
-	box-shadow: 10px 10px 20px 3px gray;
 }
 
 .area {
