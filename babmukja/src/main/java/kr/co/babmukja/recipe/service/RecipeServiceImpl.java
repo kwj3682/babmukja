@@ -24,6 +24,9 @@ public class RecipeServiceImpl implements RecipeService {
 	public void updateRecipe(Recipe recipe) {
 		mapper.updateRecipe(recipe);
 	}
+	public void deleteRecipe(int no) {
+		mapper.deleteRecipe(no);
+	}
 	
 }
 

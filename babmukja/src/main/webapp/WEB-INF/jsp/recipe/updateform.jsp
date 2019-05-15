@@ -29,26 +29,26 @@
     <div id="writeform-header">레시피 작성</div>
     <div id="paragraph">자신만의 레시피를 완성해주세요</div>
     <div id="editorjs">
-            <input type="text" id="title" placeholder="제목을 입력해주세요.">
+            <input type="text" id="title" value="${recipe.title }">
+            <div id="hiddenValue" style="display:none">${recipe.content}</div>
+            <div id="hiddenNo" style="display:none">${recipe.recipeNo}</div>
+            
         </div>
     <div id="buttonWrapper">
         <button>저장</button>
     </div>
     <script>
+    	const value = $("#hiddenValue").text();
+		const no = $("#hiddenNo").text();
     	const editor = new EditorJS({
             holderId: 'editorjs',
 
             autofocus: true,
-            data: {"time":1557295973064,"blocks":[{"type":"quote","data":{"title":"","message":""}},{"type":"warning","data":{"title":"","message":""}}],"version":"2.13.0"},
+            data: JSON.parse(value),
             tools: { 
                 warning: {
                     class: Warning,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+SHIFT+W',
-                    config: {
-                        titlePlaceholder: '주의사항',
-                        messagePlaceholder: '내용을 입력해주세요',
-                    },
+                    inlineToolbar: true                 
                 },
      
                 table: {
@@ -61,12 +61,8 @@
                 },                       
                 quote: {
                     class: Quote,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+SHIFT+O',
-                    config: {
-                        quotePlaceholder: '내용을 입력해주세요',
-                        captionPlaceholder: '출처',
-                    },
+                    inlineToolbar: true
+                    
                 },
 //                 image: {
 //                     class: ImageTool,
@@ -196,15 +192,14 @@
             	let title= $("#title").val();
             	$.ajax({
 					type: "post",
-	   					url:"write.do",
+	   					url:"update.do",
 						data: {content : content,
-								 title : title},
+								 title : title,
+							  recipeNo : no},
 						success:function(result){
 						}
             	});
                 console.log("Article data : ", outputData);
-                console.log("title : "+title);
-                console.log("content : " + content);
                 location.href="<c:url value="/recipe/main.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);

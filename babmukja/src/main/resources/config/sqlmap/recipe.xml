@@ -27,7 +27,12 @@
 		update tb_recipe
 		   set title = #{title},
 		       content = #{content}
-		 where recipe_no = #{recipeNo}
-		   
+		 where recipe_no = #{recipeNo}		   
 	</update>
+	
+	<delete id="deleteRecipe" parameterType="int">
+		delete 
+		  from tb_recipe
+		 where recipe_no = #{recipeNo}
+	</delete>
 </mapper>

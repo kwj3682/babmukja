@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.google.gson.Gson;
@@ -110,20 +110,38 @@ public class RecipeController {
 	
 	
 	@RequestMapping("/write.do")
+	@ResponseBody
 	public void write(Recipe recipe) {
-		System.out.println("받아옴");
-		System.out.println(recipe.getContent());
-		System.out.println(recipe.getTitle());
 		service.insertRecipe(recipe);
 	}
 	
 	@RequestMapping("/detail.do")
-	public void detail(Model model, int no) {		
-		model.addAttribute("recipe", service.selectRecipeByNo(no));
+	public ModelAndView detail(ModelAndView mav, int no) {
+		Recipe recipe = service.selectRecipeByNo(no);
+		if(recipe == null) {
+			System.out.println("recipe is null!");
+			mav.setViewName("recipe/main");
+			return mav;
+		}
+		mav.setViewName("recipe/detail");
+		mav.addObject("recipe", recipe);
+		return mav;
 	}
 	
 	@RequestMapping("/updateform.do")
-	public void updateForm(int no, Model model) {
-		model.addAttribute(service.updateForm(no));
+	public void updateForm(int no, Model model) {		
+		model.addAttribute("recipe" ,service.updateForm(no));
+	}
+	
+	@RequestMapping("/update.do")
+	@ResponseBody
+	public void update(Recipe recipe) {
+		service.updateRecipe(recipe);
+	}
+	
+	@RequestMapping("/delete.do")
+	public String delete(int no) {		
+		service.deleteRecipe(no);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "main.do";	
 	}
 }

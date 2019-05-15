@@ -7,5 +7,5 @@ public interface RecipeService {
 	public Recipe selectRecipeByNo(int no);
 	public Recipe updateForm(int no);
 	public void updateRecipe(Recipe recipe);
-	
+	public void deleteRecipe(int no);
 }
