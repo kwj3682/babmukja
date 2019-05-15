@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.babmukja.repository.mapper.StorePBMapper">
+	<!-- 
 	<resultMap id="storepbMap" type="storePB">
 		<result column="pb_no" property="pbNo" />
 		<result column="name" property="name" />
@@ -27,8 +28,8 @@
 		  from tb_pb
 		 order by pb_no desc
 	</select>
-	
-	<!--  게시물 등록  -->
+	 -->
+	<!--  게시물 등록  
 	<insert id="insertpb" parameterType="storePB">
 		insert into tb_pb
 		(
@@ -47,8 +48,8 @@
 			#{groupNo}
 		)
 	</insert>
-	
-	<!-- 파일 업로드 -->
+	-->
+	<!-- 파일 업로드 
 	<insert id="insertPBImage" parameterType="fileVO">
 		insert into tb_file 
 		(
@@ -67,13 +68,15 @@
 			3
 		)
 	</insert>
-	
-	<!--  파일 업로드  -->
+	-->
+	<!--  파일 업로드  
 	<select id="selectMaxNum" resultType="int">
 		select ifnull(max(pb_no),1)
 		  from tb_pb
 	</select>
+	-->
 	
+	<!-- 
 	<resultMap id="pbListMap" type="storePB" >
 		<result column="pb_no" property="pbNo" />
 		<result column="name" property="name" />
@@ -88,7 +91,8 @@
 					column="group_no"
 					select="selectPBListImage"/>
 	</resultMap>
-	<!-- main화면 List 불러오기 -->
+	 -->
+	<!-- main화면 List 불러오기 
 	<select id="selectPBMainList" resultMap="pbListMap">
 		select *
 		  from tb_pb
@@ -116,8 +120,8 @@
 					column="group_no"
 					select="selectPBDetailImage"/>
 	</resultMap>
-	
-	<!-- 상세조회 -->
+	-->
+	<!-- 상세조회 
 	<select id="selectPBdetail" parameterType="int" resultMap="pbDetailMap">
 		select *
 		  from tb_pb
@@ -129,11 +133,42 @@
 		  from tb_file
 		 where group_no = #{groupNo}	
 	</select>
-	
-	<!--  게시물 삭제  -->
+	-->
+	<!--  게시물 삭제  
 	<delete id="deletePBByNo" parameterType="int">
 		delete
 		  from tb_pb
 		 where pb_no = #{pbNo}
 	</delete>
+	-->
+	
+	<resultMap id="storepbMap" type="storePB">
+		<result column="pb_no" property="pbNo" />
+		<result column="name" property="name" />
+		<result column="content" property="content" />
+		<result column="price" property="price" />
+		<result column="regdate" property="regDate" />
+		<result column="mem_no" property="memNo" />
+		<result column="viewcnt" property="viewCnt" />
+	</resultMap>
+	
+	<insert id="insertPBStore" parameterType="storePB">
+		insert into tb_pb(
+			mem_no, 
+			title, 
+			content
+		)
+		values(
+			#{memNo}, 
+			#{title}, 
+			#{content}
+		)
+	</insert>
+	
+	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
+		select *
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</select>
+	
 </mapper>
