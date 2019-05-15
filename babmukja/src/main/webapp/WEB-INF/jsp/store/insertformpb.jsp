@@ -59,6 +59,10 @@
 	            }
 	        });
 	    });
+	    
+	    $("#pb_insert_cancle_button").click(function () {
+	    	window.location.href="<c:url value='/admin/main.do'/>";
+	    });
     </script>
 </body>
 </html>

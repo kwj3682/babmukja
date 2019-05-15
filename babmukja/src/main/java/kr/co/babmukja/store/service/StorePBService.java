@@ -15,4 +15,7 @@ public interface StorePBService {
 	// 상세조회
 	public StorePB selectPBdetail(int pbNo);
 	public List<FileVO> selectPBDetailImage(int groupNo);
+	
+	// 삭제
+	public void deletePBByNo(int pbNo);
 }

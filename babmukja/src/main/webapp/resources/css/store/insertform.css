@@ -5,7 +5,7 @@
 
 .pb_product_name input {
     width: 300px;
-    height: 27px;
+    height: 33px;
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
@@ -18,7 +18,7 @@
 
 .pb_product_price input {
     width: 300px;
-    height: 27px;
+    height: 33px;
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
@@ -92,6 +92,7 @@
     display: flex;
     font-weight: bold;
     margin: 5px;
+    margin-left: 100px;
 }   
 
 .pb_insert_submit {
@@ -135,7 +136,7 @@
 }
 
 .image_container {
-    width: 300px;
+    width: 400px;
     height: 200px;
     border: 2px solid gainsboro;
     margin: 0 auto;
@@ -152,6 +153,8 @@
 .product__content {
     margin-top: 20px;   
     border-radius: 5px;
+    width: 400px;
+    resize: none;
 }
 
 .pb_product_plus {
@@ -166,3 +169,22 @@
     font-size:40px;
     color:white;
 }
+
+
+#pb_insert_cancle_button {
+    display: inline-block; 
+    padding: .5em .75em; 
+    color: white; 
+    font-size: inherit; 
+    background-color: #7db341; 
+    cursor: pointer; 
+    border: 1px solid #ebebeb; 
+    border-bottom-color: #e2e2e2; 
+    border-radius: .25em;
+    display: flex;
+    margin: 0 auto;  
+    margin-top: -114px;
+    margin-left: 550px;
+    margin-bottom: 100px;
+}
+

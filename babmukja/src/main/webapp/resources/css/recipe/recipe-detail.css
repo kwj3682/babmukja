@@ -4,8 +4,9 @@
     box-sizing: border-box;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 65% 35%;
+    grid-template-columns: 75% 25%;
     min-height: 1000px;
+    margin-top:130px;
 }
 
 #left-body{
@@ -14,7 +15,7 @@
 }
 #right-body{
     position: sticky;
-    top:0;
+    top:50px;
     height: 950px;
 }
 #content-wrapper{
@@ -57,13 +58,16 @@
     background: #7db341;
 }
 #content-button-wrapper > button{
-    width: 180px;
-    padding: 10px;
+    width: 120px;
+    padding: 3px;
     border : 0px;
     margin-top: 15px;
     background : #eee;
     color : #bbb;
-    border-radius: 10px;
+    border-radius: 5px;
+}
+#content-button-wrapper > button > i{
+	font-size : 18px;
 }
 #content-button-wrapper > button > b{
     font-size : 18px;
@@ -84,7 +88,7 @@
 #profile-wrapper{
     height: 100px;
     display: grid;
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 30% 50% 20%;
 }
 
 #profile-img{
@@ -93,11 +97,12 @@
     border-radius: 40px;
 }
 #profile-id{
-    font-size: 24px;
+    font-size: 21px;
     margin-top: 10px;
+    padding-left:3px;
 }
 #profile-id > div:nth-child(2){
-    font-size: 17px;
+    font-size: 15px;
 }
 #follow{
     height: 40px;
@@ -112,7 +117,7 @@
     color: white;
 }
 #writer-post{
-    height: 400px;
+    height: 300px;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
@@ -122,19 +127,19 @@
     height: 97%;
 }
 #post-img1{
-    border-radius: 10px 0 0 0;
+    border-radius: 5px 0 0 0;
 }
 #post-img2{
-    border-radius: 0 10px 0 0;
+    border-radius: 0 5px 0 0;
 }
 #post-img3{
-    border-radius: 0 0 0 10px;
+    border-radius: 0 0 0 5px;
 }
 #post-img4{
-    border-radius: 0 0 10px 0;
+    border-radius: 0 0 5px 0;
 }
 #more-post{
-    width: 100%;
+    width: 98%;
     border-radius : 0 0 10px 10px;
     height: 40px;
     font-size: 20px;
@@ -251,4 +256,10 @@
 .other-date{
     font-size: 13px;
     color: gray;
+}
+#post-body{
+	position: relative;
+}
+button{
+	outline:none;
 }

@@ -1,39 +1,38 @@
 @charset "UTF-8";
-
 #menubarContainer{
-	z-index: 60;
-    position : sticky;
+    position : fixed;
     top:0;
     left : 0;
     width: 100%;
-    background : white;
+    background : WHITE;
     margin: 0 auto;
     padding : 0;
     transition: .2s;
-    height: 70px;
+    height: 60px;
+    z-index: 100;
     border-bottom: 1px solid gainsboro;
 }
 
-ul {
+#menuContent ul {
     list-style: none;
 }
-a{
+#menuContent a{
     text-decoration: none;
     color: rgb(81,81,81);
 }
-a:visited{
+#menuContent a:visited{
     text-decoration: none;
 }
-li{
+#menuContent li{
     display: inline-block;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bolder;
-    margin-left : 5px;
+    margin-left : 25px;
 }
-li > a{
+#menuContent li > a{
     transition: .3s;
 }
-li > a:hover{
+#menuContent li > a:hover{
     color: #7db341;
 }
 #home{
@@ -44,35 +43,12 @@ li > a:hover{
     font-size: 45px;
     color: #7db341;
     float : left;
+    cursor: pointer;
 }
 #menuContent{
     float : left;
 }
 
-#search{
-    float: left;
-    margin-left : 140px;
-    margin-top: 10px; 
-    margin-right: 100px;
-    display : flex;
-    justify-content: right;
-    align-content: right;
-    height: 40px;
-}
-#search > input{
-    font-size: 20px;
-    padding-left: 10px;
-    border : 1px solid #7db341;
-    border-radius: 10px;
-    width: 300px;
-    color : gray;
-    background: white;
-}
-#search > i{
-    line-height: 45px;
-    margin-left: 10px;
-    color: #7db341;
-}
 #sign{
     display: flex;
     justify-content: right;
@@ -91,5 +67,38 @@ li > a:hover{
     border-right: 1px solid #7db341;
 }
 #sign> i{
+    color: #7db341;
+}
+.optionalMenubar{
+    position: absolute;
+    width: 100%;
+    top:-300px;
+    height: 60px;
+    border : 1px solid gainsboro;
+    background: white;
+    margin: 0 auto;
+}
+.optionalMenubar ul {
+    position: absolute;
+    left : 190px;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: rgb(81,81,81);
+}
+a:visited{
+    text-decoration: none;
+}
+.optionalMenubar li{
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bolder;
+    margin-left : 25px;
+}
+.optionalMenubar li > a{
+    transition: .3s;
+}
+.optionalMenubar li > a:hover{
     color: #7db341;
 }
