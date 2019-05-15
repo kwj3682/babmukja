@@ -120,6 +120,6 @@ public class RecipeController {
 	@RequestMapping("/detail.do")
 	public void detail(Model model) {
 		
-		model.addAttribute("recipe", service.selectRecipeByNo(27));
+		model.addAttribute("recipe", service.selectRecipeByNo(31));
 	}
 }
