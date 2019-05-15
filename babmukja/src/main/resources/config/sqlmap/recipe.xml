@@ -20,6 +20,14 @@
 	</insert>
 
 	<select id="selectRecipeByNo" parameterType="int" resultMap="recipeMap">
-		select * from tb_recipe where recipe_no = #{no}
+		select * from tb_recipe where recipe_no = #{recipeNo}
 	</select>
+	
+	<update id="updateRecipe" parameterType="recipe">
+		update tb_recipe
+		   set title = #{title},
+		       content = #{content}
+		 where recipe_no = #{recipeNo}
+		   
+	</update>
 </mapper>
