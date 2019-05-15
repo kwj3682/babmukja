@@ -1,11 +1,10 @@
 package kr.co.babmukja.repository.mapper;
 
-import java.util.List;
-
-import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 
 public interface StorePBMapper {
+	/*
+	 *   editor 이전
 	public List<StorePB> selectPBList();
 	public void insertpb(StorePB storepb);
 	public void insertPBImage(FileVO fileVO);
@@ -18,4 +17,8 @@ public interface StorePBMapper {
 	
 	// 삭제
 	public void deletePBByNo(int pbNo);
+	*/
+	
+	public StorePB selectPBStoreByNo(int no);
+	public void insertPBStore(StorePB storepb);
 }

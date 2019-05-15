@@ -4,26 +4,21 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
+
+import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.StorePB;
@@ -36,45 +31,7 @@ public class StorePBController {
 	@Autowired
 	private StorePBService service;
 	
-	@RequestMapping("/downloadpb.do")
-	public void downloadpb(FileVO fileVO, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String uploadRoot = "c:/bit2019/upload";
-		String path = fileVO.getPath();
-		String sysname = fileVO.getSysname();
-		String dName = request.getParameter("dname");
-		
-		File f = new File(uploadRoot + path + "/" + sysname);
-		
-		if (dName == null) {
-			response.setHeader("Content-Type", "image/jpg"); 
-		} else {
-			response.setHeader("Content-Type", "application/octet-stream");
-			
-			dName = new String(dName.getBytes("utf-8"), "8859_1");  
-			response.setHeader("Content-Disposition", "attachment;filename=" + dName); 
-		}
-		
-		try {
-			FileInputStream fis = new FileInputStream(f);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			
-			OutputStream out = response.getOutputStream();
-			BufferedOutputStream bos = new BufferedOutputStream(out);
-			
-			while (true) {
-				int ch = bis.read();	
-				if (ch == -1) break;	
-				bos.write(ch);   
-			}
-
-			bis.close();  fis.close();
-			bos.close();  out.close();
-			
-		} catch (Exception e) {
-
-		}
-	}
-	
+	/*
 	@RequestMapping("/mainpb.do")
 	public void selectPBList(Model model, StorePB storepb) {
 		model.addAttribute("pbList", service.selectPBMainList());
@@ -132,6 +89,74 @@ public class StorePBController {
 		service.deletePBByNo(storepb.getPbNo());
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "mainpb.do";
 	}
+	*/
 
+	// editor js 테스트
+	@RequestMapping("/editorform.do")
+	public void editorForm() {}
 	
+	@RequestMapping("/insertpb.do")
+	@ResponseBody
+	public void insertpb(StorePB storepb) {
+		service.insertPBStore(storepb);
+	}
+	
+	@RequestMapping("/detailpb.do")
+	public void detailpb(Model model, int no) {
+		model.addAttribute("storepb", service.selectPBStoreByNo(no));
+	}
+	
+	// 파일 처리 
+		@RequestMapping("/downloadpb.do")
+		@ResponseBody
+		public void downloadpb(FileVO fileVO, HttpServletResponse response) throws Exception{
+			String uploadRoot = "c:/bit2019/upload";
+			String path = fileVO.getPath();
+			String sysname = fileVO.getSysname();
+			
+			File f = new File(uploadRoot + path + "/" + sysname);
+			
+			response.setHeader("Content-Type", "image/jpg"); 
+			
+			FileInputStream fis = new FileInputStream(f);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			
+			OutputStream out = response.getOutputStream();
+			BufferedOutputStream bos = new BufferedOutputStream(out);
+			
+			while (true) {
+				int ch = bis.read();	
+				if (ch == -1) break;	
+				bos.write(ch);   
+			}
+
+			bis.close();  fis.close();
+			bos.close();  out.close();
+		}
+		
+		@RequestMapping("/uploadpb.do")
+		@ResponseBody
+		public Object uploadpb(FileVO fileVO) throws Exception {
+			SimpleDateFormat sdf = new SimpleDateFormat(
+					"/yyyy/MM/dd"
+			);
+			String uploadRoot = "C:/bit2019/upload";
+			String path = "/recipe" + sdf.format(new Date());
+			File file = new File(uploadRoot + path);
+			if (file.exists() == false) file.mkdirs();
+			System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+			
+			MultipartFile mFile = fileVO.getAttach();
+			
+			String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
+			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+
+			
+			fileVO.setPath(path);
+			fileVO.setOrgname(mFile.getOriginalFilename());
+			fileVO.setSysname(uName);
+			System.out.println("file upload succeed.");
+
+			return new Gson().toJson(fileVO);
+		}
 }
