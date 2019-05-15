@@ -2,15 +2,26 @@ package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import kr.co.babmukja.repository.domain.Comment;
 import kr.co.babmukja.repository.domain.Notice;
+import kr.co.babmukja.repository.domain.Page;
 
 public interface NoticeMapper {
-	public List<Notice> selectNotice();
-	public int selectNoticeCount();
-	void insertNotice(Notice notice); 
-	void updateNotice(Notice notice); 
-	void deleteNotice(int no);
-	public List<Comment> selectCommentByNo(int notice_no);
-	public Notice selectNoticeByNo(int notice_no);
+	
+	List<Comment> selectCommentByNo(int notice_no);
+
+	void updateNotice(Notice notice);
+
+	Notice selectNotice(int notice_no);
+
+	void insertNotice(Notice notice);
+
+	void deleteNotice(int notice_no);
+
+	List<Notice> selectNoticeList(Page notice_no);
+
+	int selectNoticeCount();
+	
 }

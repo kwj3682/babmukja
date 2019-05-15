@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <th class="notice_th2">제목</th>
-            <td class="notice_td2"><input type="text" name="title" value='${notice.title}' /></td>
+            <td class="notice_td2"><input type="text" name="title"/></td>
           </tr>
           <tr>
             <th class="notice_th3">내용</th>
@@ -38,9 +38,8 @@
                 name="content"
                 rows="25"
                 cols="100"
-                class="notice_textarea"
-                value='${notice.content}' 
-              ></textarea>
+                class="notice_textarea">
+                </textarea>
             </td>
           </tr>
           <tr>

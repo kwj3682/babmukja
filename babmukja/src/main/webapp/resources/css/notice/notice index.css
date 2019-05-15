@@ -1,4 +1,9 @@
 @charset "UTF-8";
+.inquiry{
+	width:1200px;
+	margin: 0 auto;
+	background-color: white;
+}
 
 .customer, .customer2{
 margin-top: 0px;margin-bottom: 10px;padding-right: 5px; font-weight: bold;

@@ -14,7 +14,7 @@
 </head>
 <body>
         <form
-        action="enroll.do"
+        action="write.do"
         method="post"
         name="inqform"
         encType="multipart/form-data"
@@ -66,16 +66,16 @@
           <div>Lorem ipsum dolor sit.</div>
   </footer>
     <script>
-    	$("form").submit(function checkform() {
+    	$("form").submit(function inqform() {
     		
-    		var notice_no = document.inqform.notice_no;
+    		var notice_no = document.inqform.notice_no
     		var writer = document.inqform.writer;
     		var title = document.inqform.title;
     		var content = document.inqform.content;
     		
     		var notnull = [notice_no, writer, title, content]
     		
-    		if (isEmpty(notice_no, "문의번호를 입력하세요.")) return false;
+    		if (isEmpty(notice_no , "글번호를 입력하세요.")) return false;
     		if (isEmpty(writer , "글쓴이를 입력하세요.")) return false;
     		if (isEmpty(title, "제목을 입력하세요.")) return false;
     		if (isEmpty(content, "내용을 입력하세요.")) return false;
@@ -88,6 +88,7 @@
     			}
     			return false;
     		}
-    	}	
+    	}
+    	</script>
 </body>
 </html>
