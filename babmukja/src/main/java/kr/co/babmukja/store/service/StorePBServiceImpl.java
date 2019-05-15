@@ -43,5 +43,10 @@ public class StorePBServiceImpl implements StorePBService{
 	public List<FileVO> selectPBDetailImage(int groupNo) {
 		return mapper.selectPBDetailImage(groupNo);
 	}
-		
+	
+	// 삭제
+	
+	public void deletePBByNo(int pbNo) {
+		mapper.deletePBByNo(pbNo);
+	}
 }

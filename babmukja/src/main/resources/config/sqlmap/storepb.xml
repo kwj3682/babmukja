@@ -129,4 +129,11 @@
 		  from tb_file
 		 where group_no = #{groupNo}	
 	</select>
+	
+	<!--  게시물 삭제  -->
+	<delete id="deletePBByNo" parameterType="int">
+		delete
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</delete>
 </mapper>
