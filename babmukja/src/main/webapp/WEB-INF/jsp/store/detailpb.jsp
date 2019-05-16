@@ -353,7 +353,7 @@
       const editor = new EditorJS({
           holderId: 'post-body',
 
-          autofocus: true,
+          autofocus: false,
           data: JSON.parse(value),
           tools: { 
               warning: {
