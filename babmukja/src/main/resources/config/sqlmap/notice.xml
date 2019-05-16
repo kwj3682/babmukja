@@ -2,38 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.babmukja.repository.mapper.NoticeMapper">
-	
 	<select id="selectNotice" resultType="notice">
 		select *
 		  from tb_notice
-		  order by no desc
+		  order by notice_no desc
 	</select>
 
+<!-- 전체 조회 -->
+<select id="selectNoticeList" resultType="notice">
+		  select *
+		  from tb_notice
+		  order by notice_no desc
+	</select>
+	
 	<insert id="insertNotice" parameterType="notice">
-		insert into tb_notice(
-			notice_no, title, content, writer
+		insert into tb_notice( 
+			 notice_no, title, content, writer
 		) values (
-			s_notice_no.nextval, #{title}, #{content}, #{writer}
+			 #{notice_no}, #{title}, #{content}, #{writer}
 		)
 	</insert>
 	
     <delete id="deleteNotice" parameterType="int">
     	delete 
     	  from tb_notice
-    	 where no = #{no}
+    	 where notice_no = #{notice_no}
     </delete>    
+    
     <update id="updateNotice" parameterType="notice">
     	update tb_notice
     	   set title = #{title},
     	       content = #{content}
-    	 where no = #{no}
+    	 where notice_no = #{notice_no}
     </update>	
     
     <!-- 조회수 증가시키기 -->
 	<update id="updateViewCnt" parameterType="int">
 		update tb_notice
 		   set view_cnt = view_cnt + 1
-		 where no = #{no}  
+		 where notice_no = #{notice_no}  
 	</update>  
  
 </mapper>

@@ -22,97 +22,95 @@
                 <tr>
                     <th class="inquirelist"><span>번호</span></th>
                     <th class="inquirelist"><span>제목</span></th>
-                    <th class="inquirelist"><span>분류</span></th>
+<!--                     <th class="inquirelist"><span>분류</span></th> -->
                     <th class="inquirelist"><span>등록일</span></th>
                     <th class="inquirelist"><span>조회</span></th>
                 </tr>
-      <c:forEach var="notice" items="${noticelist}">
+      <c:forEach var="notice" items="${list}">
          <tr>
             <td class="noticeNo">${notice.notice_no}</td>
             <td class="leftstyle2"><a
                href='detail.do?no=${notice.notice_no}'>${notice.title}</a></td>   
             <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일"
-                  value="${notice.regdate}" /></td>
-            <td class="inquirelist2">${notice.viewcnt}</td>
+                  value="${notice.regDate}" /></td>
+            <td class="inquirelist2">${notice.viewCnt}</td>
          </tr>
       </c:forEach>
-                <tr>
-                    <td class="noticeNo">1</td>
-                    <td class="leftstyle2">반찬가게 프랜차이즈 밥먹자 MBC 미니시리즈 ‘봄이 오나 봄’ 협찬</td>
-                    <td class="inquirelist2">공지</td>
-                    <td class="inquirelist2">2018/04/12</td>
-                    <td class="btnView"><button input type="button"><a href="detail.do">확인</a></button></td>
-                </tr>
-                <tr>
-                    <td class="noticeNo">2</td>
-                    <td class="leftstyle2">어린이 반찬 6종 출시</td>
-                    <td class="inquirelist2">공지</td>
-                    <td class="inquirelist2">2018/04/25</td>
-                    <td class="btnView">
-                      <button input type="button" ><a href="#">확인</a></button>
-                   </td>
-                </tr>
-                <tr>
-                    <td class="noticeNo">3</td>
-                    <td class="leftstyle2">밥먹자의 홈페이지가 개편되었습니다.</td>
-                    <td class="inquirelist2">공지</td>
-                    <td class="inquirelist2">2018/12/31</td>
-                    <td class="btnView"><button input type="button" onclick="alert('비회원은 가입 후 이용하세요')">확인</button></td>
-                </tr>
-                <tr>
-                   <td class="noticeNo">4</td>
-                   <td class="leftstyle2">밥먹자가 최근 온라인 쇼핑몰을 오픈하고 서비스를 시작했습니다</td>
-                   <td class="inquirelist2">공지</td>
-                   <td class="inquirelist2">2019/02/12</td>
-                   <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
-                <tr>
-                   <td class="noticeNo">5</td>
-                   <td class="leftstyle2">신제품 출시 - 양념 과메기 1+1 행사</td>
-                   <td class="inquirelist2">공지</td>
-                   <td class="inquirelist2">2019/03/23</td>
-                   <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
-                <tr>
-                   <td class="noticeNo">6</td>
-                   <td class="leftstyle2">프랜차이즈 창업 박람회 참가 11.17~19</td>
-                   <td class="inquirelist2">공지</td>
-                   <td class="inquirelist2">2018/011/15</td>
-                   <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
-                <tr>
-                   <td class="noticeNo">7</td>
-                   <td class="leftstyle2">'밥먹자'가 오는 25일(목)부터 부산벡스코에서 진행되는 부산창업박람회에 참가</td>
-                   <td class="inquirelist2">공지</td>
-                   <td class="inquirelist2">2018/06/30</td>
-                   <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
-                <tr>
-                   <td class="noticeNo">8</td>
-                   <td class="leftstyle2">'밥먹자' KBS2 주말드라마 [부탁해요 엄마] 반찬협찬중!!</td>
-                   <td class="inquirelist2">공지</td>
-                   <td class="inquirelist2">2019/01/31</td>
-                   <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
-                <tr>
-                    <td class="noticeNo">9</td>
-                    <td class="leftstyle2">2019년 3월 신제품 왕갈비탕 출시</td>
-                    <td class="inquirelist2">공지</td>
-                    <td class="inquirelist2">2019/02/08</td>
-                    <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
-                <tr>
-                   <td class="noticeNo">10</td>
-                   <td class="leftstyle2">반찬가게 1등 프랜차이즈 ‘밥먹자’, 반찬배달로 매출 상승</td>
-                   <td class="inquirelist2">공지</td>
-                   <td class="inquirelist2">2019/03/21</td>
-                   <td class="btnView"><button input type="button">확인</button></td>
-                </tr>
+<!--                 <tr> -->
+<!--                     <td class="noticeNo">1</td> -->
+<!--                     <td class="leftstyle2"><a href="detail.do">반찬가게 프랜차이즈 밥먹자 MBC 미니시리즈 ‘봄이 오나 봄’ 협찬</a></td> -->
+<!--                     <td class="inquirelist2">공지</td> -->
+<!--                     <td class="inquirelist2">2018/04/12</td> -->
+<!--                     <td class="inquirelist2">1012</td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td class="noticeNo">2</td> -->
+<!--                     <td class="leftstyle2"><a href="detail.do" onclick="alert">어린이 반찬 6종 출시</a></td> -->
+<!--                     <td class="inquirelist2">공지</td> -->
+<!--                     <td class="inquirelist2">2018/04/25</td> -->
+<!--                     <td class="inquirelist2">1288</td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td class="noticeNo">3</td> -->
+<!--                     <td class="leftstyle2">밥먹자의 홈페이지가 개편되었습니다.</td> -->
+<!--                     <td class="inquirelist2">공지</td> -->
+<!--                     <td class="inquirelist2">2018/12/31</td> -->
+<!--                     <td class="btnView"><button input type="button" onclick="alert('비회원은 가입 후 이용하세요')">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                    <td class="noticeNo">4</td> -->
+<!--                    <td class="leftstyle2">밥먹자가 최근 온라인 쇼핑몰을 오픈하고 서비스를 시작했습니다</td> -->
+<!--                    <td class="inquirelist2">공지</td> -->
+<!--                    <td class="inquirelist2">2019/02/12</td> -->
+<!--                    <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                    <td class="noticeNo">5</td> -->
+<!--                    <td class="leftstyle2">신제품 출시 - 양념 과메기 1+1 행사</td> -->
+<!--                    <td class="inquirelist2">공지</td> -->
+<!--                    <td class="inquirelist2">2019/03/23</td> -->
+<!--                    <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                    <td class="noticeNo">6</td> -->
+<!--                    <td class="leftstyle2">프랜차이즈 창업 박람회 참가 11.17~19</td> -->
+<!--                    <td class="inquirelist2">공지</td> -->
+<!--                    <td class="inquirelist2">2018/011/15</td> -->
+<!--                    <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                    <td class="noticeNo">7</td> -->
+<!--                    <td class="leftstyle2">'밥먹자'가 오는 25일(목)부터 부산벡스코에서 진행되는 부산창업박람회에 참가</td> -->
+<!--                    <td class="inquirelist2">공지</td> -->
+<!--                    <td class="inquirelist2">2018/06/30</td> -->
+<!--                    <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                    <td class="noticeNo">8</td> -->
+<!--                    <td class="leftstyle2">'밥먹자' KBS2 주말드라마 [부탁해요 엄마] 반찬협찬중!!</td> -->
+<!--                    <td class="inquirelist2">공지</td> -->
+<!--                    <td class="inquirelist2">2019/01/31</td> -->
+<!--                    <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td class="noticeNo">9</td> -->
+<!--                     <td class="leftstyle2">2019년 3월 신제품 왕갈비탕 출시</td> -->
+<!--                     <td class="inquirelist2">공지</td> -->
+<!--                     <td class="inquirelist2">2019/02/08</td> -->
+<!--                     <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                    <td class="noticeNo">10</td> -->
+<!--                    <td class="leftstyle2">반찬가게 1등 프랜차이즈 ‘밥먹자’, 반찬배달로 매출 상승</td> -->
+<!--                    <td class="inquirelist2">공지</td> -->
+<!--                    <td class="inquirelist2">2019/03/21</td> -->
+<!--                    <td class="btnView"><button input type="button">확인</button></td> -->
+<!--                 </tr> -->
              </table><hr>
                <nav id="pageNav">
                    <ul>
                        <li><a href='detail.do'>1</a></li>
-                       <li><a href='enrollform.do'>2</a></li>
+                       <li><a href='writeform.do'>2</a></li>
                        <li><a href='#'>3</a></li>
                        <li><a href='#'>4</a></li>
                        <li><a href='#'>5</a></li>
