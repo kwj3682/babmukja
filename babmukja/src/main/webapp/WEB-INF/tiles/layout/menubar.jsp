@@ -28,6 +28,7 @@
             <i class="fas fa-user-circle fa-3x"></i>
             <a href="<c:url value="/member/loginform.do"/>">로그인</a>
             <a href="<c:url value="/member/signupform.do"/>">회원가입</a>
+            <a href="#">마이홈</a>
         </span>
         <div id="optionalMenu1" class="optionalMenubar">
             <ul>
