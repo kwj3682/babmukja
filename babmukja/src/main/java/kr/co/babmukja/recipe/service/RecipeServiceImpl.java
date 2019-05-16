@@ -1,5 +1,7 @@
  package kr.co.babmukja.recipe.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,8 @@ public class RecipeServiceImpl implements RecipeService {
 		mapper.deleteRecipe(no);
 	}
 	
+	public List<Recipe> selectRecipe(){
+		return mapper.selectRecipe();
+	}
 }
 
