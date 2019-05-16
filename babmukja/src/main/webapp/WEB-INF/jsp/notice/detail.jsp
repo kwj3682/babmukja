@@ -21,19 +21,20 @@
 	<hr>
 	<br>
 	<br>
+			${notice.notice_no}<br> 	
 	<table class="babtable">
 		<tr class="bab_tr">
 			<td class="babtd5" style="float:left">
-			<div>번호 : ${notice.notice_no}</div><br> 	
 			<div>글쓴이 :<c:out value="${notice.writer}" /></div><br> 
 			<div>제목 :<c:out value="${notice.title}" /></div><br> 
 			<div>내용 :<c:out value="${notice.content}" /></div><br><br><br><br><br> 
 			<div>등록일 :<fmt:formatDate value="${notice.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></div><br>
+		                  조회수 : ${notice.viewCnt}<br>
 		    </td>
 		</tr>
 	</table>
 		<div class="btnView2" style="text-align:center">		
-	<td class="btnView"><button input type="button" style="font-size:1.2em;"><a href='updateform.do'>수정</a></button></td>
+	<td class="btnView"><button input type="button" style="font-size:1.2em;"><a href='updateform.do?no=${notice.notice_no}'>수정</a></button></td>
 	<td class="btnView"><button input type="button" style="font-size:1.2em;"><a href='delete.do?no=${notice.notice_no}'>삭제</a></button></td>
 	<td class="btnView"><button input type="button" style="font-size:1.2em;"><a href='writeform.do?no=${notice.notice_no}'>등록</a></button></td>
 	<td class="btnView"><button input type="button" style="font-size:1.2em;"><a href='list.do'>목록</a></button></td>

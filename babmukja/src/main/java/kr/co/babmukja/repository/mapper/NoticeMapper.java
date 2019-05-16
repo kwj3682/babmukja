@@ -20,7 +20,7 @@ public interface NoticeMapper {
 
 	void deleteNotice(int notice_no);
 
-	List<Notice> selectNoticeList(Page notice_no);
+	List<Notice> selectNoticeList();
 
 	int selectNoticeCount();
 	

@@ -38,21 +38,23 @@ public class NoticeController {
 	public void list(Page page, Model model) {
 		int count = 0;
 //		Map<String, Object> list = service.list(page);
-		model.addAttribute("list", service.retrieveNotice());
+//		model.addAttribute("list", service.retrieveNotice());
+		model.addAttribute("list", service.selectNoticeList());
 		model.addAttribute("count", count);
 //		model.addAttribute("pageResult", list.get("pageResult"));
 		
 	}
-	@RequestMapping("/comment-list.json")
-	public List<Comment> commentList(int notice_no) {
-		return service.commentList(notice_no);
-	}
+//	@RequestMapping("/comment-list.json")
+//	public List<Comment> commentList(int notice_no) {
+//		return service.commentList(notice_no);
+//	}
 	
 	@RequestMapping("/writeform.do")
 	public void writeform() {}
 
 	@RequestMapping("/updateform.do")
 	public void updateform() {}
+	
 	@RequestMapping("/update.do")
 	public String update(Notice notice) {
 		service.update(notice);
@@ -60,8 +62,8 @@ public class NoticeController {
 	}
 	@RequestMapping("/write.do")
 	public String write(Notice notice) {
+		service.insertNotice(notice);
 		System.out.println("컨텐츠 가져오기 :" + notice.getContent());
-		service.write(notice);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do";
 	}
 }

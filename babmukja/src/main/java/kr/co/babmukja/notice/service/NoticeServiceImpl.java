@@ -22,6 +22,10 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.selectCommentByNo(notice_no);
 	}
 	
+	public List<Notice> selectNoticeList(){
+		return mapper.selectNoticeList();
+	}
+	
 	public void update(Notice notice){
          mapper.updateNotice(notice);
     }
@@ -35,11 +39,10 @@ public class NoticeServiceImpl implements NoticeService {
         mapper.deleteNotice(notice_no);
     }
 	public List<Notice> detail(Page notice_no) {
-		return mapper.selectNoticeList(notice_no);	
+		return null;
 	}
 	public Map<String, Object> list(Page page) {
 		Map<String, Object> result = new HashMap<>();
-		result.put("list", mapper.selectNoticeList(page));
 		result.put("pageResult", new PageResult(
 				page.getPageNo(), mapper.selectNoticeCount()
 		));
@@ -47,22 +50,30 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> retrieveNotice() {
-		return null;
+	public void insertNotice(Notice notice) {	
+	}
+
+	@Override
+	public void selectNotice(Page page) {
+		// TODO Auto-generated method stub		
+	}
+
+	@Override
+	public int selectNoticeCount() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public void updateNotice(Notice notice) {
-	
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void detail(int notice_no) {	
+	public void detail(int notice_no) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Override
-	public Map<String, Object> Noticelist(Page page) {
-		return null;
-	}
-	
 }

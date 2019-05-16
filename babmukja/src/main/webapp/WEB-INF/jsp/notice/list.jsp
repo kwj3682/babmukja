@@ -22,7 +22,7 @@
                 <tr>
                     <th class="inquirelist"><span>번호</span></th>
                     <th class="inquirelist"><span>제목</span></th>
-                    <th class="inquirelist"><span>분류</span></th>
+<!--                     <th class="inquirelist"><span>분류</span></th> -->
                     <th class="inquirelist"><span>등록일</span></th>
                     <th class="inquirelist"><span>조회</span></th>
                 </tr>
@@ -36,24 +36,20 @@
             <td class="inquirelist2">${notice.viewCnt}</td>
          </tr>
       </c:forEach>
-                <tr>
-                    <td class="noticeNo">1</td>
-                    <td class="leftstyle2">반찬가게 프랜차이즈 밥먹자 MBC 미니시리즈 ‘봄이 오나 봄’ 협찬</td>
-                    <td class="inquirelist2">공지</td>
-                    <td class="inquirelist2">2018/04/12</td>
-                    <td class="inquirelist2">1012</td>
-                    <td class="btnView"><button input type="button"><a href="detail.do">확인</a></button></td>
-                </tr>
-                <tr>
-                    <td class="noticeNo">2</td>
-                    <td class="leftstyle2">어린이 반찬 6종 출시</td>
-                    <td class="inquirelist2">공지</td>
-                    <td class="inquirelist2">2018/04/25</td>
-                    <td class="inquirelist2">1288</td>
-                    <td class="btnView">
-                      <button input type="button" ><a href="#">확인</a></button>
-                   </td>
-                </tr>
+<!--                 <tr> -->
+<!--                     <td class="noticeNo">1</td> -->
+<!--                     <td class="leftstyle2"><a href="detail.do">반찬가게 프랜차이즈 밥먹자 MBC 미니시리즈 ‘봄이 오나 봄’ 협찬</a></td> -->
+<!--                     <td class="inquirelist2">공지</td> -->
+<!--                     <td class="inquirelist2">2018/04/12</td> -->
+<!--                     <td class="inquirelist2">1012</td> -->
+<!--                 </tr> -->
+<!--                 <tr> -->
+<!--                     <td class="noticeNo">2</td> -->
+<!--                     <td class="leftstyle2"><a href="detail.do" onclick="alert">어린이 반찬 6종 출시</a></td> -->
+<!--                     <td class="inquirelist2">공지</td> -->
+<!--                     <td class="inquirelist2">2018/04/25</td> -->
+<!--                     <td class="inquirelist2">1288</td> -->
+<!--                 </tr> -->
 <!--                 <tr> -->
 <!--                     <td class="noticeNo">3</td> -->
 <!--                     <td class="leftstyle2">밥먹자의 홈페이지가 개편되었습니다.</td> -->
