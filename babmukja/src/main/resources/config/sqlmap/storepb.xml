@@ -155,12 +155,14 @@
 	<insert id="insertPBStore" parameterType="storePB">
 		insert into tb_pb(
 			mem_no, 
-			title, 
+			name, 
+			price,
 			content
 		)
 		values(
-			#{memNo}, 
-			#{title}, 
+			3, 
+			#{name}, 
+			#{price},
 			#{content}
 		)
 	</insert>
