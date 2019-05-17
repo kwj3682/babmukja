@@ -1,5 +1,8 @@
 package kr.co.babmukja.repository.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class Page {
 	private int pageNo = 1;
 	private String input;
