@@ -1,8 +1,12 @@
 package kr.co.babmukja.meetup.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.babmukja.meetup.service.MeetupService;
+import kr.co.babmukja.repository.domain.MeetupFile;
 
 @Controller("kr.co.babmukja.meetup.controller.MeetupController")
 
@@ -40,40 +45,59 @@ public class MeetupController {
 
 	}
 
-	@RequestMapping("/updateIntro.do")
+	/*
+	 * @RequestMapping("/updateIntro.do")
+	 * 
+	 * @ResponseBody public void updateIntro(MultipartFile file) {
+	 * System.out.println("들어왔음"); System.out.println("file 들어왔나 확인" + file );
+	 * //service.updateIntro(data);
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
+	
+	@RequestMapping("/saveFile.do")
 	@ResponseBody
-	public String updateIntro(String data) {
+	public MeetupFile saveFile(MultipartFile file) {
 		System.out.println("들어왔음");
-
-		service.updateIntro(data);
-		return data;
-
-		// 읽을때
-		FileReader fr = null;
-		BufferedReader br = null;
-		try {
-			fr = new FileReader("data/lec17/Test03.java");
-			br = new BufferedReader(fr);
-			while (true) {
-				int ch = br.read();
-				if (ch == -1)
-					break;
-				System.out.println((char) ch);
-			}
-		} catch (Exception e) {
+		System.out.println("file 들어왔나 확인" + file );
+		//service.updateIntro(data);
+	    UUID uuid = UUID.randomUUID();
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+	      String uploadRoot = "C:/bit2019/upload";
+	      String path = "/meetup/" + sdf.format(new Date());
+	      String orgFileName = file.getOriginalFilename();
+	      String sysFileName = uuid.toString() + orgFileName;
+	      String filePath = uploadRoot + path;
+	      System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+	      MeetupFile mFile = new  MeetupFile();
+	      mFile.setOrgFileName(orgFileName);
+	      mFile.setSysFileName(sysFileName);
+	      mFile.setFilePath(filePath);
+	      
+	      File f = new File(filePath + sysFileName);
+	      
+	      System.out.println("파일이름 :" + filePath + sysFileName);
+	      
+	       if(f.exists() == false) {
+	         f.mkdirs();
+	       }
+	       
+	       try {
+			file.transferTo(f);
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-			} catch (IOException e1) {
-			}
-			try {
-				fr.close();
-			} catch (IOException e1) {
-			}
+			System.out.println("실패");
 		}
-	}
+	      
+	      return mFile;
+	   }
 
+	
+
+	
 	@RequestMapping("/editIntro.do")
 	@ResponseBody
 	public String editIntro() {
@@ -93,39 +117,3 @@ public class MeetupController {
 
 }
 
-/*
- * package lec17;
- * 
- * import java.io.BufferedWriter; import java.io.FileWriter; import
- * java.io.PrintWriter; import java.util.Random;
- * 
- * public class Test18 { public static void main(String[] args) { String[] msg =
- * {"잘 살아~", "행복해", "부자되세요", "건강해", "잘자라"};
- * 
- * String[] user = {"공유", "현빈", "송강호", "김혜수", "전지현"};
- * 
- * try { FileWriter fw = new FileWriter("data/lec17/msg.txt"); BufferedWriter bw
- * = new BufferedWriter(fw); // 속도 향상 PrintWriter pw = new PrintWriter(bw); //
- * 출력과 관련된 편리한 API 사용하기위해
- * 
- * Random r = new Random(); for(int i=1 ; i<=100 ; i++) { // 1.화면에 출력 //
- * System.out.printf("%d. %s님 %s\n", i, // user[r.nextInt(user.length)],
- * msg[r.nextInt(msg.length)]);
- * 
- * 2. 파일에 저장 String file = String.format("%d. %s님 %s", i,
- * user[r.nextInt(user.length)], msg[r.nextInt(msg.length)]);
- * 
- * bw.write(file); bw.newLine();
- * 
- * 
- * 
- * // 3. PrintWriter AIP 사용! pw.printf("%d. %s님 %s\n", i,
- * user[r.nextInt(user.length)], msg[r.nextInt(msg.length)]);
- * 
- * } System.out.println("성공"); pw.close(); bw.close(); fw.close();
- * 
- * } catch (Exception e) { e.printStackTrace(); }
- * 
- * 
- * } }
- */
