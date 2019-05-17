@@ -44,7 +44,8 @@
             <div id="hiddenValue" style="display:none">${recipe.content}</div>
             <!-- post-body start -->
 	        <div id="post-body"></div>
-            
+            <a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정하기</a>
+            <a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제하기</a>
             <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
             <div id="comment-body"><!-- comment-body start -->
@@ -73,8 +74,6 @@
                             </div>
                         </div>
                   
-                        
-
                         <!-- 컨텐트 하드코딩 부분 -->
                         <div class="comment-other-wrapper">
                             <img class="other-profile" src="/babmukja/WEB-INF/images/profile17.jpg">
@@ -139,8 +138,6 @@
                     </div><!-- writer-post end -->
 
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
-                	<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정하기</a>
-                	<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제하기</a>
                 </div><!-- writer-info end -->
                 
                 <div id="share-button">
@@ -154,23 +151,15 @@
     </div> <!-- 전체 body end -->
     <script>
         const value = $("#hiddenValue").text();
-    	$("#delete-button").click(function () {
-    		swal({
-    			  title: "삭제하시겠습니까?",    			  
-    			  icon: "warning",
-    			  buttons: true,
-    			  dangerMode: true,
-    			})
-    			.then((willDelete) => {
-    			  if (willDelete) {
-    			    swal("삭제되었습니다.", {
-    			      icon: "success",
-    			    });
-    			  } else {
-    			   
-    			  }
-    			});
+    	$("#delete-button").click(function () {    		
+    		if(confirm("삭제하시겠습니까?") == true){
+    	        alert("삭제되었습니다");
+    	    }
+    	    else {
+    	        return false;
+    	    }
     	});
+    	
         $(document).ready(function() {
             $("#comment-input").keyup(function (e){
             $(this).css('height', 'auto' ).height( this.scrollHeight );

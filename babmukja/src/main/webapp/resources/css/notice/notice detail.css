@@ -105,21 +105,21 @@
     font-weight: bolder;
 }	
 	
-#commentres{
+#commentList{
 	border: 1px solid black;
 	font-size:1.3em;
 }
 
-#commentres.notice_comm2{
+#commentList.notice_comm2{
 background-color:#7db341;
 border: 1px solid black;
 border-collapse: none;
 }
 
-#commentres.notice_comm2 input{
+#commentList.notice_comm2 input{
    width:98%;
    margin: 5px;
 }	
-#commentres.notice_wr2{
+#commentList.notice_wr2{
 	font-size:1.3em;
 }

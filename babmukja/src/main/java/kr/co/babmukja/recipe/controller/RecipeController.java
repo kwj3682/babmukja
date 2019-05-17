@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,8 +38,9 @@ public class RecipeController {
 	private RecipeService service;	
 	
 	@RequestMapping("/main.do")
-	public void main(Model model) {		
-//		model.addAttribute("list", service.list(1));
+	public void main(Model model) {
+		
+		model.addAttribute("list", service.selectRecipe());
 	}
 	//-----------------------------------------------------------------------
 	@RequestMapping("/writeform.do")
@@ -119,7 +121,7 @@ public class RecipeController {
 	public ModelAndView detail(ModelAndView mav, int no) {
 		Recipe recipe = service.selectRecipeByNo(no);
 		if(recipe == null) {
-			System.out.println("recipe is null!");
+			System.out.println("recipe is null at no."+no);
 			mav.setViewName("recipe/main");
 			return mav;
 		}

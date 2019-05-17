@@ -19,7 +19,6 @@
 <title>Document</title>
 </head>
 <body>
-
 	<div id="main">
 		<div id="graph-container">
 			<div id="graph">

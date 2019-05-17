@@ -6,15 +6,15 @@ public class Notice {
 	 private int notice_no;               
      private String title;        
      private String content;    
-     private Date  regdate;     
-     private int viewcnt;    
+     private Date  regDate;     
+     private int viewCnt;    
      private String writer;
-     
-	 public int getNo() {
+
+	public int getNotice_no() {
 		return notice_no;
 	}
-	public void setNo(int no) {
-		this.notice_no = no;
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
 	}
 	public String getTitle() {
 		return title;
@@ -28,17 +28,17 @@ public class Notice {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegdate() {
-		return regdate;
+	public Date getRegDate() {
+		return regDate;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
-	public int getViewcnt() {
-		return viewcnt;
+	public int getViewCnt() {
+		return viewCnt;
 	}
-	public void setViewcnt(int viewcnt) {
-		this.viewcnt = viewcnt;
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
 	}
 	public String getWriter() {
 		return writer;

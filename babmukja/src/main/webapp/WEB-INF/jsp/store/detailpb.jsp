@@ -5,35 +5,52 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>PB 스토어 상세 조회</title>
+	<script src="<c:url value="/resources/js/editor.min.js"/>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/store/detailpb.css"/>">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
-<body>
-<div id="pb_detail_container">
+<body onload="myTimeWait()">
+	<div id="pb_detail_container">
         <!-- 상단 컨테이너 -->
         <div id="pb_detail_header_container">
             <div id="pb_detail_header_images">
 	                <div id="pb_detail_thumbnail_list">
-                		<c:forEach var="detailpbIamge" items="${detailpbIamge}">
-	                    	<img src="<c:url value="/store/downloadpb.do?path=${detailpbIamge.path}&sysname=${detailpbIamge.sysname}"/>">
-                		</c:forEach>
+<%--                 		<c:forEach var="detailpbIamge" items="${detailpbIamge}"> --%>
+		                	<img src="">
+<%-- 	                    	<img src="<c:url value="/store/downloadpb.do?path=${detailpbIamge.path}&sysname=${detailpbIamge.sysname}"/>"> --%>
+<%--                 		</c:forEach> --%>
 	                </div>
-			     <c:set var="detailpb" value="${detailpb}"/>
+<%-- 			     <c:set var="detailpb" value="${detailpb}"/> --%>
 	                <div id="pb_detail_main_image">
-	                    <img src="<c:url value="/store/downloadpb.do?path=${detailpb.images[0].path}&sysname=${detailpb.images[0].sysname}"/>">
+	                	<img src="">
+<%-- 	                    <img src="<c:url value="/store/downloadpb.do?path=${detailpb.images[0].path}&sysname=${detailpb.images[0].sysname}"/>"> --%>
 	                </div>
             </div>
 
             <div id="pb_detail_info">
                 <div id="pb_detail_title">
-                    <p>${detailpb.name}</p>
+                    <p>${storepb.name}</p>
                 </div>
                 <div id="pb_detail_rating_point">
                     <p>★★★★☆</p>
                 </div>
                 <div id="pb_detail_price">
-                    <p id="pb_detail_price_p">${detailpb.price}원</p>
+                    <p id="pb_detail_price_p">${storepb.price}원</p>
                 </div>
                 <div id="pb_detail_promotion">
                     <p id="pb_detail_promotion_price"></p>
@@ -41,7 +58,7 @@
                 </div>
                 
                 <div id="pb_detail_select_box">
-                    <div id="select_product_title">${detailpb.name}</div>
+                    <div id="select_product_title">${storepb.name}</div>
                     <div id="select_product_count">
                         <p><button id="count_minus">-</button></p>
                         <p id="total_count">1</p>
@@ -55,21 +72,32 @@
                 </div>
                 <div id="pb_detail_btns">
                     <button class="add_to_cart">장바구니</button>
-                    <button calss="buy_now">구매하기</button>
+                    <button class="buy_now">구매하기</button>
                 </div>
             </div>
         </div>
         
         <!-- 메뉴바 -->
         <div id="pb_detail_menubar">
-            <div id="detail_product_info"><a href="#product_info_detail">&nbsp;상품정보&nbsp;</a></div>
+            <div id="detail_product_info"><a href="#product_info">&nbsp;상품정보&nbsp;</a></div>
             <div id="detail_product_review"><a href="#pb_review_detail">&nbsp;리뷰&nbsp;</a></div>
             <div id="detail_product_inquire"><a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a></div>
             <div id="detail_product_refund"><a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a></div>
         </div>
+        
+        <div id="product_info_detail" >
+        	<div id="product_info">상품정보<br><br></div><br><br><br>
+        </div>
+        <!--  editor js 적용 -->
+		<div id="hiddenValue" style="display:none">${storepb.content}</div>
+		<div id="post-body"></div>		
+        
+        
+<!--         editor js 적용 전 -->
         <!-- 상품설명 ~ 후기 ~ 문의 ~ 배송/교환/환불 -->
-        <div id="pb_detail_body_container" name="product_info_detail">
+<!--         <div id="pb_detail_body_container" name="product_info_detail"> -->
             <!-- 상품설명 -->
+            <!-- 
             <div id="product_info_detail" >
                 <div id="product_info">상품정보<br><br></div><br><br><br>
                 <c:forEach var="detailImg" items="${detailpbIamge}">
@@ -82,6 +110,7 @@
                         ${detailpb.content}
                     </p>
                 </div>
+                 -->
                 <!-- 
                 <div id="product_info_img">
                     <img src="images/foodthumbnail14.jpg">
@@ -102,7 +131,7 @@
                     </p>    
                 </div>
                  -->
-            </div>
+<!--             </div> -->
 
             <!-- 후기 -->
             <div id="pb_review_detail" name="pb_review_detail">
@@ -272,7 +301,6 @@
             </div>
         </div>
 
-    </div>
     <script>
         $("a[href^='#']").click(function (event) {
             event.preventDefault();
@@ -320,6 +348,58 @@
         $(".total__price").text(price * cnt + "원");
       });
       
+      // editor js 적용
+      const value = $("#hiddenValue").text();
+      const editor = new EditorJS({
+          holderId: 'post-body',
+
+          autofocus: false,
+          data: JSON.parse(value),
+          tools: { 
+              warning: {
+                  class: Warning,
+                  inlineToolbar: true,
+              },
+   
+              table: {
+                  class: Table,
+                  inlineToolbar: true,
+              },                       
+              quote: {
+                  class: Quote,
+                  inlineToolbar: true,
+              },
+				image: {
+                  class: ImageTool,
+              },            
+
+              header: {
+                  class: Header,
+              }, 
+              checklist: {
+                  class: Checklist,
+              },
+              marker: {
+                  class: Marker,
+              },
+              list: {
+                  class: List,
+              },
+              embed: {
+                  class: Embed,
+              }
+          }
+      });
+		
+     function myTimeWait(){
+	   
+  	   	console.log($("#post-body").width() + " " + $("#post-body").height());
+  	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
+     }
+     
+     $("#pb_review_writeform").click(function () {
+    	location.href="<c:url value='/store/pbreviewinsertform.do'/>";
+     });
     </script>
 </body>
 </html>

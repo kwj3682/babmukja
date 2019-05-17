@@ -35,4 +35,10 @@ public class MemberServiceImpl implements MemberService {
 	public int selectCheckEmail(String memEmail) {
 		return mapper.selectCheckEmail(memEmail);
 	}
+	
+	@Override
+	// 이메일 인증
+	public void updateEmailVerify(String memEmail) {
+		mapper.updateEmailVerify(memEmail);
+	}
 }

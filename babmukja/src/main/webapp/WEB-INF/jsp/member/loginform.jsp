@@ -98,11 +98,12 @@
 			 	if(fail === null) {
 			 		alert("이메일과 패스워드가 일치하지 않습니다.");
 			 		return;
-			 	} 
-			}); 
+			 	}
+			});
 			$("#doLogin").submit();
 		});
-		
+	 	
+	 	
 	</script>
 
 </body>

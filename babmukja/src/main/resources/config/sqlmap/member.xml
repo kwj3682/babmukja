@@ -37,7 +37,7 @@
 	<insert id="insertMember" parameterType="member">
 		insert into tb_member (
 		mem_name, mem_email, mem_phone, mem_nickname, mem_pass,
-		post_no, addr_default, addr_detail, manager_at, social_at 
+		post_no, addr_default, addr_detail, manager_at, social_at
 		)
 		values (
 		#{memName}, #{memEmail}, #{memPhone}, #{memNickname}, #{memPass},
@@ -58,6 +58,11 @@
 		from tb_member
 		where mem_email = #{memEmail}
 	</select>
-
-
+	
+	<!-- 이메일 인증 -->
+	<update id="updateEmailVerify" parameterType="String">
+		update tb_member
+		   set verify = 1
+		 where mem_email = #{memEmail}
+	</update>
 </mapper>

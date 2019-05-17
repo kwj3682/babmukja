@@ -20,16 +20,18 @@
         encType="multipart/form-data"
         class="notice_forms"
       >
+      <input type='hidden' name='notice_no' value='${notice.notice_no}'/>
         <div class="notice_summary">공지 사항 수정</div>
         <hr class="enrollhr" />
         <table class="notice_commt">
+        
           <tr>
             <th class="notice_th2">공지</th>
             <td class="notice_td2"><input type="text" name="inform"/></td>
           </tr>
           <tr>
             <th class="notice_th2">제목</th>
-            <td class="notice_td2"><input type="text" name="title" value='${notice.title}' /></td>
+            <td class="notice_td2"><input type="text" name="title" value='${notice.title}'/></td>
           </tr>
           <tr>
             <th class="notice_th3">내용</th>
@@ -38,9 +40,8 @@
                 name="content"
                 rows="25"
                 cols="100"
-                class="notice_textarea"
-                value='${notice.content}' 
-              ></textarea>
+                class="notice_textarea">${notice.content}
+                </textarea>
             </td>
           </tr>
           <tr>
