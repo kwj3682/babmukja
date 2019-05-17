@@ -5,6 +5,7 @@
 
  	<resultMap id="recipeMap" type="recipe">
 		<result column="mem_no" property="memNo" />
+		<result column="mem_Nickname" property="memNickname" />
 		<result column="recipe_no" property="recipeNo" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -18,7 +19,12 @@
 					#{memNo},#{title},#{content}
 					)
 	</insert>
-
+	
+	<select id="selectRecipe" resultMap="recipeMap">
+		select m.mem_nickname,r.* from tb_member m,tb_recipe r
+		 where m.mem_no = r.mem_no
+	</select>
+	
 	<select id="selectRecipeByNo" parameterType="int" resultMap="recipeMap">
 		select * from tb_recipe where recipe_no = #{recipeNo}
 	</select>

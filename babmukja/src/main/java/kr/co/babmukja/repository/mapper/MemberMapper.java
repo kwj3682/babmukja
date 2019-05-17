@@ -10,4 +10,6 @@ public interface MemberMapper {
 	int selectCheckNickName(String memNickname); // 닉네임 중복체크
 	
 	int selectCheckEmail(String memEmail); // 이메일 중복체크
+	
+	void updateEmailVerify(String memEmail); // 이메일 인증
 }

@@ -36,6 +36,7 @@ public class Member {
    private char get;
    private int orderSum;
    private String deliveryNo;
+   private char verify;
    
    
    
@@ -237,5 +238,12 @@ public int getTotalSel() {
 public void setTotalSel(int totalSel) {
 	this.totalSel = totalSel;
 }
+public char getVerify() {
+	return verify;
+}
+public void setVerify(char verify) {
+	this.verify = verify;
+}
+
 
 }

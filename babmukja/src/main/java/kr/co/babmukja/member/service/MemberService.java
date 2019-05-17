@@ -11,4 +11,5 @@ public interface MemberService {
 	
 	int selectCheckEmail(String memEmail); // 이메일 중복체크
 	
+	void updateEmailVerify(String memEmail); // 이메일 인증
 }
