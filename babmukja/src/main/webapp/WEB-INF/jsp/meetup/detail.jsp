@@ -3,11 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script> <!-- include libraries(jQuery,
+		bootstrap) -->
+
+	<link href="<c:url value="/resources/css/meetup/meetup-detail.css"/>" rel="stylesheet" type="text/css">
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link
@@ -25,277 +30,13 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-
-<title>Document</title>
-<style>
-.header {
-	width: 1200px;
-	height: 400px;
-	margin: 0 auto;
-	text-align: center;
-}
-
-.headerLeft {
-	display: inline-block;
-	border: 1px solid gainsboro;
-	overflow: hidden;
-	position: relative;
-	width: 560px;
-	height: 400px;
-	margin-right: 60px;
-	box-shadow: 10px 10px 20px 3px gray;
-	;
-}
-
-.infoTagContainer {
-	margin-top: 10px;
-	margin-bottom: 13px;
-}
-
-.infoTag {
-	color: white;
-	position: relative;
-	display: inline-block;
-	margin: 0 auto;
-	width: 60%;
-	background: white;
-	border-radius: .4em;
-}
-
-.infoTag::after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: 10px solid transparent;
-	border-top-color: white;
-	border-bottom: 0;
-	margin-left: -10px;
-	margin-bottom: -10px;
-}
-
-.pseudo {
-	color: white;
-	position: relative;
-	display: inline-block;
-	margin: 0 auto;
-	width: 60%;
-	background: #7db341;
-	border-radius: .4em;
-}
-
-.pseudo::after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: 10px solid transparent;
-	border-top-color: #7db341;
-	border-bottom: 0;
-	margin-left: -10px;
-	margin-bottom: -10px;
-}
-
-.tagBottom {
-	margin-bottom: 30px;
-}
-
-.title {
-	margin-top: 50px;
-	font-size: 30px;
-}
-
-.subInfo {
-	margin-top: 55px;
-	border-top: 1px solid gainsboro;
-	border-bottom: 1px solid gainsboro;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.headerRight {
-	display: inline-block;
-	border: 1px solid black;
-	overflow: hidden;
-	position: relative;
-	width: 560px;
-	height: 400px;
-	box-shadow: 10px 10px 20px 3px gray;
-}
-
-.area {
-	width: 3000px;
-	height: 400px;
-	position: relative;
-}
-
-.area img {
-	float: left;
-	width: 600px;
-	height: 400px;
-}
-
-.tabContainer {
-	margin: 70px auto;
-	width: 1200px;
-}
-
-.selectTab {
-	text-align: center;
-	border-collapse: collapse;
-}
-
-.selectTab td {
-	border: 1px solid gainsboro;
-	width: 238px;
-	height: 50px;
-	font-size: 20px;
-	box-sizing: border-box;
-}
-
-.tabContainer .tabPanel {
-	width: 100%;
-	background-color: white;
-	box-sizing: border-box;
-}
-
-.tabPanel {
-	display: none;
-}
-
-.tag {
-	font-size: 20px;
-	margin-top: 50px;
-}
-
-.writeIntro {
-	display: inline-block;
-	font-size: 30px;
-	width: 95px;
-	height: 50px;
-	margin-top: 30px;
-	margin-left: 45%;
-	text-align: center;
-	line-height: 30px;
-}
-
-.fa-plus-circle {
-	color: gainsboro;
-}
-
-.fa-plus-circle:hover {
-	color: #7db341;
-}
-
-#introBox {
-	text-decoration: none;
-	position: relative;
-	border: 1px solid gainsboro;
-	resize: none;
-	width: 800px;
-	height: 500px;
-	margin-left: 17%;
-}
-
-.editDelete {
-	margin-top: 35px;
-	margin-bottom: 200px;
-	display: inline-block;
-	width: 1190px;
-}
-
-#introEdit {
-	display: inline-block;
-	margin-bottom: 10px;
-	border: 1px solid gainsboro;
-	width: 70px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-}
-
-#introDelete {
-	margin-left: 10px;
-	display: inline-block;
-	margin-bottom: 10px;
-	border: 1px solid gainsboro;
-	width: 70px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-}
-
-.saveReturn {
-	margin-top: 35px;
-	margin-bottom: 200px;
-	display: inline-block;
-	width: 1190px;
-}
-
-#introReturn {
-	display: inline-block;
-	margin-bottom: 5px;
-	border: 1px solid gainsboro;
-	width: 70px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-}
-
-#introSave {
-	margin-left: 10px;
-	display: inline-block;
-	border: 1px solid gainsboro;
-	width: 70px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-}
-
-#introHeader {
-	margin-left: 330px;
-	display: inline-block;
-	text-align: center;
-	border-bottom: 1px solid white;
-	font-size: 20px;
-}
-
-#introSave:hover {
-	background-color: #7db341;
-	color: white;
-}
-
-#introReturn:hover {
-	background-color: #7db341;
-	color: white;
-}
-
-#introDelete:hover {
-	background-color: #7db341;
-	color: white;
-}
-
-#introEdit:hover {
-	background-color: #7db341;
-	color: white;
-}
-
-.dataBefore {
-	height: 30px;
-}
-</style>
-</head>
+	<title>Document</title>
 
 </head>
+
 <body>
 	<div class="header">
 		<div class="headerLeft">
@@ -363,8 +104,7 @@
 		<div class="tabPanel">회원</div>
 	</div>
 
-
-	<script>
+<script>
 
    
     
@@ -527,25 +267,28 @@
               
               });
               
+                
+                
                 function sendFile(file,editor,welEditable) {
                     // 파일 전송을 위한 폼생성
+         			console.log("전달오나 확인");
                   data = new FormData();
                    data.append("file", file);
                    console.log("file"+file);
                    console.log(data);
                    $.ajax({ // ajax를 통해 파일 업로드 처리
-                       data :"data="data,
+                       data :data,
                        type:'POST',
-                       enctype: 'multipart/form-data',
-                   	  url: '/babmukja/meetup/saveFile.do',
+                       url : "<c:url value='/meetup/saveFile.do' />",
                        cache : false,
                        contentType : false,
                        processData : false,
                        success : function(url) { // 처리가 성공할 경우
 //                          alert("sendFile함수 들어옴")
                          // 에디터에 이미지 출력
+                         	url.filepath
                          alert(url);
-                         $("#summernote").summernote('editor.insertImage', "download.do?name="+url);
+                         $("#summernote").summernote('editor.insertImage', "download.do?name="+url.filePath);
                          
                        }
                    });

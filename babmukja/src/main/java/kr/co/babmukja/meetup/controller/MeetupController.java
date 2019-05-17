@@ -78,13 +78,14 @@ public class MeetupController {
 	      
 	      File f = new File(filePath + sysFileName);
 	      
-	      System.out.println("파일이름 :" + filePath + sysFileName);
+	      System.out.println("파일경로 :" + filePath + sysFileName);
 	      
 	       if(f.exists() == false) {
 	         f.mkdirs();
 	       }
 	       
 	       try {
+	    	   System.out.println("이동 잘되나 확인");
 			file.transferTo(f);
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block

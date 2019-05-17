@@ -4,7 +4,7 @@ public class MeetupFile {
 
 	public String orgFileName;
 	public String sysFileName;
-	public String FilePath;
+	public String filePath;
 	public String getOrgFileName() {
 		return orgFileName;
 	}
@@ -18,11 +18,10 @@ public class MeetupFile {
 		this.sysFileName = sysFileName;
 	}
 	public String getFilePath() {
-		return FilePath;
+		return filePath;
 	}
 	public void setFilePath(String filePath) {
-		FilePath = filePath;
+		this.filePath = filePath;
 	}
-	
-}
 
+}
