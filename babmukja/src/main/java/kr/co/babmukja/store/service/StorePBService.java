@@ -21,4 +21,7 @@ public interface StorePBService {
 	 
 	public StorePB selectPBStoreByNo(int no);
 	public void insertPBStore(StorePB storepb);
+	public StorePB updateFormPBStore(int no);
+	public void updatePBStore(StorePB storepb);
+	public void deletePBStore(int no);
 }

@@ -21,4 +21,6 @@ public interface StorePBMapper {
 	
 	public StorePB selectPBStoreByNo(int no);
 	public void insertPBStore(StorePB storepb);
+	public void updatePBStore(StorePB storepb);
+	public void deletePBStore(int no);
 }

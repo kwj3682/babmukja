@@ -51,7 +51,7 @@
         	location.href="<c:url value='/admin/member.do'/>";
         });
         $("#menu5").click(function(){
-        	location.href="<c:url value='/store/insertformpb.do'/>";
+        	location.href="<c:url value='/admin/pbstoreindex.do'/>";
         });
     </script>
 </body>

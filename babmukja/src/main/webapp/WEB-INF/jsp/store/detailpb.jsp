@@ -79,12 +79,13 @@
         
         <!-- 메뉴바 -->
         <div id="pb_detail_menubar">
-            <div id="detail_product_info"><a href="#product_info">&nbsp;상품정보&nbsp;</a></div>
-            <div id="detail_product_review"><a href="#pb_review_detail">&nbsp;리뷰&nbsp;</a></div>
+            <div id="detail_product_info"><a href="#pb_info_move">&nbsp;상품정보&nbsp;</a></div>
+            <div id="detail_product_review"><a href="#pb_review_header">&nbsp;리뷰&nbsp;</a></div>
             <div id="detail_product_inquire"><a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a></div>
             <div id="detail_product_refund"><a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a></div>
         </div>
         
+        <a id="pb_info_move"></a>
         <div id="product_info_detail" >
         	<div id="product_info">상품정보<br><br></div><br><br><br>
         </div>
@@ -397,8 +398,9 @@
   	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
      }
      
+     
      $("#pb_review_writeform").click(function () {
-    	location.href="<c:url value='/store/pbreviewinsertform.do'/>";
+	    	location.href="<c:url value='/store/pbreviewinsertform.do'/>";
      });
     </script>
 </body>

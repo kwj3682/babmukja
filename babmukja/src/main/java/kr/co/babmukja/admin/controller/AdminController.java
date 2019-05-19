@@ -50,4 +50,7 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("/pbstoreindex.do")
+	public void pbstoreindex() {}
+	
 }
