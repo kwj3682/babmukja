@@ -12,7 +12,6 @@
 
 <body>
  	<div class="pb_insertform_container">
-		<div class="pb_review_insertform_header">후기 등록</div>
 		<form method="post" enctype="multipart/form-data" action="<c:url value="/store/insertpb.do"/>">
 	        <div class="pb_product_name">
 	            <p>후기 제목</p>

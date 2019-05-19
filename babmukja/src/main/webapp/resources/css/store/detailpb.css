@@ -167,6 +167,11 @@
 	margin-top: 50px;
 }
 
+#pb_info_move {
+	height: 50px;
+	
+}
+
 #pb_detail_menubar {
     display: flex;
     font-size: 30px;

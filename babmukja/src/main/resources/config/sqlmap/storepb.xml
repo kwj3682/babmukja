@@ -173,4 +173,16 @@
 		 where pb_no = #{pbNo}
 	</select>
 	
+	<update id="updatePBStore" parameterType="storePB">
+		update tb_pb
+		   set name = #{name},
+		       content = #{content}
+		 where pb_no = #{pbNo}		   
+	</update>
+	
+	<delete id="deletePBStore" parameterType="int">
+		delete 
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</delete>
 </mapper>

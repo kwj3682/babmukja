@@ -58,4 +58,15 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.insertPBStore(storepb);
 	}
 	
+	public StorePB updateFormPBStore(int no) {
+		return mapper.selectPBStoreByNo(no);
+	}
+	
+	public void updatePBStore(StorePB storepb) {
+		mapper.updatePBStore(storepb);
+	}
+	
+	public void deletePBStore(int no) {
+		mapper.deletePBStore(no);
+	}
 }

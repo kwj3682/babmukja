@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.google.gson.Gson;
 
@@ -99,15 +100,18 @@ public class StorePBController {
 		
 	}
 	
+	// pb 상품 등록 폼
 	@RequestMapping("/insertformpb.do")
-	public void insertform() {}
+	public void insertformpb() {}
 	
+	// pb 상품 등록
 	@RequestMapping("/insertpb.do")
 	@ResponseBody
 	public void insertpb(StorePB storepb) {
 		service.insertPBStore(storepb);
 	}
 	
+	// pb 상품 상세조회
 	@RequestMapping("/detailpb.do")
 	public ModelAndView detailpb(ModelAndView mav, int no) {
 		StorePB store = service.selectPBStoreByNo(no);
@@ -119,6 +123,25 @@ public class StorePBController {
 		mav.setViewName("store/detailpb");
 		mav.addObject("storepb", store);
 		return mav;
+	}
+	
+	// pb 상품 수정 폼
+	@RequestMapping("/updateformpb.do")
+	public void updatepbform(Model model, int no) {
+		model.addAttribute("storepb", service.updateFormPBStore(no));
+	}
+	
+	// pb 상품 수정
+	@RequestMapping("/updatepb.do")
+	public void updatepb(StorePB storepb) {
+		service.updatePBStore(storepb);
+	}
+	
+	// pb 상품 삭제
+	@RequestMapping("/deletepb.do")
+	public String deletepb(int no) {
+		service.deletePBStore(no);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do"; 
 	}
 	
 	// 파일 처리 
@@ -175,7 +198,7 @@ public class StorePBController {
 		return new Gson().toJson(fileVO);
 	}
 	
-	// 후기 
+	// pb 상품 후기  등록 폼
 	@RequestMapping("/pbreviewinsertform.do")
 	public void reviewinsertform() {
 		
