@@ -14,7 +14,7 @@
 		<result column="addr_default" property="addrDefault" />
 		<result column="addr_detail" property="addrDetail" />
 		<result column="manager_at" property="managerAt" />
-		<result column="img_orgname" property="imgOrgname" />
+		<result column="img_orgname" property="imgOrgname" /> 
 		<result column="img_sysname" property="imgSysname" />
 		<result column="sign_date" property="signDate" />
 		<result column="last_date" property="lastDate" />
@@ -76,6 +76,39 @@
 			   and totalSel <= #{totalSel2}
 			 ]]>            	
          	</if>
+      	      <if test="recipeCnt1 != null and recipeCnt1 != '' ">
+		     <![CDATA[
+	           and recipe_cnt >= #{recipeCnt1}
+			   and recipe_cnt <= #{recipeCnt2}
+			 ]]>            	
+         	</if>
+      	      <if test="recipeCnt1 != null and recipeCnt1 != '' ">
+		     <![CDATA[
+	           and selling_cnt >= #{sellingCnt1}
+			   and selling_cnt <= #{sellingCnt2}
+			 ]]>            	
+         	</if>
+      	      <if test="point1 != null and point1 != '' ">
+		     <![CDATA[
+	           and point >= #{point1}
+			   and point <= #{point2}
+			 ]]>            	
+         	</if>
+      	    <choose>
+           <when test="gradeType == 'newMem'">    
+           		and m.grade_no = 0           
+            </when>
+            <when test="gradeType == 'normalMem'">     
+            	and m.grade_no = 1            
+            </when>
+            <when test="gradeType == 'goodMem'">    
+            	and m.grade_no = 2           
+            </when>
+            <when test="gradeType == 'bestMem'"> 
+           		and m.grade_no = 3               
+            </when>
+            <otherwise></otherwise>
+         </choose>
 	</sql>
 	
     <!-- 회원 전체목록 페이징추가 -->
@@ -102,16 +135,6 @@
 		 <include refid="searchWhere"/>
 	</select>
 	
-
-	<!-- <select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
-		select m.*, g.gradename, o.*
-		  from (select a.*, 	           
-	                   (select sum(order_sum) from tb_order where buy_mem_no = a.mem_no) 'totalBuy',
-	                   (select sum(order_sum) from tb_order where sell_mem_no = a.mem_no) 'totalSel'	                   	                   
-	              from tb_member a) m, tb_grademap g ,tb_order o
-		 where m.grade_no = g.grade_no
-		   and mem_no = #{memNo}		  
-	</select>  -->
 	<!-- 회원 상세조회 -->
     <!-- <select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
 		select m.*, g.gradename, o.*

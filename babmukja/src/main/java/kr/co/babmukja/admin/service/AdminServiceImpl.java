@@ -22,7 +22,8 @@ public class AdminServiceImpl implements AdminService {
 		result.put("list", mapper.selectMemberList(page));			
 		result.put("searchType",page.getSearchType());
 		result.put("input", page.getInput());
-	
+		result.put("gradeType", page.getGradeType());
+		
 		if(page.getSignDate1() != "") {
 			result.put("signDate1",page.getSignDate1());
 			result.put("signDate2",page.getSignDate2());			

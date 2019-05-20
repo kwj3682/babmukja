@@ -38,7 +38,7 @@
     	const editor = new EditorJS({
             holderId: 'editorjs',
 
-            autofocus: true,
+            autofocus: false,
             data: {"time":1557295973064,"blocks":[{"type":"quote","data":{"title":"","message":""}},{"type":"warning","data":{"title":"","message":""}}],"version":"2.13.0"},
             tools: { 
                 warning: {
