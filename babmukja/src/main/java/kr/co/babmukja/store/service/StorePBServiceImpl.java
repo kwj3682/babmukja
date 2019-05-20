@@ -1,5 +1,7 @@
 package kr.co.babmukja.store.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,10 @@ public class StorePBServiceImpl implements StorePBService{
 
 	public StorePB selectPBStoreByNo(int no) {
 		return mapper.selectPBStoreByNo(no);
+	}
+	
+	public List<StorePB> selectAdminPBList() {
+		return mapper.selectAdminPBList();
 	}
 	
 	public void insertPBStore(StorePB storepb) {

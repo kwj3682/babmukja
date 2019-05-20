@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.admin_pb_selectList_container {
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.admin_pb_selectList {
+    display: flex;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.admin_pb_selectList_table > tbody > tr > th {
+    padding: 50px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.admin_pb_selectList_table > tbody > tr > td {
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
