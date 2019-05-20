@@ -75,7 +75,7 @@
 				image: {
                     class: ImageTool,
                     config: {
-                    	captionPlaceholder: '#해시태그를 입력해주세요',
+                    	captionPlaceholder: '#키워드를 입력해주세요',
                         uploader: {
                             uploadByFile(file){
 
