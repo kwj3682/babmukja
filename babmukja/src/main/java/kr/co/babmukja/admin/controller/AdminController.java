@@ -50,7 +50,9 @@ public class AdminController {
 		
 	}
 	
+	// PB 스토어 index (상품조회 / 상품등록)
 	@RequestMapping("/pbstoreindex.do")
 	public void pbstoreindex() {}
 	
+
 }

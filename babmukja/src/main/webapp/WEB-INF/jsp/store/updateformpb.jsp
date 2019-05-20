@@ -25,34 +25,31 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/store/insertformpb.css"/>">
 </head>
 <body>
-    <div id="writeform-header">상품 등록</div>
-    <div id="paragraph">PB 상품을 등록해주세요</div>
+    <div id="writeform-header">상품 수정</div>
+    <div id="paragraph">PB 상품을 수정해주세요</div>
     <div id="editorjs">
-            <input type="text" id="name" placeholder="상품명을 입력해주세요.">
-            <input type="text" id="price" placeholder="가격을 입력해주세요.">
+            <input type="text" id="name" value="${storepb.name}">
+            <input type="text" id="price" value="${storepb.price}">
+            <div id="hiddenValue" style="display:none">${storepb.content}</div>
+            <div id="hiddenNo" style="display:none">${storepb.pbNo}</div>
         </div>
     <div id="buttonWrapper">
         <button>저장</button>
     </div>
+    
     <script>
+    	const value = $("#hiddenValue").text();
+    	const no = $("#hiddenNo").text();
+    	
     	const editor = new EditorJS({
             holderId: 'editorjs',
 
             autofocus: true,
-            data: {"time":1557295973064,
-            	"blocks":[
-            		{"type":"image","data":{"name":"","message":""}}
-            		]
-    				,"version":"2.13.0"},
+            data: JSON.parse(value),
             tools: { 
                 warning: {
                     class: Warning,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+SHIFT+W',
-                    config: {
-                        titlePlaceholder: '주의사항',
-                        messagePlaceholder: '내용을 입력해주세요',
-                    },
+                    inlineToolbar: true                 
                 },
      
                 table: {
@@ -65,17 +62,12 @@
                 },                       
                 quote: {
                     class: Quote,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+SHIFT+O',
-                    config: {
-                        quotePlaceholder: '내용을 입력해주세요',
-                    },
+                    inlineToolbar: true
+                    
                 },
-                
 				image: {
                     class: ImageTool,
                     config: {
-                    	captionPlaceholder: '#키워드를 입력해주세요',
                         uploader: {
                             uploadByFile(file){
 
@@ -160,11 +152,11 @@
                 }
             }
         });
-
-        let saveBtn = document.querySelector("button");
-        saveBtn.addEventListener("click", function () {
-        	let storeName = $("#name").val();
-        	let storePrice = $("#price").val();
+    	
+    	let saveBtn = document.querySelector("button");
+    	saveBtn.addEventListener("click", function () {
+        	let storepbName = $("#name").val();
+        	let storepbPrice = $("#price").val();
             console.dir(editor)
             editor.save().then((outputData)=>{
             	let content = JSON.stringify(outputData);
@@ -172,17 +164,15 @@
             	let price= $("#price").val();
             	$.ajax({
 					type: "post",
-	   					url:"insertpb.do",
+	   					url:"updatepb.do",
 						data: {content : content,
 								 name : name,
-								 price : price},
+								 price : price,
+								  pbNo : no},
 						success:function(result){
 						}
             	});
                 console.log("Article data : ", outputData);
-                console.log("name : "+name);
-                console.log("price : "+price);
-                console.log("content : " + content);
                 location.href="<c:url value="/store/pbstoreselectlist.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);

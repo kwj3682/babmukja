@@ -1,5 +1,7 @@
 package kr.co.babmukja.store.service;
 
+import java.util.List;
+
 import kr.co.babmukja.repository.domain.StorePB;
 
 public interface StorePBService {
@@ -20,6 +22,7 @@ public interface StorePBService {
 	*/
 	 
 	public StorePB selectPBStoreByNo(int no);
+	public List<StorePB> selectAdminPBList();
 	public void insertPBStore(StorePB storepb);
 	public StorePB updateFormPBStore(int no);
 	public void updatePBStore(StorePB storepb);

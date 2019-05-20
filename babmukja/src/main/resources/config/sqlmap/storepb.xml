@@ -173,9 +173,16 @@
 		 where pb_no = #{pbNo}
 	</select>
 	
+	<select id="selectAdminPBList" resultMap="storepbMap">
+		select * 
+	  	  from tb_pb
+	 	 order by pb_no desc
+	</select>
+	
 	<update id="updatePBStore" parameterType="storePB">
 		update tb_pb
 		   set name = #{name},
+		       price = #{price},
 		       content = #{content}
 		 where pb_no = #{pbNo}		   
 	</update>
