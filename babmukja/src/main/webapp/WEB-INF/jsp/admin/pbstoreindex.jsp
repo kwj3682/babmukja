@@ -24,7 +24,7 @@
     
     <script>
     	$(".admin_pb_detaildo_btn").click(function () {
-    		location.href="<c:url value=''/>";
+    		location.href="<c:url value='/store/pbstoreselectlist.do'/>";
     	});
     	
     	$(".admin_pb_insertdo_btn").click(function () {

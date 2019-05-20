@@ -33,8 +33,7 @@ public class AdminController {
 			model.addAttribute("signDate1", list.get("signDate1"));
 			model.addAttribute("signDate2", list.get("signDate2"));
 		}
-		System.out.println(list.get("signDate1"));
-		System.out.println(list.get("signDate2"));
+
 //		if(list.get("lastDate1") != "") {
 //			model.addAttribute("lastDate1", list.get("lastDate1"));
 //			model.addAttribute("lastDate2", list.get("lastDate2"));			
@@ -50,7 +49,9 @@ public class AdminController {
 		
 	}
 	
+	// PB 스토어 index (상품조회 / 상품등록)
 	@RequestMapping("/pbstoreindex.do")
 	public void pbstoreindex() {}
 	
+
 }

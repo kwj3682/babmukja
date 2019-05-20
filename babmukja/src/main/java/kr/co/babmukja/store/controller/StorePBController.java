@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.store.service.StorePBService;
 
@@ -133,15 +135,16 @@ public class StorePBController {
 	
 	// pb 상품 수정
 	@RequestMapping("/updatepb.do")
-	public void updatepb(StorePB storepb) {
+	public String updatepb(StorePB storepb) {
 		service.updatePBStore(storepb);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/store/pbstoreselectlist.do";
 	}
 	
 	// pb 상품 삭제
 	@RequestMapping("/deletepb.do")
 	public String deletepb(int no) {
 		service.deletePBStore(no);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do"; 
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/store/pbstoreselectlist.do"; 
 	}
 	
 	// 파일 처리 
@@ -196,6 +199,15 @@ public class StorePBController {
 		System.out.println("file upload succeed.");
 
 		return new Gson().toJson(fileVO);
+	}
+	
+	// PB 스토어 목록조회  (관리자전용)
+	@RequestMapping("/pbstoreselectlist.do")
+	public void pbstoreselectlist(Model model, Pagepb page) {
+		Map<String, Object> result = service.selectAdminPBList(page);
+		
+		model.addAttribute("pbAdminList", result.get("pbAdminList"));
+		model.addAttribute("pageResult", result.get("pageResult"));
 	}
 	
 	// pb 상품 후기  등록 폼

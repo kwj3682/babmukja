@@ -20,7 +20,7 @@
             <ul>
                 <li><a id="menu0" class="menu" href="#">About us</a></li>
                 <li><a id="menu1" class="menu" href="<c:url value="/recipe/main.do"/>">레시피</a></li>
-                <li><a id="menu2" class="menu" href="<c:url value="/store/mainpb.do"/>">스토어</a></li>
+                <li><a id="menu2" class="menu" href="<c:url value="/admin/pbstoreindex.do"/>">스토어</a></li>
                 <li><a id="menu3" class="menu" href="<c:url value="/meetup/detail.do"/>">쿠킹 미팅</a></li>
             </ul>
         </div>

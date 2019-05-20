@@ -1,8 +1,13 @@
 package kr.co.babmukja.store.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.babmukja.common.page.PageResult;
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
 
@@ -52,6 +57,15 @@ public class StorePBServiceImpl implements StorePBService{
 
 	public StorePB selectPBStoreByNo(int no) {
 		return mapper.selectPBStoreByNo(no);
+	}
+	
+	public Map<String, Object> selectAdminPBList(Pagepb page) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("pbAdminList", mapper.selectAdminPBList(page));
+		result.put("pageResult", new PageResult(
+				page.getPageNo(), mapper.selectAdminPBListCount()));
+		
+		return result;
 	}
 	
 	public void insertPBStore(StorePB storepb) {

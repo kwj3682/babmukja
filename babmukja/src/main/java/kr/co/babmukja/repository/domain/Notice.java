@@ -2,19 +2,21 @@ package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Notice {
-	 private int notice_no;               
+	 private int no;               
      private String title;        
-     private String content;    
+     private String content;  
      private Date  regDate;     
      private int viewCnt;    
      private String writer;
-
-	public int getNotice_no() {
-		return notice_no;
+     
+	public int getNo() {
+		return no;
 	}
-	public void setNotice_no(int notice_no) {
-		this.notice_no = notice_no;
+	public void setNo(int no) {
+		this.no = no;
 	}
 	public String getTitle() {
 		return title;
