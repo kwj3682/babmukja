@@ -152,21 +152,21 @@
                         </tbody>
                     </table>
                     <c:if test="${pageResult.count != 0}"> 
-							<c:if test="${pageResult.prev}">
-							<a id="prevPage" href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
+							<c:if test="${pageResult.prev eq true}">
+							<a id="prevPage" data-pageNo="${pageResult.beginPage - 1}" href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
 						</c:if>
 						<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
-							<a id="noPage" href="${param.link}?pageNo=${i}">[${i}]</a>
+							<a id="noPage" data-pageNo="${i}" href="${param.link}?pageNo=${i}">[${i}]</a>
 							</c:forEach>
 						<c:if test="${pageResult.next eq true}">
-							<a id="nextPage" href="${param.link}?pageNo=${pageResult.endPage + 1}">다음</a>
+							<a id="nextPage" data-pageNo="${pageResult.endPage + 1}" href="#1">다음</a>
 						</c:if>	
 					</c:if>	
                 </div>                
             </div>
         </div>
 	</div>
-	<form name="searchForm" action="<c:url value="/admin/member.do"/>">
+	<form name="searchForm" action="<c:url value="/admin/member.do"/>" method="post">
 		<input type="hidden" name="pageNo">
 		<input type="hidden" name="searchType" value="${param.searchType}">
 		<input type="hidden" name="input" value="${param.input}">
@@ -188,22 +188,14 @@
 	</form>
     <script>    
     	
-    	$("nextPage").click(function movePage(pageNo) {
-    		$("[name='searchForm'] > input[name='pageNo']").val(pageNo);
+    	$("#search-output-list > a").click(function () {
+    		alert($(this).data("pageNo"));
+    		$("[name='searchForm'] > input[name='pageNo']").val($(this).data("pageNo"));
     		$("[name='searchForm']").submit();
+    		return false;
     	});
     
-    	$("noPage").click(function movePage(pageNo) {
-
-    		$("[name='searchForm'] > input[name='pageNo']").val(pageNo);
-    		$("[name='searchForm']").submit();
-    	});
-    
-    	$("prevPage").click(function movePage(pageNo) {
-    		$("[name='searchForm'] > input[name='pageNo']").val(pageNo);
-    		$("[name='searchForm']").submit();
-    	});
-    
+ 
    		 $("#detail_button").click(function () { 
        		$("#detail-search").css(
             	"display", "block"                

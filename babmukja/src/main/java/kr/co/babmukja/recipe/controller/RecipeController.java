@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,10 +37,10 @@ public class RecipeController {
 	private RecipeService service;	
 	
 	@RequestMapping("/main.do")
-	public void main(Model model) {
-		
+	public void main(Model model) {		
 		model.addAttribute("list", service.selectRecipe());
 	}
+	
 	//-----------------------------------------------------------------------
 	@RequestMapping("/writeform.do")
 	public void writeForm() {}
