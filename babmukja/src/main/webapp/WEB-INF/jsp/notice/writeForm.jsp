@@ -10,28 +10,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<c:url value="/resources/css/notice/notice enroll.css"/>">
     <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
-    <title>공지사항 등록</title>
+    <title>전체조회</title>
 </head>
 <body>
         <form
-        action="update.do"
+        action="write.do"
         method="post"
-        name="updateform"
+        name="inqform"
         encType="multipart/form-data"
         class="notice_forms"
       >
-      <input type='hidden' name='notice_no' value='${notice.notice_no}'/>
-        <div class="notice_summary">공지 사항 수정</div>
+        <div class="notice_summary">공지 사항 등록</div>
         <hr class="enrollhr" />
         <table class="notice_commt">
-        
           <tr>
-            <th class="notice_th2">공지</th>
-            <td class="notice_td2"><input type="text" name="inform"/></td>
+            <th class="notice_th2">관리자</th>
+            <td class="notice_td2"><input type="text" name="writer"/></td>
           </tr>
           <tr>
             <th class="notice_th2">제목</th>
-            <td class="notice_td2"><input type="text" name="title" value='${notice.title}'/></td>
+            <td class="notice_td2"><input type="text" name="title"/></td>
           </tr>
           <tr>
             <th class="notice_th3">내용</th>
@@ -40,8 +38,8 @@
                 name="content"
                 rows="25"
                 cols="100"
-                class="notice_textarea">${notice.content}
-                </textarea>
+                class="notice_textarea"
+              ></textarea>
             </td>
           </tr>
           <tr>
@@ -58,14 +56,39 @@
         <div class="notice_wsubd">
           <th class="notice_wsub"><button type="submit"><a href="list.do">목록보기</a></button></th>
           &nbsp; &nbsp; &nbsp;
-          <th class="notice_wsub"><button type="submit">수정하기</button></th>
+          <th class="notice_wsub"><button type="submit">등록하기</button></th>
         </div>
       </form>
       <br />
       <hr />
-      <footer>
+  <footer>
           <h2>BABMUKJA COMPANY</h2>
           <div>Lorem ipsum dolor sit.</div>
   </footer>
+    <script>
+    	$("form").submit(function inqform() {
+    		
+    		var no = document.inqform.notice_no 
+    		var writer = document.inqform.writer;
+    		var title = document.inqform.title;
+    		var content = document.inqform.content;
+    		
+    		var notnull = [no, writer, title, content]
+    		
+    		if (isEmpty(no , "글번호를 입력하세요.")) return false; 
+    		if (isEmpty(writer , "글쓴이를 입력하세요.")) return false;
+    		if (isEmpty(title, "제목을 입력하세요.")) return false;
+    		if (isEmpty(content, "내용을 입력하세요.")) return false;
+    		
+    		function isEmpty(ele, msg) {
+    			if (ele.value == "") {
+    				alert(msg);
+    				ele.focus();
+    				return true;
+    			}
+    			return false;
+    		}
+    	});
+    	</script>
 </body>
 </html>
