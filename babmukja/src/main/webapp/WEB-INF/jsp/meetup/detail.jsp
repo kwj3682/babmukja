@@ -5,14 +5,16 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script> <!-- include libraries(jQuery,
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script>
+<!-- include libraries(jQuery,
 		bootstrap) -->
 
-	<link href="<c:url value="/resources/css/meetup/meetup-detail.css"/>" rel="stylesheet" type="text/css">
+<link href="<c:url value="/resources/css/meetup/meetup-detail.css"/>"
+	rel="stylesheet" type="text/css">
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link
@@ -30,10 +32,12 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous">
 
-	<title>Document</title>
+<title>Document</title>
 
 </head>
 
@@ -104,7 +108,7 @@
 		<div class="tabPanel">회원</div>
 	</div>
 
-<script>
+	<script>
 
    
     
@@ -154,25 +158,7 @@
         var intro = `${intro}`;
         
         dataProcess();
-      //save 눌렀을 때 데이터 처리
-        /*  contentType: "text/xml;charset=utf-8", */
-           $(document).on("click", "#introSave", function () {
-                    alert($('#summernote').val() );
-                   
-                    var text =$('#summernote').val();
-                    var encoded = encodeURIComponent(text)
-                    $.ajax({
-                  	  data: "data=" + encoded,
-                  	  type: "POST",
-                  	  url: '/babmukja/meetup/updateIntro.do',
-                  	  enctype: 'multipart/form-data',
-                  	  success: function(data) {
-                  		  
-                  		  $("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` + data);
-                  	  }
-                  	  });
-                 
-                     }); //save 끝
+      
         
                  	//수정을 눌렀을 때
                    	 $(document).on("click", "#introEdit", function () {	
@@ -229,7 +215,10 @@
                      });
         
                    		  
-                   		  
+             
+              //java에서 array를 받을 수 있게 바꾸어 세팅주기         
+             jQuery.ajaxSettings.traditional = true;
+             var tempFileDirectory = new Array();//후에 세이브 버튼을 누를때 array로 파일경로를 보내주기 위해서                		  
              function dataProcess(){      		  
                    		  
              if(intro ==""){ // intro가 null 이 아니면 등록 폼 버튼 을 불러준다
@@ -268,27 +257,33 @@
               });
               
                 
-                
+         
                 function sendFile(file,editor,welEditable) {
                     // 파일 전송을 위한 폼생성
-         			console.log("전달오나 확인");
+         			console.log("전달가나 확인");
                   data = new FormData();
                    data.append("file", file);
                    console.log("file"+file);
                    console.log(data);
+                   
+                  
                    $.ajax({ // ajax를 통해 파일 업로드 처리
                        data :data,
                        type:'POST',
-                       url : "<c:url value='/meetup/saveFile.do' />",
+                       url : "<c:url value='/meetup/uploadImage.do' />",
                        cache : false,
                        contentType : false,
                        processData : false,
                        success : function(url) { // 처리가 성공할 경우
 //                          alert("sendFile함수 들어옴")
                          // 에디터에 이미지 출력
-                         	url.filepath
+                        
+                         let path = url.filePath;
+                       let sysFileName = url.sysFileName;
+                    
+                       tempFileDirectory.push(url.filePath+url.sysFileName);
                          alert(url);
-                         $("#summernote").summernote('editor.insertImage', "download.do?name="+url.filePath);
+                         $("#summernote").summernote('editor.insertImage', "<c:url value='/meetup/download.do' />" + "?path=" + path + sysFileName);
                          
                        }
                    });
@@ -305,9 +300,58 @@
         }//else
         
        
-             }
+             }//data process
+ 
              
-          
+            
+                
+      //save 눌렀을 때 데이터 처리// 나중에 위로 올리기
+      /*  contentType: "text/xml;charset=utf-8", */
+    
+
+             var fileDirectory = [];
+             
+                $(document).on("click", "#introSave", function () {
+                         alert($('#summernote').val());
+                         
+                         var fileDirectory = [];
+                         var deleteDirectory=[];//후에 이경로에 있는 파일들은 지우기
+                         let data ={};
+                         data.fileDirectory = fileDirectory;
+                         data.deleteDirectory = deleteDirectory;
+                         data.dbPath = $('#summernote').val();
+                         alert("dbPath: " + data.dbPath);
+                         for (let i = 0; i < tempFileDirectory.length; i++) {
+                       	  if ( $('#summernote').val().includes(tempFileDirectory[i]) == false ) {
+                       		deleteDirectory.push(tempFileDirectory[i]);
+                       	 	alert("deleteDirectory: " + tempFileDirectory[i]);
+                       	
+                       	 	 continue;
+                       	  }
+                       		
+                      	fileDirectory.push(tempFileDirectory[i]);
+                       	alert("fileDirectory: " + fileDirectory[0]);
+                       
+                         }  //for
+                            	  
+                              
+                       
+                      
+                       
+                      /*    var text =$('#summernote').val();
+                         var encoded = encodeURIComponent(text) */
+                         $.ajax({
+                       	  data: data,
+                       	  type: "POST",
+                       	  url: '/babmukja/meetup/updateIntro.do',
+                       	  enctype: 'multipart/form-data',
+                       	  success: function(data) {
+                       		  
+                       		  $("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` /* + data */);
+                       	  }
+                       	  });
+                      
+                          }); //save 끝
       
         
 

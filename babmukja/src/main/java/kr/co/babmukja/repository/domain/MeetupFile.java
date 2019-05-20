@@ -1,7 +1,6 @@
 package kr.co.babmukja.repository.domain;
 
 public class MeetupFile {
-
 	public String orgFileName;
 	public String sysFileName;
 	public String filePath;
