@@ -9,19 +9,13 @@ import kr.co.babmukja.repository.domain.Notice;
 import kr.co.babmukja.repository.domain.Page;
 
 public interface NoticeMapper {
-	
-	List<Comment> selectCommentByNo(int notice_no);
-
-	void updateNotice(Notice notice);
-
-	Notice selectNotice(int notice_no);
-
-	void insertNotice(Notice notice);
-
-	void deleteNotice(int notice_no);
-
+//	public List<Notice> selectNotice(Page page);
 	List<Notice> selectNoticeList();
-
-	int selectNoticeCount();
+	public int selectNoticeCount();
+	void insertNotice(Notice notice);
+	Notice selectNoticeByNo(int no);
+	int deleteNotice(int no);
+    int updateNotice(Notice notice);
+    List<Comment> selectCommentByNo(int no);
 	
 }

@@ -28,11 +28,10 @@
                 </tr>
       <c:forEach var="notice" items="${list}">
          <tr>
-            <td class="noticeNo">${notice.notice_no}</td>
+            <td class="noticeNo">${notice.no}</td>
             <td class="leftstyle2"><a
-               href='detail.do?no=${notice.notice_no}'>${notice.title}</a></td>   
-            <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일"
-                  value="${notice.regDate}" /></td>
+               href='detail.do?no=${notice.no}'>${notice.title}</a></td>   
+            <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일 " value="${notice.regDate}"/></td>
             <td class="inquirelist2">${notice.viewCnt}</td>
          </tr>
       </c:forEach>
@@ -110,13 +109,18 @@
                <nav id="pageNav">
                    <ul>
                        <li><a href='detail.do'>1</a></li>
-                       <li><a href='writeform.do'>2</a></li>
+                       <li><a href='writeForm.do'>2</a></li>
                        <li><a href='#'>3</a></li>
                        <li><a href='#'>4</a></li>
                        <li><a href='#'>5</a></li>
                        <li><a href='index.do'>NEXT</a></li>
                    </ul>
                </nav><br>
+<%--                <c:if test="${pageResult.count != 0}"> --%>
+<%-- 		<jsp:include page="/WEB-INF/jsp/include/pagetype.jsp"> --%>
+<%-- 			<jsp:param name="link" value="list.do"/> --%>
+<%-- 		</jsp:include> --%>
+<%-- 	</c:if>	 --%>
         </table>
     </div>
     <footer>
