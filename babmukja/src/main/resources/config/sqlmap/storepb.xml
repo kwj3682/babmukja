@@ -173,10 +173,16 @@
 		 where pb_no = #{pbNo}
 	</select>
 	
-	<select id="selectAdminPBList" resultMap="storepbMap">
+	<select id="selectAdminPBList" resultMap="storepbMap" parameterType="pagepb">
 		select * 
 	  	  from tb_pb
 	 	 order by pb_no desc
+	 	 limit #{begin}, #{end}
+	</select>
+	
+	<select id="selectAdminPBListCount" resultType="int">
+		select count(*)
+		  from tb_pb
 	</select>
 	
 	<update id="updatePBStore" parameterType="storePB">

@@ -2,6 +2,7 @@ package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
 
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
 
 public interface StorePBMapper {
@@ -22,7 +23,8 @@ public interface StorePBMapper {
 	*/
 	
 	public StorePB selectPBStoreByNo(int no);
-	public List<StorePB> selectAdminPBList();
+	public List<StorePB> selectAdminPBList(Pagepb page);
+	public int selectAdminPBListCount();
 	public void insertPBStore(StorePB storepb);
 	public void updatePBStore(StorePB storepb);
 	public void deletePBStore(int no);

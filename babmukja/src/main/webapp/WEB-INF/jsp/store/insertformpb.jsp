@@ -177,13 +177,13 @@
 								 name : name,
 								 price : price},
 						success:function(result){
+			                location.href="<c:url value="/store/pbstoreselectlist.do"/>";
 						}
             	});
                 console.log("Article data : ", outputData);
                 console.log("name : "+name);
                 console.log("price : "+price);
                 console.log("content : " + content);
-                location.href="<c:url value="/store/pbstoreselectlist.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });

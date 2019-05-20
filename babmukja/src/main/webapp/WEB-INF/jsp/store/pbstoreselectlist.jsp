@@ -15,6 +15,7 @@
 </head>
 <body>
   	<div class="admin_pb_selectList_container">
+  	<div class="adming_pb_selectAll">상품 조회</div>
       <div class="admin_pb_selectList">
         <table class="admin_pb_selectList_table">
         
@@ -23,10 +24,10 @@
             <th>상품명</th>
             <th>가격</th>
             <th>등록일</th>
-            <th></th>
+            <th>비고</th>
           </tr>
-        <c:forEach var="adminpblist" items="${adminpblist}">
-          <tr>
+        <c:forEach var="adminpblist" items="${pbAdminList}">
+          <tr class="list_td">
             <td>${adminpblist.pbNo}</td>
             <td><a href="<c:url value='/store/detailpb.do?no=${adminpblist.pbNo}'/>">${adminpblist.name}</a></td>
             <td>${adminpblist.price}</td>
@@ -43,6 +44,13 @@
         </c:forEach>
         </table>
       </div>
+    </div>
+    <div class="page">
+	    <c:if test="${pageResult.count != 0}">
+	    	<jsp:include page="/WEB-INF/jsp/include/pagetype.jsp">
+				<jsp:param name="link" value="pbstoreselectlist.do"/>        	
+	    	</jsp:include>
+	    </c:if>
     </div>
 </body>
 </html>

@@ -23,6 +23,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/store/detailpb.css"/>">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body onload="myTimeWait()">
 	<div id="pb_detail_container">
@@ -219,6 +222,62 @@
                     <p>5</p>
                 </div>
             </div> <!-- 후기 끝 -->
+            
+                <!-- modal -->
+    <div id="reviewmodal" class="modal fade" tabindex="-1" >
+        <div class="moadl-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <p class="modal-title">후기 작성</p>
+                </div>
+                <div class="modal-body">
+                    <div class="pb_insertform_container">
+                        <div class="pb_product_item">
+                            <div class="pb_product_item_img">
+                                <img src="images/foodthumbnail1.jpg">
+                            </div>
+                            <div class="pb_product_item_info">
+                                <p class="pb_product_item_name">${storepb.name}</p>
+                            </div>
+                        </div>
+                        <div class="pb_product_item_rating">
+                            <p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
+                            <div id="reviewStars-input">
+                                <input id="star-4" type="radio" name="reviewStars"/>
+                                <label title="gorgeous" for="star-4"></label>
+                            
+                                <input id="star-3" type="radio" name="reviewStars"/>
+                                <label title="good" for="star-3"></label>
+                            
+                                <input id="star-2" type="radio" name="reviewStars"/>
+                                <label title="regular" for="star-2"></label>
+                            
+                                <input id="star-1" type="radio" name="reviewStars"/>
+                                <label title="poor" for="star-1"></label>
+                            
+                                <input id="star-0" type="radio" name="reviewStars"/>
+                                <label title="bad" for="star-0"></label>
+                            </div>
+                        </div>
+                        <div class="pb_product_image">
+                            <div class="image_container"></div>
+                            <div class="image_choice">
+                                <label for="product_img_file">사진을 선택해주세요</label>
+                                <input type="file" name="product_img_file" id="product_img_file">
+                            </div>
+                        </div>
+                        <div class="pb_product_content">
+                            <textarea name="product__content" class="product__content" cols="50" rows="15" placeholder="후기를 작성해주세요."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-insert" id="insertmodalbtn">등록</button>
+                </div>
+            </div>
+        </div>
+    </div>
         
             <!-- 문의 -->
             <div id="pb_review_inquire_detail" name="pb_review_inquire_detail">
@@ -303,6 +362,19 @@
         </div>
 
     <script>
+    $(document).ready(function () {
+    	$("#reviewmodal").modal("hide");
+    });
+    
+    $("#pb_review_writeform").click(function () {
+      alert("modal 켜진다");
+      $("#reviewmodal").modal("show");
+    });
+    
+    $("#reviewmodal").modal({
+      backdrop: 'static'
+    });
+
         $("a[href^='#']").click(function (event) {
             event.preventDefault();
             var target = $(this.hash);
@@ -348,6 +420,28 @@
         $("#total_count").text(cnt);
         $(".total__price").text(price * cnt + "원");
       });
+      
+      $(function() {
+          $("#product_img_file").on("change", function() {
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return;
+            if (/^image/.test(files[0].type)) {
+              var reader = new FileReader();
+              reader.readAsDataURL(files[0]);
+              reader.onloadend = function() {
+                $(".image_container").css({
+                  "background-image":
+                  "url(" + this.result + ")",
+                  "background-size":
+                  "contain",
+                  "background-repeat":
+                  "no-repeat",
+                }
+                );
+              };
+            }
+          });
+        });
       
       // editor js 적용
       const value = $("#hiddenValue").text();
@@ -397,11 +491,6 @@
   	   	console.log($("#post-body").width() + " " + $("#post-body").height());
   	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
      }
-     
-     
-     $("#pb_review_writeform").click(function () {
-	    	location.href="<c:url value='/store/pbreviewinsertform.do'/>";
-     });
     </script>
 </body>
 </html>
