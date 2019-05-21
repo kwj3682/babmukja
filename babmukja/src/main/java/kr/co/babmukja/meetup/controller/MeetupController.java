@@ -111,44 +111,43 @@ public class MeetupController {
 		out.close();
 	}
 
-	@RequestMapping("/updateIntro.do") 
-	  @ResponseBody 
-	  public void updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath) {
-	  System.out.println("세이브 후 들어왔음"); 
-	  System.out.println("파일 들어왔나 확인 :" + fileDirectory[0]);
-	  System.out.println("dbpath 들어왔나 확인 :" + dbPath);
-	  if(deleteDirectory != null) {
-	  System.out.println("지울 파일 들어오나 확인 :" + deleteDirectory[0]);
-	  
-	  for(int i=0; i<fileDirectory.length; i++) {
-			
-	      System.out.println("----------------");
-	      System.out.println(fileDirectory[i]);
-	      
-	     
-	  }
-	  
-	  for(int i=0; i<deleteDirectory.length; i++) {
-			
-	      System.out.println("----------------");
-	      System.out.println(deleteDirectory[i]);
-	      
-	      File file = new File(deleteDirectory[i]);
-	  
-	        if(file.exists() ){
-	            if(file.delete()){
-	                System.out.println("파일삭제 성공");
-	            }
-	            }
-	  }// delete for
-	  
-	  }
-	 
-	 
-	  //service.updateIntro(data);
-	 
-	        
+	@RequestMapping("/updateIntro.do")
+	@ResponseBody
+	public String updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath) {
+		System.out.println("세이브 후 들어왔음");
+		System.out.println("파일 들어왔나 확인 :" + fileDirectory[0]);
+		System.out.println("dbpath 들어왔나 확인 :" + dbPath);
+		service.updateIntro(dbPath);
+		if (deleteDirectory != null) {
+			System.out.println("지울 파일 들어오나 확인 :" + deleteDirectory[0]);
+
+			for (int i = 0; i < fileDirectory.length; i++) {
+
+				System.out.println("----------------");
+				System.out.println(fileDirectory[i]);
+
+			}
+
+			for (int i = 0; i < deleteDirectory.length; i++) {
+
+				System.out.println("----------------");
+				System.out.println(deleteDirectory[i]);
+
+				File file = new File(deleteDirectory[i]);
+
+				if (file.exists()) {
+					if (file.delete()) {
+						System.out.println("파일삭제 성공");
+					}
+				}
+			} // delete for
+
+		}
+
+		return dbPath;
+
 	}
+
 	@RequestMapping("/editIntro.do")
 	@ResponseBody
 	public String editIntro() {
@@ -159,11 +158,22 @@ public class MeetupController {
 
 	@RequestMapping("/deleteIntro.do")
 	@ResponseBody
-	public void deleteIntro() {
+	public void deleteIntro(String[] fileDirectory) {
 		System.out.println(" delete들어왔음");
 
-		service.deleteIntro();
+		for (int i = 0; i < fileDirectory.length; i++) {
+			System.out.println(fileDirectory[i]);
+			File file = new File(fileDirectory[i]);
+			if (file.exists()) {
+				if (file.delete()) {
+					System.out.println("파일삭제 성공");
+				}
+			}
+			
 
+		}
+
+		service.deleteIntro();
 	}
 
 }
