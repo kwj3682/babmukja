@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +86,7 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-                   <!--  <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p> -->
+                    <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
                 </div>
 
             </div>
@@ -93,34 +94,35 @@
         <div class="boundary"></div>
         <div id="sector3">
             <div id="sector3-body">
-                <div class="profile-container">
-                    <div class="profile-pic-box">
-                        <div>
-                            <img class="profile-picture" src="<c:url value="/resources/images/profile16.jpg"/>">
-                        </div>
-                        <div class="profile-name">
-                            <p>1분 전</p>
-                            <p>
-                                렁래쓰렁래
-                            </p>
-                        </div>
-                    </div>
-                    <div class="recipe-pic-box">
-                        <img src="<c:url value="/resources/images/foodthumbnail3.jpg"/>"/>
-                    </div>
-                    <div class="recipe-info">
-                        <i class="fas fa-heart fa-2x">50</i>
-                        <i class="fas fa-scroll fa-2x">60</i>
-                        <i class="fas fa-eye fa-2x">120</i>
-                    </div>
-                </div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            
+	            <c:forEach var="list" items="${recipe}">
+	            
+	                <div class="profile-container">
+	                    <div class="profile-pic-box">
+	                        <div>
+	                            <img class="profile-picture" src="<c:url value="/resources/images/profile16.jpg"/>">
+	                        </div>
+	                        <div class="profile-name">
+	                            <p>   
+	 								<fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd hh:mm:ss" />
+									<br>
+	                            	${list.title}
+									<br>
+	                            	${list.memNickname}
+	                            </p>
+	                        </div>
+	                    </div>
+	                    <div class="recipe-pic-box">
+	                        <img src="${list.imgPath}">
+	                    </div>
+	                    <div class="recipe-info">
+	                        <i class="fas fa-heart fa-2x">50</i>
+	                        <i class="fas fa-scroll fa-2x">60</i>
+	                        <i class="fas fa-eye fa-2x">120</i>
+	                    </div>
+	                </div>
+	            </c:forEach>
+                
             </div>
             <div id="sector3-header"></div>
         </div>

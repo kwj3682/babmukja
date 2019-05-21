@@ -102,12 +102,12 @@ html, body {
 #monthly-profile{
     width : 90px;
     height: 90px;
-    padding-top: 12px;
-    border-radius: 50px;
+    margin-top: 12px;
+    border-radius: 90px;
 }
 #monthly-profile-wrapper{
     display: inline-block;
-    background:url(/../../images/circle.png);
+    background:url(../../images/circle.png);
     background-size: cover;
     width: 112px;
     height: 112px;
@@ -303,10 +303,13 @@ html, body {
 .profile-container{
     display: grid;
     grid-template-rows: 25% 60% 15%;
+    font-family: 'East Sea Dokdo', cursive;
+    font-weight: lighter;
+    font-size : 30px;
 }
 .profile-pic-box{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 20% 80%;
 }
 .profile-picture{
     width: 70px;
@@ -318,9 +321,14 @@ html, body {
 .profile-name{
     font-size : 20px;
 }
+.profile-name p{
+	margin-top: 20px;
+	margin-left : 25px;
+}
 .recipe-pic-box > img{ 
     width: 97%;
-    margin: 5px;
+    margin-top: 15px;
+    margin-left: 3px;
 }
 .recipe-info{
     display: flex;
