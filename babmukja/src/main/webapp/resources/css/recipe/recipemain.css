@@ -340,3 +340,8 @@ html, body {
 .recipe-info i{
     padding-right: 10px;
 }
+
+#turnJsDiv {
+	display : none;
+	
+}
