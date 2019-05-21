@@ -136,21 +136,21 @@
 	</select>
 	
 	<!-- 회원 상세조회 -->
-    <!-- <select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
+     <select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
 		select m.*, g.gradename, o.*
 		  from (select a.*, 	           
 	                   (select sum(order_sum) from tb_order where buy_mem_no = a.mem_no) 'totalBuy',
 	                   (select sum(order_sum) from tb_order where sell_mem_no = a.mem_no) 'totalSel'	                   	                   
 	              from tb_member a) m, tb_grademap g ,tb_order o
 		 where m.grade_no = g.grade_no
-		   and mem_no = #{memNo}		  
-	</select>  -->
-	
- 	<select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
-		select m.*, g.gradename
-		  from tb_member m, tb_grademap g
+		   and mem_no = #{memNo}
+	</select>
+
+ 	<!-- <select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
+		select m.*, g.gradename, o.*
+		  from tb_member m, tb_grademap g, tb_order o
 		 where m.grade_no = g.grade_no
 		   and mem_no = #{memNo}		  
 	</select> 
-	
+	 -->
 </mapper>

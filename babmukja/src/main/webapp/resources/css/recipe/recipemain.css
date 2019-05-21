@@ -248,13 +248,16 @@ html, body {
 #recipe-book1:hover,
 #recipe-book2:hover,
 #recipe-book3:hover,
-#recipe-book4:hover
+#recipe-book4:hover 
 {
     transform:  translateX(450px) translateY(200px) scale(1.5);
     box-shadow: 0px 0px 15px 1px goldenrod;
     z-index: 50;
 }
-
+#recipe-book-container {
+	width: 350px;    
+    height: 450px;
+}
 #recipe-book-container > p{
     position: absolute;
     color: white;

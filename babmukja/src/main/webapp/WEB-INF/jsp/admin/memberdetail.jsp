@@ -133,7 +133,7 @@
                     </thead>
                     <tbody>
                         <tr>                        
-                   <%--          <td>${d.orderNo }</td>
+                           <td>${d.orderNo }</td>
                             <td>${d.sellMemNo }</td>
                             <td>${d.buyMemNo }</td>
                             <td>${d.totCount }</td>
@@ -142,7 +142,7 @@
 	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
                             </td>
                             <td>${d.orderSum }</td>
-                            <td>${d.deliveryNo }</td> --%>
+                            <td>${d.deliveryNo }</td>  
                         </tr>
                     </tbody>               
                 </table>
@@ -166,7 +166,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                    <%--        <td>${d.orderNo }</td>
+                            <td>${d.orderNo }</td>
                             <td>${d.sellMemNo }</td>
                             <td>${d.buyMemNo }</td>
                             <td>${d.totCount }</td>
@@ -175,7 +175,7 @@
 	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
                             </td>
                             <td>${d.orderSum }</td>
-                            <td>${d.deliveryNo }</td> --%>
+                            <td>${d.deliveryNo }</td>  
                         </tr>
                     </tbody>                                                     
                 </table>
@@ -197,11 +197,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>15</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>	                
                     </tbody>
                 </table>
@@ -213,30 +213,3 @@
     </script>
 </body>
 </html>
-
-<!--
-    회원 아이디 
-    회원 이름
-    회원 번호
-    회원 닉네임
-    회원 이메일
-    회원 전화번호
-    회원 비밀번호
-    회원 우편번호
-    회원 기본주소
-    회원 상세주소
-    관리자 여부
-    회원가입일
-    최종접속일
-    소셜 로그인 여부
-    포인트
-    비밀번호 힌트
-    비밀번호 힌트 답
-    스크랩 게시물
-    장바구니
-    팔로워
-    팔로우
-    키워드
-    회원 등급
-
--->
