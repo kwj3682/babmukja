@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="<c:url value="/resources/js/dist/css/swiper.min.css"/>">
     <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/modernizr.2.5.3.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/hash.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/turn.min.js"/>"></script>
 </head>
 <body>
     <div class="swiper-container">
@@ -81,7 +85,7 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-                    <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
+                   <!--  <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p> -->
                 </div>
 
             </div>
@@ -128,6 +132,27 @@
 
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
+/*     $("#sector2-body").click(function () {
+	    $("#recipe-book-container").turn({
+			width:922,
+			height:600
+		});    	
+    }); */
+    $("#sector2-body").click(function() {
+		$('#recipe-book-container').turn({
+				display: 'single',
+				acceleration: true,
+				gradients: !$.isTouch,
+				elevation:50,
+				when: {
+					turned: function(e, page) {
+						/*console.log('Current view: ', $(this).turn('view'));*/
+					}
+				}
+			});
+	});
+	
+    
         var swiper = new Swiper('.swiper-container', {
             loop:true,
             autoplay: {
