@@ -151,6 +151,7 @@
                             	</c:forEach>
                         </tbody>
                     </table>
+                    <div id="pageText">
                     <c:if test="${pageResult.count != 0}"> 
 							<c:if test="${pageResult.prev eq true}">
 							<a id="prevPage" data-pageNo="${pageResult.beginPage - 1}" href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
@@ -162,6 +163,7 @@
 							<a id="nextPage" data-pageNo="${pageResult.endPage + 1}" href="#1">다음</a>
 						</c:if>	
 					</c:if>	
+					</div>
                 </div>                
             </div>
         </div>
