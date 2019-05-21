@@ -4,537 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../../resources/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/resources/js/meetup_address.js"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- modal address js -->
+    <script type="text/javascript" src="/resources/js/meetup_main_modal_address.js"></script>
 
-
+    <!-- maincss -->
+    <link href="../../../resources/css/meetup/meetup_main.css" rel="stylesheet" type="text/css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-        .main_container {
 
-            width: 1200px;
-            margin-top: 30px;
-            margin-left: auto;
-            margin-right: auto;
-
-
-        }
-
-        .main_header {
-            border-bottom: 3px solid gainsboro;
-        }
-
-        .main_header span {
-            display: inline-block;
-        }
-
-        .header_cooking_meetup {
-
-            margin-bottom: 15px;
-            font-weight: bold;
-            font-size: 30px;
-            color: #7db341;
-        }
-
-        .header_search {
-            margin-top: 20px;
-            display: inline-block;
-            margin-left: 450px;
-            height: 40px;
-        }
-
-        .header_search>input {
-            font-size: 28px;
-            padding-left: 10px;
-            border: 1px solid #7db341;
-            border-radius: 10px;
-            width: 300px;
-            color: gray;
-            background: white;
-        }
-
-        .create_manage_container {
-            width: 240px;
-            margin-top: 57px;
-            margin-left: 83%;
-        }
-
-        .header_meetup_manage {
-            margin-left: 20px;
-        }
-
-        .header_meetup_create,
-        .header_meetup_manage {
-            text-align: center;
-            padding: 10px;
-            font-size: 17px;
-            width: 85px;
-            height: 22px;
-            background-color: #7db341;
-            color: white;
-            border-radius: 5px;
-
-        }
-
-        .after_click {
-            margin: 0px auto;
-            border: 1px solid gainsboro;
-            width: 800px;
-            display: none;
-            border-radius: 5px;
-        }
-
-
-        .location_container {
-
-            border: 1px solid gainsboro;
-            margin: 5px 5px;
-            border-radius: 5px;
-
-            display: block;
-
-
-        }
-
-        .location_title_container {
-            text-align: center;
-            height: 30px;
-            border-bottom: 1px solid gainsboro;
-            color: #7db341;
-            display: grid;
-            grid-template-columns: 30% 40% 30%;
-        }
-
-        .location_title_container>span {
-            display: inline-block;
-        }
-
-        .location_add_minus {
-
-            align-content: center;
-            text-align: right;
-            box-sizing: border-box;
-            padding-top: 3px;
-            padding-right: 30px;
-        }
-
-        .location_position {
-            display: none;
-            background-color: #fafbfd;
-            height: 70px;
-            border-bottom: 1px solid gainsboro;
-            text-align: center;
-        }
-
-        .location_position .select_area1 {
-            width: 60px;
-            height: 26px;
-            border: 1px solid #7db341;
-            border-radius: 20px;
-        }
-
-        .location_position .select_area2 {
-            width: 60px;
-            height: 26px;
-            border-radius: 20px;
-            border: 1px solid #7db341;
-        }
-
-        #location_area_container {
-            margin-right: 20px;
-            display: inline-block;
-            margin-top: 20px;
-            width: 150px;
-            height: 40px;
-            border-radius: 5px;
-        }
-
-        .fa-plus-circle {
-            font-size: 23px;
-
-        }
-
-        .fa-minus-circle {
-            font-size: 23px;
-        }
-
-        .food_type_container {
-
-            border: 1px solid gainsboro;
-            margin: 5px 5px;
-            border-radius: 5px;
-            display: block;
-
-        }
-
-        .food_type_title {
-            text-align: center;
-            height: 30px;
-            border-bottom: 1px solid gainsboro;
-            color: #7db341;
-        }
-
-        .food_type_position {
-            background-color: #fafbfd;
-            height: 70px;
-            border-bottom: 1px solid gainsboro;
-            text-align: center;
-            line-height: 65px;
-            display: none;
-        }
-
-        .food_type_position input {
-            display: inline-block;
-
-            margin-left: 26px;
-            left: -80px;
-        }
-
-
-
-        .monthly_fee_container {
-
-            border: 1px solid gainsboro;
-            margin: 5px 5px;
-            border-radius: 5px;
-            display: block;
-
-        }
-
-        .monthly_fee_title {
-            text-align: center;
-            height: 30px;
-            border-bottom: 1px solid gainsboro;
-            color: #7db341;
-        }
-
-        .monthly_fee_position {
-            background-color: #fafbfd;
-            height: 70px;
-            border-bottom: 1px solid gainsboro;
-            text-align: center;
-            line-height: 65px;
-            display: none;
-        }
-
-        .monthly_fee_position input {
-            display: inline-block;
-
-            margin-left: 45px;
-            left: -80px;
-        }
-
-        .recommend_div {
-            margin: 0 auto;
-            width: 1200px;
-        }
-
-
-        .recommend_title {
-
-            text-align: center;
-            margin: 0 auto;
-            width: 1000px;
-            margin-top: 40px;
-            color: #7db341;
-            font-size: 25px;
-        }
-
-        .selectTab {
-            margin-top: 30px;
-            border: 1px solid gainsboro;
-            width: 1200px;
-            text-align: center;
-            border-collapse: collapse;
-        }
-
-        .selectTab td {
-            border-right: 1px solid gainsboro;
-            height: 50px;
-            font-size: 17px;
-        }
-
-        .info_block {
-            border: 1px solid gainsboro;
-            margin-top: 10px;
-            background: #fafbfd;
-            grid-row-gap: 1px;
-            display: grid;
-            width: 384px;
-            height: 310px;
-            grid-template-rows: 60% 17% 11% 12%;
-            color: black;
-            box-shadow: 10px 10px 20px 3px gray;
-        }
-
-        .info_block>div {
-            width: 100%;
-            display: grid;
-
-        }
-
-        .info_block>.info_header1 {
-            padding-top: 10px;
-            font-size: 17px;
-        }
-
-
-
-        .info_block>.info_header3 {
-            padding-top: 10px;
-            font-size: 17px;
-        }
-
-
-
-        .info_block>.info_pic {
-
-            background-repeat: no-repeat;
-            overflow: hidden;
-
-        }
-
-        .info_pic img {
-            transition: .7s;
-        }
-
-        .info_pic img:hover {
-            transform: scale(1.3, 1.3);
-        }
-
-        .info_block>.info_pic2 {
-
-
-            background-repeat: no-repeat;
-            background-size: cover;
-
-        }
-
-        .info_block>.info_pic3 {
-
-
-            background-repeat: no-repeat;
-            background-size: cover;
-
-        }
-
-        .info_block>.info_pic3 {
-
-            background-repeat: no-repeat;
-            background-size: cover;
-
-        }
-
-        .info_block>.info_pic4 {
-
-            background-repeat: no-repeat;
-            background-size: cover;
-
-        }
-
-
-        .info_block>.info_line {
-            background: #fafbfd;
-            color: black;
-            line-height: 32px;
-            margin-top: 15px;
-            font-size: 25px;
-            padding-left: 25px;
-            padding-right: 25px;
-            text-align: center;
-            box-sizing: border-box;
-            font-size: 17px;
-
-        }
-
-        .info_monthly_fee {
-            padding-left: 25px;
-            box-sizing: border-box;
-            color: #7db341;
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        .info_bottom {
-            padding-left: 25px;
-            padding-right: 25px;
-            box-sizing: border-box;
-            border-top: 1px solid gainsboro;
-            display: grid;
-            grid-template-columns: 35% 43% 22%;
-            align-items: center;
-            font-size: 17px;
-        }
-
-        .bottom_location {
-            font-size: 17px;
-
-        }
-
-
-
-        .bottom_view_count {
-
-            position: relative;
-            width: 80px;
-
-            font-size: 17px;
-        }
-
-
-        .info_block_container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-column-gap: 16px;
-
-            width: 1200px;
-        }
-
-        .fa-map-marker-alt {
-            color: rgb(195, 195, 195);
-        }
-
-        .fa-won-sign {
-            display: inline;
-            color: rgb(195, 195, 195);
-        }
-
-        .fa-eye {
-            color: rgb(195, 195, 195);
-        }
-        /*밑에 modal css 시작 */
-        .modal_meetup_name_container{
-            position:relative;
-            top: -18px;
-            margin: 0 auto;
-            text-align: center;
-            width:900px;
-            height: 90px;
-            display: grid;
-            grid-template-columns: 19% 1% 14% 1% 20%;
-          
-            border-bottom: 1px solid gainsboro;
-        }
-        .modal_meetup_name_container > div{
-            font-size: 17px;
-            display: grid;
-            justify-items: center;
-            align-items: center;
-            
-        }
-        .meetup_title{
-            width:350px;
-            height:26px;
-        }
-        .modal_meetup_tag_container{
-            position:relative;
-            top: -18px;
-            margin: 0 auto;
-            text-align: center;
-            width:900px;
-            height: 90px;
-            display: grid;
-            grid-template-columns: 19% 2% 14%;
-          
-            border-bottom: 1px solid gainsboro;
-        }
-        .modal_meetup_tag_container > div{
-            font-size: 17px;
-            display: grid;
-            justify-items: center;
-            align-items: center;
-        }
-        .meetup_tag{
-            width:350px;
-            height:26px;
-        }
-        .modal_meetup_location_container{
-            position:relative;
-            top: -18px;
-            margin: 0 auto;
-            text-align: center;
-            width:900px;
-            height: 90px;
-            display: grid;
-            grid-template-columns: 19% 2% 5% 30%;
-          
-            border-bottom: 1px solid gainsboro;
-        }
-        .modal_meetup_location_container > div{
-            font-size: 17px;
-            display: grid;
-            justify-items: center;
-            align-items: center;
-        }
-        .modal_meetup_plus_container{
-            text-align: center;
-        }
-        #modal_location_plus{
-            color: #7db341;
-            font-size:25px;
-        }
-        .modal_meetup_location_box{
-            text-align: left;
-        }
-        .modal_meetup_fee_container{
-            position:relative;
-            top: -18px;
-            margin: 0 auto;
-            text-align: center;
-            width:900px;
-            height: 90px;
-            display: grid;
-            grid-template-columns: 19% 2% 11% 35% ;
-          
-            border-bottom: 1px solid gainsboro;
-        }
-        .modal_meetup_fee_container > div{
-            font-size: 17px;
-            display: grid;
-            justify-items: center;
-            align-items: center;
-        }
-        .modal_meetup_fee_container >  .modal_meetup_fee_checkbox {
-            display:block;
-            line-height: 90px;
-            font-size: 17px;
-            text-align: left;
-        }
-        .modal_meetup_fee_container > .modal_meetup_fee_inputbox{
-            display:block;
-            line-height: 90px;
-            font-size: 17px;
-            text-align: left;
-        }
-        .modal_fee_input{
-         height:25px;   
-        }
-        .modal_meetup_mainPic_container{
-            position:relative;
-            top: -18px;
-            margin: 0 auto;
-            text-align: center;
-            width:900px;
-            height: 90px;
-            display: grid;
-            grid-template-columns: 19% 2% 11% 35% ;
-          
-            border-bottom: 1px solid gainsboro;
-        }
-        .modal_meetup_mainPic_container > div{
-            font-size: 17px;
-            display: grid;
-            justify-items: center;
-            align-items: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -626,8 +119,7 @@
                         <input type="checkbox" name="category" value="total">중식</input>
                         <input type="checkbox" name="category" value="total">일식</input>
                         <input type="checkbox" name="category" value="total">양식</input>
-                        <input type="checkbox" name="category" value="total">디저트</input>
-                        <input type="checkbox" name="category" value="total">별미</input>
+                        <input type="checkbox" name="category" value="total">동남아시아</input>
                         <input type="checkbox" name="category" value="total">기타</input>
 
                     </div>
@@ -794,133 +286,88 @@
 
     </div>
 
-<!-- 모달 부분 아래시작 -->   
-<div id="write_modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <!-- 모달 부분 아래시작 -->
+    <div id="write_modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
-          <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">모임 개설하기</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                          <!-- modal 이름 적는부분 -->
-                        <div class="modal_meetup_name_container">
-                            <div class="modal_meetup_name"> 
-                                카테고리/모임명
-                            </div>
-                            <div></div>
-                            <div class="modal_meetup_category">
-                                <select name="food_nation_categody" class="food_nation_categody">
-                                    <option value="">카테고리</option>
-                                    <option value="">한식</option>
-                                    <option value="">중식</option>
-                                    <option value="">일식</option>
-                                    <option value="">동남아시아</option>
-                                    <option value="">양식</option>
-                                    <option value="">기타</option>
-                                </select>
-                            </div>
-                            <div></div>
-                            <div class="modal_meetup_name">
-                                <input type="text" name="meetup_title" class="meetup_title" placeholder="모임명을 입력해주세요"/>
-                            </div>
-                            
+                    <h5 class="modal-title" id="exampleModalLongTitle">모임 개설하기</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- modal 이름 적는부분 -->
+                    <div class="modal_meetup_name_container">
+                        <div class="modal_meetup_name">
+                            카테고리/모임명
                         </div>
-                        <!-- model tag 부분 -->
-                        <div class="modal_meetup_tag_container">
-                            <div class="modal_meetup_tag">태그</div>
-                            <div></div>
-                            <div class="modal_meetup_tag_box">
-                                <input type="text" name="meetup_tag" class="meetup_tag" placeholder="모임을 표현할 태그명를 입력해주세요"/>
-                            </div>
+                        <div></div>
+                        <div class="modal_meetup_category">
+                            <select name="food_nation_categody" class="food_nation_categody">
+                                <option value="">카테고리</option>
+                                <option value="">한식</option>
+                                <option value="">중식</option>
+                                <option value="">일식</option>
+                                <option value="">동남아시아</option>
+                                <option value="">양식</option>
+                                <option value="">기타</option>
+                            </select>
                         </div>
-                      <div class="modal_meetup_location_container">
-                            <div class="modal_meetup_location">지역</div>
-                            <div></div>
-                            <div class="modal_meetup_plus_container"> 
-                                   <div><i class="fas fa-plus-circle" id="modal_location_plus"></i></div>
-                            </div>
-                              <div class="modal_meetup_location_box">
-                                    <div class="area_container" id="modal_area_container">
+                        <div></div>
+                        <div class="modal_meetup_name">
+                            <input type="text" name="meetup_title" class="meetup_title" placeholder="모임명을 입력해주세요" />
+                        </div>
 
-                                            <select name="h_area1" class="select_area1" id="modal_select_area1" onChange="cat1_change(this.value,h_area2)">
-                
-                                                <option>-선택-</option>
-                
-                                                <option value='1'>서울</option>
-                
-                                                <option value='2'>부산</option>
-                
-                                                <option value='3'>대구</option>
-                
-                                                <option value='4'>인천</option>
-                
-                                                <option value='5'>광주</option>
-                
-                                                <option value='6'>대전</option>
-                
-                                                <option value='7'>울산</option>
-                
-                                                <option value='8'>강원</option>
-                
-                                                <option value='9'>경기</option>
-                
-                                                <option value='10'>경남</option>
-                
-                                                <option value='11'>경북</option>
-                
-                                                <option value='12'>전남</option>
-                
-                                                <option value='13'>전북</option>
-                
-                                                <option value='14'>제주</option>
-                
-                                                <option value='15'>충남</option>
-                
-                                                <option value='16'>충북</option>
-                
-                                            </select>
-                
-                                            <select name="h_area2" class="select_area2" id="modal_select_area2">
-                
-                                                <option>-선택-</option>
-                
-                                            </select>
-                
-                                        </div>
-                                        <!-- area container 끝 -->
-                            </div>
-                        </div> <!-- location container 끝  -->
-                        <div class="modal_meetup_fee_container">
-                                <div class="modal_meetup_fee">월 회비</div>
-                                <div></div>
-                                <div class="modal_meetup_fee_checkbox">
-                                <input type="checkbox" name="category" value="all"/>미정</div>
-                                <div class="modal_meetup_fee_inputbox">
-                                        <input type="checkbox" name="category" value="all"/> <input type="text" name="meetup_fee" class="modal_fee_input" placeholder="액수를 입력해 주세요"/>원
-                                </div>
+                    </div>
+                    <!-- model tag 부분 -->
+                    <div class="modal_meetup_tag_container">
+                        <div class="modal_meetup_tag">태그</div>
+                        <div></div>
+                        <div class="modal_meetup_tag_box">
+                            <input type="text" name="meetup_tag" class="meetup_tag" placeholder="모임을 표현할 태그명를 입력해주세요" />
                         </div>
-                        <div class="modal_meetup_mainPic_container">
+                    </div>
+                    <div class="modal_meetup_location_container">
+                        <div class="modal_meetup_location">지역</div>
+                        <div></div>
+                        <div class="modal_meetup_plus_container">
+                            <div><i class="fas fa-plus-circle" id="modal_location_plus"></i></div>
+                        </div>
+                        <div class="modal_meetup_location_box">
+
+                        </div>
+                    </div> <!-- location container 끝  -->
+                    <div class="modal_meetup_fee_container">
+                        <div class="modal_meetup_fee">월 회비</div>
+                        <div></div>
+                        <div class="modal_meetup_fee_checkbox">
+                            <input type="checkbox" name="category" value="all" />미정</div>
+                        <div class="modal_meetup_fee_inputbox">
+                            <input type="checkbox" name="category" value="all" /> <input type="text" name="meetup_fee"
+                                class="modal_fee_input" placeholder="액수를 입력해 주세요" />원
+                        </div>
+                    </div>
+                    <div class="modal_meetup_mainPic_container">
                         <div class="modal_meetup_mainPic">메인사진 설정</div>
                         <div></div>
-                          <div class="modal_meetup_mainPic_box">
-xxxx
-                          </div>
+                        <div class="modal_meetup_mainPic_box">
+                            xxxx
                         </div>
-                    </div><!-- 모델 바디 끝  -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                      </div>
+                    </div>
+                </div><!-- 모델 바디 끝  -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
-        </div>
-     
-        
+
+
     </div>
-     
-    <!--위까지 모달 부분 끝 -->      
+
+    <!--위까지 모달 부분 끝 -->
 
     <!--메인 컨테이너 끝 -->
     </div>
@@ -930,21 +377,33 @@ xxxx
         //모달 적용부분
 
 
-$(".header_meetup_create").click(function () {
-        alert("modal 켜진다");
-        $("#write_modal").modal("show");
-        $("#write_modal").modal({
-        backdrop: 'static'
-      });
-      });
+        $(".header_meetup_create").click(function () {
+            alert("modal 켜진다");
+            $("#write_modal").modal("show");
+            $("#write_modal").modal({
+                backdrop: 'static'
+            });
+        });
 
-      
+
         //검색창 none->block 변경 부분
         $(".header_search").click(function () {
+
             $(".after_click").css("display", "block");
         });
         $(".location_title_container").click(function () {
-            $(".location_position").css("display", "block");
+            alert($(".location_position").css("display"));
+            if (
+
+                $(".location_position").css("display") == "none"
+            ) {
+                $(".location_position").css("display", "block");
+            } else if (
+                $(".location_position").css("display") == "block"
+            ) {
+                $(".location_position").css("display", "none");
+            }
+
         });
         $(".food_type_title").click(function () {
             $(".food_type_position").css("display", "block");
@@ -981,6 +440,8 @@ $(".header_meetup_create").click(function () {
                 num = 0;
             }
         }, 1200);
+
+
 
     </script>
 
