@@ -8,15 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>Babmukja</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/member/style.css"/>">
-<link rel="stylesheet"
-	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous">
-<link
-	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
-	rel="stylesheet" />
+<link rel="stylesheet" href="<c:url value="/resources/css/member/style.css"/>">
+<link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>" rel="stylesheet" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
@@ -127,8 +121,8 @@
 		</form>
 
 		<div class="member__login">
-			이미 밥먹자~ <i class="fas fa-utensils"></i> 회원이신가요? <a
-				href="<c:url value="/member/loginform.do"/>">로그인</a>
+			이미 밥먹자~ <i class="fas fa-utensils"></i> 회원이신가요? 
+			<a href="<c:url value="/member/loginform.do"/>">로그인</a>
 		</div>
 	</div>
 	</main>

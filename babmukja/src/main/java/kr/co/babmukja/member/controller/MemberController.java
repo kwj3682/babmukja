@@ -64,7 +64,6 @@ public class MemberController {
 	@RequestMapping("/logout.do")
 	public String logOut(HttpSession session) {
 		session.invalidate();
-		
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
 	}
 	
@@ -73,10 +72,6 @@ public class MemberController {
 	public void jusoPopUp() {
 		System.out.println("우편번호 검색 버튼");
 	}
-	
-	// 회원가입 폼
-	@RequestMapping("/signupform.do")
-	public void signUpForm() {}
 	
 	// 이메일 인증 폼
 	@RequestMapping("/emailform.do")
@@ -87,6 +82,10 @@ public class MemberController {
 	public void emailCheck() {
 		
 	}
+	// 회원가입 폼
+	@RequestMapping("/signupform.do")
+	public void signUpForm() {}
+	
 	// 회원가입 처리
 	@RequestMapping("/signup.do")
 	public String signUp(Member member) throws UnsupportedEncodingException, MessagingException {
@@ -103,8 +102,8 @@ public class MemberController {
 		// 이메일 인증
 		MailHandler sendMail = new MailHandler(mailSender);
 		StringBuffer sb = new StringBuffer();
-		sendMail.setSubject("[밥먹자 이메일 인증]");
-		sendMail.setText(sb.append("<h2>밥먹자 메일인증 입니다!♬ 아래 링크를 눌러서 이메일 인증을 해주세요!</h2>")
+		sendMail.setSubject("[밥먹자] 이메일 인증");
+		sendMail.setText(sb.append("<h2>밥먹자 메일인증 입니다♬ 아래 링크를 눌러서 이메일 인증을 해주세요!</h2>")
 						 .append("<a href='http://localhost/babmukja/member/confirm.do?MemEmail="+member.getMemEmail())
 						 .append(" 'target='_blank'>밥먹자 이메일 인증하기</a>").toString());
 		sendMail.setFrom("babmukja@babmukja.com", "밥먹자");
@@ -114,10 +113,10 @@ public class MemberController {
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/emailform.do";
 	}
 
+	// 이메일 확인
 	@RequestMapping("/confirm.do")
 	public String mSuccess(Member member) {
 		member.setMemEmail(member.getMemEmail());
-		System.out.println("가입한 회원 이메일: " + member.getMemEmail());
 		service.updateEmailVerify(member.getMemEmail());
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/emailcheck.do";
 	}
@@ -137,4 +136,12 @@ public class MemberController {
 		System.out.println(memEmail);
 		return service.selectCheckEmail(memEmail);
 	}
+	
+	// 비밀번호 찾기
+	@RequestMapping("/passform.do")
+	public void passForm() {}
+	
+	// 비밀번호 재설정
+	@RequestMapping("/resetpass.do")
+	public void resetPass() {}
 }
