@@ -50,6 +50,11 @@
         $("#menu2").click(function(){
         	location.href="<c:url value='/admin/member.do'/>";
         });
+        
+        $("#menu4").click(function(){
+        	location.href="<c:url value='/admin/board.do'/>";
+        });
+        
         $("#menu5").click(function(){
         	location.href="<c:url value='/admin/pbstoreindex.do'/>";
         });

@@ -49,6 +49,10 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("/board.do")
+	public void boardList(Model model) {
+		
+	}
 	// PB 스토어 index (상품조회 / 상품등록)
 	@RequestMapping("/pbstoreindex.do")
 	public void pbstoreindex() {}
