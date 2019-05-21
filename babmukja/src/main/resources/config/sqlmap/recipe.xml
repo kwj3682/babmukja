@@ -11,18 +11,20 @@
 		<result column="content" property="content" />
 		<result column="viewcnt" property="viewCnt" />
 		<result column="rating" property="rating" />
+		<result column="imgpath" property="imgPath" />
 	</resultMap> 
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into tb_recipe(
-					mem_no,title,content)
+					mem_no,title,content,imgpath)
 					values(
-					#{memNo},#{title},#{content}
+					#{memNo},#{title},#{content},#{imgPath}
 					)
 	</insert>
 	
 	<select id="selectRecipe" resultMap="recipeMap">
 		select m.mem_nickname,r.* from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
+		 order by regDate desc
 	</select>
 	
 	<select id="selectRecipeByNo" parameterType="int" resultMap="recipeMap">

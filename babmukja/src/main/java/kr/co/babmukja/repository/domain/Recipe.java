@@ -15,6 +15,15 @@ public class Recipe {
 	private int rating;
 	private int viewCnt;
 	
+	private String imgPath;
+	
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 	public int getViewCnt() {
 		return viewCnt;
 	}
