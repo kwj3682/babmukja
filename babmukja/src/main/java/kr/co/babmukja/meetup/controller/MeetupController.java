@@ -115,7 +115,9 @@ public class MeetupController {
 	@ResponseBody
 	public String updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath) {
 		System.out.println("세이브 후 들어왔음");
+		if (deleteDirectory != null) {
 		System.out.println("파일 들어왔나 확인 :" + fileDirectory[0]);
+		}
 		System.out.println("dbpath 들어왔나 확인 :" + dbPath);
 		service.updateIntro(dbPath);
 		if (deleteDirectory != null) {
@@ -160,7 +162,7 @@ public class MeetupController {
 	@ResponseBody
 	public void deleteIntro(String[] fileDirectory) {
 		System.out.println(" delete들어왔음");
-
+		if(fileDirectory !=null) {
 		for (int i = 0; i < fileDirectory.length; i++) {
 			System.out.println(fileDirectory[i]);
 			File file = new File(fileDirectory[i]);
@@ -171,8 +173,8 @@ public class MeetupController {
 			}
 			
 
-		}
-
+		}//for
+		}//if
 		service.deleteIntro();
 	}
 

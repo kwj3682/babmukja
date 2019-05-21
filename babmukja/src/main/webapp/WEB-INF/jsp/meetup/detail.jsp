@@ -274,6 +274,7 @@
                            	  success: function(data) {
                            		  
                            		  $("#tabPanel1").html(`<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>`);
+                           		  dataProcess();
                            	  }
                            	  });  
                     	 
