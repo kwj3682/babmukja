@@ -17,6 +17,9 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/hash.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/turn.min.js"/>"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="swiper-container">
@@ -85,11 +88,39 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-                   <!--  <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p> -->
+                  <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
                 </div>
 
             </div>
         </div>
+         <!-- modal -->
+    <div id="turnModal" class="modal fade" tabindex="-1" >
+        <div class="moadl-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>              
+                </div>
+                <div class="modal-body">
+                    <div id="turnJsDiv">
+				       	<div id="turnJs">
+				       		<div id="resultImage"></div>
+				       		<img src="<c:url value="/resources/images/food1.jpg"/>">
+				       		<img src="<c:url value="/resources/images/food2.jpg"/>">
+				       		<img src="<c:url value="/resources/images/food3.jpg"/>">
+				       		<img src="<c:url value="/resources/images/food4.jpg"/>">
+				       		<img src="<c:url value="/resources/images/f1.jpg"/>">
+				       		<img src="<c:url value="/resources/images/f2.jpg"/>">
+				       		<img src="<c:url value="/resources/images/f3.jpg"/>">
+				       	</div>
+			    	</div>
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>    
+    	
         <div class="boundary"></div>
         <div id="sector3">
             <div id="sector3-body">
@@ -124,34 +155,84 @@
             </div>
             <div id="sector3-header"></div>
         </div>
-
-
     </div>
-
-
-
+    
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
-/*     $("#sector2-body").click(function () {
-	    $("#recipe-book-container").turn({
-			width:922,
-			height:600
-		});    	
-    }); */
-    $("#sector2-body").click(function() {
-		$('#recipe-book-container').turn({
-				display: 'single',
-				acceleration: true,
-				gradients: !$.isTouch,
-				elevation:50,
-				when: {
-					turned: function(e, page) {
-						/*console.log('Current view: ', $(this).turn('view'));*/
-					}
-				}
-			});
-	});
-	
+    $("#recipe-book1").click(function () {   
+    	alert($(this).attr("url"));
+    	$("#resultImage").css({background:$(this).css("backgroundImage"),
+    							backgroundSize: contain});
+    	$("#turnModal").modal("show");
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width:1200,
+	    			height:800,
+	    			elevation: 50,
+	    			gradients: true			
+	    			/* autoCenter: true */
+	    	});
+	    }
+	    loadApp();    	
+    });
+    $("#recipe-book2").click(function () {   
+    	alert($(this).attr("url"));
+    	$("#resultImage").css({background:$(this).css("backgroundImage")});
+    	$("#turnModal").modal("show");
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width:1000,
+	    			height:600,
+	    			elevation: 50,
+	    			gradients: true,    			
+	    			autoCenter: true
+	    	});
+	    }
+	    loadApp();    	
+    });
+    $("#recipe-book3").click(function () {   
+    	alert($(this).attr("url"));
+    	$("#resultImage").css({background:$(this).css("backgroundImage")});
+    	$("#turnModal").modal("show");
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width:1000,
+	    			height:600,
+	    			elevation: 50,
+	    			gradients: true,    			
+	    			autoCenter: true
+	    	});
+	    }
+	    loadApp();    	
+    });
+    $("#recipe-book4").click(function () {   
+    	alert($(this).attr("url"));
+    	$("#resultImage").css({background:$(this).css("backgroundImage")});
+    	$("#turnModal").modal("show");
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width:1000,
+	    			height:600,
+	    			elevation: 50,
+	    			gradients: true,    			
+	    			autoCenter: true
+	    	});
+	    }
+	    loadApp();    	
+    });
+    
     
         var swiper = new Swiper('.swiper-container', {
             loop:true,

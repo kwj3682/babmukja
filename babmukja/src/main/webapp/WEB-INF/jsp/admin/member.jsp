@@ -154,13 +154,13 @@
                     <div id="pageText">
                     <c:if test="${pageResult.count != 0}"> 
 							<c:if test="${pageResult.prev eq true}">
-							<a id="prevPage" data-pageNo="${pageResult.beginPage - 1}" href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
+							<a data-pageNo="${pageResult.beginPage - 1}" href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
 						</c:if>
 						<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
-							<a id="noPage" data-pageNo="${i}" href="${param.link}?pageNo=${i}">[${i}]</a>
+							<a data-pageNo="${i}" href="${param.link}?pageNo=${i}">[${i}]</a>
 							</c:forEach>
 						<c:if test="${pageResult.next eq true}">
-							<a id="nextPage" data-pageNo="${pageResult.endPage + 1}" href="#1">다음</a>
+							<a data-pageNo="${pageResult.endPage + 1}" href="#1">다음</a>
 						</c:if>	
 					</c:if>	
 					</div>
@@ -169,7 +169,7 @@
         </div>
 	</div>
 	<form name="searchForm" action="<c:url value="/admin/member.do"/>" method="post">
-		<input type="hidden" name="pageNo">
+		<input type="hidden" name="pageNo" value="${param.pageNo}">
 		<input type="hidden" name="searchType" value="${param.searchType}">
 		<input type="hidden" name="input" value="${param.input}">
 		<input type="hidden" name="signDate1" value="${param.signDate1}">
@@ -190,9 +190,8 @@
 	</form>
     <script>    
     	
-    	$("#search-output-list > a").click(function () {
-    		alert($(this).data("pageNo"));
-    		$("[name='searchForm'] > input[name='pageNo']").val($(this).data("pageNo"));
+    	$("#pageText > a").click(function () {
+    		$("[name='searchForm'] > input[name='pageNo']").val();
     		$("[name='searchForm']").submit();
     		return false;
     	});
