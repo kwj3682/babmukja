@@ -35,6 +35,7 @@
         <button>저장</button>
     </div>
     <script>
+   		let fileList="";
     	const editor = new EditorJS({
             holderId: 'editorjs',
 
@@ -120,7 +121,7 @@
                                             		var obj = JSON.parse(response);
                                                 	console.log(obj.path);
                                                 	console.log(obj.sysname);
-                                                	console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
+//                                                 	console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
                                                 	resolve({
 			                                            cnt: 1,
 			                                            url: "${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname
@@ -192,13 +193,24 @@
         	let recipeTitle = $("#title").val();
             console.dir(editor)
             editor.save().then((outputData)=>{
+        
+            	let cnt = 0;
+            	for(let fileUrl of outputData.blocks){
+            		if(fileUrl.type == 'image'){
+		            	fileList += (cnt==0)?fileUrl.data.file.url:","+fileUrl.data.file.url;   
+		            	cnt++;
+            		}
+            	}
+            	
+        
             	let content = JSON.stringify(outputData);
             	let title= $("#title").val();
             	$.ajax({
 					type: "post",
 	   					url:"write.do",
 						data: {content : content,
-								 title : title},
+								 title : title,
+							   imgPath: fileList},
 						success:function(result){
 						}
             	});
@@ -213,3 +225,4 @@
     </script>
 </body>
 </html>
+
