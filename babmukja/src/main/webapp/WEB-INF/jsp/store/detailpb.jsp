@@ -260,16 +260,24 @@
                                 <label title="bad" for="star-0"></label>
                             </div>
                         </div>
-                        <div class="pb_product_image">
-                            <div class="image_container"></div>
-                            <div class="image_choice">
-                                <label for="product_img_file">사진을 선택해주세요</label>
-                                <input type="file" name="product_img_file" id="product_img_file">
-                            </div>
-                        </div>
-                        <div class="pb_product_content">
-                            <textarea name="product__content" class="product__content" cols="50" rows="15" placeholder="후기를 작성해주세요."></textarea>
-                        </div>
+                        
+						<div class="pb_reviewMap">
+				            <div class="pb_product_content">
+				                <textarea name="product__content" class="product__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
+				                <div class="content_length">
+				                    <p>0</p>
+				                    <p>/</p>
+				                    <p>1,000</p>
+				                </div>
+					            <p class="review_images_msg"> 아래 + 를 눌러 이미지를 등록해주세요.</p>
+				            </div>
+				            <div class="review_images">
+				                <input type="file" name="img_file" id="img_file">
+				                <div id="preview_img_div">
+				                    <div class="imgPlus">+</div>
+				                </div>
+				            </div>
+				        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -360,7 +368,7 @@
                 </div> <!-- 문의 내용 끝-->
             </div>
         </div>
-
+	
     <script>
     $(document).ready(function () {
     	$("#reviewmodal").modal("hide");
@@ -369,6 +377,7 @@
     $("#pb_review_writeform").click(function () {
       alert("modal 켜진다");
       $("#reviewmodal").modal("show");
+     
     });
     
     $("#reviewmodal").modal({
@@ -491,6 +500,44 @@
   	   	console.log($("#post-body").width() + " " + $("#post-body").height());
   	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
      }
+     
+     // 후기 모달 이미지 부분
+       $(".imgPlus").click(function () {
+          $("#img_file").click()
+            
+       });
+		let imgCnt = 0;
+       $("#img_file").change(function (e) {
+            var reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = function () {
+                var tempImage = new Image();
+                tempImage.src = reader.result;
+                tempImage.onload = function () {
+                    var canvas = document.createElement('canvas');
+                    var canvasContext = canvas.getContext("2d");
+
+                    canvas.width = 100;
+                    canvas.height = 100;
+
+                    canvasContext.drawImage(this, 0, 0, 100, 100);
+                    
+                    var dataURI = canvas.toDataURL("image/jpeg");
+
+					imgCnt++;
+                    var imgTag = "<div><img id='preview_img' name='preview_img"+imgCnt+"' src='"+dataURI+"'/></div>";
+                    if(imgCnt == 10){
+                    	$(".imgPlus").hide();
+                    }
+                    $("#preview_img_div").prepend(imgTag);
+					if(imgCnt > 3){						
+// 	                    let bodyHeight = document.body.offsetHeight;
+	                    $(".modal-backdrop").css({height:"1100px"});
+					}
+                };
+            };
+       });
     </script>
 </body>
 </html>
