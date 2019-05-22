@@ -48,7 +48,6 @@
 #pb_detail_info {
     width: 250px;
     margin-right: 150px;
-    margin-top: -25px;
     height: 500px;
     color: rgb(81, 81, 81);
 }
@@ -59,7 +58,6 @@
 
 
 #pb_detail_rating_point {
-    margin-top: -20px;
     font-size: 20px;
     margin-left: 5px;
     
@@ -78,7 +76,6 @@
 #pb_detail_promotion {
     display: flex;
     font-size: 10px;
-    margin-top: -30px;
     margin-left: 8px;
 }
 
@@ -446,3 +443,238 @@
 #post-body{
 	position: relative;
 }
+
+<!-- -->
+#reviewmodal {
+    height: auto;
+}
+
+.moadl-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.modal-content {
+    width: 50%;
+    text-align: center;    
+    height: auto;
+    min-height: 100%;
+    top:30px;
+}
+
+.modal-title {
+    font-size: 30px;
+    color: #7db341;
+    font-weight: bold;
+}
+
+.product__content {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 500px;
+    height: 170px;
+    resize: none;
+}
+
+.content_length {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 15px;
+    color: gray;
+}
+
+.pb_product_content textarea {
+    width: 500px;
+}
+
+#preview_img_div {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap : 5px;
+}
+
+.imgPlus {
+    width: 100px;
+    height: 100px;
+    border: 1px dotted gray;
+    color: gray;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border-radius: 5px;
+    cursor : pointer;
+    
+}
+
+.review_images {
+    display: flex;
+    width: 500px;
+}
+
+#img_file {
+    display: none;
+}
+
+.pb_product_content {
+    height: 250px;
+}
+
+.pb_product_content textarea:focus {
+    border-color: #7db341;
+    transition: border-color 0.5s ease-in-out;
+}
+
+.pb_insertform_container > .pb_product_content,
+                           .pb_reviewMap,
+                           .pb_product_plus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-footer > button {
+    display: inline-block; 
+    padding: .5em .75em; 
+    color: white; 
+    line-height: normal; 
+    vertical-align: middle; 
+    background-color: #7db341; 
+    cursor: pointer; 
+    border-radius: .25em;
+    font-weight: bold;
+}
+
+.pb_product_item {
+    display: flex;
+    margin-left: 125px;
+    margin-top: 30px;
+}
+
+.pb_product_item_img {
+    width: 100px;
+    height: 100px;
+    
+}
+
+.pb_product_item_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.pb_product_item_name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.pb_product_item_rating {
+    font-size: 15px;
+    font-weight: bold;
+    width: 400px;
+    height: 150px;
+    margin-left: 60px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.review_images_msg {
+	font-weight: bold;
+    font-size: 18px;
+    margin-left: 8px;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: left;
+}
+
+.rating_msg {
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 8px;
+    margin-bottom: 30px;
+}
+/*sprite with stars*/
+#reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+    background: url('http://positivecrash.com/wp-content/uploads/ico-s71a7fdede6.png') no-repeat;
+  }
+  
+  #reviewStars-input {
+    
+    /*fix floating problems*/
+    overflow: hidden;
+    *zoom: 1;
+    /*end of fix floating problems*/
+    margin-left: 66px;
+    position: relative;
+    float: left;
+  }
+  
+  #reviewStars-input input {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    
+    width: 43px;
+    height: 40px;
+    
+    position: absolute;
+    top: 0;
+    z-index: 0;
+  }
+  
+  #reviewStars-input input:checked ~ label {
+    background-position: 0 -40px;
+    height: 40px;
+    width: 43px;
+  }
+  
+  #reviewStars-input label {
+    background-position: 0 0;
+    height: 40px;
+    width: 43px;
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+    
+    position: relative;
+    z-index: 1;
+  }
+  
+  #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+    background-position: 0 -40px;
+    height: 40px;
+    width: 43px;
+  }
+  
+  #reviewStars-input #star-0 {
+    left: 0px;
+  }
+  #reviewStars-input #star-1 {
+    left: 53px;
+  }
+  #reviewStars-input #star-2 {
+    left: 106px;
+  }
+  #reviewStars-input #star-3 {
+    left: 159px;
+  }
+  #reviewStars-input #star-4 {
+    left: 212px;
+  }
+  #reviewStars-input #star-5 {
+    left: 265px;
+  }
+

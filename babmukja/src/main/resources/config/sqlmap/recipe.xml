@@ -11,23 +11,32 @@
 		<result column="content" property="content" />
 		<result column="viewcnt" property="viewCnt" />
 		<result column="rating" property="rating" />
+		<result column="imgpath" property="imgPath" />
+		<result column="likecnt" property="likeCnt" />
+		<result column="scrapcnt" property="scrapCnt" />
 	</resultMap> 
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into tb_recipe(
-					mem_no,title,content)
+					mem_no,title,content,imgpath)
 					values(
-					#{memNo},#{title},#{content}
+					#{memNo},#{title},#{content},#{imgPath}
 					)
 	</insert>
 	
 	<select id="selectRecipe" resultMap="recipeMap">
 		select m.mem_nickname,r.* from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
+		 order by regDate desc
 	</select>
 	
 	<select id="selectRecipeByNo" parameterType="int" resultMap="recipeMap">
 		select * from tb_recipe where recipe_no = #{recipeNo}
 	</select>
+	<update id="addViewCnt" parameterType="int">
+		update tb_recipe
+		   set viewcnt = viewcnt + 1
+		 where recipe_no = #{recipeNo}
+	</update>
 	
 	<update id="updateRecipe" parameterType="recipe">
 		update tb_recipe

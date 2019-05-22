@@ -175,3 +175,6 @@ td:nth-child(13){
 td:nth-child(14){
     width: 100px;
 }
+#pageText {
+	text-align : center;
+}

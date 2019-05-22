@@ -102,12 +102,12 @@ html, body {
 #monthly-profile{
     width : 90px;
     height: 90px;
-    padding-top: 12px;
-    border-radius: 50px;
+    margin-top: 12px;
+    border-radius: 90px;
 }
 #monthly-profile-wrapper{
     display: inline-block;
-    background:url(/../../images/circle.png);
+    background:url(../../images/circle.png);
     background-size: cover;
     width: 112px;
     height: 112px;
@@ -248,13 +248,16 @@ html, body {
 #recipe-book1:hover,
 #recipe-book2:hover,
 #recipe-book3:hover,
-#recipe-book4:hover
+#recipe-book4:hover 
 {
     transform:  translateX(450px) translateY(200px) scale(1.5);
     box-shadow: 0px 0px 15px 1px goldenrod;
     z-index: 50;
 }
-
+#recipe-book-container {
+	width: 350px;    
+    height: 450px;
+}
 #recipe-book-container > p{
     position: absolute;
     color: white;
@@ -300,10 +303,13 @@ html, body {
 .profile-container{
     display: grid;
     grid-template-rows: 25% 60% 15%;
+    font-family: 'East Sea Dokdo', cursive;
+    font-weight: lighter;
+    font-size : 30px;
 }
 .profile-pic-box{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 20% 80%;
 }
 .profile-picture{
     width: 70px;
@@ -315,9 +321,14 @@ html, body {
 .profile-name{
     font-size : 20px;
 }
+.profile-name p{
+	margin-top: 20px;
+	margin-left : 25px;
+}
 .recipe-pic-box > img{ 
     width: 97%;
-    margin: 5px;
+    margin-top: 15px;
+    margin-left: 3px;
 }
 .recipe-info{
     display: flex;
@@ -329,3 +340,111 @@ html, body {
 .recipe-info i{
     padding-right: 10px;
 }
+
+#turnJsDiv {
+	display : none;
+	
+}
+
+.modal-dialog {
+	max-width: 100%; 
+	width: auto; 
+	display: table;
+}
+.modal-content {
+	max-width: 100%; 
+	width: auto; 
+	text-align: center;    
+	height: auto;
+	min-height: 100%;
+	top:30px;	
+}
+.modal-body {
+    align-items: center;   
+}
+.next-button,
+.previous-button{
+	width:22px;
+	height:600px;
+	position:absolute;
+	top:0;
+}
+
+.next-button{
+	right:-22px;
+	-webkit-border-radius:0 15px 15px 0;
+	-moz-border-radius:0 15px 15px 0;
+	-ms-border-radius:0 15px 15px 0;
+	-o-border-radius:0 15px 15px 0;
+	border-radius:0 15px 15px 0;
+/* 	transition :.3s; */
+}
+
+.previous-button{
+	left:-22px;
+	-webkit-border-radius:15px 0 0 15px;
+	-moz-border-radius:15px 0 0 15px;
+	-ms-border-radius:15px 0 0 15px;
+	-o-border-radius:15px 0 0 15px;
+	border-radius:15px 0 0 15px;
+	/* transition :.3s; */
+}
+
+.previous-button-hover,
+.next-button-hover{
+	background-color:rgb(125, 179, 65);
+}
+
+.previous-button-hover,
+.previous-button-down{
+	background-image:url(../../images/icons/back.png);
+	background-size:30px;
+	background-position:-5px 284px;
+	background-repeat:no-repeat;
+}
+
+.previous-button-down,
+.next-button-down{
+	background-color:rgba(125, 179, 65,0.5);
+}
+
+.next-button-hover,
+.next-button-down{
+	background-image:url(../../images/icons/next.png);
+	background-size:30px;
+	background-position:-5px 284px;
+	background-repeat:no-repeat;
+}
+.even img{
+	width : 93%;
+	z-index : 1;
+}
+.odd img{
+	width : 93%;
+	z-index : 1;
+	
+}
+
+.even{
+	z-index: 40;
+	border-radius : 0 15px 0 0 ;
+    background:-webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #bababa));
+    background-image:-webkit-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:-moz-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:-ms-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:-o-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:linear-gradient(left, #fff 95%, #bababa 100%);
+}
+
+.odd{
+	z-index: 40;
+	border-radius : 15px 0 0 0 ;
+    background:-webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #aaa));
+    background-image:-webkit-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:-moz-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:-ms-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:-o-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:linear-gradient(right, #fff 95%, #aaa 100%);
+}
+
+

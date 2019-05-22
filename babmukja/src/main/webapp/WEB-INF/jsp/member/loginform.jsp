@@ -37,11 +37,8 @@
 		</form>
 
 		<div class="id__pass_search">
-			<div class="search__id">
-				<a href="#">이메일 찾기</a>
-			</div>
 			<div class="search__pass">
-				<a href="#">비밀번호 찾기</a>
+				<a href="<c:url value="/member/resetpass.do"/>">비밀번호 찾기</a>
 			</div>
 		</div>
 
@@ -102,8 +99,6 @@
 			});
 			$("#doLogin").submit();
 		});
-	 	
-	 	
 	</script>
 
 </body>

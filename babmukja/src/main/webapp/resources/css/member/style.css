@@ -1,3 +1,7 @@
 @charset "UTF-8";
 @import "login.css";
 @import "signup.css";
+@import "emailform.css";
+@import "emailcheck.css";
+@import "passform.css";
+@import "resetpass.css";

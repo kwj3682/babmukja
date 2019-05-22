@@ -15,6 +15,30 @@ public class Recipe {
 	private int rating;
 	private int viewCnt;
 	
+	private int likeCnt;
+	private int scrapCnt;
+	
+	private String imgPath;
+	
+	
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	public int getScrapCnt() {
+		return scrapCnt;
+	}
+	public void setScrapCnt(int scrapCnt) {
+		this.scrapCnt = scrapCnt;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 	public int getViewCnt() {
 		return viewCnt;
 	}
