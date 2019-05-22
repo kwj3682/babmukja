@@ -11,4 +11,5 @@ public interface RecipeService {
 	public void updateRecipe(Recipe recipe);
 	public void deleteRecipe(int no);
 	public List<Recipe> selectRecipe();
+	public void addViewCnt(int no);
 }
