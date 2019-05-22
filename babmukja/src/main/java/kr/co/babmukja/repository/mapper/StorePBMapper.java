@@ -28,4 +28,8 @@ public interface StorePBMapper {
 	public void insertPBStore(StorePB storepb);
 	public void updatePBStore(StorePB storepb);
 	public void deletePBStore(int no);
+	
+	// PB 상품 후기
+	
+	
 }
