@@ -12,6 +12,8 @@
 		<result column="viewcnt" property="viewCnt" />
 		<result column="rating" property="rating" />
 		<result column="imgpath" property="imgPath" />
+		<result column="likecnt" property="likeCnt" />
+		<result column="scrapcnt" property="scrapCnt" />
 	</resultMap> 
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into tb_recipe(
@@ -30,6 +32,11 @@
 	<select id="selectRecipeByNo" parameterType="int" resultMap="recipeMap">
 		select * from tb_recipe where recipe_no = #{recipeNo}
 	</select>
+	<update id="addViewCnt" parameterType="int">
+		update tb_recipe
+		   set viewcnt = viewcnt + 1
+		 where recipe_no = #{recipeNo}
+	</update>
 	
 	<update id="updateRecipe" parameterType="recipe">
 		update tb_recipe

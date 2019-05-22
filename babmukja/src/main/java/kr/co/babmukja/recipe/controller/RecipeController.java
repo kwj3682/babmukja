@@ -137,6 +137,7 @@ public class RecipeController {
 	@RequestMapping("/detail.do")
 	public ModelAndView detail(ModelAndView mav, int no) {
 		Recipe recipe = service.selectRecipeByNo(no);
+		service.addViewCnt(no);
 		if(recipe == null) {
 			System.out.println("recipe is null at no."+no);
 			mav.setViewName("recipe/main");

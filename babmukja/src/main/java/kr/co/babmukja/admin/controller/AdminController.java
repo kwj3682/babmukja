@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.babmukja.admin.service.AdminService;
+import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.Page;
+import kr.co.babmukja.store.service.StorePBService;
 
 @Controller("kr.co.babmukja.admin.controller.AdminController")
 @RequestMapping("/admin")
@@ -16,6 +18,12 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService service;
+
+	@RequestMapping("/board.do")
+	public void boardList(Page page, Model model) {
+		
+	}
+	
 	
 	@RequestMapping("/main.do")
 	public void main(){}
@@ -48,11 +56,7 @@ public class AdminController {
 		model.addAttribute("d", service.selectMemberByNo(no));
 		
 	}
-	
-	@RequestMapping("/board.do")
-	public void boardList(Model model) {
-		
-	}
+
 	// PB 스토어 index (상품조회 / 상품등록)
 	@RequestMapping("/pbstoreindex.do")
 	public void pbstoreindex() {}
