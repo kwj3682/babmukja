@@ -1,8 +1,16 @@
-$(document).on("click", "#modal_location_plus", function () {
-    $(".modal_meetup_location_box").append(
-        ` <div class="area_container" id="modal_area_container">
+var num = 1;
 
-<select name="h_area1" class="select_area1" id="modal_select_area1">
+$(document).on("click", "#modal_location_plus", function () {
+
+    alert("num:" + num);
+
+    if (num > 3) {
+        alert("활동지역은 3개까지만 선택 가능합니다.")
+    } else {
+        $(".modal_meetup_location_box").append(
+            ` <div class="area_container" id="modal_area_container">
+
+<select name="select_modal_city${num}" class="select_modal_city" id="select_modal_city${num}">
 
     <option>-선택-</option>
 
@@ -40,7 +48,7 @@ $(document).on("click", "#modal_location_plus", function () {
 
 </select>
 
-<select name="h_area2" class="select_area2" id="modal_select_area2">
+<select name="select_modal_town${num}" class="select_modal_town" id="select_modal_town${num}">
 
     <option>-선택-</option>
 
@@ -48,13 +56,34 @@ $(document).on("click", "#modal_location_plus", function () {
 
 </div>
             `);
+        num++;
+        if (num >= 4) {
+            num = 4;
+        }
+    }//else
 });
 
+$(document).on("click", "#modal_location_minus", function () {
 
-$(document).on("change", "#modal_select_area1", function () {
-    cat1_change($("#modal_select_area1").val(), $('select[name=h_area2]'));
+    $(".area_container:last").remove();
+    num--;
+
+    if (num < 1) {
+        alert("더이상 삭제할 수 없습니다.");
+        num = 1;
+    }
+
 });
 
+for (let k = 1; k <= 3; k++) {
+    $(document).on("change", `select[name='select_modal_city${k}']`, function () {
+      
+        cat1_change($(`select[name='select_modal_city${k}']`).val(), $(`select[name='select_modal_town${k}']`));
+
+
+    });
+
+}//for
 var cat1_num = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
 var cat1_name = new Array('서울', '부산', '대구', '인천', '광주', '대전', '울산', '강원', '경기', '경남', '경북', '전남', '전북', '제주', '충남', '충북');
@@ -200,7 +229,7 @@ cat2_name[16] = new Array('제천시', '청주시 상당구', '청주시 흥덕�
 
 
 function cat1_change(key, sel) {
-
+   
     if (key == '') return;
 
     var name = cat2_name[key];
@@ -210,8 +239,10 @@ function cat1_change(key, sel) {
 
     for (i = 0; i < name.length; i++) {
         sel.append("<option value=" + name[i] + ">" + name[i] + "</option > ");
+
     }
 
 
 
-}
+}//change
+
