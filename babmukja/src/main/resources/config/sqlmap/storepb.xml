@@ -198,4 +198,64 @@
 		  from tb_pb
 		 where pb_no = #{pbNo}
 	</delete>
+	
+	<!--  후기 파트  -->
+	
+	<resultMap id="pbReviewMap" type="storePBReview" >
+		<result column="pb_review_no" property="pbReviewNo"/>
+		<result column="pb_no" property="pbNo"/>
+		<result column="content" property="content"/>
+		<result column="rating" property="rating"/>
+		<result column="regdate" property="regDate"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="group_no" property="groupNo"/>
+	</resultMap>
+	
+	<resultMap id="fileMap" type="fileVO" >
+		<result column="file_no" property="fileNo"/>
+		<result column="group_no" property="groupNo"/>
+		<result column="sysname" property="sysname"/>
+		<result column="orgname" property="orgname"/>
+		<result column="path" property="path"/>
+		<result column="mem_no" property="memNo"/>
+	</resultMap>
+	
+	<insert id="insertPBReview" parameterType="storePBReview">
+		insert into tb_pb_review(
+			pb_no, 
+			content, 
+			mem_no, 
+			group_no
+		)
+		values(
+			#{pbNo},
+			#{content},
+			3,
+			#{groupNo}			
+		)
+	</insert>
+	
+	<insert id="insertPBReviewImage" parameterType="fileVO">
+		insert into tb_file 
+		(
+			group_no, 
+			sysname, 
+			orgname, 
+			path, 
+			mem_no
+		)
+		values 
+		(
+			#{groupNo}, 
+			#{sysname}, 
+			#{orgname}, 
+			#{path}, 
+			3
+		)
+	</insert>
+	
+	<select id="selectMaxNum" resultType="int">
+		select ifnull(max(pb_review_no),1)
+		  from tb_pb_review
+	</select>
 </mapper>
