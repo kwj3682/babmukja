@@ -291,76 +291,81 @@
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">모임 개설하기</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- modal 이름 적는부분 -->
-                    <div class="modal_meetup_name_container">
-                        <div class="modal_meetup_name">
-                            카테고리/모임명
-                        </div>
-                        <div></div>
-                        <div class="modal_meetup_category">
-                            <select name="food_nation_categody" class="food_nation_categody">
-                                <option value="">카테고리</option>
-                                <option value="">한식</option>
-                                <option value="">중식</option>
-                                <option value="">일식</option>
-                                <option value="">동남아시아</option>
-                                <option value="">양식</option>
-                                <option value="">기타</option>
-                            </select>
-                        </div>
-                        <div></div>
-                        <div class="modal_meetup_name">
-                            <input type="text" name="meetup_title" class="meetup_title" placeholder="모임명을 입력해주세요" />
-                        </div>
-
+                <form action="#">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">모임 개설하기</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <!-- model tag 부분 -->
-                    <div class="modal_meetup_tag_container">
-                        <div class="modal_meetup_tag">태그</div>
-                        <div></div>
-                        <div class="modal_meetup_tag_box">
-                            <input type="text" name="meetup_tag" class="meetup_tag" placeholder="모임을 표현할 태그명를 입력해주세요" />
-                        </div>
-                    </div>
-                    <div class="modal_meetup_location_container">
-                        <div class="modal_meetup_location">지역</div>
-                        <div></div>
-                        <div class="modal_meetup_plus_container">
-                            <div><i class="fas fa-plus-circle" id="modal_location_plus"></i></div>
-                        </div>
-                        <div class="modal_meetup_location_box">
+                    <div class="modal-body">
+                        <!-- modal 이름 적는부분 -->
+                        <div class="modal_meetup_name_container">
+                            <div class="modal_meetup_name">
+                                카테고리/모임명
+                            </div>
+                            <div></div>
+                            <div class="modal_meetup_category">
+                                <select name="food_nation_categody" class="food_nation_categody">
+                                    <option value="">카테고리</option>
+                                    <option value="">한식</option>
+                                    <option value="">중식</option>
+                                    <option value="">일식</option>
+                                    <option value="">동남아시아</option>
+                                    <option value="">양식</option>
+                                    <option value="">기타</option>
+                                </select>
+                            </div>
+                            <div></div>
+                            <div class="modal_meetup_name">
+                                <input type="text" name="meetup_title" class="meetup_title" placeholder="모임명을 입력해주세요" />
+                            </div>
 
                         </div>
-                    </div> <!-- location container 끝  -->
-                    <div class="modal_meetup_fee_container">
-                        <div class="modal_meetup_fee">월 회비</div>
-                        <div></div>
-                        <div class="modal_meetup_fee_checkbox">
-                            <input type="checkbox" name="category" value="all" />미정</div>
-                        <div class="modal_meetup_fee_inputbox">
-                            <input type="checkbox" name="category" value="all" /> <input type="text" name="meetup_fee"
-                                class="modal_fee_input" placeholder="액수를 입력해 주세요" />원
+                        <!-- model tag 부분 -->
+                        <div class="modal_meetup_tag_container">
+                            <div class="modal_meetup_tag">태그</div>
+                            <div></div>
+                            <div class="modal_meetup_tag_box">
+                                <input type="text" name="meetup_tag" class="meetup_tag"
+                                    placeholder="모임을 표현할 태그명를 입력해주세요" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal_meetup_mainPic_container">
-                        <div class="modal_meetup_mainPic">메인사진 설정</div>
-                        <div></div>
-                        <div class="modal_meetup_mainPic_box">
-                            xxxx
+                        <div class="modal_meetup_location_container">
+                            <div class="modal_meetup_location">지역</div>
+                            <div></div>
+                            <div class="modal_meetup_plus_container">
+                                <div><i class="fas fa-plus-circle" id="modal_location_plus"></i> &nbsp;&nbsp; <i
+                                        class="fas fa-minus-circle" id="modal_location_minus"></i></div>
+                            </div>
+                            <div class="modal_meetup_location_box">
+
+                            </div>
+                        </div> <!-- location container 끝  -->
+                        <div class="modal_meetup_fee_container">
+                            <div class="modal_meetup_fee">월 회비</div>
+                            <div></div>
+                            <div class="modal_meetup_fee_checkbox">
+                                <input type="checkbox" name="category" value="all" />미정</div>
+                            <div class="modal_meetup_fee_inputbox">
+                                <input type="checkbox" name="category" value="all" /> <input type="text"
+                                    name="meetup_fee" class="modal_fee_input" placeholder="액수를 입력해 주세요" />원
+                            </div>
                         </div>
+                        <div class="modal_meetup_mainPic_container">
+                            <div class="modal_meetup_mainPic">메인사진 설정</div>
+                            <div></div>
+                            <div class="modal_meetup_mainPic_box">
+                              
+                            </div>
+                        </div>
+                    </div><!-- 모델 바디 끝  -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
-                </div><!-- 모델 바디 끝  -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                </form>
+                <!--form tag-->
             </div>
         </div>
 
@@ -393,16 +398,16 @@
         });
         $(".location_title_container").click(function () {
             alert($(".location_position").css("display"));
-            if (
+            // if (
 
-                $(".location_position").css("display") == "none"
-            ) {
-                $(".location_position").css("display", "block");
-            } else if (
-                $(".location_position").css("display") == "block"
-            ) {
-                $(".location_position").css("display", "none");
-            }
+            //     $(".location_position").css("display") == "none"
+            // ) {
+            $(".location_position").css("display", "block");
+            // } else if (
+            //     $(".location_position").css("display") == "block"
+            // ) {
+            //     $(".location_position").css("display", "none");
+            // }
 
         });
         $(".food_type_title").click(function () {
@@ -442,6 +447,7 @@
         }, 1200);
 
 
+      
 
     </script>
 

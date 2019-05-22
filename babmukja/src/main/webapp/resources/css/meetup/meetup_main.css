@@ -451,7 +451,7 @@
     width: 900px;
     height: 90px;
     display: grid;
-    grid-template-columns: 19% 2% 5% 74%;
+    grid-template-columns: 16% 2% 13% 66%;
 
     border-bottom: 1px solid gainsboro;
 }
@@ -462,7 +462,18 @@
     justify-items: center;
     align-items: center;
 }
-
+.select_modal_city{
+width: 70px;
+    height: 26px;
+    border: 1px solid #7db341;
+    border-radius: 20px;
+}
+.select_modal_town{
+    width: 74px;
+        height: 26px;
+        border: 1px solid #7db341;
+        border-radius: 20px;
+    }
 .modal_meetup_plus_container {
     text-align: center;
 }
@@ -471,7 +482,10 @@
     color: #7db341;
     font-size: 25px;
 }
-
+#modal_location_minus{
+    color: #7db341;
+    font-size: 25px;
+}
 .modal_meetup_location_container>.modal_meetup_location_box {
     display: block;
     text-align: left;
@@ -542,3 +556,7 @@
     justify-items: center;
     align-items: center;
 }
+
+
+/* 부트스트렙 사진 업로드 부분 */
+  
