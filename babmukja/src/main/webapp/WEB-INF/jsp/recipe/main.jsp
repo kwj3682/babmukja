@@ -95,14 +95,16 @@
         </div>
          <!-- modal -->
     <div id="turnModal" class="modal fade" tabindex="-1" >
-        <div class="moadl-dialog">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">x</button>              
+                    <button type="button" class="close" data-dismiss="modal">x</button>       
+                    <p>인기 키워드 1</p>       
                 </div>
                 <div class="modal-body">
                     <div id="turnJsDiv">
 				       	<div id="turnJs">
+				       		<div ignore="1" class="next-button"></div>
 				       		<div id="resultImage"></div>
 				       		<img src="<c:url value="/resources/images/food1.jpg"/>">
 				       		<img src="<c:url value="/resources/images/food2.jpg"/>">
@@ -111,6 +113,7 @@
 				       		<img src="<c:url value="/resources/images/f1.jpg"/>">
 				       		<img src="<c:url value="/resources/images/f2.jpg"/>">
 				       		<img src="<c:url value="/resources/images/f3.jpg"/>">
+				       		<div ignore="1" class="previous-button"></div>
 				       	</div>
 			    	</div>
                 </div>
@@ -160,80 +163,69 @@
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
     $("#recipe-book1").click(function () {   
-    	alert($(this).attr("url"));
     	$("#resultImage").css({background:$(this).css("backgroundImage"),
-    							backgroundSize: contain});
+    							backgroundSize: "cover",
+    							backgroundRepeat : "no-repeat"});
     	$("#turnModal").modal("show");
     	$("#turnJsDiv").css(
             	"display", "block"                
     	); 
 	    function loadApp() {
 	    	$('#turnJs').turn({
-	    			width:1200,
-	    			height:800,
-	    			elevation: 50,
-	    			gradients: true			
+	    			width : 700,
+	    			height : 600,
+	    			elevation : 50,
+	    			gradients : true			
 	    			/* autoCenter: true */
 	    	});
 	    }
 	    loadApp();    	
     });
-    $("#recipe-book2").click(function () {   
-    	alert($(this).attr("url"));
-    	$("#resultImage").css({background:$(this).css("backgroundImage")});
-    	$("#turnModal").modal("show");
-    	$("#turnJsDiv").css(
-            	"display", "block"                
-    	); 
-	    function loadApp() {
-	    	$('#turnJs').turn({
-	    			width:1000,
-	    			height:600,
-	    			elevation: 50,
-	    			gradients: true,    			
-	    			autoCenter: true
-	    	});
-	    }
-	    loadApp();    	
-    });
-    $("#recipe-book3").click(function () {   
-    	alert($(this).attr("url"));
-    	$("#resultImage").css({background:$(this).css("backgroundImage")});
-    	$("#turnModal").modal("show");
-    	$("#turnJsDiv").css(
-            	"display", "block"                
-    	); 
-	    function loadApp() {
-	    	$('#turnJs').turn({
-	    			width:1000,
-	    			height:600,
-	    			elevation: 50,
-	    			gradients: true,    			
-	    			autoCenter: true
-	    	});
-	    }
-	    loadApp();    	
-    });
-    $("#recipe-book4").click(function () {   
-    	alert($(this).attr("url"));
-    	$("#resultImage").css({background:$(this).css("backgroundImage")});
-    	$("#turnModal").modal("show");
-    	$("#turnJsDiv").css(
-            	"display", "block"                
-    	); 
-	    function loadApp() {
-	    	$('#turnJs').turn({
-	    			width:1000,
-	    			height:600,
-	    			elevation: 50,
-	    			gradients: true,    			
-	    			autoCenter: true
-	    	});
-	    }
-	    loadApp();    	
-    });
-    
-    
+$('.next-button').bind($.mouseEvents.over, function() {
+		
+		$(this).addClass('next-button-hover');
+
+	}).bind($.mouseEvents.out, function() {
+		
+		$(this).removeClass('next-button-hover');
+
+	}).bind($.mouseEvents.down, function() {
+		
+		$(this).addClass('next-button-down');
+
+	}).bind($.mouseEvents.up, function() {
+		
+		$(this).removeClass('next-button-down');
+
+	}).click(function() {
+		
+		$('.magazine').turn('next');
+
+	});
+
+	// Events for the next button
+	
+	$('.previous-button').bind($.mouseEvents.over, function() {
+		
+		$(this).addClass('previous-button-hover');
+
+	}).bind($.mouseEvents.out, function() {
+		
+		$(this).removeClass('previous-button-hover');
+
+	}).bind($.mouseEvents.down, function() {
+		
+		$(this).addClass('previous-button-down');
+
+	}).bind($.mouseEvents.up, function() {
+		
+		$(this).removeClass('previous-button-down');
+
+	}).click(function() {
+		
+		$('.magazine').turn('previous');
+
+	});
         var swiper = new Swiper('.swiper-container', {
             loop:true,
             autoplay: {
