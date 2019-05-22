@@ -109,13 +109,27 @@
 				       	<div id="turnJs">
 				       		<div ignore="1" class="next-button"></div>
 				       		<div id="resultImage"></div>
-				       		<img src="<c:url value="/resources/images/food1.jpg"/>">
-				       		<img src="<c:url value="/resources/images/food2.jpg"/>">
-				       		<img src="<c:url value="/resources/images/food3.jpg"/>">
-				       		<img src="<c:url value="/resources/images/food4.jpg"/>">
-				       		<img src="<c:url value="/resources/images/f1.jpg"/>">
-				       		<img src="<c:url value="/resources/images/f2.jpg"/>">
-				       		<img src="<c:url value="/resources/images/f3.jpg"/>">
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food1.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food2.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food3.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food4.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src=" <c:url value="/resources/images/f1.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/f2.jpg"/>">				       		
+							</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/f3.jpg"/>">				       		
+							</div>
 				       		<div ignore="1" class="previous-button"></div>
 				       	</div>
 			    	</div>
@@ -166,11 +180,15 @@
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
+    
+    // 레시피 메인  - turn.js 적용부분
     $("#recipe-book1").click(function () {   
     	$("#resultImage").css({background:$(this).css("backgroundImage"),
     							backgroundSize: "cover",
     							backgroundRepeat : "no-repeat"});
-    	$("#turnModal").modal("show");
+    	
+    	$("#turnModal").modal("show");   	
+    	
     	$("#turnJsDiv").css(
             	"display", "block"                
     	); 
@@ -178,36 +196,25 @@
 	    	$('#turnJs').turn({
 	    			width : 700,
 	    			height : 600,
-	    			elevation : 50,
-	    			gradients : true			
-	    			/* autoCenter: true */
+	    			elevation : 50		
+	    			
 	    	});
 	    }
 	    loadApp();    	
     });
-$('.next-button').bind($.mouseEvents.over, function() {
-		
-		$(this).addClass('next-button-hover');
+    
+    $(document).ready(function () {
+    	$("#turnModal").modal("hide");
+    });
+	$("#turnModal").modal({
+	      backdrop: 'static'
+	 });
 
-	}).bind($.mouseEvents.out, function() {
-		
-		$(this).removeClass('next-button-hover');
-
-	}).bind($.mouseEvents.down, function() {
-		
-		$(this).addClass('next-button-down');
-
-	}).bind($.mouseEvents.up, function() {
-		
-		$(this).removeClass('next-button-down');
-
-	}).click(function() {
-		
-		$('.magazine').turn('next');
-
-	});
-
-	// Events for the next button
+    $(".close").click(function () {
+    	window.location = "main.do";
+    });
+    
+	// modal 창 이전버튼
 	
 	$('.previous-button').bind($.mouseEvents.over, function() {
 		
@@ -227,9 +234,33 @@ $('.next-button').bind($.mouseEvents.over, function() {
 
 	}).click(function() {
 		
-		$('.magazine').turn('previous');
+		$('#turnJs').turn('previous');
 
 	});
+	
+	// modal 창 다음 버튼
+	$('.next-button').bind($.mouseEvents.over, function() {
+			
+			$(this).addClass('next-button-hover');
+	
+		}).bind($.mouseEvents.out, function() {
+			
+			$(this).removeClass('next-button-hover');
+	
+		}).bind($.mouseEvents.down, function() {
+			
+			$(this).addClass('next-button-down');
+	
+		}).bind($.mouseEvents.up, function() {
+			
+			$(this).removeClass('next-button-down');
+	
+		}).click(function() {
+			
+			$('#turnJs').turn('next');
+	
+		});
+
         var swiper = new Swiper('.swiper-container', {
             loop:true,
             autoplay: {
