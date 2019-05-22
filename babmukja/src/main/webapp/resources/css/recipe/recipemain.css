@@ -345,3 +345,69 @@ html, body {
 	display : none;
 	
 }
+
+.modal-dialog {
+	max-width: 100%; 
+	width: auto; 
+	display: table;
+}
+.modal-content {
+	max-width: 100%; 
+	width: auto; 
+	text-align: center;    
+	height: auto;
+	min-height: 100%;
+	top:30px;	
+}
+.modal-body {
+    align-items: center;   
+}
+.next-button,
+.previous-button{
+	width:22px;
+	height:600px;
+	position:absolute;
+	top:0;
+}
+
+.next-button{
+	right:-22px;
+	-webkit-border-radius:0 15px 15px 0;
+	-moz-border-radius:0 15px 15px 0;
+	-ms-border-radius:0 15px 15px 0;
+	-o-border-radius:0 15px 15px 0;
+	border-radius:0 15px 15px 0;
+}
+
+.previous-button{
+	left:-22px;
+	-webkit-border-radius:15px 0 0 15px;
+	-moz-border-radius:15px 0 0 15px;
+	-ms-border-radius:15px 0 0 15px;
+	-o-border-radius:15px 0 0 15px;
+	border-radius:15px 0 0 15px;
+}
+
+.previous-button-hover,
+.next-button-hover{
+	background-color:rgba(0,0,0, 0.2);
+}
+
+.previous-button-hover,
+.previous-button-down{
+	background-image:url(../pics/arrows.png);
+	background-position:-4px 284px;
+	background-repeat:no-repeat;
+}
+
+.previous-button-down,
+.next-button-down{
+	background-color:rgba(0,0,0, 0.4);
+}
+
+.next-button-hover,
+.next-button-down{
+	background-image:url(../pics/arrows.png);
+	background-position:-38px 284px;
+	background-repeat:no-repeat;
+}
