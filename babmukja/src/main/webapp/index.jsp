@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
@@ -12,7 +11,6 @@
 	<a href="<c:url value='/store/mainpb.do'/>">스토어</a>
 	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a>
 	<a href="<c:url value='/notice/index.do'/>">공지사항</a>
-	
 <body>  
 </body>
 </html>

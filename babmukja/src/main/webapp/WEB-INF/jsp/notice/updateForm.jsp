@@ -12,14 +12,14 @@
     <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
     <title>공지사항 등록</title>
 </head>
-<body>
+<body style="background: white;">
         <form
         action="update.do"
         method="post"
         name="updateform"
         encType="multipart/form-data"
         class="notice_forms">
-      <input type='hidden' name='no' value ="${notice.no}"/>
+      <input type='hidden' name='noticeNo' value ="${notice.noticeNo}"/>
         <div class="notice_summary">공지 사항 수정</div>
         <hr class="enrollhr" />
         <table class="notice_commt">

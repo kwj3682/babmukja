@@ -5,18 +5,19 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Notice {
-	 private int no;               
+	 private int noticeNo;               
      private String title;        
      private String content;  
      private Date  regDate;     
      private int viewCnt;    
      private String writer;
      
-	public int getNo() {
-		return no;
+	
+	public int getNoticeNo() {
+		return noticeNo;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
 	}
 	public String getTitle() {
 		return title;
@@ -48,4 +49,9 @@ public class Notice {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public Object getCommentNO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

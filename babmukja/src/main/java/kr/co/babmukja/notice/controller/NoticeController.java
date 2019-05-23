@@ -1,18 +1,27 @@
 package kr.co.babmukja.notice.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.babmukja.notice.service.NoticeService;
+import kr.co.babmukja.notice.service.NoticeServiceImpl;
 import kr.co.babmukja.repository.domain.Comment;
+import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Notice;
 import kr.co.babmukja.repository.domain.Page;
 
@@ -42,13 +51,13 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/updateForm.do")
-	public void updateForm(int no, Model model) {		
-		model.addAttribute("notice", service.updateForm(no));	
+	public void updateForm(int noticeNo, Model model) {
+		model.addAttribute("notice", service.updateForm(noticeNo));	
 	}
 	
 	@RequestMapping("/update.do")
-	public String update(int no, Notice notice) {
-		System.out.println("no:" + notice.getNo());
+	public String update(int noticeNo, Notice notice) {
+		System.out.println("no:" + notice.getNoticeNo());
 		System.out.println("title:" + notice.getTitle());
 		System.out.println("content:" + notice.getContent());
         service.update(notice);
@@ -56,8 +65,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/delete.do")
-	public String delete(int no) {
-		service.delete(no);
+	public String delete(int noticeNo) {
+		service.delete(noticeNo);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do";
 	}	
 	
@@ -77,11 +86,19 @@ public class NoticeController {
 //	}
 	@RequestMapping("/list.do")
 	public void list(Page page, Model model) {
-		int count = 0;
+//		int count = 0;
 //		Map<String, Object> list = service.list(page);
 //		model.addAttribute("list", service.retrieveNotice());
+		List<Notice> list = service.selectNoticeList();
+		for(Notice notice : list) {
+			System.out.println(notice.getWriter());
+			System.out.println(notice.getNoticeNo());
+			System.out.println(notice.getRegDate());
+			System.out.println(notice.getViewCnt());
+		}
 		model.addAttribute("list", service.selectNoticeList());
-		model.addAttribute("count", count);
+//		model.addAttribute("count", count);
 //		model.addAttribute("pageResult", list.get("pageResult"));
 	}	
 }
+

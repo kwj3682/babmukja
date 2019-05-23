@@ -58,4 +58,14 @@ public class NoticeServiceImpl implements NoticeService {
 		return 0;
 	}
 
+	public static void addComment(Notice notice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static List<Notice> selectNoticeCommentByNo(Notice notice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

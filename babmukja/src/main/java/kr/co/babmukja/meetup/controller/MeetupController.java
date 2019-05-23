@@ -35,17 +35,18 @@ public class MeetupController {
 	@Autowired
 	private MeetupService service;
 
+	@RequestMapping("/main.do")
+	public void meetupMain() {
+//		service.selectIntro();
+		System.out.println("메인 들어왔음");
+	}
 	@RequestMapping("/detail.do")
 	public void meetupDetail(Model model) {
 //		service.selectIntro();
 		model.addAttribute("intro", service.selectIntro());
 	}
 
-	@RequestMapping("/main.do")
-	public void meetupMain() {
-		System.out.println("main 들어왔음.");
 
-	}
 
 	@RequestMapping("/meetupAddress.do")
 	public void meetupAddress() {

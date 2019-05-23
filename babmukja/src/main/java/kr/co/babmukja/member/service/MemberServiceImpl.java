@@ -41,4 +41,34 @@ public class MemberServiceImpl implements MemberService {
 	public void updateEmailVerify(String memEmail) {
 		mapper.updateEmailVerify(memEmail);
 	}
+	
+	@Override
+	// 아이디 찾기
+	public String selectSearchId(Member member) {
+		return mapper.selectSearchId(member);
+	}
+	
+	@Override
+	// 비밀번호 찾기
+	public String selectSearchPass(int certification) {
+		return mapper.selectSearchPass(certification);
+	}
+	
+	@Override
+	// 인증번호 등록
+	public void updateCertification(Member member) {
+		mapper.updateCertification(member);
+	}
+	
+	@Override
+	// 인증번호 확인
+	public int selectConfirmCertification(Member member) {
+		return mapper.selectConfirmCertification(member);
+	}
+	
+	@Override
+	// 비밀번호 재설정
+	public void updateResetPass(Member member) {
+		mapper.updateResetPass(member);
+	}
 }

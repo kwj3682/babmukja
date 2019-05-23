@@ -1,22 +1,17 @@
 @charset "UTF-8";
-.passform_container {
+.search_id_container {
   width: 1200px;
   margin: 0 auto;
-  width: 30%;
+  text-align: center;
 }
-.passform_title {
+.search_id_title {
   text-align: center;
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 30px;
   font-family: "Jua", sans-serif;
 }
-.passform_search {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.passform_input input {
+.search_id_input input {
   margin-bottom: 20px;
   padding: 10px;
   box-sizing: border-box;
@@ -28,11 +23,11 @@
   margin-bottom: 8px;
   margin-right: 5px;
 }
-.passform_input input:focus {
+.search_id_input input:focus {
   border-color: #7db341;
   transition: border-color 0.5s ease-in-out;
 }
-.passform_input button {
+.search_id_input button {
   margin-left: 16px;
   border: none;
   background: none;
@@ -44,10 +39,10 @@
   font-weight: bold;
   font-size: 16px;
 }
-.passform_input button:hover {
+.search_id_input button:hover {
   background-color: #749e45;
 }
-.pass_form_button button {
+.search_id_button button {
   margin-top: 20px;
   width: 300px;
   height: 50px;
@@ -60,13 +55,10 @@
   border-radius: 5px;
   font-size: 17px;
 }
-.pass_form_button button:hover {
+.search_id_button button:hover {
   background-color: #749e45;
 }
-.passform_input {
-    display: none;
+.search_id .search_id_result {
+  font-weight: bold;
+  font-size: 18px;
 }
-.visiable {
-    display: block;
-}
-
