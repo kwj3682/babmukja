@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
@@ -49,20 +50,25 @@ public class RecipeController {
 				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
 				recipe.setImgPath(imgpath);
 				result.add(recipe);
-				System.out.println(imgpath);
+//				System.out.println("default : " + imgpath);
 				continue;
 			}
-			System.out.println(imgpath);
 			String[] imgList = recipe.getImgPath().split(",");
 			recipe.setImgPath(imgList[0]);
+//			System.out.println("set image path : " + imgList[0]);
 			result.add(recipe);
 		}
 		model.addAttribute("recipe", result);
+		
+		model.addAttribute("keyword",service.selectKeywordMost());
 	}
 	
 	//-----------------------------------------------------------------------
 	@RequestMapping("/writeform.do")
-	public void writeForm() {}
+	public void writeForm(Model model) {
+
+		model.addAttribute("keyword",service.selectKeyword());
+	}
 	
 	
 	@RequestMapping("/upload.do")
@@ -98,15 +104,15 @@ public class RecipeController {
 	
 	@RequestMapping("/download.do")
 	public void download(FileVO fileVO, HttpServletResponse response) throws Exception {
-		System.out.println("Download.do");
+		System.out.println("Download.do 실행");
 		String uploadRoot = "c:/bit2019/upload";
 		String path = fileVO.getPath();
 		String sysname = fileVO.getSysname();
 		
-		System.out.println("path : "+ path);
-		System.out.println("sysname : "+ sysname);
-		
-		System.out.println("file 생성");
+//		System.out.println("path : "+ path);
+//		System.out.println("sysname : "+ sysname);
+//		
+//		System.out.println("file 생성");
 		File f = new File(uploadRoot + path + "/" + sysname);
 		
 //		f = new File("c:/bit2019/upload/recipe/2019/05/10/767e829f-78ce-47ed-bd82-a0d85da1a9c820140510_221359.jpg");
@@ -131,8 +137,9 @@ public class RecipeController {
 	
 	@RequestMapping("/write.do")
 	@ResponseBody
-	public void write(Recipe recipe) {
-		service.insertRecipe(recipe);
+	public void write(Recipe recipe, int[] keywordNo) {
+		System.out.println("write.do 실행");
+		service.insertRecipe(recipe,keywordNo);
 	}
 	
 	@RequestMapping("/detail.do")

@@ -7,6 +7,7 @@
     margin-top: 120px;
     margin-bottom: 30px;
 }
+
 #paragraph{
     margin : 0 auto;
     width: 1200px;
@@ -16,8 +17,28 @@
     margin-bottom : 20px;
     font-size : 17px;
     color: #7db341;
+    text-align: center;
     
 }
+#keyword-container{
+    width: 1200px;
+    margin: 0 auto;
+    height : 700px;
+    font-size : 30px;
+    font-family: 'East Sea Dokdo', cursive;
+    margin-bottom : 30px;
+}
+.keyword-wrapper{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin: 20px 0 20px 0;
+
+}
+.keyword-wrapper > div:nth-child(1){
+    font-size : 45px;
+    padding-left : 20px;
+}
+
 #editorjs{
     margin : 0 auto;
     width: 1200px;

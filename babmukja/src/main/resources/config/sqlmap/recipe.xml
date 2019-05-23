@@ -16,7 +16,13 @@
 		<result column="scrapcnt" property="scrapCnt" />
 		<result column="keyword_no" property="keywordNo" />
 	</resultMap> 
-	<insert id="insertRecipe" parameterType="recipe">
+	<resultMap id="keywordMap" type="keyword">
+		<result column="keyword_no" property="keywordNo"/>
+		<result column="keyword_map_no" property="keywordMapNo"/>
+		<result column="keyword" property="keyword"/>
+		<result column="cnt" property="cnt"/>
+	</resultMap>
+	<insert id="insertRecipe" parameterType="recipe" useGeneratedKeys="true" keyProperty="recipeNo">
 		insert into tb_recipe(
 					mem_no,title,content,imgpath)
 					values(
@@ -78,10 +84,25 @@
     		#{recipeNo}, #{content}, #{memNo}, #{score}
     	)
     </insert>
+    <!-- 해당 키워드에 포함되는 레시피 가져오기(가장 높은 조회수) -->
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
 		select * 
 		  from tb_recipe 
 		 where keyword_no = #{no} 
 	</select>
-	
+	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
+	<select id="selectKeywordMost" resultMap="keywordMap">
+		select rk.keyword_no,(select k.keyword from tb_keyword k where rk.keyword_no = k.keyword_no) keyword,count(*) as cnt 
+  		  from tb_recipe_keyword rk group by keyword_no
+  		 order by cnt desc
+         limit 4
+	</select>
+	<select id="selectKeyword" resultMap="keywordMap">
+		select *
+		  from tb_keyword
+	</select>
+	<!-- 레시피에 키워드 삽입 -->
+	<insert id="insertKeywordToRecipe" parameterType="Keyword">
+		insert into tb_recipe_keyword (keyword_no,recipe_no) values (#{keywordNo}, #{recipeNo})
+	</insert>
 </mapper>
