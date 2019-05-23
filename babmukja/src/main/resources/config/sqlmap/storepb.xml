@@ -201,6 +201,7 @@
 	
 	<!--  후기 파트  -->
 	
+	<!--  후기 등록 파트  -->
 	<resultMap id="pbReviewMap" type="storePBReview" >
 		<result column="pb_review_no" property="pbReviewNo"/>
 		<result column="pb_no" property="pbNo"/>
@@ -258,4 +259,31 @@
 		select ifnull(max(pb_review_no),1)
 		  from tb_pb_review
 	</select>
+	
+	<!-- 후기 조회 파트  -->
+<!-- 	<resultMap id="pbReviewSelectMap" type="storePBReview" > -->
+<!-- 		<result column="pb_review_no" property="pbReviewNo"/> -->
+<!-- 		<result column="pb_no" property="pbNo"/> -->
+<!-- 		<result column="content" property="content"/> -->
+<!-- 		<result column="rating" property="rating"/> -->
+<!-- 		<result column="regdate" property="regDate"/> -->
+<!-- 		<result column="mem_no" property="memNo"/> -->
+<!-- 		<result column="group_no" property="groupNo"/> -->
+		
+<!-- 		<collection property="images"  -->
+<!-- 					column="group_no" -->
+<!-- 					select="selectPBReviewSelectImage"/> -->
+<!-- 	</resultMap> -->
+	
+<!-- 	<select id="selectPBReviewSelect" resultMap="pbReviewSelectMap"> -->
+<!-- 		select * -->
+<!-- 		  from tb_pb_review -->
+<!-- 		 order by pb_review_no desc		   -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectPBReviewSelectImage" resultMap=""> -->
+<!-- 		select * -->
+<!-- 		  from tb_file -->
+<!-- 		 where group_no = #{groupNo} -->
+<!-- 	</select> -->
 </mapper>
