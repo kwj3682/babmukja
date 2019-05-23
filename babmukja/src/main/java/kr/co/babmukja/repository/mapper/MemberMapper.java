@@ -12,4 +12,14 @@ public interface MemberMapper {
 	int selectCheckEmail(String memEmail); // 이메일 중복체크
 	
 	void updateEmailVerify(String memEmail); // 이메일 인증
+	
+	String selectSearchId(Member member); // 아이디 찾기
+	
+	String selectSearchPass(int certification); // 비밀번호 찾기
+	
+	void updateCertification(Member member); // 인증번호 등록
+	
+	int selectConfirmCertification(Member member); // 인증번호 확인
+	
+	
 }

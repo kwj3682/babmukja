@@ -42,6 +42,14 @@
 	  p:username="${jdbc.mysql.username}"
 	  p:password="${jdbc.mysql.password}" />
     
+    <!-- 인터셉터 설정하기 -->
+<!--    <mvc:interceptors> -->
+<!--       <mvc:interceptor> -->
+<!--          <mvc:mapping path="/member/**.do"/> -->
+<!--          <mvc:exclude-mapping path="/member/loginform.do"/> -->
+<!--          <bean class="kr.co.babmukja.member.controller.AuthInterceptor"/> -->
+<!--       </mvc:interceptor> -->
+<!--    </mvc:interceptors> -->
     
     
     
@@ -107,8 +115,6 @@
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
         <beans:property name="order" value="1" />
     </beans:bean> 
-   
-   
 </beans>
 
 

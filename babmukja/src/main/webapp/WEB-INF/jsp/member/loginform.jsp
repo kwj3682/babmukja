@@ -8,9 +8,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>Babmukja</title>
-<link rel="stylesheet" href="<c:url value="/resources/css/member/style.css"/>" />
-<link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-<link href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>" rel="stylesheet" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/member/style.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
+	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	crossorigin="anonymous" />
+<link
+	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
+	rel="stylesheet" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
@@ -37,8 +43,11 @@
 		</form>
 
 		<div class="id__pass_search">
+			<div class="search__id">
+				<a href="<c:url value="/member/searchid.do"/>">아이디 찾기</a>
+			</div>
 			<div class="search__pass">
-				<a href="<c:url value="/member/resetpass.do"/>">비밀번호 찾기</a>
+				<a href="<c:url value="/member/searchpass.do"/>">비밀번호 찾기</a>
 			</div>
 		</div>
 
@@ -73,8 +82,7 @@
 	</main>
 
 	<script>
-	
-	 	// 아이디, 비밀번호 공백일 때
+		// 아이디, 비밀번호 공백일 때
 		$(".login__button").click(function() {
 			let email = $("#email").val();
 			let pass = $("#pass").val();
@@ -87,15 +95,16 @@
 				alert("비밀번호를 입력하세요.");
 				return;
 			}
-		 	const fail = <%= request.getParameter("fail") %>
-		 	console.log(fail);
-		 	console.log(fail === 1);
+			const fail =
+	<%=request.getParameter("fail")%>
+		console.log(fail);
+			console.log(fail === 1);
 			console.log(fail === null);
 			$(".login__button").click(function() {
-			 	if(fail === null) {
-			 		alert("이메일과 패스워드가 일치하지 않습니다.");
-			 		return;
-			 	}
+				if (fail === null) {
+					alert("이메일과 패스워드가 일치하지 않습니다.");
+					return;
+				}
 			});
 			$("#doLogin").submit();
 		});
