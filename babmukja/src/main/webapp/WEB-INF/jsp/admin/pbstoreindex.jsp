@@ -24,11 +24,11 @@
     
     <script>
     	$(".admin_pb_detaildo_btn").click(function () {
-    		location.href="<c:url value='/store/pbstoreselectlist.do'/>";
+    		location.href="<c:url value='/admin/pbstoreselectlist.do'/>";
     	});
     	
     	$(".admin_pb_insertdo_btn").click(function () {
-    		location.href="<c:url value='/store/insertformpb.do'/>";
+    		location.href="<c:url value='/admin/insertformpb.do'/>";
     	});
     </script>
 </body>

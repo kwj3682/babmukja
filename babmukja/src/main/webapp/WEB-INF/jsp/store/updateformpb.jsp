@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
-    <link rel="stylesheet" href="<c:url value="/resources/css/store/insertformpb.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/insertformpb.css"/>">
 </head>
 <body>
     <div id="writeform-header">상품 수정</div>
@@ -173,7 +173,7 @@
 						}
             	});
                 console.log("Article data : ", outputData);
-                location.href="<c:url value="/store/pbstoreselectlist.do"/>";
+                location.href="<c:url value="/admin/pbstoreselectlist.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });

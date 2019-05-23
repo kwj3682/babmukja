@@ -1,9 +1,9 @@
 package kr.co.babmukja.store.service;
 
-import java.util.Map;
+import java.util.List;
 
 import kr.co.babmukja.repository.domain.FileVO;
-import kr.co.babmukja.repository.domain.Pagepb;
+import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBReview;
 
@@ -23,16 +23,20 @@ public interface StorePBService {
 	// 삭제
 	public void deletePBByNo(int pbNo);
 	*/
-	 
+	
+	public List<StorePB> selectPBStore();
 	public StorePB selectPBStoreByNo(int no);
-	public Map<String, Object> selectAdminPBList(Pagepb page);
-	public void insertPBStore(StorePB storepb);
+	// public Map<String, Object> selectAdminPBList(Pagepb page);
+	//public void insertPBStore(StorePB storepb);
 	public StorePB updateFormPBStore(int no);
 	public void updatePBStore(StorePB storepb);
-	public void deletePBStore(int no);
+	//public void deletePBStore(int no);
 	
 	// 후기
 	public void insertPBReview(StorePBReview reviewpb);
 	public void insertPBReviewImage(FileVO fileVO);
 	public int getMax();
+	public List<StorePBReview> selectPBReviewSelect(StorePBReview storePBReview);
+	//public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo);
+	public List<StorePBReview> selectReview(int pbReviewNo);
 }
