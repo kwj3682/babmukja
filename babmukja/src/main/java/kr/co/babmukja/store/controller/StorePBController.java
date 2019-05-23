@@ -6,9 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
-import kr.co.babmukja.repository.domain.Pagepb;
+import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
@@ -99,31 +99,70 @@ public class StorePBController {
 
 	// 아래부 editor js 테스트
 	
+	// pb main
 	@RequestMapping("/mainpb.do")
-	public void mainpb(Model model) {}
-	
-	// pb 상품 등록 폼
-	@RequestMapping("/insertformpb.do")
-	public void insertformpb() {}
-	
-	// pb 상품 등록
-	@RequestMapping("/insertpb.do")
-	@ResponseBody
-	public void insertpb(StorePB storepb) {
-		service.insertPBStore(storepb);
+	public void mainpb(Model model) {
+		List<StorePB> list = service.selectPBStore();
+		List<StorePB> result = new ArrayList<>();
+		for (StorePB storepb : list) {
+			String imgpath = "";
+			
+			if(storepb.getImgPath() == null) {
+				imgpath = "/babmukja/store/downloadpb.do?path=/&sysname=default.png";
+				storepb.setImgPath(imgpath);
+				result.add(storepb);
+				System.out.println(imgpath);
+				continue;
+			}
+			System.out.println(imgpath);
+			String[] imgList = storepb.getImgPath().split(",");
+			storepb.setImgPath(imgList[0]);
+			result.add(storepb);
+		}
+		model.addAttribute("storepb", result);
 	}
 	
 	// pb 상품 상세조회
 	@RequestMapping("/detailpb.do")
-	public ModelAndView detailpb(ModelAndView mav, int no) {
-		StorePB store = service.selectPBStoreByNo(no);
+	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview) {
+		StorePB store = service.selectPBStoreByNo(pbNo);
+
 		if (store == null) {
 			System.out.println("store is null !!!");
 			mav.setViewName("store/mainpb");
 			return mav;
 		}
+		
+		if (store.getImgPath() == null ) {
+			
+			mav.setViewName("store/detailpb");
+			mav.addObject("store");
+			mav.addObject("imgList",  "/babmukja/store/downloadpb.do?path=/&sysname=default.png");
+			return mav;
+		}
+		
 		mav.setViewName("store/detailpb");
 		mav.addObject("storepb", store);
+		mav.addObject("imgList", store.getImgPath().split(","));
+		///////////////////////////////////////////////////////////
+		List<StorePBReview> pbReviewList = service.selectReview(pbNo);
+		
+		for(StorePBReview pb : pbReviewList) {
+			int reviewNo = pb.getPbReviewNo();
+				
+			
+		}
+		
+		
+		
+		
+		/////////////////////////////////////////////////////////////
+		System.out.println(pbNo);
+		System.out.println(storePBReview.getPbReviewNo());
+		storePBReview.setPbNo(pbNo);
+		storePBReview.setPbReviewNo(storePBReview.getPbReviewNo());
+		mav.addObject("reviewList", service.selectPBReviewSelect(storePBReview));
+		//mav.addObject("reviewListImages", service.selectPBReviewSelectImage(storepbreview.getPbReviewNo()));
 		return mav;
 	}
 	
@@ -137,14 +176,7 @@ public class StorePBController {
 	@RequestMapping("/updatepb.do")
 	public String updatepb(StorePB storepb) {
 		service.updatePBStore(storepb);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/store/pbstoreselectlist.do";
-	}
-	
-	// pb 상품 삭제
-	@RequestMapping("/deletepb.do")
-	public String deletepb(int no) {
-		service.deletePBStore(no);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/store/pbstoreselectlist.do"; 
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/pbstoreselectlist.do";
 	}
 	
 	// 파일 처리 
@@ -201,20 +233,14 @@ public class StorePBController {
 		return new Gson().toJson(fileVO);
 	}
 	
-	// PB 스토어 목록조회  (관리자전용)
-	@RequestMapping("/pbstoreselectlist.do")
-	public void pbstoreselectlist(Model model, Pagepb page) {
-		Map<String, Object> result = service.selectAdminPBList(page);
-		
-		model.addAttribute("pbAdminList", result.get("pbAdminList"));
-		model.addAttribute("pageResult", result.get("pageResult"));
-	}
-	
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
-	public void pbreviewinsert(FileVO fileVO, StorePBReview reviewpb) throws Exception {
+	public StorePBReview pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb) throws Exception {
 		System.out.println(reviewpb.getContent());
+		reviewpb.setPbNo(reviewpb.getPbNo());
+		service.insertPBReview(reviewpb);
+		
 		String uploadRoot = "c:/bit2019/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat(
 				"/yyyy/MM/dd"
@@ -223,7 +249,6 @@ public class StorePBController {
 		String path = "/pbReview" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false) file.mkdirs();
-		int max = service.getMax();
 		
 		for (MultipartFile mFile : fileVO.getImageList()) {
 			if (mFile.isEmpty()) {
@@ -232,21 +257,14 @@ public class StorePBController {
 			String uName =  UUID.randomUUID().toString();
 			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
 			
-			//fileVO.setGroupNo(storepb.getGroupNo());
-			//1. max 값 가져오기
-			//2. max값을 fileVO에 넣기
-			fileVO.setGroupNo(max);
-			
-			//3. insertImage( <- max값을 포함한 fileVO 넣기)
+			System.out.println(reviewpb.getPbReviewNo());
+			fileVO.setPbReviewNo(reviewpb.getPbReviewNo());
 			fileVO.setPath(path);
 			fileVO.setOrgname(mFile.getOriginalFilename());
 			fileVO.setSysname(uName);
 			service.insertPBReviewImage(fileVO);
 
 		}
-		reviewpb.setPbNo(reviewpb.getPbNo());
-		reviewpb.setGroupNo(fileVO.getGroupNo());
-		service.insertPBReview(reviewpb);
-		
+		return reviewpb;
 	}
 }

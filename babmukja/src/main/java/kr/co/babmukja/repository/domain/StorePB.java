@@ -10,7 +10,14 @@ public class StorePB {
 	private Date regDate;
 	private int memNo;
 	private int viewCnt;
+	private String imgPath;
 
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 	public int getPbNo() {
 		return pbNo;
 	}

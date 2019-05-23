@@ -151,4 +151,69 @@
 	</select>
 	<select id="selectBoard">
 	</select>
+	
+	
+	<!--  pb store 부분-->
+	<resultMap id="storepbMap" type="storePB">
+		<result column="pb_no" property="pbNo" />
+		<result column="name" property="name" />
+		<result column="content" property="content" />
+		<result column="price" property="price" />
+		<result column="regdate" property="regDate" />
+		<result column="mem_no" property="memNo" />
+		<result column="viewcnt" property="viewCnt" />
+		<result column="imgpath" property="imgPath" />
+	</resultMap>
+	<!--  pb 상품 전체조회( 관리자전용 ) -->
+	<select id="selectAdminPBList" resultMap="storepbMap" parameterType="pagepb">
+		select * 
+	  	  from tb_pb
+	 	 order by pb_no desc
+	 	 limit #{begin}, #{end}
+	</select>
+	
+	<select id="selectAdminPBListCount" resultType="int">
+		select count(*)
+		  from tb_pb
+	</select>
+	
+	<!-- pb 상품 등록 (관리자 전용 )  -->
+	<insert id="insertPBStore" parameterType="storePB">
+		insert into tb_pb(
+			mem_no, 
+			name, 
+			price,
+			content,
+			imgpath
+		)
+		values(
+			3, 
+			#{name}, 
+			#{price},
+			#{content},
+			#{imgPath}
+		)
+	</insert>
+	
+	<!-- pb 상품 수정 (관리자 전용) -->
+	<update id="updatePBStore" parameterType="storePB">
+		update tb_pb
+		   set name = #{name},
+		       price = #{price},
+		       content = #{content}
+		 where pb_no = #{pbNo}		   
+	</update>
+	
+	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
+		select *
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</select>
+	
+	<!-- pb 상품 삭제 (관리자 전용) -->
+	<delete id="deletePBStore" parameterType="int">
+		delete 
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</delete>
 </mapper>

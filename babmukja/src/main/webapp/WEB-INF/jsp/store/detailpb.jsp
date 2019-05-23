@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,15 +34,17 @@
         <div id="pb_detail_header_container">
             <div id="pb_detail_header_images">
 	                <div id="pb_detail_thumbnail_list">
-<%--                 		<c:forEach var="detailpbIamge" items="${detailpbIamge}"> --%>
-		                	<img src="">
-<%-- 	                    	<img src="<c:url value="/store/downloadpb.do?path=${detailpbIamge.path}&sysname=${detailpbIamge.sysname}"/>"> --%>
-<%--                 		</c:forEach> --%>
+                		<c:forEach var="img" items="${imgList}" varStatus="status">
+		                	
+		                	<c:if test="${status.count != 1}">
+		                	<img src="${img}">
+		                	</c:if>
+		                	
+                		</c:forEach>
 	                </div>
 <%-- 			     <c:set var="detailpb" value="${detailpb}"/> --%>
 	                <div id="pb_detail_main_image">
-	                	<img src="">
-<%-- 	                    <img src="<c:url value="/store/downloadpb.do?path=${detailpb.images[0].path}&sysname=${detailpb.images[0].sysname}"/>"> --%>
+	                    <img src="${imgList[0]}">
 	                </div>
             </div>
 
@@ -83,7 +86,7 @@
         <!-- 메뉴바 -->
         <div id="pb_detail_menubar">
             <div id="detail_product_info"><a href="#pb_info_move">&nbsp;상품정보&nbsp;</a></div>
-            <div id="detail_product_review"><a href="#pb_review_header">&nbsp;리뷰&nbsp;</a></div>
+            <div id="detail_product_review"><a href="#pb_review_header">&nbsp;후기&nbsp;</a></div>
             <div id="detail_product_inquire"><a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a></div>
             <div id="detail_product_refund"><a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a></div>
         </div>
@@ -146,76 +149,74 @@
 
                 <div id="pb_review_body">
                     <!-- 후기 프로필 -->
+              <c:forEach var="reviewList" items="${reviewList}">
                     <div id="pb_review_profile">
                         <div id="pb_review_profile_img">
                             <img src="images/profile5.jpg">
                         </div>
                         <div id="pb_review_user_info">
-                            <p class="review_user_nickname">주부9단빛찬맘</p>
-                            <p class="review_user_rating">★★★★☆<span>2019-05-22</span></p>
+                            <p class="review_user_nickname">${reviewList.memNickname}</p>
+                            <p class="review_user_rating">★★★★☆<span><fmt:formatDate value="${reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span></p>
                         </div>
                     </div>
                     <!-- 리뷰 사진 및 내용 -->
                     <div id="pb_review_select">
                         <div id="pb_review_select_content">
-                            <p>맛있어요~~</p>
+                            <p>${reviewList.content}</p>
                         </div>
-                        <div id="pb_review_select_img">
-                            <div><img src="images/foodthumbnail16.jpg"></div>
-                            <div><img src="images/foodthumbnail16.jpg"></div>
-                            <div><img src="images/foodthumbnail16.jpg"></div>
-                            <div><img src="images/foodthumbnail16.jpg"></div>
-                            <div><img src="images/foodthumbnail16.jpg"></div>
-                        </div>
+	                        <div id="pb_review_select_img">
+	            	                <div><img src="downloadpb.do?path=${reviewList.path}&sysname=${reviewList.sysname}"></div>
+	                        </div>
                     </div>
+              </c:forEach>
                     <div id="review_border-bottom"></div>
                 </div>  <!-- pb_review_body 끝-->
                 
-                <div id="pb_review_body">
-                    <!-- 후기 프로필 -->
-                    <div id="pb_review_profile">
-                        <div id="pb_review_profile_img">
-                            <img src="images/profile3.jpg">
-                        </div>
-                        <div id="pb_review_user_info">
-                            <p class="review_user_nickname">갓-중</p>
-                            <p class="review_user_rating">★★★☆☆<span>7분 전</span></p>
-                        </div>
-                    </div>
-                    <!-- 리뷰 사진 및 내용 -->
-                    <div id="pb_review_select">
-                        <div id="pb_review_select_img">
-                            <img src="images/foodthumbnail15.jpg">
-                        </div>
-                        <div id="pb_review_select_content">
-                            <p>맛있어요~~</p>
-                        </div>
-                    </div>
-                    <div id="review_border-bottom"></div>
-                </div>  <!-- pb_review_body 끝-->
+<!--                 <div id="pb_review_body"> -->
+<!--                     후기 프로필 -->
+<!--                     <div id="pb_review_profile"> -->
+<!--                         <div id="pb_review_profile_img"> -->
+<!--                             <img src="images/profile3.jpg"> -->
+<!--                         </div> -->
+<!--                         <div id="pb_review_user_info"> -->
+<!--                             <p class="review_user_nickname">갓-중</p> -->
+<!--                             <p class="review_user_rating">★★★☆☆<span>7분 전</span></p> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     리뷰 사진 및 내용 -->
+<!--                     <div id="pb_review_select"> -->
+<!--                         <div id="pb_review_select_img"> -->
+<!--                             <img src="images/foodthumbnail15.jpg"> -->
+<!--                         </div> -->
+<!--                         <div id="pb_review_select_content"> -->
+<!--                             <p>맛있어요~~</p> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div id="review_border-bottom"></div> -->
+<!--                 </div>  pb_review_body 끝 -->
 
-                <div id="pb_review_body">
-                    <!-- 후기 프로필 -->
-                    <div id="pb_review_profile">
-                        <div id="pb_review_profile_img">
-                            <img src="images/profile9.jpg">
-                        </div>
-                        <div id="pb_review_user_info">
-                            <p class="review_user_nickname">나는야 김렁래</p>
-                            <p class="review_user_rating">★★★★☆<span>7분 전</span></p>
-                        </div>
-                    </div>
-                    <!-- 리뷰 사진 및 내용 -->
-                    <div id="pb_review_select">
-                        <div id="pb_review_select_img">
-                            <img src="images/foodthumbnail17.jpg">
-                        </div>
-                        <div id="pb_review_select_content">
-                            <p>맛있어요~~</p>
-                        </div>
-                    </div>
-                    <div id="review_border-bottom"></div>
-                </div>  <!-- pb_review_body 끝-->
+<!--                 <div id="pb_review_body"> -->
+<!--                     후기 프로필 -->
+<!--                     <div id="pb_review_profile"> -->
+<!--                         <div id="pb_review_profile_img"> -->
+<!--                             <img src="images/profile9.jpg"> -->
+<!--                         </div> -->
+<!--                         <div id="pb_review_user_info"> -->
+<!--                             <p class="review_user_nickname">나는야 김렁래</p> -->
+<!--                             <p class="review_user_rating">★★★★☆<span>7분 전</span></p> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     리뷰 사진 및 내용 -->
+<!--                     <div id="pb_review_select"> -->
+<!--                         <div id="pb_review_select_img"> -->
+<!--                             <img src="images/foodthumbnail17.jpg"> -->
+<!--                         </div> -->
+<!--                         <div id="pb_review_select_content"> -->
+<!--                             <p>맛있어요~~</p> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div id="review_border-bottom"></div> -->
+<!--                 </div>  pb_review_body 끝 -->
                 
                 <!-- 후기 페이징 -->
                 <div id="pb_review_page">
@@ -241,7 +242,7 @@
 		                    <div class="pb_insertform_container">
 		                        <div class="pb_product_item">
 		                            <div class="pb_product_item_img">
-		                                <img src="images/foodthumbnail1.jpg">
+		                                <img src="${imgList[0]}">
 		                            </div>
 		                            <div class="pb_product_item_info">
 		                                <p class="pb_product_item_name">${storepb.name}</p>
@@ -535,7 +536,6 @@
     	   console.log(pbNo);
  		  dd.append("content",content );
  		  dd.append("pbNo", pbNo);
-
     	   console.log(content);
     	   console.log(dd);
 			$.ajax({
@@ -546,8 +546,8 @@
 				data : dd,
 				success: function(result){
 					alert("등록성공");
-					location.href="detailpb.do?no="+${storepb.pbNo};
-				}
+					alert(result.pbReviewNo);
+					location.href="detailpb.do?pbNo="+${storepb.pbNo}+"&pbReviewNo="+result.pbReviewNo;
 			});
        });
     </script>
