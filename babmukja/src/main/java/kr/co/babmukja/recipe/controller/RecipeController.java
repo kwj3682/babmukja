@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeReview;
 
 
 
@@ -164,4 +165,11 @@ public class RecipeController {
 		service.deleteRecipe(no);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "main.do";	
 	}
+	
+	@RequestMapping("/recipeComment.do")
+	@ResponseBody
+	public void writeComment(RecipeReview review) {
+		service.insertRecipeReview(review);
+	}
+	
 }

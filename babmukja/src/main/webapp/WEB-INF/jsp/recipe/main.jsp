@@ -163,7 +163,7 @@
 	                        </div>
 	                    </div>
 	                    <div class="recipe-pic-box">
-	                        <img src="${list.imgPath}">
+	                        <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
 	                    </div>
 	                    <div class="recipe-info">
 	                        <i class="fas fa-heart fa-2x">50</i>
@@ -202,6 +202,26 @@
 	    }
 	    loadApp();    	
     });
+    $("#recipe-book2").click(function () {   
+    	$("#resultImage").css({background:$(this).css("backgroundImage"),
+    							backgroundSize: "cover",
+    							backgroundRepeat : "no-repeat"});
+    	
+    	$("#turnModal").modal("show");   	
+    	
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width : 700,
+	    			height : 600,
+	    			elevation : 50		
+	    			
+	    	});
+	    }
+	    loadApp();    	
+    });
     
     $(document).ready(function () {
     	$("#turnModal").modal("hide");
@@ -210,9 +230,9 @@
 	      backdrop: 'static'
 	 });
 
-    $(".close").click(function () {
+/*     $(".close").click(function () {
     	window.location = "main.do";
-    });
+    }); */
     
 	// modal 창 이전버튼
 	
@@ -232,8 +252,7 @@
 		
 		$(this).removeClass('previous-button-down');
 
-	}).click(function() {
-		
+	}).click(function() {		
 		$('#turnJs').turn('previous');
 
 	});

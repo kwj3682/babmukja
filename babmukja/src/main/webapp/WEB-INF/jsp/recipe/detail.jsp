@@ -48,14 +48,30 @@
             <a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제하기</a>
             <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
+            <form name="commentForm" >
             <div id="comment-body"><!-- comment-body start -->
-                <div id="comment-header">댓글 <b id="comment-count">3</b></div>
-                
+                <div id="comment-header">댓글 <b id="comment-count">3</b></div>                
                 <div id="comment-container"><!-- comment-container start -->
-
                     <div id="comment-mine"><!-- comment-mine start -->
                         <img src="/babmukja/WEB-INF/images/profile2.jpg">
                         <div id="comment-input-wrapper">
+                               <div id="reviewStars-input">
+	                                <input id="star-4" type="radio" name="reviewStars" value="5"/>
+	                                <label title="gorgeous" for="star-4"></label>
+	                            
+	                                <input id="star-3" type="radio" name="reviewStars" value="4"/>
+	                                <label title="good" for="star-3"></label>
+	                            
+	                                <input id="star-2" type="radio" name="reviewStars" value="3"/>
+	                                <label title="regular" for="star-2"></label>
+	                            
+	                                <input id="star-1" type="radio" name="reviewStars" value="2"/>
+	                                <label title="poor" for="star-1"></label>
+	                            
+	                                <input id="star-0" type="radio" name="reviewStars" value="1"/>
+	                                <label title="bad" for="star-0"></label>
+		                       </div>
+		                        
                             <textarea id="comment-input"></textarea>
                         </div>
                         <button id="comment-submit"><i class="fas fa-pen-square fa-3x"></i></button>
@@ -73,38 +89,11 @@
                                 <div class="other-content">야식은 역시 치킨이죠</div>
                             </div>
                         </div>
-                  
-                        <!-- 컨텐트 하드코딩 부분 -->
-                        <div class="comment-other-wrapper">
-                            <img class="other-profile" src="/babmukja/WEB-INF/images/profile17.jpg">
-                            <div class="other-content-wrapper">
-                                <div>
-                                    <div class="other-id">주부9단빛찬맘</div>
-                                    <div class="other-date">7분 전</div>
-                                </div>
-                                <div class="other-content">야식은 역시 치킨이죠</div>
-                            </div>
-                        </div>
-                        <div class="comment-other-wrapper">
-                            <img class="other-profile" src="/babmukja/WEB-INF/images/profile13.jpg">
-                            <div class="other-content-wrapper">
-                                <div>
-                                    <div class="other-id">렁래렁래</div>
-                                    <div class="other-date">7분 전</div>
-                                </div>
-                                <div class="other-content">야식은 역시 치킨이죠</div>
-                            </div>
-                        </div>
-                        <!-- 컨텐트 하드코딩 부분 -->
-
-
-
                     </div><!-- comment-other end -->
-
                 </div><!-- comment-container end -->
             </div><!-- comment-body end -->
-        
-        </div><!-- left-body end -->
+        </form>
+     </div><!-- left-body end -->
         
 
         <!------------------------------------------------------------------------------------------------>
@@ -149,7 +138,25 @@
             
         </div><!-- right;body end -->
     </div> <!-- 전체 body end -->
+    
+    
     <script>
+    
+     $("#comment-submit").click(function () {
+    	$.ajax({
+	    		type: "post",
+	    		url : "recipeComment.do" ,
+	    		data : {score : $("input[name='reviewStars']").val(),
+	    				content : $("#comment-input").val()}
+	    		success : function(data) {
+	    			alert(data);
+    			}
+    		}
+    	});
+    	
+    }); 
+    	
+    	
         const value = $("#hiddenValue").text();
     	$("#delete-button").click(function () {    		
     		if(confirm("삭제하시겠습니까?") == true){

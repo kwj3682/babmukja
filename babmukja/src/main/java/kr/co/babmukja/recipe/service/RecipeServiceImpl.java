@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeReview;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
 @Service("kr.co.babmukja.recipe.service.RecipeService")
@@ -46,6 +47,21 @@ public class RecipeServiceImpl implements RecipeService {
 	//레시피 전체 가져오기
 	public List<Recipe> selectRecipe(){
 		return mapper.selectRecipe();
+	}
+	
+	// 레시피 댓글 조회
+	public RecipeReview selectReviewByNo(int no) {		
+		return mapper.selectReviewByNo(no);
+	}
+	
+	// 레시피 댓글 전체 수
+	public int selectReviewCount(int no) {
+		return mapper.selectReviewCount(no);
+	}
+
+	// 레시피 댓글 등록
+	public void insertRecipeReview(RecipeReview review) {
+		mapper.insertRecipeReview(review);
 	}
 }
 
