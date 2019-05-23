@@ -261,9 +261,10 @@ html, body {
 #recipe-book-container > p{
     position: absolute;
     color: white;
-    margin: 400px;
     text-align: center;
     font-size: 50px;
+    margin: 400px;
+    margin-bottom: 450px;
 }
 
 #sector3{
@@ -434,9 +435,11 @@ html, body {
     background-image:-ms-linear-gradient(left, #fff 95%, #bababa 100%);
     background-image:-o-linear-gradient(left, #fff 95%, #bababa 100%);
     background-image:linear-gradient(left, #fff 95%, #bababa 100%);
+	box-shadow: 0px 0px 15px 3px gray;
 }
 
 .odd{
+	box-shadow: 0px 0px 15px 3px gray;
 	z-index: 40;
 	border-radius : 15px 0 0 0 ;
     background:-webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #aaa));

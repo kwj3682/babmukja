@@ -89,9 +89,7 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-
                     <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
-
                 </div>
 
             </div>
@@ -108,7 +106,7 @@
                     <div id="turnJsDiv">
 				       	<div id="turnJs">
 				       		<div ignore="1" class="next-button"></div>
-				       		<div id="resultImage"></div>
+				       		<div class="hard" id="resultImage"></div>
 				       		<div>
 				       			<img src="<c:url value="/resources/images/food1.jpg"/>">
 				       		</div>
@@ -127,7 +125,7 @@
 				       		<div>
 				       			<img src="<c:url value="/resources/images/f2.jpg"/>">				       		
 							</div>
-				       		<div>
+				       		<div class="hard">
 				       			<img src="<c:url value="/resources/images/f3.jpg"/>">				       		
 							</div>
 				       		<div ignore="1" class="previous-button"></div>
@@ -181,6 +179,19 @@
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
     
+    
+    
+    function loadApp() {
+    	if (!$("#turnJs").turn("is")) {
+    		// Create a new flipbook 
+    		
+    		$("#turnJs").turn({
+    			width : 1000,
+    			height : 700,
+    			elevation : 50	
+    		}).turn("page",1);
+    	}
+    }    
     // 레시피 메인  - turn.js 적용부분
     $("#recipe-book1").click(function () {   
     	$("#resultImage").css({background:$(this).css("backgroundImage"),
@@ -192,28 +203,20 @@
     	$("#turnJsDiv").css(
             	"display", "block"                
     	); 
-	    function loadApp() {
-	    	$('#turnJs').turn({
-	    			width : 700,
-	    			height : 600,
-	    			elevation : 50		
-	    			
-	    	});
-	    }
+	
 	    loadApp();    	
     });
+
     
     $(document).ready(function () {
     	$("#turnModal").modal("hide");
     });
-	$("#turnModal").modal({
-	      backdrop: 'static'
-	 });
-
-    $(".close").click(function () {
-    	window.location = "main.do";
-    });
     
+// 	$("#turnModal").modal({
+// 	      backdrop: 'static'
+// 	 });
+
+
 	// modal 창 이전버튼
 	
 	$('.previous-button').bind($.mouseEvents.over, function() {

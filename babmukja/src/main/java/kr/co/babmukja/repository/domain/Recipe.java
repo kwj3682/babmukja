@@ -20,7 +20,15 @@ public class Recipe {
 	
 	private String imgPath;
 	
+	private String keywordNo;
 	
+	
+	public String getKeywordNo() {
+		return keywordNo;
+	}
+	public void setKeywordNo(String keywordNo) {
+		this.keywordNo = keywordNo;
+	}
 	public int getLikeCnt() {
 		return likeCnt;
 	}
