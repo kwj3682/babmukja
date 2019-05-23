@@ -261,9 +261,10 @@ html, body {
 #recipe-book-container > p{
     position: absolute;
     color: white;
-    margin: 400px;
     text-align: center;
     font-size: 50px;
+    margin: 400px;
+    margin-bottom: 450px;
 }
 
 #sector3{
@@ -325,7 +326,7 @@ html, body {
 	margin-top: 20px;
 	margin-left : 25px;
 }
-.recipe-pic-box > img{ 
+.recipe-pic-box img{ 
     width: 97%;
     margin-top: 15px;
     margin-left: 3px;
@@ -377,6 +378,7 @@ html, body {
 	-ms-border-radius:0 15px 15px 0;
 	-o-border-radius:0 15px 15px 0;
 	border-radius:0 15px 15px 0;
+/* 	transition :.3s; */
 }
 
 .previous-button{
@@ -386,28 +388,66 @@ html, body {
 	-ms-border-radius:15px 0 0 15px;
 	-o-border-radius:15px 0 0 15px;
 	border-radius:15px 0 0 15px;
+	/* transition :.3s; */
 }
 
 .previous-button-hover,
 .next-button-hover{
-	background-color:rgba(0,0,0, 0.2);
+	background-color:rgb(125, 179, 65);
 }
 
 .previous-button-hover,
 .previous-button-down{
-	background-image:url(../pics/arrows.png);
-	background-position:-4px 284px;
+	background-image:url(../../images/icons/back.png);
+	background-size:30px;
+	background-position:-5px 284px;
 	background-repeat:no-repeat;
 }
 
 .previous-button-down,
 .next-button-down{
-	background-color:rgba(0,0,0, 0.4);
+	background-color:rgba(125, 179, 65,0.5);
 }
 
 .next-button-hover,
 .next-button-down{
-	background-image:url(../pics/arrows.png);
-	background-position:-38px 284px;
+	background-image:url(../../images/icons/next.png);
+	background-size:30px;
+	background-position:-5px 284px;
 	background-repeat:no-repeat;
 }
+.even img{
+	width : 93%;
+	z-index : 1;
+}
+.odd img{
+	width : 93%;
+	z-index : 1;
+	
+}
+
+.even{
+	z-index: 40;
+	border-radius : 0 15px 0 0 ;
+    background:-webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #bababa));
+    background-image:-webkit-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:-moz-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:-ms-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:-o-linear-gradient(left, #fff 95%, #bababa 100%);
+    background-image:linear-gradient(left, #fff 95%, #bababa 100%);
+	box-shadow: 0px 0px 15px 3px gray;
+}
+
+.odd{
+	box-shadow: 0px 0px 15px 3px gray;
+	z-index: 40;
+	border-radius : 15px 0 0 0 ;
+    background:-webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #aaa));
+    background-image:-webkit-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:-moz-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:-ms-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:-o-linear-gradient(right, #fff 95%, #aaa 100%);
+    background-image:linear-gradient(right, #fff 95%, #aaa 100%);
+}
+
+

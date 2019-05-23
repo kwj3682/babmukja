@@ -12,6 +12,9 @@
 		<result column="viewcnt" property="viewCnt" />
 		<result column="rating" property="rating" />
 		<result column="imgpath" property="imgPath" />
+		<result column="likecnt" property="likeCnt" />
+		<result column="scrapcnt" property="scrapCnt" />
+		<result column="keyword_no" property="keywordNo" />
 	</resultMap> 
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into tb_recipe(
@@ -31,6 +34,12 @@
 		select * from tb_recipe where recipe_no = #{recipeNo}
 	</select>
 	
+	<update id="addViewCnt" parameterType="int">
+		update tb_recipe
+		   set viewcnt = viewcnt + 1
+		 where recipe_no = #{recipeNo}
+	</update>
+	
 	<update id="updateRecipe" parameterType="recipe">
 		update tb_recipe
 		   set title = #{title},
@@ -43,4 +52,36 @@
 		  from tb_recipe
 		 where recipe_no = #{recipeNo}
 	</delete>
+	<!-- 레시피 상세 댓글 부분 -->
+	<!-- 댓글 조회 -->
+    <select id="selectReviewByNo" parameterType="int" resultType="RecipeReview">
+    	select r.*, m.*
+    	  from tb_recipe_review r, tb_member m
+    	 where recipe_no = #{recipeNo}
+    	 order by recipe_review_no desc
+    </select>   
+    
+    <!-- 전체 댓글 수 -->
+	<select id="selectReviewCount" parameterType="int" resultType="int">
+		select count(*)
+		  from tb_recipe_review v
+		 inner join tb_recipe r
+		    on v.recipe_no = r.recipe_no
+		 where r.recipe_no = #{recipeNo}
+	</select>
+    
+    <!-- 댓글 등록 -->
+    <insert id="insertRecipeReview" parameterType="RecipeReview">
+    	insert into tb_recipe_review (
+			recipe_no, content, mem_no, score    	
+    	) values (
+    		#{recipeNo}, #{content}, #{memNo}, #{score}
+    	)
+    </insert>
+	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
+		select * 
+		  from tb_recipe 
+		 where keyword_no = #{no} 
+	</select>
+	
 </mapper>

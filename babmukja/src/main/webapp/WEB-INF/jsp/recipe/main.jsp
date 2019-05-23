@@ -89,9 +89,7 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-
                     <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
-
                 </div>
 
             </div>
@@ -108,14 +106,28 @@
                     <div id="turnJsDiv">
 				       	<div id="turnJs">
 				       		<div ignore="1" class="next-button"></div>
-				       		<div id="resultImage"></div>
-				       		<img src="<c:url value="/resources/images/food1.jpg"/>">
-				       		<img src="<c:url value="/resources/images/food2.jpg"/>">
-				       		<img src="<c:url value="/resources/images/food3.jpg"/>">
-				       		<img src="<c:url value="/resources/images/food4.jpg"/>">
-				       		<img src="<c:url value="/resources/images/f1.jpg"/>">
-				       		<img src="<c:url value="/resources/images/f2.jpg"/>">
-				       		<img src="<c:url value="/resources/images/f3.jpg"/>">
+				       		<div class="hard" id="resultImage"></div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food1.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food2.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food3.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food4.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src=" <c:url value="/resources/images/f1.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/f2.jpg"/>">				       		
+							</div>
+				       		<div class="hard">
+				       			<img src="<c:url value="/resources/images/f3.jpg"/>">				       		
+							</div>
 				       		<div ignore="1" class="previous-button"></div>
 				       	</div>
 			    	</div>
@@ -149,7 +161,7 @@
 	                        </div>
 	                    </div>
 	                    <div class="recipe-pic-box">
-	                        <img src="${list.imgPath}">
+	                        <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
 	                    </div>
 	                    <div class="recipe-info">
 	                        <i class="fas fa-heart fa-2x">50</i>
@@ -166,48 +178,58 @@
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
+    
+    
+    
+    function loadApp() {
+    	if (!$("#turnJs").turn("is")) {
+    		
+    		$("#turnJs").turn({
+    			width : 1000,
+    			height : 700,
+    			elevation : 50	
+    		}).turn("page",1);
+    	}
+    }    
+    // 레시피 메인  - turn.js 적용부분
     $("#recipe-book1").click(function () {   
     	$("#resultImage").css({background:$(this).css("backgroundImage"),
     							backgroundSize: "cover",
     							backgroundRepeat : "no-repeat"});
-    	$("#turnModal").modal("show");
+    	
+    	$("#turnModal").modal("show");   	
+    	
     	$("#turnJsDiv").css(
             	"display", "block"                
     	); 
-	    function loadApp() {
-	    	$('#turnJs').turn({
-	    			width : 700,
-	    			height : 600,
-	    			elevation : 50,
-	    			gradients : true			
-	    			/* autoCenter: true */
-	    	});
-	    }
+	
 	    loadApp();    	
     });
-$('.next-button').bind($.mouseEvents.over, function() {
-		
-		$(this).addClass('next-button-hover');
+    $("#recipe-book2").click(function () {   
+    	$("#resultImage").css({background:$(this).css("backgroundImage"),
+    							backgroundSize: "cover",
+    							backgroundRepeat : "no-repeat"});
+    	
+    	$("#turnModal").modal("show");   	
+    	
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
 
-	}).bind($.mouseEvents.out, function() {
-		
-		$(this).removeClass('next-button-hover');
+	    loadApp();    	
+    });
 
-	}).bind($.mouseEvents.down, function() {
-		
-		$(this).addClass('next-button-down');
+    
+    $(document).ready(function () {
+    	$("#turnModal").modal("hide");
+    });
+// 	$("#turnModal").modal({
+// 	      backdrop: 'static'
+// 	 });
 
-	}).bind($.mouseEvents.up, function() {
-		
-		$(this).removeClass('next-button-down');
 
-	}).click(function() {
-		
-		$('.magazine').turn('next');
 
-	});
-
-	// Events for the next button
+	// modal 창 이전버튼
 	
 	$('.previous-button').bind($.mouseEvents.over, function() {
 		
@@ -225,11 +247,34 @@ $('.next-button').bind($.mouseEvents.over, function() {
 		
 		$(this).removeClass('previous-button-down');
 
-	}).click(function() {
-		
-		$('.magazine').turn('previous');
+	}).click(function() {		
+		$('#turnJs').turn('previous');
 
 	});
+	
+	// modal 창 다음 버튼
+	$('.next-button').bind($.mouseEvents.over, function() {
+			
+			$(this).addClass('next-button-hover');
+	
+		}).bind($.mouseEvents.out, function() {
+			
+			$(this).removeClass('next-button-hover');
+	
+		}).bind($.mouseEvents.down, function() {
+			
+			$(this).addClass('next-button-down');
+	
+		}).bind($.mouseEvents.up, function() {
+			
+			$(this).removeClass('next-button-down');
+	
+		}).click(function() {
+			
+			$('#turnJs').turn('next');
+	
+		});
+
         var swiper = new Swiper('.swiper-container', {
             loop:true,
             autoplay: {

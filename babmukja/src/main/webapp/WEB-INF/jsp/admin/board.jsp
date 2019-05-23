@@ -8,28 +8,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="ttps://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/adminboard.css"/>">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>회원 관리</title>
+    <title>게시판 관리</title>
 </head>
 <body>
 
     <div id="main">
         <div id="main-header">
-            <h2>회원 관리</h2>
+            <h2>게시판 관리</h2>
             <div id="member-search">
-                <div id="member-search-header">멤버 조회</div>
+                <div id="member-search-header">게시판 조회</div>
                 <div id="member-search-input">
                     <div>     
                     <form action="<c:url value='/admin/member.do'/>" method="post" >
                         <select class="search" name="searchType">
-                            <option value="memName">이름</option>
-                            <option value="memId">아이디</option>
-                            <option value="memNickname">닉네임</option>
-                            <option value="memEmail">이메일</option>
+                            <option value="memId">레시피</option>
+                            <option value="memNickname">pb스토어</option>
+                            <option value="memEmail">레시피스토어</option>
+                            <option value="notice">공지사항</option>
                         </select>
                         <input class="search_form_input" name="input" type="text">
                         <div>
@@ -44,52 +44,38 @@
                     <div id="detail-search-content">
                         <div>
                             <div>
-                                <div>가입일</div>
-                                <div>최종 접속 시간</div>
-                                <div>총 구매액</div>
-                                <div>총 판매액</div>
-                                <div>레시피 등록수</div>
-                                <div>상품 등록수</div>
-                                <div>포인트</div>
-                                <div>등급</div>
+                                <div>작성일</div>
+                                <div>조회수</div>
+                                <div>좋아요 수</div>
+                                <div>스크랩 횟수</div>
+                                <div>댓글 갯수/후기 갯수</div>
+                                <div>게시판 번호</div>
                             </div>
                             <div>
                                 <div>
-                                    <input class="selector" name="signDate1"> ~
-                                    <input class="selector" name="signDate2">
+                                    <input class="selector" name="regDate1"> ~
+                                    <input class="selector" name="regDate2">
                                 </div>
                                 
                                 <div>
-                                    <input class="selector2" name="lastDate1"> ~
-                                    <input class="selector2" name="lastDate2">
+                                    <input type="text" name="totalView1"> ~
+                                    <input type="text" name="totalView2">
                                 </div>
                                 <div>
                                     <input type="text" name="totalBuy1"> ~
                                     <input type="text" name="totalBuy2">
                                 </div>
                                 <div>
-                                    <input type="text" name="totalSel1"> ~
-                                    <input type="text" name="totalSel2">
+                                    <input type="text" name="likeCnt1"> ~
+                                    <input type="text" name="likeCnt2">
                                 </div>
                                 <div>
-                                    <input type="text" name="recipeCnt1"> ~
-                                    <input type="text" name="recipeCnt2">
+                                    <input type="text" name="scrapCnt1"> ~
+                                    <input type="text" name="scrapCnt2">
                                 </div>
                                 <div>
-                                    <input type="text" name="sellingCnt1"> ~
-                                    <input type="text" name="sellingCnt2">
-                                </div>
-                                <div>
-                                    <input type="text" name="point1"> ~
-                                    <input type="text" name="point2">
-                                </div>
-                                <div>
-                                    <select class="grade" name="gradeType">
-                                        <option value="newMem">신규회원</option>
-                                        <option value="normalMem">일반회원</option>
-                                        <option value="goodMem">우수회원</option>
-                                        <option value="bestMem">VIP</option>
-                                    </select>
+                                    <input type="text" name="boardNumber1"> ~
+                                    <input type="text" name="boardNumber2">
                                 </div>
                             </div>
                         </div>
@@ -105,10 +91,10 @@
         <div id="search-output">
         	<c:choose>
         	<c:when test="${count != 0 }">
-        		<div id="search-output-header">검색 결과 ${count}명</div>
+        		<div id="search-output-header">검색 결과 명</div>
         	</c:when>
         	<c:otherwise>
-        		<div id="search-output-header">검색 결과 회원이 존재하지 않습니다.</div>
+        		<div id="search-output-header">검색 결과 게시물이 존재하지 않습니다.</div>
         	</c:otherwise>
     		</c:choose>
             <div>
@@ -117,41 +103,35 @@
                         <thead>
                             <tr>
                                 <th>체크</th>
-                                <th>회원 번호</th>                                
-                                <th>이메일</th>
-                                <th>닉네임</th>
-                                <th>이름</th>
-                                <th>가입일</th>
-                                <th>최종 접속일</th>
-                                <th>총 구매액</th>
-                                <th>총 판매액</th>
+                                <th>게시판</th>
+                                <th>게시글 번호</th>                                
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회수</th>
+                                <th>좋아요 수</th>
+                                <th>스크랩 횟수</th>
+                                <th>댓글 갯수/후기 갯수</th>
                                 <th>레시피 개수</th>
-                                <th>상품 개수</th>
-                                <th>포인트</th>
-                                <th>등급</th>
+                                <th>숨김여부</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="m" items="${list}">
                             <tr>                            
                                 <td><input type="checkbox"></td>
-                                <td><a href="<c:url value='/admin/memberdetail.do?no=${m.memNo }'/>">${m.memNo }</a></td> 
-                                <td>${m.memEmail }</td>
-                                <td>${m.memNickname }</td>
-                                <td><a href="<c:url value='/admin/memberdetail.do?no=${m.memNo }'/>">${m.memName }</a></td>
-                                <td><fmt:formatDate value= "${m.signDate }" pattern="yyyy-MM-dd" /></td>
-                                <td><fmt:formatDate value= "${m.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                <td>${m.totalBuy }</td>
-                                <td>${m.totalSel }</td>
-                                <td>${m.recipeCnt }</td>
-                                <td>${m.sellingCnt }</td>
-                                <td>${m.point }</td>
-                                <td>${m.gradeName }</td>                            	
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><a href="#"></a></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            	</c:forEach>
                         </tbody>
                     </table>
-                    <c:if test="${pageResult.count != 0}"> 
+                    <!-- <c:if test="${pageResult.count != 0}"> 
 							<c:if test="${pageResult.prev eq true}">
 							<a id="prevPage" data-pageNo="${pageResult.beginPage - 1}" href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
 						</c:if>
@@ -160,32 +140,13 @@
 							</c:forEach>
 						<c:if test="${pageResult.next eq true}">
 							<a id="nextPage" data-pageNo="${pageResult.endPage + 1}" href="#1">다음</a>
-						</c:if>	
-					</c:if>	
+						</c:if>	 -->
+					<!-- </c:if>	 -->
                 </div>                
             </div>
         </div>
 	</div>
-	<form name="searchForm" action="<c:url value="/admin/member.do"/>" method="post">
-		<input type="hidden" name="pageNo">
-		<input type="hidden" name="searchType" value="${param.searchType}">
-		<input type="hidden" name="input" value="${param.input}">
-		<input type="hidden" name="signDate1" value="${param.signDate1}">
-		<input type="hidden" name="signDate2" value="${param.signDate2}">
-		<input type="hidden" name="lastDate1" value="${param.lastDate1}">
-		<input type="hidden" name="lastDate2" value="${param.lastDate2}">
-		<input type="hidden" name="totalBuy1" value="${param.totalBuy1}">
-		<input type="hidden" name="totalBuy2" value="${param.totalBuy2}">
-		<input type="hidden" name="totalSel1" value="${param.totalSel1}">
-		<input type="hidden" name="totalSel2" value="${param.totalSel2}">
-		<input type="hidden" name="recipeCnt1" value="${param.recipeCnt1}">
-		<input type="hidden" name="recipeCnt2" value="${param.recipeCnt2}">
-		<input type="hidden" name="sellingCnt1" value="${param.sellingCnt1}">
-		<input type="hidden" name="sellingCnt2" value="${param.sellingCnt2}">
-		<input type="hidden" name="point1" value="${param.point1}">
-		<input type="hidden" name="point2" value="${param.point2}">
-		<input type="hidden" name="gradeType" value="${param.gradeType}">	
-	</form>
+
     <script>    
     	
     	$("#search-output-list > a").click(function () {

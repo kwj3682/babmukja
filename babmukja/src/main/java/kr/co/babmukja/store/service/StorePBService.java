@@ -2,8 +2,10 @@ package kr.co.babmukja.store.service;
 
 import java.util.Map;
 
+import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBReview;
 
 public interface StorePBService {
 	/*
@@ -28,4 +30,9 @@ public interface StorePBService {
 	public StorePB updateFormPBStore(int no);
 	public void updatePBStore(StorePB storepb);
 	public void deletePBStore(int no);
+	
+	// 후기
+	public void insertPBReview(StorePBReview reviewpb);
+	public void insertPBReviewImage(FileVO fileVO);
+	public int getMax();
 }
