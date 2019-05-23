@@ -114,62 +114,67 @@
 
 		
 		
-	<div class="container">
-		<label for="content">comment</label>
-		<form name="commentInsertForm">
-			<div class="input-group">
-				<input type="hidden" name="noticeNo" value="${detail.noticeNo}" /> 
-				<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요."> 
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" name="commentInsertBtn"><a href='commentInsert.do?noticeNo=${comment.commentNo}'>등록</a></button>
-				</span>
-			</div>
-		</form>
-	</div>
+<!-- 	<div class="container"> -->
+<!-- 		<label for="content">comment</label> -->
+<!-- 		<form name="commentInsertForm"> -->
+<!-- 			<div class="input-group"> -->
+<%-- 				<input type="hidden" name="commentNo" value="${detail.noticeNo}" />  --%>
+<!-- 				<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">  -->
+<!-- 				<span class="input-group-btn"> -->
+<%-- 					<button class="btn btn-default" type="button" name="commentInsertBtn"><a href='comment-insert.do?commentNo=${comment.commentNo}'>등록</a></button> --%>
+<!-- 				</span> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
 	
-	<div id="commentList">
-		<form action="comment-update.do" method="post">
-			<input type="hidden" name="no" value="${notice.noticeNo}" />
-			<input type="hidden" name="commentNo" value="${param.commentNo}" />
+<!-- 	<div id="commentList"> -->
+<!-- 		<form action="comment-update.do" method="post"> -->
+<%-- 			<input type="hidden" name="no" value="${notice.noticeNo}" /> --%>
+<%-- 			<input type="hidden" name="commentNo" value="${param.commentNo}" /> --%>
 			
-		  <table width='80%' border='1'>
-			<c:forEach var="comment" items="${commentList}">
-			<c:choose>
-		  		<c:when test="${param.commentNo eq comment.commentNo}">	
-					<tr>
-					  <td>
-					  	<textarea name="content" rows="2" cols="60"><c:out value="${comment.content}" /></textarea>
-					  </td>
-					  <td colspan="2">
-					  	  <input type="submit" value="수정" />
-					  	  <a href="detail.do?noticeNo=${comment.no}">취소</a>
-					  </td>
-					 </tr>
-			 	</c:when>
-			 	<c:otherwise>
-					<tr>
-					  <td><c:out value="${comment.content}" /></td>
-					  <td><fmt:formatDate value="${comment.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					  <td>
-					  	  <a href="comment-delete.do?commentNo=${comment.commentNo}&no=${comment.no}">삭제</a>	
-					  	  <a href="detail.do?commentNo=${comment.commentNo}&no=${comment.no}">수정</a>	
-					  </td>
-					 </tr>
-			 	</c:otherwise>
-			 </c:choose>	
-			 </c:forEach>
-			 <c:if test="${empty commentList}">
-			 <tr>
-			    <td colspan='4'>댓글이 존재하지 않습니다.</td>
-			 </tr>
-		 	</c:if>
-		 </table>
-		</form>
-	</div> 
-	
-	<div class="container">
-		<div class="commentList"></div>
-	</div>
+<!-- 		  <table width='80%' border='1'> -->
+<%-- 			<c:forEach var="comment" items="${commentList}"> --%>
+<%-- 			<c:choose> --%>
+<%-- 		  		<c:when test="${param.commentNo eq comment.commentNo}">	 --%>
+<!-- 					<tr> -->
+<!-- 					  <td> -->
+<%-- 					  	<textarea name="content" rows="2" cols="60"><c:out value="${comment.content}" /></textarea> --%>
+<!-- 					  </td> -->
+<!-- 					  <td colspan="2"> -->
+<!-- 					  	  <input type="submit" value="수정" /> -->
+<%-- 					  	  <a href="detail.do?noticeNo=${comment.no}">취소</a> --%>
+<!-- 					  </td> -->
+<!-- 					 </tr> -->
+<%-- 			 	</c:when> --%>
+<%-- 			 	<c:otherwise> --%>
+<!-- 					<tr> -->
+<%-- 					  <td><c:out value="${comment.content}" /></td> --%>
+<%-- 					  <td><fmt:formatDate value="${comment.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
+<!-- 					  <td> -->
+<%-- 					  	  <a href="comment-delete.do?commentNo=${comment.commentNo}&no=${comment.no}">삭제</a>	 --%>
+<%-- 					  	  <a href="detail.do?commentNo=${comment.commentNo}&no=${comment.no}">수정</a>	 --%>
+<!-- 					  </td> -->
+<!-- 					 </tr> -->
+<%-- 			 	</c:otherwise> --%>
+<%-- 			 </c:choose>	 --%>
+<%-- 			 </c:forEach> --%>
+<%-- 			 <c:if test="${empty commentList}"> --%>
+<!-- 			 <tr> -->
+<!-- 			    <td colspan='4'>댓글이 존재하지 않습니다.</td> -->
+<!-- 			 </tr> -->
+<%-- 		 	</c:if> --%>
+<!-- 		 </table> -->
+<!-- 		</form> -->
+<!-- 	</div>  -->
+<%-- 	<c:forEach var="comment" items="${list}"> --%>
+<!--          <tr> -->
+<%--             <td class="noticeNo">${comment.commentNo}</td> --%>
+<%--             <td class="inquirelist2"><fmt:formatDate pattern="yyyy/MM/dd" value="${comment.regDate}"/></td> --%>
+<!--          </tr> -->
+<%--       </c:forEach> --%>
+<!-- 	<div class="container"> -->
+<!-- 		<div class="commentList"></div> -->
+<!-- 	</div> -->
 	
 <!--                     추가                         -->
 	<%@ include file="comment.jsp"%>
@@ -179,7 +184,7 @@
 <!-- 			<th class="notice_wr2">댓글1:</th> -->
 <!-- 			<td class="notice_comm2"><input type="text" name="title" -->
 <!-- 				style="width: 1200px; margin: 5px;" /></td> -->
-<%-- 			<button><a href='detail.do?noticeNo=${comment.commentNo}'>등록</a></button> --%>
+<%-- 			<button><a href='detail.do?commentNo=${comment.commentNo}'>등록</a></button> --%>
 <%-- 			<button><a href='updateForm.do?commentNo=${comment.commentNo}'>수정</a></button> --%>
 <%-- 			<button><a href='delete.do?commentNo=${comment.commentNo}'>삭제</a></button> --%>
 <!-- 		</tr> -->
@@ -205,7 +210,7 @@
 	<script>
 		$.ajax({ 
 		url : "<c:url value="/notice/comment-list.json" />",
-		data : "no=${notice.noticeNo}"
+		data : "noticeNo=${comment.commentNo}"
 		}).done(function(result) { 
  			console.log(result); 
 		});

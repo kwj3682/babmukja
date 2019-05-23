@@ -49,4 +49,9 @@ public class Notice {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public Object getCommentNO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
