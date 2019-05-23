@@ -152,16 +152,20 @@
                         </div>
                         <div id="pb_review_user_info">
                             <p class="review_user_nickname">주부9단빛찬맘</p>
-                            <p class="review_user_rating">★★★★☆<span>7분 전</span></p>
+                            <p class="review_user_rating">★★★★☆<span>2019-05-22</span></p>
                         </div>
                     </div>
                     <!-- 리뷰 사진 및 내용 -->
                     <div id="pb_review_select">
-                        <div id="pb_review_select_img">
-                            <img src="images/foodthumbnail16.jpg">
-                        </div>
                         <div id="pb_review_select_content">
                             <p>맛있어요~~</p>
+                        </div>
+                        <div id="pb_review_select_img">
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
                         </div>
                     </div>
                     <div id="review_border-bottom"></div>
@@ -265,7 +269,7 @@
 		               
 								<div class="pb_reviewMap">
 						            <div class="pb_product_content">
-						                <textarea name="product__content" class="product__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
+						                <textarea name="content" class="product__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
 						                <div class="content_length">
 						                    <p>0</p>
 						                    <p>/</p>
@@ -526,15 +530,23 @@
        });
        
        $("#insertmodalbtn").click(function () {
+    	   let content = $(".product__content").val();
+    	   let pbNo = ${storepb.pbNo};
+    	   console.log(pbNo);
+ 		  dd.append("content",content );
+ 		  dd.append("pbNo", pbNo);
 
+    	   console.log(content);
+    	   console.log(dd);
 			$.ajax({
 				type:"POST",
 				processData:false,
 				contentType:false,
 				url : "/babmukja/store/pbreviewinsert.do",
-				data :dd,
+				data : dd,
 				success: function(result){
-					console.log("갔다옴");
+					alert("등록성공");
+					location.href="detailpb.do?no="+${storepb.pbNo};
 				}
 			});
        });
