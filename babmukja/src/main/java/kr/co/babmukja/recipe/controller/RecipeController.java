@@ -9,9 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
@@ -98,15 +102,17 @@ public class RecipeController {
 	
 	@RequestMapping("/download.do")
 	public void download(FileVO fileVO, HttpServletResponse response) throws Exception {
-		System.out.println("Download.do");
+	//	System.out.println("Download.do");
 		String uploadRoot = "c:/bit2019/upload";
 		String path = fileVO.getPath();
 		String sysname = fileVO.getSysname();
 		
-		System.out.println("path : "+ path);
-		System.out.println("sysname : "+ sysname);
-		
-		System.out.println("file 생성");
+		/*
+		 * System.out.println("path : "+ path); System.out.println("sysname : "+
+		 * sysname);
+		 * 
+		 * System.out.println("file 생성");
+		 */
 		File f = new File(uploadRoot + path + "/" + sysname);
 		
 //		f = new File("c:/bit2019/upload/recipe/2019/05/10/767e829f-78ce-47ed-bd82-a0d85da1a9c820140510_221359.jpg");
@@ -166,10 +172,29 @@ public class RecipeController {
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "main.do";	
 	}
 	
-	@RequestMapping("/recipeComment.do")
+	@RequestMapping("/recipeCommentWrite.do")
 	@ResponseBody
-	public void writeComment(RecipeReview review) {
+	public RecipeReview writeComment(RecipeReview review, HttpSession session) {
+		Member user =  (Member)session.getAttribute("user");
+		review.setMemNo(user.getMemNo());		
 		service.insertRecipeReview(review);
+		return review;
+	}
+	
+	@RequestMapping("/recipeCommentList.do")
+	@ResponseBody
+	public Map listComment(Page page) {			
+		Map<String, Object> list = service.selectReviewByNo(page);		
+		list.put("comment", list.get("list"));		
+		list.put("pageResult", list.get("pageResult"));				
+
+		return list;
+	}
+	
+	@RequestMapping("/commentUpdateForm.do")
+	@ResponseBody
+	public String commentUpdateForm() {
+		return "이후승 바보 몽총이 ♥";
 	}
 	
 }

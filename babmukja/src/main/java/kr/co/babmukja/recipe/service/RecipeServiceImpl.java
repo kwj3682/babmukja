@@ -1,10 +1,15 @@
  package kr.co.babmukja.recipe.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.babmukja.common.page.PageResult;
+import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeReview;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
@@ -49,19 +54,31 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectRecipe();
 	}
 	
-	// 레시피 댓글 조회
-	public RecipeReview selectReviewByNo(int no) {		
-		return mapper.selectReviewByNo(no);
+	// 레시피 댓글 전체 조회
+	public Map selectReviewByNo(Page page) {		
+		Map<String, Object> result = new HashMap<>();	
+		
+		result.put("list", mapper.selectReviewByNo(page));
+		result.put("pageResult", new PageResult(
+				page.getPageNo(), mapper.selectReviewCount(page))
+		);
+		return result;
 	}
 	
 	// 레시피 댓글 전체 수
-	public int selectReviewCount(int no) {
-		return mapper.selectReviewCount(no);
+	public int selectReviewCount(Page page) {
+		return mapper.selectReviewCount(page);
 	}
 
 	// 레시피 댓글 등록
-	public void insertRecipeReview(RecipeReview review) {
+	public void insertRecipeReview(RecipeReview review) {		
 		mapper.insertRecipeReview(review);
 	}
+	
+	// 레시피 댓글 수정
+	public void updateRecipeReview(RecipeReview review) {
+		mapper.updateRecipeReview(review);
+	}
+
 }
 

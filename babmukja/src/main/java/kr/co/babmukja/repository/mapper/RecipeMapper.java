@@ -2,6 +2,7 @@ package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
 
+import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
@@ -20,9 +21,11 @@ public interface RecipeMapper {
 	// 레시피 조회수 증가
 	public void addViewCnt(int no);
 	// 레시피 댓글 조회
-	public RecipeReview selectReviewByNo(int no);
+	public List<RecipeReview> selectReviewByNo(Page page);
 	// 레시피 수 카운트
-	public int selectReviewCount(int no);
-	//레시피 댓글 등록
+	public int selectReviewCount(Page page);
+	// 레시피 댓글 등록
 	public void insertRecipeReview(RecipeReview review);
+	// 레시피 댓글 수정
+	public void updateRecipeReview(RecipeReview review);
 }

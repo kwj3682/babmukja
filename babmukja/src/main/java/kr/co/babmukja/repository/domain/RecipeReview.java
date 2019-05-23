@@ -3,16 +3,30 @@ package kr.co.babmukja.repository.domain;
 import java.util.Date;
 
 public class RecipeReview {
-	private String memNo;
+	private int memNo;
+	private String memNickname;
 	private int recipeReviewNo;
 	private int recipeNo;
 	private String content;
-	private Date regDate;
-	private int score;
-	public String getMemNo() {
+	private Date regdate;
+	private int score;	
+	
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	public String getMemNickname() {
+		return memNickname;
+	}
+	public void setMemNickname(String memNickname) {
+		this.memNickname = memNickname;
+	}
+	public int getMemNo() {
 		return memNo;
 	}
-	public void setMemNo(String memNo) {
+	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}
 	public int getRecipeReviewNo() {
@@ -32,12 +46,6 @@ public class RecipeReview {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
 	}
 	public int getScore() {
 		return score;

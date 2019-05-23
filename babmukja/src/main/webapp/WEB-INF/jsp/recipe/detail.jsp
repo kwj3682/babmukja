@@ -6,11 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
     <link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/recipe/recipe-detail.css"/>">
-        <script src="<c:url value="/resources/js/editor.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/editor.min.js"/>"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
@@ -48,14 +47,14 @@
             <a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제하기</a>
             <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
-            <form name="commentForm" >
+           
             <div id="comment-body"><!-- comment-body start -->
-                <div id="comment-header">댓글 <b id="comment-count">3</b></div>                
+                <div id="comment-header">댓글</div>                
                 <div id="comment-container"><!-- comment-container start -->
                     <div id="comment-mine"><!-- comment-mine start -->
                         <img src="/babmukja/WEB-INF/images/profile2.jpg">
                         <div id="comment-input-wrapper">
-                               <div id="reviewStars-input">
+                               <div id="reviewStars-input">  
 	                                <input id="star-4" type="radio" name="reviewStars" value="5"/>
 	                                <label title="gorgeous" for="star-4"></label>
 	                            
@@ -71,28 +70,25 @@
 	                                <input id="star-0" type="radio" name="reviewStars" value="1"/>
 	                                <label title="bad" for="star-0"></label>
 		                       </div>
-		                        
+		                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
                             <textarea id="comment-input"></textarea>
                         </div>
-                        <button id="comment-submit"><i class="fas fa-pen-square fa-3x"></i></button>
+                        <c:choose>
+                        	<c:when test="${sessionScope.user ne null}">
+	                        	<button id="comment-submit"><i class="fas fa-pen-square fa-3x"></i></button>                        	
+                        	</c:when>
+                        	<c:otherwise>
+                        		<button id="comment-nope"><i class="fas fa-pen-square fa-3x"></i></button>
+                        	</c:otherwise>
+                        </c:choose>                       
+                        
                     </div><!-- comment-mine end -->
 
                     <div id="comment-other"><!-- comment-other start -->
-                        
-                        <div class="comment-other-wrapper">
-                            <img class="other-profile" src="/babmukja/WEB-INF/images/profile19.jpg">
-                            <div class="other-content-wrapper">
-                                <div>
-                                    <div class="other-id">박보검이다</div>
-                                    <div class="other-date">7분 전</div>
-                                </div>
-                                <div class="other-content">야식은 역시 치킨이죠</div>
-                            </div>
-                        </div>
+                       
                     </div><!-- comment-other end -->
                 </div><!-- comment-container end -->
             </div><!-- comment-body end -->
-        </form>
      </div><!-- left-body end -->
         
 
@@ -141,22 +137,107 @@
     
     
     <script>
+    $("#comment-nope").click(function () {
+    	alert("로그인 후 이용가능합니다.");
+    });
     
      $("#comment-submit").click(function () {
+    	 alert($("input[name='reviewStars']:checked").val());
     	$.ajax({
 	    		type: "post",
-	    		url : "recipeComment.do" ,
-	    		data : {score : $("input[name='reviewStars']").val(),
-	    				content : $("#comment-input").val()}
-	    		success : function(data) {
-	    			alert(data);
+	    		url : "recipeCommentWrite.do",
+	    		data : {
+	    				recipeNo : $("input[name='no']").val(),
+	    				score : $("input[name='reviewStars']").val(),
+	    				content : $("#comment-input").val()
+	    		},
+	    		success : function(response) {
+	    			console.dir(response);
+	    			alert(response);
     			}
-    		}
+    		})
     	});
-    	
-    }); 
-    	
-    	
+     
+     $.ajax({    	 
+	 		url: "recipeCommentList.do"	,
+	 		data : {
+	 			recipeNo : $("input[name='no']").val()	 			
+	 		}
+	 	})
+	 	.done(function (result) {	 		
+	 		if(result.comment.length == 0) {	 			
+	 			$("#comment-other").html("<h3>댓글이 없습니다.</h3>");
+	 		}
+	 		
+	 		let html = "";	
+	 		
+	 		for(let i = 0; i < result.comment.length; i++) {
+	 			let date = new Date(result.comment[i].regdate);
+	 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
+	 					+'<img class="other-profile" src="">'
+	 					+'<div class="other-content-wrapper">'
+	 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
+	 					+'<div>'
+	 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'
+	 					+'<div class="other-rating">' +result.comment[i].score + '</div>'
+	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
+	 					+'</div>'
+	 	     			+'<div class="other-content">' + result.comment[i].content + '</div>'
+	 	     			+'<c:if test="${sessionScope.user ne null}">'
+	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button id="deleteComment">삭제</button></div>'
+	 	     			+'</c:if>'
+	 	     			+'</div></div>';	 
+	 		}	 	
+	 		
+	 	 		$("#comment-other").append(html);
+	 	});
+	
+     $(document).on("click",".updateComment",function () {
+    	 let no = $(this).parent().parent().find(".reviewNo").val();
+    	 let html = "";
+  		$.ajax({
+ 			url : "commentUpdateForm.do"
+ 			
+ 		}).done (function (data) {
+ 			$("#"+no).html (` <div id="comment-mine">
+                	  <img src="">
+                     <div id="comment-input-wrapper">
+                       <div id="reviewStars-input">  
+                            <input id="star-4" type="radio" name="reviewStars" value="5"/>
+                            <label title="gorgeous" for="star-4"></label>
+                        
+                            <input id="star-3" type="radio" name="reviewStars" value="4"/>
+                            <label title="good" for="star-3"></label>
+                        
+                            <input id="star-2" type="radio" name="reviewStars" value="3"/>
+                            <label title="regular" for="star-2"></label>
+                        
+                            <input id="star-1" type="radio" name="reviewStars" value="2"/>
+                            <label title="poor" for="star-1"></label>
+                        
+                            <input id="star-0" type="radio" name="reviewStars" value="1"/>
+                            <label title="bad" for="star-0"></label>
+                       </div>
+                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
+                    <textarea id="comment-input"></textarea>
+                </div>                
+                  <button id="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
+                  <div><button id="">x</button></div>
+            </div>`);
+ 			
+ 		}).fail(function(xhr) {
+ 			alert("오류 발생");
+ 		})	
+     });
+     $(document).on("click",".updateComment",function () {	
+     function dateFormat(date){
+    	    function pad(num) {
+    	        num = num + '';
+    	        return num.length < 2 ? '0' + num : num;
+    	    }
+    	    return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
+    	}
+     
         const value = $("#hiddenValue").text();
     	$("#delete-button").click(function () {    		
     		if(confirm("삭제하시겠습니까?") == true){
@@ -172,6 +253,7 @@
             $(this).css('height', 'auto' ).height( this.scrollHeight );
             });
         });
+        
         const editor = new EditorJS({
             holderId: 'post-body',
 
@@ -216,9 +298,8 @@
             }
         });
 		
-       function myTimeWait(){
-	   
-    	   	console.log($("#post-body").width() + " " + $("#post-body").height());
+       function myTimeWait(){	   
+//     	   	console.log($("#post-body").width() + " " + $("#post-body").height());
     	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
        }
         
