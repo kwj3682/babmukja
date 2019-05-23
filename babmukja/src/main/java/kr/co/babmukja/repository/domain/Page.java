@@ -19,8 +19,14 @@ public class Page {
 	private String point1;
 	private String point2;
 	private String gradeType;
+	private int recipeNo;
 	
-
+	public int getRecipeNo() {
+		return recipeNo;
+	}
+	public void setRecipeNo(int recipeNo) {
+		this.recipeNo = recipeNo;
+	}
 	public String getSignDate1() {
 		return signDate1;
 	}

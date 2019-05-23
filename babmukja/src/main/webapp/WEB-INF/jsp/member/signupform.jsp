@@ -239,7 +239,7 @@
 		        return false;
 		    }
 		    if(isCellPhone() == false){
-		        alert("'-'을 사용해서 전화번호를 입력해주세요."); 
+		        alert("전화번호 형식에 맞게 입력해 주세요."); 
 		        $("#memPhone").focus();
 		        return false;
 		    }

@@ -60,15 +60,19 @@
 	</delete>
 	<!-- 레시피 상세 댓글 부분 -->
 	<!-- 댓글 조회 -->
-    <select id="selectReviewByNo" parameterType="int" resultType="RecipeReview">
+    <select id="selectReviewByNo" parameterType="page" resultType="RecipeReview">
     	select r.*, m.*
-    	  from tb_recipe_review r, tb_member m
-    	 where recipe_no = #{recipeNo}
+    	  from tb_recipe_review r
+    	 inner join tb_member m
+    	    on r.mem_no = m.mem_no
+    	 where recipe_no = #{recipeNo}    	   
     	 order by recipe_review_no desc
+    	 limit #{begin}, #{end}
     </select>   
     
     <!-- 전체 댓글 수 -->
-	<select id="selectReviewCount" parameterType="int" resultType="int">
+    
+	<select id="selectReviewCount" parameterType="page" resultType="int">
 		select count(*)
 		  from tb_recipe_review v
 		 inner join tb_recipe r
@@ -85,6 +89,16 @@
     	)
     </insert>
     <!-- 해당 키워드에 포함되는 레시피 가져오기(가장 높은 조회수) -->
+    
+    <!-- 댓글 수정 -->
+    <update id="updateRecipeReview" parameterType="RecipeReview">
+    	update tb_recipe_review
+    	   set content = #{content},
+    	         score = #{score}
+    	 where recipe_review_no = #{recipeReviewNo}
+    	   and mem_no = #{memNo}
+    </update>
+
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
 		select * 
 		  from tb_recipe 
@@ -105,4 +119,5 @@
 	<insert id="insertKeywordToRecipe" parameterType="Keyword">
 		insert into tb_recipe_keyword (keyword_no,recipe_no) values (#{keywordNo}, #{recipeNo})
 	</insert>
+
 </mapper>

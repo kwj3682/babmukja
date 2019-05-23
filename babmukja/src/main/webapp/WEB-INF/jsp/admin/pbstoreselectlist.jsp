@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="<c:url value="/resources/css/store/pbstoreselectlist.css"/>">
+<link rel="stylesheet" href="<c:url value="/resources/css/admin/pbstoreselectlist.css"/>">
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <title>PB Store SelectList</title>
 </head>
@@ -37,7 +37,7 @@
                 	<a href="<c:url value='/store/updateformpb.do?no=${adminpblist.pbNo}'/>">수정</a>
                 </button>
                 <button class="pb_store_delete_btn">
-                	<a href="<c:url value='/store/deletepb.do?no=${adminpblist.pbNo}'/>">삭제</a>
+                	<a href="<c:url value='/admin/deletepb.do?no=${adminpblist.pbNo}'/>">삭제</a>
                 </button>
             </td>
           </tr>

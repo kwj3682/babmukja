@@ -3,17 +3,25 @@ package kr.co.babmukja.repository.domain;
 import java.util.Date;
 
 public class Comment {
-	private int comment_no; 
+	private int commentNo; 
     private String content;           
-    private Date regdate;           
+    private Date regDate;           
     private String secret_at;         
     private int mem_no;         
+    private int noticeNo;         
     
-    public int getComment_no() {
-		return comment_no;
+   
+	public int getCommentNo() {
+		return commentNo;
 	}
-	public void setComment_no(int comment_no) {
-		this.comment_no = comment_no;
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
+	}
+	public int getNoticeNo() {
+		return noticeNo;
+	}
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
 	}
 	public String getContent() {
 		return content;
@@ -21,11 +29,12 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegdate() {
-		return regdate;
+	
+	public Date getRegDate() {
+		return regDate;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 	public String getSecret_at() {
 		return secret_at;

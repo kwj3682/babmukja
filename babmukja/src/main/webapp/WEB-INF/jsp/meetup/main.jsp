@@ -7,16 +7,17 @@
 <head>
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"> </script>
+    <script src="<c:url value="/resources/js/jquery-3.2.1.js"/>"> </script>
     <script src='<c:url value="/resources/js/meetup_address.js"/>'> </script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!--     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!--모달 부분  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<!--     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" -->
+<!--         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" -->
+<!--         crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -287,13 +288,13 @@
 
 
     </div>
-
+    
     <!-- 모달 부분 아래시작 -->
     <div id="write_modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <form action="#">
+                
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">모임 개설하기</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -308,14 +309,14 @@
                             </div>
                             <div></div>
                             <div class="modal_meetup_category">
-                                <select name="food_nation_categody" class="food_nation_categody">
-                                    <option value="">카테고리</option>
-                                    <option value="">한식</option>
-                                    <option value="">중식</option>
-                                    <option value="">일식</option>
-                                    <option value="">동남아시아</option>
-                                    <option value="">양식</option>
-                                    <option value="">기타</option>
+                                <select name="food_nation_categody" class="food_nation_category">
+                                    <option value="카테고리">카테고리</option>
+                                    <option value="한식">한식</option>
+                                    <option value="중식">중식</option>
+                                    <option value="일식">일식</option>
+                                    <option value="동남아시아">동남아시아</option>
+                                    <option value="양식">양식</option>
+                                    <option value="기타">기타</option>
                                 </select>
                             </div>
                             <div></div>
@@ -352,19 +353,19 @@
                             <div id="modal_meetup_day">요일선택</div>
                             <div></div>
                             <div class="modal_meetup_day_box">
-                                <input type="checkbox" class="selectDay" id="selectMonday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectMonday" name="day" value="monday">
                                 <label for="selectMonday" class="select_Day_label">월</label>
-                                <input type="checkbox" class="selectDay" id="selectTuesday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectTuesday" name="day" value="tuesday">
                                 <label for="selectTuesday" class="select_Day_label">화</label>
-                                <input type="checkbox" class="selectDay" id="selectWednesday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectWednesday" name="day" value="wednesday">
                                 <label for="selectWednesday" class="select_Day_label">수</label>
-                                <input type="checkbox" class="selectDay" id="selectThursday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectThursday" name="day" value="thursday">
                                 <label for="selectThursday" class="select_Day_label">목</label>
-                                <input type="checkbox" class="selectDay" id="selectFriday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectFriday" name="day" value="friday">
                                 <label for="selectFriday" class="select_Day_label">금</label>
-                                <input type="checkbox" class="selectDay" id="selectSaturday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectSaturday" name="day" value="saturday">
                                 <label for="selectSaturday" class="select_Day_label">토</label>
-                                <input type="checkbox" class="selectDay" id="selectSunday" name="day">
+                                <input type="checkbox" class="selectDay" id="selectSunday" name="day" value="sunday">
                                 <label for="selectSunday" class="select_Day_label">일</label>
                             </div>
                         </div>
@@ -373,10 +374,11 @@
                             <div class="modal_meetup_fee">월 회비</div>
                             <div></div>
                             <div class="modal_meetup_fee_checkbox">
-                                <input type="checkbox" name="category" value="all" />미정</div>
+                                <input type="radio" name="fee" class="modal_monthly_fee" value="na" />미정</div>
                             <div class="modal_meetup_fee_inputbox">
-                                <input type="checkbox" name="category" value="all" /> <input type="text"
-                                    name="meetup_fee" class="modal_fee_input" placeholder="액수를 입력해 주세요" />원
+                                <input type="radio" name="fee" value="personal" class="modal_monthly_fee"  /> 
+                                <input type="text"
+                                 name="meetup_fee" class="modal_fee_input" placeholder="액수를 입력해 주세요" />원
                             </div>
                         </div>
                         <div class="modal_meetup_mainPic_container">
@@ -410,9 +412,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="modalEnrollSave">Save changes</button>
                     </div>
-                </form>
                 <!--form tag-->
             </div>
         </div>
@@ -428,5 +429,7 @@
 
      <!--  <script type="text/javascript" src="/resources/js/meetup_main.js"></script>-->
     <script src='<c:url value="/resources/js/meetup_main.js"/>'> </script>
+
+
 </body>
 </html>

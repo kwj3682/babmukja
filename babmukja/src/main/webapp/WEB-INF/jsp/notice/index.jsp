@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>고객센터</title>
 </head>
-<body>
+<body style="background: white;">
     <div class="inquiry">
         <table class="customer2">
             <tr>

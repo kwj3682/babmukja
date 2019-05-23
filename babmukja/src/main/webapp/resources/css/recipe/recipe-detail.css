@@ -301,6 +301,13 @@ label, #reviewStars-input label,
     background: white;
     cursor: pointer;
 }
+#comment-nope {
+	height: 50px;
+    color: #7db341;
+    border : 0;
+    background: white;
+    cursor: pointer;
+}
 #comment-other{
     border-top: 1px solid gainsboro;
     margin-top: 10px;
@@ -323,6 +330,7 @@ label, #reviewStars-input label,
     color: rgb(30,30,30);
     font-weight: bolder;
 }
+
 .other-date{
     font-size: 13px;
     color: gray;

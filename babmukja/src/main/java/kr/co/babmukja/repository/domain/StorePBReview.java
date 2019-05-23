@@ -9,7 +9,28 @@ public class StorePBReview {
 	private int rating;
 	private Date regDate;
 	private int memNo;
-	private int groupNo;
+	private String memNickname;
+	private String path;
+	private String sysname;
+
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getSysname() {
+		return sysname;
+	}
+	public void setSysname(String sysname) {
+		this.sysname = sysname;
+	}
+	public String getMemNickname() {
+		return memNickname;
+	}
+	public void setMemNickname(String memNickname) {
+		this.memNickname = memNickname;
+	}
 	
 	public int getPbReviewNo() {
 		return pbReviewNo;
@@ -46,11 +67,5 @@ public class StorePBReview {
 	}
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
-	}
-	public int getGroupNo() {
-		return groupNo;
-	}
-	public void setGroupNo(int groupNo) {
-		this.groupNo = groupNo;
 	}
 }

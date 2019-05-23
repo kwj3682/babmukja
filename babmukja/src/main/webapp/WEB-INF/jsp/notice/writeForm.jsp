@@ -12,7 +12,7 @@
     <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
     <title>전체조회</title>
 </head>
-<body>
+<body style="background: white;">
         <form
         action="write.do"
         method="post"
@@ -68,14 +68,14 @@
     <script>
     	$("form").submit(function inqform() {
     		
-    		var no = document.inqform.notice_no 
+    		var notice_no = document.inqform.notice_no 
     		var writer = document.inqform.writer;
     		var title = document.inqform.title;
     		var content = document.inqform.content;
     		
-    		var notnull = [no, writer, title, content]
+    		var notnull = [notice_no, writer, title, content]
     		
-    		if (isEmpty(no , "글번호를 입력하세요.")) return false; 
+    		if (isEmpty(notice_no , "글번호를 입력하세요.")) return false; 
     		if (isEmpty(writer , "글쓴이를 입력하세요.")) return false;
     		if (isEmpty(title, "제목을 입력하세요.")) return false;
     		if (isEmpty(content, "내용을 입력하세요.")) return false;

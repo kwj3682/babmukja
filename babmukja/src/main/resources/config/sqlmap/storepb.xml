@@ -150,22 +150,32 @@
 		<result column="regdate" property="regDate" />
 		<result column="mem_no" property="memNo" />
 		<result column="viewcnt" property="viewCnt" />
+		<result column="imgpath" property="imgPath" />
 	</resultMap>
 	
+	<!-- 
 	<insert id="insertPBStore" parameterType="storePB">
 		insert into tb_pb(
 			mem_no, 
 			name, 
 			price,
-			content
+			content,
+			imgpath
 		)
 		values(
 			3, 
 			#{name}, 
 			#{price},
-			#{content}
+			#{content},
+			#{imgPath}
 		)
 	</insert>
+	 -->
+	<select id="selectPBStore" resultMap="storepbMap">
+		select *
+          from tb_pb
+		 order by regDate desc
+	</select>
 	
 	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
 		select *
@@ -173,6 +183,7 @@
 		 where pb_no = #{pbNo}
 	</select>
 	
+	<!-- 
 	<select id="selectAdminPBList" resultMap="storepbMap" parameterType="pagepb">
 		select * 
 	  	  from tb_pb
@@ -184,7 +195,8 @@
 		select count(*)
 		  from tb_pb
 	</select>
-	
+	 -->
+	 
 	<update id="updatePBStore" parameterType="storePB">
 		update tb_pb
 		   set name = #{name},
@@ -193,15 +205,17 @@
 		 where pb_no = #{pbNo}		   
 	</update>
 	
+	<!-- 
 	<delete id="deletePBStore" parameterType="int">
 		delete 
 		  from tb_pb
 		 where pb_no = #{pbNo}
 	</delete>
-	
+ 	-->
+	 
 	<!--  후기 파트  -->
 	
-	<!--  후기 등록 파트  -->
+	<!--  후기 등록 파트  
 	<resultMap id="pbReviewMap" type="storePBReview" >
 		<result column="pb_review_no" property="pbReviewNo"/>
 		<result column="pb_no" property="pbNo"/>
@@ -211,79 +225,95 @@
 		<result column="mem_no" property="memNo"/>
 		<result column="group_no" property="groupNo"/>
 	</resultMap>
-	
-	<resultMap id="fileMap" type="fileVO" >
+	-->
+	<resultMap id="fileMap" type="ReviewFileVO" >
 		<result column="file_no" property="fileNo"/>
-		<result column="group_no" property="groupNo"/>
 		<result column="sysname" property="sysname"/>
 		<result column="orgname" property="orgname"/>
 		<result column="path" property="path"/>
-		<result column="mem_no" property="memNo"/>
+		<result column="pb_review_no" property="pbReviewNo"/>
 	</resultMap>
 	
-	<insert id="insertPBReview" parameterType="storePBReview">
+	<insert id="insertPBReview" parameterType="storePBReview"
+			useGeneratedKeys="true" keyProperty="pbReviewNo">
 		insert into tb_pb_review(
 			pb_no, 
 			content, 
-			mem_no, 
-			group_no
+			mem_no 
 		)
 		values(
 			#{pbNo},
 			#{content},
-			3,
-			#{groupNo}			
-		)
-	</insert>
-	
-	<insert id="insertPBReviewImage" parameterType="fileVO">
-		insert into tb_file 
-		(
-			group_no, 
-			sysname, 
-			orgname, 
-			path, 
-			mem_no
-		)
-		values 
-		(
-			#{groupNo}, 
-			#{sysname}, 
-			#{orgname}, 
-			#{path}, 
 			3
 		)
 	</insert>
 	
+	<insert id="insertPBReviewImage" parameterType="ReviewFileVO">
+		insert into tb_file 
+		(
+			sysname, 
+			orgname, 
+			path,
+			pb_review_no
+		)
+		values 
+		(
+			#{sysname}, 
+			#{orgname}, 
+			#{path},
+			#{pbReviewNo}
+		)
+	</insert>
+	
+	<!-- 
 	<select id="selectMaxNum" resultType="int">
 		select ifnull(max(pb_review_no),1)
 		  from tb_pb_review
 	</select>
-	
+	 -->
+	 
 	<!-- 후기 조회 파트  -->
-<!-- 	<resultMap id="pbReviewSelectMap" type="storePBReview" > -->
-<!-- 		<result column="pb_review_no" property="pbReviewNo"/> -->
-<!-- 		<result column="pb_no" property="pbNo"/> -->
-<!-- 		<result column="content" property="content"/> -->
-<!-- 		<result column="rating" property="rating"/> -->
-<!-- 		<result column="regdate" property="regDate"/> -->
-<!-- 		<result column="mem_no" property="memNo"/> -->
-<!-- 		<result column="group_no" property="groupNo"/> -->
+	<resultMap id="pbReviewSelectMap" type="storePBReview" >
+		<result column="pb_review_no" property="pbReviewNo"/>
+		<result column="pb_no" property="pbNo"/>
+		<result column="content" property="content"/>
+		<result column="rating" property="rating"/>
+		<result column="regdate" property="regDate"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="mem_Nickname" property="memNickname"/>
+		<result column="path" property="path"/>
+		<result column="sysname" property="sysname"/>
 		
-<!-- 		<collection property="images"  -->
-<!-- 					column="group_no" -->
-<!-- 					select="selectPBReviewSelectImage"/> -->
-<!-- 	</resultMap> -->
+	</resultMap>
 	
-<!-- 	<select id="selectPBReviewSelect" resultMap="pbReviewSelectMap"> -->
-<!-- 		select * -->
-<!-- 		  from tb_pb_review -->
-<!-- 		 order by pb_review_no desc		   -->
-<!-- 	</select> -->
+	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="int">
+		select * 
+		  from tb_pb_review 
+		 where pb_no = #{pbNo}
+	</select>
 	
-<!-- 	<select id="selectPBReviewSelectImage" resultMap=""> -->
-<!-- 		select * -->
-<!-- 		  from tb_file -->
-<!-- 		 where group_no = #{groupNo} -->
-<!-- 	</select> -->
+	<select id="selectPBReviewSelect" parameterType="storePBReview" resultMap="pbReviewSelectMap">
+		select m.mem_nickname, r.*, f.path, f.sysname
+		  from tb_pb_review r, tb_member m, tb_file f
+		 where r.mem_no = m.mem_no
+		   and f.pb_review_no = r.pb_review_no
+		   and r.pb_no = #{pbNo}
+		   and r.pb_review_no = #{pbReviewNo}
+	</select>
+	
+	<!-- 
+	<select id="selectPBReviewSelect" resultMap="pbReviewSelectMap" parameterType="int">
+		 select m.mem_nickname, r.*
+  		   from tb_pb_review r, tb_member m
+ 	      where r.mem_no = m.mem_no
+ 	        and r.pb_no = #{pbNo}
+		  order by pb_review_no desc		  
+	</select>
+
+	<select id="selectPBReviewSelectImage" resultMap="fileMap" parameterType="int">
+		select *
+		  from tb_file
+		 where pb_review_no = #{pbReviewNo}
+	</select>
+	 -->
 </mapper>

@@ -1,14 +1,11 @@
 package kr.co.babmukja.store.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.FileVO;
-import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
@@ -56,22 +53,13 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.deletePBByNo(pbNo);
 	}
 	*/
+	
+	public List<StorePB> selectPBStore() {
+		return mapper.selectPBStore();
+	}
 
 	public StorePB selectPBStoreByNo(int no) {
 		return mapper.selectPBStoreByNo(no);
-	}
-	
-	public Map<String, Object> selectAdminPBList(Pagepb page) {
-		Map<String, Object> result = new HashMap<>();
-		result.put("pbAdminList", mapper.selectAdminPBList(page));
-		result.put("pageResult", new PageResult(
-				page.getPageNo(), mapper.selectAdminPBListCount()));
-		
-		return result;
-	}
-	
-	public void insertPBStore(StorePB storepb) {
-		mapper.insertPBStore(storepb);
 	}
 	
 	public StorePB updateFormPBStore(int no) {
@@ -80,10 +68,6 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public void updatePBStore(StorePB storepb) {
 		mapper.updatePBStore(storepb);
-	}
-	
-	public void deletePBStore(int no) {
-		mapper.deletePBStore(no);
 	}
 	
 	public void insertPBReview(StorePBReview reviewpb) {
@@ -97,4 +81,17 @@ public class StorePBServiceImpl implements StorePBService{
 	public int getMax() {
 		return mapper.selectMaxNum();
 	}
+	
+	// 후기
+	public List<StorePBReview> selectPBReviewSelect(StorePBReview storePBReview) {
+		return mapper.selectPBReviewSelect(storePBReview);
+	}
+	
+	public List<StorePBReview> selectReview(int pbReviewNo) {
+		return mapper.selectReview(pbReviewNo);
+	}
+	
+//	public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo) {
+//		return mapper.selectPBReviewSelectImage(pbReivewNo);
+//	}
 }
