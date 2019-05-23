@@ -299,8 +299,6 @@
 		    	alert("사용 불가능한 닉네임 입니다.");
 		    	return false;
 		    }
-		    
-		    
 		}
 		
 		// passWord 정규 표현식
