@@ -13,7 +13,7 @@
     <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
     <title>전체조회</title>
 </head>
-<body>
+<body style="background: white;">
     <div class="noticelist">
         <h2>공지사항 전체조회</h2><br>
         <hr>
@@ -21,18 +21,21 @@
                 <caption>전체조회</caption>
                 <tr>
                     <th class="inquirelist"><span>번호</span></th>
+                   
                     <th class="inquirelist"><span>제목</span></th>
 <!--                     <th class="inquirelist"><span>분류</span></th> -->
                     <th class="inquirelist"><span>등록일</span></th>
                     <th class="inquirelist"><span>조회</span></th>
+                    <th class="inquirelist"><span>댓글여부</span></th>
                 </tr>
       <c:forEach var="notice" items="${list}">
          <tr>
-            <td class="noticeNo">${notice.no}</td>
+            <td class="noticeNo">${notice.noticeNo}</td>
             <td class="leftstyle2"><a
-               href='detail.do?no=${notice.no}'>${notice.title}</a></td>   
-            <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일 " value="${notice.regDate}"/></td>
+               href='detail.do?no=${notice.noticeNo}'>${notice.title}</a></td>   
+            <td class="inquirelist2"><fmt:formatDate pattern="yyyy/MM/dd" value="${notice.regDate}"/></td>
             <td class="inquirelist2">${notice.viewCnt}</td>
+            <td class="inquirelist2"><button><a href="writeForm.do">댓글등록</a></button></td>
          </tr>
       </c:forEach>
 <!--                 <tr> -->
