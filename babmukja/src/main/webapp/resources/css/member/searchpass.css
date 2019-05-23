@@ -44,16 +44,14 @@
 	background-color: #7db341;
 	color: white;
 	border-radius: 3px;
-	width: 110px;
+	width: 120px;
 	height: 30px;
 	font-weight: bold;
 	font-size: 16px;
 }
-
 .search_pass_input button:hover {
 	background-color: #749e45;
 }
-
 .search_pass_button button {
 	margin-top: 20px;
 	width: 300px;
@@ -67,7 +65,6 @@
 	border-radius: 5px;
 	font-size: 17px;
 }
-
 .search_pass_button button:hover {
 	background-color: #749e45;
 }

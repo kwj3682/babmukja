@@ -24,6 +24,7 @@
 		<result column="selling_Cnt" property="sellingCnt" />
 		<result column="total_buy" property="totalBuy" />
 		<result column="total_sel" property="totalSel" />
+		<result column="certification" property="certification" />
 	</resultMap>
 
 	<!-- 로그인 (암호화 적용) -->
@@ -70,27 +71,34 @@
 	</update>
 
 	<!-- 아이디 찾기 -->
-	<select id="selectSearchId" parameterType="member" resultType="String">
+	<select id="selectSearchId" parameterType="member"
+		resultType="String">
 		select mem_email
 		from tb_member
 		where mem_name = #{memName}
 		and mem_phone = #{memPhone}
 	</select>
-	
+
 	<!-- 인증번호 등록 -->
 	<update id="updateCertification" parameterType="member">
 		update tb_member
-		   set certification = #{certification}
-		 where mem_email = #{memEmail} 
+		set certification = #{certification}
+		where mem_email = #{memEmail}
 	</update>
 
 	<!-- 인증번호 확인 -->
 	<select id="selectConfirmCertification" parameterType="member" resultType="int">
 		select count(*)
-	   	from tb_member
-  	   where certification = #{certification}
-  	     and mem_email = #{memEmail}
+		from tb_member
+		where certification = #{certification}
+		and mem_email = #{memEmail}
 	</select>
-	
+
+	<!-- 비밀번호 재설정 -->
+	<update id="updateResetPass" parameterType="member">
+		update tb_member
+		   set mem_pass = #{memPass}
+		 where mem_email = #{memEmail}
+	</update>
 	
 </mapper>

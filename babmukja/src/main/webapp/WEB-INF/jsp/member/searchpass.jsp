@@ -37,21 +37,25 @@
 					<button id="email_btn" type="button">전송</button>
 				</div>
 
-				<div class="email_check_result">
-					<span class="check_result"></span>
+				<div class="email_check">
+					<span class="email_result"></span>
 				</div>
 
 				<div class="email_certification">
-					<input type="text" name="certification" id="certification"
-						placeholder="인증번호">
-					<button id="certification_btn" type="button">인증번호 확인</button>
+					<input type="text" name="certification" id="certification" placeholder="인증번호"><button id="certification_btn" type="button">인증번호 확인</button>
+					<input type="hidden" id="hcertification" value="0" />
 				</div>
 
-				<div class="certification_check_result">
+				<div class="certification_check">
 					<span class="certification_result"></span>
 				</div>
 			</div>
-
+			
+			<div class="search_pass_button">
+				<button>비밀번호 재설정</button>
+			</div>
+		</form>
+			
 			<!--       <div class="search_pass_search"> -->
 			<!--         <i class="fas fa-check-circle"></i> 전화번호로 찾기 -->
 			<!--       </div> -->
@@ -68,10 +72,7 @@
 			<!--         </div> -->
 			<!--       </div> -->
 
-			<div class="search_pass_button">
-				<button>비밀번호 재설정</button>
-			</div>
-		</form>
+			
 	</div>
 	</main>
 
@@ -83,7 +84,6 @@
 		// 이메일 전송
 		$("#email_btn").click(function() {
 			let memEmail = $("#memEmail").val();
-			alert(memEmail + "로 인증메일을 전송하였습니다.");
 			$.ajax({
 				type : 'POST',
 				data : "memEmail=" + memEmail,
@@ -142,17 +142,13 @@
 							// alert(data.cnt);
 							console.log(data);
 							if (data != 0 || (email === null)) {
-								$(".email_check_result .check_result").text(
-										"이메일이 확인 되었습니다.");
-								$(".email_check_result .check_result").attr(
-										"style", "color:blue;");
+								$(".email_check .email_result").text("이메일이 확인 되었습니다.");
+								$(".email_check .email_result").attr("style", "color:blue;");
 								$("#memEmail").focus();
 								$("#hEmail").val(2);
 							} else {
-								$(".email_check_result .check_result").text(
-										"존재하지 않는 이메일 입니다.");
-								$(".email_check_result .check_result").attr(
-										"style", "color:red;");
+								$(".email_check .email_result").text("존재하지 않는 이메일 입니다.");
+								$(".email_check .email_result").attr("style", "color:red;");
 								$("#memEmail").focus();
 								$("#hEmail").val(1);
 								em = 1;
@@ -160,15 +156,34 @@
 						}
 					});
 				});
-
-// 		// 이메일 입력 ?
+		
+		// 인증번호 확인
+		let number = 0;
 		$("#certification_btn").click(function() {
-			let cer = $("#certification").val();
-			console.log(certification);
+			console.log("클릭 이벤트 실행됨");
+			let ctf = $("#certification").val();
+			console.log(ctf);
 			$.ajax({
-				type : 'POST',
-				data : "certification=" + cer,
-				url : 'checknum.do'
+				type:'POST',
+				data: "certification="+ctf,
+				url: 'checknum.do',
+				dataType: "json",
+				success: function(data) {
+					// alert(data.cnt);
+					console.log(data);
+					if(data != 0 || (ctf === null)) {
+						$(".certification_check .certification_result").text("인증번호가 일치하지 않습니다.");
+						$(".certification_check .certification_result").attr("style", "color:red;");
+						$("#certification").focus();
+						$("#hcertification").val(1);
+					} else {
+						$(".certification_check .certification_result").text("인증번호가 일치 합니다.");
+						$(".certification_check .certification_result").attr("style", "color:blue;");
+						$("#certification").focus();
+						$("#hcertification").val(2);
+						number = 1;
+					}
+				}
 			});
 		});
 		

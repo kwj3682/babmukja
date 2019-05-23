@@ -21,5 +21,5 @@ public interface MemberMapper {
 	
 	int selectConfirmCertification(Member member); // 인증번호 확인
 	
-	
+	void updateResetPass(Member member); // 비밀번호 재설정
 }

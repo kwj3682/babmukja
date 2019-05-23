@@ -65,4 +65,10 @@ public class MemberServiceImpl implements MemberService {
 	public int selectConfirmCertification(Member member) {
 		return mapper.selectConfirmCertification(member);
 	}
+	
+	@Override
+	// 비밀번호 재설정
+	public void updateResetPass(Member member) {
+		mapper.updateResetPass(member);
+	}
 }
