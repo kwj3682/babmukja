@@ -40,6 +40,13 @@ public class MeetupController {
 //		service.selectIntro();
 		System.out.println("메인 들어왔음");
 	}
+	
+	@RequestMapping("/mainMeetupEnroll.do")
+	@ResponseBody
+	public void mainMeetupEnroll(String check) {
+//		service.selectIntro();
+		System.out.println("메인모임등록 들어왔음" +check);
+	}
 	@RequestMapping("/detail.do")
 	public void meetupDetail(Model model) {
 //		service.selectIntro();

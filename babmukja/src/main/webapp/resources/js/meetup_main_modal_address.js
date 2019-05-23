@@ -49,8 +49,8 @@ $(document).on("click", "#modal_location_plus", function () {
 </select>
 
 <select name="select_modal_town${num}" class="select_modal_town" id="select_modal_town${num}">
+    sel.html("<option>-선택-</option> <option value="전체">전체</option>");
 
-    <option>-선택-</option>
 
 </select>
 
@@ -236,13 +236,16 @@ function cat1_change(key, sel) {
 
     var val = cat2_num[key];
 
-
+    sel.html(`<option>-선택-</option> <option value="전체">전체</option>`);
+    
     for (i = 0; i < name.length; i++) {
-        sel.append("<option value=" + name[i] + ">" + name[i] + "</option > ");
-
-    }
+    sel.append("<option value=" + name[i] + ">" + name[i] + "</option > ");
+   
+    
+    
+    
+    }//FOR
 
 
 
 }//change
-
