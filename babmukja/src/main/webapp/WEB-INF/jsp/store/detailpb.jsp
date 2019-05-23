@@ -152,16 +152,20 @@
                         </div>
                         <div id="pb_review_user_info">
                             <p class="review_user_nickname">주부9단빛찬맘</p>
-                            <p class="review_user_rating">★★★★☆<span>7분 전</span></p>
+                            <p class="review_user_rating">★★★★☆<span>2019-05-22</span></p>
                         </div>
                     </div>
                     <!-- 리뷰 사진 및 내용 -->
                     <div id="pb_review_select">
-                        <div id="pb_review_select_img">
-                            <img src="images/foodthumbnail16.jpg">
-                        </div>
                         <div id="pb_review_select_content">
                             <p>맛있어요~~</p>
+                        </div>
+                        <div id="pb_review_select_img">
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
+                            <div><img src="images/foodthumbnail16.jpg"></div>
                         </div>
                     </div>
                     <div id="review_border-bottom"></div>
@@ -221,63 +225,74 @@
                     <p>4</p>
                     <p>5</p>
                 </div>
+                
             </div> <!-- 후기 끝 -->
             
-                <!-- modal -->
-    <div id="reviewmodal" class="modal fade" tabindex="-1" >
-        <div class="moadl-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">x</button>
-                    <p class="modal-title">후기 작성</p>
-                </div>
-                <div class="modal-body">
-                    <div class="pb_insertform_container">
-                        <div class="pb_product_item">
-                            <div class="pb_product_item_img">
-                                <img src="images/foodthumbnail1.jpg">
-                            </div>
-                            <div class="pb_product_item_info">
-                                <p class="pb_product_item_name">${storepb.name}</p>
-                            </div>
-                        </div>
-                        <div class="pb_product_item_rating">
-                            <p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
-                            <div id="reviewStars-input">
-                                <input id="star-4" type="radio" name="reviewStars"/>
-                                <label title="gorgeous" for="star-4"></label>
-                            
-                                <input id="star-3" type="radio" name="reviewStars"/>
-                                <label title="good" for="star-3"></label>
-                            
-                                <input id="star-2" type="radio" name="reviewStars"/>
-                                <label title="regular" for="star-2"></label>
-                            
-                                <input id="star-1" type="radio" name="reviewStars"/>
-                                <label title="poor" for="star-1"></label>
-                            
-                                <input id="star-0" type="radio" name="reviewStars"/>
-                                <label title="bad" for="star-0"></label>
-                            </div>
-                        </div>
-                        <div class="pb_product_image">
-                            <div class="image_container"></div>
-                            <div class="image_choice">
-                                <label for="product_img_file">사진을 선택해주세요</label>
-                                <input type="file" name="product_img_file" id="product_img_file">
-                            </div>
-                        </div>
-                        <div class="pb_product_content">
-                            <textarea name="product__content" class="product__content" cols="50" rows="15" placeholder="후기를 작성해주세요."></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-insert" id="insertmodalbtn">등록</button>
-                </div>
-            </div>
-        </div>
-    </div>
+         <!-- modal -->
+		  <form method="POST" enctype="multipart/form-data">
+		    <div id="reviewmodal" class="modal fade" tabindex="-1" >
+		        <div class="moadl-dialog">
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal">x</button>
+		                    <p class="modal-title">후기 작성</p>
+		                </div>
+		                <div class="modal-body">
+		                    <div class="pb_insertform_container">
+		                        <div class="pb_product_item">
+		                            <div class="pb_product_item_img">
+		                                <img src="images/foodthumbnail1.jpg">
+		                            </div>
+		                            <div class="pb_product_item_info">
+		                                <p class="pb_product_item_name">${storepb.name}</p>
+		                            </div>
+		                        </div>
+		                        <div class="pb_product_item_rating">
+		                            <p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
+		                            <div id="reviewStars-input">
+		                                <input id="star-4" type="radio" name="reviewStars"/>
+		                                <label title="gorgeous" for="star-4"></label>
+		                            
+		                                <input id="star-3" type="radio" name="reviewStars"/>
+		                                <label title="good" for="star-3"></label>
+		                            
+		                                <input id="star-2" type="radio" name="reviewStars"/>
+		                                <label title="regular" for="star-2"></label>
+		                            
+		                                <input id="star-1" type="radio" name="reviewStars"/>
+		                                <label title="poor" for="star-1"></label>
+		                            
+		                                <input id="star-0" type="radio" name="reviewStars"/>
+		                                <label title="bad" for="star-0"></label>
+		                            </div>
+		                        </div>
+		               
+								<div class="pb_reviewMap">
+						            <div class="pb_product_content">
+						                <textarea name="content" class="product__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
+						                <div class="content_length">
+						                    <p>0</p>
+						                    <p>/</p>
+						                    <p>1,000</p>
+						                </div>
+							            <p class="review_images_msg"> 아래 + 를 눌러 이미지를 등록해주세요.</p>
+						            </div>
+						            <div class="review_images">
+						                <input type="file" name="img_file" id="img_file">
+						                <div id="preview_img_div">
+						                    <div class="imgPlus">+</div>
+						                </div>
+						            </div>
+						        </div>
+		                    </div>
+		                </div>
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-insert" id="insertmodalbtn">등록</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		  </form>  
         
             <!-- 문의 -->
             <div id="pb_review_inquire_detail" name="pb_review_inquire_detail">
@@ -360,7 +375,7 @@
                 </div> <!-- 문의 내용 끝-->
             </div>
         </div>
-
+	
     <script>
     $(document).ready(function () {
     	$("#reviewmodal").modal("hide");
@@ -369,6 +384,7 @@
     $("#pb_review_writeform").click(function () {
       alert("modal 켜진다");
       $("#reviewmodal").modal("show");
+     
     });
     
     $("#reviewmodal").modal({
@@ -421,28 +437,6 @@
         $(".total__price").text(price * cnt + "원");
       });
       
-      $(function() {
-          $("#product_img_file").on("change", function() {
-            var files = !!this.files ? this.files : [];
-            if (!files.length || !window.FileReader) return;
-            if (/^image/.test(files[0].type)) {
-              var reader = new FileReader();
-              reader.readAsDataURL(files[0]);
-              reader.onloadend = function() {
-                $(".image_container").css({
-                  "background-image":
-                  "url(" + this.result + ")",
-                  "background-size":
-                  "contain",
-                  "background-repeat":
-                  "no-repeat",
-                }
-                );
-              };
-            }
-          });
-        });
-      
       // editor js 적용
       const value = $("#hiddenValue").text();
       const editor = new EditorJS({
@@ -491,6 +485,71 @@
   	   	console.log($("#post-body").width() + " " + $("#post-body").height());
   	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
      }
+     
+     // 후기 모달 이미지 부분
+       $(".imgPlus").click(function () {
+          $("#img_file").click()
+       });
+     
+		let imgCnt = 0;
+		let dd = new FormData();	
+       $("#img_file").change(function (e) {
+   	   	  console.dir(e.target.files[0]);
+		  dd.append("imageList",e.target.files[0]);
+   	   	  
+    	   
+            var reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = function () {
+                var tempImage = new Image();
+                tempImage.src = reader.result;
+                tempImage.onload = function () {
+                    var canvas = document.createElement('canvas');
+                    var canvasContext = canvas.getContext("2d");
+
+                    canvas.width = 100;
+                    canvas.height = 100;
+
+                    canvasContext.drawImage(this, 0, 0, 100, 100);
+                    
+                    var dataURI = canvas.toDataURL("image/jpeg");
+
+					imgCnt++;
+                    var imgTag = "<div><img id='preview_img' name='preview_img"+imgCnt+"' src='"+dataURI+"'/></div>";
+                    if(imgCnt == 10){
+                    	$(".imgPlus").hide();
+                    }
+                    $("#preview_img_div").prepend(imgTag);
+					if(imgCnt > 3){						
+// 	                    let bodyHeight = document.body.offsetHeight;
+	                    $(".modal-backdrop").css({height:"1100px"});
+					}
+                };
+            };
+       });
+       
+       $("#insertmodalbtn").click(function () {
+    	   let content = $(".product__content").val();
+    	   let pbNo = ${storepb.pbNo};
+    	   console.log(pbNo);
+ 		  dd.append("content",content );
+ 		  dd.append("pbNo", pbNo);
+
+    	   console.log(content);
+    	   console.log(dd);
+			$.ajax({
+				type:"POST",
+				processData:false,
+				contentType:false,
+				url : "/babmukja/store/pbreviewinsert.do",
+				data : dd,
+				success: function(result){
+					alert("등록성공");
+					location.href="detailpb.do?no="+${storepb.pbNo};
+				}
+			});
+       });
     </script>
 </body>
 </html>

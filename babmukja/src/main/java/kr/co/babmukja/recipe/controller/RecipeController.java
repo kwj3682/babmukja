@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +27,7 @@ import com.google.gson.Gson;
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeReview;
 
 
 
@@ -32,13 +35,29 @@ import kr.co.babmukja.repository.domain.Recipe;
 @RequestMapping("/recipe")
 public class RecipeController {
 	
-
 	@Autowired
 	private RecipeService service;	
-	
+
 	@RequestMapping("/main.do")
-	public void main(Model model) {		
-		model.addAttribute("list", service.selectRecipe());
+	public void main(Model model) {
+		List<Recipe> list = service.selectRecipe();
+		List<Recipe> result = new ArrayList<>();
+		for(Recipe recipe : list) {
+			String imgpath = "";
+			
+			if(recipe.getImgPath() == null) {
+				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
+				recipe.setImgPath(imgpath);
+				result.add(recipe);
+				System.out.println(imgpath);
+				continue;
+			}
+			System.out.println(imgpath);
+			String[] imgList = recipe.getImgPath().split(",");
+			recipe.setImgPath(imgList[0]);
+			result.add(recipe);
+		}
+		model.addAttribute("recipe", result);
 	}
 	
 	//-----------------------------------------------------------------------
@@ -119,6 +138,7 @@ public class RecipeController {
 	@RequestMapping("/detail.do")
 	public ModelAndView detail(ModelAndView mav, int no) {
 		Recipe recipe = service.selectRecipeByNo(no);
+		service.addViewCnt(no);
 		if(recipe == null) {
 			System.out.println("recipe is null at no."+no);
 			mav.setViewName("recipe/main");
@@ -145,4 +165,11 @@ public class RecipeController {
 		service.deleteRecipe(no);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "main.do";	
 	}
+	
+	@RequestMapping("/recipeComment.do")
+	@ResponseBody
+	public void writeComment(RecipeReview review) {
+		service.insertRecipeReview(review);
+	}
+	
 }

@@ -274,6 +274,7 @@
     width: 60px;
     height: 60px;
     border-radius: 30px;
+    margin-top: -20px;
 }
 
 #pb_review_user_info {
@@ -295,8 +296,7 @@
 }
 
 #pb_review_select {
-    display: grid;
-    grid-template-columns: 15% 85%;
+	height: auto;
 }
 
 #review_border-bottom {
@@ -305,8 +305,11 @@
 }
 
 #pb_review_select_img{
-    width: 112px;
+    width: 600px;
     height: 112px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap : 5px;
 }
 
 #pb_review_select_img img {
@@ -339,6 +342,14 @@
 
 #pb_review_select_content {
     color: rgb(81, 81, 81);
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#pb_review_body {
+    height: auto;
 }
 
 #pb_review_inquire_header > button:hover {
@@ -476,8 +487,55 @@
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     width: 500px;
-    height: 250px;
+    height: 170px;
     resize: none;
+}
+
+.content_length {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 15px;
+    color: gray;
+}
+
+.pb_product_content textarea {
+    width: 500px;
+}
+
+#preview_img_div {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap : 5px;
+}
+
+.imgPlus {
+    width: 100px;
+    height: 100px;
+    border: 1px dotted gray;
+    color: gray;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border-radius: 5px;
+    cursor : pointer;
+    
+}
+
+.review_images {
+    display: flex;
+    width: 500px;
+}
+
+#img_file {
+    display: none;
+}
+
+.pb_product_content {
+    height: 250px;
 }
 
 .pb_product_content textarea:focus {
@@ -485,32 +543,14 @@
     transition: border-color 0.5s ease-in-out;
 }
 
-.image_choice input[type="file"] {
-    position: absolute; 
-    width: 1px; 
-    height: 1px; 
-    padding: 0; 
-    margin: -1px; 
-    overflow: hidden; 
-    clip:rect(0,0,0,0); 
-    border: 0;
+.pb_insertform_container > .pb_product_content,
+                           .pb_reviewMap,
+                           .pb_product_plus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
 }
 
-.image_choice label {
-    display: inline-block; 
-    padding: .5em .75em; 
-    color: white; 
-    font-size: inherit; 
-    line-height: normal; 
-    vertical-align: middle; 
-    background-color: #7db341; 
-    cursor: pointer; 
-    border: 1px solid #ebebeb; 
-    border-bottom-color: #e2e2e2; 
-    border-radius: .25em;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
 
 .modal-footer {
     display: flex;
@@ -527,17 +567,6 @@
     cursor: pointer; 
     border-radius: .25em;
     font-weight: bold;
-}
-
-.image_container {
-    width: 500px;
-    height: 250px;
-    border: 2px solid gainsboro;
-    margin: 0 auto;
-    margin-top: 20px;
-    border-radius: 5px;
-    background-position: center center;
-    margin-bottom: 20px;
 }
 
 .pb_product_item {
@@ -574,11 +603,13 @@
     text-align: center;
 }
 
-.pb_product_item_price {
-    font-size: 15px;
-    
-    font-weight: bold;
-
+.review_images_msg {
+	font-weight: bold;
+    font-size: 18px;
+    margin-left: 8px;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: left;
 }
 
 .rating_msg {
@@ -657,3 +688,4 @@
   #reviewStars-input #star-5 {
     left: 265px;
   }
+

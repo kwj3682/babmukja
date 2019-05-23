@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ import com.google.gson.Gson;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
 
 @Controller("kr.co.babmukja.store.controller.StorePBController")
@@ -98,9 +100,7 @@ public class StorePBController {
 	// 아래부 editor js 테스트
 	
 	@RequestMapping("/mainpb.do")
-	public void mainpb(Model model) {
-		
-	}
+	public void mainpb(Model model) {}
 	
 	// pb 상품 등록 폼
 	@RequestMapping("/insertformpb.do")
@@ -210,9 +210,43 @@ public class StorePBController {
 		model.addAttribute("pageResult", result.get("pageResult"));
 	}
 	
-	// pb 상품 후기  등록 폼
-	@RequestMapping("/pbreviewinsertform.do")
-	public void reviewinsertform() {
+	// pb 상품 후기  등록
+	@RequestMapping("/pbreviewinsert.do")
+	@ResponseBody
+	public void pbreviewinsert(FileVO fileVO, StorePBReview reviewpb) throws Exception {
+		System.out.println(reviewpb.getContent());
+		String uploadRoot = "c:/bit2019/upload";
+		SimpleDateFormat sdf = new SimpleDateFormat(
+				"/yyyy/MM/dd"
+		);
+		
+		String path = "/pbReview" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false) file.mkdirs();
+		int max = service.getMax();
+		
+		for (MultipartFile mFile : fileVO.getImageList()) {
+			if (mFile.isEmpty()) {
+				break;
+			}
+			String uName =  UUID.randomUUID().toString();
+			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+			
+			//fileVO.setGroupNo(storepb.getGroupNo());
+			//1. max 값 가져오기
+			//2. max값을 fileVO에 넣기
+			fileVO.setGroupNo(max);
+			
+			//3. insertImage( <- max값을 포함한 fileVO 넣기)
+			fileVO.setPath(path);
+			fileVO.setOrgname(mFile.getOriginalFilename());
+			fileVO.setSysname(uName);
+			service.insertPBReviewImage(fileVO);
+
+		}
+		reviewpb.setPbNo(reviewpb.getPbNo());
+		reviewpb.setGroupNo(fileVO.getGroupNo());
+		service.insertPBReview(reviewpb);
 		
 	}
 }

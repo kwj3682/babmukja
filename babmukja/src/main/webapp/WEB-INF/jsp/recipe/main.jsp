@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,9 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/hash.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/turn.min.js"/>"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="swiper-container">
@@ -85,74 +89,197 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-                   <!--  <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p> -->
+
+                    <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
+
                 </div>
 
             </div>
         </div>
+         <!-- modal -->
+    <div id="turnModal" class="modal fade" tabindex="-1" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>       
+                    <p>인기 키워드 1</p>       
+                </div>
+                <div class="modal-body">
+                    <div id="turnJsDiv">
+				       	<div id="turnJs">
+				       		<div ignore="1" class="next-button"></div>
+				       		<div id="resultImage"></div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food1.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food2.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food3.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/food4.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src=" <c:url value="/resources/images/f1.jpg"/>">
+				       		</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/f2.jpg"/>">				       		
+							</div>
+				       		<div>
+				       			<img src="<c:url value="/resources/images/f3.jpg"/>">				       		
+							</div>
+				       		<div ignore="1" class="previous-button"></div>
+				       	</div>
+			    	</div>
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>    
+    	
         <div class="boundary"></div>
         <div id="sector3">
             <div id="sector3-body">
-                <div class="profile-container">
-                    <div class="profile-pic-box">
-                        <div>
-                            <img class="profile-picture" src="<c:url value="/resources/images/profile16.jpg"/>">
-                        </div>
-                        <div class="profile-name">
-                            <p>1분 전</p>
-                            <p>
-                                렁래쓰렁래
-                            </p>
-                        </div>
-                    </div>
-                    <div class="recipe-pic-box">
-                        <img src="<c:url value="/resources/images/foodthumbnail3.jpg"/>"/>
-                    </div>
-                    <div class="recipe-info">
-                        <i class="fas fa-heart fa-2x">50</i>
-                        <i class="fas fa-scroll fa-2x">60</i>
-                        <i class="fas fa-eye fa-2x">120</i>
-                    </div>
-                </div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            
+	            <c:forEach var="list" items="${recipe}">
+	            
+	                <div class="profile-container">
+	                    <div class="profile-pic-box">
+	                        <div>
+	                            <img class="profile-picture" src="<c:url value="/resources/images/profile16.jpg"/>">
+	                        </div>
+	                        <div class="profile-name">
+	                            <p>   
+	 								<fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd hh:mm:ss" />
+									<br>
+	                            	${list.title}
+									<br>
+	                            	${list.memNickname}
+	                            </p>
+	                        </div>
+	                    </div>
+	                    <div class="recipe-pic-box">
+	                        <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
+	                    </div>
+	                    <div class="recipe-info">
+	                        <i class="fas fa-heart fa-2x">50</i>
+	                        <i class="fas fa-scroll fa-2x">60</i>
+	                        <i class="fas fa-eye fa-2x">120</i>
+	                    </div>
+	                </div>
+	            </c:forEach>
+                
             </div>
             <div id="sector3-header"></div>
         </div>
-
-
     </div>
-
-
-
+    
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
-/*     $("#sector2-body").click(function () {
-	    $("#recipe-book-container").turn({
-			width:922,
-			height:600
-		});    	
+    
+    // 레시피 메인  - turn.js 적용부분
+    $("#recipe-book1").click(function () {   
+    	$("#resultImage").css({background:$(this).css("backgroundImage"),
+    							backgroundSize: "cover",
+    							backgroundRepeat : "no-repeat"});
+    	
+    	$("#turnModal").modal("show");   	
+    	
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width : 700,
+	    			height : 600,
+	    			elevation : 50		
+	    			
+	    	});
+	    }
+	    loadApp();    	
+    });
+    $("#recipe-book2").click(function () {   
+    	$("#resultImage").css({background:$(this).css("backgroundImage"),
+    							backgroundSize: "cover",
+    							backgroundRepeat : "no-repeat"});
+    	
+    	$("#turnModal").modal("show");   	
+    	
+    	$("#turnJsDiv").css(
+            	"display", "block"                
+    	); 
+	    function loadApp() {
+	    	$('#turnJs').turn({
+	    			width : 700,
+	    			height : 600,
+	    			elevation : 50		
+	    			
+	    	});
+	    }
+	    loadApp();    	
+    });
+    
+    $(document).ready(function () {
+    	$("#turnModal").modal("hide");
+    });
+	$("#turnModal").modal({
+	      backdrop: 'static'
+	 });
+
+/*     $(".close").click(function () {
+    	window.location = "main.do";
     }); */
-    $("#sector2-body").click(function() {
-		$('#recipe-book-container').turn({
-				display: 'single',
-				acceleration: true,
-				gradients: !$.isTouch,
-				elevation:50,
-				when: {
-					turned: function(e, page) {
-						/*console.log('Current view: ', $(this).turn('view'));*/
-					}
-				}
-			});
+    
+	// modal 창 이전버튼
+	
+	$('.previous-button').bind($.mouseEvents.over, function() {
+		
+		$(this).addClass('previous-button-hover');
+
+	}).bind($.mouseEvents.out, function() {
+		
+		$(this).removeClass('previous-button-hover');
+
+	}).bind($.mouseEvents.down, function() {
+		
+		$(this).addClass('previous-button-down');
+
+	}).bind($.mouseEvents.up, function() {
+		
+		$(this).removeClass('previous-button-down');
+
+	}).click(function() {		
+		$('#turnJs').turn('previous');
+
 	});
 	
-    
+	// modal 창 다음 버튼
+	$('.next-button').bind($.mouseEvents.over, function() {
+			
+			$(this).addClass('next-button-hover');
+	
+		}).bind($.mouseEvents.out, function() {
+			
+			$(this).removeClass('next-button-hover');
+	
+		}).bind($.mouseEvents.down, function() {
+			
+			$(this).addClass('next-button-down');
+	
+		}).bind($.mouseEvents.up, function() {
+			
+			$(this).removeClass('next-button-down');
+	
+		}).click(function() {
+			
+			$('#turnJs').turn('next');
+	
+		});
+
         var swiper = new Swiper('.swiper-container', {
             loop:true,
             autoplay: {

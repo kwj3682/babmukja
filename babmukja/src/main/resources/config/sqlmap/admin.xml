@@ -145,12 +145,10 @@
 		 where m.grade_no = g.grade_no
 		   and mem_no = #{memNo}
 	</select>
-
- 	<!-- <select id="selectMemberByNo" parameterType="int" resultMap="MemberMap">
-		select m.*, g.gradename, o.*
-		  from tb_member m, tb_grademap g, tb_order o
-		 where m.grade_no = g.grade_no
-		   and mem_no = #{memNo}		  
-	</select> 
-	 -->
+	<!-- 게시판 전체 조회 -->
+	<select id="selectBoardForRecipe">
+		select * from tb_recipe
+	</select>
+	<select id="selectBoard">
+	</select>
 </mapper>
