@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -101,62 +100,5 @@ public class NoticeController {
 //		model.addAttribute("count", count);
 //		model.addAttribute("pageResult", list.get("pageResult"));
 	}	
-	
-	/**
-     * 댓글 등록(Ajax)
-     * @param notice
-     * @param request
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value="/notice/addComment.do")
-    @ResponseBody
-    public String ajax_addComment(@ModelAttribute("notice") Notice notice, HttpServletRequest request) throws Exception{
-        
-        HttpSession session = request.getSession();
-        Member member = (Member)session.getAttribute("member");
-        
-        try{
-        
-            notice.setWriter(member.getMemId());        
-            NoticeServiceImpl.addComment(notice);
-            
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        
-        return "success";
-    }
-    
-    /**
-     * 게시물 댓글 불러오기(Ajax)
-     * @param notice
-     * @param request
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value="/notice/commentList.do", produces="application/json; charset=utf8")
-    @ResponseBody
-    public ResponseEntity ajax_commentList(@ModelAttribute("notice") Notice notice, HttpServletRequest request) throws Exception{
-        
-        HttpHeaders responseHeaders = new HttpHeaders();
-        ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
-        
-        // 해당 게시물 댓글
-        List<Notice> comment = NoticeServiceImpl.selectNoticeCommentByNo(notice);
-        
-        if(comment.size() > 0){
-            for(int i=0; i<comment.size(); i++){
-                HashMap hm = new HashMap();
-                hm.put("commentNo", comment.get(i).getCommentNO());
-                hm.put("content", comment.get(i).getContent());
-                hmlist.add(hm);
-            }
-            
-        }
-        
-        JSONArray json = new JSONArray(hmlist);        
-        return new ResponseEntity(json.toString(), responseHeaders, HttpStatus.CREATED);
-        
-    }
 }
+
