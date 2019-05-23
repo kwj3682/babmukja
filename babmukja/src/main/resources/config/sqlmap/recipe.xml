@@ -14,6 +14,7 @@
 		<result column="imgpath" property="imgPath" />
 		<result column="likecnt" property="likeCnt" />
 		<result column="scrapcnt" property="scrapCnt" />
+		<result column="keyword_no" property="keywordNo" />
 	</resultMap> 
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into tb_recipe(
@@ -51,7 +52,6 @@
 		  from tb_recipe
 		 where recipe_no = #{recipeNo}
 	</delete>
-	
 	<!-- 레시피 상세 댓글 부분 -->
 	<!-- 댓글 조회 -->
     <select id="selectReviewByNo" parameterType="int" resultType="RecipeReview">
@@ -78,4 +78,10 @@
     		#{recipeNo}, #{content}, #{memNo}, #{score}
     	)
     </insert>
+	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
+		select * 
+		  from tb_recipe 
+		 where keyword_no = #{no} 
+	</select>
+	
 </mapper>
