@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.common.page.PageResult;
+import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
 
 @Service("kr.co.babmukja.store.service.StorePBService")
@@ -82,5 +84,17 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public void deletePBStore(int no) {
 		mapper.deletePBStore(no);
+	}
+	
+	public void insertPBReview(StorePBReview reviewpb) {
+		mapper.insertPBReview(reviewpb);
+	}
+	
+	public void insertPBReviewImage(FileVO fileVO) {
+		mapper.insertPBReviewImage(fileVO);
+	}
+	
+	public int getMax() {
+		return mapper.selectMaxNum();
 	}
 }
