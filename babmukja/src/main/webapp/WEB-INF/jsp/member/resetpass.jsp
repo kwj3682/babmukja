@@ -29,8 +29,8 @@
 		<form id="resetPass" method="post" action="repass.do">
 			<div class="reset_pass_input">
 				<div class="pass_reset">
+					<div class="pass-content">*영어, 숫자 특수문자 합쳐서 8자리 이상 입력해주세요.</div>
 					<input type="password" name="memPass" id="memPass" placeholder="새로운 비밀번호">
-					<div class="pass-content">영어, 숫자 특수문자 합쳐서 8자리 이상 입력해주세요.</div>
 				</div>
 				<div class="pass_reset">
 					<input type="password" name="checkmemPass" id="checkmemPass" placeholder="비밀번호 확인">

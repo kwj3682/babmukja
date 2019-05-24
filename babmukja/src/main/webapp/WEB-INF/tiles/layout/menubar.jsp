@@ -26,8 +26,18 @@
         </div>
         <span id="sign">
             <i class="fas fa-user-circle fa-3x"></i>
-            <a href="<c:url value="/member/loginform.do"/>">로그인</a>
-            <a href="<c:url value="/member/signupform.do"/>">회원가입</a>
+            <c:if test="${sessionScope.user ne null}">
+        <a id="nickName" href="#">${user.memNickname}</a>
+        </c:if>
+        <c:if test="${sessionScope.user ne null}">
+         <a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
+        </c:if>
+        <c:if test="${sessionScope.user eq null}">
+         <a id="login" href="<c:url value="/member/loginform.do"/>">로그인</a>
+         </c:if>
+         <c:if test="${sessionScope.user eq null}">
+        <a id="signup" href="<c:url value="/member/signupform.do"/>">회원가입</a>
+        </c:if>
             <a href="#">마이홈</a>
         </span>
         <div id="optionalMenu1" class="optionalMenubar">
