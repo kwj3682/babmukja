@@ -92,6 +92,13 @@ public class RecipeServiceImpl implements RecipeService {
 	public void updateRecipeReview(RecipeReview review) {
 		mapper.updateRecipeReview(review);
 	}
+	
 
+	public List<Keyword> selectKeywordByNo(int no){
+		return mapper.selectKeywordByNo(no);
+	}
+	public List<Recipe> selectRecipeByKeyword(int no){
+		return mapper.selectRecipeByKeyword(no);
+	}
 }
 

@@ -18,6 +18,20 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/hash.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/turn.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/editor.min.js"/>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -82,6 +96,9 @@
                     	인기 키워드
                 </div>
                 <div></div>
+            <c:forEach var="key" items="${keyword}" varStatus="status">
+	            <input type="hidden" name="keyRank${status.index}" value="${key.keywordNo}">
+            </c:forEach>
             </div>
             <div id="sector2-body">
                 	<div id="recipe-book-container">
@@ -107,27 +124,28 @@
 				       	<div id="turnJs">
 				       		<div ignore="1" class="next-button"></div>
 				       		<div class="hard" id="resultImage"></div>
-				       		<div>
-				       			<img src="<c:url value="/resources/images/food1.jpg"/>">
+				       		
+				       		<div class="pageX" id="page1">
+<%-- 				       			<img src="<c:url value="/resources/images/food1.jpg"/>"> --%>
 				       		</div>
-				       		<div>
-				       			<img src="<c:url value="/resources/images/food2.jpg"/>">
+				       		<div class="pageX" id="page2">
+<%-- 				       			<img src="<c:url value="/resources/images/food2.jpg"/>"> --%>
 				       		</div>
-				       		<div>
-				       			<img src="<c:url value="/resources/images/food3.jpg"/>">
+				       		<div class="pageX" id="page3">
+<%-- 				       			<img src="<c:url value="/resources/images/food3.jpg"/>"> --%>
 				       		</div>
-				       		<div>
-				       			<img src="<c:url value="/resources/images/food4.jpg"/>">
+				       		<div class="pageX" id="page4">
+<%-- 				       			<img src="<c:url value="/resources/images/food4.jpg"/>"> --%>
 				       		</div>
-				       		<div>
-				       			<img src=" <c:url value="/resources/images/f1.jpg"/>">
-				       		</div>
-				       		<div>
-				       			<img src="<c:url value="/resources/images/f2.jpg"/>">				       		
-							</div>
-				       		<div class="hard">
-				       			<img src="<c:url value="/resources/images/f3.jpg"/>">				       		
-							</div>
+<!-- 				       		<div> -->
+<%-- 				       			<img src=" <c:url value="/resources/images/f1.jpg"/>"> --%>
+<!-- 				       		</div> -->
+<!-- 				       		<div> -->
+<%-- 				       			<img src="<c:url value="/resources/images/f2.jpg"/>">				       		 --%>
+<!-- 							</div> -->
+<!-- 				       		<div class="hard"> -->
+<%-- 				       			<img src="<c:url value="/resources/images/f3.jpg"/>">				       		 --%>
+<!-- 							</div> -->
 				       		<div ignore="1" class="previous-button"></div>
 				       	</div>
 			    	</div>
@@ -148,7 +166,7 @@
 	                <div class="profile-container">
 	                    <div class="profile-pic-box">
 	                        <div>
-	                            <img class="profile-picture" src="<c:url value="/resources/images/profile16.jpg"/>">
+	                            <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
 	                        </div>
 	                        <div class="profile-name">
 	                            <p>   
@@ -181,45 +199,97 @@
     
     
     
-    function loadApp() {
-    	if (!$("#turnJs").turn("is")) {
+    function loadApp(id) {
+    	if (!$(id).turn("is")) {
     		
-    		$("#turnJs").turn({
+    		$(id).turn({
     			width : 1000,
     			height : 700,
     			elevation : 50	
-    		}).turn("page",1);
+    		});
     	}
     }    
     // 레시피 메인  - turn.js 적용부분
     $("#recipe-book1").click(function () {   
     	$("#resultImage").css({background:$(this).css("backgroundImage"),
-    							backgroundSize: "cover",
-    							backgroundRepeat : "no-repeat"});
-    	
-    	$("#turnModal").modal("show");   	
-    	
-    	$("#turnJsDiv").css(
-            	"display", "block"                
-    	); 
+			backgroundSize: "cover",
+			backgroundRepeat : "no-repeat"});
+		console.log("키 랭크 값 : " + $("input[name='keyRank0']").val());
+	    $.ajax({
+	    	type:"GET",
+	    	url: "recipekeyword.do",
+	    	data:{
+	    		keywordNo : $("input[name='keyRank0']").val()
+	    		}
+	    }).done(function(response){
+	    	let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';
+	    	
+
+			let i = 1;
+	    	for(let res of response){
+		    	console.log("res : " + res);
+// 	    		html +="<div id='page"+i+"' class='pageX'></div>";
+// 	    		console.log("page : " + i);
+		        let editor = new EditorJS({
+		            holderId: 'page'+i,
+		            autofocus: false,
+		            data: JSON.parse(res.content),
+		            tools: { 
+		                warning: {
+		                    class: Warning,
+		                    inlineToolbar: true,
+		                },
+		     
+		                table: {
+		                    class: Table,
+		                    inlineToolbar: true,
+		                },                       
+		                quote: {
+		                    class: Quote,
+		                    inlineToolbar: true,
+		                },
+		    			image: {
+		                    class: ImageTool,
+		                },            
 	
-	    loadApp();    	
-    });
-    $("#recipe-book2").click(function () {   
-    	$("#resultImage").css({background:$(this).css("backgroundImage"),
-    							backgroundSize: "cover",
-    							backgroundRepeat : "no-repeat"});
-    	
-    	$("#turnModal").modal("show");   	
-    	
-    	$("#turnJsDiv").css(
-            	"display", "block"                
-    	); 
+		                header: {
+		                    class: Header,
+		                }, 
+		                checklist: {
+		                    class: Checklist,
+		                },
+		                linkTool: {
+		                    class: LinkTool,
+		                },
+		                marker: {
+		                    class: Marker,
+		                },
+		                list: {
+		                    class: List,
+		                },
+		                embed: {
+		                    class: Embed,
+		                }
+		            }
+		        });
+		        i++;
+	    	}
+// 	    	html+= '<div ignore="1" class="previous-button"></div>';
+// 	    	$("#turnJs").append(html);
+	    });
 
-	    loadApp();    	
-    });
 
+		$("#turnModal").modal("show");   	
+		
+		$("#turnJsDiv").css(
+		"display", "block"                
+		); 
+		
+    	loadApp("#turnJs");	    
+	    
+    });
     
+
     $(document).ready(function () {
     	$("#turnModal").modal("hide");
     });

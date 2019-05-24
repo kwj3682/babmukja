@@ -67,6 +67,13 @@ public class RecipeController {
 		model.addAttribute("keyword",service.selectKeywordMost());
 	}
 	
+	@RequestMapping("/recipekeyword.do")
+	@ResponseBody
+	public List<Recipe> recipeSeachByKeywordNo(int keywordNo) {
+
+		return service.selectRecipeByKeyword(keywordNo);
+	}
+	
 	//-----------------------------------------------------------------------
 	@RequestMapping("/writeform.do")
 	public void writeForm(Model model) {
@@ -151,8 +158,11 @@ public class RecipeController {
 	
 	@RequestMapping("/write.do")
 	@ResponseBody
-	public void write(Recipe recipe, int[] keywordNo) {
+	public void write(Recipe recipe, int[] keywordNo,HttpSession session) {
 		System.out.println("write.do 실행");
+		Member user =  (Member)session.getAttribute("user");
+		System.out.println("작성자 번호 : " + user.getMemNo());
+		recipe.setMemNo(user.getMemNo());
 		service.insertRecipe(recipe,keywordNo);
 	}
 	
@@ -165,8 +175,10 @@ public class RecipeController {
 			mav.setViewName("recipe/main");
 			return mav;
 		}
+		List<Keyword> keyword = service.selectKeywordByNo(no);
 		mav.setViewName("recipe/detail");
 		mav.addObject("recipe", recipe);
+		mav.addObject("keyword",keyword);
 		return mav;
 	}
 	

@@ -35,7 +35,12 @@
 
             
             <div id="post-info"><!-- post-info start -->
-                <div>#야식만보고삽니다</div>
+            	
+                <div id="keyword-container">
+                	<c:forEach var="keyword" items="${keyword}">
+	                	<div class="keyword-wrapper">#${keyword.keyword}</div>
+                	</c:forEach>
+                </div>
                 <div id="post-date">방금 전</div>
             </div><!-- post-info end -->
             <h2>${recipe.title}</h2>
@@ -137,13 +142,13 @@
     
     
     <script>
-    $("#comment-nope").click(function () {
-    	alert("로그인 후 이용가능합니다.");
-    });
+	    $("#comment-nope").click(function () {
+	    	alert("로그인 후 이용가능합니다.");
+	    });
     
-     $("#comment-submit").click(function () {
-    	 alert($("input[name='reviewStars']:checked").val());
-    	$.ajax({
+	     $("#comment-submit").click(function () {
+			//alert($("input[name='reviewStars']:checked").val());
+	    	$.ajax({
 	    		type: "post",
 	    		url : "recipeCommentWrite.do",
 	    		data : {
@@ -154,110 +159,111 @@
 	    		success : function(response) {
 	    			console.dir(response);
 	    			alert(response);
-    			}
-    		})
-    	});
+	   			}
+	    	});
+	    });
      
-     $.ajax({    	 
-	 		url: "recipeCommentList.do"	,
-	 		data : {
-	 			recipeNo : $("input[name='no']").val()	 			
-	 		}
-	 	})
-	 	.done(function (result) {	 		
-	 		if(result.comment.length == 0) {	 			
-	 			$("#comment-other").html("<h3>댓글이 없습니다.</h3>");
-	 		}
+	     $.ajax({    	 
+		 		url: "recipeCommentList.do"	,
+		 		data : {
+		 			recipeNo : $("input[name='no']").val()	 			
+		 		}
+		 	})
+		 	.done(function (result) {	 		
+		 		if(result.comment.length == 0) {	 			
+		 			$("#comment-other").html("<h3>댓글이 없습니다.</h3>");
+		 		}
+		 		
+		 		let html = "";	
+		 		
+		 		for(let i = 0; i < result.comment.length; i++) {
+		 			let date = new Date(result.comment[i].regdate);
+		 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
+		 					+'<img class="other-profile" src="">'
+		 					+'<div class="other-content-wrapper">'
+		 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
+		 					+'<div>'
+		 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'
+		 					+'<div class="other-rating">' +result.comment[i].score + '</div>'
+		 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
+		 					+'</div>'
+		 	     			+'<div class="other-content">' + result.comment[i].content + '</div>'
+		 	     			+'<c:if test="${sessionScope.user ne null}">'
+		 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button id="deleteComment">삭제</button></div>'
+		 	     			+'</c:if>'
+		 	     			+'</div></div>';	 
+		 		}	 	
+		 		
+		 	 	$("#comment-other").append(html);
+		 	});
+	    function dateFormat(date){
+	 	    function pad(num) {
+	 	        num = num + '';
+	 	        return num.length < 2 ? '0' + num : num;
+	 	    }
+	 	    return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
+	 	}
+	     $(document).on("click",".updateComment",function () {
+	    	 let no = $(this).parent().parent().find(".reviewNo").val();
+	    	 let html = "";
+	  		$.ajax({
+	 			url : "commentUpdateForm.do"
+	 			
+	 		}).done (function (data) {
+	 			$("#"+no).html (` <div id="comment-mine">
+	                	  <img src="">
+	                     <div id="comment-input-wrapper">
+	                       <div id="reviewStars-input">  
+	                            <input id="star-4" type="radio" name="reviewStars" value="5"/>
+	                            <label title="gorgeous" for="star-4"></label>
+	                        
+	                            <input id="star-3" type="radio" name="reviewStars" value="4"/>
+	                            <label title="good" for="star-3"></label>
+	                        
+	                            <input id="star-2" type="radio" name="reviewStars" value="3"/>
+	                            <label title="regular" for="star-2"></label>
+	                        
+	                            <input id="star-1" type="radio" name="reviewStars" value="2"/>
+	                            <label title="poor" for="star-1"></label>
+	                        
+	                            <input id="star-0" type="radio" name="reviewStars" value="1"/>
+	                            <label title="bad" for="star-0"></label>
+	                       </div>
+	                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
+	                    <textarea id="comment-input"></textarea>
+	                </div>                
+	                  <button id="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
+	                  <div><button id="">x</button></div>
+	            </div>`);
+	 			
+	 		}).fail(function(xhr) {
+	 			alert("오류 발생");
+	 		})	
 	 		
-	 		let html = "";	
-	 		
-	 		for(let i = 0; i < result.comment.length; i++) {
-	 			let date = new Date(result.comment[i].regdate);
-	 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
-	 					+'<img class="other-profile" src="">'
-	 					+'<div class="other-content-wrapper">'
-	 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
-	 					+'<div>'
-	 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'
-	 					+'<div class="other-rating">' +result.comment[i].score + '</div>'
-	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
-	 					+'</div>'
-	 	     			+'<div class="other-content">' + result.comment[i].content + '</div>'
-	 	     			+'<c:if test="${sessionScope.user ne null}">'
-	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button id="deleteComment">삭제</button></div>'
-	 	     			+'</c:if>'
-	 	     			+'</div></div>';	 
-	 		}	 	
-	 		
-	 	 		$("#comment-other").append(html);
-	 	});
+	     });
+	     $(document).on("click",".updateComment",function () {	
 	
-     $(document).on("click",".updateComment",function () {
-    	 let no = $(this).parent().parent().find(".reviewNo").val();
-    	 let html = "";
-  		$.ajax({
- 			url : "commentUpdateForm.do"
- 			
- 		}).done (function (data) {
- 			$("#"+no).html (` <div id="comment-mine">
-                	  <img src="">
-                     <div id="comment-input-wrapper">
-                       <div id="reviewStars-input">  
-                            <input id="star-4" type="radio" name="reviewStars" value="5"/>
-                            <label title="gorgeous" for="star-4"></label>
-                        
-                            <input id="star-3" type="radio" name="reviewStars" value="4"/>
-                            <label title="good" for="star-3"></label>
-                        
-                            <input id="star-2" type="radio" name="reviewStars" value="3"/>
-                            <label title="regular" for="star-2"></label>
-                        
-                            <input id="star-1" type="radio" name="reviewStars" value="2"/>
-                            <label title="poor" for="star-1"></label>
-                        
-                            <input id="star-0" type="radio" name="reviewStars" value="1"/>
-                            <label title="bad" for="star-0"></label>
-                       </div>
-                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
-                    <textarea id="comment-input"></textarea>
-                </div>                
-                  <button id="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
-                  <div><button id="">x</button></div>
-            </div>`);
- 			
- 		}).fail(function(xhr) {
- 			alert("오류 발생");
- 		})	
-     });
-     $(document).on("click",".updateComment",function () {	
-     function dateFormat(date){
-    	    function pad(num) {
-    	        num = num + '';
-    	        return num.length < 2 ? '0' + num : num;
-    	    }
-    	    return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
-    	}
-     
-        const value = $("#hiddenValue").text();
-    	$("#delete-button").click(function () {    		
-    		if(confirm("삭제하시겠습니까?") == true){
-    	        alert("삭제되었습니다");
-    	    }
-    	    else {
-    	        return false;
-    	    }
-    	});
-    	
-        $(document).ready(function() {
-            $("#comment-input").keyup(function (e){
-            $(this).css('height', 'auto' ).height( this.scrollHeight );
-            });
-        });
+	     
+	    	$("#delete-button").click(function () {    		
+	    		if(confirm("삭제하시겠습니까?") == true){
+	    	        alert("삭제되었습니다");
+	    	    }
+	    	    else {
+	    	        return false;
+	    	    }
+	    	});
+	     });
+		const value = $("#hiddenValue").text();
+	   $(document).ready(function() {
+	       $("#comment-input").keyup(function (e){
+	       $(this).css('height', 'auto' ).height( this.scrollHeight );
+	       });
+	   });
         
         const editor = new EditorJS({
             holderId: 'post-body',
 
-            autofocus: true,
+            autofocus: false,
             data: JSON.parse(value),
             tools: { 
                 warning: {

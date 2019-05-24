@@ -322,7 +322,6 @@
             	keyword.push($("input[name='taketime']:checked").val());
             	keyword.push($("input[name='foodtype']:checked").val());
         
-            	alert(keyword);
             	let content = JSON.stringify(outputData);
             	let title= $("#title").val();
             	

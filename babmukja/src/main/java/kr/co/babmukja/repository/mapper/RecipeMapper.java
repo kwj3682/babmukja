@@ -29,8 +29,13 @@ public interface RecipeMapper {
 	public void insertRecipeReview(RecipeReview review);
 	//키워드
 	public List<Keyword> selectKeyword();
+	public List<Keyword> selectKeywordByNo(int no);
+	
+	public List<Recipe> selectRecipeByKeyword(int no);
 	
 	public void insertKeywordToRecipe(Keyword keyword);
 	// 레시피 댓글 수정
 	public void updateRecipeReview(RecipeReview review);
+	
+
 }

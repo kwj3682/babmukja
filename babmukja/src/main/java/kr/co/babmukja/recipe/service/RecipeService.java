@@ -21,5 +21,7 @@ public interface RecipeService {
 	public void insertRecipeReview(RecipeReview review);
 	public List<Keyword> selectKeywordMost();
 	public List<Keyword> selectKeyword();
+	public List<Keyword> selectKeywordByNo(int no);
 	public void updateRecipeReview(RecipeReview review);
+	public List<Recipe> selectRecipeByKeyword(int no);
 }
