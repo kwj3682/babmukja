@@ -17,6 +17,8 @@
     <div class="noticelist">
         <h2>공지사항 전체조회</h2><br>
         <hr>
+        <td class="btnView"><button input type="button" style="font-size: 1.2em; float:left; vertical-align: middle;"> 
+        <a href='writeForm.do?noticeNo=${notice.noticeNo}'>등록</a></button></td>
         <table id="tableDesign">
                 <caption>전체조회</caption>
                 <tr>
@@ -26,7 +28,8 @@
 <!--                     <th class="inquirelist"><span>분류</span></th> -->
                     <th class="inquirelist"><span>등록일</span></th>
                     <th class="inquirelist"><span>조회</span></th>
-                    <th class="inquirelist"><span>댓글여부</span></th>
+                    <th class="inquirelist"><span>비고</span></th>
+<!--                     <th class="inquirelist"><span>댓글수</span></th> -->
                 </tr>
       <c:forEach var="notice" items="${list}">
          <tr>
@@ -35,7 +38,11 @@
                href='detail.do?no=${notice.noticeNo}'>${notice.title}</a></td>   
             <td class="inquirelist2"><fmt:formatDate pattern="yyyy/MM/dd" value="${notice.regDate}"/></td>
             <td class="inquirelist2">${notice.viewCnt}</td>
-            <td class="inquirelist2"><button><a href="writeForm.do">댓글등록</a></button></td>
+            <td class="inquirelist2"><button input type="button">
+				<a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a></button>
+		        <button input type="button"> <a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
+            </td>
+<%--       <td class="inquirelist2"><a href="comment.do">"${comment.commentNo}"</a></td> --%>
          </tr>
       </c:forEach>
 <!--                 <tr> -->
