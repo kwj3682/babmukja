@@ -239,6 +239,7 @@
 }
 
 .selectTab td {
+	width:60px;
     border-right: 1px solid gainsboro;
     height: 50px;
     font-size: 17px;
