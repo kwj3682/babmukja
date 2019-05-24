@@ -1,6 +1,7 @@
 package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class StorePBReview {
 	private int pbReviewNo;
@@ -12,7 +13,21 @@ public class StorePBReview {
 	private String memNickname;
 	private String path;
 	private String sysname;
+	private Member member;
+	private List<ReviewFileVO> reviewFile;
 
+	public List<ReviewFileVO> getReviewFile() {
+		return reviewFile;
+	}
+	public void setReviewFile(List<ReviewFileVO> reviewFile) {
+		this.reviewFile = reviewFile;
+	}
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
+	}
 	public String getPath() {
 		return path;
 	}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
@@ -58,12 +59,12 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBStore();
 	}
 
-	public StorePB selectPBStoreByNo(int no) {
-		return mapper.selectPBStoreByNo(no);
+	public StorePB selectPBStoreByNo(int pbNo) {
+		return mapper.selectPBStoreByNo(pbNo);
 	}
 	
-	public StorePB updateFormPBStore(int no) {
-		return mapper.selectPBStoreByNo(no);
+	public StorePB updateFormPBStore(int pbNo) {
+		return mapper.selectPBStoreByNo(pbNo);
 	}
 	
 	public void updatePBStore(StorePB storepb) {
@@ -87,8 +88,12 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBReviewSelect(storePBReview);
 	}
 	
-	public List<StorePBReview> selectReview(int pbReviewNo) {
-		return mapper.selectReview(pbReviewNo);
+	public List<StorePBReview> selectReview(int pbNo) {
+		return mapper.selectReview(pbNo);
+	}
+	
+	public List<ReviewFileVO> selectReviewFile(int pbReviewNo) {
+		return mapper.selectReviewFile(pbReviewNo);
 	}
 	
 //	public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo) {

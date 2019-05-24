@@ -17,5 +17,5 @@ public interface AdminService {
 	// pb 상품 등록 (관리자 전용)
 	public void insertPBStore(StorePB storepb);
 	// pb 상품 삭제 (관리자 전용)
-	public void deletePBStore(int no);
+	public void deletePBStore(int pbNo);
 }
