@@ -1,16 +1,16 @@
-var num = 1;
+var modalNum = 1;
 
 $(document).on("click", "#modal_location_plus", function () {
 
-    alert("num:" + num);
+    alert("modalNum:" + modalNum);
 
-    if (num > 3) {
+    if (modalNum > 3) {
         alert("활동지역은 3개까지만 선택 가능합니다.")
     } else {
         $(".modal_meetup_location_box").append(
             ` <div class="area_container" id="modal_area_container">
 
-<select name="select_modal_city${num}" class="select_modal_city" id="select_modal_city${num}">
+<select name="select_modal_city${modalNum}" class="select_modal_city" id="select_modal_city${modalNum}">
 
     <option>-선택-</option>
 
@@ -48,7 +48,7 @@ $(document).on("click", "#modal_location_plus", function () {
 
 </select>
 
-<select name="select_modal_town${num}" class="select_modal_town" id="select_modal_town${num}">
+<select name="select_modal_town${modalNum}" class="select_modal_town" id="select_modal_town${modalNum}">
     sel.html("<option>-선택-</option> <option value="전체">전체</option>");
 
 
@@ -56,9 +56,9 @@ $(document).on("click", "#modal_location_plus", function () {
 
 </div>
             `);
-        num++;
-        if (num >= 4) {
-            num = 4;
+        modalNum++;
+        if (modalNum >= 4) {
+        	modalNum = 4;
         }
     }//else
 });
@@ -68,9 +68,9 @@ $(document).on("click", "#modal_location_minus", function () {
     $(".area_container:last").remove();
     num--;
 
-    if (num < 1) {
+    if (modalNum < 1) {
         alert("더이상 삭제할 수 없습니다.");
-        num = 1;
+        modalNum = 1;
     }
 
 });

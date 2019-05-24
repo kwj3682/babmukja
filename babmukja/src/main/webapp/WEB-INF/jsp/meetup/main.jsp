@@ -513,7 +513,7 @@
                         <div class="info_pic"><img src='<c:url value ="/resources/images/meetup_patai.jpg"/>' width="384px" ,
                                 height="190px">
                         </div>
-                        <div class="info_line">오늘은 내가 짜파게티 요리사</div>
+                        <div class="info_line">세계 4대 진미 태국음식</div>
                         <div class="info_monthly_fee">
                             <sapn>월 회비: 5000원</sapn>
                         </div>
@@ -605,11 +605,12 @@
 
                         <div class="modal_meetup_location_container">
                             <div class="modal_meetup_location">활동지역</div>
-                            <div></div>
+                            
                             <div class="modal_meetup_plus_container">
                                 <div><i class="fas fa-plus-circle" id="modal_location_plus"></i> &nbsp;&nbsp; <i
                                         class="fas fa-minus-circle" id="modal_location_minus"></i></div>
                             </div>
+                            <div></div>
                             <div class="modal_meetup_location_box">
 
                             </div>
@@ -680,7 +681,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="modalEnrollSave">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="modalEnrollSave" data-dismiss="modal">Save changes</button>
                     </div>
                 <!--form tag-->
             </div>
