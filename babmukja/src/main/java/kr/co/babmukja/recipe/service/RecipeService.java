@@ -3,12 +3,13 @@ package kr.co.babmukja.recipe.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
 public interface RecipeService {	
-	public void insertRecipe(Recipe recipe);
+	public void insertRecipe(Recipe recipe,int[] keyList);
 	public Recipe selectRecipeByNo(int no);
 	public Recipe updateForm(int no);
 	public void updateRecipe(Recipe recipe);
@@ -21,4 +22,6 @@ public interface RecipeService {
 	public void updateRecipeReview(RecipeReview review); 
 	public void deleteRecipeReview(int no);
 //	public RecipeReview selectReviewByNo(int no);
+	public List<Keyword> selectKeywordMost();
+	public List<Keyword> selectKeyword();
 }

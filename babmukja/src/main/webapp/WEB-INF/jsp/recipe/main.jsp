@@ -64,7 +64,7 @@
                     <div>만든 이 <span id="monthly-profile-wrapper"><img id="monthly-profile" src="<c:url value="/resources/images/profile15.jpg"/>"></span></div>
                     <div id="paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem cum expedita libero unde quos nemo blanditiis molestias mollitia! Vitae deserunt minima accusantium, inventore magnam fuga doloribus dolorem illum dolorum debitis perferendis porro quasi, similique maxime? Eum, officiis nemo? Repellat, deserunt.</div>
                     <div>
-                        <div>111111<img src="<c:url value="/resources/images/f3.jpg"/>"></div>
+                        <div>11111<img src="<c:url value="/resources/images/f3.jpg"/>"></div>
                         <div>22222<img src="<c:url value="/resources/images/food1.jpg"/>"></div>
                         <div>33333<img src="<c:url value="/resources/images/foodthumbnail7.jpg"/>"></div>
                         <div>더 보기 <b>↓</b><img id="bottle" src="<c:url value="/resources/images/bottle.png"/>"></div>
@@ -79,17 +79,17 @@
             <div id="sector2-header">
                 <div></div>
                 <div>
-                    인기 키워드
+                    	인기 키워드
                 </div>
                 <div></div>
             </div>
             <div id="sector2-body">
-                <div id="recipe-book-container">
+                	<div id="recipe-book-container">
                     <div id="recipe-book1" class="recipe-book"></div>
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-                    <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
+                    
                 </div>
 
             </div>

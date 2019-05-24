@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
+import kr.co.babmukja.repository.domain.Pagepb;
+import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.mapper.AdminMapper;
 
 @Service("kr.co.babmukja.admin.service.AdminService")
@@ -47,5 +49,24 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
-
+	// pb 상품 전체조회( 관리자전용 )
+	public Map<String, Object> selectAdminPBList(Pagepb page) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("pbAdminList", mapper.selectAdminPBList(page));
+		result.put("pageResult", new PageResult(
+				page.getPageNo(), mapper.selectAdminPBListCount()));
+		
+		return result;
+	}
+	
+	// pb 상품 등록 (관리자 전용)
+	public void insertPBStore(StorePB storepb) {
+		mapper.insertPBStore(storepb);
+	}
+	
+	// pb 상품 삭제 (관리자 전용)
+	public void deletePBStore(int no) {
+		mapper.deletePBStore(no);
+	}
+	
 }

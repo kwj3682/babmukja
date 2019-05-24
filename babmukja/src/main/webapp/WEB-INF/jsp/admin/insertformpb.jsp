@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
-    <link rel="stylesheet" href="<c:url value="/resources/css/store/insertformpb.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/insertformpb.css"/>">
 </head>
 <body>
     <div id="writeform-header">상품 등록</div>
@@ -35,6 +35,7 @@
         <button>저장</button>
     </div>
     <script>
+    	let fileList="";
     	const editor = new EditorJS({
             holderId: 'editorjs',
 
@@ -88,7 +89,7 @@
                                     return new Promise(function (resolve, reject) {
 										alert("이미지 업로드 중...");
                                         $.ajax({
-                                            url: 'uploadpb.do',
+                                            url: '${pageContext.request.contextPath}/store/uploadpb.do',
                                             type: "post",
                     	   					processData: false,
                                           	contentType: false,
@@ -161,12 +162,21 @@
             }
         });
 
-        let saveBtn = document.querySelector("button");
+    	let saveBtn = document.querySelector("button");
         saveBtn.addEventListener("click", function () {
         	let storeName = $("#name").val();
         	let storePrice = $("#price").val();
             console.dir(editor)
             editor.save().then((outputData)=>{
+            	
+            	let cnt = 0;
+            	for(let fileUrl of outputData.blocks){
+            		if(fileUrl.type == 'image'){
+		            	fileList += (cnt==0)?fileUrl.data.file.url:","+fileUrl.data.file.url;   
+		            	cnt++;
+            		}
+            	}
+            	
             	let content = JSON.stringify(outputData);
             	let name= $("#name").val();
             	let price= $("#price").val();
@@ -175,9 +185,10 @@
 	   					url:"insertpb.do",
 						data: {content : content,
 								 name : name,
-								 price : price},
+								 price : price,
+								 imgPath : fileList},
 						success:function(result){
-			                location.href="<c:url value="/store/pbstoreselectlist.do"/>";
+			                location.href="<c:url value="/admin/pbstoreselectlist.do"/>";
 						}
             	});
                 console.log("Article data : ", outputData);

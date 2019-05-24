@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
@@ -25,8 +26,14 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 삽입
-	public void insertRecipe(Recipe recipe) {
+	public void insertRecipe(Recipe recipe,int[] keyList) {
 		mapper.insertRecipe(recipe);
+		for(int k: keyList) {
+			Keyword keyword = new Keyword();
+			keyword.setKeywordNo(k);
+			keyword.setRecipeNo(recipe.getRecipeNo());
+			mapper.insertKeywordToRecipe(keyword);
+		}
 	}
 
 	// 번호로 레시피 찾기
@@ -72,7 +79,13 @@ public class RecipeServiceImpl implements RecipeService {
 	public void insertRecipeReview(RecipeReview review) {
 		mapper.insertRecipeReview(review);
 	}
-
+	public List<Keyword> selectKeywordMost(){
+		return mapper.selectKeyword();
+	}
+	public List<Keyword> selectKeyword(){
+		return mapper.selectKeyword();
+	}
+	
 	// 레시피 댓글 수정
 	public void updateRecipeReview(RecipeReview review) {
 		mapper.updateRecipeReview(review);
