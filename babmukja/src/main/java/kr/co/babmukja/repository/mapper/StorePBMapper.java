@@ -25,7 +25,7 @@ public interface StorePBMapper {
 	*/
 	
 	public List<StorePB> selectPBStore();
-	public StorePB selectPBStoreByNo(int no);
+	public StorePB selectPBStoreByNo(int pbNo);
 	//public List<StorePB> selectAdminPBList(Pagepb page);
 	//public int selectAdminPBListCount();
 	//public void insertPBStore(StorePB storepb);
@@ -38,6 +38,7 @@ public interface StorePBMapper {
 	public void insertPBReview(StorePBReview reviewpb);
 	public void insertPBReviewImage(FileVO fileVO);
 	public int selectMaxNum();
-	public List<StorePBReview> selectReview(int pbReviewNo);
+	public List<StorePBReview> selectReview(int pbNo);
+	public List<ReviewFileVO> selectReviewFile(int pbReviewNo);
 	
 }
