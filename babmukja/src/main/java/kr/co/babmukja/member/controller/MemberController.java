@@ -54,7 +54,7 @@ public class MemberController {
 				System.out.println("이메일 인증 함");
 				session.setAttribute("user", mem);
 			}
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
 		} else {
 			System.out.println("로그인 실패");
 			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?fail=1";
@@ -67,7 +67,7 @@ public class MemberController {
 	@RequestMapping("/logout.do")
 	public String logOut(HttpSession session) {
 		session.invalidate(); // 세션 삭제
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/admin/main.do";
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
 	}
 
 	// 회원가입 폼
@@ -89,8 +89,8 @@ public class MemberController {
 		MailHandler sendMail = new MailHandler(mailSender);
 		StringBuffer sb = new StringBuffer();
 		sendMail.setSubject("[밥먹자] 이메일 인증");
-		sendMail.setText(sb.append("<h2>밥먹자 메일인증 입니다♬ 아래 링크를 눌러서 이메일 인증을 해주세요.</h2>")
-				.append("<a href='http://localhost/babmukja/member/confirm.do?MemEmail=" + member.getMemEmail())
+		sendMail.setText(sb.append("<h2>밥먹자 메일인증 입니다♬<br> 아래 링크를 눌러서 이메일 인증을 해주세요.</h2>")
+				.append("<a href='http://192.168.0.53/babmukja/member/confirm.do?MemEmail=" + member.getMemEmail())
 				.append(" 'target='_blank'>밥먹자 이메일 인증하기</a>").toString());
 		sendMail.setFrom("babmukja@babmukja.com", "밥먹자");
 		sendMail.setTo(member.getMemEmail());

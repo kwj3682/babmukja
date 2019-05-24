@@ -70,8 +70,7 @@
     	 limit #{begin}, #{end}
     </select>   
     
-    <!-- 전체 댓글 수 -->
-    
+    <!-- 전체 댓글 수 -->    
 	<select id="selectReviewCount" parameterType="page" resultType="int">
 		select count(*)
 		  from tb_recipe_review v
@@ -96,9 +95,24 @@
     	   set content = #{content},
     	         score = #{score}
     	 where recipe_review_no = #{recipeReviewNo}
-    	   and mem_no = #{memNo}
     </update>
-
+    
+    <!-- 댓글 하나만 가져오기 -->
+<!--     <select id="selectReviewByNo" parameterType="int" resultType="RecipeReview">
+    	select r.*, m.* 
+    	  from tb_recipe_review r
+    	 inner join tb_member m
+    	    on r.mem_no = m.mem_no
+    	 where recipe_review_no = #{recipeReviewNo}
+    </select> -->
+    
+	<!-- 댓글 삭제 -->
+	<delete id="deleteRecipeReview" parameterType="int">
+		delete 
+		  from tb_recipe_review
+		 where recipe_review_no = #{recipeReviewNo}
+	</delete>
+	
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
 		select r.*,m.mem_nickname
 		  from tb_recipe r,tb_recipe_keyword k,tb_member m

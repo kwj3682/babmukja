@@ -1,10 +1,9 @@
-.search_pass_container_container {
+.search_pass_container {
 	width: 1200px;
 	margin: 0 auto;
-	/*   width: 30%; */
-	text-align: center;
+	margin-top: 100px;
+	width: 30%;
 }
-
 .search_pass_title {
 	text-align: center;
 	font-size: 30px;
@@ -12,18 +11,21 @@
 	margin-bottom: 30px;
 	font-family: "Jua", sans-serif;
 }
-
+.search_pass_input {
+    text-align: center;
+}
 .search_pass_search {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 10px;
 }
-
+.search_pass_input {
+}
 .search_pass_input input {
 	margin-bottom: 20px;
 	padding: 10px;
 	box-sizing: border-box;
-	width: 300px;
+	width: 230px;
 	height: 45px;
 	outline: none;
 	border: 1px solid rgba(0, 0, 0, 0.1);
@@ -31,12 +33,10 @@
 	margin-bottom: 8px;
 	margin-right: 5px;
 }
-
 .search_pass_input input:focus {
 	border-color: #7db341;
 	transition: border-color 0.5s ease-in-out;
 }
-
 .search_pass_input button {
 	margin-left: 16px;
 	border: none;
@@ -45,12 +45,15 @@
 	color: white;
 	border-radius: 3px;
 	width: 120px;
-	height: 30px;
+	height: 38px;
 	font-weight: bold;
 	font-size: 16px;
 }
 .search_pass_input button:hover {
 	background-color: #749e45;
+}
+.search_pass_button {
+	text-align: center;
 }
 .search_pass_button button {
 	margin-top: 20px;
@@ -63,10 +66,20 @@
 	color: white;
 	font-weight: bold;
 	border-radius: 5px;
-	font-size: 17px;
+	font-size: 17px
 }
+
 .search_pass_button button:hover {
 	background-color: #749e45;
+}
+.email_check span {
+	font-weight: bold;
+}
+.certification_check span {
+	font-weight: bold;
+}
+.email_check{
+	margin-bottom: 15px;
 }
 /* .search_pass_input { */
 /*   display: none; */

@@ -17,7 +17,7 @@
             <div class="email__form-text">
                 <div class="email__send">밥먹자 ~ <i class="fas fa-utensils"></i> 인증 메일을 전송하였습니다.</div>
                 <div class="email_confirm">
-                    인증메일의 링크를 누르면 회원가입이 완료됩니다~!
+                    인증메일의 링크를 누르면 회원가입이 완료됩니다.
                 </div>
             </div>
         </div>

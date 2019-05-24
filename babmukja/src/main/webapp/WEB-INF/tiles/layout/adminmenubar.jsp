@@ -25,12 +25,19 @@
         <div id="menu7"><i class="fab fa-slack-hash"></i>해시태그관리</div>
         <i class="fas fa-user-circle fa-3x"></i>
         <c:if test="${sessionScope.user ne null}">
+        <a id="nickName" href="#">${user.memNickname}</a>
+        </c:if>
+        <c:if test="${sessionScope.user ne null}">
          <a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
         </c:if>
         <c:if test="${sessionScope.user eq null}">
          <a id="login" href="<c:url value="/member/loginform.do"/>">로그인</a>
          </c:if>
+         <c:if test="${sessionScope.user eq null}">
         <a id="signup" href="<c:url value="/member/signupform.do"/>">회원가입</a>
+        </c:if>
+        
+        
     </div>
 
     <div id="move">BABMUKJA-SERVICE PAGE</div>

@@ -149,25 +149,35 @@
 
                 <div id="pb_review_body">
                     <!-- 후기 프로필 -->
-              <c:forEach var="reviewList" items="${reviewList}">
+              <c:forEach var="reviewList" items="${reviewMap}">
                     <div id="pb_review_profile">
                         <div id="pb_review_profile_img">
-                            <img src="images/profile5.jpg">
+                            <img src="<c:url value='/resources/images/profile19.jpg'/>">
                         </div>
                         <div id="pb_review_user_info">
-                            <p class="review_user_nickname">${reviewList.memNickname}</p>
-                            <p class="review_user_rating">★★★★☆<span><fmt:formatDate value="${reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span></p>
+                            <p class="review_user_nickname">${reviewList.member.memNickname}</p>
+                            <p class="review_user_rating">★★★★☆<span><fmt:formatDate value="${reviewList.reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span></p>
                         </div>
                     </div>
                     <!-- 리뷰 사진 및 내용 -->
                     <div id="pb_review_select">
                         <div id="pb_review_select_content">
-                            <p>${reviewList.content}</p>
+                            <p>
+                            	${reviewList.reviewList.content}
+                            </p>
                         </div>
+                        
+                        
 	                        <div id="pb_review_select_img">
-	            	                <div><img src="downloadpb.do?path=${reviewList.path}&sysname=${reviewList.sysname}"></div>
-	                        </div>
-                    </div>
+         	                	<c:forEach var="file" items="${reviewList.reviewFile}">
+            		                <div>
+        	    	                	<img src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
+       	    	                	</div>
+  	    	                	</c:forEach>
+		                    </div>
+		                    
+		                    
+                    	</div>
               </c:forEach>
                     <div id="review_border-bottom"></div>
                 </div>  <!-- pb_review_body 끝-->
@@ -383,7 +393,6 @@
     });
     
     $("#pb_review_writeform").click(function () {
-      alert("modal 켜진다");
       $("#reviewmodal").modal("show");
      
     });
@@ -545,9 +554,9 @@
 				url : "/babmukja/store/pbreviewinsert.do",
 				data : dd,
 				success: function(result){
-					alert("등록성공");
-					alert(result.pbReviewNo);
-					location.href="detailpb.do?pbNo="+${storepb.pbNo}+"&pbReviewNo="+result.pbReviewNo;
+					alert("후기가 등록되었습니다.");
+					location.href="detailpb.do?pbNo="+${storepb.pbNo};
+				}
 			});
        });
     </script>
