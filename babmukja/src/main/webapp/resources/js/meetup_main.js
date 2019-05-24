@@ -42,7 +42,7 @@ $(".monthly_fee_title").click(function () {
 
 
 //tab 누를떄 변경부분
-for (let i = 0; i <= 4; i++) {
+for (let i = 0; i <= 5; i++) {
     let number = i;
 
     $("td:eq(" + number + ")").click(function () {
@@ -57,14 +57,27 @@ for (let i = 0; i <= 4; i++) {
     });
     //이거 쓰기mouseup
 }//for
+
 var num = 0;
+
+setInterval(function () {
+
+
+    $("td:eq(" + num + ")").click();
+    console.log(num);
+    num++;
+    if (num == 6) {
+        num = 0;
+    }
+}, 1400);
+
 var interval = setInterval(function () {
 
 
     $("td:eq(" + num + ")").click();
     console.log(num);
     num++;
-    if (num == 5) {
+    if (num == 6) {
         num = 0;
     }
 }, 1200);
