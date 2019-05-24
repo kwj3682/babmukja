@@ -41,9 +41,17 @@
 			<button type="button">아이디 찾기</button>
 		</div>
 
-
 		<div class="search_id">
 			<span class="search_id_result"></span>
+		</div>
+		
+		<div class="login_search_pass">
+			<div class="login_a">
+				<a href="<c:url value="/member/loginform.do"/>">로그인</a>
+			</div>
+			<div class="search_pass_a">
+				<a href="<c:url value="/member/searchpass.do"/>">비밀번호 재설정</a>
+			</div>
 		</div>
 	</div>
 	</main>
