@@ -327,9 +327,12 @@ html, body {
 	margin-left : 25px;
 }
 .recipe-pic-box img{ 
-    width: 97%;
+    width: 96%;
+    height:200px;
+    overflow:hidden; 
     margin-top: 15px;
-    margin-left: 3px;
+    margin-left: 5px;
+    
 }
 .recipe-info{
     display: flex;

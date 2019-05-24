@@ -35,7 +35,12 @@
 
             
             <div id="post-info"><!-- post-info start -->
-                <div>#야식만보고삽니다</div>
+            	
+                <div id="keyword-container">
+                	<c:forEach var="keyword" items="${keyword}">
+	                	<div class="keyword-wrapper">#${keyword.keyword}</div>
+                	</c:forEach>
+                </div>
                 <div id="post-date">방금 전</div>
             </div><!-- post-info end -->
             <h2>${recipe.title}</h2>
@@ -130,8 +135,7 @@
                     <i class="fab fa-instagram fa-3x"></i>
                 </div>
             
-            </div><!-- content-wrapper end -->
-            
+            </div><!-- content-wrapper end -->            
         </div><!-- right;body end -->
     </div> <!-- 전체 body end -->
     
@@ -139,21 +143,37 @@
     <script>
     $("#comment-nope").click(function () {
     	alert("로그인 후 이용가능합니다.");
+    	$("#comment-input").html("");
     });
     
-     $("#comment-submit").click(function () {
-    	 alert($("input[name='reviewStars']:checked").val());
+     $("#comment-submit").click(function () {    	 
     	$.ajax({
 	    		type: "post",
 	    		url : "recipeCommentWrite.do",
 	    		data : {
 	    				recipeNo : $("input[name='no']").val(),
-	    				score : $("input[name='reviewStars']").val(),
+	    				score : $("input[name='reviewStars']:checked").val(),
 	    				content : $("#comment-input").val()
 	    		},
-	    		success : function(response) {
-	    			console.dir(response);
-	    			alert(response);
+				success : function(result) {
+	    			let html = "";	
+	    	 		let date = new Date(result.regdate);
+	    	 		html += '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>' 
+	    	 					+'<img class="other-profile" src="">'
+	    	 					+'<div class="other-content-wrapper">'
+	    	 					+'<input type="hidden" class="reviewNo" value=' + result.recipeReviewNo + '>' 
+	    	 					+'<div>'
+	    	 					+'<div class="other-id">'+ result.memNickname +'</div>'
+	    	 					+'<div class="other-rating">' +result.score + '</div>'
+	    	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
+	    	 					+'</div>'
+	    	 	     			+'<div class="other-content">' + result.content + '</div>'
+	    	 	     			+'<c:if test="${sessionScope.user.memNo eq result.memNo}">'
+	    	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
+	    	 	     			+'</c:if>'
+	    	 	     			+'</div></div>';	 
+	    	 			
+	    	 	 $("#comment-other").append(html);
     			}
     		})
     	});
@@ -168,9 +188,7 @@
 	 		if(result.comment.length == 0) {	 			
 	 			$("#comment-other").html("<h3>댓글이 없습니다.</h3>");
 	 		}
-	 		
 	 		let html = "";	
-	 		
 	 		for(let i = 0; i < result.comment.length; i++) {
 	 			let date = new Date(result.comment[i].regdate);
 	 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
@@ -183,23 +201,22 @@
 	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
 	 					+'</div>'
 	 	     			+'<div class="other-content">' + result.comment[i].content + '</div>'
-	 	     			+'<c:if test="${sessionScope.user ne null}">'
-	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button id="deleteComment">삭제</button></div>'
+	 	     			+'<c:if test="${sessionScope.user.memNo eq result.comment[i].memNo}">'
+	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
 	 	     			+'</c:if>'
 	 	     			+'</div></div>';	 
-	 		}	 	
-	 		
+	 		}	
 	 	 		$("#comment-other").append(html);
 	 	});
 	
+     // 댓글 수정 버튼 이벤트
      $(document).on("click",".updateComment",function () {
     	 let no = $(this).parent().parent().find(".reviewNo").val();
     	 let html = "";
   		$.ajax({
- 			url : "commentUpdateForm.do"
- 			
+ 			url : "commentUpdateForm.do" 			
  		}).done (function (data) {
- 			$("#"+no).html (` <div id="comment-mine">
+ 			$("#"+no).after (` <div id="comment-mine">
                 	  <img src="">
                      <div id="comment-input-wrapper">
                        <div id="reviewStars-input">  
@@ -221,16 +238,17 @@
                     <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
                     <textarea id="comment-input"></textarea>
                 </div>                
-                  <button id="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
-                  <div><button id="">x</button></div>
+                  <button class="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
+                  <div><button class="comment-">x</button></div>
             </div>`);
  			
  		}).fail(function(xhr) {
  			alert("오류 발생");
  		})	
      });
-     $(document).on("click",".updateComment",function () {	
-     function dateFormat(date){
+     
+     	// timestamp 날짜형식 바꾸는 함수
+     	function dateFormat(date){
     	    function pad(num) {
     	        num = num + '';
     	        return num.length < 2 ? '0' + num : num;
@@ -238,6 +256,7 @@
     	    return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
     	}
      
+     	// 레시피 삭제하기
         const value = $("#hiddenValue").text();
     	$("#delete-button").click(function () {    		
     		if(confirm("삭제하시겠습니까?") == true){
@@ -248,6 +267,21 @@
     	    }
     	});
     	
+    	// 댓글 삭제하기
+    	$(document).on("click", ".deleteComment", function () {
+    		let num = $(this).parent().parent().find(".reviewNo").val();
+    		$.ajax({
+    			url : "commentDelete.do",
+    			data :"no=" + num
+    		}).done(function (result) {
+    			if(result == 0 ) {
+	    			$("#"+ num).html("");    				
+    			}
+    		})   		
+    		
+    	});
+    		
+    	
         $(document).ready(function() {
             $("#comment-input").keyup(function (e){
             $(this).css('height', 'auto' ).height( this.scrollHeight );
@@ -257,7 +291,7 @@
         const editor = new EditorJS({
             holderId: 'post-body',
 
-            autofocus: true,
+            autofocus: false,
             data: JSON.parse(value),
             tools: { 
                 warning: {

@@ -70,8 +70,7 @@
     	 limit #{begin}, #{end}
     </select>   
     
-    <!-- 전체 댓글 수 -->
-    
+    <!-- 전체 댓글 수 -->    
 	<select id="selectReviewCount" parameterType="page" resultType="int">
 		select count(*)
 		  from tb_recipe_review v
@@ -96,13 +95,30 @@
     	   set content = #{content},
     	         score = #{score}
     	 where recipe_review_no = #{recipeReviewNo}
-    	   and mem_no = #{memNo}
     </update>
-
+    
+    <!-- 댓글 하나만 가져오기 -->
+<!--     <select id="selectReviewByNo" parameterType="int" resultType="RecipeReview">
+    	select r.*, m.* 
+    	  from tb_recipe_review r
+    	 inner join tb_member m
+    	    on r.mem_no = m.mem_no
+    	 where recipe_review_no = #{recipeReviewNo}
+    </select> -->
+    
+	<!-- 댓글 삭제 -->
+	<delete id="deleteRecipeReview" parameterType="int">
+		delete 
+		  from tb_recipe_review
+		 where recipe_review_no = #{recipeReviewNo}
+	</delete>
+	
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
-		select * 
-		  from tb_recipe 
-		 where keyword_no = #{no} 
+		select r.*,m.mem_nickname
+		  from tb_recipe r,tb_recipe_keyword k,tb_member m
+		 where m.mem_no = r.mem_no
+		   and r.recipe_no = k.recipe_no
+		   and k.keyword_no = #{no}	
 	</select>
 	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
 	<select id="selectKeywordMost" resultMap="keywordMap">
@@ -119,5 +135,11 @@
 	<insert id="insertKeywordToRecipe" parameterType="Keyword">
 		insert into tb_recipe_keyword (keyword_no,recipe_no) values (#{keywordNo}, #{recipeNo})
 	</insert>
+	<select id="selectKeywordByNo" parameterType="int" resultMap="keywordMap">
+		select * 
+		  from tb_recipe_keyword rk, tb_keyword k 
+		 where rk.keyword_no = k.keyword_no
+		       and rk.recipe_no = #{recipeNo}
+	</select>
 
 </mapper>

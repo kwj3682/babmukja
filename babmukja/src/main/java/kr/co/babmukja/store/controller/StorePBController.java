@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
+import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
@@ -126,7 +127,19 @@ public class StorePBController {
 	@RequestMapping("/detailpb.do")
 	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
-
+		List<StorePBReview> reviewList = service.selectReview(pbNo);
+		List<ReviewMap> reviewMap = new ArrayList<>();
+		for(StorePBReview pb : reviewList) {
+			
+			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
+			
+			ReviewMap rm = new ReviewMap();
+			rm.setReviewFile(reviewFileList);
+			rm.setReviewList(pb);
+			rm.setMember(pb.getMember());
+			reviewMap.add(rm);
+		}
+		
 		if (store == null) {
 			System.out.println("store is null !!!");
 			mav.setViewName("store/mainpb");
@@ -144,32 +157,25 @@ public class StorePBController {
 		mav.setViewName("store/detailpb");
 		mav.addObject("storepb", store);
 		mav.addObject("imgList", store.getImgPath().split(","));
+		mav.addObject("reviewList", reviewList);
+		mav.addObject("reviewMap",reviewMap);
 		///////////////////////////////////////////////////////////
-		List<StorePBReview> pbReviewList = service.selectReview(pbNo);
-		
-		for(StorePBReview pb : pbReviewList) {
-			int reviewNo = pb.getPbReviewNo();
-				
-			
-		}
-		
-		
 		
 		
 		/////////////////////////////////////////////////////////////
-		System.out.println(pbNo);
-		System.out.println(storePBReview.getPbReviewNo());
-		storePBReview.setPbNo(pbNo);
-		storePBReview.setPbReviewNo(storePBReview.getPbReviewNo());
-		mav.addObject("reviewList", service.selectPBReviewSelect(storePBReview));
+//		System.out.println(pbNo);
+//		System.out.println(storePBReview.getPbReviewNo());
+//		storePBReview.setPbNo(pbNo);
+//		storePBReview.setPbReviewNo(storePBReview.getPbReviewNo());
+//		mav.addObject("reviewList", service.selectPBReviewSelect(storePBReview));
 		//mav.addObject("reviewListImages", service.selectPBReviewSelectImage(storepbreview.getPbReviewNo()));
 		return mav;
 	}
 	
 	// pb 상품 수정 폼
 	@RequestMapping("/updateformpb.do")
-	public void updatepbform(Model model, int no) {
-		model.addAttribute("storepb", service.updateFormPBStore(no));
+	public void updatepbform(Model model, int pbNo) {
+		model.addAttribute("storepb", service.updateFormPBStore(pbNo));
 	}
 	
 	// pb 상품 수정
@@ -206,7 +212,7 @@ public class StorePBController {
 		bis.close();  fis.close();
 		bos.close();  out.close();
 	}
-	
+
 	@RequestMapping("/uploadpb.do")
 	@ResponseBody
 	public Object uploadpb(FileVO fileVO) throws Exception {
@@ -236,7 +242,7 @@ public class StorePBController {
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
-	public StorePBReview pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb) throws Exception {
+	public void pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb) throws Exception {
 		System.out.println(reviewpb.getContent());
 		reviewpb.setPbNo(reviewpb.getPbNo());
 		service.insertPBReview(reviewpb);
@@ -265,6 +271,5 @@ public class StorePBController {
 			service.insertPBReviewImage(fileVO);
 
 		}
-		return reviewpb;
 	}
 }

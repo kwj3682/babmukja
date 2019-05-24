@@ -272,6 +272,39 @@
 	</select>
 	 -->
 	 
+ 	<resultMap id="MemberMap" type="Member">
+		<result column="mem_no" property="memNo" />
+		<result column="mem_name" property="memName" />
+		<result column="mem_phone" property="memPhone" />
+		<result column="mem_email" property="memEmail" />
+		<result column="mem_nickname" property="memNickname" />
+		<result column="mem_pass" property="memPass" />
+		<result column="post_no" property="postNo" />
+		<result column="addr_default" property="addrDefault" />
+		<result column="addr_detail" property="addrDetail" />
+		<result column="manager_at" property="managerAt" />
+		<result column="img_orgname" property="imgOrgname" /> 
+		<result column="img_sysname" property="imgSysname" />
+		<result column="sign_date" property="signDate" />
+		<result column="last_date" property="lastDate" />
+		<result column="social_at" property="socialAt" />
+		<result column="point" property="point" />
+		<result column="grade_no" property="gradeNo" />
+		<result column="gradename" property="gradeName" />		
+		<result column="img_path" property="imgPath" />
+		<result column="recipe_cnt" property="recipeCnt" />
+		<result column="selling_cnt" property="sellingCnt" />		
+		<result column="totalBuy" property="totalBuy" />
+		<result column="totalSel" property="totalSel" />		
+		<result column="order_no" property="orderNo" />		
+		<result column="sell_mem_no" property="sellMemNo" />		
+		<result column="but_mem_no" property="buyMemNo" />		
+		<result column="tot_count" property="totCount" />		
+		<result column="get_" property="get" />		
+		<result column="order_sum" property="orderSum" />		
+		<result column="delivery_no" property="deliveryNo" />		
+	</resultMap>	
+	 
 	<!-- 후기 조회 파트  -->
 	<resultMap id="pbReviewSelectMap" type="storePBReview" >
 		<result column="pb_review_no" property="pbReviewNo"/>
@@ -284,6 +317,8 @@
 		<result column="path" property="path"/>
 		<result column="sysname" property="sysname"/>
 		
+		<collection property="member" column="mem_no" select="selectReviewNickName"/>
+		<collection property="reviewFile" column="pb_review_no" select="selectReviewFile"/>
 	</resultMap>
 	
 	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="int">
@@ -292,6 +327,18 @@
 		 where pb_no = #{pbNo}
 	</select>
 	
+	<select id="selectReviewFile" resultMap="fileMap" parameterType="int">
+		select *
+		  from tb_file
+		 where pb_review_no = #{pbReviewNo}
+	</select>
+	
+	<select id="selectReviewNickName" parameterType="int" resultMap="MemberMap">
+		select *
+	   	  from tb_member
+	   	 where mem_no = #{memNo}
+	</select>
+	<!-- 
 	<select id="selectPBReviewSelect" parameterType="storePBReview" resultMap="pbReviewSelectMap">
 		select m.mem_nickname, r.*, f.path, f.sysname
 		  from tb_pb_review r, tb_member m, tb_file f
@@ -300,7 +347,7 @@
 		   and r.pb_no = #{pbNo}
 		   and r.pb_review_no = #{pbReviewNo}
 	</select>
-	
+	 -->
 	<!-- 
 	<select id="selectPBReviewSelect" resultMap="pbReviewSelectMap" parameterType="int">
 		 select m.mem_nickname, r.*

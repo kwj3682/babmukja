@@ -15,30 +15,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="commentCount" resultType="int">
         select
             count(*)
-        from tb_notice_comment
+        from comment
     </select>
     
     <select id="commentList" resultType="kr.co.babmukja.repository.domain.Comment">
     select *
-	from tb_notice_comment
+	from comment
     </select>
     
     
     <insert id="commentInsert" parameterType="kr.co.babmukja.repository.domain.Comment">
-        insert into tb_notice_comment 
-        (comment_no, content, secret_at, notice_no)
-        values(#{commentNO},#{content},#{secretAt},#{noticeNo}) 
+        insert into comment 
+        (comment_no, notice_no, content, writer, reg_date)
+        values(#{commentNO},#{noticeNO},#{content},#{writer},now()) 
     </insert>
     
     <update id="commentUpdate" parameterType="kr.co.babmukja.repository.domain.Comment">
-       update tb_notice_comment
+       update comment
             set content = #{content}
        where comment_no = #{commentNo}
     </update>
     
     <delete id="commentDelete" parameterType="int">
         delete
-		from tb_notice_comment
+		from comment
 		where comment_no = #{commentNo}
     </delete>
 </mapper>

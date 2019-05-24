@@ -20,19 +20,24 @@
             <ul>
                 <li><a id="menu0" class="menu" href="#">About us</a></li>
                 <li><a id="menu1" class="menu" href="<c:url value="/recipe/main.do"/>">레시피</a></li>
-<<<<<<< HEAD
-                <li><a id="menu2" class="menu" href="<c:url value="/admin/pbstoreindex.do"/>">스토어</a></li>
-                <li><a id="menu3" class="menu" href="<c:url value="/meetup/main.do"/>">쿠킹 미팅</a></li>
-=======
                 <li><a id="menu2" class="menu" href="<c:url value="/store/mainpb.do"/>">스토어</a></li>
                 <li><a id="menu3" class="menu" href="<c:url value="/meetup/detail.do"/>">쿠킹 미팅</a></li>
->>>>>>> bit
             </ul>
         </div>
         <span id="sign">
             <i class="fas fa-user-circle fa-3x"></i>
-            <a href="<c:url value="/member/loginform.do"/>">로그인</a>
-            <a href="<c:url value="/member/signupform.do"/>">회원가입</a>
+            <c:if test="${sessionScope.user ne null}">
+        <a id="nickName" href="#">${user.memNickname}</a>
+        </c:if>
+        <c:if test="${sessionScope.user ne null}">
+         <a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
+        </c:if>
+        <c:if test="${sessionScope.user eq null}">
+         <a id="login" href="<c:url value="/member/loginform.do"/>">로그인</a>
+         </c:if>
+         <c:if test="${sessionScope.user eq null}">
+        <a id="signup" href="<c:url value="/member/signupform.do"/>">회원가입</a>
+        </c:if>
             <a href="#">마이홈</a>
         </span>
         <div id="optionalMenu1" class="optionalMenubar">

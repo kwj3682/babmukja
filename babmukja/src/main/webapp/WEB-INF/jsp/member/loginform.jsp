@@ -24,7 +24,7 @@
 	<div class="login__container">
 		<div class="login__logo">
 			<p>
-				<a href="<c:url value="/admin/main.do" />">밥먹자 ~ <i class="fas fa-utensils"></i></a>
+				<a href="<c:url value="/recipe/main.do" />">밥먹자 ~ <i class="fas fa-utensils"></i></a>
 			</p>
 		</div>
 
@@ -47,7 +47,7 @@
 				<a href="<c:url value="/member/searchid.do"/>">아이디 찾기</a>
 			</div>
 			<div class="search__pass">
-				<a href="<c:url value="/member/searchpass.do"/>">비밀번호 찾기</a>
+				<a href="<c:url value="/member/searchpass.do"/>">비밀번호 재설정</a>
 			</div>
 		</div>
 

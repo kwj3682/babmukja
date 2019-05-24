@@ -18,8 +18,12 @@ public interface RecipeService {
 	public void addViewCnt(int no);
 	public Map<String, Object> selectReviewByNo(Page page);
 	public int selectReviewCount(Page page);
-	public void insertRecipeReview(RecipeReview review);
+	public void insertRecipeReview(RecipeReview review);	
+	public void updateRecipeReview(RecipeReview review); 
+	public void deleteRecipeReview(int no);
+//	public RecipeReview selectReviewByNo(int no);
 	public List<Keyword> selectKeywordMost();
 	public List<Keyword> selectKeyword();
-	public void updateRecipeReview(RecipeReview review);
+	public List<Keyword> selectKeywordByNo(int no);
+	public List<Recipe> selectRecipeByKeyword(int no);
 }

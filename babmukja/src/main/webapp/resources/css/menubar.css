@@ -110,4 +110,6 @@ a:hover{
 .optionalMenubar li > a:hover{
     color: #7db341;
 }
-
+#nickName {
+	margin-rigth: 10px;
+}

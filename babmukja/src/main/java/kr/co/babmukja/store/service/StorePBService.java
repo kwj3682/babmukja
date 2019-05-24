@@ -25,10 +25,10 @@ public interface StorePBService {
 	*/
 	
 	public List<StorePB> selectPBStore();
-	public StorePB selectPBStoreByNo(int no);
+	public StorePB selectPBStoreByNo(int pbNo);
 	// public Map<String, Object> selectAdminPBList(Pagepb page);
 	//public void insertPBStore(StorePB storepb);
-	public StorePB updateFormPBStore(int no);
+	public StorePB updateFormPBStore(int pbNo);
 	public void updatePBStore(StorePB storepb);
 	//public void deletePBStore(int no);
 	
@@ -38,5 +38,6 @@ public interface StorePBService {
 	public int getMax();
 	public List<StorePBReview> selectPBReviewSelect(StorePBReview storePBReview);
 	//public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo);
-	public List<StorePBReview> selectReview(int pbReviewNo);
+	public List<StorePBReview> selectReview(int pbNo);
+	public List<ReviewFileVO> selectReviewFile(int pbReviewNo); 
 }

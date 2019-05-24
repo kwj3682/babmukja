@@ -20,13 +20,23 @@
     <definition name="store/*" extends="template">
         <put-attribute name="body"   value="/WEB-INF/jsp/store/{1}.jsp" />
     </definition>
+    
     <definition name="recipe/*" extends="template">
         <put-attribute name="body"   value="/WEB-INF/jsp/recipe/{1}.jsp" />
     </definition>
+    
     <definition name="meetup/*" extends="template">
         <put-attribute name="body"   value="/WEB-INF/jsp/meetup/{1}.jsp" />
     </definition>
-
+    
+     <definition name="member/emailform" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/member/emailform.jsp"/>
+    </definition>
+    
+    <definition name="member/emailcheck" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/member/emailcheck.jsp"/>
+    </definition>
+    
 
     <definition name="admin/*" extends="template2">
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/{1}.jsp" />

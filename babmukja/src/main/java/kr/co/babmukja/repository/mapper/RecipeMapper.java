@@ -21,6 +21,8 @@ public interface RecipeMapper {
 	public List<Recipe> selectRecipe();
 	// 레시피 조회수 증가
 	public void addViewCnt(int no);
+	
+	
 	// 레시피 댓글 조회
 	public List<RecipeReview> selectReviewByNo(Page page);
 	// 레시피 수 카운트
@@ -29,8 +31,17 @@ public interface RecipeMapper {
 	public void insertRecipeReview(RecipeReview review);
 	//키워드
 	public List<Keyword> selectKeyword();
+	public List<Keyword> selectKeywordByNo(int no);
+	
+	public List<Recipe> selectRecipeByKeyword(int no);
 	
 	public void insertKeywordToRecipe(Keyword keyword);
 	// 레시피 댓글 수정
-	public void updateRecipeReview(RecipeReview review);
+	
+
+	public void updateRecipeReview(RecipeReview review); 
+	// 레시피 댓글 삭제 
+	public void deleteRecipeReview(int no); 	
+	// 레시피 댓글 하나 가져오기
+	
 }
