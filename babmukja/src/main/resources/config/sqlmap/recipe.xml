@@ -22,6 +22,7 @@
 		<result column="keyword" property="keyword"/>
 		<result column="cnt" property="cnt"/>
 	</resultMap>
+	
 	<insert id="insertRecipe" parameterType="recipe" useGeneratedKeys="true" keyProperty="recipeNo">
 		insert into tb_recipe(
 					mem_no,title,content,imgpath)
@@ -58,7 +59,9 @@
 		  from tb_recipe
 		 where recipe_no = #{recipeNo}
 	</delete>
+	
 	<!-- 레시피 상세 댓글 부분 -->
+	
 	<!-- 댓글 조회 -->
     <select id="selectReviewByNo" parameterType="page" resultType="RecipeReview">
     	select r.*, m.*
@@ -80,14 +83,16 @@
 	</select>
     
     <!-- 댓글 등록 -->
-    <insert id="insertRecipeReview" parameterType="RecipeReview">
+    <insert id="insertRecipeReview" parameterType="RecipeReview">    	
+    <selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
+    	SELECT LAST_INSERT_ID()
+  	</selectKey>
     	insert into tb_recipe_review (
 			recipe_no, content, mem_no, score    	
     	) values (
     		#{recipeNo}, #{content}, #{memNo}, #{score}
     	)
-    </insert>
-    <!-- 해당 키워드에 포함되는 레시피 가져오기(가장 높은 조회수) -->
+    </insert>    
     
     <!-- 댓글 수정 -->
     <update id="updateRecipeReview" parameterType="RecipeReview">
@@ -98,13 +103,13 @@
     </update>
     
     <!-- 댓글 하나만 가져오기 -->
-<!--     <select id="selectReviewByNo" parameterType="int" resultType="RecipeReview">
+    <select id="selectOneReviewByNo" parameterType="int" resultType="RecipeReview">
     	select r.*, m.* 
     	  from tb_recipe_review r
     	 inner join tb_member m
     	    on r.mem_no = m.mem_no
     	 where recipe_review_no = #{recipeReviewNo}
-    </select> -->
+    </select> 
     
 	<!-- 댓글 삭제 -->
 	<delete id="deleteRecipeReview" parameterType="int">
@@ -113,11 +118,13 @@
 		 where recipe_review_no = #{recipeReviewNo}
 	</delete>
 	
+	<!-- 레시피 키워드 시작 -->
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
 		select * 
 		  from tb_recipe 
 		 where keyword_no = #{no} 
 	</select>
+	
 	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
 	<select id="selectKeywordMost" resultMap="keywordMap">
 		select rk.keyword_no,(select k.keyword from tb_keyword k where rk.keyword_no = k.keyword_no) keyword,count(*) as cnt 
@@ -125,10 +132,12 @@
   		 order by cnt desc
          limit 4
 	</select>
+	
 	<select id="selectKeyword" resultMap="keywordMap">
 		select *
 		  from tb_keyword
 	</select>
+	
 	<!-- 레시피에 키워드 삽입 -->
 	<insert id="insertKeywordToRecipe" parameterType="Keyword">
 		insert into tb_recipe_keyword (keyword_no,recipe_no) values (#{keywordNo}, #{recipeNo})

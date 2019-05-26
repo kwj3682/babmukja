@@ -28,7 +28,6 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
-import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
@@ -67,9 +66,7 @@ public class RecipeController {
 
 	// -----------------------------------------------------------------------
 	@RequestMapping("/writeform.do")
-
 	public void writeForm(Model model) {
-
 		model.addAttribute("keyword",service.selectKeyword());
 	}
 	
@@ -181,8 +178,8 @@ public class RecipeController {
 	public RecipeReview writeComment(RecipeReview review, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
 		review.setMemNo(user.getMemNo());
-		service.insertRecipeReview(review);
-		return review;
+		service.insertRecipeReview(review);		
+		return service.selectOneReviewByNo(review.getRecipeReviewNo());
 	}
 
 	@RequestMapping("/recipeCommentList.do")
@@ -211,10 +208,10 @@ public class RecipeController {
 		  
 	 }
 	 
-//	 @RequestMapping("/commentUpdate.do")	  
-//	 @ResponseBody 
-//	 public RecipeReview updateComment(RecipeReview review) {
-//		 service.updateRecipeReview(review); 
-//		 return	service.selectReviewByNo(review.getRecipeReviewNo());
-//	 }
+	 @RequestMapping("/updateComment.do")	  
+	 @ResponseBody 
+	 public RecipeReview updateComment(RecipeReview review) {
+		 service.updateRecipeReview(review);
+         return service.selectOneReviewByNo(review.getRecipeReviewNo());
+	 }
 }
