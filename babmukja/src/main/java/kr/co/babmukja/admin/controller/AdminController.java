@@ -87,7 +87,8 @@ public class AdminController {
 	
 	// pb 상품 삭제
 	@RequestMapping("/deletepb.do")
-	public void deletepb(int no) {
-		service.deletePBStore(no);
+	public String deletepb(int pbNo) {
+		service.deletePBStore(pbNo);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "pbstoreselectlist.do";
 	}
 }

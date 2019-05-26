@@ -35,7 +35,12 @@
 
             
             <div id="post-info"><!-- post-info start -->
-                <div>#야식만보고삽니다</div>
+            	
+                <div id="keyword-container">
+                	<c:forEach var="keyword" items="${keyword}">
+	                	<div class="keyword-wrapper">#${keyword.keyword}</div>
+                	</c:forEach>
+                </div>
                 <div id="post-date">방금 전</div>
             </div><!-- post-info end -->
             <h2>${recipe.title}</h2>
@@ -136,7 +141,6 @@
     
     
     <script>
-    
     $("#comment-nope").click(function () {
     	alert("로그인 후 이용가능합니다.");
     	$("#comment-input").html("");
@@ -151,7 +155,7 @@
 	    				score : $("input[name='reviewStars']:checked").val(),
 	    				content : $("#comment-input").val()
 	    		},
-	    		success : function(result) {
+				success : function(result) {
 	    			let html = "";	
 	    	 		
 	    	 		html += '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>' 
@@ -300,7 +304,7 @@
         const editor = new EditorJS({
             holderId: 'post-body',
 
-            autofocus: true,
+            autofocus: false,
             data: JSON.parse(value),
             tools: { 
                 warning: {

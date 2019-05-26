@@ -120,9 +120,11 @@
 	
 	<!-- 레시피 키워드 시작 -->
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
-		select * 
-		  from tb_recipe 
-		 where keyword_no = #{no} 
+		select r.*,m.mem_nickname
+		  from tb_recipe r,tb_recipe_keyword k,tb_member m
+		 where m.mem_no = r.mem_no
+		   and r.recipe_no = k.recipe_no
+		   and k.keyword_no = #{no}	
 	</select>
 	
 	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
@@ -142,5 +144,11 @@
 	<insert id="insertKeywordToRecipe" parameterType="Keyword">
 		insert into tb_recipe_keyword (keyword_no,recipe_no) values (#{keywordNo}, #{recipeNo})
 	</insert>
+	<select id="selectKeywordByNo" parameterType="int" resultMap="keywordMap">
+		select * 
+		  from tb_recipe_keyword rk, tb_keyword k 
+		 where rk.keyword_no = k.keyword_no
+		       and rk.recipe_no = #{recipeNo}
+	</select>
 
 </mapper>

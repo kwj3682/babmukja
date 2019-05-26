@@ -24,4 +24,6 @@ public interface RecipeService {
 	public RecipeReview selectOneReviewByNo(int no);
 	public List<Keyword> selectKeywordMost();
 	public List<Keyword> selectKeyword();
+	public List<Keyword> selectKeywordByNo(int no);
+	public List<Recipe> selectRecipeByKeyword(int no);
 }

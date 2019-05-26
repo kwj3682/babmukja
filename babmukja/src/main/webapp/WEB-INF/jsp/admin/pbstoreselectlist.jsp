@@ -29,15 +29,15 @@
         <c:forEach var="adminpblist" items="${pbAdminList}">
           <tr class="list_td">
             <td>${adminpblist.pbNo}</td>
-            <td><a href="<c:url value='/store/detailpb.do?no=${adminpblist.pbNo}'/>">${adminpblist.name}</a></td>
+            <td><a href="<c:url value='/store/detailpb.do?pbNo=${adminpblist.pbNo}'/>">${adminpblist.name}</a></td>
             <td>${adminpblist.price}</td>
             <td><fmt:formatDate value="${adminpblist.regDate}" pattern="yyyy-MM-dd" /></td>
             <td>
                 <button class="pb_store_update_btn">
-                	<a href="<c:url value='/store/updateformpb.do?no=${adminpblist.pbNo}'/>">수정</a>
+                	<a href="<c:url value='/store/updateformpb.do?pbNo=${adminpblist.pbNo}'/>">수정</a>
                 </button>
                 <button class="pb_store_delete_btn">
-                	<a href="<c:url value='/admin/deletepb.do?no=${adminpblist.pbNo}'/>">삭제</a>
+                	<a href="<c:url value='/admin/deletepb.do?pbNo=${adminpblist.pbNo}'/>">삭제</a>
                 </button>
             </td>
           </tr>

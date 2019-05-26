@@ -65,8 +65,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	// pb 상품 삭제 (관리자 전용)
-	public void deletePBStore(int no) {
-		mapper.deletePBStore(no);
+	public void deletePBStore(int pbNo) {
+		mapper.deletePBStore(pbNo);
 	}
 	
 }

@@ -82,6 +82,13 @@ public class RecipeServiceImpl implements RecipeService {
 		mapper.updateRecipeReview(review);
 	}
 	
+
+	public List<Keyword> selectKeywordByNo(int no){
+		return mapper.selectKeywordByNo(no);
+	}
+	public List<Recipe> selectRecipeByKeyword(int no){
+		return mapper.selectRecipeByKeyword(no);
+	}
 	// 레시피 댓글 하나 가져오기 
 	public RecipeReview selectOneReviewByNo(int no) { 
 		return mapper.selectOneReviewByNo(no); 

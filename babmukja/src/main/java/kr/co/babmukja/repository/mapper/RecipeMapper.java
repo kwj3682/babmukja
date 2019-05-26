@@ -36,8 +36,11 @@ public interface RecipeMapper {
 	public RecipeReview selectOneReviewByNo(int no);
 	
 	//키워드
-	public void insertKeywordToRecipe(Keyword keyword);
 	public List<Keyword> selectKeyword();
+	public List<Keyword> selectKeywordByNo(int no);	
+	public List<Recipe> selectRecipeByKeyword(int no);	
+	public void insertKeywordToRecipe(Keyword keyword);
+	
 	
 	
 }

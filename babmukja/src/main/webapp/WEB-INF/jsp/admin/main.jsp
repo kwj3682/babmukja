@@ -73,10 +73,6 @@
 //         data: data,
 //         options: options
 //     });
-    
-    $("#logout").click(function() {
-    	alert("로그아웃 성공!");
-    });
 	</script>
 </body>
 </html>

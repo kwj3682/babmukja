@@ -24,27 +24,52 @@
 	<hr>
 	<br>
 	<br>
+<!-- 	<div class="col-xs-12"> -->
+<!--         <form action="/insertProc" method="post"> -->
+<!--             <dl class="dl-horizontal"> -->
+<!--               <dt>번호</dt> -->
+<%--               <dd>${notice.noticeNo}</dd> --%>
+              
+<!--               <dt>작성자</dt> -->
+<%--               <dd>${notice.writer}</dd> --%>
+              
+<!--               <dt>작성날짜</dt> -->
+<!--               <dd> -->
+<%--                   <fmt:formatDate value="${notice.regDate}" pattern="yyyy.MM.dd HH:mm:ss"/> --%>
+<!--               </dd> -->
+              
+<!--               <dt>첨부파일</dt> -->
+<%--               <dd><a href="/fileDown/${files.noticeNo}">${files.fileOriName}</a></dd> --%>
+              
+<!--               <dt>내용</dt> -->
+<%--               <dd>${notice.content}</dd> --%>
+<!--             </dl> -->
+<!--         </form> -->
+<!--         <div class="btn-group btn-group-sm" role="group" style="float:right;"> -->
+<%--           <button type="button" class="btn btn-default" onclick="location.href='delete.do?noticeNo=${notice.noticeNo}'">삭제</button> --%>
+<%--           <button type="button" class="btn btn-default" onclick="location.href='updateForm.do?noticeNo=${notice.noticeNo}'">수정</button> --%>
+<!--           <button type="button" class="btn btn-default" onclick="location.href='list.do'"> 목록 </button> -->
+<!--         </div> -->
+<!--   </div> -->
+
+	<form action="/insertProc" method="post">
 	<table class="babtable">
 		<tr class="bab_tr">
 			<td class="babtd5" style="float: left">
 				<div>
-					번호 :
-					<c:out value="${notice.noticeNo}" />
+					번호 : <c:out value="${notice.noticeNo}" />
 				</div>
 				<br>
 				<div>
-					글쓴이 :
-					<c:out value="${notice.writer}" />
+					글쓴이 : <c:out value="${notice.writer}" />
 				</div>
 				<br>
 				<div>
-					제목 :
-					<c:out value="${notice.title}" />
+					제목 : <c:out value="${notice.title}" />
 				</div>
 				<br>
 				<div>
-					내용 :
-					<c:out value="${notice.content}" />
+					내용 : <c:out value="${notice.content}" />
 				</div>
 				<br>
 			<br>
@@ -52,9 +77,7 @@
 			<br>
 			<br>
 				<div>
-					등록일 :
-					<fmt:formatDate value="${notice.regDate}"
-						pattern="yyyy-MM-dd HH:mm:ss" />
+					등록일 : <fmt:formatDate value="${notice.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /> 
 				</div>
 				<br>
 			<br>
@@ -62,29 +85,22 @@
 				<br>
 			</td>
 		</tr>
-	</table>
-	<div class="btnView2" style="text-align: center">
-		<td class="btnView"><button input type="button"
-				style="font-size: 1.2em;">
-				<a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a>
-			</button></td>
-		<td class="btnView"><button input type="button"
-				style="font-size: 1.2em;">
-				<a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a>
-			</button></td>
-		<td class="btnView"><button input type="button"
-				style="font-size: 1.2em;">
-				<a href='writeForm.do?noticeNo=${notice.noticeNo}'>등록</a>
-			</button></td>
-<!-- 			<td class="btnView"><button input type="button" -->
-<!-- 				style="font-size: 1.2em;"> -->
-<%-- 				<a href='comment.do?noticeNo=${notice.commentNo}'> 댓글등록</a> --%>
-<!-- 			</button></td> -->
-		<td class="btnView"><button input type="button"
-				style="font-size: 1.2em;">
-				<a href='list.do'>목록</a>
-			</button></td>
+	<div class="btnView2" style="float:center;">
+        <td class="btnView">
+        <button input type="button" style="font-size: 1.2em;"><a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a></button>
+		<button input type="button" style="font-size: 1.2em;"><a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
+		<button input type="button" style="font-size: 1.2em;"><a href='list.do'>목록</a></button>
+		</td> 
 	</div>
+	</table><br><br>
+	</form><hr>
+	
+<!-- 			</button></td> -->
+<!-- 			<td class="btnView"><button input type="button" 
+<!-- 				style="font-size: 1.2em;"> 
+<%-- 				<a href='comment.do?noticeNo=${notice.commentNo}'> 댓글등록</a> 
+<!-- <!-- 			</button></td> -->
+
 	<br>
 	<hr>
 <!-- 	  <div id="commentInsertForm"> -->
@@ -118,14 +134,16 @@
 <!-- 		<label for="content">comment</label> -->
 <!-- 		<form name="commentInsertForm"> -->
 <!-- 			<div class="input-group"> -->
-<%-- 				<input type="hidden" name="commentNo" value="${detail.noticeNo}" />  --%>
+<%-- 				<input type="hidden" name="noticeNo" value="${detail.noticeNo}" />  --%>
 <!-- 				<input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">  -->
 <!-- 				<span class="input-group-btn"> -->
-<%-- 					<button class="btn btn-default" type="button" name="commentInsertBtn"><a href='comment-insert.do?commentNo=${comment.commentNo}'>등록</a></button> --%>
+<!-- 					<button class="btn btn-default" type="button" name="commentInsertBtn">등록</button> -->
 <!-- 				</span> -->
 <!-- 			</div> -->
 <!-- 		</form> -->
 <!-- 	</div> -->
+	
+	
 	
 <!-- 	<div id="commentList"> -->
 <!-- 		<form action="comment-update.do" method="post"> -->
@@ -172,12 +190,17 @@
 <%--             <td class="inquirelist2"><fmt:formatDate pattern="yyyy/MM/dd" value="${comment.regDate}"/></td> --%>
 <!--          </tr> -->
 <%--       </c:forEach> --%>
+
+
+
 <!-- 	<div class="container"> -->
 <!-- 		<div class="commentList"></div> -->
 <!-- 	</div> -->
-	
+<!-- </div>	 -->
 <!--                     추가                         -->
-	<%@ include file="comment.jsp"%>
+<%-- 	<%@ include file="comment.jsp"%> --%>
+
+
 
 <!-- 	<div id="commentlist" style="font-size: 1.3em;"> -->
 <!-- 		<tr> -->
@@ -207,13 +230,13 @@
 
 	
 
-	<script>
-		$.ajax({ 
-		url : "<c:url value="/notice/comment-list.json" />",
-		data : "noticeNo=${comment.commentNo}"
-		}).done(function(result) { 
- 			console.log(result); 
-		});
-	</script> 
+<!-- 	<script> -->
+<!-- // 		$.ajax({  -->
+<%-- // 		url : "<c:url value="/notice/comment-list.json" />", --%>
+<%-- // 		data : "noticeNo=${comment.commentNo}" --%>
+<!-- // 		}).done(function(result) {  -->
+<!-- //  			console.log(result);  -->
+<!-- // 		}); -->
+<!-- 	</script>  -->
 </body>
 </html>

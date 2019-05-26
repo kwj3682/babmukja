@@ -2,7 +2,6 @@
 
 
 $(".header_meetup_create").click(function () {
-    alert("modal 켜진다");
     $("#write_modal").modal("show");
     $("#write_modal").modal({
         backdrop: 'static'
@@ -11,9 +10,8 @@ $(".header_meetup_create").click(function () {
 
 //모달 ajax 부분 
 $(document).on("click", "#modalEnrollSave", function(){
-	alert("저장 버튼을 누루셨습니다.");
 	//지역 처리하기
-	
+	alert("모임이 게설되었습니다.")
 	var cityVal1="";
 	var cityVal2="";
 	var cityVal3="";
@@ -205,7 +203,6 @@ $(document).on("click", "#modalEnrollSave", function(){
 	
 	//회비 처리부분
 	var selectPrice = $(".modal_monthly_fee:checked").val();
-	alert("확인:" + $(".modal_monthly_fee:checked").val());
 	if(selectPrice == "personal" ){
 		selectPrice = $(".modal_fee_input").val();
 	};
@@ -223,14 +220,14 @@ $(document).on("click", "#modalEnrollSave", function(){
 	let selectDay = $(".selectDay:checked").val();
 	console.log("selectDay:checked" +selectDay);
 	
-	alert("city1" + cityVal1);
+	//alert("city1" + cityVal1);
 	let town1 = $("#select_modal_town1").val()
-	alert("town" + town1);
-	alert("city2" + cityVal2);
+	//alert("town" + town1);
+	//alert("city2" + cityVal2);
 	let town2 = $("#select_modal_town2").val()
-		alert("city3" + cityVal3);
+		//alert("city3" + cityVal3);
 	let town3 = $("#select_modal_town3").val()
-    alert("city3" + cityVal3);
+    //alert("city3" + cityVal3);
 	var city =[]
 	var town =[]
 	selectDay
@@ -274,7 +271,7 @@ $(".header_search").click(function () {
     $(".after_click").css("display", "block");
 });
 $(".location_title_container").click(function () {
-    alert($(".location_position").css("display"));
+    //alert($(".location_position").css("display"));
     // if (
 
     //     $(".location_position").css("display") == "none"
@@ -307,34 +304,36 @@ for (let i = 0; i <= 5; i++) {
         $("td:eq(" + number + ")").css("background-color", "#7db341");
         $("td:eq(" + number + ")").css("color", "white");
         $(".tabPanel:eq(" + number + ")").css("display", "block");
-        clearInterval(interval);
+        clearInterval(stopInterval);
     });
     //이거 쓰기mouseup
 }//for
 
 var num = 0;
 
-setInterval(function () {
-
-
-    $("td:eq(" + num + ")").click();
-    console.log(num);
+function timeInterval(){
+	$(`td`).css("background-color", "white");
+    $(`td`).css("color", "black");
+    $(".tabPanel").css("display", "none");
+    $("td:eq(" + num + ")").css("background-color", "#7db341");
+    $("td:eq(" + num + ")").css("color", "white");
+    $(".tabPanel:eq(" + num + ")").css("display", "block");
+//
+//    $("td:eq(" + num + ")").click();
+//    console.log(num);
     num++;
     if (num == 6) {
         num = 0;
     }
-}, 1400);
+}
+console.log("check1");
+var doublecheck =check();
+function check(){
+	console.log("check2");
+};
+var stopInterval = setInterval(timeInterval, 1400);
 
-var interval = setInterval(function () {
 
-
-    $("td:eq(" + num + ")").click();
-    console.log(num);
-    num++;
-    if (num == 6) {
-        num = 0;
-    }
-}, 1200);
 
 
 
