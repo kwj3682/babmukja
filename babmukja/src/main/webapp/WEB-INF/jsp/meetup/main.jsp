@@ -138,7 +138,6 @@
                         <input type="checkbox" name="category" value="100000" />10만원 이하</input>
                     </div>
                 </div>
-
                 <!--클릭 후  끝 -->
             </div>
         </form>
@@ -558,11 +557,12 @@
   <!-- 추천모임 박스 복사끝 --> 
 
     <!-- 모달 부분 아래시작 -->
+     <form action="<c:url value='/meetup/createMeetup.do'/>" method="POST" enctype="multipart/form-data">
     <div id="write_modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                
+              
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">모임 개설하기</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -678,18 +678,19 @@
                         </div>
 
                         <!-- 모델 바디 끝  -->
+                       
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="modalEnrollSave" data-dismiss="modal">Save changes</button>
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button  class="btn btn-primary"  >Save changes</button>
                     </div>
-                <!--form tag-->
+                
             </div>
         </div>
 
 
     </div>
-
+</form> <!--form tag-->
     <!--위까지 모달 부분 끝 -->
 
     <!--메인 컨테이너 끝 -->

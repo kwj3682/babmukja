@@ -35,18 +35,19 @@ public class MeetupController {
 	@Autowired
 	private MeetupService service;
 
+	@RequestMapping("/createMeetup.do")
+	public void CreateMeetup() {
+//		service.selectIntro();
+		System.out.println("post 방식으로 들어왔음");
+	}
+	
 	@RequestMapping("/main.do")
 	public void meetupMain() {
 //		service.selectIntro();
 		System.out.println("메인 들어왔음");
 	}
 	
-	@RequestMapping("/mainMeetupEnroll.do")
-	@ResponseBody
-	public void mainMeetupEnroll(String check) {
-//		service.selectIntro();
-		System.out.println("메인모임등록 들어왔음" +check);
-	}
+	
 	@RequestMapping("/detail.do")
 	public void meetupDetail(Model model) {
 //		service.selectIntro();
