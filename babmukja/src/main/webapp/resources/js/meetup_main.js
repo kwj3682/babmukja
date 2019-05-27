@@ -262,7 +262,7 @@ $(document).on("click", "#modalEnrollSave", function(){
 
 //클릭시 주소 이동부분
 $(".info_block").click(function(){
-	location.href="http://localhost/babmukja/meetup/detail.do";
+	location.href="detail.do";
 });
 
 //검색창 none->block 변경 부분

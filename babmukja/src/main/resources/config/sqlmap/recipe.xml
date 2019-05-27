@@ -118,7 +118,8 @@
 		  from tb_recipe r,tb_recipe_keyword k,tb_member m
 		 where m.mem_no = r.mem_no
 		   and r.recipe_no = k.recipe_no
-		   and k.keyword_no = #{no}	
+		   and k.keyword_no = #{no}
+		 order by r.recipe_no desc	
 	</select>
 	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
 	<select id="selectKeywordMost" resultMap="keywordMap">

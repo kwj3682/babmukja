@@ -54,21 +54,21 @@
             <div>주의사항</div>
             <div>
                 <input type="checkbox" id="pregnant" name="caution" value="7">
-                <label for="pregnant">임산부</label>
+                <label for="pregnant">임산부 주의</label>
                 <input type="checkbox" id="baby" name="caution" value="8">
-                <label for="baby">영유아</label>
+                <label for="baby">영유아 주의</label>
                 <input type="checkbox" id="high-blood-pressure" name="caution" value="9">
-                <label for="high-blood-pressure">고혈압</label>
+                <label for="high-blood-pressure">고혈압 주의</label>
                 <input type="checkbox" id="vegan" name="caution" value="10">
-                <label for="vegan">채식</label>
+                <label for="vegan">채식주의자를 위한</label>
                 <input type="checkbox" id="halal" name="caution" value="11">
-                <label for="halal">할랄</label>
+                <label for="halal">돼지고기 포함</label>
                 <input type="checkbox" id="old" name="caution" value="12">
-                <label for="old">노약자</label>
+                <label for="old">노약자 주의</label>
                 <input type="checkbox" id="allergic" name="caution" value="13">
-                <label for="allergic">알러지</label>
+                <label for="allergic">알러지 유발 주의</label>
                 <input type="checkbox" id="diabetes" name="caution" value="14">
-                <label for="pregnant">당뇨</label>
+                <label for="pregnant">당뇨 주의</label>
             </div>
         </div>
         <div class="keyword-wrapper" id="keyword-situation-wrapper">
@@ -118,7 +118,7 @@
                     <input type="radio" id="sidedish" name="foodtype" value="40"><label for="sidedish">반찬</label>
                     <input type="radio" id="noodle" name="foodtype" value="41"><label for="noodle">면</label>
                     <input type="radio" id="dumpling" name="foodtype" value="42"><label for="dumpling">만두</label>
-                    <input type="radio" pod="rice" name="foodtype" value="43"><label for="rice">밥</label>
+                    <input type="radio" id="rice" name="foodtype" value="43"><label for="rice">밥</label>
                     <input type="radio" id="salad" name="foodtype" value="44"><label for="salad">샐러드</label>
                     <input type="radio" id="soup" name="foodtype" value="45"><label for="soup">스프</label>
                     <input type="radio" id="beverage" name="foodtype" value="46"><label for="beverage">음료</label>

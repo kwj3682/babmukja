@@ -21,7 +21,7 @@
                 <li><a id="menu0" class="menu" href="#">About us</a></li>
                 <li><a id="menu1" class="menu" href="<c:url value="/recipe/main.do"/>">레시피</a></li>
                 <li><a id="menu2" class="menu" href="<c:url value="/store/mainpb.do"/>">스토어</a></li>
-                <li><a id="menu3" class="menu" href="<c:url value="/meetup/detail.do"/>">쿠킹 미팅</a></li>
+                <li><a id="menu3" class="menu" href="<c:url value="/meetup/main.do"/>">쿠킹 미팅</a></li>
             </ul>
         </div>
         <span id="sign">
@@ -42,26 +42,26 @@
         </span>
         <div id="optionalMenu1" class="optionalMenubar">
             <ul>
-                <li><a href="">나라별</a></li>
-                <li><a href="">종류별</a></li>
-                <li><a href="">주의사항별</a></li>
-                <li><a href="">메뉴4</a></li>
+                <li><a href="#">나라별</a></li>
+                <li><a href="#">종류별</a></li>
+                <li><a href="#">주의사항별</a></li>
+                <li><a href="#">메뉴4</a></li>
             </ul>
         </div>
         <div id="optionalMenu2" class="optionalMenubar">
             <ul>
                 <li><a href="<c:url value="/admin/pbstoreindex.do"/>">스토어메뉴1</a></li>
-                <li><a href="">스토어메뉴2</a></li>
-                <li><a href="">스토어메뉴3</a></li>
-                <li><a href="">스토어메뉴4</a></li>
+                <li><a href="#">스토어메뉴2</a></li>
+                <li><a href="#">스토어메뉴3</a></li>
+                <li><a href="#">스토어메뉴4</a></li>
             </ul>
         </div>
         <div id="optionalMenu3" class="optionalMenubar">
             <ul>
-                <li><a href="">쿠킹미팅1</a></li>
-                <li><a href="">쿠킹미팅2</a></li>
-                <li><a href="">쿠킹미팅3</a></li>
-                <li><a href="">쿠킹미팅4</a></li>
+                <li><a href="#">쿠킹미팅1</a></li>
+                <li><a href="#">쿠킹미팅2</a></li>
+                <li><a href="#">쿠킹미팅3</a></li>
+                <li><a href="#">쿠킹미팅4</a></li>
             </ul>
         </div>
     </div>
