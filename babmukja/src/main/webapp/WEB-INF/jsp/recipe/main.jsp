@@ -204,6 +204,21 @@
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
     
+    /* javascript, jquery */
+    let menubarCon = $("#menubarContainer");
+    $(window).scroll(function() {
+
+      if($(this).scrollTop() < $(".swiper-container").height()){
+    	  menubarCon.addClass("opacity");
+    	  menubarCon.removeClass("non-opacity");    	  
+      }else{
+    	  menubarCon.removeClass("opacity");    	  
+    	  menubarCon.addClass("non-opacity");    	  
+      }
+    	  
+      console.log($(this).scrollTop()+" , " + $(".swiper-container").height());
+    });
+    	
     
     
     function loadApp(id) {
