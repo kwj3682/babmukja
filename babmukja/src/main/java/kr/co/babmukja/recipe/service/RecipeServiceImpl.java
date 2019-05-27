@@ -7,9 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.common.page.PageResult;
-import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeReview;
@@ -74,18 +73,10 @@ public class RecipeServiceImpl implements RecipeService {
 	public int selectReviewCount(Page page) {
 		return mapper.selectReviewCount(page);
 	}
-
 	// 레시피 댓글 등록
 	public void insertRecipeReview(RecipeReview review) {
 		mapper.insertRecipeReview(review);
 	}
-	public List<Keyword> selectKeywordMost(){
-		return mapper.selectKeyword();
-	}
-	public List<Keyword> selectKeyword(){
-		return mapper.selectKeyword();
-	}
-	
 	// 레시피 댓글 수정
 	public void updateRecipeReview(RecipeReview review) {
 		mapper.updateRecipeReview(review);
@@ -99,12 +90,19 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectRecipeByKeyword(no);
 	}
 	// 레시피 댓글 하나 가져오기 
-//	public RecipeReview selectReviewByNo(int no) { 
-//		return mapper.selectReviewByNo(no); 
-//	}
-	  
+	public RecipeReview selectOneReviewByNo(int no) { 
+		return mapper.selectOneReviewByNo(no); 
+	}
+	
 	// 레시피 댓글 삭제 
 	public void deleteRecipeReview(int no) {
 		mapper.deleteRecipeReview(no);
-	 }
+	}
+	public List<Keyword> selectKeywordMost(){
+		return mapper.selectKeyword();
+	}
+	public List<Keyword> selectKeyword(){
+		return mapper.selectKeyword();
+	}
+	
 }
