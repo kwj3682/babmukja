@@ -157,7 +157,7 @@
 	    		},
 				success : function(result) {
 	    			let html = "";	
-	    	 		let date = new Date(result.regdate);
+	    	 		
 	    	 		html += '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>' 
 	    	 					+'<img class="other-profile" src="">'
 	    	 					+'<div class="other-content-wrapper">'
@@ -165,7 +165,7 @@
 	    	 					+'<div>'
 	    	 					+'<div class="other-id">'+ result.memNickname +'</div>'
 	    	 					+'<div class="other-rating">' +result.score + '</div>'
-	    	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
+	    	 					+'<div class="other-date">' + result.regdate + '</div>'
 	    	 					+'</div>'
 	    	 	     			+'<div class="other-content">' + result.content + '</div>'
 	    	 	     			+'<c:if test="${sessionScope.user.memNo eq result.memNo}">'
@@ -173,7 +173,7 @@
 	    	 	     			+'</c:if>'
 	    	 	     			+'</div></div>';	 
 	    	 			
-	    	 	 $("#comment-other").append(html);
+	    	 	 $("#comment-other").prepend(html);
     			}
     		})
     	});
@@ -186,7 +186,7 @@
 	 	})
 	 	.done(function (result) {	 		
 	 		if(result.comment.length == 0) {	 			
-	 			$("#comment-other").html("<h3>댓글이 없습니다.</h3>");
+	 			$("#comment-other").html("<h3>댓글을 작성해주세요.</h3>");
 	 		}
 	 		let html = "";	
 	 		for(let i = 0; i < result.comment.length; i++) {
@@ -239,12 +239,26 @@
                     <textarea id="comment-input"></textarea>
                 </div>                
                   <button class="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
-                  <div><button class="comment-">x</button></div>
+                  <div><button class="comment-exit">x</button></div>
             </div>`);
  			
  		}).fail(function(xhr) {
  			alert("오류 발생");
  		})	
+     });
+     
+     $(".comment-update").click(function () {
+    	 $.ajax({
+    		 url : "updateComment.do",
+    		 data : {
+    			recipeNo : $("input[name='no']").val(),
+ 				score : $("input[name='reviewStars']:checked").val(),
+				content : $("#comment-input").val()
+				}
+    		
+    	 }).done(funtion (data) {
+    		 alert(data);
+    	 });
      });
      
      	// timestamp 날짜형식 바꾸는 함수
@@ -277,8 +291,7 @@
     			if(result == 0 ) {
 	    			$("#"+ num).html("");    				
     			}
-    		})   		
-    		
+    		})  
     	});
     		
     	
