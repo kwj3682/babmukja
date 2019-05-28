@@ -24,9 +24,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/store/detailpb.css"/>">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+	<link rel="stylesheet" href="<c:url value="/resources/js/dist/css/lightbox.css"/>">
+	<script src="<c:url value="/resources/js/dist/js/lightbox.js"/>"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="<c:url value="/resources/js/common/stringUtil.js"/>"></script>
 </head>
 <body onload="myTimeWait()">
 	<div id="pb_detail_container">
@@ -37,14 +40,18 @@
                 		<c:forEach var="img" items="${imgList}" varStatus="status">
 		                	
 		                	<c:if test="${status.count != 1}">
-		                	<img src="${img}">
+	                		<a href="${img}" data-lightbox="gallery">
+		                		<img src="${img}">
+	                		</a>
 		                	</c:if>
 		                	
                 		</c:forEach>
 	                </div>
 <%-- 			     <c:set var="detailpb" value="${detailpb}"/> --%>
 	                <div id="pb_detail_main_image">
-	                    <img src="${imgList[0]}">
+	                    <a href="${imgList[0]}" data-lightbox="gallery">
+	                    	<img src="${imgList[0]}">
+	                    </a>
 	                </div>
             </div>
 
@@ -56,7 +63,8 @@
                     <p>★★★★☆</p>
                 </div>
                 <div id="pb_detail_price">
-                    <p id="pb_detail_price_p">${storepb.price}원</p>
+                
+                    <p id="pb_detail_price_p"><fmt:formatNumber value="${storepb.price}" groupingUsed="true"/>원</p>
                 </div>
                 <div id="pb_detail_promotion">
                     <p id="pb_detail_promotion_price"></p>
@@ -147,15 +155,19 @@
                     <button id="pb_review_writeform">후기쓰기</button>
                 </div>
 
+              <c:forEach var="reviewList" items="${reviewMap}">
                 <div id="pb_review_body">
                     <!-- 후기 프로필 -->
-              <c:forEach var="reviewList" items="${reviewMap}">
                     <div id="pb_review_profile">
                         <div id="pb_review_profile_img">
                             <img src="<c:url value='/resources/images/profile19.jpg'/>">
                         </div>
                         <div id="pb_review_user_info">
                             <p class="review_user_nickname">${reviewList.member.memNickname}</p>
+                            <div id="reviewBUTTON">
+                            	<button id="reviewUpdateBTN">수정</button>
+                            	<button id="reviewDeleteBTN">삭제</button>
+                            </div>
                             <p class="review_user_rating">★★★★☆<span><fmt:formatDate value="${reviewList.reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span></p>
                         </div>
                     </div>
@@ -167,20 +179,22 @@
                             </p>
                         </div>
                         
-                        
-	                        <div id="pb_review_select_img">
-         	                	<c:forEach var="file" items="${reviewList.reviewFile}">
-            		                <div>
-        	    	                	<img src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
-       	    	                	</div>
-  	    	                	</c:forEach>
-		                    </div>
+                       
+                    <div id="pb_review_select_img">
+   	                	<c:forEach var="file" items="${reviewList.reviewFile}">
+      		                <div>
+  	    	                	<a href="downloadpb.do?path=${file.path}&sysname=${file.sysname}" data-lightbox="mygallery">
+  	    	                		<img src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
+  	    	                	</a>
+    	                	</div>
+ 	                	</c:forEach>
+                  	 </div>
 		                    
 		                    
                     	</div>
-              </c:forEach>
                     <div id="review_border-bottom"></div>
                 </div>  <!-- pb_review_body 끝-->
+              </c:forEach>
                 
 <!--                 <div id="pb_review_body"> -->
 <!--                     후기 프로필 -->
@@ -423,18 +437,21 @@
       });
       
       // 수량 늘리기 줄이기.
-      let price = parseInt($("#pb_detail_price_p").text().replace(",",""));
+      let price = parseInt($("#pb_detail_price_p").text().replace(/,/g,""));
       
       $("#pb_detail_promotion_price").html(price * 0.01 + " POINT");
+      $("#pb_detail_promotion_price").text(changeComma($("#pb_detail_promotion_price").text()));
       
       let cnt = $("#total_count").html();
       $(".total__price").text(price * cnt + "원");
-      
+      $(".total__price").text(changeComma($(".total__price:first").text()));
       $("#count_plus").click(function () {
           cnt++;
           console.log(cnt);
         $("#total_count").text(cnt);
         $(".total__price").text(price * cnt + "원");
+	      console.log($(".total__price").html());
+	      $(".total__price").text(changeComma($(".total__price:first").text()));
       });
 
       $("#count_minus").click(function () {
@@ -445,6 +462,8 @@
         cnt--;
         $("#total_count").text(cnt);
         $(".total__price").text(price * cnt + "원");
+        $(".total__price").text(changeComma($(".total__price:first").text()));
+        
       });
       
       // editor js 적용
@@ -502,10 +521,10 @@
        });
      
 		let imgCnt = 0;
-		let dd = new FormData();	
+		let reviewData = new FormData();	
        $("#img_file").change(function (e) {
    	   	  console.dir(e.target.files[0]);
-		  dd.append("imageList",e.target.files[0]);
+   	   	  reviewData.append("imageList",e.target.files[0]);
    	   	  
     	   
             var reader = new FileReader();
@@ -543,16 +562,16 @@
     	   let content = $(".product__content").val();
     	   let pbNo = ${storepb.pbNo};
     	   console.log(pbNo);
- 		  dd.append("content",content );
- 		  dd.append("pbNo", pbNo);
+    	   reviewData.append("content",content );
+    	   reviewData.append("pbNo", pbNo);
     	   console.log(content);
-    	   console.log(dd);
+    	   console.log(reviewData);
 			$.ajax({
 				type:"POST",
 				processData:false,
 				contentType:false,
 				url : "/babmukja/store/pbreviewinsert.do",
-				data : dd,
+				data : reviewData,
 				success: function(result){
 					alert("후기가 등록되었습니다.");
 					location.href="detailpb.do?pbNo="+${storepb.pbNo};
