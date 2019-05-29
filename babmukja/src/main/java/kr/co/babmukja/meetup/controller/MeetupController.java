@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.babmukja.meetup.service.MeetupService;
+import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 
 //파일을 동적으로 받아주기 위해서 File 객체 만들
@@ -35,18 +36,65 @@ public class MeetupController {
 	@Autowired
 	private MeetupService service;
 
+	
+	@RequestMapping("/createMeetup.do")
+	public void CreateMeetup(MultipartFile file, String title,
+		String category, String city1, String city2, String city3,	
+		String town1,String town2,String town3, String[] day, String fee, String detailFee
+			) {
+//		service.selectIntro();
+//		System.out.println("파일 " + file);
+//		System.out.println("카테고리" + category);
+//		System.out.println("제목" + title);
+//		if(city1 !=null) {
+//		System.out.println("도시1" + city1);
+//		}
+//		if(city1 !=null) {
+//			System.out.println("도시2" + city2);
+//			}
+//		if(city3 !=null) {
+//			System.out.println("도시3" + city3);
+//			}
+//		if(town1 !=null) {
+//			System.out.println("마을1" + town1);
+//			}
+//		if(town2 !=null) {
+//			System.out.println("마을2" + town2);
+//			}
+//		if(town3 !=null) {
+//			System.out.println("마을3" + town3);
+//			}
+		
+	//	Meetup meetupBoard = new Meetup();
+		
+		
+		String meetupDay = "";
+		for(int i=0; i<day.length; i++) {
+		meetupDay = meetupDay + "," + day[i];
+		
+		}
+		if(meetupDay.charAt(0) == ',') {
+			System.out.println("빼지기전 확인" + meetupDay.charAt(0));
+			meetupDay =	meetupDay.substring(1);
+			System.out.println("빼졌는지 확인" + meetupDay);
+		}
+		System.out.println("요일 :" + meetupDay);
+		System.out.println("fee :" + fee);
+		if(detailFee !=null) {
+			System.out.println("금액" + detailFee);
+			}
+
+		
+		
+	}//createMeetup
+	
 	@RequestMapping("/main.do")
 	public void meetupMain() {
 //		service.selectIntro();
 		System.out.println("메인 들어왔음");
 	}
 	
-	@RequestMapping("/mainMeetupEnroll.do")
-	@ResponseBody
-	public void mainMeetupEnroll(String check) {
-//		service.selectIntro();
-		System.out.println("메인모임등록 들어왔음" +check);
-	}
+	
 	@RequestMapping("/detail.do")
 	public void meetupDetail(Model model) {
 //		service.selectIntro();

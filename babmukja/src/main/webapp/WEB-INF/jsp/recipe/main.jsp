@@ -42,16 +42,20 @@
             <div class="swiper-slide">
             <div></div>
             <p>"BABMUKJA RECIPE"</p>
+		    <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>
             <img src="<c:url value="/resources/images/f2.jpg"/>"/>
             </div>
             <div class="swiper-slide">
                 <div></div>
                 <p>"자라보고 놀란 가슴 <br> 솥뚜껑 삼겹살로 달랜다."</p>
+		    	<div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>
+                
                 <img src="<c:url value="/resources/images/f8.jpg"/>"/>
             </div>
             <div class="swiper-slide">
                 <div></div>
             <p>"둘이 먹다 하나 죽었으면 좋겠다."</p>
+	    	<div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>
             <img src="<c:url value="/resources/images/f7.jpg"/>"/>
             </div>
             
@@ -106,6 +110,9 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
+
+                    <p>밥먹자 레시피<br> 키워드로 원하는 레시피를 찾아보세요!</p>
+                    
                 </div>
             </div>
         </div>
@@ -156,6 +163,8 @@
     </div>    
     	
         <div class="boundary"></div>
+        <div id="sector3-mid">
+        </div>
         <div id="sector3">
             <div id="sector3-body">
             
@@ -362,6 +371,9 @@
         $("#logout").click(function() {
         	alert("로그아웃 성공!");
         });
+//         $("#writeform-button").click(function(){
+//         	location.href="writeform.do";
+//         });
     </script>
 </body>
 </html>

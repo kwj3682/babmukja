@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,7 +116,7 @@
                                     <p>${pbList.name}</p>
                                 </div>
                                 <div class="pb_store_popular_product_price">
-                                    <p>${pbList.price}</p>
+                                    <p><fmt:formatNumber value="${pbList.price}" groupingUsed="true"/>원</p>
                                 </div>
                                 <div class="pb_store_popular_product_rating">
                                     <span id="pb_store_popular_product_rating_star">★</span>
