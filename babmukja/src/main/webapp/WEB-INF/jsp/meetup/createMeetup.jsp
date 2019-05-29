@@ -8,5 +8,9 @@
 </head>
 <body>
 
+<script>
+location.href="http://localhost/babmukja/meetup/main.do";
+</script>
+
 </body>
 </html>

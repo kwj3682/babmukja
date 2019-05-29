@@ -11,6 +11,40 @@ $(".header_meetup_create").click(function () {
 
 
 
+
+//모달에서 회비 선택부분
+$(".modal_fee_input").comma();
+
+$('#notDefined').change(
+	
+	    function(){
+	        if ($(this).is(':checked') && $(this).val() == 'na') {
+	        	$('#DefinedDetail').attr('placeholder', '');  
+	        	$('#DefinedDetail').attr('value', '');  
+
+	        	$('#DefinedDetail').attr('readonly', true);
+	        }
+	        
+	        
+	        
+	    });
+
+$('#Defined').change(function(){
+		
+	    
+	       
+	        if ($(this).is(':checked')) {
+		        	$('#DefinedDetail').attr('placeholder', '액수를 입력해 주세요');  
+		        	$('#DefinedDetail').attr('readonly', false);
+
+	        	}
+	        
+	    });
+
+$('#modalSave').click(function(){
+	alert($(`select[name='town1']`).val());
+});
+
 //클릭시 주소 이동부분
 $(".info_block").click(function(){
 	location.href="http://localhost/babmukja/meetup/detail.do";
