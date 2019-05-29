@@ -1,6 +1,7 @@
 package kr.co.babmukja.admin.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +20,25 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	public AdminMapper mapper;
 	
-	public Map listMember(Page page){
-		Map<String, Object> result = new HashMap<>();	
-		result.put("list", mapper.selectMemberList(page));			
-		result.put("searchType",page.getSearchType());
-		result.put("input", page.getInput());
-		result.put("gradeType", page.getGradeType());
-		
-		if(page.getSignDate1() != "") {
-			result.put("signDate1",page.getSignDate1());
-			result.put("signDate2",page.getSignDate2());			
-		}
-//		if(page.getLastDate1() != "") {
-//			result.put("lastDate1",page.getLastDate1());
-//			result.put("lastDate2",page.getLastDate2());			
+	public List listMember(){
+		List<Member> result = mapper.selectMemberList();
+//		Map<String, Object> result = new HashMap<>();	
+//		result.put("list", mapper.selectMemberList(page));			
+//		result.put("searchType",page.getSearchType());
+//		result.put("input", page.getInput());
+//		result.put("gradeType", page.getGradeType());
+//		
+//		if(page.getSignDate1() != "") {
+//			result.put("signDate1",page.getSignDate1());
+//			result.put("signDate2",page.getSignDate2());			
 //		}
-		result.put("pageResult", new PageResult(
-				page.getPageNo(), mapper.selectMemberCount(page))
-				);	
+////		if(page.getLastDate1() != "") {
+////			result.put("lastDate1",page.getLastDate1());
+////			result.put("lastDate2",page.getLastDate2());			
+////		}
+//		result.put("pageResult", new PageResult(
+//				page.getPageNo(), mapper.selectMemberCount(page))
+//				);	
 		return result;
 	}
 

@@ -51,6 +51,8 @@
 <!--       </mvc:interceptor> -->
 <!--    </mvc:interceptors> -->
     
+    
+    
     <!-- 트랜잭션 관리 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
@@ -114,3 +116,34 @@
         <beans:property name="order" value="1" />
     </beans:bean> 
 </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

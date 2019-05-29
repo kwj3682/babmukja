@@ -1,5 +1,6 @@
 package kr.co.babmukja.admin.service;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.babmukja.repository.domain.Member;
@@ -8,7 +9,8 @@ import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
 
 public interface AdminService {
-	public Map<String, Object> listMember(Page page);
+//	public Map<String, Object> listMember(Page page);
+	public List<Member> listMember();
 	public int countMember(Page page);
 	public Member selectMemberByNo(int no);
 	

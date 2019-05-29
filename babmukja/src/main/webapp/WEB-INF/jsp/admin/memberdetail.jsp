@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">    
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/adminmemberdetail.css"/>">
     <script src="/babmukja/js/jquery-3.2.1.min.js"></script>
-    <title>Document</title>
+    <title>회원 정보 상세 조회</title>
 </head>
 <body>
     <div id="body">
@@ -18,45 +18,40 @@
         <div id="body-main">
             <div id="member-img">
                 <img src="/babmukja/WEB-INF/images/profile2.jpg">
-                <div><b>5012.</b>bitchanmom</div>
+                <div><b>${member.memNo}</b>${member.memNickname}</div>
             </div>
             <div id="member-profile">
                 <table>                
                     <tr>
-                        <td>아이디</td>
-                        <td></td>
-                        <td>이름</td>
-                        <td>${d.memName }</td>
-                    </tr>
-                    <tr>
                         <td>닉네임</td>
-                        <td>${d.memNickname }</td>
-                        <td>성별</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>회원 가입일</td>
-                        <td><fmt:formatDate value= "${d.signDate }" pattern="yyyy-MM-dd" /></td>
-                        <td>최종 접속일</td>
-                        <td><fmt:formatDate value= "${d.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        <td>${member.memNickname }</td>
+                        <td>이름</td>
+                        <td>${member.memName }</td>
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td colspan="3">${d.memEmail }</td>
+                        <td colspan="3">${member.memEmail}</td>
+
+                    </tr>
+                    <tr>
+                        <td>회원 가입일</td>
+                        <td><fmt:formatDate value= "${member.signDate }" pattern="yyyy-MM-dd" /></td>
+                        <td>최종 접속일</td>
+                        <td><fmt:formatDate value= "${member.lastDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                     </tr>
                     <tr>
                         <td>회원 전화 번호</td>
-                        <td>${d.memPhone }</td>
+                        <td>${member.memPhone }</td>
                         <td>우편번호</td>
-                        <td>${d.postNo }</td>
+                        <td>${member.postNo }</td>
                     </tr>
                     <tr>
                         <td>기본 주소</td>
-                        <td colspan="3">${d.addrDefault }</td>
+                        <td colspan="3">${member.addrDefault }</td>
                     </tr>
                     <tr>
                         <td>상세 주소</td>
-                        <td colspan="3">${d.addrDetail }</td>
+                        <td colspan="3">${member.addrDetail }</td>
                     </tr>
                     <tr>
                         <td>소셜로그인</td>
@@ -72,15 +67,9 @@
                     </tr>
                     <tr>
                         <td>보유 포인트</td>
-                        <td>${d.point }</td>
+                        <td>${member.point }</td>
                         <td>회원 등급</td>
-                        <td>${d.gradeName }</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>${member.gradeName }</td>
                     </tr>
                     <tr>
                         <td>팔로워</td>
@@ -91,8 +80,8 @@
                     <tr>
                         <td>관리자 여부</td>
                         <td colspan="3">                       
-                        <c:if test="${d.managerAt eq '1'.charAt(0) }">Y</c:if>              
-                        <c:if test="${d.managerAt eq '0'.charAt(0) }">N</c:if>
+                        <c:if test="${member.managerAt eq '1'.charAt(0) }">Y</c:if>              
+                        <c:if test="${member.managerAt eq '0'.charAt(0) }">N</c:if>
                         </td>
                     </tr>                                      
                 </table>
@@ -133,16 +122,16 @@
                     </thead>
                     <tbody>
                         <tr>                        
-                           <td>${d.orderNo }</td>
-                            <td>${d.sellMemNo }</td>
-                            <td>${d.buyMemNo }</td>
-                            <td>${d.totCount }</td>
+                           <td>${member.orderNo }</td>
+                            <td>${member.sellMemNo }</td>
+                            <td>${member.buyMemNo }</td>
+                            <td>${member.totCount }</td>
                             <td>
-	                            <c:if test="${d.get eq '1'.charAt(0) }">Y</c:if>   
-	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
+	                            <c:if test="${member.get eq '1'.charAt(0) }">Y</c:if>   
+	                            <c:if test="${member.get eq '0'.charAt(0) }">N</c:if>   
                             </td>
-                            <td>${d.orderSum }</td>
-                            <td>${d.deliveryNo }</td>  
+                            <td>${member.orderSum }</td>
+                            <td>${member.deliveryNo }</td>  
                         </tr>
                     </tbody>               
                 </table>
@@ -166,16 +155,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${d.orderNo }</td>
-                            <td>${d.sellMemNo }</td>
-                            <td>${d.buyMemNo }</td>
-                            <td>${d.totCount }</td>
+                            <td>${member.orderNo }</td>
+                            <td>${member.sellMemNo }</td>
+                            <td>${member.buyMemNo }</td>
+                            <td>${member.totCount }</td>
                             <td>
-	                            <c:if test="${d.get eq '1'.charAt(0) }">Y</c:if>   
-	                            <c:if test="${d.get eq '0'.charAt(0) }">N</c:if>   
+	                            <c:if test="${member.get eq '1'.charAt(0) }">Y</c:if>   
+	                            <c:if test="${member.get eq '0'.charAt(0) }">N</c:if>   
                             </td>
-                            <td>${d.orderSum }</td>
-                            <td>${d.deliveryNo }</td>  
+                            <td>${member.orderSum }</td>
+                            <td>${member.deliveryNo }</td>  
                         </tr>
                     </tbody>                                                     
                 </table>
