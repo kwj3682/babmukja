@@ -42,7 +42,7 @@
         </span>
         <div id="optionalMenu1" class="optionalMenubar">
             <ul>
-                <li><a href="">나라별</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=1"/>">나라별</a></li>
                 <li><a href="">종류별</a></li>
                 <li><a href="">주의사항별</a></li>
                 <li><a href="">메뉴4</a></li>

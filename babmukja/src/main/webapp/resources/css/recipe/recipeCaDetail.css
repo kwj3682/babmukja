@@ -19,7 +19,7 @@ a {
 hr {
     border : 1px solid gainsboro;
 }
-.search {
+.searchRecipe {
     height: 200px;            
 }
 .searchbox {
@@ -31,7 +31,7 @@ hr {
     font-weight: bold;
     line-height: 60px;
 }
-#search {
+#search-input {
     border-radius: 5px; 
     width: 600px; height: 50px;
     font-size: 30px;
@@ -47,7 +47,7 @@ hr {
     font-size: 45px;
     color: #7db341;
 }
-#search:focus {
+#search-input:focus {
     outline: none;
     border: 2px solid #7db341;
 }
@@ -95,18 +95,18 @@ hr {
     color:white;
     cursor: pointer;
 }
-.list {
+.ca-list {
     margin-top: 50px;
     display: grid;   
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 30px;   
-    grid-row-gap:100px;     
+    grid-row-gap:100px;    
 }
-.list img {
+.ca-list img {
     border-radius: 5px;
     width: 280px; height: 300px;            
 }
-.list .mem {
+.ca-list .mem-profile {
     width: 80px; height: 80px;
     border-radius: 200px;
 }

@@ -76,8 +76,7 @@
 	                                <label title="bad" for="star-0"></label>
 		                       </div>
 		                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
-                            <textarea id="comment-input"></textarea>
-                        </div>
+                            <textarea class="comment-input"></textarea>
                         <c:choose>
                         	<c:when test="${sessionScope.user ne null}">
 	                        	<button id="comment-submit"><i class="fas fa-pen-square fa-3x"></i></button>                        	
@@ -86,6 +85,7 @@
                         		<button id="comment-nope"><i class="fas fa-pen-square fa-3x"></i></button>
                         	</c:otherwise>
                         </c:choose>                       
+                        </div>
                         
                     </div><!-- comment-mine end -->
 
@@ -98,10 +98,8 @@
         
 
         <!------------------------------------------------------------------------------------------------>
-        <div id="right-body"><!-- right-body start -->
-            
+        <div id="right-body"><!-- right-body start -->            
             <div id="content-wrapper"><!-- content-wrapper start -->
-
                 <div id="content-info"><!-- content-info start -->
                     <div id="content-button-wrapper"><!-- content-button-wrapper start -->
                         <button><i class="fas fa-hand-holding-heart"></i> <b>30</b></button>
@@ -141,125 +139,269 @@
     
     
     <script>
+   	 	var a;
+   		function ratingreturn(no,i){
+   		switch(no){
+   		case 1 : 
+   	  	a=	`
+   	    	<div id="reviewStarsinput">  
+   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
+   	        <label title="gorgeous" for="star-4"></label>
+   	    
+   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4"  disabled = "true"/>
+   	        <label title="good" for="star-3"></label>
+   	    
+   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
+   	        <label title="regular" for="star-2"></label>
+   	    
+   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
+   	        <label title="poor" for="star-1"></label>
+   	    
+   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" checked disabled = "true"/>
+   	        <label title="bad" for="star-0"></label>
+   	   		</div>
+   	   		`
+   			break;
+   		case 2 :
+   			 a=	`
+   	    	<div id="reviewStarsinput">  
+   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
+   	        <label title="gorgeous" for="star-4"></label>
+   	    
+   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4"  disabled = "true"/>
+   	        <label title="good" for="star-3"></label>
+   	    
+   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
+   	        <label title="regular" for="star-2"></label>
+   	    
+   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" checked disabled = "true"/>
+   	        <label title="poor" for="star-1"></label>
+   	    
+   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" disabled = "true"/>
+   	        <label title="bad" for="star-0"></label>
+   	   		</div>
+   	   		`
+   			break;
+   		case 3 :
+   			 a=	`
+   	    	<div id="reviewStarsinput">  
+   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
+   	        <label title="gorgeous" for="star-4"></label>
+   	    
+   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4" disabled = "true"/>
+   	        <label title="good" for="star-3"></label>
+   	    
+   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" checked disabled = "true"/>
+   	        <label title="regular" for="star-2"></label>
+   	    
+   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
+   	        <label title="poor" for="star-1"></label>
+   	    
+   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" disabled = "true"/>
+   	        <label title="bad" for="star-0"></label>
+   	   		</div>
+   	   		`
+   			break;
+   		case 4 :
+   			 a=	`
+   	    	<div id="reviewStarsinput">  
+   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
+   	        <label title="gorgeous" for="star-4"></label>
+   	    
+   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4" checked disabled = "true"/>
+   	        <label title="good" for="star-3"></label>
+   	    
+   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
+   	        <label title="regular" for="star-2"></label>
+   	    
+   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
+   	        <label title="poor" for="star-1"></label>
+   	    
+   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" disabled = "true"/>
+   	        <label title="bad" for="star-0"></label>
+   	   		</div>
+   	   		`
+   			break;
+   		case 5 :
+   			 a=	`
+   	    	<div id="reviewStarsinput">  
+   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5" checked  disabled = "true" />
+   	        <label title="gorgeous" for="star-4"></label>
+   	    
+   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4"  disabled = "true"/>
+   	        <label title="good" for="star-3"></label>
+   	    
+   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
+   	        <label title="regular" for="star-2"></label>
+   	    
+   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
+   	        <label title="poor" for="star-1"></label>
+   	    
+   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1"  disabled = "true"/>
+   	        <label title="bad" for="star-0"></label>
+   	   		</div>
+   	   		`
+   			break;
+   		}	
+   		return a;
+   	
+   		}
+    
     $("#comment-nope").click(function () {
     	alert("로그인 후 이용가능합니다.");
-    	$("#comment-input").html("");
+    	$(".comment-input").html("");
     });
     
-     $("#comment-submit").click(function () {    	 
+    // 댓글 등록하기
+     $("#comment-submit").click(function () {   
+    	 if($("input[name='reviewStars']:checked").val() == "" || $("input[name='reviewStars']:checked").val() == null) {
+    		 alert("별점을 입력해주세요.");
+    		 return;
+    	 }
     	$.ajax({
 	    		type: "post",
 	    		url : "recipeCommentWrite.do",
 	    		data : {
 	    				recipeNo : $("input[name='no']").val(),
 	    				score : $("input[name='reviewStars']:checked").val(),
-	    				content : $("#comment-input").val()
+	    				content : $(".comment-input").val()
 	    		},
 				success : function(result) {
 	    			let html = "";	
-	    	 		
-	    	 		html += '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>' 
+	    		
+	    	 		html +=  '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>'
 	    	 					+'<img class="other-profile" src="">'
 	    	 					+'<div class="other-content-wrapper">'
 	    	 					+'<input type="hidden" class="reviewNo" value=' + result.recipeReviewNo + '>' 
 	    	 					+'<div>'
 	    	 					+'<div class="other-id">'+ result.memNickname +'</div>'
-	    	 					+'<div class="other-rating">' +result.score + '</div>'
-	    	 					+'<div class="other-date">' + result.regdate + '</div>'
+	    	 					+'<div class="other-rating">' +ratingreturn(result.score, result.recipeReviewNo) + '</div>'
+	    	 					+'<div class="other-date">' +  dateFormat(new Date(result.regdate)) + '</div>'
 	    	 					+'</div>'
-	    	 	     			+'<div class="other-content">' + result.content + '</div>'
-	    	 	     			+'<c:if test="${sessionScope.user.memNo eq result.memNo}">'
+	    	 	     			+'<div class="other-content" id=c' + result.recipeReviewNo + '>' + result.content + '</div>'
+	    	 	     			+'<c:if test="${sessionScope.user.memNo ne result.memNo}">'
 	    	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
 	    	 	     			+'</c:if>'
-	    	 	     			+'</div></div>';	 
-	    	 			
-	    	 	 $("#comment-other").prepend(html);
+	    	 	     			+'</div></div>';
+		    	 	     			
+		    	 	 $("input[name='reviewStars']").prop('checked',false);	    	 	 
+		    	 	 $(".comment-input").val("");		
+		    	 	 $("#h3").html("");
+		    	 	 $("#comment-other").prepend(html);	
+	    	 	 		
     			}
     		})
     	});
      
+     // 댓글 목록 불러오기
      $.ajax({    	 
 	 		url: "recipeCommentList.do"	,
 	 		data : {
 	 			recipeNo : $("input[name='no']").val()	 			
 	 		}
 	 	})
-	 	.done(function (result) {	 		
+	 	.done(function (result) {
+	 		let loginMemNo = '${sessionScope.user.memNo}';
 	 		if(result.comment.length == 0) {	 			
-	 			$("#comment-other").html("<h3>댓글을 작성해주세요.</h3>");
+	 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
 	 		}
 	 		let html = "";	
 	 		for(let i = 0; i < result.comment.length; i++) {
+
 	 			let date = new Date(result.comment[i].regdate);
 	 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
 	 					+'<img class="other-profile" src="">'
 	 					+'<div class="other-content-wrapper">'
 	 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
 	 					+'<div>'
-	 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'
-	 					+'<div class="other-rating">' +result.comment[i].score + '</div>'
+	 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'	
+	 					+ ratingreturn(result.comment[i].score,i)
 	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
 	 					+'</div>'
-	 	     			+'<div class="other-content">' + result.comment[i].content + '</div>'
-	 	     			+'<c:if test="${sessionScope.user.memNo eq result.comment[i].memNo}">'
-	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
-	 	     			+'</c:if>'
-	 	     			+'</div></div>';	 
-	 		}	
+	 	     			+'<div class="other-content" id=c' + result.comment[i].recipeReviewNo + '>' + result.comment[i].content + '</div>';
+	 	     			if (loginMemNo == result.comment[i].memNo) {	 	     		
+	 	     				html += '<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
+	 					}
+	 	     			html += '</div></div>';	 
+	 			}	
 	 	 		$("#comment-other").append(html);
 	 	});
 	
      // 댓글 수정 버튼 이벤트
      $(document).on("click",".updateComment",function () {
     	 let no = $(this).parent().parent().find(".reviewNo").val();
+    	 console.log("수정 no : " + no);
     	 let html = "";
   		$.ajax({
- 			url : "commentUpdateForm.do" 			
+ 			url : "commentUpdateForm.do",
+ 			data : "no=" + no
  		}).done (function (data) {
- 			$("#"+no).after (` <div id="comment-mine">
-                	  <img src="">
-                     <div id="comment-input-wrapper">
-                       <div id="reviewStars-input">  
-                            <input id="star-4" type="radio" name="reviewStars" value="5"/>
-                            <label title="gorgeous" for="star-4"></label>
-                        
-                            <input id="star-3" type="radio" name="reviewStars" value="4"/>
-                            <label title="good" for="star-3"></label>
-                        
-                            <input id="star-2" type="radio" name="reviewStars" value="3"/>
-                            <label title="regular" for="star-2"></label>
-                        
-                            <input id="star-1" type="radio" name="reviewStars" value="2"/>
-                            <label title="poor" for="star-1"></label>
-                        
-                            <input id="star-0" type="radio" name="reviewStars" value="1"/>
-                            <label title="bad" for="star-0"></label>
-                       </div>
-                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
-                    <textarea id="comment-input"></textarea>
-                </div>                
-                  <button class="comment-update"><i class="fas fa-pen-square fa-3x"></i></button>  
-                  <div><button class="comment-exit">x</button></div>
-            </div>`);
+ 			 $("#c" + no).html(` <input type="hidden" name="reviewNo" class="reviewNo" value= `+ data.recipeReviewNo + `>
+	                    	    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
+	                    		<textarea class="comment-updateform">`+data.content+`</textarea>                			  
+	                  			 <button class="comment-update">
+	                  			 	<i class="fas fa-pen-square fa-3x"></i>
+	                  			 </button>                  			
+                  			 	<button class="comment-exit">
+                  			 		<i class="far fa-times-circle"></i>
+                  			 	</button>
+                  			 </div>`); 
  			
  		}).fail(function(xhr) {
  			alert("오류 발생");
  		})	
      });
      
-     $(".comment-update").click(function () {
+     // 댓글 수정 취소
+     $(document).on("click", ".comment-exit", function () {
+    	 let no = $(this).parent().find(".reviewNo").val();
+    	
     	 $.ajax({
-    		 url : "updateComment.do",
+    		 url : "returnReviewData.do",
+    		 data : "no=" + no
+    	 }).done(function (result) {    		 	    		
+ 	 		 $("#c" + no).html('<div class="other-content">' + result.content + '</div>');		
+    	 })    	 
+     });
+     
+     // 댓글 수정
+     $(document).on("click", ".comment-update", function () {
+    	 let no = $(this).parent().parent().find(".reviewNo").val();   	 
+    	
+    	 $.ajax({
+    		 url : "updateComment.do",    		 
     		 data : {
-    			recipeNo : $("input[name='no']").val(),
+    			recipeReviewNo : $("input[name='reviewNo']").val(),
  				score : $("input[name='reviewStars']:checked").val(),
-				content : $("#comment-input").val()
+				content : $(".comment-updateform").val()
 				}
     		
-    	 }).done(funtion (data) {
-    		 alert(data);
-    	 });
+    	 }).done(function (result) { 	
+    		 let html = "";
+			 html += '<input type="hidden" class="reviewNo" value=' + result.recipeReviewNo + '>'  					
+ 	     			+'<div class="other-content" id=' +result.recipeReviewNo + '>' + result.content + '</div>'; 
+   		 	$("#c" + no).html(html);
+    	 })
      });
+     
+ 	
+ 	// 댓글 삭제하기
+ 	$(document).on("click", ".deleteComment", function () {
+ 		let num = $(this).parent().parent().find(".reviewNo").val();
+ 		$.ajax({
+ 			url : "commentDelete.do",
+ 			data :"no=" + num
+ 		}).done(function (result) {    		
+ 			if($(".other-content").length == 1 ) {
+ 				$("#"+ num).html("");
+ 				$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+ 			}
+ 		
+	    	$("#"+ num).html("");   
+ 		})  
+ 	});
+ 		
+     
      
      	// timestamp 날짜형식 바꾸는 함수
      	function dateFormat(date){
@@ -280,23 +422,10 @@
     	        return false;
     	    }
     	});
-    	
-    	// 댓글 삭제하기
-    	$(document).on("click", ".deleteComment", function () {
-    		let num = $(this).parent().parent().find(".reviewNo").val();
-    		$.ajax({
-    			url : "commentDelete.do",
-    			data :"no=" + num
-    		}).done(function (result) {
-    			if(result == 0 ) {
-	    			$("#"+ num).html("");    				
-    			}
-    		})  
-    	});
-    		
+
     	
         $(document).ready(function() {
-            $("#comment-input").keyup(function (e){
+            $(".comment-input").keyup(function (e){
             $(this).css('height', 'auto' ).height( this.scrollHeight );
             });
         });

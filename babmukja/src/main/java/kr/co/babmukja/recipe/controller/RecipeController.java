@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
@@ -205,24 +206,39 @@ public class RecipeController {
 
 	@RequestMapping("/commentUpdateForm.do")
 	@ResponseBody
-	public String commentUpdateForm() {
-		return "";
+	public RecipeReview commentUpdateForm(int no) {		
+		return service.selectOneReviewByNo(no);
 	}
 
 	
 	@RequestMapping("/commentDelete.do")
 	@ResponseBody 
-	 public int commentDelete(int no) {
+	 public void commentDelete(int no) {
 		 System.out.println(no);
 		 service.deleteRecipeReview(no); 
-		 return 0;
 		  
 	 }
 	 
 	 @RequestMapping("/updateComment.do")	  
 	 @ResponseBody 
-	 public RecipeReview updateComment(RecipeReview review) {
+	 public RecipeReview updateComment(RecipeReview review) {		 
 		 service.updateRecipeReview(review);
          return service.selectOneReviewByNo(review.getRecipeReviewNo());
 	 }
+	 
+	 @RequestMapping("/returnReviewData.do")	  
+	 @ResponseBody 
+	 public RecipeReview returnReviewData(int no) {
+		 return service.selectOneReviewByNo(no);
+	 }
+	 
+	 @RequestMapping("/cadetail.do")
+	 public void camain(Page page, Model model) {
+		 Map<String, Object> list = service.selectCategory(page);
+		
+		 model.addAttribute("calist", list.get("calist"));
+         model.addAttribute("pageResult", list.get("pageResult"));
+		
+	 }
+	 
 }

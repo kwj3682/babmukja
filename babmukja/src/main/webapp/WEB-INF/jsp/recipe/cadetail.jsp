@@ -15,11 +15,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="search">            
+        <div class="searchRecipe">            
             <div class="searchbox">
                 <div id="cate">레시피 > (카테고리)</div>
                 <div class="searchin">
-                    <input type="text" id="search" name="search" placeholder="레시피를 검색하세요.">
+                    <input type="text" id="search-input" name="search" placeholder="레시피를 검색하세요.">
                 </div>
                 <div>
                     <span class="icon"><i class="fa fa-search"></i></span>
@@ -42,51 +42,18 @@
                     <button id="spicy">맵기순</button>
                 </div>
             </div> 
-            <div class="write">
-                <button id="write">글등록</button>
-            </div>
             <hr>
-            <div class="list">
+            <div class="ca-list">
+            <c:forEach var="ca" items="${calist }">
                 <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/1.jpg">
+                    <img class="mem-profile" src="">
+                    <span>${ca.memNickname }</span>
+                    <div>${ca.title }</div>
+                    <div>조회수 :${ca.viewCnt }</div>
+                    <div>평점 : ${ca.rating }</div>
+                    <img src="${ca.imgPath}">
                 </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/3.jpg">
-                </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/bab.jpg">
-                </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/jab.jpg">
-                </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/1.jpg">
-                </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/3.jpg">
-                </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/bab.jpg">
-                </div>
-                <div>
-                    <img class="mem" src="image/dog1.png">
-                    <span>회원아이디</span>
-                    <img src="image/jab.jpg">
-                </div>
+             </c:forEach>
             </div>
         </div>
     </div>
@@ -97,11 +64,7 @@
                 "display", "grid"                
             );            
         });
-        // $("#search").blur(function () { 
-        //     $(".searchresult").css(
-        //         "display", "none"                
-        //     );            
-        // });
+
         $("#kcal").click(function () {
             window.open(
                 "URL",
@@ -110,9 +73,7 @@
                 )
         });
 
-        $("#write").click(function () {
-            window.location = "recipe_write.html";
-        });
+     
     </script>
 </body>
 </html>

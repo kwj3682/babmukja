@@ -41,6 +41,9 @@ public interface RecipeMapper {
 	public List<Recipe> selectRecipeByKeyword(int no);	
 	public void insertKeywordToRecipe(Keyword keyword);
 	
-	
+	// 레시피 카테고리
+	public List<Recipe> selectCategory(Page page);
+	// 레시피 카테고리 전체수
+	public int selectCategoryCount(Page page);
 	
 }

@@ -106,9 +106,7 @@
                     <div id="recipe-book2" class="recipe-book"></div>
                     <div id="recipe-book3" class="recipe-book"></div>
                     <div id="recipe-book4" class="recipe-book"></div>
-                    
                 </div>
-
             </div>
         </div>
          <!-- modal -->
@@ -196,9 +194,7 @@
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
-    
-    
-    
+      
     function loadApp(id) {
     	if (!$(id).turn("is")) {
     		
