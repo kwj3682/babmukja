@@ -26,7 +26,7 @@
     
 }
 
-#pb_detail_main_image > img {
+#pb_detail_main_image > a > img {
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -38,7 +38,7 @@
     
 }
 
-#pb_detail_thumbnail_list  > img{
+#pb_detail_thumbnail_list  > a > img{
     width: 100%;
     height: 80px;
     border-radius: 5px;
@@ -691,4 +691,6 @@
   #reviewStars-input #star-5 {
     left: 265px;
   }
+  
+
 

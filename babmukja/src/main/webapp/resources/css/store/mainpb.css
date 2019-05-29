@@ -159,12 +159,14 @@ a:link {
     margin-top: -5px;
   font-size: 20px;
   overflow: hidden;
+  font-weight: bold;
 }
 
 .pb_store_popular_product_price {
     margin-top: -35px;
   font-size: 20px;
   font-weight: bold;
+  color: gray;
 }
 
 .pb_store_popular_product_rating {

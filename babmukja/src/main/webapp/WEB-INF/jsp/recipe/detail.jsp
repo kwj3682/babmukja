@@ -57,7 +57,7 @@
                 <div id="comment-header">댓글</div>                
                 <div id="comment-container"><!-- comment-container start -->
                     <div id="comment-mine"><!-- comment-mine start -->
-                        <img src="/babmukja/WEB-INF/images/profile2.jpg">
+                        <img src="<c:url value='/resources/images/ma.jpg'/>">
                         <div id="comment-input-wrapper">
                                <div id="reviewStars-input">  
 	                                <input id="star-4" type="radio" name="reviewStars" value="5"/>
@@ -112,7 +112,7 @@
                 <div id="writer-info"><!-- writer-info start -->
 
                     <div id="profile-wrapper"> <!-- profile-wrapper start -->
-                        <img id="profile-img" src="/babmukja/WEB-INF/images/profile20.jpg">
+                        <img id="profile-img" src="<c:url value="/resources/images/ma.jpg"/>">
                         <div id="profile-id">
                             <div>bitchanmom</div>
                             <div>#level9</div>
@@ -121,10 +121,10 @@
                     </div><!-- profile-wrapper end -->
 
                     <div id="writer-post"><!-- writer-post start -->
-                        <a href="#"><img id="post-img1" src="/babmukja/WEB-INF/images/f8.jpg"></a>
-                        <a href="#"><img id="post-img2" src="/babmukja/WEB-INF/images/f2.jpg"></a>
-                        <a href="#"><img id="post-img3" src="/babmukja/WEB-INF/images/f3.jpg"></a>
-                        <a href="#"><img id="post-img4" src="/babmukja/WEB-INF/images/f4.jpg"></a>
+                        <a href="#"><img id="post-img1" src="<c:url value="/resources/images/f6.jpg"/>"></a>
+                        <a href="#"><img id="post-img2" src="<c:url value="/resources/images/f7.jpg"/>"></a>
+                        <a href="#"><img id="post-img3" src="<c:url value="/resources/images/f8.jpg"/>"></a>
+                        <a href="#"><img id="post-img4" src="<c:url value="/resources/images/f9.jpg"/>"></a>
                     </div><!-- writer-post end -->
 
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
@@ -173,6 +173,8 @@
 	    	 	     			+'</c:if>'
 	    	 	     			+'</div></div>';	 
 	    	 			
+// 	    	 	 $("#comment-other").append(html);
+// 	    	 	 $(".other-profile").attr("src","../../images/ma.jpg");
 	    	 	 $("#comment-other").prepend(html);
     			}
     		})

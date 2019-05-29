@@ -42,26 +42,26 @@
         </span>
         <div id="optionalMenu1" class="optionalMenubar">
             <ul>
-                <li><a href="">나라별</a></li>
-                <li><a href="">종류별</a></li>
-                <li><a href="">주의사항별</a></li>
-                <li><a href="">메뉴4</a></li>
+                <li><a href="#">나라별</a></li>
+                <li><a href="#">종류별</a></li>
+                <li><a href="#">주의사항별</a></li>
+                <li><a href="#">메뉴4</a></li>
             </ul>
         </div>
         <div id="optionalMenu2" class="optionalMenubar">
             <ul>
                 <li><a href="<c:url value="/admin/pbstoreindex.do"/>">스토어메뉴1</a></li>
-                <li><a href="">스토어메뉴2</a></li>
-                <li><a href="">스토어메뉴3</a></li>
-                <li><a href="">스토어메뉴4</a></li>
+                <li><a href="#">스토어메뉴2</a></li>
+                <li><a href="#">스토어메뉴3</a></li>
+                <li><a href="#">스토어메뉴4</a></li>
             </ul>
         </div>
         <div id="optionalMenu3" class="optionalMenubar">
             <ul>
-                <li><a href="">쿠킹미팅1</a></li>
-                <li><a href="">쿠킹미팅2</a></li>
-                <li><a href="">쿠킹미팅3</a></li>
-                <li><a href="">쿠킹미팅4</a></li>
+                <li><a href="#">쿠킹미팅1</a></li>
+                <li><a href="#">쿠킹미팅2</a></li>
+                <li><a href="#">쿠킹미팅3</a></li>
+                <li><a href="#">쿠킹미팅4</a></li>
             </ul>
         </div>
     </div>

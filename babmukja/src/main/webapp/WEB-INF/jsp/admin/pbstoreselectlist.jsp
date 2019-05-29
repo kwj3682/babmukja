@@ -30,7 +30,7 @@
           <tr class="list_td">
             <td>${adminpblist.pbNo}</td>
             <td><a href="<c:url value='/store/detailpb.do?pbNo=${adminpblist.pbNo}'/>">${adminpblist.name}</a></td>
-            <td>${adminpblist.price}</td>
+            <td><fmt:formatNumber value="${adminpblist.price}" groupingUsed="true"/></td>
             <td><fmt:formatDate value="${adminpblist.regDate}" pattern="yyyy-MM-dd" /></td>
             <td>
                 <button class="pb_store_update_btn">
