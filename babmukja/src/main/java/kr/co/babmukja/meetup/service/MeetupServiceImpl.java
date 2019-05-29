@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
+import kr.co.babmukja.repository.domain.MeetupLocation;
 import kr.co.babmukja.repository.mapper.AdminMapper;
 import kr.co.babmukja.repository.mapper.MeetupMapper;
 
@@ -37,6 +39,16 @@ public class MeetupServiceImpl implements MeetupService{
 
 	public void deleteIntro() {
 		mapper.deleteIntro();
+	}
+
+
+	public void insertMeetupBoard(Meetup meetup) {
+		mapper.insertMeetupBoard(meetup);
+		
+	}
+	
+	public void insertMeetupLocation(MeetupLocation meetupLocation) {
+		mapper.insertMeetupLocation(meetupLocation);
 	}
 	
 }

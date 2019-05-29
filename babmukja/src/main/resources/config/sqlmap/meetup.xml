@@ -4,19 +4,31 @@
 <mapper namespace="kr.co.babmukja.repository.mapper.MeetupMapper">
 	<resultMap id="meetupMap" type="meetup">
 		<result column="meet_no" property="meetNo" />
-		<result column="host" property="host" />
-		<result column="left_address" property="leftAddress" />
-		<result column="mem_limit" property="memLimit" />
 		<result column="total_mem" property="totalMem" />
 		<result column="fee" property="fee" />
 		<result column="intro" property="intro" />
 		<result column="title" property="title" />
-		<result column="location_code" property="locaitonCode" />
+		<result column="day" property="day" />
+		<result column="category" property="category" />
+		<result column="file_dir" property="fileDir" />
 	</resultMap>	
     
     <select id="selectIntro" resultType="String">
     	select intro from tb_meetup WHERE meet_no= 1
     </select>
+    
+    <insert id="insertMeetupBoard" parameterType="meetup">
+    	<selectKey keyProperty="meetNo" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir)
+    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir})
+    </insert>
+    
+    <insert id="insertMeetupLocation" parameterType="meetupLocation">
+    	insert into tb_meetup_location(meet_no,city,town)
+    	 			   values(#{meetNo},#{city},#{town})
+    </insert>
     
     <update id= "updateIntro" parameterType="String">
     UPDATE tb_meetup SET intro = #{intro} WHERE meet_no= 1

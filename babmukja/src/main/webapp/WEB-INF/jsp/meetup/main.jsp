@@ -581,7 +581,7 @@
                             </div>
                             <div></div>
                             <div class="modal_meetup_category">
-                                <select name="categody" class="food_nation_category">
+                                <select name="category" class="food_nation_category">
                                     <option value="카테고리">카테고리</option>
                                     <option value="한식">한식</option>
                                     <option value="중식">중식</option>
