@@ -235,6 +235,7 @@
     font-size: 17px;
 }
 
+
 .info_block {
     border: 1px solid gainsboro;
     margin-top: 10px;
@@ -364,12 +365,16 @@
 
 
 .info_block_container {
+    top:100px;
+    margin-top: 15px;
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 16px;
-
     width: 1200px;
 }
+
+
 
 .fa-map-marker-alt {
     color: rgb(195, 195, 195);
@@ -473,7 +478,6 @@
     height: 90px;
     display: grid;
     grid-template-columns: 19% 12% 66%;
-
     border-bottom: 1px solid gainsboro;
 }
 .modal_meetup_day_container>div {
