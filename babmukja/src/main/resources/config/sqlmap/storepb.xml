@@ -325,6 +325,7 @@
 		select * 
 		  from tb_pb_review 
 		 where pb_no = #{pbNo}
+		 order by pb_review_no desc
 	</select>
 	
 	<select id="selectReviewFile" resultMap="fileMap" parameterType="int">
@@ -335,9 +336,22 @@
 	
 	<select id="selectReviewNickName" parameterType="int" resultMap="MemberMap">
 		select *
-	   	  from tb_member
+	   	  from tb_member	
 	   	 where mem_no = #{memNo}
 	</select>
+	
+	<select id="selectReviewByNo" parameterType="int" resultMap="pbReviewSelectMap">
+		select *
+		  from tb_pb_review
+		 where pb_review_no = #{pbReviewNo}
+	</select>
+	
+	<!-- 후기 삭제 -->
+	<delete id="deleteReviewByNo" parameterType="int">
+		delete
+		  from tb_pb_review
+		 where pb_review_no = #{pbReviewNo}
+	</delete>
 	<!-- 
 	<select id="selectPBReviewSelect" parameterType="storePBReview" resultMap="pbReviewSelectMap">
 		select m.mem_nickname, r.*, f.path, f.sysname
