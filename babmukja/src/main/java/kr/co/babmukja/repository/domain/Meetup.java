@@ -2,17 +2,30 @@ package kr.co.babmukja.repository.domain;
 
 public class Meetup {
 
+int meetNo;	
 String intro;
 String title;
 String fee;
 String day;
 String totalMem;
+String category;
+String fileDir;
 
-public String getTotalMem() {
-	return totalMem;
+public String getFileDir() {
+	return fileDir;
 }
-public void setTotalMem(String totalMem) {
-	this.totalMem = totalMem;
+public void setFileDir(String fileDir) {
+	this.fileDir = fileDir;
+}
+int viewCnt;
+
+
+
+public int getMeetNo() {
+	return meetNo;
+}
+public void setMeetNo(int meetNo) {
+	this.meetNo = meetNo;
 }
 public String getIntro() {
 	return intro;
@@ -38,6 +51,23 @@ public String getDay() {
 public void setDay(String day) {
 	this.day = day;
 }
-  
+public String getTotalMem() {
+	return totalMem;
+}
+public void setTotalMem(String totalMem) {
+	this.totalMem = totalMem;
+}
+public String getCategory() {
+	return category;
+}
+public void setCategory(String category) {
+	this.category = category;
+}
+public int getViewCnt() {
+	return viewCnt;
+}
+public void setViewCnt(int viewCnt) {
+	this.viewCnt = viewCnt;
+}
 
 }

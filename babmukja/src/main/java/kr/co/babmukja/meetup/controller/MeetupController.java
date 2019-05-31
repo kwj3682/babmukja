@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.babmukja.meetup.service.MeetupService;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
+import kr.co.babmukja.repository.domain.MeetupLocation;
 
 //파일을 동적으로 받아주기 위해서 File 객체 만들
 
@@ -42,30 +43,12 @@ public class MeetupController {
 		String category, String city1, String city2, String city3,	
 		String town1,String town2,String town3, String[] day, String fee, String detailFee
 			) {
-//		service.selectIntro();
-//		System.out.println("파일 " + file);
-//		System.out.println("카테고리" + category);
-//		System.out.println("제목" + title);
-//		if(city1 !=null) {
-//		System.out.println("도시1" + city1);
-//		}
-//		if(city1 !=null) {
-//			System.out.println("도시2" + city2);
-//			}
-//		if(city3 !=null) {
-//			System.out.println("도시3" + city3);
-//			}
-//		if(town1 !=null) {
-//			System.out.println("마을1" + town1);
-//			}
-//		if(town2 !=null) {
-//			System.out.println("마을2" + town2);
-//			}
-//		if(town3 !=null) {
-//			System.out.println("마을3" + town3);
-//			}
+		service.selectIntro();
+		System.out.println("파일 " + file);
+		System.out.println("카테고리" + category);
+		System.out.println("제목" + title);
 		
-	//	Meetup meetupBoard = new Meetup();
+		
 		
 		
 		String meetupDay = "";
@@ -85,6 +68,86 @@ public class MeetupController {
 			}
 
 		
+	
+		//file 처리
+		System.out.println("들어왔음");
+		System.out.println("file 들어왔나 확인" + file);
+		UUID uuid = UUID.randomUUID();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/meetup/" + sdf.format(new Date());
+		String orgFileName = file.getOriginalFilename();
+		String sysFileName = uuid.toString() + orgFileName;
+		String filePath = uploadRoot + path;
+		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+		MeetupFile mFile = new MeetupFile();
+		mFile.setOrgFileName(orgFileName);
+		mFile.setSysFileName(sysFileName);
+		mFile.setFilePath(filePath);
+		File f = new File(filePath + sysFileName);
+		if (f.exists() == false) {
+			f.mkdirs();
+		}
+
+		try {
+			System.out.println("이동 잘되나 확인");
+			file.transferTo(f);
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("실패");
+		}
+		
+		//xml에 담아주기
+		Meetup meetupBoard = new Meetup();	
+		System.out.println("진짜첫번째:" +meetupBoard.getMeetNo());
+		meetupBoard.setCategory(category);
+		meetupBoard.setDay(meetupDay);
+		meetupBoard.setFee(detailFee);
+		meetupBoard.setTitle(title);
+		meetupBoard.setFileDir(filePath + sysFileName);
+		System.out.println("첫번째:" +meetupBoard.getMeetNo());
+
+		service.insertMeetupBoard(meetupBoard);
+		
+		MeetupLocation meetupLocation = new MeetupLocation();
+		if(city1 !=null) {
+		
+			meetupLocation.setCity(city1);
+			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
+			System.out.println("두번째:" +meetupBoard.getMeetNo());
+			System.out.println("도시1" + city1);
+			
+		}
+		if(town1 !=null) {
+			meetupLocation.setTown(town1);
+			service.insertMeetupLocation(meetupLocation);
+			System.out.println("마을1" + town1);
+			}
+		if(city2 !=null) {
+			meetupLocation.setCity(city2);
+			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
+			
+			System.out.println("도시2" + city2);
+			}
+		if(town2 !=null) {
+			meetupLocation.setTown(town2);
+			service.insertMeetupLocation(meetupLocation);
+			System.out.println("마을2" + town2);
+			}
+		if(city3 !=null) {
+			meetupLocation.setCity(city3);
+			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
+			
+			System.out.println("도시3" + city3);
+			}
+		
+		
+		if(town3 !=null) {
+			meetupLocation.setTown(town3);
+			service.insertMeetupLocation(meetupLocation);
+			System.out.println("마을3" + town3);
+			}
 		
 	}//createMeetup
 	
