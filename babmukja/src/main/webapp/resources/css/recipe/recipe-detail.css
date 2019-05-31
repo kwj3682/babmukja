@@ -198,32 +198,38 @@
 .post-content{
     color:rgb(81,81,81);
 }
-#reviewStars-input input:checked ~ 
-label, #reviewStars-input label, 
-#reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+#reviewStars-input input:checked ~ label, #reviewStars-input label, 
+#reviewStars-input label:hover, #reviewStars-input label:hover ~ label,
+#reviewStarsinput input:checked ~ label, #reviewStarsinput label, 
+#reviewStarsinput label:hover, #reviewStarsinput label:hover ~ label {
     background-image : url('http://positivecrash.com/wp-content/uploads/ico-s71a7fdede6.png');
     background-size :21px;
     background-repeat : no-repeat;
 }
   
-#reviewStars-input {    
-    overflow: hidden;
-    margin-left: 30px;
-    *zoom: 1;
-    display: inline-block;
-  /*position: relative;
-    top: -20px;
-    left: -10px; */
-  }
-  
+#reviewStars-input {
+   position : relative; 
+   left: -680px;
+   top: 40px;
+ }
+
+#reviewStarsinput input {
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;    
+    width: 20px;
+    height: 20px;    
+    position: absolute;
+    top: 0px; 
+    z-index: 0;
+}
   #reviewStars-input input {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;    
     width: 20px;
     height: 20px;    
-    position: absolute;
-    top: 0;
-    z-index: 0;
+    position: relative;
+    top: 0;  
+    z-index: 0; 
   }
   
   #reviewStars-input input:checked ~ label {
@@ -231,43 +237,44 @@ label, #reviewStars-input label,
     width: 20px;
     height: 20px;
   }
+   #reviewStarsinput input:checked ~ label {
+    background-position: 0 -20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: -20px;
+  } 
   
+  #reviewStarsinput label {
+    background-position: 0 0;
+    width: 20px;
+    height: 20px;
+    float: right;  
+    position: relative;
+    z-index: 1;
+    left : -20px;
+    margin-right: 5px;   
+  } 
   #reviewStars-input label {
     background-position: 0 0;
     width: 20px;
     height: 20px;
-    float: right;
-    cursor: pointer;
+    float: right;    
     margin-right: 5px;    
     position: relative;
     z-index: 1;
   }
   
-  #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+ /*  #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
     background-position: 0 -19px;
     height: 20px;
     width: 20px;
   }
-  
-  #reviewStars-input #star-0 {
-    left: 0px;
-  }
-  #reviewStars-input #star-1 {
-    left: 53px;
-  }
-  #reviewStars-input #star-2 {
-    left: 106px;
-  }
-  #reviewStars-input #star-3 {
-    left: 159px;
-  }
-  #reviewStars-input #star-4 {
-    left: 212px;
-  }
-  #reviewStars-input #star-5 {
-    left: 265px;
-  }
-
+  #reviewStarsinput label:hover, #reviewStars-input label:hover ~ label {
+    background-position: 0 -19px;
+    height: 20px;
+    width: 20px;
+  } */
 
 #comment-header{
     font-size: 19px;
@@ -291,8 +298,18 @@ label, #reviewStars-input label,
     height: 60px;
     border-radius :30px;
 }
-#comment-input{
+.comment-input{
     width: 600px;
+    height: 45px;
+    resize: none;
+   	min-height : 45px;
+   	max-height : 45px;
+}
+.comment-input:focus {
+	outline: none;
+}
+.comment-updateform {
+	width: 500px;
     height: 50px;
     resize: none;
 }
@@ -303,12 +320,28 @@ label, #reviewStars-input label,
     background: white;
     cursor: pointer;
 }
+.comment-exit {	
+    color: #7db341;
+    border : 0;
+    background: white;
+    cursor: pointer;
+    font-size : 35px;
+}
+
 #comment-nope {
 	height: 50px;
     color: #7db341;
     border : 0;
     background: white;
     cursor: pointer;
+}
+.comment-update {
+	height: 50px;
+    color: #7db341;
+    border : 0;
+    background: white;
+    cursor: pointer;
+    display : inline-block;
 }
 #comment-other{
     border-top: 1px solid gainsboro;
@@ -340,6 +373,17 @@ label, #reviewStars-input label,
 #post-body{
 	position: relative;
 }
+#updateComment, .deleteComment {
+	border : none;
+	background : white;
+	color : gray;
+	font-size : 10px;
+}
+
+#updateComment:hover, .deleteComment:hover {
+	color : #7db341;
+}
+
 button{
 	outline:none;
 }

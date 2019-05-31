@@ -40,4 +40,6 @@ public interface StorePBService {
 	//public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo);
 	public List<StorePBReview> selectReview(int pbNo);
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo); 
+	public StorePBReview selectReviewByNo(int pbReviewNo);
+	public void deleteReviewByNo(int pbReviewNo);
 }

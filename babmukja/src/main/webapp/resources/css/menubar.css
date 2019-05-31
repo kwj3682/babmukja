@@ -4,7 +4,6 @@
     top:0;
     left : 0;
     width: 100%;
-    background : WHITE;
     margin: 0 auto;
     padding : 0;
     transition: .2s;
@@ -12,7 +11,6 @@
     z-index: 250;
     border-bottom: 1px solid gainsboro;
 }
-
 ul,ol{
 	margin-top:20px !important;
 }
@@ -22,7 +20,6 @@ ul,ol{
 }
 #menuContent a{
     text-decoration: none;
-    color: rgb(81,81,81);
 }
 #menuContent a:visited{
     text-decoration: none;
@@ -70,9 +67,6 @@ ul,ol{
 #sign>a:first{
     border-right: 1px solid #7db341 ;
 }
-#sign>i{
-    color: #7db341 !important;
-}
 .optionalMenubar{
     position: absolute;
     width: 100%;
@@ -89,7 +83,6 @@ ul,ol{
 }
 a{
     text-decoration: none !important;
-    color: rgb(81,81,81) !important;
 }
 a:visited{
     text-decoration: none !important;
@@ -112,4 +105,22 @@ a:hover{
 }
 #nickName {
 	margin-rigth: 10px;
+}
+.opacity{
+	background : rgba(0,0,0,0);
+}
+.opacity a{
+	color: white;
+}
+.opacity i{
+	color: white;
+}
+.non-opacity{
+	background : white;
+}
+.non-opacity a{
+	color: rgb(81,81,81);	
+}
+.non-opacity i{
+	color: #7db341;	
 }

@@ -154,33 +154,35 @@
                     <div id="pb_review">후기<br><br></div><br><br>
                     <button id="pb_review_writeform">후기쓰기</button>
                 </div>
-
+			
               <c:forEach var="reviewList" items="${reviewMap}">
-                <div id="pb_review_body">
+                <div class="pb_review_body">
                     <!-- 후기 프로필 -->
-                    <div id="pb_review_profile">
-                        <div id="pb_review_profile_img">
+                    <div class="pb_review_profile">
+                        <div class="pb_review_profile_img">
                             <img src="<c:url value='/resources/images/profile19.jpg'/>">
                         </div>
-                        <div id="pb_review_user_info">
+                        <div class="pb_review_user_info">
                             <p class="review_user_nickname">${reviewList.member.memNickname}</p>
-                            <div id="reviewBUTTON">
-                            	<button id="reviewUpdateBTN">수정</button>
-                            	<button id="reviewDeleteBTN">삭제</button>
+                            <div class="reviewBUTTON">
+			                    <input type="hidden" name="pbReviewNo" value="${reviewList.reviewList.pbReviewNo}">
+                            	<button class="reviewUpdateBTN" >수정</button>
+                            	<button class="reviewDeleteBTN">삭제</button>
                             </div>
                             <p class="review_user_rating">★★★★☆<span><fmt:formatDate value="${reviewList.reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span></p>
                         </div>
                     </div>
                     <!-- 리뷰 사진 및 내용 -->
-                    <div id="pb_review_select">
-                        <div id="pb_review_select_content">
+                    <div class="pb_review_select">
+                        <div class="pb_review_select_content">
+                        
                             <p>
                             	${reviewList.reviewList.content}
                             </p>
                         </div>
                         
                        
-                    <div id="pb_review_select_img">
+                    <div class="pb_review_select_img">
    	                	<c:forEach var="file" items="${reviewList.reviewFile}">
       		                <div>
   	    	                	<a href="downloadpb.do?path=${file.path}&sysname=${file.sysname}" data-lightbox="mygallery">
@@ -192,7 +194,7 @@
 		                    
 		                    
                     	</div>
-                    <div id="review_border-bottom"></div>
+                    <div class="review_border-bottom"></div>
                 </div>  <!-- pb_review_body 끝-->
               </c:forEach>
                 
@@ -253,6 +255,7 @@
                 
             </div> <!-- 후기 끝 -->
             
+            
          <!-- modal -->
 		  <form method="POST" enctype="multipart/form-data">
 		    <div id="reviewmodal" class="modal fade" tabindex="-1" >
@@ -303,7 +306,7 @@
 							            <p class="review_images_msg"> 아래 + 를 눌러 이미지를 등록해주세요.</p>
 						            </div>
 						            <div class="review_images">
-						                <input type="file" name="img_file" id="img_file">
+							                <input type="file" name="img_file" id="img_file">
 						                <div id="preview_img_div">
 						                    <div class="imgPlus">+</div>
 						                </div>
@@ -318,6 +321,72 @@
 		        </div>
 		    </div>
 		  </form>  
+		  
+		  <!-- review 수정 modal -->
+		  <form method="POST" enctype="multipart/form-data">
+		    <div id="reviewUpdatemodal" class="modal fade" tabindex="-1" >
+		        <div class="moadl-dialog">
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal">x</button>
+		                    <p class="modal-title">후기 수정</p>
+		                </div>
+		                <div class="modal-body">
+		                    <div class="pb_insertform_container">
+		                        <div class="pb_product_item">
+		                            <div class="pb_product_item_img">
+		                                <img src="${imgList[0]}">
+		                            </div>
+		                            <div class="pb_product_item_info">
+		                                <p class="pb_product_item_name">${storepb.name}</p>
+		                            </div>
+		                        </div>
+		                        <div class="pb_product_item_rating">
+		                            <p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
+		                            <div id="reviewStars-input">
+		                                <input id="star-4" type="radio" name="reviewStars"/>
+		                                <label title="gorgeous" for="star-4"></label>
+		                            
+		                                <input id="star-3" type="radio" name="reviewStars"/>
+		                                <label title="good" for="star-3"></label>
+		                            
+		                                <input id="star-2" type="radio" name="reviewStars"/>
+		                                <label title="regular" for="star-2"></label>
+		                            
+		                                <input id="star-1" type="radio" name="reviewStars"/>
+		                                <label title="poor" for="star-1"></label>
+		                            
+		                                <input id="star-0" type="radio" name="reviewStars"/>
+		                                <label title="bad" for="star-0"></label>
+		                            </div>
+		                        </div>
+		               
+								<div class="pb_reviewMap">
+						            <div class="pb_product_content">
+						                <textarea name="content" class="review__update__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
+						                <div class="content_length">
+						                    <p>0</p>
+						                    <p>/</p>
+						                    <p>1,000</p>
+						                </div>
+							            <p class="review_images_msg"> 아래 + 를 눌러 이미지를 등록해주세요.</p>
+						            </div>
+						            <div class="review_update_images">
+						                <input type="file" name="update_img_file" id="update_img_file">
+						                <div id="preview_update_img_div">
+						                    <div class="imgPlus">+</div>
+						                </div>
+						            </div>
+						        </div>
+		                    </div>
+		                </div>
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-insert" id="insertmodalbtn">수정</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		  </form>
         
             <!-- 문의 -->
             <div id="pb_review_inquire_detail" name="pb_review_inquire_detail">
@@ -402,8 +471,11 @@
         </div>
 	
     <script>
+    	let imgArr= ["a","b","c","d","e","f","g","h","i","j"];
+    
     $(document).ready(function () {
     	$("#reviewmodal").modal("hide");
+    	$("#reviewUpdatemodal").modal("hide");
     });
     
     $("#pb_review_writeform").click(function () {
@@ -415,6 +487,10 @@
       backdrop: 'static'
     });
 
+    $("#reviewUpdatemodal").modal({
+      backdrop: 'static'
+    });
+    
         $("a[href^='#']").click(function (event) {
             event.preventDefault();
             var target = $(this.hash);
@@ -509,30 +585,48 @@
           }
       });
 		
+      
+      
      function myTimeWait(){
 	   
   	   	console.log($("#post-body").width() + " " + $("#post-body").height());
   	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
      }
-     
+
      // 후기 모달 이미지 부분
+   	   let index = 0;
        $(".imgPlus").click(function () {
-          $("#img_file").click()
+          $("#img_file").click();
        });
      
 		let imgCnt = 0;
-		let reviewData = new FormData();	
+		
+		let idx = 0;
+		let fileList = {};
+		
+		let reviewData = new FormData();
+		
        $("#img_file").change(function (e) {
+   	   	  let path = $(this).val();
    	   	  console.dir(e.target.files[0]);
-   	   	  reviewData.append("imageList",e.target.files[0]);
-   	   	  
-    	   
-            var reader = new FileReader();
+//    	   		console.log(imgArr.pop());
+//    	   		console.log(imgArr);
+// 		  fileList.push(e.target.files[0]);
+		  let imgKey = imgArr.pop();
+		  fileList[imgKey] = e.target.files[0];
+		  console.log(fileList);
+		  idx++;
+//    	   	reviewData.append("imageList", e.target.files[0]); 여기서 말고
+
+			var reader = new FileReader();
             reader.readAsDataURL(e.target.files[0]);
+
 
             reader.onload = function () {
                 var tempImage = new Image();
+                
                 tempImage.src = reader.result;
+                
                 tempImage.onload = function () {
                     var canvas = document.createElement('canvas');
                     var canvasContext = canvas.getContext("2d");
@@ -543,29 +637,39 @@
                     canvasContext.drawImage(this, 0, 0, 100, 100);
                     
                     var dataURI = canvas.toDataURL("image/jpeg");
-
+	
 					imgCnt++;
-                    var imgTag = "<div><img id='preview_img' name='preview_img"+imgCnt+"' src='"+dataURI+"'/></div>";
-                    if(imgCnt == 10){
+                    var imgTag = "<div class='image_box' id='idx"+idx+"'><img name='preview_img"+imgCnt+"' class='preview_img' src='"+dataURI+"'/><div id='"+imgKey+"' class='preview_img_btn' >x</div></div>";
+
+
+                    
+                    if(fileList.length == 10){
                     	$(".imgPlus").hide();
                     }
+                    
                     $("#preview_img_div").prepend(imgTag);
-					if(imgCnt > 3){						
-// 	                    let bodyHeight = document.body.offsetHeight;
+					
+                    if(fileList.length > 3){						
 	                    $(".modal-backdrop").css({height:"1100px"});
 					}
                 };
             };
+            
+            
        });
-       
+
+
+
+       // review 등록
        $("#insertmodalbtn").click(function () {
     	   let content = $(".product__content").val();
     	   let pbNo = ${storepb.pbNo};
-    	   console.log(pbNo);
     	   reviewData.append("content",content );
     	   reviewData.append("pbNo", pbNo);
-    	   console.log(content);
-    	   console.log(reviewData);
+    	   console.log( Object.keys(fileList).length + "길이");
+    	   for(key in fileList){
+    		   reviewData.append("imageList", fileList[key]);
+    	   }
 			$.ajax({
 				type:"POST",
 				processData:false,
@@ -578,6 +682,48 @@
 				}
 			});
        });
+       
+       // review 삭제
+       $(".reviewDeleteBTN").click(function () {
+    		let pbNo = ${storepb.pbNo};
+    		console.log(pbNo);
+   	  		
+   	  		$.ajax({
+   	  			url: "/babmukja/store/pbreviewdelete.do",
+   	  			data: {
+   	  				pbReviewNo : $(this).siblings("input[name='pbReviewNo']").val()
+   	  			}
+   	  		}).done(function(response) {
+   	  			alert("후기글이 삭제되었습니다.");
+   	  		});
+       });
+       
+       // review 수정
+      $(".reviewUpdateBTN").click(function () {
+    	  	$("#reviewUpdatemodal").modal("show");
+//    	   		let content = $(".review__update__content").html($(".product__content").val());
+
+   	  		alert($(this).siblings("input[name='pbReviewNo']").val());
+   	  		$.ajax({
+   	  			url: "/babmukja/store/pbreviewupdate.do",
+   	  			data : {
+   	  				pbReviewNo : $(this).siblings("input[name='pbReviewNo']").val()
+   	  			}
+   	  		}).done(function(response){
+   	  			console.dir(response);
+	   	  		$(".review__update__content").val(response.content);
+   	  		});
+      });
+       
+		$(document).on("click",".preview_img_btn",function () {
+			let key = $(this).attr("id");
+			delete fileList[key];
+			console.log(fileList);
+			
+			imgArr.push(key);
+//  		   alert($(this).attr("id"));
+ 		   $(this).parent().remove(); 
+ 	   });
     </script>
 </body>
 </html>

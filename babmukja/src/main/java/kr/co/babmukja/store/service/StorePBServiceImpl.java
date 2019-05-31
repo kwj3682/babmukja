@@ -96,6 +96,14 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectReviewFile(pbReviewNo);
 	}
 	
+	public StorePBReview selectReviewByNo(int pbReviewNo) {
+		return mapper.selectReviewByNo(pbReviewNo);
+	}
+	
+	public void deleteReviewByNo(int pbReviewNo) {
+		mapper.deleteReviewByNo(pbReviewNo);
+	}
+	
 //	public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo) {
 //		return mapper.selectPBReviewSelectImage(pbReivewNo);
 //	}

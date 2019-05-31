@@ -10,16 +10,14 @@ a {
 .container {
     width: 1200px;
     margin: 0 auto;
+    margin-top : 80px;
+    height : auto;
 }
-.text {
-    font-size: 30px;
-    height: 100px;
-    font-weight: bold;
-}
+
 hr {
     border : 1px solid gainsboro;
 }
-.search {
+.searchRecipe {
     height: 200px;            
 }
 .searchbox {
@@ -31,14 +29,14 @@ hr {
     font-weight: bold;
     line-height: 60px;
 }
-#search {
+#search-input {
     border-radius: 5px; 
     width: 600px; height: 50px;
     font-size: 30px;
     text-align: center;
     padding-right: 55px;
 }
-.icon {
+.searchicon {
     width: 40px; height: 40px;
     position:relative;
     left:-120px;
@@ -47,7 +45,7 @@ hr {
     font-size: 45px;
     color: #7db341;
 }
-#search:focus {
+#search-input:focus {
     outline: none;
     border: 2px solid #7db341;
 }
@@ -83,30 +81,18 @@ hr {
 .select > button:focus {
     outline: none;
 }
-.write {
-    height: 50px;            
-    text-align: right;
-}
-#write {            
-    width: 80px; height: 50px;
-    border: none;    
-    border-radius: 5px;        
-    background: #7db341;  
-    color:white;
-    cursor: pointer;
-}
-.list {
+.ca-list {
     margin-top: 50px;
     display: grid;   
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 30px;   
-    grid-row-gap:100px;     
+    grid-row-gap:100px;    
 }
-.list img {
+.ca-list img {
     border-radius: 5px;
     width: 280px; height: 300px;            
 }
-.list .mem {
+.ca-list .mem-profile {
     width: 80px; height: 80px;
     border-radius: 200px;
 }

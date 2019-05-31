@@ -84,21 +84,29 @@
     
     <!-- 댓글 등록 -->
     <insert id="insertRecipeReview" parameterType="RecipeReview">    	
-    <selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
-    	SELECT LAST_INSERT_ID()
-  	</selectKey>
     	insert into tb_recipe_review (
 			recipe_no, content, mem_no, score    	
     	) values (
     		#{recipeNo}, #{content}, #{memNo}, #{score}
-    	)
+     	)
+    <selectKey keyProperty="recipeReviewNo" resultType="int" order="AFTER">
+    	SELECT LAST_INSERT_ID()
+  	</selectKey>
     </insert>    
+    
+    <!-- 댓글 등록될 때 레시피 평점 수정하기 -->
+    <update id="updateRecipeRating" parameterType="int">
+    	update tb_recipe
+    	   set rating = (select avg(score) 
+    	                   from tb_recipe_review 
+    	                  where recipe_no = #{recipeNo})
+    	 where recipe_no = #{recipeNo}
+    </update>
     
     <!-- 댓글 수정 -->
     <update id="updateRecipeReview" parameterType="RecipeReview">
     	update tb_recipe_review
-    	   set content = #{content},
-    	         score = #{score}
+    	   set content = #{content}    	         
     	 where recipe_review_no = #{recipeReviewNo}
     </update>
     
@@ -151,5 +159,23 @@
 		 where rk.keyword_no = k.keyword_no
 		       and rk.recipe_no = #{recipeNo}
 	</select>
-
+	
+	<!-- 레시피 카테고리별 목록 조회-->
+	<select id="selectCategory" parameterType="page" resultMap="recipeMap">
+		select r.*, m.*
+  		  from tb_recipe r, tb_recipe_keyword rk, tb_member m
+		 where r.recipe_no = rk.recipe_no
+		   and m.mem_no = r.mem_no
+   		   and rk.keyword_no = #{keywordNo}
+   		 limit #{begin}, #{end}
+	</select>
+	
+	<!-- 레시피 카테고리별 전체 수 -->
+	<select id="selectCategoryCount" parameterType="page" resultType="int">
+		select count(*)
+		  from tb_recipe r
+		 inner join tb_recipe_keyword rk
+		    on r.recipe_no = rk.recipe_no
+		 where rk.keyword_no = #{keywordNo} 
+	</select>
 </mapper>

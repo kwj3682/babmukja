@@ -41,4 +41,9 @@ public interface StorePBMapper {
 	public List<StorePBReview> selectReview(int pbNo);
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo);
 	
+	// pb 상품 후기 수정관련
+	public StorePBReview selectReviewByNo(int pbReviewNo);
+	// pb 상품 후기 삭제
+	public void deleteReviewByNo(int pbReviewNo);
+		
 }

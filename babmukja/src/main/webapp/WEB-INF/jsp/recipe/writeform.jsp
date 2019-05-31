@@ -31,10 +31,10 @@
 <body>
     <div id="writeform-header">레시피 작성</div>
      <div id="paragraph">
-		      자신만의 레시피를 완성해주세요
-		      <br>
-		      <br>
-		      레시피에 맞는 키워드들을 선택해주세요.
+            자신만의 레시피를 완성해주세요
+            <br>
+            <br>
+            레시피에 맞는 키워드들을 선택해주세요.
     </div>
         <div id="keyword-container">
         <div class="keyword-wrapper" id="keyword-contry-wrapper">
@@ -147,8 +147,8 @@
         <button>저장</button>
     </div>
     <script>
-   		let fileList="";
-    	const editor = new EditorJS({
+         let fileList="";
+       const editor = new EditorJS({
             holderId: 'editorjs',
 
             autofocus: false,
@@ -184,10 +184,10 @@
 //                 image: {
 //                     class: ImageTool,
 //                     config: {
-//                     	uploader:{
-//                     		uploadByFile(file){
-//                     			alert("asdsa");
-//                     			console.dir(file);
+//                        uploader:{
+//                           uploadByFile(file){
+//                              alert("asdsa");
+//                              console.dir(file);
 //                                 // your own uploading logic here
 //                                 return $.ajax.upload(file).then(() => {
 //                                   return {
@@ -197,16 +197,16 @@
 //                                       // any other image data you want to store, such as width, height, color, extension, etc
 //                                     }
 //                                   };
-//                             	});
-//                     		}
-//                     	}
+//                                });
+//                           }
+//                        }
 // //                         endpoints: {
 // //                         byFile: 'http://localhost:8085/babmukja/recipe/write.do', // Your backend file uploader endpoint
 // //                         byUrl: ''
 // //                         }
 //                     }
 //                 },
-				image: {
+            image: {
                     class: ImageTool,
                     config: {
                         uploader: {
@@ -219,25 +219,25 @@
                                         fileData.append("attach", file);  
                                         
                                     return new Promise(function (resolve, reject) {
-										alert("이미지 업로드 중...");
+                              alert("이미지 업로드 중...");
                                         $.ajax({
                                             url: 'upload.do',
                                             type: "post",
-                    	   					processData: false,
-                                          	contentType: false,
+                                         processData: false,
+                                             contentType: false,
                                             data: fileData,
                                             success: function (response) {
                                                 
-                                            	if (response) {	
-                                            		console.dir(response);
-                                            		var obj = JSON.parse(response);
-                                                	console.log(obj.path);
-                                                	console.log(obj.sysname);
-//                                                 	console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
-                                                	resolve({
-			                                            cnt: 1,
-			                                            url: "${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname
-			                                        });
+                                               if (response) {   
+                                                  console.dir(response);
+                                                  var obj = JSON.parse(response);
+                                                   console.log(obj.path);
+                                                   console.log(obj.sysname);
+//                                                    console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
+                                                   resolve({
+                                                     cnt: 1,
+                                                     url: "${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname
+                                                 });
                                                 }
                                             },
                                             error: function () {
@@ -283,7 +283,7 @@
                 list: {
                     class: List,
                     "data":{
-                    	"style":"ordered"
+                       "style":"ordered"
                     },
                     inlineToolbar: ['link', 'bold']
                 },
@@ -302,44 +302,44 @@
 
         let saveBtn = document.querySelector("button");
         saveBtn.addEventListener("click", function () {
-        	let recipeTitle = $("#title").val();
+           let recipeTitle = $("#title").val();
             console.dir(editor)
             editor.save().then((outputData)=>{
         
-            	let cnt = 0;
-            	for(let fileUrl of outputData.blocks){
-            		if(fileUrl.type == 'image'){
-		            	fileList += (cnt==0)?fileUrl.data.file.url:","+fileUrl.data.file.url;   
-		            	cnt++;
-            		}
-            	}
-            	
-            	let keyword = [];
-            	keyword.push($("input[name='country']:checked").val());
-            	keyword.push($("input[name='caution']:checked").val());
-            	keyword.push($("input[name='situation']:checked").val());
-            	keyword.push($("input[name='level']:checked").val());
-            	keyword.push($("input[name='taketime']:checked").val());
-            	keyword.push($("input[name='foodtype']:checked").val());
+               let cnt = 0;
+               for(let fileUrl of outputData.blocks){
+                  if(fileUrl.type == 'image'){
+                     fileList += (cnt==0)?fileUrl.data.file.url:","+fileUrl.data.file.url;   
+                     cnt++;
+                  }
+               }
+               
+               let keyword = [];
+               keyword.push($("input[name='country']:checked").val());
+               keyword.push($("input[name='caution']:checked").val());
+               keyword.push($("input[name='situation']:checked").val());
+               keyword.push($("input[name='level']:checked").val());
+               keyword.push($("input[name='taketime']:checked").val());
+               keyword.push($("input[name='foodtype']:checked").val());
         
-            	let content = JSON.stringify(outputData);
-            	let title= $("#title").val();
-            	
-            	let f = new FormData();
-            	f.append("keywordNo",keyword);
-            	f.append("content",content);
-            	f.append("title",title);
-            	f.append("imgPath",fileList);
-            	
-            	$.ajax({
-					type: "post",
-	   					url:"write.do",
-						data: f,
-						processData: false,
-						contentType: false,
-						success:function(result){
-						}
-            	});
+               let content = JSON.stringify(outputData);
+               let title= $("#title").val();
+               
+               let f = new FormData();
+               f.append("keywordNo",keyword);
+               f.append("content",content);
+               f.append("title",title);
+               f.append("imgPath",fileList);
+               
+               $.ajax({
+               type: "post",
+                     url:"write.do",
+                  data: f,
+                  processData: false,
+                  contentType: false,
+                  success:function(result){
+                  }
+               });
                 console.log("Article data : ", outputData);
                 console.log("title : "+title);
                 console.log("content : " + content);
@@ -351,4 +351,3 @@
     </script>
 </body>
 </html>
-

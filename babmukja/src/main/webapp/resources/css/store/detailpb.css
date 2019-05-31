@@ -4,7 +4,6 @@
     margin: 0 auto;
     
 }
-
 #pb_detail_header_container {
     margin-top: 100px;  
     height: 550px;
@@ -266,29 +265,32 @@
     color: #7db341;
 }
 
-#pb_review_profile {
+.pb_review_profile {
     display: grid;
     grid-template-columns: 10% 90%;
     margin-top: 50px;
 }
 
-#pb_review_profile_img img {
+.pb_review_profile_img img {
     width: 60px;
     height: 60px;
     border-radius: 30px;
     margin-top: -20px;
 }
 
-#pb_review_user_info {
+.pb_review_user_info {
     margin-top: -15px;
     margin-left: -15px;
+    display: flex;
 }
 
-#pb_review_user_info > .review_user_rating {
+.pb_review_user_info > .review_user_rating {
     color: #7db341;
+    margin-top: 40px;
+    margin-left: -150px;
 }
 
-#pb_review_user_info > .review_user_rating span {
+.pb_review_user_info > .review_user_rating span {
     margin-left: 15px;
     color: rgb(81,81,81);
 }
@@ -297,16 +299,16 @@
     font-weight: bold;
 }
 
-#pb_review_select {
+.pb_review_select {
 	height: auto;
 }
 
-#review_border-bottom {
+.review_border-bottom {
     margin-top: 30px;
     border-bottom: 1px solid gainsboro;
 }
 
-#pb_review_select_img{
+.pb_review_select_img{
     width: 600px;
     height: 112px;
     display: grid;
@@ -314,7 +316,7 @@
     grid-gap : 5px;
 }
 
-#pb_review_select_img img {
+.pb_review_select_img img {
     width: 100px;
     height: 100px;
     border-radius: 5px;
@@ -343,7 +345,7 @@
       margin-top: -20px;
 }
 
-#pb_review_select_content {
+.pb_review_select_content {
     color: rgb(81, 81, 81);
     height: auto;
     width: 100%;
@@ -351,7 +353,7 @@
     margin-bottom: 30px;
 }
 
-#pb_review_body {
+.pb_review_body {
     height: auto;
 }
 
@@ -494,6 +496,15 @@
     resize: none;
 }
 
+.review__update__content {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 500px;
+    height: 170px;
+    resize: none;	
+}
+
 .content_length {
     display: flex;
     width: 100%;
@@ -513,6 +524,12 @@
     grid-gap : 5px;
 }
 
+#preview_update_img_div {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap : 5px;	
+}
+
 .imgPlus {
     width: 100px;
     height: 100px;
@@ -528,14 +545,14 @@
     
 }
 
-.review_images {
-    display: flex;
-    width: 500px;
-}
-
 #img_file {
     display: none;
 }
+
+#update_img_file {
+    display: none;
+} 
+
 
 .pb_product_content {
     height: 250px;
@@ -615,6 +632,16 @@
     text-align: left;
 }
 
+.review_images {
+    display: flex;
+    width: 500px;
+}
+
+.review_update_images {
+    display: flex;
+    width: 500px;	
+}
+
 .rating_msg {
     font-weight: bold;
     font-size: 18px;
@@ -692,5 +719,55 @@
     left: 265px;
   }
   
+  .reviewUpdateBTN {
+  	border: none;
+  	color: black;
+  	background: white;
+  }
+  
+  .reviewUpdateBTN:hover {
+  	color: #7db341;
+  }
+  
+  .reviewBUTTON {
+  	margin-left: 20px;
+  }
+  
+  .reviewDeleteBTN {
+  	  	border: none;
+  	color: black;
+  	background: white;
+  }
+  
+  .reviewDeleteBTN:hover {
+  	color: #7db341;
+  }
 
+.image_box {
+	position: relative;
+}
 
+.image_box:hover .overlay {
+  display: block;
+  background: rgba(0, 0, 0, .3);
+}
+
+.preview_img:hover {
+	opacity: 0.4;
+}
+
+.preview_img_btn {
+    position: absolute;
+    margin-left: 80px;
+    margin-top: -110px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+    border: none;
+    background: none;
+    font-size: 30px;
+}
+
+.image_box:hover .preview_img_btn {
+  opacity: 1;
+}

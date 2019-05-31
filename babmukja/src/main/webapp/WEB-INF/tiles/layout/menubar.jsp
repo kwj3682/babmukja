@@ -14,7 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-        <div id="menubarContainer">
+        <div id="menubarContainer" class="opacity">
         <span id="home">BABMUKJA</span>
         <div id="menuContent">
             <ul>
@@ -42,10 +42,12 @@
         </span>
         <div id="optionalMenu1" class="optionalMenubar">
             <ul>
-                <li><a href="#">나라별</a></li>
-                <li><a href="#">종류별</a></li>
-                <li><a href="#">주의사항별</a></li>
-                <li><a href="#">메뉴4</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=1"/>">한식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=2"/>">중식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=3"/>">일식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=4"/>">양식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=5"/>">동남아</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=6"/>">기타국가</a></li>
             </ul>
         </div>
         <div id="optionalMenu2" class="optionalMenubar">
@@ -84,6 +86,9 @@
         );
 		$("#home").click(function(){
 			location.href="<c:url value="/recipe/main.do"/>";
+		});
+		$("#logout").click(function() {
+			alert("로그아웃 하시겠습니까 ?");
 		});
     </script> 
 </body>

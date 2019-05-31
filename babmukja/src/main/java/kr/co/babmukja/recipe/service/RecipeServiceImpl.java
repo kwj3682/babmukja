@@ -63,12 +63,10 @@ public class RecipeServiceImpl implements RecipeService {
 	// 레시피 댓글 전체 조회
 	public Map selectReviewByNo(Page page) {
 		Map<String, Object> result = new HashMap<>();
-
 		result.put("list", mapper.selectReviewByNo(page));
 		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectReviewCount(page)));
 		return result;
 	}
-
 	// 레시피 댓글 전체 수
 	public int selectReviewCount(Page page) {
 		return mapper.selectReviewCount(page);
@@ -81,22 +79,20 @@ public class RecipeServiceImpl implements RecipeService {
 	public void updateRecipeReview(RecipeReview review) {
 		mapper.updateRecipeReview(review);
 	}
-	
+	// 레시피 댓글 하나 가져오기 
+	public RecipeReview selectOneReviewByNo(int no) { 
+		return mapper.selectOneReviewByNo(no); 
+	}	
+	// 레시피 댓글 삭제 
+	public void deleteRecipeReview(int no) {
+		mapper.deleteRecipeReview(no);
+	}
 
 	public List<Keyword> selectKeywordByNo(int no){
 		return mapper.selectKeywordByNo(no);
 	}
 	public List<Recipe> selectRecipeByKeyword(int no){
 		return mapper.selectRecipeByKeyword(no);
-	}
-	// 레시피 댓글 하나 가져오기 
-	public RecipeReview selectOneReviewByNo(int no) { 
-		return mapper.selectOneReviewByNo(no); 
-	}
-	
-	// 레시피 댓글 삭제 
-	public void deleteRecipeReview(int no) {
-		mapper.deleteRecipeReview(no);
 	}
 	public List<Keyword> selectKeywordMost(){
 		return mapper.selectKeyword();
@@ -105,4 +101,20 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectKeyword();
 	}
 	
+	// 레시피 카테고리 리스트
+	public Map selectCategory(Page page) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("calist", mapper.selectCategory(page));
+		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectCategoryCount(page)));
+		return result;
+	}
+	// 레시피 카테고리 리스트 전체수
+	public int selectCategoryCount(Page page) {
+		return mapper.selectCategoryCount(page);
+	}
+
+	// 댓글 등록될 때 레시피 평점 수정하기
+	public void updateRecipeRating(int no) {		
+		mapper.updateRecipeRating(no);
+	}
 }

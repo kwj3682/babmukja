@@ -20,7 +20,15 @@ public class Page {
 	private String point2;
 	private String gradeType;
 	private int recipeNo;
+	private int keywordNo;
 	
+	
+	public int getKeywordNo() {
+		return keywordNo;
+	}
+	public void setKeywordNo(int keywordNo) {
+		this.keywordNo = keywordNo;
+	}
 	public int getRecipeNo() {
 		return recipeNo;
 	}
@@ -139,6 +147,6 @@ public class Page {
 		return (this.pageNo -1) * 10;
 	}
 	public int getEnd() {
-		return this.pageNo * 10;
+		return 10;
 	}
 }

@@ -1,0 +1,87 @@
+@charset "UTF-8";
+.member_modify_container {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+.member_modify_title {
+  font-family: "Jua", sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.member_modify_content {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.member_modify_content {
+  font-weight: bold;
+}
+.member_modify_content,
+.member_modify_content > div {
+  margin-top: 15px;
+}
+.member_modify_content input {
+  width: 360px;
+  height: 30px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+#modify_profile {
+  display: none;
+}
+.modify_profile_plus {
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(0, 0, 0, 0.1);;
+  color: gray;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  border-radius: 5px;
+  cursor : pointer;
+}
+.member_modify_content input:focus {
+  border-color: #7db341;
+  transition: border-color 0.5s ease-in-out;
+}
+.modify_post input {
+  width: 230px;
+  height: 30px;
+}
+.modify_post button {
+  margin-left: 15px;
+  border: none;
+  background: none;
+  background-color: #7db341;
+  color: white;
+  border-radius: 3px;
+  width: 110px;
+  height: 30px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.member_modify_button {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.member_modify_button button {
+  width: 370px;
+  height: 50px;
+  background-color: #7db341;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 20px;
+  line-height: 45px;
+  border: none;
+}

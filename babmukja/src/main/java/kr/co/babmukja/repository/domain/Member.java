@@ -38,6 +38,17 @@ public class Member {
 	private String deliveryNo;
 	private char verify;
 	private int certification; 
+	private String accessToken;
+	
+	
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
 
 	public int getCertification() {
 		return certification;
@@ -143,6 +154,7 @@ public class Member {
 		this.memId = memId;
 	}
 
+	
 	public String getMemNickname() {
 		return memNickname;
 	}

@@ -127,12 +127,13 @@ public class StorePBController {
 	@RequestMapping("/detailpb.do")
 	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
+		
+		
 		List<StorePBReview> reviewList = service.selectReview(pbNo);
 		List<ReviewMap> reviewMap = new ArrayList<>();
 		for(StorePBReview pb : reviewList) {
 			
 			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
-			
 			ReviewMap rm = new ReviewMap();
 			rm.setReviewFile(reviewFileList);
 			rm.setReviewList(pb);
@@ -238,6 +239,31 @@ public class StorePBController {
 
 		return new Gson().toJson(fileVO);
 	}
+
+	@RequestMapping("/reviewuploadpb.do")
+	@ResponseBody
+	public Object reviewuploadpb(FileVO fileVO) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat(
+				"/yyyy/MM/dd"
+				);
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/pbreview" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false) file.mkdirs();
+		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+		
+		MultipartFile mFile = fileVO.getAttach();
+		
+		String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
+		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		fileVO.setPath(path);
+		fileVO.setOrgname(mFile.getOriginalFilename());
+		fileVO.setSysname(uName);
+		System.out.println("file upload succeed.");
+		
+		return new Gson().toJson(fileVO);
+	}
 	
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
@@ -260,7 +286,7 @@ public class StorePBController {
 			if (mFile.isEmpty()) {
 				break;
 			}
-			String uName =  UUID.randomUUID().toString();
+			String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
 			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
 			
 			System.out.println(reviewpb.getPbReviewNo());
@@ -269,7 +295,20 @@ public class StorePBController {
 			fileVO.setOrgname(mFile.getOriginalFilename());
 			fileVO.setSysname(uName);
 			service.insertPBReviewImage(fileVO);
-
 		}
+	}
+	
+	// pb 상품 후기 수정
+	@RequestMapping("/pbreviewupdate.do")
+	@ResponseBody
+	public StorePBReview pbreviewupdate(int pbReviewNo) {
+		return service.selectReviewByNo(pbReviewNo);
+	}
+	
+	// pb 상품 후기 삭제
+	@RequestMapping("/pbreviewdelete.do")
+	@ResponseBody
+	public void deleteReviewByNo(int pbReviewNo, StorePBReview reviewpb) {
+		service.deleteReviewByNo(pbReviewNo);
 	}
 }
