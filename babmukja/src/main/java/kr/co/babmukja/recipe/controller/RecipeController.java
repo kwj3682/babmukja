@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;

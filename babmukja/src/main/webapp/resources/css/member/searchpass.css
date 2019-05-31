@@ -1,9 +1,11 @@
+@charset "UTF-8";
 .search_pass_container {
 	width: 1200px;
 	margin: 0 auto;
 	margin-top: 100px;
 	width: 30%;
 }
+
 .search_pass_title {
 	text-align: center;
 	font-size: 30px;
@@ -11,16 +13,17 @@
 	margin-bottom: 30px;
 	font-family: "Jua", sans-serif;
 }
+
 .search_pass_input {
-    text-align: center;
+	text-align: center;
 }
+
 .search_pass_search {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 10px;
 }
-.search_pass_input {
-}
+
 .search_pass_input input {
 	margin-bottom: 20px;
 	padding: 10px;
@@ -33,10 +36,12 @@
 	margin-bottom: 8px;
 	margin-right: 5px;
 }
+
 .search_pass_input input:focus {
 	border-color: #7db341;
 	transition: border-color 0.5s ease-in-out;
 }
+
 .search_pass_input button {
 	margin-left: 16px;
 	border: none;
@@ -49,12 +54,15 @@
 	font-weight: bold;
 	font-size: 16px;
 }
+
 .search_pass_input button:hover {
 	background-color: #749e45;
 }
+
 .search_pass_button {
 	text-align: center;
 }
+
 .search_pass_button button {
 	margin-top: 20px;
 	width: 300px;
@@ -72,18 +80,27 @@
 .search_pass_button button:hover {
 	background-color: #749e45;
 }
+
 .email_check span {
 	font-weight: bold;
 }
+
 .certification_check span {
 	font-weight: bold;
 }
-.email_check{
+
+.phone_check span {
+	font-weight: bold;
+}
+
+.email_check {
 	margin-bottom: 15px;
 }
-/* .search_pass_input { */
-/*   display: none; */
-/* } */
-/* .visiable { */
-/*   display: block; */
-/* } */
+
+.search_pass_input {
+	display: none;
+}
+
+.visiable {
+	display: block;
+}

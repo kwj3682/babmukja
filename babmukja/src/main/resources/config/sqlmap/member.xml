@@ -48,6 +48,19 @@
 		#{addrDefault}, #{addrDetail}, 0 , 0
 		)
 	</insert>
+	
+	<!-- 카카오 회원가입 -->
+	<insert id="insertSocialMember" parameterType="member">
+		insert into tb_member(mem_name, mem_email, social_at, mem_nickname)
+		values ( #{memName}, #{memEmail}, #{socialAt}, #{memNickname})
+	</insert>
+	
+	<!-- 카카오 닉네임 설정 -->
+	<update id="updateSocialNickname" parameterType="member">
+		update tb_member
+		   set mem_nickname = #{memNickname}
+		 where mem_email = #{memEmail}
+	</update>
 
 	<!-- 닉네임 중복체크 -->
 	<select id="selectCheckNickName" parameterType="String" resultType="int">
@@ -62,12 +75,26 @@
 		from tb_member
 		where mem_email = #{memEmail}
 	</select>
+	
+	
+	<select id="selectCheckSocialAt" parameterType="String" resultType="member">
+		select social_at
+		from tb_member
+		where mem_email = #{memEmail}
+	</select>
+	
+	<!-- 전화번호 중복체크 -->
+	<select id="selectCheckPhone" parameterType="String" resultType="int">
+		select count(*)
+		from tb_member
+	   where mem_phone = #{memPhone}
+	</select>
 
 	<!-- 이메일 인증 -->
 	<update id="updateEmailVerify" parameterType="String">
 		update tb_member
 		set verify = 1
-		where mem_email = #{memEmail}
+		where mem_email = #{memPhone}
 	</update>
 
 	<!-- 아이디 찾기 -->
@@ -100,5 +127,4 @@
 		   set mem_pass = #{memPass}
 		 where mem_email = #{memEmail}
 	</update>
-	
 </mapper>
