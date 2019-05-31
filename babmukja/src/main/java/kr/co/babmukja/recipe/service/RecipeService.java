@@ -29,6 +29,8 @@ public interface RecipeService {
 	public int selectReviewCount(Page page);
 	// 댓글 등록
 	public void insertRecipeReview(RecipeReview review);	
+	// 댓글 등록될 때 레시피 평점 수정하기
+	public void updateRecipeRating(int no);
 	// 댓글 수정
 	public void updateRecipeReview(RecipeReview review); 
 	// 댓글 삭제

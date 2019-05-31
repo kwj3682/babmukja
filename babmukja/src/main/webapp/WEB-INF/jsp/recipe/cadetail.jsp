@@ -22,7 +22,7 @@
                     <input type="text" id="search-input" name="search" placeholder="레시피를 검색하세요.">
                 </div>
                 <div>
-                    <span class="icon"><i class="fa fa-search"></i></span>
+                    <span class="searchicon"><i class="fa fa-search"></i></span>
                 </div>
             </div>
             <div class="searchresult">
@@ -51,7 +51,7 @@
                     <div>${ca.title }</div>
                     <div>조회수 :${ca.viewCnt }</div>
                     <div>평점 : ${ca.rating }</div>
-                    <img src="${ca.imgPath}">
+                    <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
                 </div>
              </c:forEach>
             </div>
@@ -59,21 +59,11 @@
     </div>
 
     <script>
-        $("#search").focus(function () { 
+         $("#search-input").focus(function () { 
             $(".searchresult").css(
                 "display", "grid"                
             );            
         });
-
-        $("#kcal").click(function () {
-            window.open(
-                "URL",
-                "_blank",
-                "top=0,left=0,width="+w+",height="+h+",toolbar=0,status=0,scrollbars=1,resizable=0"
-                )
-        });
-
-     
     </script>
 </body>
 </html>

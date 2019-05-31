@@ -94,6 +94,15 @@
   	</selectKey>
     </insert>    
     
+    <!-- 댓글 등록될 때 레시피 평점 수정하기 -->
+    <update id="updateRecipeRating" parameterType="int">
+    	update tb_recipe
+    	   set rating = (select avg(score) 
+    	                   from tb_recipe_review 
+    	                  where recipe_no = #{recipeNo})
+    	 where recipe_no = #{recipeNo}
+    </update>
+    
     <!-- 댓글 수정 -->
     <update id="updateRecipeReview" parameterType="RecipeReview">
     	update tb_recipe_review

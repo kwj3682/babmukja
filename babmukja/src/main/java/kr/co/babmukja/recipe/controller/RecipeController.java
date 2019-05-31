@@ -167,7 +167,7 @@ public class RecipeController {
 		mav.addObject("keyword",keyword);
 		return mav;
 	}
-
+		
 	@RequestMapping("/updateform.do")
 	public void updateForm(int no, Model model) {
 		model.addAttribute("recipe", service.updateForm(no));
@@ -190,7 +190,8 @@ public class RecipeController {
 	public RecipeReview writeComment(RecipeReview review, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
 		review.setMemNo(user.getMemNo());
-		service.insertRecipeReview(review);		
+		service.insertRecipeReview(review);	
+		service.updateRecipeRating(review.getRecipeNo());
 		return service.selectOneReviewByNo(review.getRecipeReviewNo());
 	}
 

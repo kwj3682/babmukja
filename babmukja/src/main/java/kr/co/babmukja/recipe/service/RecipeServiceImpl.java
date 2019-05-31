@@ -112,4 +112,9 @@ public class RecipeServiceImpl implements RecipeService {
 	public int selectCategoryCount(Page page) {
 		return mapper.selectCategoryCount(page);
 	}
+
+	// 댓글 등록될 때 레시피 평점 수정하기
+	public void updateRecipeRating(int no) {		
+		mapper.updateRecipeRating(no);
+	}
 }
