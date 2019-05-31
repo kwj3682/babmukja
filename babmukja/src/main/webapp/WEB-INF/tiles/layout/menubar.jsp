@@ -14,7 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-        <div id="menubarContainer">
+        <div id="menubarContainer" class="opacity">
         <span id="home">BABMUKJA</span>
         <div id="menuContent">
             <ul>

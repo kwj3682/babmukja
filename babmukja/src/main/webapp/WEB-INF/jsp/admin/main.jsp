@@ -16,7 +16,7 @@
 	href="<c:url value="/resources/css/admin/adminmain.css"/>">
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <!-- <script src="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"/>"></script> -->
-<title>Document</title>
+<title>관리자 페이지</title>
 </head>
 <body>
 	<div id="main">

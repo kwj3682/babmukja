@@ -209,6 +209,7 @@
     $(window).scroll(function() {
 
       if($(this).scrollTop() < $(".swiper-container").height()){
+
          menubarCon.addClass("opacity");
          menubarCon.removeClass("non-opacity");         
       }else{
@@ -219,6 +220,7 @@
       console.log($(this).scrollTop()+" , " + $(".swiper-container").height());
     });
        
+
     
     
     function loadApp(id) {

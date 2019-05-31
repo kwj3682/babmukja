@@ -147,6 +147,6 @@ public class Page {
 		return (this.pageNo -1) * 10;
 	}
 	public int getEnd() {
-		return this.pageNo * 10;
+		return 10;
 	}
 }
