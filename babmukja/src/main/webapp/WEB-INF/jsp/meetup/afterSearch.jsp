@@ -1,28 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link href="../../../resources/css/meetup/meetup_afterSearch.css" rel="stylesheet" type="text/css">
+    
+    
+    
 
-
-    <script src="../../../resources/js/jquery-3.1.1.min.js"></script>
-
-
-    <script src="../../../resources/js/meetup_afterSearch.js"> </script>
-
+    <link href="<c:url value="/resources/css/meetup/meetup_afterSearch.css"/>" rel="stylesheet" type="text/css">
+    <script src='<c:url value="/resources/js/jquery-3.1.1.min.js"/>'> </script>
+    <script src='<c:url value="/resources/js/meetup_afterSearch.js"/>'> </script>
+   
 
 
 </head>
-
 <body>
-    <!-- 쿠킹 모임 메인 컨테이너 -->
+<!-- 쿠킹 모임 메인 컨테이너 -->
     <div class="main_container">
         <!-- 쿠킹 모임 헤더  -->
         <div class=main_header>
@@ -213,12 +213,11 @@
 
 
 
-    <script src="../../../resources/js/meetup_afterSearch.js"> </script>
 
+      <script src='<c:url value="/resources/js/meetup_afterSearch.js"/>'> </script>
+      <script src='<c:url value="/resources/js/meetup_main_result_address.js"/>'> </script>
 
-    <script src="../../../resources/js/meetup_main_result_address.js"></script>
 
 
 </body>
-
 </html>

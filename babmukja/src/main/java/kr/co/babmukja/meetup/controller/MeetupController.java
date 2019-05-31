@@ -37,7 +37,10 @@ public class MeetupController {
 	@Autowired
 	private MeetupService service;
 
-	
+	@RequestMapping("/afterSearch.do")
+	public void afterSearch() {
+		System.out.println("aftersearch 들어옴");
+	}
 	@RequestMapping("/createMeetup.do")
 	public void CreateMeetup(MultipartFile file, String title,
 		String category, String city1, String city2, String city3,	

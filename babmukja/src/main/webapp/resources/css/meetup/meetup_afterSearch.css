@@ -364,9 +364,10 @@
 }
 
 
+
 .info_block_container {
     top:100px;
-    margin-top: 15px;
+    margin-top: 25px;
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
