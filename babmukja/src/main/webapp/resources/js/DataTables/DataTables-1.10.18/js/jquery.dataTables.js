@@ -11628,7 +11628,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "_MENU_씩 보기",
+			"sLengthMenu": "_MENU_개씩 보기",
 	
 	
 			/**
@@ -11708,7 +11708,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "검색:",
 	
 	
 			/**

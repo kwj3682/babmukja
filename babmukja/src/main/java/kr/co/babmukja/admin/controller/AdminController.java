@@ -40,9 +40,10 @@ public class AdminController {
 	
 	}
 	
-	@RequestMapping("/memberdetail.do")	
-	public void detail(int no, Model model) {	
-		model.addAttribute("member", service.selectMemberByNo(no));
+	@RequestMapping("/memberdetail.do")
+	@ResponseBody
+	public Member detail(int memNo) {	
+		return service.selectMemberByNo(memNo);
 		
 	}
 

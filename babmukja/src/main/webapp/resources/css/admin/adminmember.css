@@ -1,9 +1,9 @@
 charset "UTF-8";
-*{
-    font-family: 'Nanum Gothic', sans-serif;
-}
+
+
 body{
     background: gainsboro;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 button{
     cursor: pointer;
@@ -42,6 +42,9 @@ button:focus{
 #search-output-list table{
     border-collapse: collapse;
     width: 100%;
+}
+th,td{
+	font-size: 13px;
 }
 #search-output-list th,tr,td{
     border : 1px solid gray;
@@ -91,9 +94,6 @@ search-output-list>tbody>tr>td:nth-child(13){
 search-output-list>tbody>tr>td:nth-child(14){
     width: 100px;
 }
-#pageText {
-	text-align : center;
-}
 
 /* 아래부터 member detail */
 
@@ -111,6 +111,10 @@ search-output-list>tbody>tr>td:nth-child(14){
     box-shadow: 0 0 15px 2px gainsboro;
     display: grid;
     grid-template-columns: 25% 75%;
+    border-radius : 5px;
+    margin: 0 auto;
+    font-family: 'Nanum Gothic', sans-serif;
+    
 }
 
 #profile-left{
@@ -118,6 +122,7 @@ search-output-list>tbody>tr>td:nth-child(14){
     background: linear-gradient(to bottom, #7db341 0%, #8dc1ff 70%,#f1f7ee 100%);
     display: grid;
     grid-template-rows: 25% 25% 50% ; 
+     border-radius : 5px 0 0 5px;
 }
 #profile-left-photo{
     display: flex;
@@ -145,7 +150,7 @@ search-output-list>tbody>tr>td:nth-child(14){
     display: inline-block;    
     padding-top : 4px;
     width: 24px;
-    height: 20px;
+    height: 23px;
     border-radius: 17px;
     text-align: center;
     background : white;
@@ -161,6 +166,7 @@ search-output-list>tbody>tr>td:nth-child(14){
 }
 #profile-left-simpledata > h3{
     padding-left :15px;
+    font-size: 20px;
     margin-bottom: 0;
     color: white;
 }
@@ -173,10 +179,12 @@ search-output-list>tbody>tr>td:nth-child(14){
 #profile-right{
     display: grid;
     padding-left: 2px;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 15% 85%;
+    border-radius : 0 5px 5px 0;
 }
 #profile-right-header{
     background: #f1f7ee;
+    border-radius : 0 5px 0 0;
 }
 
 #profile-right-header>h5,
@@ -211,17 +219,19 @@ search-output-list>tbody>tr>td:nth-child(14){
     display: flex;
     align-content: center;
     justify-content: center;
-    line-height: 110px;
 }
 
 #point-value{
     background: #f1f7ee;
     text-align: center;
-    width: 110px;
-    height: 110px;
-    border-radius: 75px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 100px;
     color: rgb(81,81,81);
     margin: 0;
+    font-size: 16px;
+    
 }
 #profile-right-point{
     display: flex;
@@ -231,4 +241,14 @@ search-output-list>tbody>tr>td:nth-child(14){
 
 .totalTable > thead> tr{
     font-size : 12px;
+}
+#search-output-list th, tr, td {
+	border : 1px solid gainsboro;
+}
+#modal-input-keyword{
+    font-size: 16px;	
+}
+#profile-right-body  h4{
+    font-size: 17px;
+    font-weight: bold;
 }
