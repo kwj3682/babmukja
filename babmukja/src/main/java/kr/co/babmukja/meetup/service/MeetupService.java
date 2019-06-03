@@ -1,10 +1,14 @@
 package kr.co.babmukja.meetup.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.PageAfterSearch;
 
 public interface MeetupService {
 	
@@ -14,5 +18,5 @@ public interface MeetupService {
 	public void insertMeetupBoard(Meetup meetup);
 	public void insertMeetupLocation(MeetupLocation meetupLocation);
 	public MeetupFile uploadImage(MultipartFile file) throws Exception; 
-		
+	public Map<String, Object> selectAllMeetup(PageAfterSearch page);
 }

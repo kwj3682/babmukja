@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,8 @@ import kr.co.babmukja.meetup.service.MeetupService;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.PageAfterSearch;
+import kr.co.babmukja.repository.domain.Pagepb;
 
 //파일을 동적으로 받아주기 위해서 File 객체 만들
 
@@ -34,6 +37,13 @@ import kr.co.babmukja.repository.domain.MeetupLocation;
 @RequestMapping("/meetup")
 public class MeetupController {
 
+	@RequestMapping("/afterSearch.do")
+	public void afterSearch(Model model, PageAfterSearch page) {
+		Map<String, Object> result = service.selectAllMeetup(page);
+		model.addAttribute("meetupList", result.get("meetupList"));
+		model.addAttribute("pageResult", result.get("pageResult"));
+	}
+	
 	@Autowired
 	private MeetupService service;
 

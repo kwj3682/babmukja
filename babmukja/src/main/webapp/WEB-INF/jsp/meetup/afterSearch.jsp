@@ -88,18 +88,18 @@
 
         </form>
     </div><!-- 쿠킹 모임 메인 컨테이너 -->
-
-
+ 
     <!-- 추천모임 박스 -->
     <div class="info_block_container">
         <!--1 추천모임 박스 복사시작 -->
+        <c:forEach var="meetup" items="${meetupList}">
         <div class="info_block">
-            <div class="info_pic"><img src='<c:url value ="/resources/images/zzapageti.jpg"/>' width="384px" ,
+            <div class="info_pic"><img src="C:/bit2019/upload/meetup/2019/05/293d0729e1-70c3-460a-a3ec-b38e076067aazzapageti.jpg" width="384px" ,
                     height="190px">
             </div>
-            <div class="info_line">오늘은 내가 짜파게티 요리사</div>
+            <div class="info_line">${meetup.title}</div>
             <div class="info_monthly_fee">
-                <sapn>월 회비: 5000원</sapn>
+                <sapn>${meetup.fee}</sapn>
             </div>
 
             <div class="info_bottom">
@@ -110,67 +110,19 @@
                 </div>
             </div>
         </div>
+         </c:forEach>
+        
         <!-- 추천모임 박스 복사끝 -->
-        <!--2 추천모임 박스 복사시작 -->
-        <div class="info_block">
-            <div class="info_pic"><img src='<c:url value ="/resources/images/meetup_coldnoodle.jpg"/>' width="384px" ,
-                    height="190px">
-            </div>
-            <div class="info_line">마로님과 함께하는 평양냉면 기행</div>
-            <div class="info_monthly_fee">
-                <sapn>월 회비: 2000원</sapn>
-            </div>
-
-            <div class="info_bottom">
-                <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; 서울 종각</span>
-                </div>
-                <div class="border_line"></div>
-                <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;320</span>
-                </div>
-            </div>
-        </div>
-        <!-- 추천모임 박스 복사끝 -->
-        <!-- 3추천모임 박스 복사시작 -->
-        <div class="info_block">
-            <div class="info_pic"><img src='<c:url value ="/resources/images/meetup_meat.jpg"/>' width="384px" ,
-                    height="190px">
-            </div>
-            <div class="info_line">한빈님과 함께하는 근육을 위한 요리교실</div>
-            <div class="info_monthly_fee">
-                <sapn>월 회비: 10000원</sapn>
-            </div>
-
-            <div class="info_bottom">
-                <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; 서울
-                        마포구</span>
-                </div>
-                <div class="border_line"></div>
-                <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;310</span>
-                </div>
-            </div>
-        </div>
- <!--4 추천모임 박스 복사시작 -->
-        <div class="info_block">
-            <div class="info_pic"><img src='<c:url value ="/resources/images/zzapageti.jpg"/>' width="384px" ,
-                    height="190px">
-            </div>
-            <div class="info_line">오늘은 내가 짜파게티 요리사</div>
-            <div class="info_monthly_fee">
-                <sapn>월 회비: 5000원</sapn>
-            </div>
-
-            <div class="info_bottom">
-                <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; 여의도</span>
-                </div>
-                <div class="border_line"></div>
-                <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;370</span>
-                </div>
-            </div>
-        </div>
-        <!-- 추천모임 박스 복사끝 -->
+        
     </div>
     <!-- 추천모임 박스 복사끝 -->
-
+<div class="page">
+	    <c:if test="${pageResult.count != 0}">
+	    	<jsp:include page="/WEB-INF/jsp/include/meetupPage.jsp">
+				<jsp:param name="link" value="afterSearch.do"/>        	
+	    	</jsp:include>
+	    </c:if>
+    </div>
     
 
 

@@ -7,7 +7,6 @@ public class PageResult {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	
 	public PageResult(int pageNo, int count) {
 		this.pageNo = pageNo;
 		this.count = count;

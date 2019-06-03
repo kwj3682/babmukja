@@ -742,3 +742,9 @@ width: 70px;
     transition: all .2s ease;
   }
   
+  .paging{
+  margin: 0 auto;
+  margin-top:30px;
+  text-align: center;
+  }
+  
