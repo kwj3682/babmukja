@@ -38,7 +38,8 @@ public class MeetupController {
 	private MeetupService service;
 
 	
-	@RequestMapping("/createMeetup.do")
+	@RequestMapping("/createM"
+			+ "eetup.do")
 	public void CreateMeetup(MultipartFile file, String title,
 		String category, String city1, String city2, String city3,	
 		String town1,String town2,String town3, String[] day, String fee, String detailFee
