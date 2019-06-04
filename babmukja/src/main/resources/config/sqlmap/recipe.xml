@@ -23,6 +23,47 @@
 		<result column="cnt" property="cnt"/>
 	</resultMap>
 	
+	<!-- 레시피 검색부분 -->
+	<sql id="searchWhere">		
+		<if test="pregnant != null and pregnant != ''">
+			in rk.keyword_no = 7
+		</if>
+		<if test="baby != null and baby != ''">
+			and rk.keyword_no = 8
+		</if>
+		<if test="pressure != null and pressure != ''">
+			and rk.keyword_no = 9
+		</if>
+		<if test="vegan != null and baby != ''">
+			and rk.keyword_no = 10
+		</if>
+		<if test="halal != null and halal != ''">
+			and rk.keyword_no = 11
+		</if>
+		<if test="old != null and old != ''">
+			and rk.keyword_no = 12
+		</if>
+		<if test="allergic != null and allergic != ''">
+			and rk.keyword_no = 13
+		</if>
+		<if test="diabetes != null and diabetes != ''">
+			and rk.keyword_no = 14
+		</if>
+		<if test="situation != null and situation != ''">
+			and rk.keyword_no = #{situation}
+		</if>
+		<if test="level != null and level != ''">
+			and rk.keyword_no = #{level}
+		</if>
+		<if test="taketime != null and taketime != ''">
+			and rk.keyword_no = #{taketime}
+		</if>
+		<if test="foodtype != null and foodtype != ''">
+			and rk.keyword_no = #{foodtype}
+		</if>
+		
+	</sql>
+	
 	<insert id="insertRecipe" parameterType="recipe" useGeneratedKeys="true" keyProperty="recipeNo">
 		insert into tb_recipe(
 					mem_no,title,content,imgpath)
@@ -132,16 +173,20 @@
 		  from tb_recipe r,tb_recipe_keyword k,tb_member m
 		 where m.mem_no = r.mem_no
 		   and r.recipe_no = k.recipe_no
-		   and k.keyword_no = #{no}
-		 order by r.recipe_no desc	
+		   and k.country = #{no} 
+		       or k.situation = #{no} 
+		       or k.level = #{no} 
+		       or k.type = #{no}
+		 order by r.recipe_no desc
 	</select>
 	
 	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
-	<select id="selectKeywordMost" resultMap="keywordMap">
-		select rk.keyword_no,(select k.keyword from tb_keyword k where rk.keyword_no = k.keyword_no) keyword,count(*) as cnt 
-  		  from tb_recipe_keyword rk group by keyword_no
-  		 order by cnt desc
-         limit 4
+	<select id="selectKeywordMost" parameterType="String" resultMap="keywordMap">
+		select #{string} as keywordNo, count(*) as cnt 
+		  from tb_recipe_keyword
+		 group by #{string}
+		 order by cnt desc
+		 limit 1
 	</select>
 	
 	<select id="selectKeyword" resultMap="keywordMap">
@@ -150,32 +195,19 @@
 	</select>
 	
 	<!-- 레시피에 키워드 삽입 -->
-	<insert id="insertKeywordToRecipe" parameterType="Keyword">
-		insert into tb_recipe_keyword (keyword_no,recipe_no) values (#{keywordNo}, #{recipeNo})
+	<insert id="insertKeywordToRecipe" parameterType="RecipeKeywordCode">
+		insert into tb_recipe_keyword (country,caution,situation,level,time,type,recipe_no) 
+		values (#{country},#{caution},#{situation},#{level},#{time},#{type}, #{recipeNo})
 	</insert>
-	<select id="selectKeywordByNo" parameterType="int" resultMap="keywordMap">
-		select * 
-		  from tb_recipe_keyword rk, tb_keyword k 
-		 where rk.keyword_no = k.keyword_no
-		       and rk.recipe_no = #{recipeNo}
-	</select>
-	
-	<!-- 레시피 카테고리별 목록 조회-->
-	<select id="selectCategory" parameterType="page" resultMap="recipeMap">
-		select r.*, m.*
-  		  from tb_recipe r, tb_recipe_keyword rk, tb_member m
-		 where r.recipe_no = rk.recipe_no
-		   and m.mem_no = r.mem_no
-   		   and rk.keyword_no = #{keywordNo}
-   		 limit #{begin}, #{end}
-	</select>
-	
-	<!-- 레시피 카테고리별 전체 수 -->
-	<select id="selectCategoryCount" parameterType="page" resultType="int">
-		select count(*)
-		  from tb_recipe r
-		 inner join tb_recipe_keyword rk
-		    on r.recipe_no = rk.recipe_no
-		 where rk.keyword_no = #{keywordNo} 
+	<select id="selectKeywordByNo" parameterType="int" resultType="RecipeKeywordName">
+		select rk.recipe_no 'recipeNo',
+			   (select keyword from tb_keyword where keyword_no = rk.country) 'country',
+			   (select keyword from tb_keyword where keyword_no = rk.situation) 'situation',
+			   rk.caution 'caution',
+			   (select keyword from tb_keyword where keyword_no = rk.level) 'level',
+			   (select keyword from tb_keyword where keyword_no = rk.time) 'time',
+			   (select keyword from tb_keyword where keyword_no = rk.type) 'type'
+  		from tb_recipe_keyword rk
+  	   where rk.recipe_no = #{no}
 	</select>
 </mapper>

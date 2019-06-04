@@ -83,12 +83,13 @@
 
         </form>
     </div><!-- 쿠킹 모임 메인 컨테이너 -->
-
-
+ 
     <!-- 추천모임 박스 -->
     <div class="info_block_container">
         <!--1 추천모임 박스 복사시작 -->
+        <c:forEach var="meetup" items="${meetupList}">
         <div class="info_block">
+<<<<<<< HEAD
             <div class="info_pic"><img src='<c:url value ="/resources/images/zzapageti.jpg"/>' width="384px" ,
                     height="190px">
             </div>
@@ -153,11 +154,14 @@
         <!--1 추천모임 박스 복사시작 -->
         <div class="info_block">
             <div class="info_pic"><img src='<c:url value ="/resources/images/zzapageti.jpg"/>' width="384px" ,
+=======
+            <div class="info_pic"><img src="C:/bit2019/upload/meetup/2019/05/293d0729e1-70c3-460a-a3ec-b38e076067aazzapageti.jpg" width="384px" ,
+>>>>>>> master
                     height="190px">
             </div>
-            <div class="info_line">오늘은 내가 짜파게티 요리사</div>
+            <div class="info_line">${meetup.title}</div>
             <div class="info_monthly_fee">
-                <sapn>월 회비: 5000원</sapn>
+                <sapn>${meetup.fee}</sapn>
             </div>
 
             <div class="info_bottom">
@@ -168,7 +172,10 @@
                 </div>
             </div>
         </div>
+         </c:forEach>
+        
         <!-- 추천모임 박스 복사끝 -->
+<<<<<<< HEAD
         <!--2 추천모임 박스 복사시작 -->
         <div class="info_block">
             <div class="info_pic"><img src='<c:url value ="/resources/images/meetup_coldnoodle.jpg"/>' width="384px" ,
@@ -212,6 +219,19 @@
     <!-- 추천모임 박스 복사끝 -->
 
 
+=======
+        
+    </div>
+    <!-- 추천모임 박스 복사끝 -->
+<div class="page">
+	    <c:if test="${pageResult.count != 0}">
+	    	<jsp:include page="/WEB-INF/jsp/include/meetupPage.jsp">
+				<jsp:param name="link" value="afterSearch.do"/>        	
+	    	</jsp:include>
+	    </c:if>
+    </div>
+    
+>>>>>>> master
 
 
       <script src='<c:url value="/resources/js/meetup_afterSearch.js"/>'> </script>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/menubar.css"/>">
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -40,7 +41,7 @@
         </c:if>
             <a href="#">마이홈</a>
         </span>
-        <div id="optionalMenu1" class="optionalMenubar">
+        <div id="optionalMenu1" class="optionalMenubar opacity">
             <ul>
                 <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=1"/>">한식</a></li>
                 <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=2"/>">중식</a></li>
@@ -50,7 +51,7 @@
                 <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=6"/>">기타국가</a></li>
             </ul>
         </div>
-        <div id="optionalMenu2" class="optionalMenubar">
+        <div id="optionalMenu2" class="optionalMenubar opacity">
             <ul>
                 <li><a href="<c:url value="/admin/pbstoreindex.do"/>">스토어메뉴1</a></li>
                 <li><a href="#">스토어메뉴2</a></li>
@@ -58,7 +59,7 @@
                 <li><a href="#">스토어메뉴4</a></li>
             </ul>
         </div>
-        <div id="optionalMenu3" class="optionalMenubar">
+        <div id="optionalMenu3" class="optionalMenubar opacity">
             <ul>
                 <li><a href="#">쿠킹미팅1</a></li>
                 <li><a href="#">쿠킹미팅2</a></li>
@@ -90,6 +91,35 @@
 		$("#logout").click(function() {
 			alert("로그아웃 하시겠습니까 ?");
 		});
+		
+	    let menubarCon = $("#menubarContainer");
+	    let optCon = $(".optionalMenubar"); 
+	    $(window).scroll(function() {
+
+	      if($(this).scrollTop() < $(".swiper-container").height()){
+
+	         menubarCon.addClass("opacity");
+	         menubarCon.removeClass("non-opacity");        
+
+	      }else{
+
+	    	 menubarCon.removeClass("opacity");         
+	         menubarCon.addClass("non-opacity");         
+	      }
+	      if($(this).scrollTop() < $(".swiper-container").height()-59){
+
+	    	 optCon.addClass("opacity");
+	    	 optCon.removeClass("non-opacity");        
+
+	      }else{
+
+	    	 optCon.removeClass("opacity");         
+	    	 optCon.addClass("non-opacity");         
+	      }
+	         
+	      
+// 	      console.log($(this).scrollTop()+" , " + $(".swiper-container").height());
+	    });
     </script> 
 </body>
 </html>
