@@ -23,6 +23,47 @@
 		<result column="cnt" property="cnt"/>
 	</resultMap>
 	
+	<!-- 레시피 검색부분 -->
+	<sql id="searchWhere">		
+		<if test="pregnant != null and pregnant != ''">
+			in rk.keyword_no = 7
+		</if>
+		<if test="baby != null and baby != ''">
+			and rk.keyword_no = 8
+		</if>
+		<if test="pressure != null and pressure != ''">
+			and rk.keyword_no = 9
+		</if>
+		<if test="vegan != null and baby != ''">
+			and rk.keyword_no = 10
+		</if>
+		<if test="halal != null and halal != ''">
+			and rk.keyword_no = 11
+		</if>
+		<if test="old != null and old != ''">
+			and rk.keyword_no = 12
+		</if>
+		<if test="allergic != null and allergic != ''">
+			and rk.keyword_no = 13
+		</if>
+		<if test="diabetes != null and diabetes != ''">
+			and rk.keyword_no = 14
+		</if>
+		<if test="situation != null and situation != ''">
+			and rk.keyword_no = #{situation}
+		</if>
+		<if test="level != null and level != ''">
+			and rk.keyword_no = #{level}
+		</if>
+		<if test="taketime != null and taketime != ''">
+			and rk.keyword_no = #{taketime}
+		</if>
+		<if test="foodtype != null and foodtype != ''">
+			and rk.keyword_no = #{foodtype}
+		</if>
+		
+	</sql>
+	
 	<insert id="insertRecipe" parameterType="recipe" useGeneratedKeys="true" keyProperty="recipeNo">
 		insert into tb_recipe(
 					mem_no,title,content,imgpath)
@@ -161,21 +202,27 @@
 	</select>
 	
 	<!-- 레시피 카테고리별 목록 조회-->
-	<select id="selectCategory" parameterType="page" resultMap="recipeMap">
-		select r.*, m.*
-  		  from tb_recipe r, tb_recipe_keyword rk, tb_member m
-		 where r.recipe_no = rk.recipe_no
-		   and m.mem_no = r.mem_no
-   		   and rk.keyword_no = #{keywordNo}
+ 	<select id="selectCategory" parameterType="recipePage" resultMap="recipeMap">
+		select distinct r.* 
+          from (select * 
+                  from tb_recipe_keyword 
+                 where keyword_no= #{keywordNo}) a, tb_recipe_keyword rk
+         inner join tb_recipe r
+            on r.recipe_no = rk.recipe_no
+         where 1=1 
+		 <include refid="searchWhere"/>
    		 limit #{begin}, #{end}
-	</select>
+	</select> 
 	
 	<!-- 레시피 카테고리별 전체 수 -->
-	<select id="selectCategoryCount" parameterType="page" resultType="int">
-		select count(*)
-		  from tb_recipe r
-		 inner join tb_recipe_keyword rk
-		    on r.recipe_no = rk.recipe_no
-		 where rk.keyword_no = #{keywordNo} 
+	<select id="selectCategoryCount" parameterType="recipePage" resultType="int">
+		select count(distinct r.recipe_no) 
+  		  from (select * 
+  		          from tb_recipe_keyword 
+  		         where keyword_no= #{keywordNo}) a, tb_recipe_keyword rk
+         inner join tb_recipe r
+            on r.recipe_no = rk.recipe_no
+         where 1=1
+		  <include refid="searchWhere"/>		 		   
 	</select>
 </mapper>

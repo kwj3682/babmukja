@@ -32,6 +32,7 @@ import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
@@ -234,7 +235,7 @@ public class RecipeController {
 	 }
 	 
 	 @RequestMapping("/cadetail.do")
-	 public void camain(Page page, Model model) {
+	 public void camain(RecipePage page, Model model) {
 		 Map<String, Object> list = service.selectCategory(page);
 		
 		 model.addAttribute("calist", list.get("calist"));

@@ -11,6 +11,7 @@ import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
@@ -102,14 +103,14 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	// 레시피 카테고리 리스트
-	public Map selectCategory(Page page) {
+	public Map selectCategory(RecipePage page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("calist", mapper.selectCategory(page));
 		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectCategoryCount(page)));
 		return result;
 	}
 	// 레시피 카테고리 리스트 전체수
-	public int selectCategoryCount(Page page) {
+	public int selectCategoryCount(RecipePage page) {
 		return mapper.selectCategoryCount(page);
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
 
@@ -44,8 +45,8 @@ public interface RecipeMapper {
 	public void insertKeywordToRecipe(Keyword keyword);
 	
 	// 레시피 카테고리
-	public List<Recipe> selectCategory(Page page);
+	public List<Recipe> selectCategory(RecipePage page);
 	// 레시피 카테고리 전체수
-	public int selectCategoryCount(Page page);
+	public int selectCategoryCount(RecipePage page);
 	
 }
