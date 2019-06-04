@@ -28,6 +28,7 @@ import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBInquire;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
 
@@ -125,10 +126,10 @@ public class StorePBController {
 	
 	// pb 상품 상세조회
 	@RequestMapping("/detailpb.do")
-	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview) {
+	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview, StorePBInquire storePBInquire) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
-		
-		
+		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
+
 		List<StorePBReview> reviewList = service.selectReview(pbNo);
 		List<ReviewMap> reviewMap = new ArrayList<>();
 		for(StorePBReview pb : reviewList) {
@@ -160,6 +161,7 @@ public class StorePBController {
 		mav.addObject("imgList", store.getImgPath().split(","));
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("reviewMap",reviewMap);
+		mav.addObject("inqList", sInquire);
 		///////////////////////////////////////////////////////////
 		
 		
@@ -299,9 +301,9 @@ public class StorePBController {
 	}
 	
 	// pb 상품 후기 수정
-	@RequestMapping("/pbreviewupdate.do")
+	@RequestMapping("/pbreviewupdateform.do")
 	@ResponseBody
-	public StorePBReview pbreviewupdate(int pbReviewNo) {
+	public StorePBReview pbreviewupdateform(int pbReviewNo) {
 		return service.selectReviewByNo(pbReviewNo);
 	}
 	
@@ -311,4 +313,37 @@ public class StorePBController {
 	public void deleteReviewByNo(int pbReviewNo, StorePBReview reviewpb) {
 		service.deleteReviewByNo(pbReviewNo);
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	// pb 상품 문의 등록
+	@RequestMapping("/pbinquiryinsert.do")
+	@ResponseBody
+	public void insertInquiry(StorePBInquire storePBInquire) {
+		storePBInquire.setPbNo(storePBInquire.getPbNo());
+		storePBInquire.setContent(storePBInquire.getContent());
+		service.insertInquiry(storePBInquire);
+	}
+	
+	@RequestMapping("/pbinquiryupdateform.do")
+	@ResponseBody
+	public StorePBInquire updateInquiryform(int inquiryNo) {
+		return service.selectInquiryByNo(inquiryNo);
+	}
+	
+	@RequestMapping("/pbinquiryupdate.do")
+	@ResponseBody
+	public void updateInquiry(StorePBInquire storePBInquire) {
+		System.out.println(storePBInquire.getPbNo());
+		System.out.println(storePBInquire.getInquiryNo());
+		System.out.println(storePBInquire.getContent());
+		service.updateInquiry(storePBInquire);
+	}
+	
+	@RequestMapping("/pbinquirydelete.do")
+	@ResponseBody
+	public void deleteInquiry(int inquiryNo) {
+		service.deleteInquiry(inquiryNo);
+	}
+	
 }
