@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.babmukja.common.page.MeetupPageResult;
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
@@ -61,7 +62,7 @@ public class MeetupServiceImpl implements MeetupService{
 		
 			Map<String, Object> result = new HashMap<>();
 			result.put("meetupList", mapper.selectAllMeetup(page));
-			result.put("pageResult", new PageResult(
+			result.put("pageResult", new MeetupPageResult(
 			page.getPageNo(), mapper.selectAllMeetupCount()));
 			
 		

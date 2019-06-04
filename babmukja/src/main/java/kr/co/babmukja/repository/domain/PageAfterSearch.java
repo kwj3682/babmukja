@@ -14,7 +14,7 @@ public class PageAfterSearch {
 			return (this.pageNo -1) * 6;
 		}
 		public int getEnd() {
-			return this.pageNo * 6;
+			return 6;
 		}
 
 	

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <div class="paging">
+<script> 
+
+console.log(${pageResult.prev});
+</script>
 	<c:if test="${pageResult.prev eq true}">
 		<a href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
 	</c:if>
