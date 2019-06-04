@@ -33,7 +33,6 @@ import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeWriteVO;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
@@ -148,12 +147,12 @@ public class RecipeController {
 
 	@RequestMapping("/write.do")
 	@ResponseBody
-	public void write(RecipeWriteVO rw, HttpSession session) {
+	public void write(Recipe recipe,  int[] keywordNo, int[] cautions, HttpSession session) {
 		System.out.println("write.do 실행");
 		Member user =  (Member)session.getAttribute("user");
 		System.out.println("작성자 번호 : " + user.getMemNo());
-		rw.setRecipeMemNo(user.getMemNo());
-		service.insertRecipe(rw);
+		recipe.setMemNo(user.getMemNo());
+		service.insertRecipe(recipe, keywordNo, cautions);
 	}
 
 	@RequestMapping("/detail.do")

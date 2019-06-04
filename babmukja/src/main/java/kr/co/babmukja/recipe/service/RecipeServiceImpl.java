@@ -14,7 +14,6 @@ import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeWriteVO;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
 @Service("kr.co.babmukja.recipe.service.RecipeService")
@@ -28,16 +27,26 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 삽입
-	public void insertRecipe(RecipeWriteVO rw) {
-		mapper.insertRecipe(rw.getRecipe());
+	public void insertRecipe(Recipe recipe,  int[] keywordNo, int[] cautions) {
+		mapper.insertRecipe(recipe);
 		RecipeKeywordCode rk = new RecipeKeywordCode();
-		int [] rkValue = rw.getKeywordNo();
-		rk.setCountry(rkValue[0]);
-		rk.setSituation(rkValue[1]);
-		rk.setLevel(rkValue[2]);
-		rk.setTime(rkValue[3]);
-		rk.setType(rkValue[4]);
-		rk.setCaution(rk.getCaution());
+		rk.setCountry(keywordNo[0]);
+		rk.setSituation(keywordNo[1]);
+		rk.setLevel(keywordNo[2]);
+		rk.setTime(keywordNo[3]);
+		rk.setType(keywordNo[4]);
+		
+		StringBuilder cautionsString = new StringBuilder();
+		for(int i=0; i< cautions.length;i++) {
+			cautionsString.append(cautions[i]);
+			
+			if(i== cautions.length-1) {
+				break;
+			}
+			cautionsString.append(",");
+		}
+		rk.setCaution(cautionsString.toString());
+		rk.setRecipeNo(recipe.getRecipeNo());
 		mapper.insertKeywordToRecipe(rk);
 	}
 

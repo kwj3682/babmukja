@@ -6,8 +6,16 @@ public class RecipeKeywordCode {
 	private int level;
 	private int time;
 	private int type;
+	private int recipeNo;
 	private String caution;
 	
+	
+	public int getRecipeNo() {
+		return recipeNo;
+	}
+	public void setRecipeNo(int recipeNo) {
+		this.recipeNo = recipeNo;
+	}
 	public int getCountry() {
 		return country;
 	}
