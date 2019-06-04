@@ -11,7 +11,10 @@ import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeKeywordCode;
+import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeWriteVO;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
 @Service("kr.co.babmukja.recipe.service.RecipeService")
@@ -25,14 +28,17 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 삽입
-	public void insertRecipe(Recipe recipe,int[] keyList) {
-		mapper.insertRecipe(recipe);
-		for(int k: keyList) {
-			Keyword keyword = new Keyword();
-			keyword.setKeywordNo(k);
-			keyword.setRecipeNo(recipe.getRecipeNo());
-			mapper.insertKeywordToRecipe(keyword);
-		}
+	public void insertRecipe(RecipeWriteVO rw) {
+		mapper.insertRecipe(rw.getRecipe());
+		RecipeKeywordCode rk = new RecipeKeywordCode();
+		int [] rkValue = rw.getKeywordNo();
+		rk.setCountry(rkValue[0]);
+		rk.setSituation(rkValue[1]);
+		rk.setLevel(rkValue[2]);
+		rk.setTime(rkValue[3]);
+		rk.setType(rkValue[4]);
+		rk.setCaution(rk.getCaution());
+		mapper.insertKeywordToRecipe(rk);
 	}
 
 	// 번호로 레시피 찾기
@@ -88,14 +94,14 @@ public class RecipeServiceImpl implements RecipeService {
 		mapper.deleteRecipeReview(no);
 	}
 
-	public List<Keyword> selectKeywordByNo(int no){
+	public RecipeKeywordName selectKeywordByNo(int no){
 		return mapper.selectKeywordByNo(no);
 	}
 	public List<Recipe> selectRecipeByKeyword(int no){
 		return mapper.selectRecipeByKeyword(no);
 	}
-	public List<Keyword> selectKeywordMost(){
-		return mapper.selectKeyword();
+	public List<Keyword> selectKeywordMost(String column){
+		return mapper.selectKeywordMost(column);
 	}
 	public List<Keyword> selectKeyword(){
 		return mapper.selectKeyword();
