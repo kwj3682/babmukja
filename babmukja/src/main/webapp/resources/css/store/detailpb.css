@@ -302,6 +302,7 @@
 
 .pb_review_select {
 	height: auto;
+	border-bottom: 1px solid gainsboro;
 }
 
 .review_border-bottom {
@@ -315,6 +316,7 @@
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-gap : 5px;
+    margin-bottom: 30px;
 }
 
 .pb_review_select_img img {
@@ -434,6 +436,7 @@
 
 #pb_detail_menubar > div > a:link {
     text-decoration: none;
+    color: black;
 }
 
 #pb_detail_menubar > div > a:visited {
@@ -546,6 +549,26 @@
     
 }
 
+.inquire__content {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 500px;
+    height: 170px;
+    resize: none;
+    margin-top: 50px;
+}
+
+.inquire__update__content {
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 500px;
+    height: 170px;
+    resize: none;
+    margin-top: 50px;	
+}
+
 #img_file {
     display: none;
 }
@@ -631,6 +654,7 @@
     margin-bottom: 30px;
     width: 100%;
     text-align: left;
+    margin-top: 20px;
 }
 
 .review_images {
@@ -650,9 +674,42 @@
     margin-bottom: 30px;
 }
 /*sprite with stars*/
-#reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+#reviewStars-input input:checked ~ label, #reviewStars-input label, 
+#reviewStars-input label:hover, #reviewStars-input label:hover ~ label, 
+#reviewStarsinput input:checked ~ label, #reviewStarsinput label, 
+#reviewStarsinput label:hover, #reviewStarsinput label:hover ~ label {
     background: url('http://positivecrash.com/wp-content/uploads/ico-s71a7fdede6.png') no-repeat;
   }
+  
+  #reviewStarsinput input {
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;    
+    width: 20px;
+    height: 20px;    
+    position: absolute;
+    top: 0px; 
+    z-index: 0;
+}
+  
+     #reviewStarsinput input:checked ~ label {
+    background-position: 0 -20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: -20px;
+  } 
+  
+    #reviewStarsinput label {
+    background-position: 0 0;
+    width: 20px;
+    height: 20px;
+    float: right;  
+    position: relative;
+    z-index: 1;
+    left : -20px;
+    margin-right: 5px;   
+  } 
+  
   
   #reviewStars-input {
     
@@ -772,3 +829,65 @@
 .image_box:hover .preview_img_btn {
   opacity: 1;
 }
+
+.reviewMSG {
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    color: gray;
+}
+
+.reviewMSG2 {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    color: gray;	
+}
+
+.pb_inquire_body {
+	margin-top: 20px;
+}
+
+#pb_review_detail {
+	margin-bottom: 100px;	
+	
+}
+
+#pb_review_inquire_detail {
+	margin-bottom: 100px;	
+}
+
+.inq_update_btn {
+    outline: none;
+    border: none;
+    background: white;
+    font-size: 15px;
+    margin-left: 8px;
+    color: gray;
+}
+
+.inq_update_btn:hover {
+	color: #7db341;
+}
+
+.inq_delete_btn {
+    outline: none;
+    border: none;
+    font-size: 15px;
+    background: white;
+    color: gray;
+}
+
+.inq_delete_btn:hover {
+	color: #7db341;
+	
+}
+
+#pb_inquire_user_regdate {
+	font-size: 15px;
+    color: gray;
+    letter-spacing: 1px;
+}
+
