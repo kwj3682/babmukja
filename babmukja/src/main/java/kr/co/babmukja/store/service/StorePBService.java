@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBInquire;
 import kr.co.babmukja.repository.domain.StorePBReview;
 
 public interface StorePBService {
@@ -40,4 +41,14 @@ public interface StorePBService {
 	//public List<ReviewFileVO> selectPBReviewSelectImage(int pbReivewNo);
 	public List<StorePBReview> selectReview(int pbNo);
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo); 
+	public StorePBReview selectReviewByNo(int pbReviewNo);
+	public void deleteReviewByNo(int pbReviewNo);
+	public StorePBReview updatePBReview(StorePBReview storePBReview);
+	
+	// pb 상품 문의
+	public void insertInquiry(StorePBInquire storePBInquire);
+	public List<StorePBInquire> selectPBInquire(int pbNo);
+	public StorePBInquire selectInquiryByNo(int inquiryNo);
+	public void updateInquiry(StorePBInquire storePBInquire);
+	public void deleteInquiry(int inquiryNo);
 }

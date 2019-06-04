@@ -28,12 +28,13 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
 import kr.co.babmukja.repository.domain.FileVO;
-import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipePage;
+import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeWriteVO;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
@@ -63,7 +64,10 @@ public class RecipeController {
 		}
 		model.addAttribute("recipe", result);
 		
-		model.addAttribute("keyword",service.selectKeywordMost());
+		model.addAttribute("countryrank",service.selectKeywordMost("country"));
+		model.addAttribute("situationrank",service.selectKeywordMost("situation"));
+		model.addAttribute("levelrank",service.selectKeywordMost("level"));
+		model.addAttribute("typerank",service.selectKeywordMost("type"));
 	}
 	
 	@RequestMapping("/recipekeyword.do")
@@ -145,12 +149,12 @@ public class RecipeController {
 
 	@RequestMapping("/write.do")
 	@ResponseBody
-	public void write(Recipe recipe, int[] keywordNo,HttpSession session) {
+	public void write(RecipeWriteVO rw, HttpSession session) {
 		System.out.println("write.do 실행");
 		Member user =  (Member)session.getAttribute("user");
 		System.out.println("작성자 번호 : " + user.getMemNo());
-		recipe.setMemNo(user.getMemNo());
-		service.insertRecipe(recipe,keywordNo);
+		rw.setRecipeMemNo(user.getMemNo());
+		service.insertRecipe(rw);
 	}
 
 	@RequestMapping("/detail.do")
@@ -162,10 +166,27 @@ public class RecipeController {
 			mav.setViewName("recipe/main");
 			return mav;
 		}
-		List<Keyword> keyword = service.selectKeywordByNo(no);
+		RecipeKeywordName recipeKeyword = service.selectKeywordByNo(no);
 		mav.setViewName("recipe/detail");
+		
+		List<String> cautions = new ArrayList<>();
+		for(String key : recipeKeyword.getCaution().split(",")) {
+			switch(Integer.parseInt(key)) {
+			case 7: cautions.add("임산부 주의"); break;
+			case 8: cautions.add("영유아 주의"); break;
+			case 9: cautions.add("고혈압 주의"); break;
+			case 10:cautions.add("육류 포함"); break;
+			case 11:cautions.add("돼지고기 포함"); break;
+			case 12:cautions.add("노약자 주의"); break;
+			case 13:cautions.add("알러지 유발 주의"); break;
+			case 14:cautions.add("당뇨 주의"); break;
+			}
+			
+		}
+		
 		mav.addObject("recipe", recipe);
-		mav.addObject("keyword",keyword);
+		mav.addObject("keyword",recipeKeyword);
+		mav.addObject("cautions",cautions);
 		return mav;
 	}
 		

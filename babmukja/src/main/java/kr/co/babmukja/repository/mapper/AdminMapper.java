@@ -8,7 +8,8 @@ import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.StorePB;
 
 public interface AdminMapper {	
-	public List<Member> selectMemberList(Page page);
+//	public List<Member> selectMemberList(Page page);
+	public List<Member> selectMemberList();
 	public int selectMemberCount(Page page);
 	
 	public Member selectMemberByNo(int no);

@@ -19,11 +19,27 @@ public class MemberServiceImpl implements MemberService {
 	} 
 	
 	@Override
-	// 회원등록
+	// 회원가입
 	public void insertMember(Member member) {
 		mapper.insertMember(member);
 	}
+	@Override
 	
+	public Member selectCheckSocialAt(String memEmail) {
+		return mapper.selectCheckSocialAt(memEmail);
+	}
+	
+	@Override
+	// 카카오톡 회원가입
+	public void insertSocialMember(Member member) {
+		mapper.insertSocialMember(member);
+	}
+	
+	@Override
+	// 카카오톡 닉네임 설정
+	public void updateSocialNickname(Member member) {
+		mapper.updateSocialNickname(member);
+	}
 	@Override
 	// 닉네임 중복체크
 	public int selectCheckNickName(String memNickname) {
@@ -34,6 +50,12 @@ public class MemberServiceImpl implements MemberService {
 	// 이메일 중복체크
 	public int selectCheckEmail(String memEmail) {
 		return mapper.selectCheckEmail(memEmail);
+	}
+	
+	@Override
+	// 전화번호 중복체크
+	public int selectCheckPhone(String memPhone) {
+		return mapper.selectCheckPhone(memPhone);
 	}
 	
 	@Override

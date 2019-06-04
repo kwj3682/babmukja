@@ -33,12 +33,12 @@
 				</div>
 
 				<div class="kakao__icon">
-					<a href="#"><img id="facebook"
+					<a href="#"><img id="kakao"
 						src="<c:url value="/resources/images/kakao.jpg"/>"></a>
 				</div>
 
 				<div class="naver__icon">
-					<a href="#"><img id="facebook"
+					<a href="#"><img id="naver"
 						src="<c:url value="/resources/images/naver.jpg"/>"></a>
 				</div>
 			</div>

@@ -1,6 +1,9 @@
 charset "UTF-8";
+
+
 body{
     background: gainsboro;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 button{
     cursor: pointer;
@@ -21,100 +24,12 @@ button:focus{
 	border-right : 1px solid gray;
 	color : #7db341;
 }
-#member-search-header{
-    font-size: 25px;
-    border : 1px solid gray;
-    padding: 10px;
-}
-#member-search-input{
-    background: gainsboro;
-    padding : 30px;
-    border-right: 1px solid gray;
-    border-left : 1px solid gray;
-}
-#member-search-input > div{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    height : 35px;
-}
-.search {
-    width: 150px;
-    height: 35px;
-    font-size: 15px;
-    font-weight: bold;
-}
-.search_form_input {
-    height: 30px;
-    font-size : 15px;
-    width: 500px;
+.searchForm{
+    width: 60px;
+    padding:0;
+    margin: 0;
 }
 
-#detail_button{
-    font-size: 30px;
-    color: white;
-    height: 36px;
-    width: 36px;
-    margin-left : 15px;
-    border-radius: 18px;
-    background: #7db341;
-    border: 0;
-    transition: .3s;
-}
-#detail_button:focus {
-	outline: none;
-}
-#detail_button:hover{
-    background:tomato;
-}
-
-#member-search-button{
-    font-size: 15px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    border: 1px solid gray;
-    padding: 10px;
-}
-#member-search-button > button{
-    width: 150px;
-    height: 50px;
-    border : 0;
-    background : #7db341;
-    border-radius: 5px;
-    font-size : 20px;
-    color: white;
-    font-weight: bolder;
-}
-
-#detail-search{
-	display: none;
-    padding: 10px;
-    border-top: 1px solid gray;
-    border-left : 1px solid gray;
-    border-right : 1px solid gray;
-    background: white;
-}
-#detail-search-content > div {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
-#detail-search-content > div > div:nth-child(1) div {
-    background: #7db341;
-    font-size: 19px;
-    font-weight: bold;
-    color: white;
-    border : 1px solid gainsboro;
-    padding: 10px;
-}
-#detail-search-content > div > div:nth-child(2) div {
-    background: white;
-    font-size: 19px;
-    font-weight: bold;
-    color: rgb(81,81,81);
-    border : 1px solid gainsboro;
-    padding: 10px;
-}
 #search-output{
     margin: 30px;
     border: 1px solid gray;
@@ -126,55 +41,214 @@ button:focus{
 }
 #search-output-list table{
     border-collapse: collapse;
+    width: 100%;
+}
+th,td{
+	font-size: 13px;
 }
 #search-output-list th,tr,td{
     border : 1px solid gray;
 }
-th{
+search-output-list th{
     text-align: center;
     background: #7db341;
     color : white;
     font-weight: bold;
 }
-td:nth-child(2){
+search-output-list>tbody>tr>td:nth-child(2){
     width: 80px;
 }
-td:nth-child(3){
+search-output-list>tbody>tr>td:nth-child(3){
     width: 100px;
 }
-td:nth-child(4){
+search-output-list>tbody>tr>td:nth-child(4){
     width: 200px;
 }
-td:nth-child(5){
+search-output-list>tbody>tr>td:nth-child(5){
     width: 120px;
 }
-td:nth-child(6){
+search-output-list>tbody>tr>td:nth-child(6){
     width: 100px;
 }
-td:nth-child(7){
+search-output-list>tbody>tr>td:nth-child(7){
     width: 140px;
 }
-td:nth-child(8){
+search-output-list>tbody>tr>td:nth-child(8){
     width: 200px;
 }
-td:nth-child(9){
+search-output-list>tbody>tr>td:nth-child(9){
     width: 200px;
 }
-td:nth-child(10){
+search-output-list>tbody>tr>td:nth-child(10){
     width: 200px;
 }
-td:nth-child(11){
+search-output-list>tbody>tr>td:nth-child(11){
     width: 100px;
 }
-td:nth-child(12){
+search-output-list>tbody>tr>td:nth-child(12){
     width: 100px;
 }
-td:nth-child(13){
+search-output-list>tbody>tr>td:nth-child(13){
     width: 100px;
 }
-td:nth-child(14){
+search-output-list>tbody>tr>td:nth-child(14){
     width: 100px;
 }
-#pageText {
-	text-align : center;
+
+/* 아래부터 member detail */
+
+.underline{
+    margin-left: 15px;
+    margin-top: 1px;
+    width: 151px;
+    height: 3px;
+    background: linear-gradient(to right, white 0%, rgba(0,0,0,0) 100%);
+}
+#profile-main{
+    width: 1000px;
+    height: 1100px;
+    border : 1px solid gainsboro;
+    box-shadow: 0 0 15px 2px gainsboro;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    border-radius : 5px;
+    margin: 0 auto;
+    font-family: 'Nanum Gothic', sans-serif;
+    
+}
+
+#profile-left{
+    background-color: #7db341;
+    background: linear-gradient(to bottom, #7db341 0%, #8dc1ff 70%,#f1f7ee 100%);
+    display: grid;
+    grid-template-rows: 25% 25% 50% ; 
+     border-radius : 5px 0 0 5px;
+}
+#profile-left-photo{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+#profile-left-photo > img{
+    width : 110px;
+    height : 110px;
+    border-radius: 100px;
+    padding : 5px;
+    border : 1px solid white;
+    margin-top: 40px;
+}
+#profile-left-contact h3{
+    padding-left : 15px;
+    color:white;
+    margin-bottom: 0;
+}
+#profile-left-contact > div{
+    padding-left : 15px;
+    padding-right: 1px;
+}
+#profile-left i {
+    display: inline-block;    
+    padding-top : 4px;
+    width: 24px;
+    height: 23px;
+    border-radius: 17px;
+    text-align: center;
+    background : white;
+    margin:2px;
+    color: #7db341;
+}
+
+#profile-left p{
+    width: 151px;
+    display: inline-block;
+    color: white;
+    font-size: 13px;
+}
+#profile-left-simpledata > h3{
+    padding-left :15px;
+    font-size: 20px;
+    margin-bottom: 0;
+    color: white;
+}
+#profile-left-simpledata > div{
+    padding-left : 15px;
+    padding-right: 1px;
+}
+
+
+#profile-right{
+    display: grid;
+    padding-left: 2px;
+    grid-template-rows: 15% 85%;
+    border-radius : 0 5px 5px 0;
+}
+#profile-right-header{
+    background: #f1f7ee;
+    border-radius : 0 5px 0 0;
+}
+
+#profile-right-header>h5,
+#profile-right-header>h3,
+#profile-right-header>h2{
+    text-align: center;
+    color:rgb(81,81,81);
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+#profile-right-header > hr{
+    width: 200px;
+    color:white;
+}
+#profile-right-body > h4{
+    color: #FA7268;
+    text-align: center;
+}
+#grade{
+    text-align: center;
+    color: rgb(81,81,81);
+}
+#grade > b{
+    color: #FA7268;
+}
+#point{
+    width: 110px;
+    height: 110px;
+    border-radius: 75px;
+    padding : 5px;
+    border: 1px solid gainsboro;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#point-value{
+    background: #f1f7ee;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 100px;
+    color: rgb(81,81,81);
+    margin: 0;
+    font-size: 16px;
+    
+}
+#profile-right-point{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.totalTable > thead> tr{
+    font-size : 12px;
+}
+#search-output-list th, tr, td {
+	border : 1px solid gainsboro;
+}
+#modal-input-keyword{
+    font-size: 16px;	
+}
+#profile-right-body  h4{
+    font-size: 17px;
+    font-weight: bold;
 }

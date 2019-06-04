@@ -7,9 +7,17 @@ public interface MemberService {
 	
 	void insertMember (Member member); // 회원가입
 	
+	void insertSocialMember(Member member); // 카카오톡 회원가입
+	
+	void updateSocialNickname(Member member); // 카카오톡 이름 설정
+	
+	Member selectCheckSocialAt(String memEmail);
+	
 	int selectCheckNickName(String memNickname); // 닉네임 중복체크
 	
 	int selectCheckEmail(String memEmail); // 이메일 중복체크
+	
+	int selectCheckPhone(String memPhone); // 전화번호 중복체크
 	
 	void updateEmailVerify(String memEmail); // 이메일 인증
 	

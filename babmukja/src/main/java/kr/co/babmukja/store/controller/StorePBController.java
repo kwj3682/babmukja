@@ -28,6 +28,7 @@ import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBInquire;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
 
@@ -125,14 +126,15 @@ public class StorePBController {
 	
 	// pb 상품 상세조회
 	@RequestMapping("/detailpb.do")
-	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview) {
+	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview, StorePBInquire storePBInquire) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
+		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
+
 		List<StorePBReview> reviewList = service.selectReview(pbNo);
 		List<ReviewMap> reviewMap = new ArrayList<>();
 		for(StorePBReview pb : reviewList) {
 			
 			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
-			
 			ReviewMap rm = new ReviewMap();
 			rm.setReviewFile(reviewFileList);
 			rm.setReviewList(pb);
@@ -159,6 +161,7 @@ public class StorePBController {
 		mav.addObject("imgList", store.getImgPath().split(","));
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("reviewMap",reviewMap);
+		mav.addObject("inqList", sInquire);
 		///////////////////////////////////////////////////////////
 		
 		
@@ -238,6 +241,31 @@ public class StorePBController {
 
 		return new Gson().toJson(fileVO);
 	}
+
+	@RequestMapping("/reviewuploadpb.do")
+	@ResponseBody
+	public Object reviewuploadpb(FileVO fileVO) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat(
+				"/yyyy/MM/dd"
+				);
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/pbreview" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false) file.mkdirs();
+		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+		
+		MultipartFile mFile = fileVO.getAttach();
+		
+		String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
+		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		fileVO.setPath(path);
+		fileVO.setOrgname(mFile.getOriginalFilename());
+		fileVO.setSysname(uName);
+		System.out.println("file upload succeed.");
+		
+		return new Gson().toJson(fileVO);
+	}
 	
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
@@ -260,7 +288,7 @@ public class StorePBController {
 			if (mFile.isEmpty()) {
 				break;
 			}
-			String uName =  UUID.randomUUID().toString();
+			String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
 			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
 			
 			System.out.println(reviewpb.getPbReviewNo());
@@ -269,7 +297,53 @@ public class StorePBController {
 			fileVO.setOrgname(mFile.getOriginalFilename());
 			fileVO.setSysname(uName);
 			service.insertPBReviewImage(fileVO);
-
 		}
 	}
+	
+	// pb 상품 후기 수정
+	@RequestMapping("/pbreviewupdateform.do")
+	@ResponseBody
+	public StorePBReview pbreviewupdateform(int pbReviewNo) {
+		return service.selectReviewByNo(pbReviewNo);
+	}
+	
+	// pb 상품 후기 삭제
+	@RequestMapping("/pbreviewdelete.do")
+	@ResponseBody
+	public void deleteReviewByNo(int pbReviewNo, StorePBReview reviewpb) {
+		service.deleteReviewByNo(pbReviewNo);
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	// pb 상품 문의 등록
+	@RequestMapping("/pbinquiryinsert.do")
+	@ResponseBody
+	public void insertInquiry(StorePBInquire storePBInquire) {
+		storePBInquire.setPbNo(storePBInquire.getPbNo());
+		storePBInquire.setContent(storePBInquire.getContent());
+		service.insertInquiry(storePBInquire);
+	}
+	
+	@RequestMapping("/pbinquiryupdateform.do")
+	@ResponseBody
+	public StorePBInquire updateInquiryform(int inquiryNo) {
+		return service.selectInquiryByNo(inquiryNo);
+	}
+	
+	@RequestMapping("/pbinquiryupdate.do")
+	@ResponseBody
+	public void updateInquiry(StorePBInquire storePBInquire) {
+		System.out.println(storePBInquire.getPbNo());
+		System.out.println(storePBInquire.getInquiryNo());
+		System.out.println(storePBInquire.getContent());
+		service.updateInquiry(storePBInquire);
+	}
+	
+	@RequestMapping("/pbinquirydelete.do")
+	@ResponseBody
+	public void deleteInquiry(int inquiryNo) {
+		service.deleteInquiry(inquiryNo);
+	}
+	
 }

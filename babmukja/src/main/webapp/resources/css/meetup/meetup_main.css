@@ -20,6 +20,7 @@
     font-weight: bold;
     font-size: 30px;
     color: #7db341;
+    
 }
 
 .header_search {
@@ -105,37 +106,30 @@
     padding-right: 30px;
 }
 
-.location_position {
+.location_position  {
     display: none;
     background-color: #fafbfd;
     height: 70px;
     border-bottom: 1px solid gainsboro;
-    text-align: center;
+    text-align:center;
+   	line-height:68px;
 }
 
-.location_position .select_area1 {
-    width: 60px;
+
+#search_area_container {
+	display: inline-block;
+	margin-left:30px;
+	
+}
+
+#search_area_container select {
+	    width: 80px;
     height: 26px;
-    border: 1px solid #7db341;
-    border-radius: 20px;
-}
-
-.location_position .select_area2 {
-    width: 60px;
-    height: 26px;
     border-radius: 20px;
     border: 1px solid #7db341;
+	
 }
-
-#location_area_container {
-    margin-right: 20px;
-    display: inline-block;
-    margin-top: 20px;
-    width: 150px;
-    height: 40px;
-    border-radius: 5px;
-}
-
+	
 .fa-plus-circle {
     font-size: 23px;
 
