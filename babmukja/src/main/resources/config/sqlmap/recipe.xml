@@ -210,33 +210,4 @@
   		from tb_recipe_keyword rk
   	   where rk.recipe_no = #{no}
 	</select>
-	
-<<<<<<< HEAD
-	<!-- 레시피 카테고리별 목록 조회-->
- 	<select id="selectCategory" parameterType="recipePage" resultMap="recipeMap">
-		select distinct r.* 
-          from (select * 
-                  from tb_recipe_keyword 
-                 where keyword_no= #{keywordNo}) a, tb_recipe_keyword rk
-         inner join tb_recipe r
-            on r.recipe_no = rk.recipe_no
-         where 1=1 
-		 <include refid="searchWhere"/>
-   		 limit #{begin}, #{end}
-	</select> 
-	
-	<!-- 레시피 카테고리별 전체 수 -->
-	<select id="selectCategoryCount" parameterType="recipePage" resultType="int">
-		select count(distinct r.recipe_no) 
-  		  from (select * 
-  		          from tb_recipe_keyword 
-  		         where keyword_no= #{keywordNo}) a, tb_recipe_keyword rk
-         inner join tb_recipe r
-            on r.recipe_no = rk.recipe_no
-         where 1=1
-		  <include refid="searchWhere"/>		 		   
-	</select>
-=======
-
->>>>>>> master
 </mapper>
