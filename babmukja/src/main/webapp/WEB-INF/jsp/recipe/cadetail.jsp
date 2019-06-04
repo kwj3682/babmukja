@@ -9,61 +9,168 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/resources/css/recipe/recipeCaDetail.css"/>">
+    <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<c:url value="/resources/js/slider/slider-radio.css"/>">
+    <script src="<c:url value="/resources/js/slider/slider-radio.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <title>Document</title>
 
 </head>
-<body>
-    <div class="container">
-        <div class="searchRecipe">            
-            <div class="searchbox">
-                <div id="cate">레시피 > (카테고리)</div>
-                <div class="searchin">
-                    <input type="text" id="search-input" name="search" placeholder="레시피를 검색하세요.">
-                </div>
-                <div>
-                    <span class="searchicon"><i class="fa fa-search"></i></span>
-                </div>
-            </div>
-            <div class="searchresult">
-                <div class="check">                   
-                    <input type="checkbox">영유아&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox">당뇨병&nbsp;&nbsp;&nbsp;
-                    <input type="checkbox">임산부
-                    <br>
-                    <input type="checkbox">채식주의
-                    <input type="checkbox">할랄푸드
-                    <input type="checkbox">저염식
-                    
-                </div>
-                <div class="select">
-                    <button id="favorite">인기순</button>
-                    <button id="kcal">열량순</button>
-                    <button id="spicy">맵기순</button>
-                </div>
+<body>            
+    <div id="main-body">
+    
+    <!-- 검색 부분 -->
+     	<div id="searchbox">
+        	<input type="text" id="search-input" name="search" placeholder="레시피를 검색하세요.">
+            <span class="searchicon"><i class="fa fa-search"></i></span>           
+    	</div>
+    
+    <!-- 검색 누르면 나오는 아이콘 -->
+	   	 <div class="searchresult">
+             <ul class="check">                   
+                 <li id="caution"><span class="iconImg"><img src="<c:url value="/resources/images/icons/warning.png"/>"></span><span>주의사항</span></li>
+                 <li id="event"><span class="iconImg"><img src="<c:url value="/resources/images/icons/giftbox.png"/>"></span><span>상황</span></li>
+                 <li id="difficulty"><span class="iconImg"><img src="<c:url value="/resources/images/icons/graph.png"/>"></span><span>난이도</span></li>
+                 <li id="cooktime"><span class="iconImg"><img src="<c:url value="/resources/images/icons/meal.png"/>"></span><span>조리시간</span></li>
+                 <li id="kindcook"><span class="iconImg"><img src="<c:url value="/resources/images/icons/dish.png"/>"></span><span>종류</span></li>                          
+             </ul>
+         </div>
+         
+    <!-- 검색 조건 -->  
+    	<div id="keyword-container"> 
+    	<form name="searchForm" action="<c:url value='/recipe/cadetail.do'/>"> 
+    		<input type="hidden" name="keywordNo" value="${param.keywordNo }">
+        	<div class="keyword-wrapper" id="keyword-caution-wrapper">        	
+	            <div>
+	                <input type="checkbox" id="pregnant" name="pregnant" value="7">
+	                <label for="pregnant">임산부 주의</label>
+	                <input type="checkbox" id="baby" name="baby" value="8">
+	                <label for="baby">영유아 주의</label>
+	                <input type="checkbox" id="high-blood-pressure" name="pressure" value="9">
+	                <label for="high-blood-pressure">고혈압 주의</label>
+	                <input type="checkbox" id="vegan" name="vegan" value="10">
+	                <label for="vegan">채식주의자를 위한</label>
+	                <input type="checkbox" id="halal" name="halal" value="11">
+	                <label for="halal">돼지고기 포함</label>
+	                <input type="checkbox" id="old" name="old" value="12">
+	                <label for="old">노약자 주의</label>
+	                <input type="checkbox" id="allergic" name="allergic" value="13">
+	                <label for="allergic">알러지 유발 주의</label>
+	                <input type="checkbox" id="diabetes" name="diabetes" value="14">
+	                <label for="pregnant">당뇨 주의</label>
+	            </div>
+       		 </div>
+       		 
+       	<div class="keyword-wrapper" id="keyword-situation-wrapper">            
+            <div class="slider-radio edgy">
+                   <input type="radio" id="overnight" name="situation" value="15" ><label for="overnight">야식</label> 
+                    <input type="radio" id="homeparty" name="situation" value="16"><label for="homeparty">홈파티</label>
+                    <input type="radio" id="birthday" name="situation" value="17"><label for="birthday">생일</label> 
+                    <input type="radio" id="anniversary" name="situation" value="18"><label for="anniversary">기념일</label>
+                    <input type="radio" id="drinkalone" name="situation" value="19"><label for="drinkalone">혼술</label>
+                    <input type="radio" id="eatalone" name="situation" value="20"><label for="eatalone">혼밥</label> 
+                    <input type="radio" id="coupledate" name="situation" value="21"><label for="coupledate">데이트</label>
+                    <input type="radio" id="snack" name="situation" value="22"><label for="snack">간식</label> 
+                    <input type="radio" id="wholetable" name="situation" value="23"><label for="wholetable">한상차림</label>
+                    <input type="radio" id="dinner" name="situation" value="24"><label for="dinner">저녁</label>
+                    <input type="radio" id="lunch" name="situation" value="25"><label for="lunch">점심</label> 
+                    <input type="radio" id="breakfast" name="situation" value="26"><label for="breakfast">아침</label> 
+                    <input type="radio" id="picnic" name="situation" value="27"><label for="picnic">피크닉</label>
             </div> 
-            <hr>
-            <div class="ca-list">
-            <c:forEach var="ca" items="${calist }">
-                <div>
-                    <img class="mem-profile" src="">
-                    <span>${ca.memNickname }</span>
-                    <div>${ca.title }</div>
-                    <div>조회수 :${ca.viewCnt }</div>
-                    <div>평점 : ${ca.rating }</div>
-                    <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
-                </div>
-             </c:forEach>
+        </div>
+        
+        <div class="keyword-wrapper" id="keyword-level-wrapper">            
+            <div class="slider-radio edgy">
+                 <input type="radio" id="veryeasy" name="level" value="28" ><label for="veryeasy">매우 쉬움</label>
+                <input type="radio" id="easy" name="level" value="29"><label for="easy">쉬움</label>
+                <input type="radio" id="normal" name="level" value="30"><label for="normal">보통</label>
+                <input type="radio" id="hard" name="level" value="31"><label for="hard">어려움</label>
+                <input type="radio" id="veryhard" name="level" value="32"><label for="veryhard">매우 어려움</label>
+            </div> 
+        </div>
+        
+        <div class="keyword-wrapper" id="keyword-taketime-wrapper">            
+            <div class="slider-radio edgy">
+                 <input type="radio" id="five" name="taketime" value="33" ><label for="five">5분 이내</label>
+               <input type="radio" id="fifteen" name="taketime" value="34"><label for="fifteen">15분 이내</label>
+                <input type="radio" id="thirty" name="taketime" value="35"><label for="thirty">30분 이내</label>
+                <input type="radio" id="hour" name="taketime" value="36"><label for="hour">1시간 이내</label>
+                <input type="radio" id="overhour" name="taketime" value="37"><label for="overhour">1시간 초과</label>
+            </div> 
+        </div>
+        
+        <div class="keyword-wrapper" id="keyword-foodtype-wrapper">            
+            <div class="slider-radio edgy">
+                  <input type="radio" id="koreansoup" name="foodtype" value="38" ><label for="koreansoup">국/탕류</label>
+                    <input type="radio" id="jjigae" name="foodtype" value="39"><label for="jjigae">찌개</label>
+                    <input type="radio" id="sidedish" name="foodtype" value="40"><label for="sidedish">반찬</label>
+                    <input type="radio" id="noodle" name="foodtype" value="41"><label for="noodle">면</label>
+                    <input type="radio" id="dumpling" name="foodtype" value="42"><label for="dumpling">만두</label>
+                    <input type="radio" id="rice" name="foodtype" value="43"><label for="rice">밥</label>
+                    <input type="radio" id="salad" name="foodtype" value="44"><label for="salad">샐러드</label>
+                    <input type="radio" id="soup" name="foodtype" value="45"><label for="soup">스프</label>
+                    <input type="radio" id="beverage" name="foodtype" value="46"><label for="beverage">음료</label>
+                    <input type="radio" id="bread" name="foodtype" value="47"><label for="bread">빵/디저트</label>
+                    <input type="radio" id="hardboiled" name="foodtype" value="48"><label for="hardboiled">조림</label>
+                    <input type="radio" id="easymixed" name="foodtype" value="49"><label for="easymixed">무침</label>
+                    <input type="radio" id="hardmixed" name="foodtype" value="50"><label for="hardmixed">비빔</label>
+                    <input type="radio" id="steamed" name="foodtype" value="51"><label for="steamed">찜</label>
+                    <input type="radio" id="pickled" name="foodtype" value="52"><label for="pickled">절임</label>
+                    <input type="radio" id="fried" name="foodtype" value="53"><label for="fried">튀김</label>
+                    <input type="radio" id="boiled" name="foodtype" value="54"><label for="boiled">삶기</label>
+                    <input type="radio" id="cooked" name="foodtype" value="55"><label for="cooked">굽기</label>
+                    <input type="radio" id="blanch" name="foodtype" value="56"><label for="blanch">데치기</label>
+                    <input type="radio" id="row" name="foodtype" value="57"><label for="row">회</label>
+                    <input type="radio" id="foodtypeetc" name="foodtype" value="58"><label for="foodtypeetc">기타</label>
             </div>
         </div>
-    </div>
-
+        </form>
+     </div>
+            
+    <!-- 레시피 목록 부분 -->
+	    <div class="boundary"></div>  
+	        <div id="sector3-mid">
+	        </div>
+	        <div id="sector3">
+	            <div id="sector3-body">            
+	                <c:forEach var="ca" items="${calist }">               
+	                   <div class="profile-container">
+	                       <div class="profile-pic-box">
+	                           <div>
+	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           </div>
+	                           <div class="profile-name">
+	                               <p> 
+			                          <span>조회수 :${ca.viewCnt }</span>
+			                    	  <span>평점 : ${ca.rating }</span>
+	                           <br>
+	                                  ${ca.title}
+	                           <br>
+	                                  ${ca.memNickname}
+	                               </p>
+	                           </div>
+	                       </div>
+	                       <div class="recipe-pic-box">
+	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
+	                       </div>
+	                       <div class="recipe-info">
+	                           <i class="fas fa-heart fa-2x">50</i>
+	                           <i class="fas fa-scroll fa-2x">60</i>
+	                           <i class="fas fa-eye fa-2x">120</i>
+	                       </div>
+	                   </div>
+	               </c:forEach>	                
+	            </div>
+	            <div id="sector3-header"></div>
+	        </div>
+	    </div>
+	
     <script>
-         $("#search-input").focus(function () { 
-            $(".searchresult").css(
-                "display", "grid"                
-            );            
-        });
+         $(".searchicon").click(function () {
+        	 $("[name='searchForm']").submit();        	
+         });           
+        
+         
     </script>
 </body>
 </html>

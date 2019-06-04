@@ -239,12 +239,14 @@
 		insert into tb_pb_review(
 			pb_no, 
 			content, 
-			mem_no 
+			mem_no,
+			rating
 		)
 		values(
 			#{pbNo},
 			#{content},
-			3
+			3,
+			#{rating}
 		)
 	</insert>
 	
@@ -265,13 +267,20 @@
 		)
 	</insert>
 	
-	<!-- 
-	<select id="selectMaxNum" resultType="int">
-		select ifnull(max(pb_review_no),1)
-		  from tb_pb_review
-	</select>
-	 -->
-	 
+	<update id="updatePBReview" parameterType="storePBReview">
+		update tb_pb_review
+   		   set content = ${content}
+         where pb_review_no = #{pbReviewNo}
+	</update>
+	
+	<update id="updatePBReviewImage" parameterType="ReviewFileVO">
+		update tb_file
+		   set sysname = #{sysname}, 
+		   	   orgname = #{orgname}, 
+		   	   path = #{path}
+		 where file_no = #{fileNo}
+	</update>
+		 
  	<resultMap id="MemberMap" type="Member">
 		<result column="mem_no" property="memNo" />
 		<result column="mem_name" property="memName" />
@@ -352,29 +361,62 @@
 		  from tb_pb_review
 		 where pb_review_no = #{pbReviewNo}
 	</delete>
-	<!-- 
-	<select id="selectPBReviewSelect" parameterType="storePBReview" resultMap="pbReviewSelectMap">
-		select m.mem_nickname, r.*, f.path, f.sysname
-		  from tb_pb_review r, tb_member m, tb_file f
-		 where r.mem_no = m.mem_no
-		   and f.pb_review_no = r.pb_review_no
-		   and r.pb_no = #{pbNo}
-		   and r.pb_review_no = #{pbReviewNo}
-	</select>
-	 -->
-	<!-- 
-	<select id="selectPBReviewSelect" resultMap="pbReviewSelectMap" parameterType="int">
-		 select m.mem_nickname, r.*
-  		   from tb_pb_review r, tb_member m
- 	      where r.mem_no = m.mem_no
- 	        and r.pb_no = #{pbNo}
-		  order by pb_review_no desc		  
-	</select>
 
-	<select id="selectPBReviewSelectImage" resultMap="fileMap" parameterType="int">
+<!-- pb store 문의 부분 -->	
+	<resultMap id="pbInquireMap" type="StorePBInquire" >
+		<result column="inquiry_no" property="inquiryNo"/>
+		<result column="pb_no" property="pbNo"/>
+		<result column="content" property="content"/>
+		<result column="inquiry_regdate" property="inquiryRegdate"/>
+		<result column="answer_regdate" property="answerRegdate"/>
+		<result column="answer" property="answer"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="mem_Nickname" property="memNickname"/>
+		
+		<collection property="member" column="mem_no" select="selectInquiryNickName"/>
+	</resultMap>
+	
+	<select id="selectPBInquire" parameterType="int" resultMap="pbInquireMap">
 		select *
-		  from tb_file
-		 where pb_review_no = #{pbReviewNo}
+		  from tb_pb_inquiry
+		 where pb_no = #{pbNo}
+		 order by inquiry_no desc
 	</select>
-	 -->
+	
+	<select id="selectInquiryNickName" parameterType="int" resultMap="MemberMap">
+		select *
+	   	  from tb_member	
+	   	 where mem_no = #{memNo}
+	</select>
+	
+	<insert id="insertInquiry" parameterType="StorePBInquire">
+		insert into tb_pb_inquiry(
+			pb_no, 
+			content, 
+			mem_no 
+		)
+		values(
+			#{pbNo},
+			#{content},
+			3
+		)
+	</insert>
+	
+	<select id="selectInquiryByNo" parameterType="int" resultMap="pbInquireMap">
+		select *
+	  	  from tb_pb_inquiry
+	 	 where inquiry_no = #{inquiryNo}
+	</select>
+	
+	<update id="updateInquiry" parameterType="StorePBInquire">
+		update tb_pb_inquiry
+ 		   set content = #{content}
+ 		 where inquiry_no = #{inquiryNo}
+	</update>
+	
+	<delete id="deleteInquiry" parameterType="int">
+		delete
+		  from tb_pb_inquiry
+		 where inquiry_no = #{inquiryNo}
+	</delete>
 </mapper>

@@ -68,7 +68,7 @@
                 <input type="checkbox" id="allergic" name="caution" value="13">
                 <label for="allergic">알러지 유발 주의</label>
                 <input type="checkbox" id="diabetes" name="caution" value="14">
-                <label for="pregnant">당뇨 주의</label>
+                <label for="diabetes">당뇨 주의</label>
             </div>
         </div>
         <div class="keyword-wrapper" id="keyword-situation-wrapper">
@@ -317,11 +317,17 @@
                let keyword = [];
                keyword.push($("input[name='country']:checked").val());
                keyword.push($("input[name='caution']:checked").val());
-               keyword.push($("input[name='situation']:checked").val());
                keyword.push($("input[name='level']:checked").val());
                keyword.push($("input[name='taketime']:checked").val());
                keyword.push($("input[name='foodtype']:checked").val());
-        
+               keyword.push($("input[name='situation']:checked").val());
+        	   
+               let cautions = [];
+               $("input[name='caution']:checked").each(function(){
+            	   cautions.push($(this).val());
+               });
+				
+               console.log("주의 사항: " + cautions );
                let content = JSON.stringify(outputData);
                let title= $("#title").val();
                
@@ -330,6 +336,7 @@
                f.append("content",content);
                f.append("title",title);
                f.append("imgPath",fileList);
+               f.append("cautions",cautions);
                
                $.ajax({
                type: "post",
