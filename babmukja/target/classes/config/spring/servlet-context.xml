@@ -45,7 +45,7 @@
     <!-- 인터셉터 설정하기 -->
 <!--    <mvc:interceptors> -->
 <!--       <mvc:interceptor> -->
-<!--          <mvc:mapping path="/member/**.do"/> -->
+<!--          <mvc:mapping path="/recipe/**.do"/> -->
 <!--          <mvc:exclude-mapping path="/member/loginform.do"/> -->
 <!--          <bean class="kr.co.babmukja.member.controller.AuthInterceptor"/> -->
 <!--       </mvc:interceptor> -->

@@ -13,4 +13,3 @@
 	<a href="<c:url value='/notice/index.do'/>">공지사항</a>
 </body>
 </html>
-

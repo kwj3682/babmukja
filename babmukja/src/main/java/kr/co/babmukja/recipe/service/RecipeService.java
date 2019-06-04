@@ -9,11 +9,10 @@ import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeWriteVO;
 
 public interface RecipeService {	
 	// 레시피 등록
-	public void insertRecipe(RecipeWriteVO rw);
+	public void insertRecipe(Recipe recipe,  int[] keywordNo, int[] cautions);
 	// 레시피 상세
 	public Recipe selectRecipeByNo(int no);
 	// 레시피 수정폼가기
