@@ -100,9 +100,10 @@
                        인기 키워드
                 </div>
                 <div></div>
-            <c:forEach var="key" items="${keyword}" varStatus="status">
-               <input type="hidden" name="keyRank${status.index}" value="${key.keywordNo}">
-            </c:forEach>
+               <input type="hidden" name="countryrank" value="${countryrank}">
+               <input type="hidden" name="situationrank" value="${situationrank}">
+               <input type="hidden" name="levelrank" value="${levelrank}">
+               <input type="hidden" name="typerank" value="${typerank}">
             </div>
             <div id="sector2-body">
                    <div id="recipe-book-container">
@@ -204,21 +205,7 @@
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
     
-    /* javascript, jquery */
-    let menubarCon = $("#menubarContainer");
-    $(window).scroll(function() {
 
-      if($(this).scrollTop() < $(".swiper-container").height()){
-
-         menubarCon.addClass("opacity");
-         menubarCon.removeClass("non-opacity");         
-      }else{
-         menubarCon.removeClass("opacity");         
-         menubarCon.addClass("non-opacity");         
-      }
-         
-      console.log($(this).scrollTop()+" , " + $(".swiper-container").height());
-    });
        
 
     
@@ -238,12 +225,12 @@
        $("#resultImage").css({background:$(this).css("backgroundImage"),
          backgroundSize: "cover",
          backgroundRepeat : "no-repeat"});
-      console.log("키 랭크 값 : " + $("input[name='keyRank0']").val());
+      console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
        $.ajax({
           type:"GET",
           url: "recipekeyword.do",
           data:{
-             keywordNo : $("input[name='keyRank0']").val()
+             keywordNo : $("input[name='countryrank']").val()
              }
        }).done(function(response){
           let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';

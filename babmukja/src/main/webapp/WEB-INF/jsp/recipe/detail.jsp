@@ -37,9 +37,15 @@
             <div id="post-info"><!-- post-info start -->
             	
                 <div id="keyword-container">
-                	<c:forEach var="keyword" items="${keyword}">
-	                	<div class="keyword-wrapper">#${keyword.keyword}</div>
-                	</c:forEach>
+	                	<div class="keyword-wrapper">#${keyword.country}</div>
+	                	<div class="keyword-wrapper">#${keyword.situation}</div>
+	                	<c:forEach var="caution" items="${cautions}">
+	                		<div class="keyword-wrapper">#${caution}</div>
+	                	</c:forEach>
+	                	<div class="keyword-wrapper">#${keyword.level}</div>
+	                	<div class="keyword-wrapper">#${keyword.time}</div>
+	                	<div class="keyword-wrapper">#${keyword.type}</div>
+	                	
                 </div>
                 <div id="post-date">방금 전</div>
             </div><!-- post-info end -->
