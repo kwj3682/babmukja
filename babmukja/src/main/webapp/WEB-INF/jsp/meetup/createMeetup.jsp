@@ -9,7 +9,7 @@
 <body>
 
 <script>
-location.href="http://localhost/babmukja/meetup/main.do";
+location.href="http://localhost:8000/babmukja/meetup/main.do";
 </script>
 
 </body>

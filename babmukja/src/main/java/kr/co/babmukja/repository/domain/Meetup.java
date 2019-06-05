@@ -10,9 +10,18 @@ String day;
 String totalMem;
 String category;
 String fileDir;
+String location;
+
 int viewCnt;
 
 
+
+public String getLocation() {
+	return location;
+}
+public void setLocation(String location) {
+	this.location = location;
+}
 public String getFileDir() {
 	return fileDir;
 }

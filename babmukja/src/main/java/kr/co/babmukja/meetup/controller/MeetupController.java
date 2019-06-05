@@ -27,6 +27,7 @@ import kr.co.babmukja.meetup.service.MeetupService;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupSearch;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 import kr.co.babmukja.repository.domain.Pagepb;
 
@@ -39,10 +40,51 @@ public class MeetupController {
 
 	@RequestMapping("/afterSearch.do")
 	public void afterSearch(Model model, PageAfterSearch page) {
-		Map<String, Object> result = service.selectAllMeetup(page);
+		
+		//검색 처리 해주기
+		if(page.getCategory() ==null) {
+			page.setCategory("");
+		}
+		if(page.getCategory().equals("전체")) {
+			page.setCategory("");
+		}
+		if(page.getSearch() ==null) {
+			page.setSearch("");
+		}
+		if(page.getSearch().equals("전체")) {
+			page.setSearch("");
+		}
+		if(page.getCategory() ==null) {
+			
+			
+			page.setCategory("");
+		}
+		if(page.getCity1() ==null || page.getCity1().equals("-선택-")  ) {
+			System.out.println("도시확인 : " + page.getCity1());
+			page.setCity1("");
+		}
+		if( page.getTown1() ==null || page.getTown1().equals("-선택-")  ) {
+			System.out.println("도시확인 : " + page.getTown1());
+			page.setTown1("");
+		}
+		System.out.println("회비 :" + page.getFee() );
+		Map<String, Object> result = service.selectMeetup(page);
 		model.addAttribute("meetupList", result.get("meetupList"));
 		model.addAttribute("pageResult", result.get("pageResult"));
-	}
+		model.addAttribute("pageAfterSearch", page);
+
+		System.out.println("page 번호" + page.getPageNo());
+		System.out.println(page.getCategory());
+		System.out.println(page.getSearch());
+		
+		System.out.println("지역" +page.getCity2());
+		System.out.println("지역");
+		
+		}
+	
+	
+
+	
 	
 	@Autowired
 	private MeetupService service;
@@ -119,9 +161,11 @@ public class MeetupController {
 		meetupBoard.setFileDir(filePath + sysFileName);
 		System.out.println("첫번째:" +meetupBoard.getMeetNo());
 
-		service.insertMeetupBoard(meetupBoard);
+		
 		
 		MeetupLocation meetupLocation = new MeetupLocation();
+		
+		String location="";
 		if(city1 !=null) {
 		
 			meetupLocation.setCity(city1);
@@ -129,37 +173,74 @@ public class MeetupController {
 			System.out.println("두번째:" +meetupBoard.getMeetNo());
 			System.out.println("도시1" + city1);
 			
+			location += city1;
 		}
 		if(town1 !=null) {
 			meetupLocation.setTown(town1);
 			service.insertMeetupLocation(meetupLocation);
 			System.out.println("마을1" + town1);
+			
+			location += " "+ town1;
+			
 			}
 		if(city2 !=null) {
 			meetupLocation.setCity(city2);
 			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
 			
 			System.out.println("도시2" + city2);
+			if(city2.equals(city1)) {
+				
+			}else {
+				location += "," +" " + city2;}
 			}
 		if(town2 !=null) {
 			meetupLocation.setTown(town2);
 			service.insertMeetupLocation(meetupLocation);
 			System.out.println("마을2" + town2);
+			if(city2.equals(city1)) {
+				location += ","+ town2;
+			}else {
+				location += " "+ town2;
 			}
+			}//처음 if
+				
+		
 		if(city3 !=null) {
 			meetupLocation.setCity(city3);
 			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
 			
 			System.out.println("도시3" + city3);
+			
+			if(city1.equals(city3) ||city2.equals(city3)) {
+				
+			}else {
+				location += "," +" " + city3;
 			}
+			
+				
+		}
 		
 		
 		if(town3 !=null) {
 			meetupLocation.setTown(town3);
 			service.insertMeetupLocation(meetupLocation);
 			System.out.println("마을3" + town3);
+			if(city1.equals(city3) && !city2.equals(city3)) {
+				location = city1 +" "+ town1 +"," + town3 + " " + city2 + " " + town2;
+					
+		}else if(!city1.equals(city3) && city2.equals(city3)) {
+			location += ","+ town3;
+
+		}else {
+				location += " "+ town3;
 			}
+	}//첫번째 if 
 		
+		
+		System.out.println("location" +location);
+		
+		meetupBoard.setLocation(location);
+		service.insertMeetupBoard(meetupBoard);
 	}//createMeetup
 	
 	@RequestMapping("/main.do")

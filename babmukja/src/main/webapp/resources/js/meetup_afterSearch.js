@@ -3,16 +3,8 @@
 
 
 
-
-
-
-
-
-
-alert("클릭전 확인");
 //검색창 none->block 변경 부분
 $(".header_search").click(function () {
-    alert("클릭 누르면 왜 안되");
     $(".after_click").css("display", "block");
 });
 $(".location_title_container").click(function () {
