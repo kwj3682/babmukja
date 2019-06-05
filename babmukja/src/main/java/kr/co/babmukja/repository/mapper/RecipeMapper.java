@@ -5,9 +5,9 @@ import java.util.List;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
-import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
 
@@ -42,14 +42,13 @@ public interface RecipeMapper {
 	
 	//키워드
 	public List<Keyword> selectKeyword();
-	public List<Keyword> selectKeywordMost(String column);
+	public RecipeKeywordCode selectKeywordMost(String column);
 	public RecipeKeywordName selectKeywordByNo(int no);	
 	public List<Recipe> selectRecipeByKeyword(int no);	
 	public void insertKeywordToRecipe(RecipeKeywordCode rk);
 	
-	// 레시피 카테고리
-	public List<Recipe> selectCategory(RecipePage page);
-	// 레시피 카테고리 전체수
-	public int selectCategoryCount(RecipePage page);
+	// 레시피 카테고리별 목록
+	public List<RecipePage> selectRecipeAll(RecipePage page);
+	public List<RecipePage> selectRecipeByCate(RecipePage page);
 	
 }

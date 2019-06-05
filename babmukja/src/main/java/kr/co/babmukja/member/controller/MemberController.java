@@ -2,13 +2,13 @@ package kr.co.babmukja.member.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.lookup.ReductionResult;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.babmukja.member.service.MemberService;
@@ -363,4 +362,25 @@ public class MemberController {
 	public void changePass() {
 		
 	}
+	//--------------------------우중----------------------------------------//
+	@RequestMapping("/searchmember.do")
+	@ResponseBody
+	public List<Member> searchMemberByNick(String nick) {
+		System.out.println("Nick: "+ nick);
+		return service.searchMemberByNick(nick);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -11,9 +11,9 @@ import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
-import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
@@ -103,6 +103,10 @@ public class RecipeServiceImpl implements RecipeService {
 	public void deleteRecipeReview(int no) {
 		mapper.deleteRecipeReview(no);
 	}
+	// 댓글 등록될 때 레시피 평점 수정하기
+	public void updateRecipeRating(int no) {		
+		mapper.updateRecipeRating(no);
+	}
 
 	public RecipeKeywordName selectKeywordByNo(int no){
 		return mapper.selectKeywordByNo(no);
@@ -110,27 +114,24 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> selectRecipeByKeyword(int no){
 		return mapper.selectRecipeByKeyword(no);
 	}
-	public List<Keyword> selectKeywordMost(String column){
+	public RecipeKeywordCode selectKeywordMost(String column){
 		return mapper.selectKeywordMost(column);
 	}
 	public List<Keyword> selectKeyword(){
 		return mapper.selectKeyword();
 	}
 	
-	// 레시피 카테고리 리스트
-	public Map selectCategory(RecipePage page) {
-		Map<String, Object> result = new HashMap<>();
-		result.put("calist", mapper.selectCategory(page));
-		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectCategoryCount(page)));
-		return result;
+	// 레시피 카테고리 전체목록 가져오기
+	public List<RecipePage> selectRecipeAll(RecipePage page) {	
+		System.out.println(page.getCaution());
+		return mapper.selectRecipeAll(page);
+	}	
+	
+	// 레시피 카테고리별 목록 가져오기	
+	public List<RecipePage> selectRecipeByCate(RecipePage page) {		
+		return mapper.selectRecipeByCate(page);
 	}
-	// 레시피 카테고리 리스트 전체수
-	public int selectCategoryCount(RecipePage page) {
-		return mapper.selectCategoryCount(page);
-	}
-
-	// 댓글 등록될 때 레시피 평점 수정하기
-	public void updateRecipeRating(int no) {		
-		mapper.updateRecipeRating(no);
-	}
+	
+	
+	
 }

@@ -116,7 +116,7 @@ a:hover{
 .opacity a{
 	color: white;
 }
-.opacity i{
+.opacity .fa-user-circle{
 	color: white;
 }
 .non-opacity{
@@ -125,28 +125,31 @@ a:hover{
 .non-opacity a{
 	color: rgb(81,81,81);	
 }
-.non-opacity i{
+.non-opacity .fa-user-circle{
 	color: #7db341;	
 }
 #chatContainer{
-    position: absolute;
+    position: fixed;
     right: 38px;
     top: 60px;
     width : 350px;
     min-height: 70px;
+    max-height: 600px;
     background: white;
-    border: 5px solid gainsboro;
+    border: 5px solid #7db341;
     border-radius : 15px;
     box-shadow: 0 10px 15px 1px gray;
     font-family: 'Nanum Gothic', sans-serif;	
     display: none;
+    z-index: 300;
 }
 
 .fa-caret-up{
     position: absolute;
     top: 39px;
     left: 11px;
-    display: none;
+    color : #7db341;
+    z-index: 301;
 }
 #memberSearchForChat{
     display : flex;
@@ -156,7 +159,7 @@ a:hover{
 input[name='member']{
     color: rgb(81,81,81);
     margin: 10px;
-    width: 90%;
+    width: 80%;
     font-size: 18px;
     height : 40px;
     border-radius: 10px;
@@ -171,7 +174,6 @@ input[name='member']:focus{
 .chatProfile {
     padding: 10px;
     border : 1px solid gainsboro;
-    height: 65px;
     display : grid;
     grid-template-columns: 20% 80%;
     transition: .4s;
@@ -197,13 +199,13 @@ input[name='member']:focus{
     background-size: contain;
 }
 #hightlight1{
-    background: url(images/h1.png);
+    background: url(../images/h1.png);
 }
 #hightlight2{
-    background: url(images/h2.png);
+    background: url(../images/h2.png);
 }
 #hightlight3{
-    background: url(images/h3.png);
+    background: url(../images/h3.png);
 }
 .sendMsgTime{
     position: absolute;
@@ -213,7 +215,7 @@ input[name='member']:focus{
     width: 100%;
     height: 20px;
     background: tomato;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 7px 7px;
     color: white;
     display: flex;
     justify-content: center;
@@ -240,6 +242,7 @@ input[name='member']:focus{
     display: flex;
     align-items: flex-end;
     height: 0;
+    z-index: 300;
   }
   
   .chatbox {
@@ -537,8 +540,16 @@ input[name='member']:focus{
   .settings-popup ul li a:hover {
     background: rgba(0, 0, 0, .05);
   }
+#memberSearchForChat > .fa-search{
+    color: #7db341;
+    margin-top: 15px;
+    margin-right: 10px;
+    transition: .2s;
+    cursor:pointer;
+}
+#memberSearchForChat > .fa-search:hover{
+    color: #7db;
+    margin-top: 15px;
+    transform: rotateZ(-15deg);
+}
 
-  #login{
-      position: absolute;
-      top: 500px;
-  }

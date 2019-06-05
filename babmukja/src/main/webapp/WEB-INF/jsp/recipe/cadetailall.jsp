@@ -19,10 +19,9 @@
     <title>Document</title>
 
 </head>
-<body>            
-    <div id="main-body">
-    
-       <!-- 검색 부분 -->
+<body>               
+    <div id="main-body">    
+    <!-- 검색 부분 -->
      <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p></div>
    <div id="selectBox-wrapper">
             <form name="searhForm" method="post" action="cadetailall.do">
@@ -162,7 +161,8 @@
 	        </div>
 	        <div id="sector3">
 	            <div id="sector3-body">            
-	                <c:forEach var="ca" items="${calist }">               
+	                <c:forEach var="ca" items="${calist }">  
+	                <input type="hidden" name="pageNo" value="${param.pageNo }">             
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
 	                           <div>
@@ -195,55 +195,55 @@
 	    </div>
 	
     <script>
-    
-    let arrow = $("#fa-arrow");
-    
-    $("#selectBoxSelector").click(function(){
-        $("#selectBox-wrapper").slideToggle(150);
-        if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
-        else{
-            arrow.attr({class : "fas fa-caret-down"});
-            $(".selectmenuContent").css({width:"190px"});
-            $(".selectmenuContent").find(".hiddenMenu").css({display:"none"});
-        } 
-    });
-    
-    $(".selectmenuContent").click(function(){
-        let $this = $(this);
-        let $hiddenMenu = $this.children(".selectmenuContent-detail").children();
-        let $fold = $this.children(".selectmenuContentFold");
-        
-        if($this.width() < 220){
-            $this.animate({width: "700px"},180);
-            setTimeout(function(){
-                $hiddenMenu.css({display:"inline-block"});
-            }, 200);
-            $fold.children().attr({class:"fas fa-chevron-left"});
-        }
-        $fold.click(function(){
-            if($hiddenMenu.css("display") == 'none'){
-                return;
-            }
-            $this.animate({width: "190px"},180);
-            $hiddenMenu.css({display:"none"});
-            $fold.children().attr({class:"fas fa-chevron-right"});
-        });
-    });
-        
-	    $(".search-icon > i").click(function () {
-			 $("form[name='searhForm']").submit();
-		}); 
+	    let arrow = $("#fa-arrow");
 	    
-         // 무한스크롤
+	    $("#selectBoxSelector").click(function(){
+	        $("#selectBox-wrapper").slideToggle(150);
+	        if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
+	        else{
+	            arrow.attr({class : "fas fa-caret-down"});
+	            $(".selectmenuContent").css({width:"190px"});
+	            $(".selectmenuContent").find(".hiddenMenu").css({display:"none"});
+	        } 
+	    });
+	    
+	    $(".selectmenuContent").click(function(){
+	        let $this = $(this);
+	        let $hiddenMenu = $this.children(".selectmenuContent-detail").children();
+	        let $fold = $this.children(".selectmenuContentFold");
+	        
+	        if($this.width() < 220){
+	            $this.animate({width: "700px"},180);
+	            setTimeout(function(){
+	                $hiddenMenu.css({display:"inline-block"});
+	            }, 200);
+	            $fold.children().attr({class:"fas fa-chevron-left"});
+	        }
+	        $fold.click(function(){
+	            if($hiddenMenu.css("display") == 'none'){
+	                return;
+	            }
+	            $this.animate({width: "190px"},180);
+	            $hiddenMenu.css({display:"none"});
+	            $fold.children().attr({class:"fas fa-chevron-right"});
+	        });
+	    });
+    
+         $(".search-icon > i").click(function () {
+        		 $("form[name='searhForm']").submit();
+         });
+         
+      // 무한스크롤
          let pageNo = 0;
          $(window).scroll( 
-           function(){
+           function () {
              let sh = $(window).scrollTop() + $(window).height();
-             let dh = $(document).height();
-             
-             if(sh >= dh-10){            
+             let dh = $(document).height(); 
+            
+             if(sh >= dh-10) {
+            	 
                pageNo = pageNo+12;
-               let cautions = [];
+		       let cautions = [];
 		       $("input[name='caution']:checked").each(function(){
 		       	 cautions.push($(this).val());
 		       });
@@ -258,16 +258,16 @@
 	                   time : $("input[name='taketime']:checked").val(),
 	                   type : $("input[name='foodtype']:checked").val()
 		       }
-               $.ajax({               
-		                type : "POST",
-		                data : data,
-		                url : "cadetailScroll.do"
-         
-               }).done(function (result) { 
+		       console.log(data);
                
+               $.ajax({               
+		                /* type : "POST", */
+		                data : data,
+		                url : "cadetailAllScroll.do"
+         
+               }).done(function (result) {
                  	if(result.length != 0) {
-                 		 for(let i = 0 ; i < result.length ; i ++) { 
-                 			 console.log(result[i].recipeNo);
+                 		 for(let i = 0 ; i < result.length ; i ++) {
                           	 $("#sector3-body").append(`
               	                   <div class="profile-container">
           	                       <div class="profile-pic-box">
@@ -297,8 +297,7 @@
                          }
                  	}
             	  
-              }).fail(function(xhr){
-	               alert("서버 처리중 에러발생")
+              }).fail(function(xhr){	               
 	               console.dir(xhr);
               })
              }
