@@ -45,6 +45,6 @@ public interface RecipeService {
 	public RecipeKeywordName selectKeywordByNo(int no);
 	public List<Recipe> selectRecipeByKeyword(int no);
 	// 레시피 카테고리별 목록 가져오기
-	public Map<String, Object> selectCategory(RecipePage page);
-	public int selectCategoryCount(RecipePage page); 
+	public List<RecipePage> selectRecipeAll(RecipePage page);
+	public List<RecipePage> selectRecipeByCate(RecipePage page);
 }

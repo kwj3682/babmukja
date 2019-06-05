@@ -31,8 +31,8 @@ import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
-import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
@@ -41,7 +41,7 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeService service;
-
+	
 	@RequestMapping("/main.do")
 	public void main(Model model) {
 		List<Recipe> list = service.selectRecipe();
@@ -253,14 +253,46 @@ public class RecipeController {
 	 public RecipeReview returnReviewData(int no) {
 		 return service.selectOneReviewByNo(no);
 	 }
+
+	 // 레시피 카테고리 전체목록 가져오기
+	 @RequestMapping("/cadetailall.do")
+	 public void cadetailall(Model model, RecipePage page) {		
+		List<RecipePage> list = service.selectRecipeAll(page);
+		List<RecipePage> result = new ArrayList<>();
+		for (RecipePage recipe : list) {
+			String imgpath = "";
+			if (recipe.getImgPath() == null) {
+				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
+				recipe.setImgPath(imgpath);
+				result.add(recipe);
+				continue;
+			}
+			String[] imgList = recipe.getImgPath().split(",");
+			recipe.setImgPath(imgList[0]);
+			result.add(recipe);
+		}
+		model.addAttribute("calist", result);
+	}
+	 // 레시피 카테고리 전체 목록 무한스크롤
+	 @RequestMapping("/cadetailAllScroll.do")
+	 @ResponseBody
+	 public List<RecipePage> cadetailAllScroll(RecipePage page) {
+		 System.out.println(page.getCaution());
+		 List<RecipePage> list = service.selectRecipeAll(page);		 
+ 		 return list;
+	 }	 
 	 
+	// 레시피 카테고리별 목록 가져오기
 	 @RequestMapping("/cadetail.do")
-	 public void camain(RecipePage page, Model model) {
-		 Map<String, Object> list = service.selectCategory(page);
-		
-		 model.addAttribute("calist", list.get("calist"));
-         model.addAttribute("pageResult", list.get("pageResult"));
-		
+	 public void cadetail(Model model, RecipePage page) {
+		 List<RecipePage> list = service.selectRecipeByCate(page);
+		 model.addAttribute("calist", list);
 	 }
-	 
+	 // 레시피 카테고리별 목록 무한스크롤
+	 @RequestMapping("/cadetailScroll.do")
+	 @ResponseBody
+	 public void cadetilScroll(Model model, RecipePage page) {
+		 List<RecipePage> list = service.selectRecipeByCate(page);
+		 model.addAttribute("calist", list);
+	 }
 }

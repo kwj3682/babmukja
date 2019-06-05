@@ -103,6 +103,10 @@ public class RecipeServiceImpl implements RecipeService {
 	public void deleteRecipeReview(int no) {
 		mapper.deleteRecipeReview(no);
 	}
+	// 댓글 등록될 때 레시피 평점 수정하기
+	public void updateRecipeRating(int no) {		
+		mapper.updateRecipeRating(no);
+	}
 
 	public RecipeKeywordName selectKeywordByNo(int no){
 		return mapper.selectKeywordByNo(no);
@@ -117,20 +121,17 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectKeyword();
 	}
 	
-	// 레시피 카테고리 리스트
-	public Map selectCategory(RecipePage page) {
-		Map<String, Object> result = new HashMap<>();
-		result.put("calist", mapper.selectCategory(page));
-		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectCategoryCount(page)));
-		return result;
+	// 레시피 카테고리 전체목록 가져오기
+	public List<RecipePage> selectRecipeAll(RecipePage page) {	
+		System.out.println(page.getCaution());
+		return mapper.selectRecipeAll(page);
+	}	
+	
+	// 레시피 카테고리별 목록 가져오기	
+	public List<RecipePage> selectRecipeByCate(RecipePage page) {		
+		return mapper.selectRecipeByCate(page);
 	}
-	// 레시피 카테고리 리스트 전체수
-	public int selectCategoryCount(RecipePage page) {
-		return mapper.selectCategoryCount(page);
-	}
-
-	// 댓글 등록될 때 레시피 평점 수정하기
-	public void updateRecipeRating(int no) {		
-		mapper.updateRecipeRating(no);
-	}
+	
+	
+	
 }

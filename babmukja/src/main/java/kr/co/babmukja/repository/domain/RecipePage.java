@@ -1,112 +1,91 @@
 package kr.co.babmukja.repository.domain;
 
-public class RecipePage {
-	private int pageNo = 1;
-	private String search;	
-	private int recipeNo;
-	private int keywordNo;
-	private String pregnant;
-	private String baby;
-	private String pressure;
-	private String vegan;
-	private String halal;	
-	private String old;
-	private String allergic;
-	private String diabetes;
-	private String situation;
-	private String level;
-	private String taketime;
-	private String foodtype;
+import java.util.Date;
 
-	public String getSituation() {
-		return situation;
+public class RecipePage {
+	
+	private int memNo;
+	private String memName;
+	private String memNickname;
+	
+	private int recipeNo;
+	private String title;
+	private String content;
+	private Date regDate;
+	private int rating;
+	private int viewCnt;
+	
+	private int likeCnt;
+	private int scrapCnt;
+	
+	private String imgPath;
+	
+	private int keywordNo;
+	private int country;
+	private String caution;
+	private int situation;
+	private int level;
+	private int time;
+	private int type;
+	
+	private String searchTitle;
+	private String searchNickname;	
+	
+	public String getSearchTitle() {
+		return searchTitle;
 	}
-	public void setSituation(String situation) {
-		this.situation = situation;
+	public void setSearchTitle(String searchTitle) {
+		this.searchTitle = searchTitle;
 	}
-	public String getLevel() {
+	public String getSearchNickname() {
+		return searchNickname;
+	}
+	public void setSearchNickname(String searchNickname) {
+		this.searchNickname = searchNickname;
+	}	
+	public String getCaution() {
+		return caution;
+	}
+	public void setCaution(String caution) {
+		this.caution = caution;
+	}
+	public int getLevel() {
 		return level;
 	}
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
-	public String getTaketime() {
-		return taketime;
+	public int getSituation() {
+		return situation;
 	}
-	public void setTaketime(String taketime) {
-		this.taketime = taketime;
+	public void setSituation(int situation) {
+		this.situation = situation;
+	}		
+	public int getTime() {
+		return time;
 	}
-	public String getFoodtype() {
-		return foodtype;
+	public void setTime(int time) {
+		this.time = time;
 	}
-	public void setFoodtype(String foodtype) {
-		this.foodtype = foodtype;
+	public int getType() {
+		return type;
 	}
-	public String getSearch() {
-		return search;
+	public void setType(int type) {
+		this.type = type;
 	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
-	public String getPregnant() {
-		return pregnant;
-	}
-	public void setPregnant(String pregnant) {
-		this.pregnant = pregnant;
-	}
-	public String getBaby() {
-		return baby;
-	}
-	public void setBaby(String baby) {
-		this.baby = baby;
-	}
-	public String getPressure() {
-		return pressure;
-	}
-	public void setPressure(String pressure) {
-		this.pressure = pressure;
-	}
-	public String getVegan() {
-		return vegan;
-	}
-	public void setVegan(String vegan) {
-		this.vegan = vegan;
-	}
-	public String getHalal() {
-		return halal;
-	}
-	public void setHalal(String halal) {
-		this.halal = halal;
-	}
-	public String getOld() {
-		return old;
-	}
-	public void setOld(String old) {
-		this.old = old;
-	}
-	public String getAllergic() {
-		return allergic;
-	}
-	public void setAllergic(String allergic) {
-		this.allergic = allergic;
-	}
-	public String getDiabetes() {
-		return diabetes;
-	}
-	public void setDiabetes(String diabetes) {
-		this.diabetes = diabetes;
-	}
+	private int pageNo;	
+	
 	public int getPageNo() {
 		return pageNo;
 	}
 	public void setPageNo(int pageNo) {
 		this.pageNo = pageNo;
-	}	
-	public int getRecipeNo() {
-		return recipeNo;
 	}
-	public void setRecipeNo(int recipeNo) {
-		this.recipeNo = recipeNo;
+	public int getCountry() {
+		return country;
+	}
+	public void setCountry(int country) {
+		this.country = country;
 	}
 	public int getKeywordNo() {
 		return keywordNo;
@@ -114,11 +93,78 @@ public class RecipePage {
 	public void setKeywordNo(int keywordNo) {
 		this.keywordNo = keywordNo;
 	}
-	public int getBegin() {
-		return (this.pageNo -1) * 10;
+	public int getLikeCnt() {
+		return likeCnt;
 	}
-	public int getEnd() {
-		return this.pageNo * 10;
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
 	}
+	public int getScrapCnt() {
+		return scrapCnt;
+	}
+	public void setScrapCnt(int scrapCnt) {
+		this.scrapCnt = scrapCnt;
+	}
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	public int getViewCnt() {
+		return viewCnt;
+	}
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+	public int getMemNo() {
+		return memNo;
+	}
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	public String getMemNickname() {
+		return memNickname;
+	}
+	public void setMemNickname(String memNickname) {
+		this.memNickname = memNickname;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+	public int getRecipeNo() {
+		return recipeNo;
+	}
+	public void setRecipeNo(int recipeNo) {
+		this.recipeNo = recipeNo;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	
 }

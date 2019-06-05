@@ -43,12 +43,13 @@
         </span>
         <div id="optionalMenu1" class="optionalMenubar opacity">
             <ul>
-                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=1"/>">한식</a></li>
-                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=2"/>">중식</a></li>
-                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=3"/>">일식</a></li>
-                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=4"/>">양식</a></li>
-                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=5"/>">동남아</a></li>
-                <li><a href="<c:url value="/recipe/cadetail.do?keywordNo=6"/>">기타국가</a></li>
+                <li><a href="<c:url value="/recipe/cadetailall.do"/>">전체</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?country=1"/>">한식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?country=2"/>">중식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?country=3"/>">일식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?country=4"/>">양식</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?country=5"/>">동남아</a></li>
+                <li><a href="<c:url value="/recipe/cadetail.do?country=6"/>">기타국가</a></li>
             </ul>
         </div>
         <div id="optionalMenu2" class="optionalMenubar opacity">

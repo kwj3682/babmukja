@@ -13,8 +13,13 @@ body {
 }
 #main-body{
   width: 1300px;
-  margin: 0 auto;
-  height: 2000px;
+  margin: 0 auto;  
+}
+.search-icon > i {
+   margin-left : 5px;
+   font-size: 18px;
+   color: #7db341;
+   cursor : pointer;
 }
 .boundary{
     background: url(../../images/wood.png);

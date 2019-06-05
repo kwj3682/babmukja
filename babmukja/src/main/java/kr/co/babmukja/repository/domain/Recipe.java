@@ -18,15 +18,21 @@ public class Recipe {
 	private int likeCnt;
 	private int scrapCnt;
 	
-	private String imgPath;
+	private String imgPath;	
+	private int keywordNo;
+	private int country;
 	
-	private String keywordNo;
-	
-	
-	public String getKeywordNo() {
+
+	public int getCountry() {
+		return country;
+	}
+	public void setCountry(int country) {
+		this.country = country;
+	}
+	public int getKeywordNo() {
 		return keywordNo;
 	}
-	public void setKeywordNo(String keywordNo) {
+	public void setKeywordNo(int keywordNo) {
 		this.keywordNo = keywordNo;
 	}
 	public int getLikeCnt() {
