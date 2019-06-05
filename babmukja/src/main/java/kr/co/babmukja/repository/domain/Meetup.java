@@ -10,6 +10,8 @@ String day;
 String totalMem;
 String category;
 String fileDir;
+int viewCnt;
+
 
 public String getFileDir() {
 	return fileDir;
@@ -17,9 +19,6 @@ public String getFileDir() {
 public void setFileDir(String fileDir) {
 	this.fileDir = fileDir;
 }
-int viewCnt;
-
-
 
 public int getMeetNo() {
 	return meetNo;

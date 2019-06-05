@@ -11,6 +11,7 @@
 		<result column="day" property="day" />
 		<result column="category" property="category" />
 		<result column="file_dir" property="fileDir" />
+		<result column="view_cnt" property="viewCnt" />
 	</resultMap>	
     
     <select id="selectIntro" resultType="String">
@@ -39,5 +40,19 @@
     UPDATE tb_meetup SET intro = null WHERE meet_no= 1
     
     </update>
+    
+    
+    
+	<select id="selectAllMeetup" resultMap="meetupMap" parameterType="pageAfterSearch">
+		select * from tb_meetup
+	 	 order by view_cnt
+	 	 limit #{begin}, #{end}	
+	</select>
+	
+	<select id="selectAllMeetupCount" resultType="int">
+		select count(*)
+		  from tb_meetup
+	</select>
+    
     
 </mapper>
