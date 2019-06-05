@@ -181,8 +181,8 @@
 	</select>
 	
 	<!-- 상위 키워드 출력 (키워드 사용 횟수 기준)-->
-	<select id="selectKeywordMost" parameterType="String" resultMap="keywordMap">
-		select #{string} as keywordNo, count(*) as cnt 
+	<select id="selectKeywordMost" parameterType="String" resultType="RecipeKeywordCode">
+		select *, count(*) as cnt 
 		  from tb_recipe_keyword
 		 group by #{string}
 		 order by cnt desc

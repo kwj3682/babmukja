@@ -1,5 +1,7 @@
 package kr.co.babmukja.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,5 +94,9 @@ public class MemberServiceImpl implements MemberService {
 	// 비밀번호 재설정
 	public void updateResetPass(Member member) {
 		mapper.updateResetPass(member);
+	}
+	//----------------------------------------우중------------------------------------------------//
+	public List<Member> searchMemberByNick(String nick){
+		return mapper.searchMemberByNick(nick);
 	}
 }

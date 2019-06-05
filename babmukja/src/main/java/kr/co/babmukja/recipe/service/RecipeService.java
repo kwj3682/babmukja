@@ -6,8 +6,9 @@ import java.util.Map;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
-import kr.co.babmukja.repository.domain.RecipePage;
+import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 
 public interface RecipeService {	
@@ -40,7 +41,7 @@ public interface RecipeService {
 	// 레시피 댓글 하나 가져오기
 	public RecipeReview selectOneReviewByNo(int no);
 	// 레시피 키워드
-	public List<Keyword> selectKeywordMost(String column);
+	public RecipeKeywordCode selectKeywordMost(String column);
 	public List<Keyword> selectKeyword();
 	public RecipeKeywordName selectKeywordByNo(int no);
 	public List<Recipe> selectRecipeByKeyword(int no);

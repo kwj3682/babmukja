@@ -1,5 +1,7 @@
 package kr.co.babmukja.member.service;
 
+import java.util.List;
+
 import kr.co.babmukja.repository.domain.Member;
 
 public interface MemberService {
@@ -30,5 +32,8 @@ public interface MemberService {
 	int selectConfirmCertification(Member member); // 인증번호 확인
 	
 	void updateResetPass(Member member); // 비밀번호 재설정
+	
+//----------------------------------------우중------------------------------------------------//
+	List<Member> searchMemberByNick(String nick);
 
 }
