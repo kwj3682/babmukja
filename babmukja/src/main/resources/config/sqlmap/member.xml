@@ -127,4 +127,11 @@
 		   set mem_pass = #{memPass}
 		 where mem_email = #{memEmail}
 	</update>
+	
+	<select id="searchMemberByNick" parameterType="String" resultMap="memberMap">
+		select * 
+		  from tb_member
+		 where mem_nickname like concat('%',#{nick},'%')
+
+	</select>
 </mapper>

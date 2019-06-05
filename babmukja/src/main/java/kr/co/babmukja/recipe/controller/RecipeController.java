@@ -63,10 +63,17 @@ public class RecipeController {
 		}
 		model.addAttribute("recipe", result);
 		
-		model.addAttribute("countryrank",service.selectKeywordMost("country"));
-		model.addAttribute("situationrank",service.selectKeywordMost("situation"));
-		model.addAttribute("levelrank",service.selectKeywordMost("level"));
-		model.addAttribute("typerank",service.selectKeywordMost("type"));
+		model.addAttribute("countryrank",service.selectKeywordMost("country").getCountry());
+		model.addAttribute("situationrank",service.selectKeywordMost("situation").getSituation());
+		model.addAttribute("levelrank",service.selectKeywordMost("level").getLevel());
+		model.addAttribute("typerank",service.selectKeywordMost("type").getType());
+
+		System.out.println("countryrank:"+service.selectKeywordMost("country").getCountry());
+		System.out.println("situationrank:"+service.selectKeywordMost("situation").getSituation());
+		System.out.println("levelrank:"+service.selectKeywordMost("level").getLevel());
+		System.out.println("typerank:"+service.selectKeywordMost("type").getType());
+		
+		
 	}
 	
 	@RequestMapping("/recipekeyword.do")

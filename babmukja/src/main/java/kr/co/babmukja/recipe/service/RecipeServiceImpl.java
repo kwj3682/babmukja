@@ -11,9 +11,9 @@ import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
-import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
@@ -114,7 +114,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> selectRecipeByKeyword(int no){
 		return mapper.selectRecipeByKeyword(no);
 	}
-	public List<Keyword> selectKeywordMost(String column){
+	public RecipeKeywordCode selectKeywordMost(String column){
 		return mapper.selectKeywordMost(column);
 	}
 	public List<Keyword> selectKeyword(){

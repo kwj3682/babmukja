@@ -42,7 +42,7 @@ public interface RecipeMapper {
 	
 	//키워드
 	public List<Keyword> selectKeyword();
-	public List<Keyword> selectKeywordMost(String column);
+	public RecipeKeywordCode selectKeywordMost(String column);
 	public RecipeKeywordName selectKeywordByNo(int no);	
 	public List<Recipe> selectRecipeByKeyword(int no);	
 	public void insertKeywordToRecipe(RecipeKeywordCode rk);
