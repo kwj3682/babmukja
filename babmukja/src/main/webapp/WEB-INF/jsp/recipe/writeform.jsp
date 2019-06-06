@@ -27,6 +27,7 @@
     <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/resources/js/slider/slider-radio.css"/>">
     <script src="<c:url value="/resources/js/slider/slider-radio.js"/>"></script>
+    <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
 </head>
 <body>
     <div id="writeform-header">레시피 작성</div>
@@ -137,16 +138,31 @@
             </div>
         </div>
     </div>
+    	<!-- 동영상 부분 -->
+    	<label class="fileContainer">
+                <div class="videoPlus">
+                	<span>레시피 영상을 올려보세요!</span>
+                </div>
+                <input type="file" name="videoFile"/>
+        </label>
+        <video id='my-video' class='video-js' controls preload='auto' 
+        width='649' height='380' poster='<c:url value="/resources/images/logo.png"/>' data-setup='{"fluid": true}'>          
+            <source id="source" src='' type='video/mp4'>
+        </video> 
     
     
     <div id="editorjs">
-
             <input type="text" id="title" placeholder="제목을 입력해주세요.">
         </div>
     <div id="buttonWrapper">
         <button>저장</button>
     </div>
     <script>
+    
+    $('input[name="videoFile"]').change(function(e){ 
+        $(".video-js").attr('src',URL.createObjectURL(e.target.files[0]));
+    });
+    
          let fileList="";
        const editor = new EditorJS({
             holderId: 'editorjs',
