@@ -13,7 +13,7 @@ public void updateIntro(String intro);
 public void deleteIntro();
 public void insertMeetupBoard(Meetup meetup);
 public void insertMeetupLocation(MeetupLocation meetupLocation);
-public List<Meetup> selectAllMeetup(PageAfterSearch page);
 public int selectAllMeetupCount();
-
+public List<Meetup>	selectMeetup(PageAfterSearch page);
+//public List<MeetupLocation> selectLocation()
 }

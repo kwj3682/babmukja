@@ -18,5 +18,5 @@ public interface MeetupService {
 	public void insertMeetupBoard(Meetup meetup);
 	public void insertMeetupLocation(MeetupLocation meetupLocation);
 	public MeetupFile uploadImage(MultipartFile file) throws Exception; 
-	public Map<String, Object> selectAllMeetup(PageAfterSearch page);
+	public Map<String, Object> selectMeetup(PageAfterSearch page);
 }

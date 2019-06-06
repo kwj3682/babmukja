@@ -49,9 +49,10 @@
 
         </div>
         <!--검색 클릭시 세부내용처리 -->
-        <form method="post">
+       
+        <form method="POST" action="<c:url value='/meetup/afterSearch.do'/>" enctype="multipart/form-data">
             <span class="header_search">
-                <input type="text" placeholder="검색">
+                <input type="text" placeholder="검색" name="search">
                 <i class="fas fa-search fa-2x"></i>
             </span>
             <div class="after_click">
@@ -90,11 +91,11 @@
                     <div class="monthly_fee_title">월 회비</div>
                     <div class="monthly_fee_position">
 
-                        <input type="checkbox" name="category" value="all" />무관</input>
-                        <input type="checkbox" name="category" value="10000" />만원 이하</input>
-                        <input type="checkbox" name="category" value="30000" />3만원 이하</input>
-                        <input type="checkbox" name="category" value="50000" />5만원 이하</input>
-                        <input type="checkbox" name="category" value="100000" />10만원 이하</input>
+                        <input type="checkbox" name="fee" value="all" />무관</input>
+                        <input type="checkbox" name="fee" value="10000" />만원 이하</input>
+                        <input type="checkbox" name="fee" value="30000" />3만원 이하</input>
+                        <input type="checkbox" name="fee" value="50000" />5만원 이하</input>
+                        <input type="checkbox" name="fee" value="100000" />10만원 이하</input>
                     </div>
                 </div>
                 <!--클릭 후  끝 -->
@@ -157,7 +158,7 @@
                         <div class="info_monthly_fee">
                             <sapn>월 회비: 2000원</sapn>
                         </div>
-
+                        
                         <div class="info_bottom">
                             <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; 서울 종각</span>
                             </div>

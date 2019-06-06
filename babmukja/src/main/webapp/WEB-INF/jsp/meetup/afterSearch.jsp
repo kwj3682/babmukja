@@ -35,9 +35,9 @@
 
         </div>
         <!--검색 클릭시 세부내용처리 -->
-        <form method="post">
-            <span class="header_search">
-                <input type="text" placeholder="검색">
+         <form method="POST" action="<c:url value='/meetup/afterSearch.do'/>" enctype="multipart/form-data">
+           <span class="header_search">
+                <input type="text" placeholder="검색" name="search">
                 <i class="fas fa-search fa-2x"></i>
 
             </span>
@@ -63,24 +63,24 @@
                     <div class="food_type_title">카테고리</div>
                     <div class="food_type_position">
 
-                        <input type="checkbox" name="category" value="total"> 전체</input>
-                        <input type="checkbox" name="category" value="total"> 한식</input>
-                        <input type="checkbox" name="category" value="total">중식</input>
-                        <input type="checkbox" name="category" value="total">일식</input>
-                        <input type="checkbox" name="category" value="total">양식</input>
-                        <input type="checkbox" name="category" value="total">동남아시아</input>
-                        <input type="checkbox" name="category" value="total">기타</input>
+                        <input type="checkbox" name="category" value="전체"> 전체</input>
+                        <input type="checkbox" name="category" value="한식"> 한식</input>
+                        <input type="checkbox" name="category" value="중식">중식</input>
+                        <input type="checkbox" name="category" value="일식">일식</input>
+                        <input type="checkbox" name="category" value="양식">양식</input>
+                        <input type="checkbox" name="category" value="동남아시아">동남아시아</input>
+                        <input type="checkbox" name="category" value="기타">기타</input>
                     </div>
                 </div>
                 <div class="monthly_fee_container">
                     <div class="monthly_fee_title">월 회비</div>
                     <div class="monthly_fee_position">
 
-                        <input type="checkbox" name="category" value="all" />무관</input>
-                        <input type="checkbox" name="category" value="10000" />만원 이하</input>
-                        <input type="checkbox" name="category" value="30000" />3만원 이하</input>
-                        <input type="checkbox" name="category" value="50000" />5만원 이하</input>
-                        <input type="checkbox" name="category" value="100000" />10만원 이하</input>
+                        <input type="checkbox" name="fee" value="all" />무관</input>
+                        <input type="checkbox" name="fee" value="10000" />만원 이하</input>
+                        <input type="checkbox" name="fee" value="30000" />3만원 이하</input>
+                        <input type="checkbox" name="fee" value="50000" />5만원 이하</input>
+                        <input type="checkbox" name="fee" value="100000" />10만원 이하</input>
                     </div>
                 </div>
                 <!--클릭 후  끝 -->
@@ -94,7 +94,7 @@
         <!--1 추천모임 박스 복사시작 -->
         <c:forEach var="meetup" items="${meetupList}">
         <div class="info_block">
-            <div class="info_pic"><img src="C:/bit2019/upload/meetup/2019/05/293d0729e1-70c3-460a-a3ec-b38e076067aazzapageti.jpg" width="384px" ,
+            <div class="info_pic"><img src="<c:url value='/meetup/download.do' />?path=${meetup.fileDir}" width="384px" ,
                     height="190px">
             </div>
             <div class="info_line">${meetup.title}</div>
@@ -103,7 +103,7 @@
             </div>
 
             <div class="info_bottom">
-                <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; 여의도</span>
+                <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; ${meetup.location}</span>
                 </div>
                 <div class="border_line"></div>
                 <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;370</span>
@@ -127,7 +127,7 @@
 
 
       <script src='<c:url value="/resources/js/meetup_afterSearch.js"/>'> </script>
-      <script src='<c:url value="/resources/js/meetup_main_result_address.js"/>'> </script>
+      <script src='<c:url value="/resources/js/meetup_main_search_address.js"/>'> </script>
 
 
 

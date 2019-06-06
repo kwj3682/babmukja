@@ -528,12 +528,14 @@ width: 70px;
     height: 26px;
     border: 1px solid #7db341;
     border-radius: 20px;
+    outline:none;
 }
 .select_modal_town{
     width: 74px;
         height: 26px;
         border: 1px solid #7db341;
         border-radius: 20px;
+      	outline:none;
     }
 .modal_meetup_plus_container {
     text-align: center;
@@ -550,7 +552,7 @@ width: 70px;
 .modal_meetup_location_container>.modal_meetup_location_box {
     display: block;
     text-align: left;
-    line-height: 40px;
+    line-height: 100px;
 }
 
 #modal_area_container {

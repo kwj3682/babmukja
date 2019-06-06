@@ -1,11 +1,69 @@
 var modalNum = 1;
 
+//지역을 미리하나 보여주기
+$(document).ready(function(){
+	   $("#location_position").append(
+	            ` <div class="area_container" id="search_area_container">
+
+	<select name="city${modalNum}" class="select_modal_city" id="select_modal_city${modalNum}">
+
+	    <option>-선택-</option>
+
+	    <option value='서울'>서울</option>
+
+	    <option value='부산'>부산</option>
+
+	    <option value='대구'>대구</option>
+
+	    <option value='인천'>인천</option>
+
+	    <option value='광주'>광주</option>
+
+	    <option value='대전'>대전</option>
+
+	    <option value='울산'>울산</option>
+
+	    <option value='강원'>강원</option>
+
+	    <option value='경기'>경기</option>
+
+	    <option value='경남'>경남</option>
+
+	    <option value='경북'>경북</option>
+
+	    <option value='전남'>전남</option>
+
+	    <option value='전북'>전북</option>
+
+	    <option value='제주'>제주</option>
+
+	    <option value='충남'>충남</option>
+
+	    <option value='충북'>충북</option>
+
+	</select>
+
+	<select name="town${modalNum}" class="select_search_town" id="select_search_town${modalNum}">
+	    sel.html("<option>-선택-</option> <option value="전체">전체</option>");
+
+
+	</select>
+
+	</div>
+	            `);
+});
+
 $(document).on("click", "#main_add_location", function () {
 
     alert("클릭들어옴");
-
+    modalNum++;
+  
     if (modalNum > 3) {
         alert("활동지역은 3개까지만 선택 가능합니다.")
+        
+          if (modalNum >= 3) {
+    	modalNum = 3;
+    }
     } else {
         $("#location_position").append(
             ` <div class="area_container" id="search_area_container">
@@ -56,19 +114,15 @@ $(document).on("click", "#main_add_location", function () {
 
 </div>
             `);
-        modalNum++;
-        if (modalNum >= 4) {
-        	modalNum = 4;
-        }
+       
     }//else
 });
 
 $(document).on("click", "#main_substract_location", function () {
-
+	if (modalNum > 1) {
     $(".area_container:last").remove();
-    num--;
-
-    if (modalNum < 1) {
+    modalNum--;
+	}else{
         alert("더이상 삭제할 수 없습니다.");
         modalNum = 1;
     }

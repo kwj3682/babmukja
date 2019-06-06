@@ -8,230 +8,13 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="../../../resources/css/meetup/temporary_detail.css" rel="stylesheet" type="text/css">
 
 
     <title>Document</title>
     <style>
-        .header {
-            width: 1200px;
-            height: 400px;
-            margin: 0 auto;
-            text-align: center;
-        }
+        
 
-        .headerLeft {
-            display: inline-block;
-            border: 1px solid gainsboro;
-            overflow: hidden;
-            position: relative;
-            width: 560px;
-            height: 400px;
-            margin-right: 60px;
-            box-shadow: 10px 10px 20px 3px gray;
-            ;
-        }
-
-        .infoTagContainer {
-
-            margin-top: 10px;
-            margin-bottom: 13px;
-        }
-
-        .infoTag {
-
-            color: white;
-            position: relative;
-            display: inline-block;
-            margin: 0 auto;
-            width: 60%;
-            background: white;
-            border-radius: .4em;
-        }
-
-
-        .infoTag::after {
-
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border: 10px solid transparent;
-            border-top-color: white;
-            border-bottom: 0;
-            margin-left: -10px;
-            margin-bottom: -10px;
-        }
-
-        .pseudo {
-
-            color: white;
-            position: relative;
-            display: inline-block;
-            margin: 0 auto;
-            width: 60%;
-            background: #7db341;
-            border-radius: .4em;
-        }
-
-        .pseudo::after {
-
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border: 10px solid transparent;
-            border-top-color: #7db341;
-            border-bottom: 0;
-            margin-left: -10px;
-            margin-bottom: -10px;
-        }
-
-        .tagBottom {
-            margin-bottom: 30px;
-        }
-
-        .title {
-            margin-top: 50px;
-            font-size: 30px;
-        }
-
-        .subInfo {
-            margin-top: 55px;
-            border-top: 1px solid gainsboro;
-            border-bottom: 1px solid gainsboro;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-
-        }
-
-
-
-
-
-        .headerRight {
-
-            display: inline-block;
-            border: 1px solid black;
-            overflow: hidden;
-            position: relative;
-            width: 560px;
-            height: 400px;
-            box-shadow: 10px 10px 20px 3px gray;
-        }
-
-
-        .area {
-            width: 3000px;
-            height: 400px;
-            position: relative;
-        }
-
-        .area img {
-            float: left;
-            width: 600px;
-            height: 400px;
-        }
-
-        .tabContainer {
-            margin: 70px auto;
-            width: 1200px;
-        }
-
-        .selectTab {
-            text-align: center;
-            border-collapse: collapse;
-
-        }
-
-
-        .selectTab td {
-            border: 1px solid gainsboro;
-            width: 238px;
-            height: 50px;
-            font-size: 20px;
-            box-sizing: border-box;
-
-
-        }
-
-
-
-        .tabContainer .tabPanel {
-            width: 100%;
-            background-color: white;
-            box-sizing: border-box;
-
-        }
-
-
-
-        .tabPanel {
-            display: none;
-        }
-
-        .tag {
-            font-size: 20px;
-            margin-top: 50px;
-        }
-
-        .writeIntro {
-
-            display: inline-block;
-            border: 1px solid gainsboro;
-            width: 70px;
-            height: 30px;
-            margin-top: 30px;
-            margin-left: 93%;
-            text-align: center;
-            line-height: 30px;
-        }
-
-        .writeIntro:hover {
-            background-color: #7db341;
-            color: white;
-        }
-
-        #introHeader {
-            margin-top: 60px;
-            width: 800px;
-            height: 40px;
-            text-align: center;
-
-            border-bottom: 1px solid white;
-            margin-left: 17%;
-            font-size: 20px;
-        }
-
-        #introBox {
-            text-decoration: none;
-            position: relative;
-            border: 1px solid gainsboro;
-            resize: none;
-            width: 800px;
-            height: 500px;
-
-            margin-left: 17%;
-        }
-
-        #introSave {
-            display: block;
-            border: 1px solid gainsboro;
-            width: 70px;
-            height: 30px;
-
-            text-align: center;
-            line-height: 30px;
-            margin-left: 78%;
-        }
-
-        #introSave:hover {
-            background-color: #7db341;
-            color: white;
-        }
     </style>
 </head>
 
@@ -295,12 +78,48 @@
             <span class="writeIntro">글쓰기</span>
 
         </div>
-        <div class="tabPanel">모임공지</div>
+        <div class="tabPanel">
+            
+            <div class ="noticeListContainer">
+                <div class="noticeListHeader">
+                <div>글 번호</div>
+                <div>제목</div>
+                <div>작성자</div>
+                <div>날짜</div>
+                <div>조회수</div>
+                </div>
+            
+
+                <div class="noticeList">
+                    <div>1</div>
+                    <div>6월 12일 개복치 알 요리 공지</div>
+                    <div>이수안</div>
+                    <div>2019-06-05</div>
+                    <div>40</div>
+                    </div> 
+               
+              
+                    <div class="noticeList">
+                        <div>1</div>
+                        <div>6월 5일 개복치 내장 요리 공지</div>
+                        <div>이수안</div>
+                        <div>2019-06-05</div>
+                        <div>20</div>
+                        </div>      
+           
+                </div>
+               <!--noticeList container   -->
+               <span class="writeIntro">글쓰기</span>
+
+        </div>
+   <!--tab panel 끝  -->
         <div class="tabPanel">자유게시판</div>
         <div class="tabPanel">사진첩</div>
         <div class="tabPanel">회원</div>
 
     </div>
+
+   
     <script>
         $(".area").click(function () {
             $(".area").animate({ left: -600 }, 1000);

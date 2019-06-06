@@ -1,14 +1,74 @@
 var modalNum = 1;
 
+//지역을 미리하나 보여주기
+$(document).ready(function(){
+	   $(".modal_meetup_location_box").append(
+	            ` <div class="area_container" id="search_area_container">
+
+	<select name="city1" class="select_modal_city" id="select_modal_city1">
+
+	    <option>-선택-</option>
+
+	    <option value='서울'>서울</option>
+
+	    <option value='부산'>부산</option>
+
+	    <option value='대구'>대구</option>
+
+	    <option value='인천'>인천</option>
+
+	    <option value='광주'>광주</option>
+
+	    <option value='대전'>대전</option>
+
+	    <option value='울산'>울산</option>
+
+	    <option value='강원'>강원</option>
+
+	    <option value='경기'>경기</option>
+
+	    <option value='경남'>경남</option>
+
+	    <option value='경북'>경북</option>
+
+	    <option value='전남'>전남</option>
+
+	    <option value='전북'>전북</option>
+
+	    <option value='제주'>제주</option>
+
+	    <option value='충남'>충남</option>
+
+	    <option value='충북'>충북</option>
+
+	</select>
+
+	<select name="town1" class="select_modal_town" id="select_modal_town1">
+	    sel.html("<option>-선택-</option> <option value="전체">전체</option>");
+
+
+	</select>
+
+	</div>
+	            `);
+});
+
 $(document).on("click", "#modal_location_plus", function () {
 
-    alert("modalNum:" + modalNum);
-
+    alert("클릭들어옴");
+    modalNum++;
+   
     if (modalNum > 3) {
         alert("활동지역은 3개까지만 선택 가능합니다.")
+        
+        if (modalNum >=3) {
+    	modalNum = 3;
+    	
+    }
+   
     } else {
         $(".modal_meetup_location_box").append(
-            ` <div class="area_container" id="modal_area_container">
+            ` <div class="area_container" id="search_area_container">
 
 <select name="city${modalNum}" class="select_modal_city" id="select_modal_city${modalNum}">
 
@@ -56,34 +116,32 @@ $(document).on("click", "#modal_location_plus", function () {
 
 </div>
             `);
-        modalNum++;
-        if (modalNum >= 4) {
-        	modalNum = 4;
-        }
+      
     }//else
 });
 
+for (let k = 1; k <= 3; k++) {
+    $(document).on("change", `select[name='city${k}']`, function () {
+      alert("chage 할때 들어옴");
+        cat1_change($(`select[name='city${k}']`).val(), $(`select[name='town${k}']`));
+        alert($(`select[name='city${k}']`).val());
+        alert($(`select[name='town${k}']`));
+    });
+
+}//for
+
 $(document).on("click", "#modal_location_minus", function () {
-
+	if (modalNum > 1) {
     $(".area_container:last").remove();
-    num--;
-
-    if (modalNum < 1) {
+    modalNum--;
+	}else{
         alert("더이상 삭제할 수 없습니다.");
         modalNum = 1;
     }
 
 });
 
-for (let k = 1; k <= 3; k++) {
-    $(document).on("change", `select[name='city${k}']`, function () {
-      
-        cat1_change($(`select[name='city${k}']`).val(), $(`select[name='town${k}']`));
-
-
-    });
-
-}//for
+//
 var cat1_num = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
 var cat1_name = new Array('서울', '부산', '대구', '인천', '광주', '대전', '울산', '강원', '경기', '경남', '경북', '전남', '전북', '제주', '충남', '충북');
@@ -229,8 +287,8 @@ cat2_name['충북'] = new Array('제천시', '청주시 상당구', '청주시 �
 
 
 function cat1_change(key, sel) {
-   
-    if (key == '') return;
+    alert("function cat1 들어오나 확인");
+	if (key == '') return;
 
     var name = cat2_name[key];
 

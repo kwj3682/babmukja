@@ -58,10 +58,11 @@ public class MeetupServiceImpl implements MeetupService{
 		mapper.insertMeetupLocation(meetupLocation);
 	}
 
-	public Map<String, Object> selectAllMeetup(PageAfterSearch page) {
+	public Map<String, Object> selectMeetup(PageAfterSearch page) {
 		
 			Map<String, Object> result = new HashMap<>();
-			result.put("meetupList", mapper.selectAllMeetup(page));
+			result.put("meetupList", mapper.selectMeetup(page));
+			result.put("locationList", mapper.selectMeetup(page));
 			result.put("pageResult", new MeetupPageResult(
 			page.getPageNo(), mapper.selectAllMeetupCount()));
 			
