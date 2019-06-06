@@ -16,7 +16,7 @@
 	</resultMap>	
     
     <select id="selectIntro" resultType="String">
-    	select intro from tb_meetup WHERE meet_no= 1
+    	select intro from tb_meetup WHERE meet_no= 19
     </select>
     
     <insert id="insertMeetupBoard" parameterType="meetup">
@@ -33,7 +33,7 @@
     </insert>
     
     <update id= "updateIntro" parameterType="String">
-    UPDATE tb_meetup SET intro = #{intro} WHERE meet_no= 1
+    UPDATE tb_meetup SET intro = #{intro} WHERE meet_no= 19
     
     </update>
     
