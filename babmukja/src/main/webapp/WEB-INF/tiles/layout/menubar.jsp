@@ -44,7 +44,7 @@
 	         	<a id="login" href="<c:url value="/member/loginform.do"/>">로그인</a>
         		<a id="signup" href="<c:url value="/member/signupform.do"/>">회원가입</a>
 	        </c:if>
-            <a href="#">마이키친</a>
+            <a href="<c:url value='/member/mypage.do?memNickname=${user.memNickname}'/>">마이키친</a>
         </span>
         <div id="optionalMenu1" class="optionalMenubar opacity">
             <ul>
