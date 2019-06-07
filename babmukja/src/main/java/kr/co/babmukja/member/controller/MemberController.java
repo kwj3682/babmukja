@@ -370,7 +370,11 @@ public class MemberController {
 		return service.searchMemberByNick(nick);
 	}
 	
-	
+	@RequestMapping("/mypage.do")
+	public void myPage(Member member,Model model) {
+		
+		model.addAttribute("user",service.searchMemberByNick(member.getMemNickname()).get(0));
+	}
 	
 	
 	
