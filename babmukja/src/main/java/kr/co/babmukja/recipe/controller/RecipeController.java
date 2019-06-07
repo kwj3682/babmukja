@@ -278,6 +278,29 @@ public class RecipeController {
 			recipe.setImgPath(imgList[0]);
 			result.add(recipe);
 		}
+		try {
+			List<Integer> cautions = new ArrayList<>();
+			for(String key : page.getCaution().split(",")) {
+				switch(Integer.parseInt(key)) {
+				case 7: cautions.add(Integer.parseInt(key)); break;
+				case 8: cautions.add(Integer.parseInt(key)); break;
+				case 9: cautions.add(Integer.parseInt(key)); break;
+				case 10:cautions.add(Integer.parseInt(key)); break;
+				case 11:cautions.add(Integer.parseInt(key)); break;
+				case 12:cautions.add(Integer.parseInt(key)); break;
+				case 13:cautions.add(Integer.parseInt(key)); break;
+				case 14:cautions.add(Integer.parseInt(key)); break;
+				}
+			}
+			for(int i = 0 ; i < cautions.size(); i++) {
+				model.addAttribute("caution"+cautions.get(i),cautions.get(i));
+			}
+			
+		}catch(Exception e) {
+			
+		}
+			
+		
 		model.addAttribute("calist", result);
 	}
 	 // 레시피 카테고리 전체 목록 무한스크롤

@@ -24,7 +24,7 @@
     <!-- 검색 부분 -->
      <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p></div>
    <div id="selectBox-wrapper">
-            <form name="searhForm" method="post" action="cadetailall.do">
+            <form name="searhForm" method="get" action="cadetailall.do">
        <div id="selectBox">
             <div class="selectmenuContent">
                 <img src="<c:url value="/resources/images/icons/title.png"/>">    
@@ -50,21 +50,21 @@
                 <img src="<c:url value="/resources/images/icons/warning.png"/>">   
                 <div class="selectmenuContent-detail">주의사항
                     <div class="hiddenMenu">
-                        <input type="checkbox" id="pregnant" name="caution" value="7" <c:if test="${param.caution == 7}">checked</c:if>>
+                        <input type="checkbox" id="pregnant" name="caution" value="7" <c:if test="${caution7 == 7}">checked</c:if>>
                         <label for="pregnant">임산부 주의</label>
-                        <input type="checkbox" id="baby" name="caution" value="8" <c:if test="${param.caution == 8}">checked</c:if>>
+                        <input type="checkbox" id="baby" name="caution" value="8" <c:if test="${caution8 == 8}">checked</c:if>>
                         <label for="baby">영유아 주의</label>
-                        <input type="checkbox" id="high-blood-pressure" name="caution" value="9" <c:if test="${param.caution == 9}">checked</c:if>>
+                        <input type="checkbox" id="high-blood-pressure" name="caution" value="9" <c:if test="${caution9 == 9}">checked</c:if>>
                         <label for="high-blood-pressure">고혈압 주의</label>
-                        <input type="checkbox" id="vegan" name="caution" value="10" <c:if test="${param.caution == 10}">checked</c:if>>
+                        <input type="checkbox" id="vegan" name="caution" value="10" <c:if test="${caution10 == 10}">checked</c:if>>
                         <label for="vegan">채식주의자를 위한</label>
-                        <input type="checkbox" id="halal" name="caution" value="11" <c:if test="${param.caution == 11}">checked</c:if>>
+                        <input type="checkbox" id="halal" name="caution" value="11" <c:if test="${caution11 == 11}">checked</c:if>>
                         <label for="halal">돼지고기 포함</label>
-                        <input type="checkbox" id="old" name="caution" value="12" <c:if test="${param.caution == 12}">checked</c:if>>
+                        <input type="checkbox" id="old" name="caution" value="12" <c:if test="${caution12 == 12}">checked</c:if>>
                         <label for="old">노약자 주의</label>
-                        <input type="checkbox" id="allergic" name="caution" value="13" <c:if test="${param.caution == 13}">checked</c:if>>
+                        <input type="checkbox" id="allergic" name="caution" value="13" <c:if test="${caution13 == 13}">checked</c:if>>
                         <label for="allergic">알러지 유발 주의</label>
-                        <input type="checkbox" id="diabetes" name="caution" value="14" <c:if test="${param.caution == 14}">checked</c:if>>
+                        <input type="checkbox" id="diabetes" name="caution" value="14" <c:if test="${caution14 == 14}">checked</c:if>>
                         <label for="diabetes">당뇨 주의</label>
                         
                     </div>
