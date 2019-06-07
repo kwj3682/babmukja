@@ -9,9 +9,15 @@ public class PageAfterSearch {
 	String town1;
 	String town2;
 	String town3;
+	
 	String search;	
 	String category;
 	int fee;
+
+	
+	
+	
+
 	public String getCity1() {
 		return city1;
 	}
@@ -48,7 +54,6 @@ public class PageAfterSearch {
 	public void setTown3(String town3) {
 		this.town3 = town3;
 	}
-
 	private int pageNo = 1;
 	
 		public String getSearch() {

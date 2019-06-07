@@ -1,11 +1,11 @@
 var modalNum = 1;
 
 //지역을 미리하나 보여주기
-$(document).ready(function(){
-	   $(".modal_meetup_location_box").append(
+$(document).on("click",".header_meetup_create", function () {
+	   $(".modal_meetup_location_box").html(
 	            ` <div class="area_container" id="search_area_container">
 
-	<select name="city1" class="select_modal_city" id="select_modal_city1">
+	<select name="cityModal1" class="select_modal_city" id="select_modal_city1">
 
 	    <option>-선택-</option>
 
@@ -43,7 +43,7 @@ $(document).ready(function(){
 
 	</select>
 
-	<select name="town1" class="select_modal_town" id="select_modal_town1">
+	<select name="townModal1" class="select_modal_town" id="select_modal_town1">
 	    sel.html("<option>-선택-</option> <option value="전체">전체</option>");
 
 
@@ -53,9 +53,9 @@ $(document).ready(function(){
 	            `);
 });
 
-$(document).on("click", "#modal_location_plus", function () {
 
-    alert("클릭들어옴");
+$("#modal_location_plus").on("click", function () {
+
     modalNum++;
    
     if (modalNum > 3) {
@@ -70,7 +70,7 @@ $(document).on("click", "#modal_location_plus", function () {
         $(".modal_meetup_location_box").append(
             ` <div class="area_container" id="search_area_container">
 
-<select name="city${modalNum}" class="select_modal_city" id="select_modal_city${modalNum}">
+<select name="cityModal${modalNum}" class="select_modal_city" id="select_modal_city${modalNum}">
 
     <option>-선택-</option>
 
@@ -108,7 +108,7 @@ $(document).on("click", "#modal_location_plus", function () {
 
 </select>
 
-<select name="town${modalNum}" class="select_modal_town" id="select_modal_town${modalNum}">
+<select name="townModal${modalNum}" class="select_modal_town" id="select_modal_town${modalNum}">
     sel.html("<option>-선택-</option> <option value="전체">전체</option>");
 
 
@@ -120,15 +120,18 @@ $(document).on("click", "#modal_location_plus", function () {
     }//else
 });
 
+
 for (let k = 1; k <= 3; k++) {
-    $(document).on("change", `select[name='city${k}']`, function () {
-      alert("chage 할때 들어옴");
-        cat1_change($(`select[name='city${k}']`).val(), $(`select[name='town${k}']`));
-        alert($(`select[name='city${k}']`).val());
-        alert($(`select[name='town${k}']`));
+    $(document).on("change", `select[name='cityModal${k}']`, function () {
+      
+      cat1__modal_change($(`select[name='cityModal${k}']`).val(), $(`select[name='townModal${k}']`));
+
+
     });
 
 }//for
+
+
 
 $(document).on("click", "#modal_location_minus", function () {
 	if (modalNum > 1) {
@@ -286,8 +289,7 @@ cat2_name['충북'] = new Array('제천시', '청주시 상당구', '청주시 �
 
 
 
-function cat1_change(key, sel) {
-    alert("function cat1 들어오나 확인");
+function cat1__modal_change(key, sel) {
 	if (key == '') return;
 
     var name = cat2_name[key];
