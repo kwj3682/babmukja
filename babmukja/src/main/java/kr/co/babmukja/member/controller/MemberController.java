@@ -8,7 +8,6 @@ import java.util.concurrent.Executors;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.lookup.ReductionResult;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.babmukja.member.service.MemberService;
@@ -187,7 +185,7 @@ public class MemberController {
 		return service.selectSearchId(member);
 	}
 
-	// 비밀번호 찾기
+	// 비밀번호 찾기폼
 	@RequestMapping("/searchpass.do")
 	public void searchPass() {
 	}
@@ -266,7 +264,6 @@ public class MemberController {
 			System.out.println(e.getMessage());
 			System.out.println(e.getCode());
 		}
-
 	}
 
 	// 인증번호 확인
@@ -285,7 +282,7 @@ public class MemberController {
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
 	public String rePass(Member member) {
-
+		
 		// 암호화
 		String inputPass = member.getMemPass();
 		String pass = passEncoder.encode(inputPass);
@@ -300,10 +297,6 @@ public class MemberController {
 	public String signupSocial(HttpSession session, Member member, Model model) {
 		try {
 			System.out.println("socialsignup");
-			System.out.println(member.getMemNickname());
-			System.out.println(member.getMemName());
-			System.out.println(member.getMemEmail());
-			System.out.println(member.getSocialAt());
 			service.insertSocialMember(member); // 회원가입
 			
 			// 로그인해야지
@@ -320,13 +313,11 @@ public class MemberController {
 	@RequestMapping("/socialsignupform.do")
 	public void signupSocialForm(HttpSession session, Member member, Model model) {
 		// DB에 저장
-		System.out.println("socialsignupform");
-		System.out.println(member.getMemName());
-		System.out.println(member.getMemEmail());
-		System.out.println(member.getSocialAt());
 		model.addAttribute("memName", member.getMemName());
 		model.addAttribute("memEmail", member.getMemEmail());
 		model.addAttribute("socialAt", member.getSocialAt());
+		model.addAttribute("profileImageUrl", member.getProfileImageUrl());
+		model.addAttribute("thumbnailUrl", member.getThumbnailUrl());
 	}
 
 	// 카카오 로그인 처리

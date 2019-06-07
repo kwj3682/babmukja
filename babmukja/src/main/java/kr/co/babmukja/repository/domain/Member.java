@@ -39,8 +39,24 @@ public class Member {
 	private char verify;
 	private int certification; 
 	private String accessToken;
+	private String profileImageUrl;
+	private String thumbnailUrl;
 	
-	
+	public String getProfileImageUrl() {
+		return profileImageUrl;
+	}
+
+	public void setProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
+	}
+
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
+
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
 
 	public String getAccessToken() {
 		return accessToken;
