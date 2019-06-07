@@ -5,7 +5,9 @@ import java.util.List;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 
 public interface StorePBService {
@@ -51,4 +53,14 @@ public interface StorePBService {
 	public StorePBInquire selectInquiryByNo(int inquiryNo);
 	public void updateInquiry(StorePBInquire storePBInquire);
 	public void deleteInquiry(int inquiryNo);
+	
+	// pb 상품 결제
+	public void insertPBPayment(StorePBPayment storePBPayment);
+	public StorePBPayment selectPBPaymentByNo(int paymentNo);
+	
+	// pb 상품 장바구니
+	public void insertPBCart(StorePBCart storePBCart);
+	public List<StorePBCart> selectPBCartByMember(int memNo);
+	public void deletePBCart(int cartNo);
+
 }

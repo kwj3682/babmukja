@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="<c:url value="/resources/js/common/stringUtil.js"/>"></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body onload="myTimeWait()">
 	<div id="pb_detail_container">
@@ -82,7 +83,7 @@
                 </div>
                 <div id="select_product_total-price">
                     <p>총 주문금액</p>
-                    <p class="total__price">원</p>
+                    <p class="total__price" id="total__price">원</p>
                 </div>
                 <div id="pb_detail_btns">
                     <button class="add_to_cart">장바구니</button>
@@ -432,7 +433,26 @@
 		            </div>
 		        </div>
 		    </div>
-	
+		    
+        <!-- 장바구니  modal -->
+		    <div id="cartmodal" class="modal fade" tabindex="-1" >
+		        <div class="moadl-dialog">
+		            <div class="modal-content" id="cart-modal-content">
+		                <div class="modal-body">
+		                    <button type="button" class="close" data-dismiss="modal">x</button>
+	                        <div class="cartmodal_container">
+						        <div class="cartmodal_header">
+						            <p class="cartmodal_msg">장바구니에 상품을 담았습니다.</p>
+						            <div class="cartmodal_button">
+						                <div><button class="cart_move_btn">장바구니 보러가기</button></div>
+						                <div><button class="cart_move_not_btn">계속 쇼핑하기</button></div>
+						            </div>
+						        </div>
+						    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
     <script>
     let imgArr= ["a","b","c","d","e","f","g","h","i","j"];
     
@@ -441,6 +461,7 @@
     	$("#reviewUpdatemodal").modal("hide");
     	$("#inquiremodal").modal("hide");
     	$("#inquireupdatemodal").modal("hide");
+    	$("#cartmodal").modal("hide");
 //     	let num = $("input[name='pbReviewNo']").val();
 //     	console.log(num);
 //     	console.log($(".review_user_rating").text());
@@ -803,6 +824,88 @@
 			})
 		});
 		
+		// 결제
+		$(".buy_now").click(function () {
+// 			let price = $("#total__price").text(changeComma($("#total__price:first").text()));
+			let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+			let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
+			let count = $("#total_count").text();			// 상품 개수
+			let pbName = $("#pb_detail_title > p").text();	// 상품 명
+			console.log("상품 명 : " + pbName);
+			console.log("개수 : " + count);
+			console.log("상품번호 : " + pbNo);
+			console.log("총 금액 : " + price);
+	        var IMP = window.IMP; // 생략가능
+	        IMP.init("imp21130958"); // 가맹점 식별 코드
+
+	        IMP.request_pay(
+	          {
+	            pg: "kakao", // 결제방식
+	            pay_method: "card", // 결제 수단
+	            merchant_uid: "merchant_" + new Date().getTime(),
+	            name: pbName, // order 테이블에 들어갈 주문명 혹은 주문 번호
+	            amount: price, // 결제 금액
+	            buyer_name: "", // 구매자 이름
+	            buyer_tel: "", // 구매자 전화번호
+	            m_redirect_url: "" // 결제 완료 후 보낼 컨트롤러의 메소드명
+	          },
+	          function(rsp) {
+	            if (rsp.success) {
+	            	$.ajax({
+	            		url: "/babmukja/store/pbpaymentinsert.do",
+	            		data: {
+	            			price : price,
+	            			pbNo : pbNo,
+	            			prodCount : count
+	            		}
+	            	}).done(function () {
+	            		alert("결제 완료@!@!");
+	            	});
+	              // 성공시
+	              var msg = "결제가 완료되었습니다.";
+	              msg += "고유ID : " + rsp.imp_uid;
+	              msg += "상점 거래ID : " + rsp.merchant_uid;
+	              msg += "결제 금액 : " + rsp.paid_amount;
+	              msg += "카드 승인번호 : " + rsp.apply_num;
+	            } else {
+	              // 실패시
+	              var msg = "결제에 실패하였습니다.";
+	              msg += "에러내용 : " + rsp.error_msg;
+	            }
+	          }
+	        );
+		});
+		
+		// 장바구니
+		$(".add_to_cart").click(function () {
+			let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+			let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
+			let count = $("#total_count").text();			// 상품 개수
+			let memNo = 3;
+			console.log(price);
+			console.log(pbNo);
+			console.log(count);
+			$.ajax({
+				url: "/babmukja/store/pbcartinsert.do",
+				data : {
+					pbNo : pbNo,
+					price : price,
+					prodCount : count,
+					memNo : 3
+				}
+			}).done(function () {
+// 				alert("장바구니에 등록성공~~~!~!~~!");
+// 				alert(memNo);
+				$("#cartmodal").modal("show");
+				$(".cart_move_btn").click(function () {
+					location.href = "cartpb.do?memNo=3";
+				});
+				$(".cart_move_not_btn").click(function () {
+					location.href="detailpb.do?pbNo="+${storepb.pbNo};
+				});
+				
+			});
+		});
     </script>
 </body>
 </html>
