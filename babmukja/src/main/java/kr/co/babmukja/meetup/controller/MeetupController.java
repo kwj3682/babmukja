@@ -1,4 +1,3 @@
-//mvn install:install-file -Dfile=C:\bitcamp2019\bin\ojdbc6 -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
 package kr.co.babmukja.meetup.controller;
 
 import java.io.BufferedInputStream;
@@ -100,9 +99,12 @@ public class MeetupController {
 			+ "eetup.do")
 	public void CreateMeetup(MultipartFile file, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
-		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee
+		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
+		String hostName, int hostNo
+			
 			) {
 		service.selectIntro();
+		System.out.println("호스트 내임, 이름" +hostName +hostNo );
 		System.out.println("파일 " + file);
 		System.out.println("카테고리" + category);
 		System.out.println("제목" + title);
@@ -164,6 +166,8 @@ public class MeetupController {
 		meetupBoard.setDay(meetupDay);
 		meetupBoard.setFee(detailFee);
 		meetupBoard.setTitle(title);
+		meetupBoard.setHostName(hostName);
+		meetupBoard.setHostNo(hostNo);
 		meetupBoard.setFileDir(filePath + sysFileName);
 		System.out.println("첫번째:" +meetupBoard.getMeetNo());
 

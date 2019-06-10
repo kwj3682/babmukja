@@ -36,6 +36,7 @@
 </head>
 
 <body>
+
 	<div class="header">
 		<div class="headerLeft">
 			<div class=title>오늘은 내가 짜파게티 요리사</div>
@@ -97,17 +98,15 @@
 
 		</div>
 		<div class="tabPanel">모임공지
-		
-		
-		<div class ="noticeListContainer">
-		<div class="noticeListHeader">
-		<div>글 번호</div>
-		<div>작성자</div>
-		<div>제목</div>
-		<div>날짜</div>
-		<div>조회수</div>
+			${sessionScope.user.memNo}, ${sessionScope.user.memName}
+		<div class="requestPermissionContainer">
+		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
+		<span class="requestPermission">모임 가입 신청</span>
 		</div>
-		</div>
+		<Script>
+		
+		</Script>
+	
 			
 		</div><!--tab panel 끝  -->
 		<div class="tabPanel">자유게시판</div>

@@ -13,6 +13,8 @@
 		<result column="file_dir" property="fileDir" />
 		<result column="view_cnt" property="viewCnt" />
 		<result column="location" property="location" />
+		<result column="host_name" property="hostName" />
+		<result column="host_no" property="hostNo" />
 	</resultMap>	
     
     <select id="selectIntro" resultType="String">
@@ -23,8 +25,8 @@
     	<selectKey keyProperty="meetNo" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location)
-    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location})
+    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no)
+    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostNo},#{hostName})
     </insert>
     
     <insert id="insertMeetupLocation" parameterType="meetupLocation">

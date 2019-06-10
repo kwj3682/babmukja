@@ -1,0 +1,40 @@
+.manage_container {
+
+    width: 1200px;
+    margin-top: 90px;
+    margin-bottom:90px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.manage_header {
+    border-bottom: 3px solid gainsboro;
+}
+
+.manage_header span {
+    display: inline-block;
+}
+
+.header_cooking_manage{
+
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 30px;
+    color: #7db341;
+    
+}
+
+.host_meetup{
+
+    border-bottom:1px solid black;
+    padding:10px;
+    width: 800px;
+    margin: 0 auto;
+    margin-top:40px;
+    text-align: center;
+    font-size:25px;
+
+}
+
+.host_meetup_list{
+    border:1px solid black;
+}
