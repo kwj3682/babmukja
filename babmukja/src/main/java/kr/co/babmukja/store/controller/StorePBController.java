@@ -28,7 +28,9 @@ import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
 
@@ -129,7 +131,6 @@ public class StorePBController {
 	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview, StorePBInquire storePBInquire) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
 		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
-
 		List<StorePBReview> reviewList = service.selectReview(pbNo);
 		List<ReviewMap> reviewMap = new ArrayList<>();
 		for(StorePBReview pb : reviewList) {
@@ -325,12 +326,14 @@ public class StorePBController {
 		service.insertInquiry(storePBInquire);
 	}
 	
+	// pb 상품 문의 수정폼
 	@RequestMapping("/pbinquiryupdateform.do")
 	@ResponseBody
 	public StorePBInquire updateInquiryform(int inquiryNo) {
 		return service.selectInquiryByNo(inquiryNo);
 	}
 	
+	// pb 상품 문의 수정
 	@RequestMapping("/pbinquiryupdate.do")
 	@ResponseBody
 	public void updateInquiry(StorePBInquire storePBInquire) {
@@ -340,10 +343,57 @@ public class StorePBController {
 		service.updateInquiry(storePBInquire);
 	}
 	
+	// pb 상품 문의 삭제
 	@RequestMapping("/pbinquirydelete.do")
 	@ResponseBody
 	public void deleteInquiry(int inquiryNo) {
 		service.deleteInquiry(inquiryNo);
 	}
 	
+	
+	// pb 상품 결제
+	
+	// pb 상품 결제 등록
+	@RequestMapping("/pbpaymentinsert.do")
+	@ResponseBody
+	public void insertPBPayment(StorePBPayment storePBPayment) {
+		service.insertPBPayment(storePBPayment);
+	}
+	
+	// pb 상품 장바구니
+	
+	// pb 상품 장바구니 등록
+	@RequestMapping("/pbcartinsert.do")
+	@ResponseBody
+	public void insertPBCart(StorePBCart storePBCart) {
+		service.insertPBCart(storePBCart);
+	}
+	
+	// pb 장바구니 조회
+	@RequestMapping("/cartpb.do")
+	public void cartpb (int memNo, Model model) {
+		List<StorePBCart> cartList = service.selectPBCartByMember(memNo);
+		List<StorePBCart> result = new ArrayList<>();
+		for (StorePBCart storePBCart : cartList) {
+			String imgpath = "";
+			
+			if (storePBCart.getImgPath() == null) {
+				imgpath = "/babmukja/store/downloadpb.do?path=/&sysname=default.png";
+				storePBCart.setImgPath(imgpath);
+				result.add(storePBCart);
+				continue;
+			}
+			String[] imgList = storePBCart.getImgPath().split(",");
+			storePBCart.setImgPath(imgList[0]);
+			result.add(storePBCart);
+		}
+		model.addAttribute("cartList", result);	
+	}
+	
+	// pb 장바구니 삭제
+	@RequestMapping("/deletepbcart.do")
+	@ResponseBody
+	public void deletePBCart(int cartNo) {
+		service.deletePBCart(cartNo);
+	}
 }

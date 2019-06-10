@@ -13,7 +13,7 @@ public interface MemberService {
 	
 	void updateSocialNickname(Member member); // 카카오톡 이름 설정
 	
-	Member selectCheckSocialAt(String memEmail);
+	Member selectCheckSocialAt(String memEmail); // 소셜로그인 여부
 	
 	int selectCheckNickName(String memNickname); // 닉네임 중복체크
 	

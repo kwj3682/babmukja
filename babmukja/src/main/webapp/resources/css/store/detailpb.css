@@ -890,3 +890,50 @@
     letter-spacing: 1px;
 }
 
+.cartmodal_msg {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.cart_move_btn {
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    border: 1px solid #7db341;
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #7db341;
+    color: white;
+    cursor: pointer;
+}
+
+.cart_move_not_btn {
+    margin-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    outline: none;
+    background-color: white;
+    color: #7db341;
+    border: 1px solid #7db341;
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+
+#cart-modal-content {
+	position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    top: 200px;
+    width: 500px;
+    height: 300px;
+}
+

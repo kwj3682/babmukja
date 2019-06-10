@@ -419,4 +419,94 @@
 		  from tb_pb_inquiry
 		 where inquiry_no = #{inquiryNo}
 	</delete>
+	
+	
+	<!--  pb 상품 결제 부분  -->
+	<resultMap id="pbpaymentMap" type="StorePBPayment" >
+		<result column="payment_no" property="paymentNo"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="pb_no" property="pbNo"/>
+		<result column="price" property="price"/>
+		<result column="prod_count" property="prodCount"/>
+		<result column="regdate" property="regdate"/>
+
+		<collection property="member" column="mem_no" select="selectPaymentNickName"/>
+	</resultMap>
+	
+	<insert id="insertPBPayment" parameterType="StorePBPayment">
+		insert into tb_payment(
+			mem_no,
+			pb_no, 
+			price, 
+			prod_count
+		)
+		values(
+			3,
+			#{pbNo},
+			#{price},
+			#{prodCount}
+		)
+	</insert>
+	
+	<select id="selectPBPaymentByNo" parameterType="int" resultMap="pbpaymentMap">
+		select *
+		  from tb_payment
+		 where payment_no = #{paymentNo}
+	</select>
+	
+	<!-- 장바구니 -->
+	<resultMap id="pbCarttMap" type="StorePBCart" >
+		<result column="cart_no" property="cartNo"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="pb_no" property="pbNo"/>
+		<result column="price" property="price"/>
+		<result column="name" property="name"/>
+		<result column="imgpath" property="imgPath"/>
+		<result column="prod_count" property="prodCount"/>
+		
+	</resultMap>
+	
+	<insert id="insertPBCart" parameterType="StorePBCart">
+		insert into tb_pb_cart(
+			mem_no,
+			pb_no, 
+			price, 
+			prod_count
+		)
+		values(
+			3,
+			#{pbNo},
+			#{price},
+			#{prodCount}
+		)
+	</insert>
+	
+<!-- 	<select id="selectPBCartByMember" resultMap="pbCarttMap" parameterType="int"> -->
+<!-- 		select * -->
+<!-- 		  from tb_pb_cart -->
+<!-- 		 where mem_no = #{memNo} -->
+<!-- 		 order by cart_no desc -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectCartPBInfo" parameterType="int" resultMap="storePB"> -->
+<!-- 		select * -->
+<!-- 		  from tb_pb -->
+<!-- 		 where pb_no = #{pbNo} -->
+<!-- 	</select> -->
+	
+	<select id="selectPBCartByMember" parameterType="int" resultMap="pbCarttMap">
+		select p.imgpath, p.name, c.*
+		  from tb_pb p, tb_pb_cart c
+		 where p.pb_no = c.pb_no
+		   and c.mem_no = #{memNo}
+		 order by c.cart_no desc
+	</select>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deletePBCart" parameterType="int">
+		delete 
+		  from tb_pb_cart
+		 where cart_no = #{cartNo}
+	</delete>
+	
 </mapper>

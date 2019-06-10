@@ -27,7 +27,6 @@
         crossorigin="anonymous"></script>
     <!-- modal address js -->
     <!--<script type="text/javascript" src="/resources/js/meetup_main_modal_address.js"></script>-->
-    <script src='<c:url value="/resources/js/meetup_main_modal_address.js"/>'> </script>
     <script src='<c:url value="/resources/js/meetup_main_search_address.js"/>'> </script>
 
     <!-- maincss -->
@@ -650,8 +649,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" id="modalSave">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        <button class="btn btn-primary" id="modalSave">등록하기</button>
                     </div>
 
                 </div>
@@ -669,6 +668,8 @@
 
     <!--  <script type="text/javascript" src="/resources/js/meetup_main.js"></script>-->
     <script src='<c:url value="/resources/js/meetup_main.js"/>'> </script>
+	<!--주소 불러오기  -->
+    <script src='<c:url value="/resources/js/meetup_main_modal_address.js"/>'> </script>
 
 
     </body>

@@ -1,3 +1,4 @@
+//mvn install:install-file -Dfile=C:\bitcamp2019\bin\ojdbc6 -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
 package kr.co.babmukja.meetup.controller;
 
 import java.io.BufferedInputStream;
@@ -38,6 +39,11 @@ import kr.co.babmukja.repository.domain.Pagepb;
 @RequestMapping("/meetup")
 public class MeetupController {
 
+	@RequestMapping("/test.do")
+	public void test() {
+	System.out.println("controller 찍히는 확인");
+	}
+	
 	@RequestMapping("/afterSearch.do")
 	public void afterSearch(Model model, PageAfterSearch page) {
 		
@@ -93,8 +99,8 @@ public class MeetupController {
 	@RequestMapping("/createM"
 			+ "eetup.do")
 	public void CreateMeetup(MultipartFile file, String title,
-		String category, String city1, String city2, String city3,	
-		String town1,String town2,String town3, String[] day, String fee, String detailFee
+		String category, String cityModal1, String cityModal2, String cityModal3,	
+		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee
 			) {
 		service.selectIntro();
 		System.out.println("파일 " + file);
@@ -166,73 +172,73 @@ public class MeetupController {
 		MeetupLocation meetupLocation = new MeetupLocation();
 		
 		String location="";
-		if(city1 !=null) {
+		if(cityModal1 !=null) {
 		
-			meetupLocation.setCity(city1);
+			meetupLocation.setCity(cityModal1);
 			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
 			System.out.println("두번째:" +meetupBoard.getMeetNo());
-			System.out.println("도시1" + city1);
+			System.out.println("도시1" + cityModal1);
 			
-			location += city1;
+			location += cityModal1;
 		}
-		if(town1 !=null) {
-			meetupLocation.setTown(town1);
+		if(townModal1 !=null) {
+			meetupLocation.setTown(townModal1);
 			service.insertMeetupLocation(meetupLocation);
-			System.out.println("마을1" + town1);
+			System.out.println("마을1" + townModal1);
 			
-			location += " "+ town1;
+			location += " "+ townModal1;
 			
 			}
-		if(city2 !=null) {
-			meetupLocation.setCity(city2);
+		if(cityModal2 !=null) {
+			meetupLocation.setCity(cityModal2);
 			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
 			
-			System.out.println("도시2" + city2);
-			if(city2.equals(city1)) {
+			System.out.println("도시2" + cityModal2);
+			if(cityModal2.equals(cityModal1)) {
 				
 			}else {
-				location += "," +" " + city2;}
+				location += "," +" " + cityModal2;}
 			}
-		if(town2 !=null) {
-			meetupLocation.setTown(town2);
+		if(townModal2 !=null) {
+			meetupLocation.setTown(townModal2);
 			service.insertMeetupLocation(meetupLocation);
-			System.out.println("마을2" + town2);
-			if(city2.equals(city1)) {
-				location += ","+ town2;
+			System.out.println("마을2" + townModal2);
+			if(cityModal2.equals(cityModal1)) {
+				location += ","+ townModal2;
 			}else {
-				location += " "+ town2;
+				location += " "+ townModal2;
 			}
 			}//처음 if
 				
 		
-		if(city3 !=null) {
-			meetupLocation.setCity(city3);
+		if(cityModal3 !=null) {
+			meetupLocation.setCity(cityModal3);
 			meetupLocation.setMeetNo(meetupBoard.getMeetNo());
 			
-			System.out.println("도시3" + city3);
+			System.out.println("도시3" + cityModal3);
 			
-			if(city1.equals(city3) ||city2.equals(city3)) {
+			if(cityModal1.equals(cityModal3) ||cityModal2.equals(cityModal3)) {
 				
 			}else {
-				location += "," +" " + city3;
+				location += "," +" " + cityModal3;
 			}
 			
 				
 		}
 		
 		
-		if(town3 !=null) {
-			meetupLocation.setTown(town3);
+		if(townModal3 !=null) {
+			meetupLocation.setTown(townModal3);
 			service.insertMeetupLocation(meetupLocation);
-			System.out.println("마을3" + town3);
-			if(city1.equals(city3) && !city2.equals(city3)) {
-				location = city1 +" "+ town1 +"," + town3 + " " + city2 + " " + town2;
+			System.out.println("마을3" + townModal3);
+			if(cityModal1.equals(cityModal3) && !cityModal2.equals(cityModal3)) {
+				location = cityModal1 +" "+ townModal1 +"," + townModal3 + " " + cityModal2 + " " + townModal2;
 					
-		}else if(!city1.equals(city3) && city2.equals(city3)) {
-			location += ","+ town3;
+		}else if(!cityModal1.equals(cityModal3) && cityModal2.equals(cityModal3)) {
+			location += ","+ townModal3;
 
 		}else {
-				location += " "+ town3;
+				location += " "+ townModal3;
 			}
 	}//첫번째 if 
 		

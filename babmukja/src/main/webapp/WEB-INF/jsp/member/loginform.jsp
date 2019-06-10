@@ -74,8 +74,6 @@
 		<div class="social__simple-login">
 			<div class="sign__up">
 				밥먹자~ <i class="fas fa-utensils"></i> <a href="<c:url value="/member/signupform.do"/>">회원가입</a>
-				<a href="<c:url value="/member/membermodify.do"/>">회원수정</a>
-				<a href="<c:url value="/member/changepass.do"/>">비밀번호 변경</a>
 			</div>
 		</div>
 	</div>
@@ -122,11 +120,12 @@
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kakao app_key');
+		Kakao.init('386ffcb6d820846f81e354df11f5c8cc');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
             success: function(authObj) {
+            	alert("됨?");
             	 Kakao.API.request({
     		      	 url: '/v1/user/me',
      			     success: function(res) { 
@@ -156,7 +155,7 @@
              	})
             },
             fail: function(err) {
-            	alert(JSON.stringify(err));
+            	alert("386ffcb6d820846f81e354df11f5c8cc :" + JSON.stringify(err));
             }
           });
         };

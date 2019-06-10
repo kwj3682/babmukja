@@ -11,7 +11,6 @@
 
 
     $.fn.comma = function () {
-        alert("comma 함수 호출됨...");
         let ele = this;
         this.keyup(function () {
             ele.val(changeComma(ele.val()));

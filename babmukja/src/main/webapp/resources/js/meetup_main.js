@@ -11,7 +11,6 @@ $(".header_meetup_create").click(function () {
 
 
 
-
 //모달에서 회비 선택부분
 $(".modal_fee_input").comma();
 
@@ -42,7 +41,7 @@ $('#Defined').change(function(){
 	    });
 
 $('#modalSave').click(function(){
-	alert($(`select[name='town1']`).val());
+	alert("모임이 등록되었습니다. 당신의 멋진 음식 여정을 응원합니다.");
 });
 
 //클릭시 주소 이동부분
@@ -147,3 +146,4 @@ $('.image-upload-wrap').bind('dragover', function () {
 $('.image-upload-wrap').bind('dragleave', function () {
     $('.image-upload-wrap').removeClass('image-dropping');
 });
+

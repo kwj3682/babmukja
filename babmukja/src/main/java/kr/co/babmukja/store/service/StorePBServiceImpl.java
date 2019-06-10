@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
+import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
 
@@ -136,5 +138,28 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public void deleteInquiry(int inquiryNo) {
 		mapper.deleteInquiry(inquiryNo);
+	}
+	
+	// pb 상품 결제
+	public void insertPBPayment(StorePBPayment storePBPayment) {
+		mapper.insertPBPayment(storePBPayment);
+	}
+	
+	public StorePBPayment selectPBPaymentByNo(int paymentNo) {
+		return mapper.selectPBPaymentByNo(paymentNo);
+	}
+	
+	// pb 상품 장바구니
+	
+	public void insertPBCart(StorePBCart storePBCart) {
+		mapper.insertPBCart(storePBCart);
+	}
+	
+	public List<StorePBCart> selectPBCartByMember(int memNo) {
+		return mapper.selectPBCartByMember(memNo);
+	}
+	
+	public void deletePBCart(int cartNo) {
+		mapper.deletePBCart(cartNo);
 	}
 }

@@ -186,7 +186,7 @@ public class MemberController {
 		return service.selectSearchId(member);
 	}
 
-	// 비밀번호 찾기
+	// 비밀번호 찾기폼
 	@RequestMapping("/searchpass.do")
 	public void searchPass() {
 	}
@@ -243,14 +243,14 @@ public class MemberController {
 	 *        PHP
 	 */
 	public void smsSend(Member member) {
-		String api_key = "api_key";
-		String api_secret = "api_secret";
+		String api_key = "NCSXPNU9OHH2KJA8";
+		String api_secret = "0BKWWJIMBI34EVLENVH5GS3CZ9EFZPCZ";
 		Message coolsms = new Message(api_key, api_secret);
 
 		// 4 params(to, from, type, text) are mandatory. must be filled
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", member.getMemPhone());
-		params.put("from", "전화번호");
+		params.put("from", "01051369426");
 		params.put("type", "SMS");
 		params.put("text", "안녕하세요 밥먹자 인증메일 입니다. 인증번호는 [" + cert + "] 입니다.");
 		params.put("app_version", "test app 1.2"); // application name and version
@@ -265,7 +265,6 @@ public class MemberController {
 			System.out.println(e.getMessage());
 			System.out.println(e.getCode());
 		}
-
 	}
 
 	// 인증번호 확인
@@ -284,7 +283,7 @@ public class MemberController {
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
 	public String rePass(Member member) {
-
+		
 		// 암호화
 		String inputPass = member.getMemPass();
 		String pass = passEncoder.encode(inputPass);
@@ -299,10 +298,6 @@ public class MemberController {
 	public String signupSocial(HttpSession session, Member member, Model model) {
 		try {
 			System.out.println("socialsignup");
-			System.out.println(member.getMemNickname());
-			System.out.println(member.getMemName());
-			System.out.println(member.getMemEmail());
-			System.out.println(member.getSocialAt());
 			service.insertSocialMember(member); // 회원가입
 			
 			// 로그인해야지
@@ -319,13 +314,11 @@ public class MemberController {
 	@RequestMapping("/socialsignupform.do")
 	public void signupSocialForm(HttpSession session, Member member, Model model) {
 		// DB에 저장
-		System.out.println("socialsignupform");
-		System.out.println(member.getMemName());
-		System.out.println(member.getMemEmail());
-		System.out.println(member.getSocialAt());
 		model.addAttribute("memName", member.getMemName());
 		model.addAttribute("memEmail", member.getMemEmail());
 		model.addAttribute("socialAt", member.getSocialAt());
+		model.addAttribute("profileImageUrl", member.getProfileImageUrl());
+		model.addAttribute("thumbnailUrl", member.getThumbnailUrl());
 	}
 
 	// 카카오 로그인 처리
@@ -370,7 +363,11 @@ public class MemberController {
 		return service.searchMemberByNick(nick);
 	}
 	
-	
+	@RequestMapping("/mypage.do")
+	public void myPage(Member member,Model model) {
+		
+		model.addAttribute("user",service.searchMemberByNick(member.getMemNickname()).get(0));
+	}
 	
 	
 	

@@ -176,7 +176,6 @@
 
 
 	$(document).on("click", "#introSave", function () {
-		alert($('#summernote').val());
 
 
 		var deleteDirectory = [];//후에 이경로에 있는 파일들은 지우기
@@ -185,17 +184,14 @@
 		data.deleteDirectory = deleteDirectory;
 		dbPath = $('#summernote').val();
 		data.dbPath = dbPath;
-		alert("dbPath: " + data.dbPath);
 		for (let i = 0; i < tempFileDirectory.length; i++) {
 			if ($('#summernote').val().includes(tempFileDirectory[i]) == false) {
 				deleteDirectory.push(tempFileDirectory[i]);
-				alert("deleteDirectory: " + tempFileDirectory[i]);
 
 				continue;
 			}
 
 			fileDirectory.push(tempFileDirectory[i]);
-			alert("fileDirectory: " + fileDirectory[0]);
 
 		}  //for
 
@@ -246,7 +242,6 @@
 			callbacks: { // 콜백을 사용
 				// 이미지를 업로드할 경우 이벤트를 발생
 				onImageUpload: function (files, editor, welEditable) {
-					alert("수정콜백");
 					console.log(files[0]);
 					sendFile(files[0], editor, welEditable);
 
@@ -270,7 +265,6 @@
 	$(document).on("click", "#introDelete", function () {
 		data = {};
 		data.fileDirectory = fileDirectory;
-		alert(fileDirectory);
 		$.ajax({
 			url: '/babmukja/meetup/deleteIntro.do',
 			data: data,
@@ -314,7 +308,6 @@
 					callbacks: { // 콜백을 사용
 						// 이미지를 업로드할 경우 이벤트를 발생
 						onImageUpload: function (files, editor, welEditable) {
-							alert(files[0]);
 							console.log(files[0]);
 							sendFile(files[0], editor, welEditable);
 
@@ -372,7 +365,6 @@
 				let sysFileName = url.sysFileName;
 
 				tempFileDirectory.push(url.filePath + url.sysFileName);
-				alert(url);
 				$("#summernote").summernote('editor.insertImage', "<c:url value='/meetup/download.do' />" + "?path=" + path + sysFileName);
 
 			}

@@ -34,7 +34,6 @@ $('a').click(function(event){
 	
 	link = $(this).attr('href');
 	
-	alert("링크" + link);
 	
 	$('#pageForm').attr('action', link);
 	$('#pageForm').submit();
