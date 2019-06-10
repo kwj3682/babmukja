@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/js/slider/slider-radio.css"/>">
     <script src="<c:url value="/resources/js/slider/slider-radio.js"/>"></script>
     <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="writeform-header">레시피 작성</div>
@@ -143,11 +144,15 @@
                 <div class="videoPlus">
                 	<span>레시피 영상을 올려보세요!</span>
                 </div>
+                 <form name="videoForm" method="post" enctype="multipart/form-data">
                 <input type="file" name="videoFile"/>
+                </form>
         </label>
         <video id='my-video' class='video-js' controls preload='auto' 
         width='649' height='380' poster='<c:url value="/resources/images/logo.png"/>' data-setup='{"fluid": true}'>          
-            <source id="source" src='' type='video/mp4'>
+            <source class="source" src='' type='video/mp4'>
+            <source class="source" src='' type="video/webm" />
+            <source class="source" src='' type="video/ogg" />
         </video> 
     
     
@@ -159,7 +164,7 @@
     </div>
     <script>
     
-    $('input[name="videoFile"]').change(function(e){ 
+     $('input[name="videoFile"]').change(function(e){ 
         $(".video-js").attr('src',URL.createObjectURL(e.target.files[0]));
     });
     
@@ -232,8 +237,7 @@
                                     console.dir(file);
                                     let fileData = new FormData();
                                     
-                                        fileData.append("attach", file);  
-                                        
+                                        fileData.append("attach", file);                                         
                                     return new Promise(function (resolve, reject) {
                               alert("이미지 업로드 중...");
                                         $.ajax({
@@ -317,9 +321,10 @@
         });
 
         let saveBtn = document.querySelector("button");
-        saveBtn.addEventListener("click", function () {
+        saveBtn.addEventListener("click", function () {    			
+
            let recipeTitle = $("#title").val();
-            console.dir(editor)
+            console.dir(editor);
             editor.save().then((outputData)=>{
         
                let cnt = 0;
@@ -345,32 +350,37 @@
 				
                console.log("주의 사항: " + cautions );
                let content = JSON.stringify(outputData);
-               let title= $("#title").val();
+               let title= $("#title").val();   
                
                let f = new FormData();
                f.append("keywordNo",keyword);
                f.append("content",content);
                f.append("title",title);
                f.append("imgPath",fileList);
-               f.append("cautions",cautions);
+               f.append("cautions",cautions);   
+   /*             f.append("video",$("input[name=videoFile]")[0].files[0]);  
+               console.dir($("input[name=videoFile]")[0].files[0]); */
                
                $.ajax({
-               type: "post",
-                     url:"write.do",
+               	  type: "post",
+                  url:"write.do",
                   data: f,
                   processData: false,
                   contentType: false,
                   success:function(result){
                   }
                });
+                
                 console.log("Article data : ", outputData);
                 console.log("title : "+title);
                 console.log("content : " + content);
-                location.href="<c:url value="/recipe/main.do"/>";
+                //location.href="<c:url value="/recipe/main.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });
         });
+        
+        
     </script>
 </body>
 </html>

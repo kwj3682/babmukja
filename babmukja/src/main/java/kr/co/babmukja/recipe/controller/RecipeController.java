@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,9 +32,12 @@ import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
@@ -155,7 +159,26 @@ public class RecipeController {
 
 	@RequestMapping("/write.do")
 	@ResponseBody
-	public void write(Recipe recipe,  int[] keywordNo, int[] cautions, HttpSession session) {
+	public void write(Recipe recipe,  int[] keywordNo, int[] cautions, HttpSession session) { 
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/recipe" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false)
+			file.mkdirs();
+		System.out.println("create root : " + uploadRoot + path + "/ <- videofile name here");
+		MultipartFile mFile = recipe.getVideo();
+		System.out.println("video : " + recipe.getVideo().getSize());
+		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
+		try {
+			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		System.out.println("비디오 file upload succeed.");
+
+		
 		System.out.println("write.do 실행");
 		Member user =  (Member)session.getAttribute("user");
 		System.out.println("작성자 번호 : " + user.getMemNo());
@@ -164,7 +187,7 @@ public class RecipeController {
 	}
 
 	@RequestMapping("/detail.do")
-	public ModelAndView detail(ModelAndView mav, int no) {
+	public ModelAndView detail(ModelAndView mav, int no,HttpSession session) {
 		Recipe recipe = service.selectRecipeByNo(no);
 		service.addViewCnt(no);
 		if (recipe == null) {
@@ -188,8 +211,22 @@ public class RecipeController {
 			case 14:cautions.add("당뇨 주의"); break;
 			}
 			
+		}	
+		Member user =  (Member)session.getAttribute("user");
+		if(user != null ) {
+			RecipeFollow follow = new RecipeFollow();
+			follow.setFollowMemNo(recipe.getMemNo());			
+			follow.setFollowerMemNo(user.getMemNo());
+			
+			RecipeLike like = new RecipeLike();
+			like.setMemNo(user.getMemNo());
+			like.setRecipeNo(recipe.getRecipeNo());			
+			
+			mav.addObject("followStatus", service.selectFollowStatus(follow));		
+			mav.addObject("likeStatus", service.selectLikeStatus(like));
 		}
-		
+		       
+		mav.addObject("memRecipe",service.selectRecipeByMem(recipe.getMemNo()));
 		mav.addObject("recipe", recipe);
 		mav.addObject("keyword",recipeKeyword);
 		mav.addObject("cautions",cautions);
@@ -298,8 +335,7 @@ public class RecipeController {
 			
 		}catch(Exception e) {
 			
-		}
-			
+		}			
 		
 		model.addAttribute("calist", result);
 	}
@@ -325,4 +361,70 @@ public class RecipeController {
 		 List<RecipePage> list = service.selectRecipeByCate(page);
 		 model.addAttribute("calist", list);
 	 }
+	 
+	 // 레시피 좋아요
+     @RequestMapping("/like.do")
+     @ResponseBody
+     public Map like(RecipeLike recipe, HttpSession session) {
+    	 int count = service.selectCountLike(recipe);
+    	 String status = service.selectLikeStatus(recipe);
+    	 
+    	 Map<String, Object> list = new HashMap<>();
+    	 
+    	 if(count == 1) {
+    		 if(status.equals("Y")) {
+    			 recipe.setLikeStatus("N");
+    			 service.updateRecipeLike(recipe);    			
+    			 service.deleteLikeCnt(recipe.getRecipeNo());
+    			 
+    			 list.put("status",recipe.getLikeStatus());
+    			 list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
+    			 return list;
+    			 
+    		 } else if(status.equals("N")) {
+    			 recipe.setLikeStatus("Y");
+    			 service.updateRecipeLike(recipe);    			 
+    			 service.updateLikeCnt(recipe.getRecipeNo()); 
+    			 
+    			 list.put("status",recipe.getLikeStatus());
+    			 list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
+    			 return list;
+    		 }
+    	 } else {
+    		 service.insertRecipeLike(recipe);    		
+			 service.updateLikeCnt(recipe.getRecipeNo());
+			 
+			 list.put("status",recipe.getLikeStatus());
+			 list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
+			 return list;
+    	 }
+    	 return list;
+    }
+     
+     // 레시피 팔로우
+     @RequestMapping("/follow.do")
+     @ResponseBody
+     public int follow(RecipeFollow follow) {    	 
+    	 int count = service.selectCountFollow(follow);
+    	 String status = service.selectFollowStatus(follow);    	 
+    	 
+    	 if(count == 1) {
+    		 if(status.equals("Y")) {
+    			 follow.setFollowStatus("N");
+    			 service.updateRecipeFollow(follow);
+    			 return 0;
+    			 
+    		 } else if(status.equals("N")) {
+    			 follow.setFollowStatus("Y");
+    			 service.updateRecipeFollow(follow);
+    			 return 1;
+    		 }
+    	 } else {
+    		 service.insertRecipeFollow(follow);
+    		 return 1;   		 
+    	 }
+    	 return 0;
+     }
+     
+     
 }

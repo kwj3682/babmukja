@@ -23,6 +23,7 @@
 		<result column="cnt" property="cnt"/>
 	</resultMap>
 	
+	<!-- 레시피 등록 -->
 	<insert id="insertRecipe" parameterType="recipe" useGeneratedKeys="true" keyProperty="recipeNo">
 		insert into tb_recipe(
 					mem_no,title,content,imgpath)
@@ -31,29 +32,119 @@
 					)
 	</insert>
 	
+	<!-- 레시피 조회 -->
 	<select id="selectRecipe" resultMap="recipeMap">
 		select m.mem_nickname,r.* from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
 		 order by regDate desc
 	</select>
 	
+	<!-- 레시피 상세 조회 -->
 	<select id="selectRecipeByNo" parameterType="int" resultMap="recipeMap">
-		select * from tb_recipe where recipe_no = #{recipeNo}
+		select r.*, m.* 
+		  from tb_recipe r, tb_member m 
+		 where r.mem_no = m.mem_no
+		   and recipe_no = #{recipeNo}
+	</select>
+
+	<!-- 회원 레시피 목록 -->
+	<select id="selectRecipeByMem" parameterType="int" resultType="recipe">
+		select r.*, m.*
+		  from tb_recipe r, tb_member m
+		 where r.mem_no = m.mem_no
+		   and r.mem_no = #{memNo}
+		 order by regDate desc
+		 limit 0,4
 	</select>
 	
+	<!-- 조회수 증가 -->
 	<update id="addViewCnt" parameterType="int">
 		update tb_recipe
 		   set viewcnt = viewcnt + 1
 		 where recipe_no = #{recipeNo}
+	</update>	
+	
+	<!-- 레시피 팔로우 기능 -->
+	<insert id="insertRecipeFollow" parameterType="recipefollow">
+		insert tb_recipe_follow(follow_mem_no, follower_mem_no)
+		values(#{followMemNo}, #{followerMemNo})		
+	</insert>
+	
+	<select id="selectCountFollow" parameterType="recipefollow" resultType="int">
+		select count(*) 
+  		  from tb_recipe_follow 
+         where follow_mem_no = #{followMemNo}
+           and follower_mem_no = #{followerMemNo}	
+	</select>
+	
+	<select id="selectFollowStatus" parameterType="recipefollow" resultType="String">
+		select follow_status
+		  from tb_recipe_follow
+		 where follow_mem_no = #{followMemNo}
+           and follower_mem_no = #{followerMemNo}
+	</select>
+	
+	<update id="updateRecipeFollow" parameterType="recipefollow">
+		update tb_recipe_follow
+		   set follow_status = #{followStatus}
+		 where follow_mem_no = #{followMemNo}
+           and follower_mem_no = #{followerMemNo} 			   
 	</update>
 	
+	<!-- 레시피 좋아요 기능 -->	
+	<select id="selectCountLike" parameterType="recipelike" resultType="int">
+		select count(*) 
+  		  from tb_recipe_like
+         where recipe_no = #{recipeNo}
+           and mem_no = #{memNo}
+	</select>
+	
+	<insert id="insertRecipeLike" parameterType="recipelike">
+       insert into tb_recipe_like(recipe_no, mem_no)
+       values(#{recipeNo}, #{memNo})
+   </insert>
+	
+	<update id="updateLikeCnt" parameterType="int">
+		update tb_recipe
+		   set likecnt = likecnt + 1
+		 where recipe_no = #{recipeNo}
+	</update>
+	
+	<update id="deleteLikeCnt" parameterType="int">
+		update tb_recipe
+		   set likecnt = likecnt - 1
+		 where recipe_no = #{recipeNo}
+	</update>
+	
+	<update id="updateRecipeLike" parameterType="recipelike">
+		update tb_recipe_like
+		   set like_status = #{likeStatus}
+		 where recipe_no = #{recipeNo}
+           and mem_no = #{memNo} 			   
+	</update>
+	
+	<select id="selectLikeStatus" parameterType="recipefollow" resultType="String">
+		select like_status
+		  from tb_recipe_like
+		 where recipe_no = #{recipeNo}
+		   and mem_no = #{memNo}
+	</select>
+	
+	<select id="countLikeCnt" resultType="int" parameterType="int">
+		select likecnt
+		  from tb_recipe
+		 where recipe_no = #{recipeNo}
+	</select>
+	
+	<!-- 레시피 수정 -->
 	<update id="updateRecipe" parameterType="recipe">
 		update tb_recipe
 		   set title = #{title},
 		       content = #{content}
 		 where recipe_no = #{recipeNo}		   
-	</update>
+	</update>  
 	
+	<!-- 레시피 삭제 -->
 	<delete id="deleteRecipe" parameterType="int">
 		delete 
 		  from tb_recipe
