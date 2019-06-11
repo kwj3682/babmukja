@@ -32,7 +32,7 @@
 	<!-- 스프링 파일업로드를 위한 필수 작업. -->
 	<bean id="multipartResolver" 
 		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="10000000" />
+		<property name="maxUploadSize" value="2000000000" />
 	</bean>
 	
 	<context:property-placeholder location="classpath:config/mybatis/db.properties"/>

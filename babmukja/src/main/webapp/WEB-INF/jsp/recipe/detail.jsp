@@ -108,8 +108,29 @@
             <div id="content-wrapper"><!-- content-wrapper start -->
                 <div id="content-info"><!-- content-info start -->
                     <div id="content-button-wrapper"><!-- content-button-wrapper start -->
-                        <button><i class="fas fa-hand-holding-heart"></i> <b>30</b></button>
-                        <button><i class="fas fa-scroll"></i> <b>12</b></button>
+                    
+                     <c:choose>
+                        	<c:when test="${likeStatus eq 'Y' }">
+                        		  <button id="likeNo" class="recipeLike">
+	                        		  <i class="fas fa-hand-holding-heart"></i> 
+	                        		  <b class="likeCnt">${recipe.likeCnt}</b>
+                        		  </button>
+                        	</c:when>
+                        	<c:when test="${likeStatus eq 'N' }">
+                        		  <button id="likeYes" class="recipeLike">
+	                        		  <i class="fas fa-hand-holding-heart"></i> 
+	                        		  <b class="likeCnt">${recipe.likeCnt}</b>
+                        		  </button>
+                        	</c:when>
+                        	<c:otherwise>
+                        		  <button id="likeLogin" class="recipeLike">
+	                        		  <i class="fas fa-hand-holding-heart"></i> 
+	                        		  <b class="likeCnt">${recipe.likeCnt}</b>
+                        		  </button>
+                        	</c:otherwise>
+                        </c:choose>      
+                    
+                        <button class="recipeScrap"><i class="fas fa-scroll"></i> <b>12</b></button>
                     </div><!-- content-button-wrapper end -->
                 </div><!-- content-info end -->
 
@@ -118,17 +139,28 @@
                     <div id="profile-wrapper"> <!-- profile-wrapper start -->
                         <img id="profile-img" src="<c:url value="/resources/images/ma.jpg"/>">
                         <div id="profile-id">
-                            <div>bitchanmom</div>
+                            <div>${recipe.memNickname }</div>
                             <div>#level9</div>
-                        </div>
-                        <button id="follow">팔로우</button>
+                        </div>                   
+                        <c:choose>
+                        	<c:when test="${followStatus eq 'Y' }">
+                        		 <button id="followNo" class="follow">팔로우</button> 
+                        	</c:when>
+                        	<c:when test="${followStatus eq 'N' }">
+                        		<button id="follow" class="follow">팔로우</button>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<button id="followLogin" class="follow">팔로우</button>   
+                        	</c:otherwise>
+                        </c:choose>                                
                     </div><!-- profile-wrapper end -->
 
                     <div id="writer-post"><!-- writer-post start -->
-                        <a href="#"><img id="post-img1" src="<c:url value="/resources/images/f6.jpg"/>"></a>
-                        <a href="#"><img id="post-img2" src="<c:url value="/resources/images/f7.jpg"/>"></a>
-                        <a href="#"><img id="post-img3" src="<c:url value="/resources/images/f8.jpg"/>"></a>
-                        <a href="#"><img id="post-img4" src="<c:url value="/resources/images/f9.jpg"/>"></a>
+                    <c:forEach var="mrecipe" items="${memRecipe}">
+                        <a href="detail.do?no=${mrecipe.recipeNo }">
+                        	<img id="post-img1" src="${mrecipe.imgPath }">
+                        </a>
+                    </c:forEach>
                     </div><!-- writer-post end -->
 
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
@@ -144,7 +176,81 @@
     </div> <!-- 전체 body end -->
     
     
-    <script>
+    <script>  
+    // 스크랩 기능
+    $(".recipeScrap").click(function () {
+    	$.ajax({
+    		url : "scrap.do",
+    		data : {
+    			
+    		},
+    		success : function (result) {
+    			
+    		}
+    		
+    	});
+    });
+    
+    // 좋아요 기능
+    $(".recipeLike").click(function () {
+    	if('${sessionScope.user}' != "") {
+	    	$.ajax({
+	    		url : "like.do",
+	    		data : {
+	    			'recipeNo' : '${recipe.recipeNo}',
+	    			'memNo' : '${sessionScope.user.memNo}'
+	    		},
+	    		success : function (result) {  
+	    			if(result.status == 'Y') {
+	    				alert("좋아요가 되었습니다.");
+	    				$(".recipeLike").css({
+	    					background : "#7db341",
+		    				color : "white"		    				    
+	    				});	    				
+	    				$(".likeCnt").html(result.cnt);
+	    			} else {
+	    				alert("좋아요가 해제되었습니다.");
+	    				$(".recipeLike").css({	    					
+	    				    background: "#eee",
+	    			    	color: "#bbb"
+	    				});
+	    				
+	    				$(".likeCnt").html(result.cnt);
+	    			}
+	    		}
+	    	});
+    	} else alert("로그인 후 이용가능합니다.");
+    });
+    
+    // 팔로우 기능
+    $(".follow").click(function () {  	
+		if('${sessionScope.user}' != "") {
+		    	$.ajax({
+		    		url : "follow.do",
+		    		data : {
+		    			'followMemNo': '${recipe.memNo}',
+		    			'followerMemNo':  '${sessionScope.user.memNo}'
+		    		},
+		    		success : function(result) {		    		
+		    			if(result == 1) {
+			    			alert("팔로우가 되었습니다.");	
+			    			$(".follow").css({
+			    				background : "#7db341",
+			    				color : "white"	
+			    			});
+		    			} else {
+		    				alert("팔로우가 해제되었습니다.");
+		    				$(".follow").css({
+		    					background : "#eee",
+		    			    	color: "#777"
+			    			});
+		    			}
+		    		}
+		    	});
+			} else alert("로그인 후 이용가능합니다.");
+    	});
+    
+    // 댓글 별점 함수
    	 	var a;
    		function ratingreturn(no,i){
    		switch(no){
