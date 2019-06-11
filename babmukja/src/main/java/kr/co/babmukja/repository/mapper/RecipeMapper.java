@@ -5,10 +5,13 @@ import java.util.List;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
 
 
 public interface RecipeMapper {
@@ -21,9 +24,26 @@ public interface RecipeMapper {
 	// 레시피 삭제
 	public void deleteRecipe(int no);
 	// 레시피 목록
-	public List<Recipe> selectRecipe();
+	public List<Recipe> selectRecipe();	
+	// 회원 레시피 목록 
+	public List<Recipe> selectRecipeByMem(int no);	
 	// 레시피 조회수 증가
 	public void addViewCnt(int no);	
+	
+	// 레시피 팔로우
+	public void insertRecipeFollow(RecipeFollow follow);
+	public int selectCountFollow(RecipeFollow follow);
+	public void updateRecipeFollow(RecipeFollow follow);
+	public String selectFollowStatus(RecipeFollow follow);
+	
+	// 레시피 좋아요
+	public void insertRecipeLike(RecipeLike recipe);
+	public void updateRecipeLike(RecipeLike recipe);
+	public void updateLikeCnt(int no);
+	public void deleteLikeCnt(int no);
+	public int selectCountLike(RecipeLike recipe);
+	public String selectLikeStatus(RecipeLike recipe);
+	public int countLikeCnt(int no);	
 	
 	// 레시피 댓글 조회
 	public List<RecipeReview> selectReviewByNo(Page page);

@@ -190,9 +190,9 @@
                            <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
                        </div>
                        <div class="recipe-info">
-                           <i class="fas fa-heart fa-2x">50</i>
+                           <i class="fas fa-heart fa-2x">${list.likeCnt }</i>
                            <i class="fas fa-scroll fa-2x">60</i>
-                           <i class="fas fa-eye fa-2x">120</i>
+                           <i class="fas fa-eye fa-2x">${list.viewCnt }</i>
                        </div>
                    </div>
                </c:forEach>
@@ -307,7 +307,6 @@
 //    $("#turnModal").modal({
 //          backdrop: 'static'
 //     });
-
 
 
    // modal 창 이전버튼

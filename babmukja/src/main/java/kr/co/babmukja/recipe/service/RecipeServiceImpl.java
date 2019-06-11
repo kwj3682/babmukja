@@ -11,10 +11,13 @@ import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
 @Service("kr.co.babmukja.recipe.service.RecipeService")
@@ -131,7 +134,53 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<RecipePage> selectRecipeByCate(RecipePage page) {		
 		return mapper.selectRecipeByCate(page);
 	}
+
+	// 회원 레시피 목록
+	public List<Recipe> selectRecipeByMem(int no) {		
+		return mapper.selectRecipeByMem(no);
+	}
+
+	// 레시피 좋아요 기능
+	public void insertRecipeLike(RecipeLike recipe) {
+		mapper.insertRecipeLike(recipe);
+	}
 	
+	public int selectCountLike(RecipeLike recipe) {
+		return mapper.selectCountLike(recipe);
+	}
 	
+	public void updateLikeCnt(int no) {
+		mapper.updateLikeCnt(no);
+	}
+	public void updateRecipeLike(RecipeLike recipe) {
+		mapper.updateRecipeLike(recipe);
+	}
+	public void deleteLikeCnt(int no) {
+		mapper.deleteLikeCnt(no);
+	}	
+	
+	public String selectLikeStatus(RecipeLike recipe) {
+		return mapper.selectLikeStatus(recipe);
+	}
+	public int countLikeCnt(int no) {
+		return mapper.countLikeCnt(no);
+	}
+	
+	// 레시피 팔로우
+	public void insertRecipeFollow(RecipeFollow follow) {
+		mapper.insertRecipeFollow(follow);		
+	}
+
+	public int selectCountFollow(RecipeFollow follow) {
+		return mapper.selectCountFollow(follow);
+	}
+
+	public void updateRecipeFollow(RecipeFollow follow) {
+		mapper.updateRecipeFollow(follow);
+	}
+
+	public String selectFollowStatus(RecipeFollow follow) {
+		return mapper.selectFollowStatus(follow);
+	}
 	
 }
