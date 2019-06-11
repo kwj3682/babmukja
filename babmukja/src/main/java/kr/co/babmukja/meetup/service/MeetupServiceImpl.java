@@ -69,5 +69,13 @@ public class MeetupServiceImpl implements MeetupService{
 		
 			return result;
 	}
+
+	
+	
+	@Override
+	public List<Meetup> SelectRecommendAll() {
+		
+		return mapper.selectRecommendAll();
+	}
 	
 }

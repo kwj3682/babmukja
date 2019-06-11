@@ -42,7 +42,8 @@ public class MeetupController {
 	public void test() {
 	System.out.println("controller 찍히는 확인");
 	}
-	
+
+
 	@RequestMapping("/afterSearch.do")
 	public void afterSearch(Model model, PageAfterSearch page) {
 		
@@ -254,9 +255,10 @@ public class MeetupController {
 	}//createMeetup
 	
 	@RequestMapping("/main.do")
-	public void meetupMain() {
-//		service.selectIntro();
-		System.out.println("메인 들어왔음");
+	public void meetupMain(Model model) {
+	
+	model.addAttribute("selectAll", service.SelectRecommendAll());
+	
 	}
 	
 	

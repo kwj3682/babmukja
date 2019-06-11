@@ -14,6 +14,7 @@ public void deleteIntro();
 public void insertMeetupBoard(Meetup meetup);
 public void insertMeetupLocation(MeetupLocation meetupLocation);
 public int selectAllMeetupCount();
+public List<Meetup> selectRecommendAll();
 public List<Meetup>	selectMeetup(PageAfterSearch page);
 //public List<MeetupLocation> selectLocation()
 }

@@ -72,5 +72,10 @@
 		  from tb_meetup
 	</select>
     
+    <select id="selectRecommendAll" resultMap="meetupMap">
+		select* from tb_meetup
+		order by  view_cnt desc
+		limit 1, 3
+	</select>
    
 </mapper>
