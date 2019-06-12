@@ -216,7 +216,7 @@
   		$.ajax({
  			url : "commentUpdateForm.do" 			
  		}).done (function (data) {
- 			$("#"+no).after (` <div id="comment-mine">
+ 			$("#"+no).after (` <div id="comment-mine">`
                 	  <img src="">
                      <div id="comment-input-wrapper">
                        <div id="reviewStars-input">  

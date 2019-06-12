@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<c:url value="/resources/css/notice/notice enroll.css"/>">
-    <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
+   <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script>
     <title>공지사항 등록</title>
 </head>
 <body style="background: white;">
@@ -53,9 +53,9 @@
           </tr>
         </table>
         <hr />
-        <br />
+        <br /><br><br>
         <div class="notice_wsubd">
-          <th class="notice_wsub"><button type="submit"><a href="list.do">목록보기</a></button></th>
+          <th class="notice_wsub"><button type="submit"><a href="list.do">취소하기</a></button></th>
           &nbsp; &nbsp; &nbsp;
           <th class="notice_wsub"><button type="submit">수정하기</button></th>
         </div>
