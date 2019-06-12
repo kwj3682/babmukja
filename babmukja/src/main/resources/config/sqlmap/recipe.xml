@@ -316,4 +316,12 @@
       <include refid="searchWhere"/>
          limit #{pageNo}, 12         
 	</select>
+
+	<!-- (우중) 회원 번호로 레시피 가져오기-->
+	<select id="selectRecipeByMemNo" parameterType="int" resultMap="recipeMap">
+		select m.mem_nickname,r.* from tb_member m,tb_recipe r
+		 where m.mem_no = r.mem_no
+		 	   and m.mem_no = #{memNo}
+		 order by recipe_no asc
+	</select>
 </mapper>

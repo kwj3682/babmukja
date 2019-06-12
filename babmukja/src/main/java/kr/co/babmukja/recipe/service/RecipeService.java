@@ -69,4 +69,6 @@ public interface RecipeService {
 	// 레시피 카테고리별 목록 가져오기
 	public List<RecipePage> selectRecipeAll(RecipePage page);
 	public List<RecipePage> selectRecipeByCate(RecipePage page);
+	//(우중) 회원번호로 레시피 가져오기
+	public List<Recipe> selectRecipeByMemNo(int memNo); 
 }

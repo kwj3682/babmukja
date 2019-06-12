@@ -183,4 +183,7 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectFollowStatus(follow);
 	}
 	
+	public List<Recipe> selectRecipeByMemNo(int memNo) {
+		return mapper.selectRecipeByMemNo(memNo);
+	}
 }

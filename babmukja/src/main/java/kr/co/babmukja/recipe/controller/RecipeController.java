@@ -426,5 +426,10 @@ public class RecipeController {
     	 return 0;
      }
      
+     @RequestMapping("/recipebyno.do")
+     @ResponseBody
+     public List<Recipe> selectRecipeByNo(int memNo){
+    	return service.selectRecipeByMemNo(memNo); 
+     }
      
 }
