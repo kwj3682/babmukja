@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -36,6 +38,7 @@
 </head>
 
 <body>
+
 	<div class="header">
 		<div class="headerLeft">
 			<div class=title>오늘은 내가 짜파게티 요리사</div>
@@ -64,10 +67,20 @@
 				<div class="subInfoPic">
 					<i class="fas fa-users fa-3x"></i>
 				</div>
-				<div class="tagBottom">월요일</div>
-				<div class="tagBottom">부천,인천</div>
-				<div class="tagBottom">10,000원</div>
-				<div class="tagBottom">50명</div>
+				    
+				<c:set var = "string1" value = "${meetup.day}"/>
+				<c:set var="wordLength"  value="${fn:length(string1)}"/>  
+				 <c:choose>  
+				 <c:when test = "${wordLength == 1}"> 
+				<div class="tagBottom">${meetup.day}요일</div>
+				</c:when>
+				<c:otherwise>
+				<div class="tagBottom">${meetup.day}</div>
+				</c:otherwise>
+				</c:choose>
+				<div class="tagBottom">${meetup.location}</div>
+				<div class="tagBottom">${meetup.fee}</div>
+				<div class="tagBottom">1</div>
 
 			</div>
 			<div class="tag">#짜파게티&nbsp; #치즈 짜파게티 &nbsp;#불닭 짜파게티</div>
@@ -97,17 +110,15 @@
 
 		</div>
 		<div class="tabPanel">모임공지
-		
-		
-		<div class ="noticeListContainer">
-		<div class="noticeListHeader">
-		<div>글 번호</div>
-		<div>작성자</div>
-		<div>제목</div>
-		<div>날짜</div>
-		<div>조회수</div>
+			${sessionScope.user.memNo}, ${sessionScope.user.memName}
+		<div class="requestPermissionContainer">
+		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
+		<span class="requestPermission">모임 가입 신청</span>
 		</div>
-		</div>
+		<Script>
+		
+		</Script>
+	
 			
 		</div><!--tab panel 끝  -->
 		<div class="tabPanel">자유게시판</div>
@@ -182,6 +193,9 @@
 		let data = {};
 		data.fileDirectory = fileDirectory;
 		data.deleteDirectory = deleteDirectory;
+		let meetNo = ${meetup.meetNo};
+		data.meetNo = meetNo;
+		console.log("meetNo" + meetNo)
 		dbPath = $('#summernote').val();
 		data.dbPath = dbPath;
 		for (let i = 0; i < tempFileDirectory.length; i++) {
@@ -201,6 +215,9 @@
 
 		/*    var text =$('#summernote').val();
 		   var encoded = encodeURIComponent(text) */
+		 
+
+		   
 		$.ajax({
 			data: data,
 			type: "POST",
@@ -216,21 +233,20 @@
 
 	//수정을 눌렀을 때
 	$(document).on("click", "#introEdit", function () {
-
+		data={};
+		let meetNo = ${meetup.meetNo};
+		data.meetNo = meetNo;
 		$.ajax({
 			url: '/babmukja/meetup/editIntro.do',
+			data:data,
 			enctype: 'multipart/form-data',
 			success: function (data) {
 				$("#tabPanel1").html(`
                                  	<div class="saveReturn"><div id="introReturn">돌아가기</div><div id="introSave">저장</div><div id="introHeader" >모임을 소개해 주세요~^^</div><div>
-                                     <textarea id="summernote" name="editordata">`+ data + `</textarea>`
-				);
+                                     <textarea id="summernote" name="editordata">`+ data + `</textarea>`);
 			}
 		});
-
-
-
-	});
+		});
 
 
 	$(document).on("mouseover", document, function () {
