@@ -10,11 +10,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<c:url value="/resources/css/notice/notice list.css"/>">
-    <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
+       <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script>
     <title>전체조회</title>
+   <!--  <script type="text/javascript">
+        $(document).ready(function(){
+        	$(".noticelist > #tableDesign").css("background-color", "wheat");
+        });  
+    </script> -->
+    <!-- <script type="text/javascript">
+        $(document).ready(function(){
+        	$(".noticelist > #tableDesign > tbody > tr:nth-child(odd)").css("background-color", "red");
+        	$(".noticelist > #tableDesign > tbody > tr:nth-child(even)").css("background-color", "blue");
+        });  
+    </script>  -->
 </head>
 <body style="background: white;">
-    <div class="noticelist">
+    <div class="noticelist"><br>
         <h2>공지사항 전체조회</h2><br>
         <hr>
         <td class="btnView"><button input type="button" style="font-size: 1.2em; float:left; vertical-align: middle;"> 
@@ -118,9 +129,9 @@
              </table><hr>
                <nav id="pageNav">
                    <ul>
-                       <li><a href='detail.do'>1</a></li>
+                       <li><a href='index.do'>1</a></li>
                        <li><a href='writeForm.do'>2</a></li>
-                       <li><a href='#'>3</a></li>
+                       <li><a href='detailsample.do'>3</a></li>
                        <li><a href='#'>4</a></li>
                        <li><a href='#'>5</a></li>
                        <li><a href='index.do'>NEXT</a></li>
@@ -132,6 +143,7 @@
 <%-- 		</jsp:include> --%>
 <%-- 	</c:if>	 --%>
         </table>
+       
     </div>
     <footer>
             <h2>BABMUKJA COMPANY</h2>
