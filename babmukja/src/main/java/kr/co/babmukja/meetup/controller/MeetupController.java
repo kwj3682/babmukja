@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.babmukja.meetup.service.MeetupService;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
+import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
 import kr.co.babmukja.repository.domain.MeetupSearch;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
@@ -96,15 +97,13 @@ public class MeetupController {
 	private MeetupService service;
 
 	
-	@RequestMapping("/createM"
-			+ "eetup.do")
+	@RequestMapping("/createMeetup.do")
 	public void CreateMeetup(MultipartFile file, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
 		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
 		String hostName, int hostNo
 			
 			) {
-		service.selectIntro();
 		System.out.println("호스트 내임, 이름" +hostName +hostNo );
 		System.out.println("파일 " + file);
 		System.out.println("카테고리" + category);
@@ -258,15 +257,23 @@ public class MeetupController {
 	public void meetupMain(Model model) {
 	
 	model.addAttribute("selectAll", service.SelectRecommendAll());
-	
+	model.addAttribute("selectKorean", service.SelectRecommendKorean());
+	model.addAttribute("selectChinese", service.SelectRecommendChinese());
+	model.addAttribute("selectJapanese", service.SelectRecommendJapanese());
+	model.addAttribute("selectWestern", service.SelectRecommendWestern());
+	model.addAttribute("selectEastAsia", service.SelectRecommendEastAsia());
 	}
 	
 	
 	@RequestMapping("/detail.do")
-	public void meetupDetail(Model model) {
+	public void meetupDetail(Model model, int meetNo) {
+//		System.out.println("meetNo" + meetNo );
 //		service.selectIntro();
-		model.addAttribute("intro", service.selectIntro());
-	}
+		
+		
+		model.addAttribute("meetup", service.selectBoard(meetNo));
+		
+		}
 
 
 
@@ -336,13 +343,17 @@ public class MeetupController {
 
 	@RequestMapping("/updateIntro.do")
 	@ResponseBody
-	public String updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath) {
+	public String updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath, int meetNo) {
 		System.out.println("세이브 후 들어왔음");
 		if (deleteDirectory != null) {
 		System.out.println("파일 들어왔나 확인 :" + fileDirectory[0]);
 		}
 		System.out.println("dbpath 들어왔나 확인 :" + dbPath);
-		service.updateIntro(dbPath);
+		System.out.println("meetNo:" + meetNo);
+		MeetupIntro meetupIntro = new MeetupIntro();
+		meetupIntro.setDbPath(dbPath);
+		meetupIntro.setMeetNo(meetNo);
+		service.updateIntro(meetupIntro);
 		if (deleteDirectory != null) {
 			System.out.println("지울 파일 들어오나 확인 :" + deleteDirectory[0]);
 
@@ -375,9 +386,10 @@ public class MeetupController {
 
 	@RequestMapping("/editIntro.do")
 	@ResponseBody
-	public String editIntro() {
+	public String editIntro(int meetNo) {
+		System.out.println("수정 meetNo :" +meetNo);
 		System.out.println("수정 데이터 처리요청");
-		String data = service.selectIntro();
+		String data = service.selectIntro(meetNo);
 		return data;
 	}
 
