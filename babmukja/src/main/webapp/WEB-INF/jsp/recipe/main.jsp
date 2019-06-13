@@ -228,6 +228,9 @@
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
+    $("#bottle").click(function () {
+    	location.href = "<c:url value='/member/mypage.do?memNickname=${win.memNickname}'/>";
+    });
     
 	$(".writeno-button").click(function (){
 		alert("로그인 후 이용가능합니다.")

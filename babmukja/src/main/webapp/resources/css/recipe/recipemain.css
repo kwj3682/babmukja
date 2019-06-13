@@ -157,6 +157,7 @@ html, body {
     height: 110px;
     transition: .7s;
     margin-left: 10px;
+    cursor : pointer;
 }
 #bottle:hover{
     transform: rotate(15deg);
