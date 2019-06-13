@@ -86,6 +86,7 @@
                     <p class="total__price" id="total__price">원</p>
                 </div>
                 <div id="pb_detail_btns">
+                	<input type="hidden" name="memhidden" value="${sessionScope.user.memNo}">
                     <button class="add_to_cart">장바구니</button>
                     <button class="buy_now">구매하기</button>
                 </div>
@@ -166,11 +167,15 @@
                         </div>
                         <div class="pb_review_user_info">
                             <p class="review_user_nickname">${reviewList.member.memNickname}</p>
-                            <div class="reviewBUTTON">
-			                    <input type="hidden" name="pbReviewNo" value="${reviewList.reviewList.pbReviewNo}">
-                            	<button class="reviewUpdateBTN" >수정</button>
-                            	<button class="reviewDeleteBTN">삭제</button>
-                            </div>
+                         	<c:choose>
+                           		<c:when test="${sessionScope.user.memNo eq reviewList.member.memNo}">
+		                            <div class="reviewBUTTON">
+					                    <input type="hidden" name="pbReviewNo" value="${reviewList.reviewList.pbReviewNo}">
+		                            	<button class="reviewUpdateBTN" >수정</button>
+		                            	<button class="reviewDeleteBTN">삭제</button>
+		                            </div>
+                           		</c:when>
+                           	</c:choose>
                             <p class="review_user_rating">
                             	<span class="reviewScore">${reviewList.reviewList.rating}</span>
                             	<span><fmt:formatDate value="${reviewList.reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span>
@@ -345,8 +350,12 @@
 		                                <p id="pb_inquire_user_nickname">
 		                                	${inqList.member.memNickname}
 				                            <input type="hidden" name="inquiryNo" value="${inqList.inquiryNo}">
-		                                	<button class="inq_update_btn">수정</button>
-		                                	<button class="inq_delete_btn">삭제</button>
+		                                	<c:choose>
+			                                	<c:when test="${sessionScope.user.memNo eq inqList.member.memNo}">
+				                                	<button class="inq_update_btn">수정</button>
+				                                	<button class="inq_delete_btn">삭제</button>
+			                                	</c:when>
+		                                	</c:choose>
 		                                </p>
 		                                <p id="pb_inquire_user_regdate"><fmt:formatDate value="${inqList.inquiryRegdate}" pattern="yyyy-MM-dd hh:mm:ss"/></p>
 		                            </div>
@@ -439,6 +448,7 @@
 		        <div class="moadl-dialog">
 		            <div class="modal-content" id="cart-modal-content">
 		                <div class="modal-body">
+		                <input type="hidden" name="carthidden" value="${sessionScope.memNo}">
 		                    <button type="button" class="close" data-dismiss="modal">x</button>
 	                        <div class="cartmodal_container">
 						        <div class="cartmodal_header">
@@ -477,8 +487,11 @@
     });
     
     $("#pb_review_writeform").click(function () {
-      $("#reviewmodal").modal("show");
-     
+    	if ('${sessionScope.user}' != "") {
+	      $("#reviewmodal").modal("show");
+    	} else {
+    		alert("로그인 후 이용 가능합니다.");
+    	}
     });
     
     $("#reviewmodal").modal({
@@ -747,7 +760,11 @@
 		
 		// 문의 모달 오픈
 		$("#pb_inquire_writeform").click(function () {
-			$("#inquiremodal").modal("show");
+			if ('${sessionScope.user}' != "") {
+				$("#inquiremodal").modal("show");
+			} else {
+				alert("로그인 후 이용 가능합니다.");
+			}
 		});
 		
 		// 문의 등록 버튼
@@ -826,85 +843,96 @@
 		
 		// 결제
 		$(".buy_now").click(function () {
-// 			let price = $("#total__price").text(changeComma($("#total__price:first").text()));
-			let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
-			let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
-			let count = $("#total_count").text();			// 상품 개수
-			let pbName = $("#pb_detail_title > p").text();	// 상품 명
-			console.log("상품 명 : " + pbName);
-			console.log("개수 : " + count);
-			console.log("상품번호 : " + pbNo);
-			console.log("총 금액 : " + price);
-	        var IMP = window.IMP; // 생략가능
-	        IMP.init("imp21130958"); // 가맹점 식별 코드
-
-	        IMP.request_pay(
-	          {
-	            pg: "kakao", // 결제방식
-	            pay_method: "card", // 결제 수단
-	            merchant_uid: "merchant_" + new Date().getTime(),
-	            name: pbName, // order 테이블에 들어갈 주문명 혹은 주문 번호
-	            amount: price, // 결제 금액
-	            buyer_name: "", // 구매자 이름
-	            buyer_tel: "", // 구매자 전화번호
-	            m_redirect_url: "" // 결제 완료 후 보낼 컨트롤러의 메소드명
-	          },
-	          function(rsp) {
-	            if (rsp.success) {
-	            	$.ajax({
-	            		url: "/babmukja/store/pbpaymentinsert.do",
-	            		data: {
-	            			price : price,
-	            			pbNo : pbNo,
-	            			prodCount : count
-	            		}
-	            	}).done(function () {
-	            		alert("결제 완료@!@!");
-	            	});
-	              // 성공시
-	              var msg = "결제가 완료되었습니다.";
-	              msg += "고유ID : " + rsp.imp_uid;
-	              msg += "상점 거래ID : " + rsp.merchant_uid;
-	              msg += "결제 금액 : " + rsp.paid_amount;
-	              msg += "카드 승인번호 : " + rsp.apply_num;
-	            } else {
-	              // 실패시
-	              var msg = "결제에 실패하였습니다.";
-	              msg += "에러내용 : " + rsp.error_msg;
-	            }
-	          }
-	        );
+			if ('${sessionScope.user}' != "") {
+	// 			let price = $("#total__price").text(changeComma($("#total__price:first").text()));
+				let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+				let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
+				let count = $("#total_count").text();			// 상품 개수
+				let pbName = $("#pb_detail_title > p").text();	// 상품 명
+				let memNo = $("input[name='memhidden']").val();
+				console.log("상품 명 : " + pbName);
+				console.log("개수 : " + count);
+				console.log("상품번호 : " + pbNo);
+				console.log("총 금액 : " + price);
+				console.log("회원 번호 : " + memNo);
+		        var IMP = window.IMP; // 생략가능
+		        IMP.init("imp21130958"); // 가맹점 식별 코드
+	
+		        IMP.request_pay(
+		          {
+		            pg: "kakao", // 결제방식
+		            pay_method: "card", // 결제 수단
+		            merchant_uid: "merchant_" + new Date().getTime(),
+		            name: pbName, // order 테이블에 들어갈 주문명 혹은 주문 번호
+		            amount: price, // 결제 금액
+		            buyer_name: "", // 구매자 이름
+		            buyer_tel: "", // 구매자 전화번호
+		            m_redirect_url: "" // 결제 완료 후 보낼 컨트롤러의 메소드명
+		          },
+		          function(rsp) {
+		            if (rsp.success) {
+		            	$.ajax({
+		            		url: "/babmukja/store/pbpaymentinsert.do",
+		            		data: {
+		            			price : price,
+		            			pbNo : pbNo,
+		            			prodCount : count,
+		            			memNo : memNo
+		            		}
+		            	}).done(function () {
+		            		alert("결제 완료@!@!");
+		            	});
+		              // 성공시
+		              var msg = "결제가 완료되었습니다.";
+		              msg += "고유ID : " + rsp.imp_uid;
+		              msg += "상점 거래ID : " + rsp.merchant_uid;
+		              msg += "결제 금액 : " + rsp.paid_amount;
+		              msg += "카드 승인번호 : " + rsp.apply_num;
+		            } else {
+		              // 실패시
+		              var msg = "결제에 실패하였습니다.";
+		              msg += "에러내용 : " + rsp.error_msg;
+		            }
+		          }
+		        );
+			} else {
+				alert("로그인 후 이용 가능합니다.");
+			}
 		});
 		
 		// 장바구니
 		$(".add_to_cart").click(function () {
-			let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
-			let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
-			let count = $("#total_count").text();			// 상품 개수
-			let memNo = 3;
-			console.log(price);
-			console.log(pbNo);
-			console.log(count);
-			$.ajax({
-				url: "/babmukja/store/pbcartinsert.do",
-				data : {
-					pbNo : pbNo,
-					price : price,
-					prodCount : count,
-					memNo : 3
-				}
-			}).done(function () {
-// 				alert("장바구니에 등록성공~~~!~!~~!");
-// 				alert(memNo);
-				$("#cartmodal").modal("show");
-				$(".cart_move_btn").click(function () {
-					location.href = "cartpb.do?memNo=3";
+			if ('${sessionScope.user}' != "") {
+				let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+				let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
+				let count = $("#total_count").text();			// 상품 개수
+				let memNo = $("input[name='memhidden']").val();
+				alert(memNo);
+				console.log(price);
+				console.log(pbNo);
+				console.log(count);
+				$.ajax({
+					url: "/babmukja/store/pbcartinsert.do",
+					data : {
+						pbNo : pbNo,
+						price : price,
+						prodCount : count,
+						memNo : memNo
+					}
+				}).done(function () {
+					alert(memNo);
+					$("#cartmodal").modal("show");
+					$(".cart_move_btn").click(function () {
+						location.href = "cartpb.do?memNo="+memNo;
+					});
+					$(".cart_move_not_btn").click(function () {
+						location.href="detailpb.do?pbNo="+${storepb.pbNo};
+					});
+					
 				});
-				$(".cart_move_not_btn").click(function () {
-					location.href="detailpb.do?pbNo="+${storepb.pbNo};
-				});
-				
-			});
+			} else {
+				alert("로그인 후 이용 가능합니다.");
+			}
 		});
     </script>
 </body>
