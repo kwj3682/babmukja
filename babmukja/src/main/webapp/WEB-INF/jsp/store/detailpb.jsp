@@ -71,8 +71,7 @@
 					<input type="hidden" value="${storepb.rating}" name="storeRating">
 						<div class="storeRating-backStar"></div>
 						<div class="storeRating-frontStar-wrapper">
-							<div class="storeRating-frontStar"
-								style="width:${storepb.rating *10}%;"></div>
+							<div class="storeRating-frontStar" style="width:${storepb.rating *20}%;"></div>
 						</div>
 					</div>
 				</div>
