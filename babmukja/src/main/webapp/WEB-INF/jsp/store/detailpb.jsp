@@ -72,7 +72,7 @@
 						<div class="storeRating-backStar"></div>
 						<div class="storeRating-frontStar-wrapper">
 							<div class="storeRating-frontStar"
-								style="width:${storepb.rating *10}%;"></div>
+								style="width:${storepb.rating *20}%;"></div>
 						</div>
 					</div>
 				</div>
@@ -482,8 +482,11 @@
     
     
     $("#pb_review_writeform").click(function () {
-      $("#reviewmodal").modal("show");
-     
+    	if ('${sessionScope.user}' != "") {
+  	      $("#reviewmodal").modal("show");
+      	} else {
+      		alert("로그인 후 이용 가능합니다.");
+      	}
     });
     
     $("#reviewmodal").modal({
@@ -732,7 +735,11 @@
 		
 		// 문의 모달 오픈
 		$("#pb_inquire_writeform").click(function () {
-			$("#inquiremodal").modal("show");
+			if ('${sessionScope.user}' != "") {
+				$("#inquiremodal").modal("show");
+			} else {
+				alert("로그인 후 이용 가능합니다.");
+			}
 		});
 		
 		// 문의 등록 버튼
@@ -880,34 +887,40 @@
 		
 		// 장바구니
 		$(".add_to_cart").click(function () {
-			let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
-			let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
-			let count = $("#total_count").text();			// 상품 개수
-			let memNo = 3;
-			console.log(price);
-			console.log(pbNo);
-			console.log(count);
-			$.ajax({
-				url: "/babmukja/store/pbcartinsert.do",
-				data : {
-					pbNo : pbNo,
-					price : price,
-					prodCount : count,
-					memNo : 3
-				}
-			}).done(function () {
-// 				alert("장바구니에 등록성공~~~!~!~~!");
-// 				alert(memNo);
-				$("#cartmodal").modal("show");
-				$(".cart_move_btn").click(function () {
-					location.href = "cartpb.do?memNo=3";
+			if ('${sessionScope.user}' != "") {
+				let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+				let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
+				let count = $("#total_count").text();			// 상품 개수
+				let memNo = $("input[name='memhidden']").val();
+				alert(memNo);
+				console.log(price);
+				console.log(pbNo);
+				console.log(count);
+				$.ajax({
+					url: "/babmukja/store/pbcartinsert.do",
+					data : {
+						pbNo : pbNo,
+						price : price,
+						prodCount : count,
+						memNo : memNo
+					}
+				}).done(function () {
+					alert(memNo);
+					$("#cartmodal").modal("show");
+					$(".cart_move_btn").click(function () {
+						location.href = "cartpb.do?memNo="+memNo;
+					});
+					$(".cart_move_not_btn").click(function () {
+						location.href="detailpb.do?pbNo="+${storepb.pbNo};
+					});
+					
 				});
-				$(".cart_move_not_btn").click(function () {
-					location.href="detailpb.do?pbNo="+${storepb.pbNo};
-				});
-				
-			});
+			} else {
+				alert("로그인 후 이용 가능합니다.");
+			}
 		});
+		
+		// 후기 별점부분
         let checkedValue = 0;
         let $checkStar = $(".check-frontStar");
 		 $(".check-stars").mouseover(function(e){
