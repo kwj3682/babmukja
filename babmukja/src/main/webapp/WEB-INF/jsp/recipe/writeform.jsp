@@ -222,8 +222,8 @@
 
                                 function imgUpload() {
                                     console.dir(file);
-                                    if(file.size > 5 * 1024 * 1024) {
-                                    	alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+                                    if(file.size > 50 * 1024 * 1024) {
+                                    	alert("첨부파일 사이즈는 50MB 이내로 등록 가능합니다.");
                                     	return;
                                     }
                                     let fileData = new FormData();
