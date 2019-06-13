@@ -1,8 +1,7 @@
 package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
-
-import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 public class Recipe {
 	
@@ -24,10 +23,22 @@ public class Recipe {
 	
 	private String imgPath;	
 	private int keywordNo;
-	private int country;
+	private List<String> keyword;
+	private List<String> caution;
+	private int country;		
 	
-	private MultipartFile video;
-	
+	public List<String> getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(List<String> keyword) {
+		this.keyword = keyword;
+	}
+	public List<String> getCaution() {
+		return caution;
+	}
+	public void setCaution(List<String> caution) {
+		this.caution = caution;
+	}
 	public int getLikeNo() {
 		return likeNo;
 	}
@@ -39,12 +50,6 @@ public class Recipe {
 	}
 	public void setLikeHeart(int likeHeart) {
 		this.likeHeart = likeHeart;
-	}
-	public MultipartFile getVideo() {
-		return video;
-	}
-	public void setVideo(MultipartFile video) {
-		this.video = video;
 	}
 	public int getCountry() {
 		return country;
@@ -130,6 +135,15 @@ public class Recipe {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	@Override
+	public String toString() {
+		return "Recipe [memNo=" + memNo + ", memName=" + memName + ", memNickname=" + memNickname + ", recipeNo="
+				+ recipeNo + ", title=" + title + ", content=" + content + ", regDate=" + regDate + ", rating=" + rating
+				+ ", viewCnt=" + viewCnt + ", likeCnt=" + likeCnt + ", likeHeart=" + likeHeart + ", likeNo=" + likeNo
+				+ ", scrapCnt=" + scrapCnt + ", imgPath=" + imgPath + ", keywordNo=" + keywordNo + ", keyword="
+				+ keyword + ", caution=" + caution + ", country=" + country + "]";
+	}
+
+
 	
 }

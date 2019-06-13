@@ -71,7 +71,8 @@
                     <div>"이달의 레시피"</div>
                     <div>
                         <div id="sticker"></div>
-                        <img src="<c:url value="/resources/images/f3.jpg"/>">
+                        	<a href="detail.do?no=${win.recipeNo }"><img src="${win.imgPath }"></a> 
+                        	<!--<img src="${win.imgPath }">-->
                         <div id="sticker2"></div>
                     </div>
                     <div id="monthrecipe-keyword">#퓨전요리</div>
@@ -82,12 +83,12 @@
                     <div>만든 이 <span id="monthly-profile-wrapper"><img id="monthly-profile" src="<c:url value="/resources/images/profile15.jpg"/>"></span></div>
                     <div id="paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem cum expedita libero unde quos nemo blanditiis molestias mollitia! Vitae deserunt minima accusantium, inventore magnam fuga doloribus dolorem illum dolorum debitis perferendis porro quasi, similique maxime? Eum, officiis nemo? Repellat, deserunt.</div>
                     <div>
-                        <div>11111<img src="<c:url value="/resources/images/f3.jpg"/>"></div>
-                        <div>22222<img src="<c:url value="/resources/images/food1.jpg"/>"></div>
-                        <div>33333<img src="<c:url value="/resources/images/foodthumbnail7.jpg"/>"></div>
+                <c:forEach var="w" items="${winner }">
+                        <div>${w.title }<a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
+                 </c:forEach>
                         <div>더 보기 <b>↓</b><img id="bottle" src="<c:url value="/resources/images/bottle.png"/>"></div>
                     </div>
-                    <div>- 주부9단빛찬맘 -</div>
+                    <div>${win.memNickname }</div>
                 </div>
             </div>
         </div>
@@ -204,12 +205,7 @@
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
-    
 
-       
-
-    
-    
     function loadApp(id) {
        if (!$(id).turn("is")) {
           

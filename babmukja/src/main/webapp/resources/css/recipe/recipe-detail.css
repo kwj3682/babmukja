@@ -264,6 +264,13 @@
 .post-content{
     color:rgb(81,81,81);
 }
+#a-button {	
+	text-align : right;
+}
+#a-button > a {
+	color:rgb(81,81,81);
+}
+	
 #reviewStars-input input:checked ~ label, #reviewStars-input label, 
 #reviewStars-input label:hover, #reviewStars-input label:hover ~ label,
 #reviewStarsinput input:checked ~ label, #reviewStarsinput label, 

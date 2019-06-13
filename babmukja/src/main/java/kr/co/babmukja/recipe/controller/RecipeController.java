@@ -33,11 +33,11 @@ import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeScrap;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
@@ -45,7 +45,7 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeService service;
-	
+
 	@RequestMapping("/main.do")
 	public void main(Model model) {
 		List<Recipe> list = service.selectRecipe();
@@ -57,42 +57,41 @@ public class RecipeController {
 				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
 				recipe.setImgPath(imgpath);
 				result.add(recipe);
-//				System.out.println("default : " + imgpath);
 				continue;
 			}
 			String[] imgList = recipe.getImgPath().split(",");
 			recipe.setImgPath(imgList[0]);
-//			System.out.println("set image path : " + imgList[0]);
 			result.add(recipe);
 		}
 		model.addAttribute("recipe", result);
-		
-		model.addAttribute("countryrank",service.selectKeywordMost("country").getCountry());
-		model.addAttribute("situationrank",service.selectKeywordMost("situation").getSituation());
-		model.addAttribute("levelrank",service.selectKeywordMost("level").getLevel());
-		model.addAttribute("typerank",service.selectKeywordMost("type").getType());
 
-		System.out.println("countryrank:"+service.selectKeywordMost("country").getCountry());
-		System.out.println("situationrank:"+service.selectKeywordMost("situation").getSituation());
-		System.out.println("levelrank:"+service.selectKeywordMost("level").getLevel());
-		System.out.println("typerank:"+service.selectKeywordMost("type").getType());
-		
-		
+		model.addAttribute("countryrank", service.selectKeywordMost("country").getCountry());
+		model.addAttribute("situationrank", service.selectKeywordMost("situation").getSituation());
+		model.addAttribute("levelrank", service.selectKeywordMost("level").getLevel());
+		model.addAttribute("typerank", service.selectKeywordMost("type").getType());
+
+		model.addAttribute("win", service.selectWinRecipe());
+		model.addAttribute("winner", service.selectMemRecipeByRate());
+
+		System.out.println("countryrank:" + service.selectKeywordMost("country").getCountry());
+		System.out.println("situationrank:" + service.selectKeywordMost("situation").getSituation());
+		System.out.println("levelrank:" + service.selectKeywordMost("level").getLevel());
+		System.out.println("typerank:" + service.selectKeywordMost("type").getType());
+
 	}
-	
+
 	@RequestMapping("/recipekeyword.do")
 	@ResponseBody
 	public List<Recipe> recipeSeachByKeywordNo(int keywordNo) {
 
 		return service.selectRecipeByKeyword(keywordNo);
 	}
-	
+
 	@RequestMapping("/writeform.do")
 	public void writeForm(Model model) {
-		model.addAttribute("keyword",service.selectKeyword());
+		model.addAttribute("keyword", service.selectKeyword());
 	}
-	
-	
+
 	@RequestMapping("/upload.do")
 	@ResponseBody
 	public Object upload(FileVO fileVO) throws Exception {
@@ -107,7 +106,6 @@ public class RecipeController {
 		MultipartFile mFile = fileVO.getAttach();
 
 		if (mFile.isEmpty()) {
-//				return;
 			System.out.println("is empty");
 		}
 		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
@@ -127,15 +125,9 @@ public class RecipeController {
 		String uploadRoot = "c:/bit2019/upload";
 		String path = fileVO.getPath();
 		String sysname = fileVO.getSysname();
-		/*
-		 * System.out.println("path : "+ path); System.out.println("sysname : "+
-		 * sysname);
-		 * 
-		 * System.out.println("file 생성");
-		 */
+		
 		File f = new File(uploadRoot + path + "/" + sysname);
 
-//		f = new File("c:/bit2019/upload/recipe/2019/05/10/767e829f-78ce-47ed-bd82-a0d85da1a9c820140510_221359.jpg");
 		response.setHeader("Content-Type", "image/jpg");
 
 		// 파일을 읽고 사용자에게 전송
@@ -159,35 +151,17 @@ public class RecipeController {
 
 	@RequestMapping("/write.do")
 	@ResponseBody
-	public void write(Recipe recipe,  int[] keywordNo, int[] cautions, HttpSession session) { 
-		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
-		String uploadRoot = "C:/bit2019/upload";
-		String path = "/recipe" + sdf.format(new Date());
-		File file = new File(uploadRoot + path);
-		if (file.exists() == false)
-			file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- videofile name here");
-		MultipartFile mFile = recipe.getVideo();
-		System.out.println("video : " + recipe.getVideo().getSize());
-		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
-		try {
-			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		System.out.println("비디오 file upload succeed.");
-
-		
-		System.out.println("write.do 실행");
-		Member user =  (Member)session.getAttribute("user");
-		System.out.println("작성자 번호 : " + user.getMemNo());
+	public void write(Recipe recipe, HttpSession session) {
+		System.out.println(recipe);		
+		Member user = (Member)session.getAttribute("user");		
 		recipe.setMemNo(user.getMemNo());
-		service.insertRecipe(recipe, keywordNo, cautions);
+		
+		service.insertRecipe(recipe,recipe.getKeyword(),recipe.getCaution());
+		 
 	}
 
 	@RequestMapping("/detail.do")
-	public ModelAndView detail(ModelAndView mav, int no,HttpSession session) {
+	public ModelAndView detail(ModelAndView mav, int no, HttpSession session) {
 		Recipe recipe = service.selectRecipeByNo(no);
 		service.addViewCnt(no);
 		if (recipe == null) {
@@ -197,51 +171,77 @@ public class RecipeController {
 		}
 		RecipeKeywordName recipeKeyword = service.selectKeywordByNo(no);
 		mav.setViewName("recipe/detail");
-		
+
 		List<String> cautions = new ArrayList<>();
-		for(String key : recipeKeyword.getCaution().split(",")) {
-			switch(Integer.parseInt(key)) {
-			case 7: cautions.add("임산부 주의"); break;
-			case 8: cautions.add("영유아 주의"); break;
-			case 9: cautions.add("고혈압 주의"); break;
-			case 10:cautions.add("육류 포함"); break;
-			case 11:cautions.add("돼지고기 포함"); break;
-			case 12:cautions.add("노약자 주의"); break;
-			case 13:cautions.add("알러지 유발 주의"); break;
-			case 14:cautions.add("당뇨 주의"); break;
+		for (String key : recipeKeyword.getCaution().split(",")) {
+			switch (Integer.parseInt(key)) {
+			case 7:
+				cautions.add("임산부 주의");
+				break;
+			case 8:
+				cautions.add("영유아 주의");
+				break;
+			case 9:
+				cautions.add("고혈압 주의");
+				break;
+			case 10:
+				cautions.add("육류 포함");
+				break;
+			case 11:
+				cautions.add("돼지고기 포함");
+				break;
+			case 12:
+				cautions.add("노약자 주의");
+				break;
+			case 13:
+				cautions.add("알러지 유발 주의");
+				break;
+			case 14:
+				cautions.add("당뇨 주의");
+				break;
 			}
-			
-		}	
-		Member user =  (Member)session.getAttribute("user");
-		if(user != null ) {
+
+		}
+		Member user = (Member) session.getAttribute("user");
+		if (user != null) {
 			RecipeFollow follow = new RecipeFollow();
-			follow.setFollowMemNo(recipe.getMemNo());			
+			follow.setFollowMemNo(recipe.getMemNo());
 			follow.setFollowerMemNo(user.getMemNo());
-			
+
 			RecipeLike like = new RecipeLike();
 			like.setMemNo(user.getMemNo());
-			like.setRecipeNo(recipe.getRecipeNo());			
-			
-			mav.addObject("followStatus", service.selectFollowStatus(follow));		
+			like.setRecipeNo(recipe.getRecipeNo());
+
+			mav.addObject("followStatus", service.selectFollowStatus(follow));
 			mav.addObject("likeStatus", service.selectLikeStatus(like));
 		}
-		       
-		mav.addObject("memRecipe",service.selectRecipeByMem(recipe.getMemNo()));
+
+		mav.addObject("memRecipe", service.selectRecipeByMem(recipe.getMemNo()));
 		mav.addObject("recipe", recipe);
-		mav.addObject("keyword",recipeKeyword);
-		mav.addObject("cautions",cautions);
+		mav.addObject("keyword", recipeKeyword);
+		mav.addObject("cautions", cautions);
 		return mav;
 	}
-		
+
 	@RequestMapping("/updateform.do")
 	public void updateForm(int no, Model model) {
+		model.addAttribute("keyword", service.selectKeywordByRecipe(no));	
 		model.addAttribute("recipe", service.updateForm(no));
 	}
 
 	@RequestMapping("/update.do")
 	@ResponseBody
-	public void update(Recipe recipe) {
-		service.updateRecipe(recipe);
+	public void update(Recipe recipe, HttpSession session) {
+		System.out.println("수정 들어옴..");
+		System.out.println(recipe);
+		Member user = (Member)session.getAttribute("user");		
+		recipe.setMemNo(user.getMemNo());
+		System.out.println("title"+recipe.getTitle());
+		System.out.println("no"+recipe.getRecipeNo());
+		System.out.println("content"+recipe.getContent());
+		System.out.println("img"+recipe.getImgPath());
+		service.updateRecipe(recipe,recipe.getKeyword(),recipe.getCaution());
+
 	}
 
 	@RequestMapping("/delete.do")
@@ -255,7 +255,7 @@ public class RecipeController {
 	public RecipeReview writeComment(RecipeReview review, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
 		review.setMemNo(user.getMemNo());
-		service.insertRecipeReview(review);	
+		service.insertRecipeReview(review);
 		service.updateRecipeRating(review.getRecipeNo());
 		return service.selectOneReviewByNo(review.getRecipeReviewNo());
 	}
@@ -272,35 +272,34 @@ public class RecipeController {
 
 	@RequestMapping("/commentUpdateForm.do")
 	@ResponseBody
-	public RecipeReview commentUpdateForm(int no) {		
+	public RecipeReview commentUpdateForm(int no) {
 		return service.selectOneReviewByNo(no);
 	}
 
-	
 	@RequestMapping("/commentDelete.do")
-	@ResponseBody 
-	 public void commentDelete(int no) {
-		 System.out.println(no);
-		 service.deleteRecipeReview(no); 
-		  
-	 }
-	 
-	 @RequestMapping("/updateComment.do")	  
-	 @ResponseBody 
-	 public RecipeReview updateComment(RecipeReview review) {		 
-		 service.updateRecipeReview(review);
-         return service.selectOneReviewByNo(review.getRecipeReviewNo());
-	 }
-	 
-	 @RequestMapping("/returnReviewData.do")	  
-	 @ResponseBody 
-	 public RecipeReview returnReviewData(int no) {
-		 return service.selectOneReviewByNo(no);
-	 }
+	@ResponseBody
+	public void commentDelete(int no) {
+		System.out.println(no);
+		service.deleteRecipeReview(no);
 
-	 // 레시피 카테고리 전체목록 가져오기
-	 @RequestMapping("/cadetailall.do")
-	 public void cadetailall(Model model, RecipePage page) {		
+	}
+
+	@RequestMapping("/updateComment.do")
+	@ResponseBody
+	public RecipeReview updateComment(RecipeReview review) {
+		service.updateRecipeReview(review);
+		return service.selectOneReviewByNo(review.getRecipeReviewNo());
+	}
+
+	@RequestMapping("/returnReviewData.do")
+	@ResponseBody
+	public RecipeReview returnReviewData(int no) {
+		return service.selectOneReviewByNo(no);
+	}
+
+	// 레시피 카테고리 전체목록 가져오기
+	@RequestMapping("/cadetailall.do")
+	public void cadetailall(Model model, RecipePage page) {
 		List<RecipePage> list = service.selectRecipeAll(page);
 		List<RecipePage> result = new ArrayList<>();
 		for (RecipePage recipe : list) {
@@ -317,114 +316,131 @@ public class RecipeController {
 		}
 		try {
 			List<Integer> cautions = new ArrayList<>();
-			for(String key : page.getCaution().split(",")) {
-				switch(Integer.parseInt(key)) {
-				case 7: cautions.add(Integer.parseInt(key)); break;
-				case 8: cautions.add(Integer.parseInt(key)); break;
-				case 9: cautions.add(Integer.parseInt(key)); break;
-				case 10:cautions.add(Integer.parseInt(key)); break;
-				case 11:cautions.add(Integer.parseInt(key)); break;
-				case 12:cautions.add(Integer.parseInt(key)); break;
-				case 13:cautions.add(Integer.parseInt(key)); break;
-				case 14:cautions.add(Integer.parseInt(key)); break;
+			for (String key : page.getCaution().split(",")) {
+				switch (Integer.parseInt(key)) {
+				case 7:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 8:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 9:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 10:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 11:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 12:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 13:
+					cautions.add(Integer.parseInt(key));
+					break;
+				case 14:
+					cautions.add(Integer.parseInt(key));
+					break;
 				}
 			}
-			for(int i = 0 ; i < cautions.size(); i++) {
-				model.addAttribute("caution"+cautions.get(i),cautions.get(i));
+			for (int i = 0; i < cautions.size(); i++) {
+				model.addAttribute("caution" + cautions.get(i), cautions.get(i));
 			}
-			
-		}catch(Exception e) {
-			
-		}			
-		
+
+		} catch (Exception e) {
+
+		}
+
 		model.addAttribute("calist", result);
 	}
-	 // 레시피 카테고리 전체 목록 무한스크롤
-	 @RequestMapping("/cadetailAllScroll.do")
-	 @ResponseBody
-	 public List<RecipePage> cadetailAllScroll(RecipePage page) {
-		 System.out.println(page.getCaution());
-		 List<RecipePage> list = service.selectRecipeAll(page);		 
- 		 return list;
-	 }	 
-	 
+
+	// 레시피 카테고리 전체 목록 무한스크롤
+	@RequestMapping("/cadetailAllScroll.do")
+	@ResponseBody
+	public List<RecipePage> cadetailAllScroll(RecipePage page) {
+		System.out.println(page.getCaution());
+		List<RecipePage> list = service.selectRecipeAll(page);
+		return list;
+	}
+
 	// 레시피 카테고리별 목록 가져오기
-	 @RequestMapping("/cadetail.do")
-	 public void cadetail(Model model, RecipePage page) {
-		 List<RecipePage> list = service.selectRecipeByCate(page);
-		 model.addAttribute("calist", list);
-	 }
-	 // 레시피 카테고리별 목록 무한스크롤
-	 @RequestMapping("/cadetailScroll.do")
-	 @ResponseBody
-	 public void cadetilScroll(Model model, RecipePage page) {
-		 List<RecipePage> list = service.selectRecipeByCate(page);
-		 model.addAttribute("calist", list);
-	 }
-	 
-	 // 레시피 좋아요
-     @RequestMapping("/like.do")
-     @ResponseBody
-     public Map like(RecipeLike recipe, HttpSession session) {
-    	 int count = service.selectCountLike(recipe);
-    	 String status = service.selectLikeStatus(recipe);
-    	 
-    	 Map<String, Object> list = new HashMap<>();
-    	 
-    	 if(count == 1) {
-    		 if(status.equals("Y")) {
-    			 recipe.setLikeStatus("N");
-    			 service.updateRecipeLike(recipe);    			
-    			 service.deleteLikeCnt(recipe.getRecipeNo());
-    			 
-    			 list.put("status",recipe.getLikeStatus());
-    			 list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
-    			 return list;
-    			 
-    		 } else if(status.equals("N")) {
-    			 recipe.setLikeStatus("Y");
-    			 service.updateRecipeLike(recipe);    			 
-    			 service.updateLikeCnt(recipe.getRecipeNo()); 
-    			 
-    			 list.put("status",recipe.getLikeStatus());
-    			 list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
-    			 return list;
-    		 }
-    	 } else {
-    		 service.insertRecipeLike(recipe);    		
-			 service.updateLikeCnt(recipe.getRecipeNo());
-			 
-			 list.put("status",recipe.getLikeStatus());
-			 list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
-			 return list;
-    	 }
-    	 return list;
-    }
-     
-     // 레시피 팔로우
-     @RequestMapping("/follow.do")
-     @ResponseBody
-     public int follow(RecipeFollow follow) {    	 
-    	 int count = service.selectCountFollow(follow);
-    	 String status = service.selectFollowStatus(follow);    	 
-    	 
-    	 if(count == 1) {
-    		 if(status.equals("Y")) {
-    			 follow.setFollowStatus("N");
-    			 service.updateRecipeFollow(follow);
-    			 return 0;
-    			 
-    		 } else if(status.equals("N")) {
-    			 follow.setFollowStatus("Y");
-    			 service.updateRecipeFollow(follow);
-    			 return 1;
-    		 }
-    	 } else {
-    		 service.insertRecipeFollow(follow);
-    		 return 1;   		 
-    	 }
-    	 return 0;
-     }
-     
-     
+	@RequestMapping("/cadetail.do")
+	public void cadetail(Model model, RecipePage page) {
+		List<RecipePage> list = service.selectRecipeByCate(page);
+		model.addAttribute("calist", list);
+	}
+
+	// 레시피 카테고리별 목록 무한스크롤
+	@RequestMapping("/cadetailScroll.do")
+	@ResponseBody
+	public void cadetilScroll(Model model, RecipePage page) {
+		List<RecipePage> list = service.selectRecipeByCate(page);
+		model.addAttribute("calist", list);
+	}
+
+	// 레시피 좋아요
+	@RequestMapping("/like.do")
+	@ResponseBody
+	public Map like(RecipeLike recipe, HttpSession session) {
+		int count = service.selectCountLike(recipe);
+		String status = service.selectLikeStatus(recipe);
+
+		Map<String, Object> list = new HashMap<>();
+
+		if (count == 1) {
+			if (status.equals("Y")) {
+				recipe.setLikeStatus("N");
+				service.updateRecipeLike(recipe);
+				service.deleteLikeCnt(recipe.getRecipeNo());
+
+				list.put("status", recipe.getLikeStatus());
+				list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
+				return list;
+
+			} else if (status.equals("N")) {
+				recipe.setLikeStatus("Y");
+				service.updateRecipeLike(recipe);
+				service.updateLikeCnt(recipe.getRecipeNo());
+
+				list.put("status", recipe.getLikeStatus());
+				list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
+				return list;
+			}
+		} else {
+			service.insertRecipeLike(recipe);
+			service.updateLikeCnt(recipe.getRecipeNo());
+
+			list.put("status", recipe.getLikeStatus());
+			list.put("cnt", service.countLikeCnt(recipe.getRecipeNo()));
+			return list;
+		}
+		return list;
+	}
+
+	// 레시피 팔로우
+	@RequestMapping("/follow.do")
+	@ResponseBody
+	public int follow(RecipeFollow follow) {
+		int count = service.selectCountFollow(follow);
+		String status = service.selectFollowStatus(follow);
+
+		if (count == 1) {
+			if (status.equals("Y")) {
+				follow.setFollowStatus("N");
+				service.updateRecipeFollow(follow);
+				return 0;
+
+			} else if (status.equals("N")) {
+				follow.setFollowStatus("Y");
+				service.updateRecipeFollow(follow);
+				return 1;
+			}
+		} else {
+			service.insertRecipeFollow(follow);
+			return 1;
+		}
+		return 0;
+	}
+
 }

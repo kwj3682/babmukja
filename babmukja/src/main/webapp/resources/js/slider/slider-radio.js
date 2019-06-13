@@ -87,7 +87,7 @@ window.addEventListener('load', function() {
 
 	function getElementCoords(el) {
 		const elementPosition =  {x: el.offsetLeft, y: el.offsetTop};
-		const elementSize = el.getBoundingClientRect();
+		const elementSize = el.getBonndingClientRect();
 
 		return {
 			x: elementPosition.x,

@@ -53,9 +53,15 @@
 
             <div id="hiddenValue" style="display:none">${recipe.content}</div>
             <!-- post-body start -->
-	        <div id="post-body"></div>
-            <a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정하기</a>
-            <a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제하기</a>
+	        <div id="post-body"></div>	        
+	        <c:choose>
+            	<c:when test="${sessionScope.user.memNo eq recipe.memNo}">
+	            	<div id="a-button">
+	            		<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정</a>
+	            		<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제</a>	            	
+	            	</div>
+            	</c:when>
+            </c:choose>
             <!-- post-body end -->
              <!------------------------------------------------------------------------------------------------>
            
@@ -176,21 +182,7 @@
     </div> <!-- 전체 body end -->
     
     
-    <script>  
-    // 스크랩 기능
-    $(".recipeScrap").click(function () {
-    	$.ajax({
-    		url : "scrap.do",
-    		data : {
-    			
-    		},
-    		success : function (result) {
-    			
-    		}
-    		
-    	});
-    });
-    
+    <script>      
     // 좋아요 기능
     $(".recipeLike").click(function () {
     	if('${sessionScope.user}' != "") {
@@ -208,13 +200,20 @@
 		    				color : "white"		    				    
 	    				});	    				
 	    				$(".likeCnt").html(result.cnt);
-	    			} else {
+	    			} else if(result.status == 'N') {
 	    				alert("좋아요가 해제되었습니다.");
 	    				$(".recipeLike").css({	    					
 	    				    background: "#eee",
 	    			    	color: "#bbb"
 	    				});
 	    				
+	    				$(".likeCnt").html(result.cnt);
+	    			} else {
+	    				alert("좋아요가 되었습니다.");
+	    				$(".recipeLike").css({
+	    					background : "#7db341",
+		    				color : "white"		    				    
+	    				});	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			}
 	    		}
@@ -224,7 +223,7 @@
     
     // 팔로우 기능
     $(".follow").click(function () {  	
-		if('${sessionScope.user}' != "") {
+		if('${sessionScope.user.memNo}' != '${recipe.memNo}' && '${sessionScope.user}' != '') {
 		    	$.ajax({
 		    		url : "follow.do",
 		    		data : {
@@ -247,7 +246,11 @@
 		    			}
 		    		}
 		    	});
-			} else alert("로그인 후 이용가능합니다.");
+			} 
+		if('${sessionScope.user.memNo}' == '${recipe.memNo}') {
+			alert("같은 회원은 팔로우 할 수 없습니다.");
+		}
+		else alert("로그인 후 이용가능합니다.");
     	});
     
     // 댓글 별점 함수
