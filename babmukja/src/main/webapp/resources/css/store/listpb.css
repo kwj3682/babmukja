@@ -114,6 +114,7 @@ outline: 0;
 #namanyay-search-box:focus {
 	    border-color: #7db341;
     transition: border-color 0.5s ease-in-out;
+    
 }
 
  #searchicon {

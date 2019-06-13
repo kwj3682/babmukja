@@ -8,12 +8,12 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +27,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
@@ -274,7 +275,9 @@ public class StorePBController {
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
-	public double pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb, int ratingCnt, double storeRating) throws Exception {
+	public double pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb, int ratingCnt, double storeRating,HttpSession session) throws Exception {
+		Member user = (Member)session.getAttribute("user");
+		reviewpb.setMemNo(user.getMemNo());
 		System.out.println(reviewpb.getContent());
 		reviewpb.setPbNo(reviewpb.getPbNo());
 		
@@ -336,7 +339,9 @@ public class StorePBController {
 	// pb 상품 문의 등록
 	@RequestMapping("/pbinquiryinsert.do")
 	@ResponseBody
-	public void insertInquiry(StorePBInquire storePBInquire) {
+	public void insertInquiry(StorePBInquire storePBInquire, HttpSession session) {
+		Member user = (Member)session.getAttribute("user");
+		storePBInquire.setMemNo(user.getMemNo());
 		storePBInquire.setPbNo(storePBInquire.getPbNo());
 		storePBInquire.setContent(storePBInquire.getContent());
 		service.insertInquiry(storePBInquire);
@@ -372,7 +377,9 @@ public class StorePBController {
 	// pb 상품 결제 등록
 	@RequestMapping("/pbpaymentinsert.do")
 	@ResponseBody
-	public void insertPBPayment(StorePBPayment storePBPayment) {
+	public void insertPBPayment(StorePBPayment storePBPayment, HttpSession session) {
+		Member user = (Member)session.getAttribute("user");
+		storePBPayment.setMemNo(user.getMemNo());
 		service.insertPBPayment(storePBPayment);
 	}
 	
@@ -381,7 +388,9 @@ public class StorePBController {
 	// pb 상품 장바구니 등록
 	@RequestMapping("/pbcartinsert.do")
 	@ResponseBody
-	public void insertPBCart(StorePBCart storePBCart) {
+	public void insertPBCart(StorePBCart storePBCart, HttpSession session) {
+		Member user = (Member)session.getAttribute("user");
+		storePBCart.setMemNo(user.getMemNo());
 		service.insertPBCart(storePBCart);
 	}
 	

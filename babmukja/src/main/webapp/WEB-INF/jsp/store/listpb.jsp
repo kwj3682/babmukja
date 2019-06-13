@@ -123,6 +123,16 @@
      	$(".pb_list_title").click(function () {
      		location.href = "listpb.do";
      	});
+     	
+     	$(function () {
+	     	let cntval = ${pbCount};
+// 	     	alert(cntval);
+    		if (cntval == 0) {
+    			alert("검색한 상품이 존재하지 않습니다.");
+    			location.href = "listpb.do";
+    		}
+     	});
+//      	$(".no-product-msg").html(alert("검색한 상품이 없습니다."));
      </script>
 </body>
 </html>

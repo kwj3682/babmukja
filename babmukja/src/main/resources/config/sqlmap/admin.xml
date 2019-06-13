@@ -99,7 +99,7 @@
 			thumnail
 		)
 		values(
-			3, 
+			1, 
 			#{name}, 
 			#{price},
 			#{content},
