@@ -102,7 +102,7 @@
     </div>
 
 
-    <script src="http://192.168.0.53:10001/socket.io/socket.io.js"></script>
+<!--     <script src="http://192.168.0.53:10001/socket.io/socket.io.js"></script> -->
     <script>
     
 	

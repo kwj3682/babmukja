@@ -73,13 +73,14 @@
 		<result column="mem_no" property="memNo" />
 		<result column="viewcnt" property="viewCnt" />
 		<result column="imgpath" property="imgPath" />
+		<result column="thumnail" property="thumnail" />
 	</resultMap>
 	<!--  pb 상품 전체조회( 관리자전용 ) -->
 	<select id="selectAdminPBList" resultMap="storepbMap" parameterType="pagepb">
 		select * 
 	  	  from tb_pb
 	 	 order by pb_no desc
-	 	 limit #{begin}, #{end}
+	 	 limit #{begin}, 12
 	</select>
 	
 	<select id="selectAdminPBListCount" resultType="int">
@@ -94,14 +95,16 @@
 			name, 
 			price,
 			content,
-			imgpath
+			imgpath,
+			thumnail
 		)
 		values(
 			3, 
 			#{name}, 
 			#{price},
 			#{content},
-			#{imgPath}
+			#{imgPath},
+			#{thumnail}
 		)
 	</insert>
 	
