@@ -107,7 +107,9 @@
                 <c:forEach var="w" items="${winner }">
                         <div>${w.title }<br><a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
                  </c:forEach>
-                        <div>더 보기 <b>↓</b><img id="bottle" src="<c:url value="/resources/images/bottle.png"/>"></div>
+                        <div>더 보기 <b>↓</b>
+                        	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>">
+                        </div>
                     </div>
                     <div>${win.memNickname }</div>
                 </div>
