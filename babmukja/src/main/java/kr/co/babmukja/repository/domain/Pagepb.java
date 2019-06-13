@@ -2,6 +2,21 @@ package kr.co.babmukja.repository.domain;
 
 public class Pagepb {
 	private int pageNo = 1;
+	private String sortType = "0";
+	private String searchName;
+	
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+	public String getSortType() {
+		return sortType;
+	}
+	public void setSortType(String sortType) {
+		this.sortType = sortType;
+	}
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -9,9 +24,10 @@ public class Pagepb {
 		this.pageNo = pageNo;
 	}
 	public int getBegin() {
-		return (this.pageNo -1) * 10;
+		return (this.pageNo -1) * 12;
 	}
+	
 	public int getEnd() {
-		return this.pageNo * 10;
+		return 12;
 	}
 }

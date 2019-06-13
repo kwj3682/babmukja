@@ -11,7 +11,14 @@ public class StorePB {
 	private int memNo;
 	private int viewCnt;
 	private String imgPath;
-
+	private String thumnail;
+	
+	public String getThumnail() {
+		return thumnail;
+	}
+	public void setThumnail(String thumnail) {
+		this.thumnail = thumnail;
+	}
 	public String getImgPath() {
 		return imgPath;
 	}
