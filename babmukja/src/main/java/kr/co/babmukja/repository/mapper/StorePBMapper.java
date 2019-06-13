@@ -1,8 +1,10 @@
 package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
@@ -28,6 +30,7 @@ public interface StorePBMapper {
 	*/
 	
 	public List<StorePB> selectPBStore();
+	public List<StorePB> selectPBStoreList(Pagepb page);
 	public StorePB selectPBStoreByNo(int pbNo);
 	//public List<StorePB> selectAdminPBList(Pagepb page);
 	//public int selectAdminPBListCount();
@@ -36,6 +39,7 @@ public interface StorePBMapper {
 	//public void deletePBStore(int no);
 	public List<StorePBReview> selectPBReviewSelect(StorePBReview storePBReview);
 	// public List<ReviewFileVO> selectPBReviewSelectImage(int pbReviewNo);
+	public int selectPBStoreCount(Pagepb page);
 	
 	// PB 상품 후기
 	public void insertPBReview(StorePBReview reviewpb);

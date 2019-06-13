@@ -8,7 +8,9 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
@@ -115,15 +118,25 @@ public class StorePBController {
 				imgpath = "/babmukja/store/downloadpb.do?path=/&sysname=default.png";
 				storepb.setImgPath(imgpath);
 				result.add(storepb);
-				System.out.println(imgpath);
+//				System.out.println(imgpath);
 				continue;
 			}
-			System.out.println(imgpath);
+//			System.out.println(imgpath);
 			String[] imgList = storepb.getImgPath().split(",");
 			storepb.setImgPath(imgList[0]);
 			result.add(storepb);
 		}
 		model.addAttribute("storepb", result);
+	}
+	
+	// pb 상품 리스트
+	@RequestMapping("/listpb.do")
+	public void listpb(Model model, Pagepb page) {
+		Map<String, Object> result = service.selectPBStoreList(page);
+		model.addAttribute("listpb", result.get("list"));
+		model.addAttribute("pageResult", result.get("pageResult"));
+		model.addAttribute("sortType", result.get("sortType"));
+		model.addAttribute("pbCount", service.selectPBStoreCount(page));
 	}
 	
 	// pb 상품 상세조회
@@ -163,16 +176,6 @@ public class StorePBController {
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("reviewMap",reviewMap);
 		mav.addObject("inqList", sInquire);
-		///////////////////////////////////////////////////////////
-		
-		
-		/////////////////////////////////////////////////////////////
-//		System.out.println(pbNo);
-//		System.out.println(storePBReview.getPbReviewNo());
-//		storePBReview.setPbNo(pbNo);
-//		storePBReview.setPbReviewNo(storePBReview.getPbReviewNo());
-//		mav.addObject("reviewList", service.selectPBReviewSelect(storePBReview));
-		//mav.addObject("reviewListImages", service.selectPBReviewSelectImage(storepbreview.getPbReviewNo()));
 		return mav;
 	}
 	
