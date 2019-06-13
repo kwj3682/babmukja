@@ -983,21 +983,23 @@
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 100%;
-    width:120px;
+    width:200px;
     margin-bottom: 15px;
 }
 .storeRating-backStar{
     background: url(/babmukja/resources/images/star5-gray.png);
-    width : 100%;
-    height: 23px;
+    background-size : cover;
+    width : 200px;
+    height: 38px;
 }
 .storeRating-frontStar-wrapper{
-    width: 120px;
+    width: 200px;
     position: absolute;
 }
 .storeRating-frontStar{
     background: url(/babmukja/resources/images/star5.png) no-repeat;
-    height: 23px;
+    background-size : cover;
+    height: 38px;
 }
 
 
