@@ -76,4 +76,7 @@ public interface RecipeMapper {
 	public List<RecipePage> selectRecipeByCate(RecipePage page);
 	
 	public RecipeKeywordCode selectKeywordByRecipe(int no);
+
+	public List<Recipe> selectRecipeByMemNo(int memNo);
+
 }

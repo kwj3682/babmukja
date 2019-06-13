@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .babcontainer{
-    background-color: wheat;
+    background-color: #7db341;
     display: flex;
     justify-content: center;
   }
@@ -16,9 +16,9 @@
   }
   
   .babnotices{
-    background-color:wheat;
+    background-color:#7db341;
     text-align: center;
-    text-shadow: 1px 10px 10px #000;
+/*    text-shadow: 1px 10px 10px #000; */
     font-weight: bold;
     vertical-align: middle; 
     display: flex;
@@ -44,14 +44,17 @@
     text-align: center;
     vertical-align: middle;
     font-size: 1.1em;
+    border-radius: 5px 5px 5px 5px;
   }
   .bab_tr:nth-child(odd) {
     background-color: white;
   }
-
+  .bab_tr{
+  } 
   .bab_tr:hover {
-    background-color: wheat;
-    color: rebeccapurple;
+    background-color: #ff80c0;
+/*     color: rebeccapurple; */
+    border-radius: 5px 5px 5px 5px;
   }
     
 .babnotices, .babitem {
@@ -64,7 +67,7 @@
     font-size: 1.5em;
     font-weight: bolder;
     border-collapse: collapse;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 5px 5px 5px 5px;
 }
 .babinfomation{
   font-size: 1.5em;

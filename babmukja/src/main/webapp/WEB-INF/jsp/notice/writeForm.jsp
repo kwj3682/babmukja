@@ -9,12 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<c:url value="/resources/css/notice/notice enroll.css"/>">
-    <script src="/babmukja/WEB-INF/js/jquery-3.2.1.min.js"></script>
+    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script>
     <title>전체조회</title>
 </head>
 <body style="background: white;">
         <form
         action="write.do"
+        id="uploadForm"
         method="post"
         name="inqform"
         encType="multipart/form-data"
@@ -44,15 +45,15 @@
           </tr>
           <tr>
             <th class="notice_th2">첨부파일</th>
-            <td class="notice_td5"><input type="file" class="notice_search"/></td>
+            <td class="notice_td5"><input type="file" name="upload" class="file"/></td>
           </tr>
           <tr>
             <th class="notice_th2">첨부파일</th>
-            <td class="notice_td5"><input type="file" class="notice_search"/></td>
+            <td class="notice_td5"><input type="file" name="upload" class="file"/></td>
           </tr>
         </table>
         <hr />
-        <br />
+        <br /><br><br>
         <div class="notice_wsubd">
           <th class="notice_wsub"><button type="submit"><a href="list.do">목록보기</a></button></th>
           &nbsp; &nbsp; &nbsp;
@@ -89,6 +90,32 @@
     			return false;
     		}
     	});
+    	
+    	$('.file').change(function(){                            //업로드할 파일을 선택 할 경우 동작을 일으킵니다.
+
+    		var form = $('#uploadForm');
+
+    		form.ajaxSubmit({
+
+    		           url: 'uploadnotice',
+
+    		           data: form.serialize(),                         //폼의 값들을 주소화하여 보내게 됩니다.
+
+    		           type: 'POST',     
+
+    		           success: function(data){
+
+    		         $('.file').val('');                           //file input에 들어가 있는 값을 비워줍니다.
+
+    		               console.log(data);                      //업로드 되었다면 결과를 콘솔에 출력해봅니다.
+
+    		           }
+
+    		});
+
+    		});
+ 	     
+ 	 
     	</script>
 </body>
 </html>

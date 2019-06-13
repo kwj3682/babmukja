@@ -18,12 +18,9 @@
         <div class="swiper-wrapper">
    			<c:forEach var="pbList" items="${storepb}" begin="0" end="4">
 	            <div class="swiper-slide">
-		            	<div></div>
-			            <p>"BABMUKJA PB STORE"</p>
-<%-- 						<a class="pb_store_today_product_imges" href="<c:url value="/store/detailpb.do?no=${pbList.pbNo}"/>"> --%>
-			             	<img src="${pbList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
-<!-- 						</a> -->
-		<%--             <img src="<c:url value="/resources/images/f2.jpg"/>"/> --%>
+	            	<div></div>
+		            <p>"BABMUKJA PB STORE"</p>
+	             	<img src="${pbList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>	
 	            </div>
 			</c:forEach>
         </div>
@@ -33,22 +30,6 @@
     </div>
     <!-- PB스토어 메인화면 -->
   <div id="pb_store_container"> 
-<!--         오늘의 추천상품 -->
-<!--         <div id="pb_store_today_product"> -->
-<!--             <div id="pb_store_today_product_text">오늘의 추천<br><br></div> -->
-            
-<!--             메인 이미지 슬라이드 보여주기 -->
-<!--             <div id="pb_store_today_product_img"> -->
-<!--                 <div id="pb_store_today_img"> -->
-<%--          			<c:forEach var="pbList" items="${storepb}" begin="0" end="4"> --%>
-<%--          				<a class="pb_store_today_product_imges" href="<c:url value="/store/detailpb.do?no=${pbList.pbNo}"/>"> --%>
-<%--                         	<img src="${pbList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/> --%>
-<!--           				</a> -->
-<%--           			</c:forEach> --%>
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--         <br> -->
 
         <!-- 키워드 -->
         <div id="pb_store_popular_keyword">
@@ -107,6 +88,7 @@
             <!-- 인기상품 이미지 -->
             <div id="pb_store_popular_product_img">
                 <div id="pb_store_popular_product_imges">
+                <a class="pb_store_more_product" href="<c:url value='/store/listpb.do'/>">더보기</a>
                     <div id="pb_store_popular_product_imges_grid">
                     <c:forEach var="pbList" items="${storepb}" begin="0" end="3">
                         <a class="pb_store_popular_product_img" href="<c:url value="/store/detailpb.do?pbNo=${pbList.pbNo}"/>">
@@ -134,20 +116,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
-//         let index = 0;
-
-//         $(document).ready(function () {
-//             setInterval(function () {
-//                 if (index == 4) index = 0;
-
-//                 else index++;
-//                 moveSlide();
-//             },2000);    
-//         }); 
-        
-//         function moveSlide() {
-//             $("#pb_store_today_img").animate({left: index * -1000}, 3000);
-//         };
         
         var swiper = new Swiper('.swiper-container', {
             loop:true,

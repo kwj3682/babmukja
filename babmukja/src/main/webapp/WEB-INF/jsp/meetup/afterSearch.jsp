@@ -106,7 +106,7 @@
                 <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; ${meetup.location}</span>
                 </div>
                 <div class="border_line"></div>
-                <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;370</span>
+                <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;${meetup.viewCnt}</span>
                 </div>
             </div>
         </div>

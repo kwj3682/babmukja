@@ -225,5 +225,8 @@ public class RecipeServiceImpl implements RecipeService {
 	public RecipeKeywordCode selectKeywordByRecipe(int no) {		
 		return mapper.selectKeywordByRecipe(no);
 	}
-
+	
+	public List<Recipe> selectRecipeByMemNo(int memNo) {
+		return mapper.selectRecipeByMemNo(memNo);
+	}
 }

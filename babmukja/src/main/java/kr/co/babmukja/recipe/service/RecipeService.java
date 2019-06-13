@@ -77,5 +77,8 @@ public interface RecipeService {
 	public List<RecipePage> selectRecipeByCate(RecipePage page);
 	
 	public RecipeKeywordCode selectKeywordByRecipe(int no);
-	
+
+	//(우중) 회원번호로 레시피 가져오기
+	public List<Recipe> selectRecipeByMemNo(int memNo); 
+
 }
