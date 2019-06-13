@@ -267,7 +267,7 @@
 	                // console.log(chatKey);
 	                // console.log(chatList);
 	        });
-	        $(document).on('click','.chatbox',function(){
+	    /*     $(document).on('click','.chatbox',function(){
 	             // 연결 요청 : 서버 접속하기
 	            let chatbox = $(this);
 	            socket = io.connect("http://192.168.0.53:10001");
@@ -279,7 +279,7 @@
 	            socket.on("msg", function (data) {
 	            	chatbox.find(".chat-messages").append(data);
 	            });
-	        });
+	        }); */
 	        
 	        
 	        
