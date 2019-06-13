@@ -193,6 +193,7 @@
                                     console.dir(file);
                                     if(file.size > 20 * 1024 * 1024 ) {
                                     	alert("첨부파일 사이즈는 20MB 이내로 등록 가능합니다.");
+
                                     	return;
                                     }
                                     let fileData = new FormData();

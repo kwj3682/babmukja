@@ -40,7 +40,7 @@ public interface StorePBService {
 	public int selectPBStoreCount(Pagepb page);
 	
 	// 후기
-	public void insertPBReview(StorePBReview reviewpb);
+	public void insertPBReview(StorePBReview reviewpb,StorePB spb);
 	public void insertPBReviewImage(FileVO fileVO);
 	public int getMax();
 	public List<StorePBReview> selectPBReviewSelect(StorePBReview storePBReview);

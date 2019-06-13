@@ -66,8 +66,8 @@
 	                            <p><fmt:formatNumber value="${listpb.price}" groupingUsed="true"/></p>
 	                        </div>
 	                        <div class="pb_list_product_rating">
-	                            <span id="pb_store_popular_product_rating_star">★</span>
-	                            <span>4.3</span>
+	                            <span id="pb_store_popular_product_rating_star"></span>
+	                            <span><fmt:formatNumber value="${listpb.rating}" pattern="#.##"/></span>
 	                        </div>
 	                    </div>
 	                </a>
@@ -123,6 +123,16 @@
      	$(".pb_list_title").click(function () {
      		location.href = "listpb.do";
      	});
+     	
+     	$(function () {
+	     	let cntval = ${pbCount};
+// 	     	alert(cntval);
+    		if (cntval == 0) {
+    			alert("검색한 상품이 존재하지 않습니다.");
+    			location.href = "listpb.do";
+    		}
+     	});
+//      	$(".no-product-msg").html(alert("검색한 상품이 없습니다."));
      </script>
 </body>
 </html>

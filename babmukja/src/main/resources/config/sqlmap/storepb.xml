@@ -88,7 +88,7 @@
 		values(
 			#{pbNo},
 			#{content},
-			3,
+			#{memNo},
 			#{rating}
 		)
 	</insert>
@@ -241,7 +241,7 @@
 		values(
 			#{pbNo},
 			#{content},
-			3
+			#{memNo}
 		)
 	</insert>
 	
@@ -284,7 +284,7 @@
 			prod_count
 		)
 		values(
-			3,
+			#{memNo},
 			#{pbNo},
 			#{price},
 			#{prodCount}
@@ -317,7 +317,7 @@
 			prod_count
 		)
 		values(
-			3,
+			#{memNo},
 			#{pbNo},
 			#{price},
 			#{prodCount}
@@ -338,5 +338,11 @@
 		  from tb_pb_cart
 		 where cart_no = #{cartNo}
 	</delete>
-	
+	<!-- 별점(평점) 수정 -->
+	<update id="updateRatingByMember" parameterType="StorePB">
+		update tb_pb
+		   set rating=#{rating},
+		   	   rating_cnt=#{ratingCnt}
+		 where pb_no = #{pbNo}
+	</update>
 </mapper>

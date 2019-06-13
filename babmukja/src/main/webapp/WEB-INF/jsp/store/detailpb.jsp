@@ -1,119 +1,153 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>PB 스토어 상세 조회</title>
-	<script src="<c:url value="/resources/js/editor.min.js"/>"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
-    <link rel="stylesheet" href="<c:url value="/resources/css/store/detailpb.css"/>">
-    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
-	<link rel="stylesheet" href="<c:url value="/resources/js/dist/css/lightbox.css"/>">
-	<script src="<c:url value="/resources/js/dist/js/lightbox.js"/>"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	<script src="<c:url value="/resources/js/common/stringUtil.js"/>"></script>
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>PB 스토어 상세 조회</title>
+<script src="<c:url value="/resources/js/editor.min.js"/>"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/store/detailpb.css"/>">
+<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
+<link rel="stylesheet"
+	href="<c:url value="/resources/js/dist/css/lightbox.css"/>">
+<script src="<c:url value="/resources/js/dist/js/lightbox.js"/>"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="<c:url value="/resources/js/common/stringUtil.js"/>"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body onload="myTimeWait()">
 	<div id="pb_detail_container">
-        <!-- 상단 컨테이너 -->
-        <div id="pb_detail_header_container">
-            <div id="pb_detail_header_images">
-	                <div id="pb_detail_thumbnail_list">
-                		<c:forEach var="img" items="${imgList}" varStatus="status">
-		                	
-		                	<c:if test="${status.count != 1}">
-	                		<a href="${img}" data-lightbox="gallery">
-		                		<img src="${img}">
-	                		</a>
-		                	</c:if>
-		                	
-                		</c:forEach>
-	                </div>
-<%-- 			     <c:set var="detailpb" value="${detailpb}"/> --%>
-	                <div id="pb_detail_main_image">
-	                    <a href="${imgList[0]}" data-lightbox="gallery">
-	                    	<img src="${imgList[0]}">
-	                    </a>
-	                </div>
-            </div>
+	<input type="hidden" id="hiddenRatingCnt" value="${storepb.ratingCnt}">
+		<!-- 상단 컨테이너 --> 
+		<div id="pb_detail_header_container">
+			<div id="pb_detail_header_images">
+				<div id="pb_detail_thumbnail_list">
+					<c:forEach var="img" items="${imgList}" varStatus="status">
 
-            <div id="pb_detail_info">
-                <div id="pb_detail_title">
-                    <p>${storepb.name}</p>
-                </div>
-                <div id="pb_detail_rating_point">
-                    <p>★★★★☆</p>
-                </div>
-                <div id="pb_detail_price">
-                
-                    <p id="pb_detail_price_p"><fmt:formatNumber value="${storepb.price}" groupingUsed="true"/>원</p>
-                </div>
-                <div id="pb_detail_promotion">
-                    <p id="pb_detail_promotion_price"></p>
-                    <p>&nbsp;적립해드립니다</p>
-                </div>
-                
-                <div id="pb_detail_select_box">
-                    <div id="select_product_title">${storepb.name}</div>
-                    <div id="select_product_count">
-                        <p><button id="count_minus">-</button></p>
-                        <p id="total_count">1</p>
-                        <p><button id="count_plus">+</button></p>
-                        <p class="total__price">원</p>
-                    </div>
-                </div>
-                <div id="select_product_total-price">
-                    <p>총 주문금액</p>
-                    <p class="total__price" id="total__price">원</p>
-                </div>
-                <div id="pb_detail_btns">
-                    <button class="add_to_cart">장바구니</button>
-                    <button class="buy_now">구매하기</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 메뉴바 -->
-        <div id="pb_detail_menubar">
-            <div id="detail_product_info"><a href="#pb_info_move">&nbsp;상품정보&nbsp;</a></div>
-            <div id="detail_product_review"><a href="#pb_review_header">&nbsp;후기&nbsp;</a></div>
-            <div id="detail_product_inquire"><a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a></div>
-            <div id="detail_product_refund"><a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a></div>
-        </div>
-        
-        <a id="pb_info_move"></a>
-        <div id="product_info_detail" >
-        	<div id="product_info">상품정보<br><br></div><br><br><br>
-        </div>
-        <!--  editor js 적용 -->
-		<div id="hiddenValue" style="display:none">${storepb.content}</div>
-		<div id="post-body"></div>		
-        
-        
-<!--         editor js 적용 전 -->
-        <!-- 상품설명 ~ 후기 ~ 문의 ~ 배송/교환/환불 -->
-<!--         <div id="pb_detail_body_container" name="product_info_detail"> -->
-            <!-- 상품설명 -->
-            <!-- 
+						<c:if test="${status.count != 1}">
+							<a href="${img}" data-lightbox="gallery"> <img src="${img}">
+							</a>
+						</c:if>
+
+					</c:forEach>
+				</div>
+				<%-- 			     <c:set var="detailpb" value="${detailpb}"/> --%>
+				<div id="pb_detail_main_image">
+					<a href="${imgList[0]}" data-lightbox="gallery"> <img
+						src="${imgList[0]}">
+					</a>
+				</div>
+			</div>
+
+			<div id="pb_detail_info">
+				<div id="pb_detail_title">
+					<p>${storepb.name}</p>
+				</div>
+				<div id="pb_detail_rating_point">
+					<div class="storeRating">
+					<input type="hidden" value="${storepb.rating}" name="storeRating">
+						<div class="storeRating-backStar"></div>
+						<div class="storeRating-frontStar-wrapper">
+							<div class="storeRating-frontStar"
+								style="width:${storepb.rating *10}%;"></div>
+						</div>
+					</div>
+				</div>
+				<div id="pb_detail_price">
+
+					<p id="pb_detail_price_p">
+						<fmt:formatNumber value="${storepb.price}" groupingUsed="true" />
+						원
+					</p>
+				</div>
+				<div id="pb_detail_promotion">
+					<p id="pb_detail_promotion_price"></p>
+					<p>&nbsp;적립해드립니다</p>
+				</div>
+
+				<div id="pb_detail_select_box">
+					<div id="select_product_title">${storepb.name}</div>
+					<div id="select_product_count">
+						<p>
+							<button id="count_minus">-</button>
+						</p>
+						<p id="total_count">1</p>
+						<p>
+							<button id="count_plus">+</button>
+						</p>
+						<p class="total__price">원</p>
+					</div>
+				</div>
+				<div id="select_product_total-price">
+					<p>총 주문금액</p>
+					<p class="total__price" id="total__price">원</p>
+				</div>
+				<div id="pb_detail_btns">
+					<button class="add_to_cart">장바구니</button>
+					<button class="buy_now">구매하기</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- 메뉴바 -->
+		<div id="pb_detail_menubar">
+			<div id="detail_product_info">
+				<a href="#pb_info_move">&nbsp;상품정보&nbsp;</a>
+			</div>
+			<div id="detail_product_review">
+				<a href="#pb_review_header">&nbsp;후기&nbsp;</a>
+			</div>
+			<div id="detail_product_inquire">
+				<a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a>
+			</div>
+			<div id="detail_product_refund">
+				<a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a>
+			</div>
+		</div>
+
+		<a id="pb_info_move"></a>
+		<div id="product_info_detail">
+			<div id="product_info">
+				상품정보<br>
+				<br>
+			</div>
+			<br>
+			<br>
+			<br>
+		</div>
+		<!--  editor js 적용 -->
+		<div id="hiddenValue" style="display: none">${storepb.content}</div>
+		<div id="post-body"></div>
+
+
+		<!--         editor js 적용 전 -->
+		<!-- 상품설명 ~ 후기 ~ 문의 ~ 배송/교환/환불 -->
+		<!--         <div id="pb_detail_body_container" name="product_info_detail"> -->
+		<!-- 상품설명 -->
+		<!-- 
             <div id="product_info_detail" >
                 <div id="product_info">상품정보<br><br></div><br><br><br>
                 <c:forEach var="detailImg" items="${detailpbIamge}">
@@ -127,7 +161,7 @@
                     </p>
                 </div>
                  -->
-                <!-- 
+		<!-- 
                 <div id="product_info_img">
                     <img src="images/foodthumbnail14.jpg">
                 </div>
@@ -147,313 +181,287 @@
                     </p>    
                 </div>
                  -->
-<!--             </div> -->
+		<!--             </div> -->
 
-            <!-- 후기 -->
-            <div id="pb_review_detail" name="pb_review_detail">
-                <div id="pb_review_header">
-                    <div id="pb_review">후기<br><br></div><br><br>
-                    <button id="pb_review_writeform">후기쓰기</button>
-                </div>
-			
-              <div class="review_con">
-              <c:forEach var="reviewList" items="${reviewMap}">
-                <div class="pb_review_body" id='${reviewList.reviewList.pbReviewNo}'>
-                    <!-- 후기 프로필 -->
-                    <div class="pb_review_profile">
-                        <div class="pb_review_profile_img">
-                            <img src="<c:url value='/resources/images/profile19.jpg'/>">
-                        </div>
-                        <div class="pb_review_user_info">
-                            <p class="review_user_nickname">${reviewList.member.memNickname}</p>
-                            <div class="reviewBUTTON">
-			                    <input type="hidden" name="pbReviewNo" value="${reviewList.reviewList.pbReviewNo}">
-                            	<button class="reviewUpdateBTN" >수정</button>
-                            	<button class="reviewDeleteBTN">삭제</button>
-                            </div>
-                            <p class="review_user_rating">
-                            	<span class="reviewScore">${reviewList.reviewList.rating}</span>
-                            	<span><fmt:formatDate value="${reviewList.reviewList.regDate}" pattern="yyyy.MM.dd hh:mm:ss" /></span>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 리뷰 사진 및 내용 -->
-                    <div class="pb_review_select">
-                        <div class="pb_review_select_content">
-                            <p>
-                            	${reviewList.reviewList.content}
-                            </p>
-                        </div>
-                        
-                       
-                    <div class="pb_review_select_img">
-   	                	<c:forEach var="file" items="${reviewList.reviewFile}">
-      		                <div>
-  	    	                	<a href="downloadpb.do?path=${file.path}&sysname=${file.sysname}" data-lightbox="mygallery">
-  	    	                		<img src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
-  	    	                	</a>
-    	                	</div>
- 	                	</c:forEach>
-                  	 </div>
-	                    	</div>
-	                </div>  <!-- pb_review_body 끝-->
-              </c:forEach>
-              </div>
-              <c:if test="${empty reviewMap}">
+		<!-- 후기 -->
+		<div id="pb_review_detail">
+			<div id="pb_review_header">
+				<div id="pb_review">
+					후기<br>
+					<br>
+				</div>
+				<br>
+				<br>
+				<button id="pb_review_writeform">후기쓰기</button>
+			</div>
+
+			<div class="review_con">
+				<c:forEach var="reviewList" items="${reviewMap}">
+					<div class="pb_review_body"
+						id='${reviewList.reviewList.pbReviewNo}'>
+						<!-- 후기 프로필 -->
+						<div class="pb_review_profile">
+							<div class="pb_review_profile_img">
+								<img src="<c:url value='/resources/images/profile19.jpg'/>">
+							</div>
+							<div class="pb_review_user_info">
+
+								<div class="user_info_sec1">
+									<p class="review_user_nickname">${reviewList.member.memNickname}</p>
+									<div class="reviewBUTTON">
+										<input type="hidden" name="pbReviewNo"
+											value="${reviewList.reviewList.pbReviewNo}">
+										<button class="reviewUpdateBTN">수정</button>
+										<button class="reviewDeleteBTN">삭제</button>
+									</div>
+								</div>
+
+								<div class="user_info_sec2">
+									<div class="stars">
+										<div class="backStar"></div>
+										<div class="frontStar-wrapper">
+											<div class="frontStar"
+												style="width:${reviewList.reviewList.rating*24}px;"></div>
+										</div>
+									</div>
+									<div>
+										<fmt:formatDate value="${reviewList.reviewList.regDate}"
+											pattern="yyyy.MM.dd hh:mm:ss" />
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- 리뷰 사진 및 내용 -->
+						<div class="pb_review_select">
+							<div class="pb_review_select_content">
+								<p>${reviewList.reviewList.content}</p>
+							</div>
+							<div class="pb_review_select_img">
+								<c:forEach var="file" items="${reviewList.reviewFile}">
+									<div>
+										<a
+											href="downloadpb.do?path=${file.path}&sysname=${file.sysname}"
+											data-lightbox="mygallery"> <img
+											src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
+										</a>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					<!-- pb_review_body 끝-->
+				</c:forEach>
+			</div>
+			<c:if test="${empty reviewMap}">
 				<p class="reviewMSG">후기가 존재하지 않습니다.</p>
 				<p class="reviewMSG2">새 후기를 작성해주세요 !</p>
-              </c:if>
-            </div> <!-- 후기 끝 -->
-            
-            
-         <!-- modal -->
-		  <form method="POST" enctype="multipart/form-data">
-		    <div id="reviewmodal" class="modal fade" tabindex="-1" >
-		        <div class="moadl-dialog">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal">x</button>
-		                    <p class="modal-title">후기 작성</p>
-		                </div>
-		                <div class="modal-body">
-		                    <div class="pb_insertform_container">
-		                        <div class="pb_product_item">
-		                            <div class="pb_product_item_img">
-		                                <img src="${imgList[0]}">
-		                            </div>
-		                            <div class="pb_product_item_info">
-		                                <p class="pb_product_item_name">${storepb.name}</p>
-		                            </div>
-		                        </div>
-		                        <div class="pb_product_item_rating">
-		                            <p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
-		                            <div id="reviewStars-input">
-		                                <input id="star-4" type="radio" name="reviewStars" value="5"/>
-		                                <label title="gorgeous" for="star-4"></label>
-		                            
-		                                <input id="star-3" type="radio" name="reviewStars" value="4"/>
-		                                <label title="good" for="star-3"></label>
-		                            
-		                                <input id="star-2" type="radio" name="reviewStars" value="3"/>
-		                                <label title="regular" for="star-2"></label>
-		                            
-		                                <input id="star-1" type="radio" name="reviewStars" value="2"/>
-		                                <label title="poor" for="star-1"></label>
-		                            
-		                                <input id="star-0" type="radio" name="reviewStars" value="1"/>
-		                                <label title="bad" for="star-0"></label>
-		                            </div>
-		                        </div>
-		               
+			</c:if>
+		</div>
+		<!-- 후기 끝 -->
+
+
+		<!-- modal -->
+		<form method="POST" enctype="multipart/form-data">
+			<div id="reviewmodal" class="modal fade" tabindex="-1">
+				<div class="moadl-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">x</button>
+							<p class="modal-title">후기 작성</p>
+						</div>
+						<div class="modal-body">
+							<div class="pb_insertform_container">
+								<div class="pb_product_item">
+									<div class="pb_product_item_img">
+										<img src="${imgList[0]}">
+									</div>
+									<div class="pb_product_item_info">
+										<p class="pb_product_item_name">${storepb.name}</p>
+									</div>
+								</div>
+								<div class="pb_product_item_rating">
+									<p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
+									<div class="check-stars">
+										<div class="check-backStar"></div>
+										<div class="check-frontStar-wrapper">
+											<div class="check-frontStar"></div>
+										</div>
+									</div>
+								</div>
+
 								<div class="pb_reviewMap">
-						            <div class="pb_product_content">
-						                <textarea name="content" class="product__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
-							            <p class="review_images_msg"> 아래 + 를 눌러 이미지를 등록해주세요.</p>
-						            </div>
-						            <div class="review_images">
-							                <input type="file" name="img_file" id="img_file">
-						                <div id="preview_img_div">
-						                    <div class="imgPlus">+</div>
-						                </div>
-						            </div>
-						        </div>
-		                    </div>
-		                </div>
-		                <div class="modal-footer">
-		                    <button type="button" class="btn btn-insert" id="insertmodalbtn">등록</button>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		  </form>  
-		  
-		  <!-- review 수정 modal -->
-		  <form method="POST" enctype="multipart/form-data">
-		    <div id="reviewUpdatemodal" class="modal fade" tabindex="-1" >
-		        <div class="moadl-dialog">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal">x</button>
-		                    <p class="modal-title">후기 수정</p>
-		                </div>
-		                <div class="modal-body">
-		                    <div class="pb_insertform_container">
-		                        <div class="pb_product_item">
-		                            <div class="pb_product_item_img">
-		                                <img src="${imgList[0]}">
-		                            </div>
-		                            <div class="pb_product_item_info">
-		                                <p class="pb_product_item_name">${storepb.name}</p>
-		                            </div>
-		                        </div>
-		                        <div class="pb_product_item_rating">
-		                            <p class="rating_msg">별점을 눌러 만족도를 알려주세요.</p>
-		                            <div id="reviewStars-input">
-		                                <input id="star-4" type="radio" name="reviewStars"/>
-		                                <label title="gorgeous" for="star-4"></label>
-		                            
-		                                <input id="star-3" type="radio" name="reviewStars"/>
-		                                <label title="good" for="star-3"></label>
-		                            
-		                                <input id="star-2" type="radio" name="reviewStars"/>
-		                                <label title="regular" for="star-2"></label>
-		                            
-		                                <input id="star-1" type="radio" name="reviewStars"/>
-		                                <label title="poor" for="star-1"></label>
-		                            
-		                                <input id="star-0" type="radio" name="reviewStars"/>
-		                                <label title="bad" for="star-0"></label>
-		                            </div>
-		                        </div>
-		               
-								<div class="pb_reviewMap">
-						            <div class="pb_product_content">
-						                <textarea name="content" class="review__update__content" cols="60" rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
-							            <p class="review_images_msg"> 아래 + 를 눌러 이미지를 등록해주세요.</p>
-						            </div>
-						            <div class="review_update_images">
-						                <input type="file" name="img_file" id="img_file">
-    						            <div id="preview_img_div">
-    						            
-						                    <div class="imgPlus">+</div>
-						                </div>
-						            </div>
-						        </div>
-		                    </div>
-		                </div>
-		                <div class="modal-footer">
-		                    <button type="button" class="btn btn-insert" id="updatemodalbtn">수정</button>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		  </form>
-        
-            <!-- 문의 -->
-            <div id="pb_review_inquire_detail" name="pb_review_inquire_detail">
-                <div id="pb_review_inquire_header">
-                    <div id="pb_review_inquire">문의<br><br></div><br><br>
-                    <button id="pb_inquire_writeform">문의하기</button>
-                </div>
-                
-                <!-- 문의 내용 -->
-                <div class="inquiry_con">
-	                <c:forEach var="inqList" items="${inqList}">
-		                <div class="pb_inquire_body" id="${inqList.inquiryNo}">
-		                        <div id="pb_inquire_profile">
-		                            <div id="pb_inquire_nickname">
-		                                <p id="pb_inquire_user_nickname">
-		                                	${inqList.member.memNickname}
-				                            <input type="hidden" name="inquiryNo" value="${inqList.inquiryNo}">
-		                                	<button class="inq_update_btn">수정</button>
-		                                	<button class="inq_delete_btn">삭제</button>
-		                                </p>
-		                                <p id="pb_inquire_user_regdate"><fmt:formatDate value="${inqList.inquiryRegdate}" pattern="yyyy-MM-dd hh:mm:ss"/></p>
-		                            </div>
-		                            <div id="pb_inquire_Q&A">
-		                                <p>Q<span id="pb_inquire_question">${inqList.content}</span></p>
-		                                <p>A<span id="pb_inquire_answer">관리자 답변<span><span id="pb_inquire_admin_regdate">2019.05.05</span></p>
-		                                <p id="pb_inquire_admin_msg">안녕하세요 고객님</p>
-		                                <p id="pb_inquire_answer_content">오늘 상품을 주문하시면 3일 이내 배송 받으실 수 있습니다.</p>
-		                            </div>                 
-		                        </div> 
-		                    <div id="pb_inquire_boder-bottom"></div> 
-		                </div> <!-- 문의 내용 끝-->
-	                </c:forEach>
-                </div>
-              <c:if test="${empty inqList}">
+									<div class="pb_product_content">
+										<textarea name="content" class="product__content" cols="60"
+											rows="10" placeholder="상품에 대한 솔직한 후기가 궁금해요!"></textarea>
+										<p class="review_images_msg">아래 + 를 눌러 이미지를 등록해주세요.</p>
+									</div>
+									<div class="review_images">
+										<input type="file" name="img_file" id="img_file">
+										<div id="preview_img_div">
+											<div class="imgPlus">+</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-insert" id="insertmodalbtn">등록</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+		<!-- 문의 -->
+		<div id="pb_review_inquire_detail">
+			<div id="pb_review_inquire_header">
+				<div id="pb_review_inquire">
+					문의<br>
+					<br>
+				</div>
+				<br>
+				<br>
+				<button id="pb_inquire_writeform">문의하기</button>
+			</div>
+
+			<!-- 문의 내용 -->
+			<div class="inquiry_con">
+				<c:forEach var="inqList" items="${inqList}">
+					<div class="pb_inquire_body" id="${inqList.inquiryNo}">
+						<div id="pb_inquire_profile">
+							<div id="pb_inquire_nickname">
+								<p id="pb_inquire_user_nickname">
+									${inqList.member.memNickname} <input type="hidden"
+										name="inquiryNo" value="${inqList.inquiryNo}">
+									<button class="inq_update_btn">수정</button>
+									<button class="inq_delete_btn">삭제</button>
+								</p>
+								<p id="pb_inquire_user_regdate">
+									<fmt:formatDate value="${inqList.inquiryRegdate}"
+										pattern="yyyy-MM-dd hh:mm:ss" />
+								</p>
+							</div>
+							<div id="pb_inquire_Q&A">
+								<p>
+									Q<span id="pb_inquire_question">${inqList.content}</span>
+								</p>
+								<p>
+									A<span id="pb_inquire_answer">관리자 답변</span><span
+										id="pb_inquire_admin_regdate">2019.05.05</span>
+								</p>
+								<p id="pb_inquire_admin_msg">안녕하세요 고객님</p>
+								<p id="pb_inquire_answer_content">오늘 상품을 주문하시면 3일 이내 배송 받으실
+									수 있습니다.</p>
+							</div>
+						</div>
+						<div id="pb_inquire_boder-bottom"></div>
+					</div>
+					<!-- 문의 내용 끝-->
+				</c:forEach>
+			</div>
+			<c:if test="${empty inqList}">
 				<p class="reviewMSG">문의가 존재하지 않습니다.</p>
 				<p class="reviewMSG2">문의를 등록해주세요 !</p>
-              </c:if>
-            </div>
-        </div>
-        
-        <!-- 문의 등록 modal -->
-		    <div id="inquiremodal" class="modal fade" tabindex="-1" >
-		        <div class="moadl-dialog">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal">x</button>
-		                    <p class="modal-title">문의 작성</p>
-		                </div>
-		                <div class="modal-body">
-		                    <div class="pb_insertform_container">
-		                        <div class="pb_product_item">
-		                            <div class="pb_product_item_img">
-		                                <img src="${imgList[0]}">
-		                            </div>
-		                            <div class="pb_product_item_info">
-		                                <p class="pb_product_item_name">${storepb.name}</p>
-		                            </div>
-		                        </div>
-		               
-								<div class="pb_reviewMap">
-						            <div class="pb_product_content">
-						                <textarea name="content" class="inquire__content" cols="60" rows="10" placeholder="상품에 대해 문의해주세요!"></textarea>
-						            </div>
-						        </div>
-		                    </div>
-		                </div>
-		                <div class="modal-footer">
-		                    <button type="button" class="btn btn-insert" id="inquireInsertmodalbtn">등록</button>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		    
-        <!-- 문의 수정 modal -->
-		    <div id="inquireupdatemodal" class="modal fade" tabindex="-1" >
-		        <div class="moadl-dialog">
-		            <div class="modal-content">
-		                <div class="modal-header">
-		                    <button type="button" class="close" data-dismiss="modal">x</button>
-		                    <p class="modal-title">문의 수정</p>
-		                </div>
-		                <div class="modal-body">
-		                    <div class="pb_insertform_container">
-		                        <div class="pb_product_item">
-		                            <div class="pb_product_item_img">
-		                                <img src="${imgList[0]}">
-		                            </div>
-		                            <div class="pb_product_item_info">
-		                                <p class="pb_product_item_name">${storepb.name}</p>
-		                            </div>
-		                        </div>
-		               
-								<div class="pb_reviewMap">
-						            <div class="pb_product_content">
-						                <textarea name="content" class="inquire__update__content" cols="60" rows="10" placeholder="상품에 대해 문의해주세요!"></textarea>
-						            </div>
-						        </div>
-		                    </div>
-		                </div>
-		                <div class="modal-footer">
-		                    <button type="button" class="btn btn-insert" id="inquireUpdatemodalbtn">수정</button>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		    
-        <!-- 장바구니  modal -->
-		    <div id="cartmodal" class="modal fade" tabindex="-1" >
-		        <div class="moadl-dialog">
-		            <div class="modal-content" id="cart-modal-content">
-		                <div class="modal-body">
-		                    <button type="button" class="close" data-dismiss="modal">x</button>
-	                        <div class="cartmodal_container">
-						        <div class="cartmodal_header">
-						            <p class="cartmodal_msg">장바구니에 상품을 담았습니다.</p>
-						            <div class="cartmodal_button">
-						                <div><button class="cart_move_btn">장바구니 보러가기</button></div>
-						                <div><button class="cart_move_not_btn">계속 쇼핑하기</button></div>
-						            </div>
-						        </div>
-						    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-    <script>
+			</c:if>
+		</div>
+	</div>
+
+	<!-- 문의 등록 modal -->
+	<div id="inquiremodal" class="modal fade" tabindex="-1">
+		<div class="moadl-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<p class="modal-title">문의 작성</p>
+				</div>
+				<div class="modal-body">
+					<div class="pb_insertform_container">
+						<div class="pb_product_item">
+							<div class="pb_product_item_img">
+								<img src="${imgList[0]}">
+							</div>
+							<div class="pb_product_item_info">
+								<p class="pb_product_item_name">${storepb.name}</p>
+							</div>
+						</div>
+
+						<div class="pb_reviewMap">
+							<div class="pb_product_content">
+								<textarea name="content" class="inquire__content" cols="60"
+									rows="10" placeholder="상품에 대해 문의해주세요!"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-insert"
+						id="inquireInsertmodalbtn">등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 문의 수정 modal -->
+	<div id="inquireupdatemodal" class="modal fade" tabindex="-1">
+		<div class="moadl-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<p class="modal-title">문의 수정</p>
+				</div>
+				<div class="modal-body">
+					<div class="pb_insertform_container">
+						<div class="pb_product_item">
+							<div class="pb_product_item_img">
+								<img src="${imgList[0]}">
+							</div>
+							<div class="pb_product_item_info">
+								<p class="pb_product_item_name">${storepb.name}</p>
+							</div>
+						</div>
+
+						<div class="pb_reviewMap">
+							<div class="pb_product_content">
+								<textarea name="content" class="inquire__update__content"
+									cols="60" rows="10" placeholder="상품에 대해 문의해주세요!"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-insert"
+						id="inquireUpdatemodalbtn">수정</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 장바구니  modal -->
+	<div id="cartmodal" class="modal fade" tabindex="-1">
+		<div class="moadl-dialog">
+			<div class="modal-content" id="cart-modal-content">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<div class="cartmodal_container">
+						<div class="cartmodal_header">
+							<p class="cartmodal_msg">장바구니에 상품을 담았습니다.</p>
+							<div class="cartmodal_button">
+								<div>
+									<button class="cart_move_btn">장바구니 보러가기</button>
+								</div>
+								<div>
+									<button class="cart_move_not_btn">계속 쇼핑하기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
     let imgArr= ["a","b","c","d","e","f","g","h","i","j"];
     
     $(document).ready(function () {
@@ -472,9 +480,6 @@
     });
     
     
-    $(".reviewScore").click(function () {
-    	console.log($(this).text());
-    });
     
     $("#pb_review_writeform").click(function () {
       $("#reviewmodal").modal("show");
@@ -661,15 +666,19 @@
 
 
 
-       // review 등록
+       // review 등록 - 체크포인트
        $("#insertmodalbtn").click(function () {
     	   let content = $(".product__content").val();
     	   let pbNo = ${storepb.pbNo};
     	   let rating = $("input[name='reviewStars']:checked").val();
+    	   let ratingCnt = $("#hiddenRatingCnt").val();
+    	   let storeRating = $("input[name='storeRating']").val();
     	   console.log(rating);
     	   reviewData.append("content",content );
     	   reviewData.append("pbNo", pbNo);
-    	   reviewData.append("rating", rating)
+    	   reviewData.append("rating", checkedValue);
+    	   reviewData.append("ratingCnt", ratingCnt);
+    	   reviewData.append("storeRating", storeRating );
     	   console.log( Object.keys(fileList).length + "길이");
     	   for(key in fileList){
     		   reviewData.append("imageList", fileList[key]);
@@ -680,7 +689,7 @@
 				contentType:false,
 				url : "/babmukja/store/pbreviewinsert.do",
 				data : reviewData,
-				success: function(result){
+				success: function(avg){
 					alert("후기가 등록되었습니다.");
 					location.href="detailpb.do?pbNo="+${storepb.pbNo};
 				}
@@ -705,35 +714,11 @@
    	  		});
        });
        
-       /*
        // review 수정
-      $(".reviewUpdateBTN").click(function () {
-    	  	$("#reviewUpdatemodal").modal("show");
-//    	   		let content = $(".review__update__content").html($(".product__content").val());
+      $(document).on("click",".reviewUpdateBTN",function () {
+          $("#reviewmodal").modal("show");
 
-//    	  		alert($(this).siblings("input[name='pbReviewNo']").val());
-   	  		$.ajax({
-   	  			url: "/babmukja/store/pbreviewupdateform.do",
-   	  			data : {
-   	  				pbReviewNo : $(this).siblings("input[name='pbReviewNo']").val()
-   	  			}
-   	  		}).done(function(response){
-   	  			console.dir(response);
-   	  		console.log( Object.keys(fileList).length + "길이");
-   	    	   for(key in response.reviewFile){
-// 		   	  		console.log(response.reviewFile[key].path +"/"+response.reviewFile[key].sysname);
-		   	  		let path = response.reviewFile[key].path;
-		   	  		let sysname = response.reviewFile[key].sysname;
-   	   	    	    console.log(path);
-   	   	    	var imgTag = "<div class='image_box'><img class='preview_imges' src='downloadpb.do?path="+path+"&sysname="+sysname+"' width=100 height=100/><div id='' class='preview_img_btn' >x</div></div>";
-//    	   	    	    let img = "<div class='image_box'><img src='downloadpb.do?path="+path+"&sysname="+sysname+"' class='preview_img'></div>"
-//    	   	    	downloadpb.do?path=${file.path}&sysname=${file.sysname}
-   	   	    	    $("#preview_img_div").prepend(imgTag);
-   	    	   }
-	   	  		$(".review__update__content").val(response.content);
-   	  		});
       });
-       */
        
 		$(document).on("click",".preview_img_btn",function () {
 			let key = $(this).attr("id");
@@ -906,6 +891,38 @@
 				
 			});
 		});
+        let checkedValue = 0;
+        let $checkStar = $(".check-frontStar");
+		 $(".check-stars").mouseover(function(e){
+	            let x,y;
+	            $(this).mousemove(function(e){
+	                let x = e.offsetX;
+	                if(x <= 60){
+	                	$checkStar.css({width: "60px"});
+	                    checkedValue = 1;
+	                }else if(x <= 120){
+	                	$checkStar.css({width: "120px"});
+	                    checkedValue = 2;
+	                }else if(x <= 180){
+	                	$checkStar.css({width: "180px"});
+	                    checkedValue = 3;
+	                }else if(x <= 240){
+	                	$checkStar.css({width: "240px"});
+	                    checkedValue = 4;
+	                }else if(x <= 300){
+	                	$checkStar.css({width: "300px"});
+	                    checkedValue = 5;
+	                	
+	                }else{
+	                	$checkStar.css({width: "0px"});
+	                	checkedValue = 0;
+	                }
+	            })   
+	        }).click(function(){
+            	let widthVal = checkedValue * 60;
+            	$checkStar.css({width: widthVal + "px"});
+            	alert(checkedValue + " : " + widthVal);
+            });
     </script>
 </body>
 </html>
