@@ -844,17 +844,24 @@
 		// 결제
 		$(".buy_now").click(function () {
 			if ('${sessionScope.user}' != "") {
+				let t = new Array();
+				obj = new Object();
 	// 			let price = $("#total__price").text(changeComma($("#total__price:first").text()));
-				let price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
-				let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
-				let count = $("#total_count").text();			// 상품 개수
-				let pbName = $("#pb_detail_title > p").text();	// 상품 명
-				let memNo = $("input[name='memhidden']").val();
-				console.log("상품 명 : " + pbName);
-				console.log("개수 : " + count);
-				console.log("상품번호 : " + pbNo);
-				console.log("총 금액 : " + price);
-				console.log("회원 번호 : " + memNo);
+				obj.price= $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+				obj.pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
+				obj.prodCount = $("#total_count").text();			// 상품 개수
+// 				obj.pbName = $("#pb_detail_title > p").text();	// 상품 명
+				obj.memNo = $("input[name='memhidden']").val();
+				t.push(obj);
+				console.log(t);
+// 				console.log("상품 명 : " + pbName);
+// 				console.log("개수 : " + count);
+// 				console.log("상품번호 : " + pbNo);
+// 				console.log("총 금액 : " + price);
+// 				console.log("회원 번호 : " + memNo);
+				
+				let price = $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+				
 		        var IMP = window.IMP; // 생략가능
 		        IMP.init("imp21130958"); // 가맹점 식별 코드
 	
@@ -863,7 +870,7 @@
 		            pg: "kakao", // 결제방식
 		            pay_method: "card", // 결제 수단
 		            merchant_uid: "merchant_" + new Date().getTime(),
-		            name: pbName, // order 테이블에 들어갈 주문명 혹은 주문 번호
+		            name: "BABMUKJA", // order 테이블에 들어갈 주문명 혹은 주문 번호
 		            amount: price, // 결제 금액
 		            buyer_name: "", // 구매자 이름
 		            buyer_tel: "", // 구매자 전화번호
@@ -873,14 +880,17 @@
 		            if (rsp.success) {
 		            	$.ajax({
 		            		url: "/babmukja/store/pbpaymentinsert.do",
-		            		data: {
-		            			price : price,
-		            			pbNo : pbNo,
-		            			prodCount : count,
-		            			memNo : memNo
-		            		}
-		            	}).done(function () {
-		            		alert("결제 완료@!@!");
+		            		traditional : true,
+		            		dataType:"JSON",
+		            		contentType : 'application/json; charset=UTF-8',
+		            		type:"POST",
+		            		data: JSON.stringify(t),
+		            		success: function(result){
+		    					if (result == 1) {
+// 			            			alert("결제 성공");
+			            			location.href = "mainpb.do";
+		    					}
+		    				}
 		            	});
 		              // 성공시
 		              var msg = "결제가 완료되었습니다.";
