@@ -168,7 +168,6 @@
                         </a>
                     </c:forEach>
                     </div><!-- writer-post end -->
-
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
                 </div><!-- writer-info end -->
                 
@@ -183,6 +182,9 @@
     
     
     <script>      
+    $("#more-post").click(function () {
+    	location.href = "<c:url value='/member/mypage.do?memNickname=${recipe.memNickname}'/>";
+    });
     // 좋아요 기능
     $(".recipeLike").click(function () {
     	if('${sessionScope.user}' != "") {

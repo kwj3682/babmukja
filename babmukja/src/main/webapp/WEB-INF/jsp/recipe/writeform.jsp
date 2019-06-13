@@ -146,39 +146,8 @@
     <div id="buttonWrapper">
         <button>저장</button>
     </div>
-    <script>
     
-    /* 업로드 체크 */
-    function fileCheck( file )
-    {
-            // 사이즈체크
-            var maxSize  = 5 * 1024 * 1024    //30MB
-            var fileSize = 0;
-
-    	// 브라우저 확인
-    	var browser=navigator.appName;
-    	
-    	// 익스플로러일 경우
-    	if (browser=="Microsoft Internet Explorer")
-    	{
-    		var oas = new ActiveXObject("Scripting.FileSystemObject");
-    		fileSize = oas.getFile( file.value ).size;
-    	}
-    	// 익스플로러가 아닐경우
-    	else
-    	{
-    		fileSize = file.files[0].size;
-    	}
-
-
-            if(fileSize > maxSize)
-            {
-                alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.    ");
-                return;
-            }
-
-            document.fileForm.submit();
-    }
+    <script>
     
          let fileList="";
        const editor = new EditorJS({
@@ -222,8 +191,9 @@
 
                                 function imgUpload() {
                                     console.dir(file);
-                                    if(file.size > 50 * 1024 * 1024) {
-                                    	alert("첨부파일 사이즈는 50MB 이내로 등록 가능합니다.");
+                                    if(file.size > 20 * 1024 * 1024 ) {
+                                    	alert("첨부파일 사이즈는 20MB 이내로 등록 가능합니다.");
+
                                     	return;
                                     }
                                     let fileData = new FormData();
@@ -327,6 +297,30 @@
                }
                
                
+               if($("input[name='country']:checked").val() == null) {
+            	   alert("나라별 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='caution']:checked").val() == null) {
+            	   alert("주의사항 키워드를 하나 이상 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='situation']:checked").val() == null) {
+            	   alert("상황 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='level']:checked").val() == null) {
+            	   alert("난이도 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='taketime']:checked").val() == null) {
+            	   alert("조리시간 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='foodtype']:checked").val() == null) {
+            	   alert("종류 키워드를 선택해주세요.");
+            	   return;
+               }
                let keywords = []; 
                let keyword = "";
                keywords.push($("input[name='country']:checked").val());
@@ -344,16 +338,17 @@
                let content = JSON.stringify(outputData);
                let title= $("#title").val();   
                
-               let imgPath = "";
+               let imgPath = "";           	   
                if(fileList == "") imgPath = "";
                else if(fileList != "" && cnt == 1) imgPath = fileList;
-               else imgPath = fileList.split(",")[0]; 
+               else imgPath = fileList.split(",")[0];             		   
+          	              	   
 				
                let form = new FormData();
                form.append("imgPath",imgPath);
                form.append("content",content);
-               form.append("keyword",keywords);
-               form.append("caution",cautions);
+               form.append("keywords",keywords);
+               form.append("cautions",cautions);
                form.append("title",title);
                
                $.ajax({

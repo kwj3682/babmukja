@@ -49,8 +49,12 @@
 	
 	<!-- 일등 레시피 정보 가져오기 -->
 	<select id="selectWinRecipe" resultType="recipe">
-		select *
-          from tb_recipe 
+		select r.*, m.*,k.keyword
+          from tb_recipe r, tb_member m, 
+               tb_recipe_keyword rk, tb_keyword k
+         where r.mem_no = m.mem_no
+           and rk.recipe_no = r.recipe_no
+           and rk.situation = k.keyword_no
          order by rating desc,
                   regdate desc		          
          limit 0,1

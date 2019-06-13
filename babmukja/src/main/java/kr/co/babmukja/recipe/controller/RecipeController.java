@@ -156,7 +156,7 @@ public class RecipeController {
 		Member user = (Member)session.getAttribute("user");		
 		recipe.setMemNo(user.getMemNo());
 		
-		service.insertRecipe(recipe,recipe.getKeyword(),recipe.getCaution());
+		service.insertRecipe(recipe,recipe.getKeywords(),recipe.getCautions());
 		 
 	}
 
@@ -231,17 +231,11 @@ public class RecipeController {
 
 	@RequestMapping("/update.do")
 	@ResponseBody
-	public void update(Recipe recipe, HttpSession session) {
-		System.out.println("수정 들어옴..");
-		System.out.println(recipe);
+	public void update(Recipe recipe, HttpSession session) {	
 		Member user = (Member)session.getAttribute("user");		
 		recipe.setMemNo(user.getMemNo());
-		System.out.println("title"+recipe.getTitle());
-		System.out.println("no"+recipe.getRecipeNo());
-		System.out.println("content"+recipe.getContent());
-		System.out.println("img"+recipe.getImgPath());
-		service.updateRecipe(recipe,recipe.getKeyword(),recipe.getCaution());
 
+		service.updateRecipe(recipe,recipe.getKeywords(),recipe.getCautions());
 	}
 
 	@RequestMapping("/delete.do")

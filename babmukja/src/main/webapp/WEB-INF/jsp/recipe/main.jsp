@@ -42,20 +42,42 @@
             <div class="swiper-slide">
             <div></div>
             <p>"BABMUKJA RECIPE"</p>
-          <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>
+            <c:choose>
+            	<c:when test="${sessionScope.user ne null}">
+		          <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>	            	
+            	</c:when>
+            	<c:otherwise>
+		          <div class="writeno-button">레시피 작성하러가기</div>	  
+            	</c:otherwise>
+            </c:choose>
             <img src="<c:url value="/resources/images/f2.jpg"/>"/>
             </div>
+            
             <div class="swiper-slide">
                 <div></div>
                 <p>"자라보고 놀란 가슴 <br> 솥뚜껑 삼겹살로 달랜다."</p>
-             <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>
-                
+              <c:choose>
+            	<c:when test="${sessionScope.user ne null}">
+		          <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>	            	
+            	</c:when>
+            	<c:otherwise>
+		          <div class="writeno-button">레시피 작성하러가기</div>	  
+            	</c:otherwise>
+            </c:choose>                
                 <img src="<c:url value="/resources/images/f8.jpg"/>"/>
             </div>
+            
             <div class="swiper-slide">
                 <div></div>
             <p>"둘이 먹다 하나 죽었으면 좋겠다."</p>
-          <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>
+           <c:choose>
+            	<c:when test="${sessionScope.user ne null}">
+		          <div id="writeform-button" onclick="location.href='writeform.do'">레시피 작성하러가기</div>	            	
+            	</c:when>
+            	<c:otherwise>
+		          <div class="writeno-button">레시피 작성하러가기</div>	  
+            	</c:otherwise>
+            </c:choose>
             <img src="<c:url value="/resources/images/f7.jpg"/>"/>
             </div>
             
@@ -72,10 +94,9 @@
                     <div>
                         <div id="sticker"></div>
                         	<a href="detail.do?no=${win.recipeNo }"><img src="${win.imgPath }"></a> 
-                        	<!--<img src="${win.imgPath }">-->
                         <div id="sticker2"></div>
-                    </div>
-                    <div id="monthrecipe-keyword">#퓨전요리</div>
+                    </div>                    
+                    <div id="monthrecipe-keyword">#${win.keyword}</div>
                 </div>
             </div>
             <div id="sec1-content2">
@@ -84,9 +105,11 @@
                     <div id="paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem cum expedita libero unde quos nemo blanditiis molestias mollitia! Vitae deserunt minima accusantium, inventore magnam fuga doloribus dolorem illum dolorum debitis perferendis porro quasi, similique maxime? Eum, officiis nemo? Repellat, deserunt.</div>
                     <div>
                 <c:forEach var="w" items="${winner }">
-                        <div>${w.title }<a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
+                        <div>${w.title }<br><a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
                  </c:forEach>
-                        <div>더 보기 <b>↓</b><img id="bottle" src="<c:url value="/resources/images/bottle.png"/>"></div>
+                        <div>더 보기 <b>↓</b>
+                        	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>">
+                        </div>
                     </div>
                     <div>${win.memNickname }</div>
                 </div>
@@ -205,7 +228,13 @@
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
     <script>
-
+    $("#bottle").click(function () {
+    	location.href = "<c:url value='/member/mypage.do?memNickname=${win.memNickname}'/>";
+    });
+    
+	$(".writeno-button").click(function (){
+		alert("로그인 후 이용가능합니다.")
+	});
     function loadApp(id) {
        if (!$(id).turn("is")) {
           
@@ -372,9 +401,7 @@
         $("#logout").click(function() {
            alert("로그아웃 성공!");
         });
-//         $("#writeform-button").click(function(){
-//            location.href="writeform.do";
-//         });
+
     </script>
 </body>
 </html>

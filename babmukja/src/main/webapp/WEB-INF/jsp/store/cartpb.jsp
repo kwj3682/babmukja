@@ -18,7 +18,7 @@
     <div class="pb_cart_container">
 	      <div class="pb_cart_grid">
 	          <div class="pb_cart_con">
-	            
+	            <input type="hidden" name="memhidden" value="${sessionScope.user.memNo}">
 	            <!-- 반복 -->
 	            <c:forEach var="cartList" items="${cartList}">
 		            <div class="pb_cart_product" id="${cartList.cartNo}">
@@ -96,69 +96,87 @@
     		});
     	});
     	
-//     	// 결제
-// 		$(".payment_btn").click(function () {
-// 			alert("구매하기버튼 클릭됨");
-// 			let t = [];
-// 			$(".pb_cart_product").each(function () {
-// 				let price = parseInt($(this).children().children().children(".total__price").text().replace(/,/g,"").replace('원',""));
-// 				let pbNo = parseInt($(this).children("input[name='hiddenpbNo']").val());
-// 				let count = parseInt($(this).children().children().children("#total_count").text());
-// 				t.push({'pbNo' : pbNo, 'price' : price, 'prodCount' : count});
-//     		});
-// 			console.log(t);
+    	// 결제
+		$(".payment_btn").click(function () {
+			alert("구매하기버튼 클릭됨");
+			let t = new Array();
+			let obj = null;
+			$(".pb_cart_product").each(function () {
+				obj = new Object();
+				obj.price = parseInt($(this).children().children().children(".total__price").text().replace(/,/g,"").replace('원',""));
+				obj.pbNo = parseInt($(this).children("input[name='hiddenpbNo']").val());
+				obj.prodCount = parseInt($(this).children().children().children("#total_count").text());
+				obj.memNo = $("input[name='memhidden']").val();
+// 				t.push({'pbNo' : pbNo, 'price' : price, 'prodCount' : count, 'memNo' : memNo});
+				t.push(obj);
+    		});
+			console.log(t);
+// 			for (key of t) {
+// 				console.log(key["pbNo"]);
+// 				console.log(key["price"]);
+// 				console.log(key["prodCount"]);
+// 				console.log(key["memNo"]);
+// 			}
+			
+// 			console.log(JSON.stringify(t));
 // 			alert(JSON.stringify(t));			
-// // 			for (let i = 0; i < t.length; i++) {
-// // 				console.log(t[i].pbNo, t[i].price, t[i].count);
-// // 			}
+// 			for (let i = 0; i < t.length; i++) {
+// 				console.log(t[i].pbNo, t[i].price, t[i].count);
+// 			}
 
 			
-// 			let price= $(".order_price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
-// // 			let count = $("#total_count").text();			// 상품 개수
-// // 			let pbName = $("#pb_detail_title > p").text();	// 상품 명
-// // 			console.log("개수 : " + count);
-// // 			console.log("총 금액 : " + price);
-// // 			console.log("상품번호 : " + pbNo);
-// 	        var IMP = window.IMP; // 생략가능
-// 	        IMP.init("imp21130958"); // 가맹점 식별 코드
+			let price= $(".order_price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
+// 			let count = $("#total_count").text();			// 상품 개수
+// 			let pbName = $("#pb_detail_title > p").text();	// 상품 명
+// 			console.log("개수 : " + count);
+// 			console.log("총 금액 : " + price);
+// 			console.log("상품번호 : " + pbNo);
+	        var IMP = window.IMP; // 생략가능
+	        IMP.init("imp21130958"); // 가맹점 식별 코드
 
-// 	        IMP.request_pay(
-// 	          {
-// 	            pg: "kakao", // 결제방식
-// 	            pay_method: "card", // 결제 수단
-// 	            merchant_uid: "merchant_" + new Date().getTime(),
-// 	            name: "BABMUKJA", // order 테이블에 들어갈 주문명 혹은 주문 번호
-// 	            amount: price, // 결제 금액
-// 	            buyer_name: "", // 구매자 이름
-// 	            buyer_tel: "", // 구매자 전화번호
-// 	            m_redirect_url: "" // 결제 완료 후 보낼 컨트롤러의 메소드명
-// 	          },
-// 	          function(rsp) {
-// 	            if (rsp.success) {
-// 	            	$.ajax({
-// 	            		url: "/babmukja/store/pbpaymentinsert.do",
-// 	            		traditional : true,
-// 	            		dataType:"JSON",
-// 	            		type:"POST",
-// 	            		data: {result : JSON.stringify(t)}
-// 	            	}).done(function (response) {
-// 	            		alert("결제 완료@!@!");
-// 	            	});
-// 	              // 성공시
-// 	              var msg = "결제가 완료되었습니다.";
-// 	              msg += "고유ID : " + rsp.imp_uid;
-// 	              msg += "상점 거래ID : " + rsp.merchant_uid;
-// 	              msg += "결제 금액 : " + rsp.paid_amount;
-// 	              msg += "카드 승인번호 : " + rsp.apply_num;
-// 	            } else {
-// 	              // 실패시
-// 	              var msg = "결제에 실패하였습니다.";
-// 	              msg += "에러내용 : " + rsp.error_msg;
-// 	              alert (msg);
-// 	            }
-// 	          }
-// 	        );
-// 		});
+	        IMP.request_pay(
+	          {
+	            pg: "kakao", // 결제방식
+	            pay_method: "card", // 결제 수단
+	            merchant_uid: "merchant_" + new Date().getTime(),
+	            name: "BABMUKJA", // order 테이블에 들어갈 주문명 혹은 주문 번호
+	            amount: price, // 결제 금액
+	            buyer_name: "", // 구매자 이름
+	            buyer_tel: "", // 구매자 전화번호
+	            m_redirect_url: "" // 결제 완료 후 보낼 컨트롤러의 메소드명
+	          },
+	          function(rsp) {
+	            if (rsp.success) {
+	            	$.ajax({
+	            		url: "/babmukja/store/pbpaymentinsert.do",
+	            		traditional : true,
+	            		dataType:"JSON",
+	            		contentType : 'application/json; charset=UTF-8',
+	            		type:"POST",
+	            		data: JSON.stringify(t),
+	            		success: function(result){
+	    					if (result == 1) {
+		            			alert("결제 성공");
+		            			console.log("결제성공");
+		    					location.href="mainpb.do";
+	    					}
+	    				}
+	            	});
+	              // 성공시
+	              var msg = "결제가 완료되었습니다.";
+	              msg += "고유ID : " + rsp.imp_uid;
+	              msg += "상점 거래ID : " + rsp.merchant_uid;
+	              msg += "결제 금액 : " + rsp.paid_amount;
+	              msg += "카드 승인번호 : " + rsp.apply_num;
+	            } else {
+	              // 실패시
+	              var msg = "결제에 실패하였습니다.";
+	              msg += "에러내용 : " + rsp.error_msg;
+	              alert (msg);
+	            }
+	          }
+	        );
+		});
     	
     	// 수량 조절 부분
     	let price = parseInt($("#total__price").text().replace(/,/g,""));
