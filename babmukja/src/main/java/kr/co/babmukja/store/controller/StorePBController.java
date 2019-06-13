@@ -274,10 +274,20 @@ public class StorePBController {
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
-	public void pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb) throws Exception {
+	public double pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb, int ratingCnt, double storeRating) throws Exception {
 		System.out.println(reviewpb.getContent());
 		reviewpb.setPbNo(reviewpb.getPbNo());
-		service.insertPBReview(reviewpb);
+		
+		int pbNo = reviewpb.getPbNo();
+		int rating = reviewpb.getRating();
+		double avg = storeRating + (rating - storeRating) / ++ratingCnt; 
+		
+		StorePB spb = new StorePB();
+		spb.setPbNo(pbNo);
+		spb.setRatingCnt(ratingCnt);
+		spb.setRating(avg);
+		
+		service.insertPBReview(reviewpb,spb);
 		
 		String uploadRoot = "c:/bit2019/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat(
@@ -302,6 +312,9 @@ public class StorePBController {
 			fileVO.setSysname(uName);
 			service.insertPBReviewImage(fileVO);
 		}
+		
+		
+		return avg;
 	}
 	
 	// pb 상품 후기 수정

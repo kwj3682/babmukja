@@ -86,8 +86,9 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.updatePBStore(storepb);
 	}
 	
-	public void insertPBReview(StorePBReview reviewpb) {
+	public void insertPBReview(StorePBReview reviewpb,StorePB spb) {
 		mapper.insertPBReview(reviewpb);
+		mapper.updateRatingByMember(spb);
 	}
 	
 	public void insertPBReviewImage(FileVO fileVO) {
@@ -178,4 +179,6 @@ public class StorePBServiceImpl implements StorePBService{
 	public void deletePBCart(int cartNo) {
 		mapper.deletePBCart(cartNo);
 	}
+
+
 }

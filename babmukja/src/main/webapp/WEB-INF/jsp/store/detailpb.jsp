@@ -40,7 +40,8 @@
 </head>
 <body onload="myTimeWait()">
 	<div id="pb_detail_container">
-		<!-- 상단 컨테이너 -->
+	<input type="hidden" id="hiddenRatingCnt" value="${storepb.ratingCnt}">
+		<!-- 상단 컨테이너 --> 
 		<div id="pb_detail_header_container">
 			<div id="pb_detail_header_images">
 				<div id="pb_detail_thumbnail_list">
@@ -66,7 +67,14 @@
 					<p>${storepb.name}</p>
 				</div>
 				<div id="pb_detail_rating_point">
-					<p>★★★★☆</p>
+					<div class="storeRating">
+					<input type="hidden" value="${storepb.rating}" name="storeRating">
+						<div class="storeRating-backStar"></div>
+						<div class="storeRating-frontStar-wrapper">
+							<div class="storeRating-frontStar"
+								style="width:${storepb.rating *20}%;"></div>
+						</div>
+					</div>
 				</div>
 				<div id="pb_detail_price">
 
@@ -658,15 +666,19 @@
 
 
 
-       // review 등록
+       // review 등록 - 체크포인트
        $("#insertmodalbtn").click(function () {
     	   let content = $(".product__content").val();
     	   let pbNo = ${storepb.pbNo};
     	   let rating = $("input[name='reviewStars']:checked").val();
+    	   let ratingCnt = $("#hiddenRatingCnt").val();
+    	   let storeRating = $("input[name='storeRating']").val();
     	   console.log(rating);
     	   reviewData.append("content",content );
     	   reviewData.append("pbNo", pbNo);
     	   reviewData.append("rating", checkedValue);
+    	   reviewData.append("ratingCnt", ratingCnt);
+    	   reviewData.append("storeRating", storeRating );
     	   console.log( Object.keys(fileList).length + "길이");
     	   for(key in fileList){
     		   reviewData.append("imageList", fileList[key]);
@@ -677,7 +689,7 @@
 				contentType:false,
 				url : "/babmukja/store/pbreviewinsert.do",
 				data : reviewData,
-				success: function(result){
+				success: function(avg){
 					alert("후기가 등록되었습니다.");
 					location.href="detailpb.do?pbNo="+${storepb.pbNo};
 				}

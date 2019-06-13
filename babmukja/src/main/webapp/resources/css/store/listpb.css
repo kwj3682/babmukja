@@ -45,7 +45,8 @@
 
 .pb_list_product_rating {
     margin-top: -10px;
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .pb_list_title {
@@ -83,8 +84,10 @@ select {
 }    
 
 #pb_store_popular_product_rating_star {
-    color: #7db341;
-
+    display : inline-block;
+    width: 25px;
+    height: 24px;
+	background: url(/babmukja/resources/images/star5.png) no-repeat;
 }
 
 a:link {
@@ -148,3 +151,4 @@ outline: 0;
     background-color: white;
     cursor: pointer;
 }
+

@@ -66,8 +66,8 @@
 	                            <p><fmt:formatNumber value="${listpb.price}" groupingUsed="true"/></p>
 	                        </div>
 	                        <div class="pb_list_product_rating">
-	                            <span id="pb_store_popular_product_rating_star">★</span>
-	                            <span>4.3</span>
+	                            <span id="pb_store_popular_product_rating_star"></span>
+	                            <span><fmt:formatNumber value="${listpb.rating}" pattern="#.##"/></span>
 	                        </div>
 	                    </div>
 	                </a>

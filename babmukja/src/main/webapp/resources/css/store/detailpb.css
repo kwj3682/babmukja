@@ -978,6 +978,29 @@
     background: url(/babmukja/resources/images/star5.png) no-repeat;
     height: 23px;
 }
+
+.storeRating{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 100%;
+    width:120px;
+    margin-bottom: 15px;
+}
+.storeRating-backStar{
+    background: url(/babmukja/resources/images/star5-gray.png);
+    width : 100%;
+    height: 23px;
+}
+.storeRating-frontStar-wrapper{
+    width: 120px;
+    position: absolute;
+}
+.storeRating-frontStar{
+    background: url(/babmukja/resources/images/star5.png) no-repeat;
+    height: 23px;
+}
+
+
 .user_info_sec1{
 	display:grid;
 	grid-template-columns : 90% 10%;

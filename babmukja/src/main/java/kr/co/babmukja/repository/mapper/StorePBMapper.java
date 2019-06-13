@@ -71,4 +71,5 @@ public interface StorePBMapper {
 	public List<StorePBCart> selectPBCartByMember(int memNo);
 	// pb 상품 장바구니 삭제
 	public void deletePBCart(int cartNo);
+	public void updateRatingByMember(StorePB spb);
 }
