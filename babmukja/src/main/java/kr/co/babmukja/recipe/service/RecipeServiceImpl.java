@@ -30,21 +30,21 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 삽입
-	public void insertRecipe(Recipe recipe, List<String> keyword, List<String> caution) {		
+	public void insertRecipe(Recipe recipe, List<String> keywords, List<String> cautions) {		
 		mapper.insertRecipe(recipe);
 		RecipeKeywordCode rk = new RecipeKeywordCode();
 		
-		for(int i=0; i<keyword.size(); i++) {
-			rk.setCountry(Integer.parseInt((keyword.get(0))));
-			rk.setSituation(Integer.parseInt((keyword.get(1))));
-			rk.setLevel(Integer.parseInt((keyword.get(2))));
-			rk.setTime(Integer.parseInt((keyword.get(3))));
-			rk.setType(Integer.parseInt((keyword.get(4))));
+		for(int i=0; i<keywords.size(); i++) {
+			rk.setCountry(Integer.parseInt((keywords.get(0))));
+			rk.setSituation(Integer.parseInt((keywords.get(1))));
+			rk.setLevel(Integer.parseInt((keywords.get(2))));
+			rk.setTime(Integer.parseInt((keywords.get(3))));
+			rk.setType(Integer.parseInt((keywords.get(4))));
 		}
 		StringBuilder cautionsString = new StringBuilder();
-		for(int i=0; i < caution.size(); i++) {
-			cautionsString.append(caution.get(i));
-			if(i == caution.size()-1) {
+		for(int i=0; i < cautions.size(); i++) {
+			cautionsString.append(cautions.get(i));
+			if(i == cautions.size()-1) {
 				break;
 			}
 			cautionsString.append(",");
@@ -65,26 +65,21 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 수정
-	public void updateRecipe(Recipe recipe, List<String> keyword, List<String> caution) {
+	public void updateRecipe(Recipe recipe, List<String> keywords, List<String> cautions) {
 		mapper.updateRecipe(recipe);;
 		RecipeKeywordCode rk = new RecipeKeywordCode();
 		
-		for(int i=0; i<keyword.size(); i++) {
-			System.out.println(keyword.get(0));
-			System.out.println(keyword.get(1));
-			System.out.println(keyword.get(2));
-			System.out.println(keyword.get(3));
-			System.out.println(keyword.get(4));
-			rk.setCountry(Integer.parseInt((keyword.get(0))));
-			rk.setSituation(Integer.parseInt((keyword.get(1))));
-			rk.setLevel(Integer.parseInt((keyword.get(2))));
-			rk.setTime(Integer.parseInt((keyword.get(3))));
-			rk.setType(Integer.parseInt((keyword.get(4))));
+		for(int i=0; i<keywords.size(); i++) {
+			rk.setCountry(Integer.parseInt((keywords.get(0))));
+			rk.setSituation(Integer.parseInt((keywords.get(1))));
+			rk.setLevel(Integer.parseInt((keywords.get(2))));
+			rk.setTime(Integer.parseInt((keywords.get(3))));
+			rk.setType(Integer.parseInt((keywords.get(4))));
 		}
 		StringBuilder cautionsString = new StringBuilder();
-		for(int i=0; i < caution.size(); i++) {
-			cautionsString.append(caution.get(i));
-			if(i == caution.size()-1) {
+		for(int i=0; i < cautions.size(); i++) {
+			cautionsString.append(cautions.get(i));
+			if(i == cautions.size()-1) {
 				break;
 			}
 			cautionsString.append(",");

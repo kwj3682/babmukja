@@ -458,7 +458,7 @@ html, body {
 	height: 500px;
 	background-image : url(../../images/sector3.jpg);
 }
-#writeform-button{
+#writeform-button, .writeno-button{
 	position: absolute;
 	top:64%;
 	margin: 0 auto;
@@ -476,8 +476,7 @@ html, body {
 	transition: .4s;
 	cursor: pointer;
 }
-#writeform-button:hover{ 
+#writeform-button:hover, .writeno-button:hover{ 
 	opacity: 1;
 	box-shadow : 0 0 15px 3px white;
 }
-

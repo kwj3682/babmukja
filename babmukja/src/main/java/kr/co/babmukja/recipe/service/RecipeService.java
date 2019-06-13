@@ -15,13 +15,13 @@ import kr.co.babmukja.repository.domain.RecipeReview;
 
 public interface RecipeService {	
 	// 레시피 등록
-	public void insertRecipe(Recipe recipe, List<String> keyword, List<String> caution);
+	public void insertRecipe(Recipe recipe, List<String> keywords, List<String> cautions);
 	// 레시피 상세
 	public Recipe selectRecipeByNo(int no);
 	// 레시피 수정폼가기
 	public Recipe updateForm(int no);
 	// 레시피 수정
-	public void updateRecipe(Recipe recipe, List<String> keyword, List<String> caution);
+	public void updateRecipe(Recipe recipe, List<String> keywords, List<String> cautions);
 	// 레시피 삭제
 	public void deleteRecipe(int no);
 	// 레시피 전체 목록

@@ -23,21 +23,28 @@ public class Recipe {
 	
 	private String imgPath;	
 	private int keywordNo;
-	private List<String> keyword;
-	private List<String> caution;
-	private int country;		
+	private List<String> keywords;
+	private List<String> cautions;
+	private int country;
+	private String keyword;
 	
-	public List<String> getKeyword() {
+	public String getKeyword() {
 		return keyword;
 	}
-	public void setKeyword(List<String> keyword) {
+	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public List<String> getCaution() {
-		return caution;
+	public List<String> getKeywords() {
+		return keywords;
 	}
-	public void setCaution(List<String> caution) {
-		this.caution = caution;
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
+	public List<String> getCautions() {
+		return cautions;
+	}
+	public void setCautions(List<String> cautions) {
+		this.cautions = cautions;
 	}
 	public int getLikeNo() {
 		return likeNo;
@@ -135,15 +142,5 @@ public class Recipe {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@Override
-	public String toString() {
-		return "Recipe [memNo=" + memNo + ", memName=" + memName + ", memNickname=" + memNickname + ", recipeNo="
-				+ recipeNo + ", title=" + title + ", content=" + content + ", regDate=" + regDate + ", rating=" + rating
-				+ ", viewCnt=" + viewCnt + ", likeCnt=" + likeCnt + ", likeHeart=" + likeHeart + ", likeNo=" + likeNo
-				+ ", scrapCnt=" + scrapCnt + ", imgPath=" + imgPath + ", keywordNo=" + keywordNo + ", keyword="
-				+ keyword + ", caution=" + caution + ", country=" + country + "]";
-	}
-
-
 	
 }

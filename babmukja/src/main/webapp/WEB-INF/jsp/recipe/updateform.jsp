@@ -333,8 +333,8 @@
                let form = new FormData();
                form.append("imgPath",imgPath);
                form.append("content",content);
-               form.append("keyword",keywords);
-               form.append("caution",cautions);
+               form.append("keywords",keywords);
+               form.append("cautions",cautions);
                form.append("title",title);
                form.append("recipeNo",no);
                $.ajax({
@@ -344,11 +344,11 @@
                   url:"update.do",
                   data: form,
                   success:function(result){    
-                	  alert("?");
+                	  alert("레시피 수정이 되었습니다.");
                   }
                });                
-          
-              location.href="<c:url value='/recipe/detail.do?no=" + $("#hiddenNo").text() + "'/>";
+               location.href="<c:url value='/recipe/main.do'/>";
+ //             location.href="<c:url value='/recipe/detail.do?no=" + $("#hiddenNo").text() + "'/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });
