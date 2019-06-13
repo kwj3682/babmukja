@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -377,10 +379,18 @@ public class StorePBController {
 	// pb 상품 결제 등록
 	@RequestMapping("/pbpaymentinsert.do")
 	@ResponseBody
-	public void insertPBPayment(StorePBPayment storePBPayment, HttpSession session) {
-		Member user = (Member)session.getAttribute("user");
-		storePBPayment.setMemNo(user.getMemNo());
-		service.insertPBPayment(storePBPayment);
+	public int insertPBPayment(@RequestBody List<StorePBPayment> storePBPayment, HttpSession session) {
+		System.out.println("컨트롤러 도착");
+		for (StorePBPayment s : storePBPayment) {
+			System.out.println("mem_no : " + s.getMemNo());
+			System.out.println("price : " + s.getPrice());
+			System.out.println("count : " + s.getProdCount());
+			Member user = (Member)session.getAttribute("user");
+			s.setMemNo(user.getMemNo());
+			service.insertPBPayment(s);
+		}
+		System.out.println("컨트롤러 끝");
+		return 1;
 	}
 	
 	// pb 상품 장바구니
