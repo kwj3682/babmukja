@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
 <body>               
     <div id="main-body">    
     <!-- 검색 부분 -->
-     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p></div>
+   <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p><i id="submitBtn" class="fa fa-search fa-2x"></i></div>
    <div id="selectBox-wrapper">
             <form name="searhForm" method="get" action="cadetailall.do">
        <div id="selectBox">
@@ -30,7 +31,7 @@
                 <img src="<c:url value="/resources/images/icons/title.png"/>">    
                 <div class="selectmenuContent-detail">제목
                     <div class="hiddenMenu">
-                        <input type="text" name="searchTitle"<c:if test="${param.searchTitle != '' || param.searchTitle != null}">value="${param.searchTitle }"</c:if>><span class="search-icon"><i class="fa fa-search"></i></span>
+                        <input type="text" name="searchTitle"<c:if test="${param.searchTitle != '' || param.searchTitle != null}">value="${param.searchTitle }"</c:if>><span class="search-icon"></span>
                     </div>  
                 </div>
                 <div class="selectmenuContentFold"><i class="fas fa-chevron-right"></i></div>
@@ -40,7 +41,7 @@
                 <img src="<c:url value="/resources/images/icons/nickname.png"/>">  
                 <div class="selectmenuContent-detail">닉네임     
                     <div class="hiddenMenu">
-                        <input type="text" name="searchNickname" <c:if test="${param.searchNickname != '' || param.searchNickname != null}">value="${param.searchNickname }"</c:if>><span class="search-icon"><i class="fa fa-search"></i></span>
+                        <input type="text" name="searchNickname" <c:if test="${param.searchNickname != '' || param.searchNickname != null}">value="${param.searchNickname }"</c:if>><span class="search-icon"></span>
                     </div>  
                 </div>
                 <div class="selectmenuContentFold"><i class="fas fa-chevron-right"></i></div>
@@ -170,7 +171,7 @@
 	                           </div>
 	                           <div class="profile-name">
 	                               <p>
-			                    	  <span>평점 : ${ca.rating }</span>
+			                    	  <span>평점 : <fmt:formatNumber value="${ca.rating }" pattern="#.##"/></span>
 	                           <br>
 	                                  ${ca.title}
 	                           <br>
@@ -195,9 +196,25 @@
 	
     <script>
 	    let arrow = $("#fa-arrow");
-	    
-	    $("#selectBoxSelector").click(function(){
-	        $("#selectBox-wrapper").slideToggle(150);
+		let $selectBoxSelector = $("#selectBoxSelector");
+    	let $selectBoxWrapper = $("#selectBox-wrapper");
+		let offLeft = $selectBoxSelector.offset().left;
+		
+		
+        $("#submitBtn").css({
+        	position: "absolute",
+        	top: 15,
+        	left: 220
+        });
+        $selectBoxWrapper.css({
+        	position: "fixed",
+        	top: 55,
+        	left: offLeft
+        });
+    	
+	    $selectBoxSelector.click(function(e){
+	        $selectBoxWrapper.slideToggle(150);
+	        
 	        if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
 	        else{
 	            arrow.attr({class : "fas fa-caret-down"});
@@ -228,7 +245,7 @@
 	        });
 	    });
     
-         $(".search-icon > i").click(function () {
+         $("#submitBtn").click(function () {
         		 $("form[name='searhForm']").submit();
          });
          

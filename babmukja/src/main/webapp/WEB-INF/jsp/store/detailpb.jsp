@@ -951,7 +951,6 @@
 	        }).click(function(){
             	let widthVal = checkedValue * 60;
             	$checkStar.css({width: widthVal + "px"});
-            	alert(checkedValue + " : " + widthVal);
             });
     </script>
 </body>

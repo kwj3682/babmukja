@@ -460,3 +460,45 @@
 button{
 	outline:none;
 }
+
+.check-stars{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 100%;
+    width:120px;
+    margin-bottom: 15px;
+}
+.check-backStar{
+    background: url(/babmukja/resources/images/star5-gray.png);
+    width : 100%;
+    height: 23px;
+}
+.check-frontStar-wrapper{
+    width: 120px;
+    position: absolute;
+}
+.check-frontStar{
+    background: url(/babmukja/resources/images/star5.png) no-repeat;
+    height: 23px;
+}
+
+.stars{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 100%;
+    width:120px;
+    margin-bottom: 15px;
+}
+.backStar{
+    background: url(/babmukja/resources/images/star5-gray.png);
+    width : 100%;
+    height: 23px;
+}
+.frontStar-wrapper{
+    width: 120px;
+    position: absolute;
+}
+.frontStar{
+    background: url(/babmukja/resources/images/star5.png) no-repeat;
+    height: 23px;
+}
