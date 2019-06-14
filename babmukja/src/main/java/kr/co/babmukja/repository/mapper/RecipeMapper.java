@@ -11,7 +11,6 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeScrap;
 
 
 public interface RecipeMapper {
@@ -26,7 +25,11 @@ public interface RecipeMapper {
 	// 레시피 목록
 	public List<Recipe> selectRecipe();	
 	// 회원 레시피 목록 
-	public List<Recipe> selectRecipeByMem(int no);	
+	public List<Recipe> selectRecipeByMem(int no);
+	// 1등 레시피 정보
+	public Recipe selectWinRecipe();
+	// 메인 회원 레시피 목록
+	public List<Recipe> selectMemRecipeByRate();	
 	// 레시피 조회수 증가
 	public void addViewCnt(int no);	
 	
@@ -66,9 +69,14 @@ public interface RecipeMapper {
 	public RecipeKeywordName selectKeywordByNo(int no);	
 	public List<Recipe> selectRecipeByKeyword(int no);	
 	public void insertKeywordToRecipe(RecipeKeywordCode rk);
+	public void updateKeywordFromRecipe(RecipeKeywordCode rk);
 	
 	// 레시피 카테고리별 목록
 	public List<RecipePage> selectRecipeAll(RecipePage page);
 	public List<RecipePage> selectRecipeByCate(RecipePage page);
 	
+	public RecipeKeywordCode selectKeywordByRecipe(int no);
+
+	public List<Recipe> selectRecipeByMemNo(int memNo);
+
 }

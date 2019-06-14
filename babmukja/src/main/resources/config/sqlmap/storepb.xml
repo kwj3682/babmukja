@@ -2,146 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.babmukja.repository.mapper.StorePBMapper">
-	<!-- 
-	<resultMap id="storepbMap" type="storePB">
-		<result column="pb_no" property="pbNo" />
-		<result column="name" property="name" />
-		<result column="content" property="content" />
-		<result column="price" property="price" />
-		<result column="regdate" property="regDate" />
-		<result column="mem_no" property="memNo" />
-		<result column="viewcnt" property="viewCnt" />
-		<result column="group_no" property="groupNo" />
-	</resultMap>
-	
-	<resultMap id="fileMap" type="fileVO" >
-		<result column="file_no" property="fileNo"/>
-		<result column="group_no" property="groupNo"/>
-		<result column="sysname" property="sysname"/>
-		<result column="orgname" property="orgname"/>
-		<result column="path" property="path"/>
-		<result column="mem_no" property="memNo"/>
-	</resultMap>
-	
-	<select id="selectPBList" resultMap="storepbMap">
-		select *
-		  from tb_pb
-		 order by pb_no desc
-	</select>
-	 -->
-	<!--  게시물 등록  
-	<insert id="insertpb" parameterType="storePB">
-		insert into tb_pb
-		(
-			name, 
-			content, 
-			price, 
-			mem_no, 
-			group_no
-		)
-		values 
-		( 
-			#{name}, 
-			#{content}, 
-			#{price}, 
-			3, 
-			#{groupNo}
-		)
-	</insert>
-	-->
-	<!-- 파일 업로드 
-	<insert id="insertPBImage" parameterType="fileVO">
-		insert into tb_file 
-		(
-			group_no, 
-			sysname, 
-			orgname, 
-			path, 
-			mem_no
-		)
-		values 
-		(
-			#{groupNo}, 
-			#{sysname}, 
-			#{orgname}, 
-			#{path}, 
-			3
-		)
-	</insert>
-	-->
-	<!--  파일 업로드  
-	<select id="selectMaxNum" resultType="int">
-		select ifnull(max(pb_no),1)
-		  from tb_pb
-	</select>
-	-->
-	
-	<!-- 
-	<resultMap id="pbListMap" type="storePB" >
-		<result column="pb_no" property="pbNo" />
-		<result column="name" property="name" />
-		<result column="content" property="content" />
-		<result column="price" property="price" />
-		<result column="regdate" property="regDate" />
-		<result column="mem_no" property="memNo" />
-		<result column="viewcnt" property="viewCnt" />
-		<result column="group_no" property="groupNo" />
-		
-		<collection property="images" 
-					column="group_no"
-					select="selectPBListImage"/>
-	</resultMap>
-	 -->
-	<!-- main화면 List 불러오기 
-	<select id="selectPBMainList" resultMap="pbListMap">
-		select *
-		  from tb_pb
-		 order by pb_no desc
-	</select>
-	
-	<select id="selectPBListImage" parameterType="int" resultMap="fileMap">
-		select *
-		  from tb_file
-		 where group_no = #{groupNo}
-		 order by group_no desc
-	</select>
-	
-	<resultMap id="pbDetailMap" type="storePB" >
-		<result column="pb_no" property="pbNo" />
-		<result column="name" property="name" />
-		<result column="content" property="content" />
-		<result column="price" property="price" />
-		<result column="regdate" property="regDate" />
-		<result column="mem_no" property="memNo" />
-		<result column="viewcnt" property="viewCnt" />
-		<result column="group_no" property="groupNo" />
-		
-		<collection property="images" 
-					column="group_no"
-					select="selectPBDetailImage"/>
-	</resultMap>
-	-->
-	<!-- 상세조회 
-	<select id="selectPBdetail" parameterType="int" resultMap="pbDetailMap">
-		select *
-		  from tb_pb
-		 where pb_no = #{pbNo}
-	</select>
-	
-	<select id="selectPBDetailImage" parameterType="int" resultMap="fileMap">
-		select *
-		  from tb_file
-		 where group_no = #{groupNo}	
-	</select>
-	-->
-	<!--  게시물 삭제  
-	<delete id="deletePBByNo" parameterType="int">
-		delete
-		  from tb_pb
-		 where pb_no = #{pbNo}
-	</delete>
-	-->
-	
 	<resultMap id="storepbMap" type="storePB">
 		<result column="pb_no" property="pbNo" />
 		<result column="name" property="name" />
@@ -151,30 +11,48 @@
 		<result column="mem_no" property="memNo" />
 		<result column="viewcnt" property="viewCnt" />
 		<result column="imgpath" property="imgPath" />
+		<result column="thumnail" property="thumnail" />
 	</resultMap>
 	
-	<!-- 
-	<insert id="insertPBStore" parameterType="storePB">
-		insert into tb_pb(
-			mem_no, 
-			name, 
-			price,
-			content,
-			imgpath
-		)
-		values(
-			3, 
-			#{name}, 
-			#{price},
-			#{content},
-			#{imgPath}
-		)
-	</insert>
-	 -->
 	<select id="selectPBStore" resultMap="storepbMap">
 		select *
           from tb_pb
 		 order by regDate desc
+	</select>
+	
+	<sql id="searchSQL">
+	  <if test="searchName != null and searchName != ''">
+ 			and name like concat('%', #{searchName}, '%')
+	  </if>
+	</sql>
+	
+	<select id="selectPBStoreList" resultMap="storepbMap" parameterType="pagepb">
+		select * 
+		  from tb_pb
+		 where 1 = 1
+		<include refid="searchSQL"/>
+		 <choose>
+		 	<when test="sortType == 3">
+		 		order by price desc
+		 	</when>
+		 	<when test="sortType == 2">
+		 		order by price asc
+		 	</when>
+		 	<when test="sortType == 0">
+		 		order by regdate desc
+		 	</when>
+		 	<otherwise>
+		 		order by pb_no desc
+		 	</otherwise>
+	 	</choose>		
+		 limit #{begin}, #{end}
+	</select>
+
+	<select id="selectPBStoreCount" resultType="int" parameterType="pagepb">
+		select count(*)
+		  from tb_pb
+		 where 1 = 1
+		<include refid="searchSQL"/>
 	</select>
 	
 	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
@@ -183,20 +61,6 @@
 		 where pb_no = #{pbNo}
 	</select>
 	
-	<!-- 
-	<select id="selectAdminPBList" resultMap="storepbMap" parameterType="pagepb">
-		select * 
-	  	  from tb_pb
-	 	 order by pb_no desc
-	 	 limit #{begin}, #{end}
-	</select>
-	
-	<select id="selectAdminPBListCount" resultType="int">
-		select count(*)
-		  from tb_pb
-	</select>
-	 -->
-	 
 	<update id="updatePBStore" parameterType="storePB">
 		update tb_pb
 		   set name = #{name},
@@ -205,27 +69,6 @@
 		 where pb_no = #{pbNo}		   
 	</update>
 	
-	<!-- 
-	<delete id="deletePBStore" parameterType="int">
-		delete 
-		  from tb_pb
-		 where pb_no = #{pbNo}
-	</delete>
- 	-->
-	 
-	<!--  후기 파트  -->
-	
-	<!--  후기 등록 파트  
-	<resultMap id="pbReviewMap" type="storePBReview" >
-		<result column="pb_review_no" property="pbReviewNo"/>
-		<result column="pb_no" property="pbNo"/>
-		<result column="content" property="content"/>
-		<result column="rating" property="rating"/>
-		<result column="regdate" property="regDate"/>
-		<result column="mem_no" property="memNo"/>
-		<result column="group_no" property="groupNo"/>
-	</resultMap>
-	-->
 	<resultMap id="fileMap" type="ReviewFileVO" >
 		<result column="file_no" property="fileNo"/>
 		<result column="sysname" property="sysname"/>
@@ -245,7 +88,7 @@
 		values(
 			#{pbNo},
 			#{content},
-			3,
+			#{memNo},
 			#{rating}
 		)
 	</insert>
@@ -398,7 +241,7 @@
 		values(
 			#{pbNo},
 			#{content},
-			3
+			#{memNo}
 		)
 	</insert>
 	
@@ -441,7 +284,7 @@
 			prod_count
 		)
 		values(
-			3,
+			#{memNo},
 			#{pbNo},
 			#{price},
 			#{prodCount}
@@ -474,25 +317,12 @@
 			prod_count
 		)
 		values(
-			3,
+			#{memNo},
 			#{pbNo},
 			#{price},
 			#{prodCount}
 		)
 	</insert>
-	
-<!-- 	<select id="selectPBCartByMember" resultMap="pbCarttMap" parameterType="int"> -->
-<!-- 		select * -->
-<!-- 		  from tb_pb_cart -->
-<!-- 		 where mem_no = #{memNo} -->
-<!-- 		 order by cart_no desc -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectCartPBInfo" parameterType="int" resultMap="storePB"> -->
-<!-- 		select * -->
-<!-- 		  from tb_pb -->
-<!-- 		 where pb_no = #{pbNo} -->
-<!-- 	</select> -->
 	
 	<select id="selectPBCartByMember" parameterType="int" resultMap="pbCarttMap">
 		select p.imgpath, p.name, c.*
@@ -508,5 +338,11 @@
 		  from tb_pb_cart
 		 where cart_no = #{cartNo}
 	</delete>
-	
+	<!-- 별점(평점) 수정 -->
+	<update id="updateRatingByMember" parameterType="StorePB">
+		update tb_pb
+		   set rating=#{rating},
+		   	   rating_cnt=#{ratingCnt}
+		 where pb_no = #{pbNo}
+	</update>
 </mapper>

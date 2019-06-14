@@ -37,6 +37,7 @@
             <i class="fas fa-caret-up fa-3x" style="display: none;"></i>
             <c:if test="${sessionScope.user ne null}">
 		        <a id="nickName" href="#">${user.memNickname}</a>
+		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>">장바구니</a>
 	         	<a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
 	        </c:if>
 	        
@@ -100,9 +101,8 @@
     <div class="chatbox-holder">
 
     </div>
+    <!-- <script src="http://192.168.0.53:10001/socket.io/socket.io.js"></script> -->
 
-
-    <script src="http://192.168.0.53:10001/socket.io/socket.io.js"></script>
     <script>
     
 	
@@ -268,7 +268,7 @@
 	                // console.log(chatKey);
 	                // console.log(chatList);
 	        });
-	        $(document).on('click','.chatbox',function(){
+	    /*     $(document).on('click','.chatbox',function(){
 	             // 연결 요청 : 서버 접속하기
 	            let chatbox = $(this);
 	            socket = io.connect("http://192.168.0.53:10001");
@@ -280,7 +280,7 @@
 	            socket.on("msg", function (data) {
 	            	chatbox.find(".chat-messages").append(data);
 	            });
-	        });
+	        }); */
 	        
 	        
 	        

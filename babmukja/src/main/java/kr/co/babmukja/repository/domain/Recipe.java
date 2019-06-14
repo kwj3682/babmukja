@@ -1,8 +1,7 @@
 package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
-
-import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 public class Recipe {
 	
@@ -24,10 +23,29 @@ public class Recipe {
 	
 	private String imgPath;	
 	private int keywordNo;
+	private List<String> keywords;
+	private List<String> cautions;
 	private int country;
+	private String keyword;
 	
-	private MultipartFile video;
-	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public List<String> getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
+	public List<String> getCautions() {
+		return cautions;
+	}
+	public void setCautions(List<String> cautions) {
+		this.cautions = cautions;
+	}
 	public int getLikeNo() {
 		return likeNo;
 	}
@@ -39,12 +57,6 @@ public class Recipe {
 	}
 	public void setLikeHeart(int likeHeart) {
 		this.likeHeart = likeHeart;
-	}
-	public MultipartFile getVideo() {
-		return video;
-	}
-	public void setVideo(MultipartFile video) {
-		this.video = video;
 	}
 	public int getCountry() {
 		return country;
@@ -130,6 +142,5 @@ public class Recipe {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
 	
 }

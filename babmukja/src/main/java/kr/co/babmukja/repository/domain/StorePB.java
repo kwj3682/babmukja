@@ -11,7 +11,30 @@ public class StorePB {
 	private int memNo;
 	private int viewCnt;
 	private String imgPath;
-
+	private String thumnail;
+	
+	private double rating;	
+	private int ratingCnt;
+	
+	
+	public int getRatingCnt() {
+		return ratingCnt;
+	}
+	public void setRatingCnt(int ratingCnt) {
+		this.ratingCnt = ratingCnt;
+	}
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+	public String getThumnail() {
+		return thumnail;
+	}
+	public void setThumnail(String thumnail) {
+		this.thumnail = thumnail;
+	}
 	public String getImgPath() {
 		return imgPath;
 	}

@@ -9,13 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +28,8 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
@@ -115,15 +120,25 @@ public class StorePBController {
 				imgpath = "/babmukja/store/downloadpb.do?path=/&sysname=default.png";
 				storepb.setImgPath(imgpath);
 				result.add(storepb);
-				System.out.println(imgpath);
+//				System.out.println(imgpath);
 				continue;
 			}
-			System.out.println(imgpath);
+//			System.out.println(imgpath);
 			String[] imgList = storepb.getImgPath().split(",");
 			storepb.setImgPath(imgList[0]);
 			result.add(storepb);
 		}
 		model.addAttribute("storepb", result);
+	}
+	
+	// pb 상품 리스트
+	@RequestMapping("/listpb.do")
+	public void listpb(Model model, Pagepb page) {
+		Map<String, Object> result = service.selectPBStoreList(page);
+		model.addAttribute("listpb", result.get("list"));
+		model.addAttribute("pageResult", result.get("pageResult"));
+		model.addAttribute("sortType", result.get("sortType"));
+		model.addAttribute("pbCount", service.selectPBStoreCount(page));
 	}
 	
 	// pb 상품 상세조회
@@ -163,16 +178,6 @@ public class StorePBController {
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("reviewMap",reviewMap);
 		mav.addObject("inqList", sInquire);
-		///////////////////////////////////////////////////////////
-		
-		
-		/////////////////////////////////////////////////////////////
-//		System.out.println(pbNo);
-//		System.out.println(storePBReview.getPbReviewNo());
-//		storePBReview.setPbNo(pbNo);
-//		storePBReview.setPbReviewNo(storePBReview.getPbReviewNo());
-//		mav.addObject("reviewList", service.selectPBReviewSelect(storePBReview));
-		//mav.addObject("reviewListImages", service.selectPBReviewSelectImage(storepbreview.getPbReviewNo()));
 		return mav;
 	}
 	
@@ -271,10 +276,22 @@ public class StorePBController {
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
-	public void pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb) throws Exception {
+	public double pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb, int ratingCnt, double storeRating,HttpSession session) throws Exception {
+		Member user = (Member)session.getAttribute("user");
+		reviewpb.setMemNo(user.getMemNo());
 		System.out.println(reviewpb.getContent());
 		reviewpb.setPbNo(reviewpb.getPbNo());
-		service.insertPBReview(reviewpb);
+		
+		int pbNo = reviewpb.getPbNo();
+		int rating = reviewpb.getRating();
+		double avg = storeRating + (rating - storeRating) / ++ratingCnt; 
+		
+		StorePB spb = new StorePB();
+		spb.setPbNo(pbNo);
+		spb.setRatingCnt(ratingCnt);
+		spb.setRating(avg);
+		
+		service.insertPBReview(reviewpb,spb);
 		
 		String uploadRoot = "c:/bit2019/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat(
@@ -299,6 +316,9 @@ public class StorePBController {
 			fileVO.setSysname(uName);
 			service.insertPBReviewImage(fileVO);
 		}
+		
+		
+		return avg;
 	}
 	
 	// pb 상품 후기 수정
@@ -320,7 +340,9 @@ public class StorePBController {
 	// pb 상품 문의 등록
 	@RequestMapping("/pbinquiryinsert.do")
 	@ResponseBody
-	public void insertInquiry(StorePBInquire storePBInquire) {
+	public void insertInquiry(StorePBInquire storePBInquire, HttpSession session) {
+		Member user = (Member)session.getAttribute("user");
+		storePBInquire.setMemNo(user.getMemNo());
 		storePBInquire.setPbNo(storePBInquire.getPbNo());
 		storePBInquire.setContent(storePBInquire.getContent());
 		service.insertInquiry(storePBInquire);
@@ -356,8 +378,18 @@ public class StorePBController {
 	// pb 상품 결제 등록
 	@RequestMapping("/pbpaymentinsert.do")
 	@ResponseBody
-	public void insertPBPayment(StorePBPayment storePBPayment) {
-		service.insertPBPayment(storePBPayment);
+	public int insertPBPayment(@RequestBody List<StorePBPayment> storePBPayment, HttpSession session) {
+		System.out.println("컨트롤러 도착");
+		for (StorePBPayment s : storePBPayment) {
+			System.out.println("mem_no : " + s.getMemNo());
+			System.out.println("price : " + s.getPrice());
+			System.out.println("count : " + s.getProdCount());
+			Member user = (Member)session.getAttribute("user");
+			s.setMemNo(user.getMemNo());
+			service.insertPBPayment(s);
+		}
+		System.out.println("컨트롤러 끝");
+		return 1;
 	}
 	
 	// pb 상품 장바구니
@@ -365,7 +397,9 @@ public class StorePBController {
 	// pb 상품 장바구니 등록
 	@RequestMapping("/pbcartinsert.do")
 	@ResponseBody
-	public void insertPBCart(StorePBCart storePBCart) {
+	public void insertPBCart(StorePBCart storePBCart, HttpSession session) {
+		Member user = (Member)session.getAttribute("user");
+		storePBCart.setMemNo(user.getMemNo());
 		service.insertPBCart(storePBCart);
 	}
 	

@@ -1,11 +1,15 @@
 package kr.co.babmukja.store.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.babmukja.common.page.PBPageResult;
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
@@ -61,7 +65,15 @@ public class StorePBServiceImpl implements StorePBService{
 	public List<StorePB> selectPBStore() {
 		return mapper.selectPBStore();
 	}
-
+	
+	public Map<String, Object> selectPBStoreList(Pagepb page) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("sortType", page.getSortType());
+		map.put("list", mapper.selectPBStoreList(page));
+		map.put("pageResult", new PBPageResult(page.getPageNo(), mapper.selectPBStoreCount(page)));
+		return map;
+	}
+	
 	public StorePB selectPBStoreByNo(int pbNo) {
 		return mapper.selectPBStoreByNo(pbNo);
 	}
@@ -74,8 +86,9 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.updatePBStore(storepb);
 	}
 	
-	public void insertPBReview(StorePBReview reviewpb) {
+	public void insertPBReview(StorePBReview reviewpb,StorePB spb) {
 		mapper.insertPBReview(reviewpb);
+		mapper.updateRatingByMember(spb);
 	}
 	
 	public void insertPBReviewImage(FileVO fileVO) {
@@ -84,6 +97,10 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public int getMax() {
 		return mapper.selectMaxNum();
+	}
+	
+	public int selectPBStoreCount(Pagepb page) {
+		return mapper.selectPBStoreCount(page);
 	}
 	
 	// 후기
@@ -162,4 +179,6 @@ public class StorePBServiceImpl implements StorePBService{
 	public void deletePBCart(int cartNo) {
 		mapper.deletePBCart(cartNo);
 	}
+
+
 }

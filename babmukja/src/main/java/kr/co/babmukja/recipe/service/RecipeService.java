@@ -12,23 +12,26 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeScrap;
 
 public interface RecipeService {	
 	// 레시피 등록
-	public void insertRecipe(Recipe recipe,  int[] keywordNo, int[] cautions);
+	public void insertRecipe(Recipe recipe, List<String> keywords, List<String> cautions);
 	// 레시피 상세
 	public Recipe selectRecipeByNo(int no);
 	// 레시피 수정폼가기
 	public Recipe updateForm(int no);
 	// 레시피 수정
-	public void updateRecipe(Recipe recipe);
+	public void updateRecipe(Recipe recipe, List<String> keywords, List<String> cautions);
 	// 레시피 삭제
 	public void deleteRecipe(int no);
 	// 레시피 전체 목록
 	public List<Recipe> selectRecipe();
 	// 회원 레시피 목록
 	public List<Recipe> selectRecipeByMem(int no);
+	// 1등 레시피 정보
+	public Recipe selectWinRecipe();
+	// 메인 회원 레시피 목록
+	public List<Recipe> selectMemRecipeByRate();	
 	// 레시피 조회수 증가
 	public void addViewCnt(int no);
 	
@@ -61,12 +64,21 @@ public interface RecipeService {
 	public void deleteRecipeReview(int no);
 	// 레시피 댓글 하나 가져오기
 	public RecipeReview selectOneReviewByNo(int no);
+	
 	// 레시피 키워드
 	public RecipeKeywordCode selectKeywordMost(String column);
 	public List<Keyword> selectKeyword();
 	public RecipeKeywordName selectKeywordByNo(int no);
 	public List<Recipe> selectRecipeByKeyword(int no);
+	public void updateKeywordFromRecipe(RecipeKeywordCode rk);
+	
 	// 레시피 카테고리별 목록 가져오기
 	public List<RecipePage> selectRecipeAll(RecipePage page);
 	public List<RecipePage> selectRecipeByCate(RecipePage page);
+	
+	public RecipeKeywordCode selectKeywordByRecipe(int no);
+
+	//(우중) 회원번호로 레시피 가져오기
+	public List<Recipe> selectRecipeByMemNo(int memNo); 
+
 }

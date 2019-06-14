@@ -31,6 +31,8 @@ let basketMeshFlag = false;
 let frypanMeshFlag = false;
 let apronMeshFlag = false;
 
+let dataTableFlag = false;
+
 let rotZ = 0;
 var isUserInteracting = false,
 	onMouseDownMouseX = 0, onMouseDownMouseY = 0,
@@ -39,11 +41,13 @@ var isUserInteracting = false,
 	phi = 0, theta = 0;
 init();
 animate();
+let memNo;
 function init() {
-        
+    
 	$("#open-filter").click(function(){
 		$(this).hide();
 		recipeTextFlag = true;
+		memNo = $("input[name='memNo']").val();
 	});
 	var container, mesh;
 	container = document.getElementById( 'container' );
@@ -590,6 +594,35 @@ function animate() {
 	
 	if(recipeAreaFlag){
 		if(recipeArea.rotation.x <= 0.1) recipeArea.rotation.x+=0.01;
+		if(recipeArea.rotation.x > 0.109){
+			$('#modal-detail').modal("show");
+			$.ajax({
+				type: "POST",
+				url: "/babmukja/recipe/recipebyno.do",
+				data: {memNo : memNo}
+			}).done(function(response){
+				let htmlData = "";
+				for(let recipe of response){
+					htmlData += 
+							"<tr>" 
+						  	+"<td>" + recipe.title +"</td>"
+						  	+"<td>" + dateFormat(new Date(recipe.regDate)) +"</td>"
+						  	+"<td><img src='" +recipe.imgPath +"'></td>"
+						  	+"<td>" + recipe.rating+"</td>"
+						  	+"<td>" + recipe.likeCnt+"</td>"
+						  	+"<td>" + recipe.scrapCnt+"</td>"
+							+"</tr>";
+				}
+				$("#tbody").html(htmlData);
+				
+				if(!dataTableFlag){
+					var table = $('#writtenrecipe').DataTable({
+						"order":[[0,"asc"]]
+					});
+					dataTableFlag = true;
+				}
+			});
+		}
 	}
 	if(frypanMeshFlag){
 		if(frypanMesh.position.y < -7){
@@ -654,4 +687,13 @@ function animate() {
 	
 	}
 	update();
+}
+
+//timestamp 날짜형식 바꾸는 함수
+function dateFormat(date){
+    function pad(num) {
+        num = num + '';
+        return num.length < 2 ? '0' + num : num;
+    }
+    return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
 }

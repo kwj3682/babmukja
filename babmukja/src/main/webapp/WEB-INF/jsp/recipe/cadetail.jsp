@@ -169,8 +169,7 @@
 	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
 	                           </div>
 	                           <div class="profile-name">
-	                               <p> 
-			                          <span>조회수 :${ca.viewCnt }</span>
+	                               <p>
 			                    	  <span>평점 : ${ca.rating }</span>
 	                           <br>
 	                                  ${ca.title}
@@ -275,8 +274,7 @@
           	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
           	                           </div>
           	                           <div class="profile-name">
-          	                               <p> 
-          			                          <span>조회수 : `+ result[i].viewCnt + `</span>
+          	                               <p>
           			                    	  <span>평점 :` + result[i].rating + ` </span>
           	                           <br>
           	                               ` +  result[i].title + `

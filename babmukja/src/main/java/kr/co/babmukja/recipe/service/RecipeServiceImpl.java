@@ -17,7 +17,6 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
-import kr.co.babmukja.repository.domain.RecipeScrap;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
 @Service("kr.co.babmukja.recipe.service.RecipeService")
@@ -31,20 +30,21 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 삽입
-	public void insertRecipe(Recipe recipe,  int[] keywordNo, int[] cautions) {
+	public void insertRecipe(Recipe recipe, List<String> keywords, List<String> cautions) {		
 		mapper.insertRecipe(recipe);
 		RecipeKeywordCode rk = new RecipeKeywordCode();
-		rk.setCountry(keywordNo[0]);
-		rk.setSituation(keywordNo[1]);
-		rk.setLevel(keywordNo[2]);
-		rk.setTime(keywordNo[3]);
-		rk.setType(keywordNo[4]);
 		
+		for(int i=0; i<keywords.size(); i++) {
+			rk.setCountry(Integer.parseInt((keywords.get(0))));
+			rk.setSituation(Integer.parseInt((keywords.get(1))));
+			rk.setLevel(Integer.parseInt((keywords.get(2))));
+			rk.setTime(Integer.parseInt((keywords.get(3))));
+			rk.setType(Integer.parseInt((keywords.get(4))));
+		}
 		StringBuilder cautionsString = new StringBuilder();
-		for(int i=0; i< cautions.length;i++) {
-			cautionsString.append(cautions[i]);
-			
-			if(i== cautions.length-1) {
+		for(int i=0; i < cautions.size(); i++) {
+			cautionsString.append(cautions.get(i));
+			if(i == cautions.size()-1) {
 				break;
 			}
 			cautionsString.append(",");
@@ -65,9 +65,30 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 수정
-	public void updateRecipe(Recipe recipe) {
-		mapper.updateRecipe(recipe);
+	public void updateRecipe(Recipe recipe, List<String> keywords, List<String> cautions) {
+		mapper.updateRecipe(recipe);;
+		RecipeKeywordCode rk = new RecipeKeywordCode();
+		
+		for(int i=0; i<keywords.size(); i++) {
+			rk.setCountry(Integer.parseInt((keywords.get(0))));
+			rk.setSituation(Integer.parseInt((keywords.get(1))));
+			rk.setLevel(Integer.parseInt((keywords.get(2))));
+			rk.setTime(Integer.parseInt((keywords.get(3))));
+			rk.setType(Integer.parseInt((keywords.get(4))));
+		}
+		StringBuilder cautionsString = new StringBuilder();
+		for(int i=0; i < cautions.size(); i++) {
+			cautionsString.append(cautions.get(i));
+			if(i == cautions.size()-1) {
+				break;
+			}
+			cautionsString.append(",");
+		}
+		rk.setCaution(cautionsString.toString());
+		rk.setRecipeNo(recipe.getRecipeNo());
+		mapper.updateKeywordFromRecipe(rk);
 	}
+	
 
 	// 레시피 삭제
 	public void deleteRecipe(int no) {
@@ -134,7 +155,16 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<RecipePage> selectRecipeByCate(RecipePage page) {		
 		return mapper.selectRecipeByCate(page);
 	}
-
+	// 1등 레시피 정보
+	public Recipe selectWinRecipe() {
+		return mapper.selectWinRecipe();
+	}
+	
+	// 메인 회원 레시피 목록
+	public List<Recipe> selectMemRecipeByRate() {
+		return mapper.selectMemRecipeByRate();
+	}
+	
 	// 회원 레시피 목록
 	public List<Recipe> selectRecipeByMem(int no) {		
 		return mapper.selectRecipeByMem(no);
@@ -182,5 +212,16 @@ public class RecipeServiceImpl implements RecipeService {
 	public String selectFollowStatus(RecipeFollow follow) {
 		return mapper.selectFollowStatus(follow);
 	}
+
+	public void updateKeywordFromRecipe(RecipeKeywordCode rk) {
+		mapper.updateKeywordFromRecipe(rk);
+	}
+
+	public RecipeKeywordCode selectKeywordByRecipe(int no) {		
+		return mapper.selectKeywordByRecipe(no);
+	}
 	
+	public List<Recipe> selectRecipeByMemNo(int memNo) {
+		return mapper.selectRecipeByMemNo(memNo);
+	}
 }
