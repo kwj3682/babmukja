@@ -12,5 +12,6 @@
 	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a> 
 	<a href="<c:url value='/recipe/main.do'/>">레시피메인</a> 
 	<a href="<c:url value='/notice/index.do'/>">공지사항</a>
+	<a href="<c:url value='/board/list.do'/>">자유게시판</a>	
 </body>
 </html>

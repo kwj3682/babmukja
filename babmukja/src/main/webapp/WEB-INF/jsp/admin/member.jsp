@@ -91,6 +91,7 @@
 								<th>총 판매액</th>
 								<th>레시피 수</th>
 								<th>상품 수</th>
+								
 								<th>포인트</th>
 								<th>등급</th>
 							</tr>
@@ -255,6 +256,7 @@
 	        $('#totalsell').DataTable({
 	            "order":[[0,"asc"]]
 	        });
+	    
 	        // Setup - add a text input to each footer cell
             $('#searchResult tfoot th').each( function () {
                 var title = $(this).text();
