@@ -5,14 +5,20 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Notice {
-	 private int noticeNo;               
-     private String title;        
+	 private int noticeNo;   
+	 private String title;        
      private String content;  
      private Date  regDate;     
      private int viewCnt;    
      private String writer;
-     
-	
+     private String imgPath;
+
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 	public int getNoticeNo() {
 		return noticeNo;
 	}

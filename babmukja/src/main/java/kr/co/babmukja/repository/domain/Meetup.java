@@ -11,11 +11,30 @@ String totalMem;
 String category;
 String fileDir;
 String location;
-
 int viewCnt;
+String hostName;
+int hostNo;
+int manageNo;
 
 
-
+public int getManageNo() {
+	return manageNo;
+}
+public void setManageNo(int manageNo) {
+	this.manageNo = manageNo;
+}
+public String getHostName() {
+	return hostName;
+}
+public void setHostName(String hostName) {
+	this.hostName = hostName;
+}
+public int getHostNo() {
+	return hostNo;
+}
+public void setHostNo(int hostNo) {
+	this.hostNo = hostNo;
+}
 public String getLocation() {
 	return location;
 }

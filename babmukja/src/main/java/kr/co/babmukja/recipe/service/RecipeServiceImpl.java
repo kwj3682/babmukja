@@ -11,8 +11,10 @@ import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
+import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
@@ -28,20 +30,21 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 삽입
-	public void insertRecipe(Recipe recipe,  int[] keywordNo, int[] cautions) {
+	public void insertRecipe(Recipe recipe, List<String> keywords, List<String> cautions) {		
 		mapper.insertRecipe(recipe);
 		RecipeKeywordCode rk = new RecipeKeywordCode();
-		rk.setCountry(keywordNo[0]);
-		rk.setSituation(keywordNo[1]);
-		rk.setLevel(keywordNo[2]);
-		rk.setTime(keywordNo[3]);
-		rk.setType(keywordNo[4]);
 		
+		for(int i=0; i<keywords.size(); i++) {
+			rk.setCountry(Integer.parseInt((keywords.get(0))));
+			rk.setSituation(Integer.parseInt((keywords.get(1))));
+			rk.setLevel(Integer.parseInt((keywords.get(2))));
+			rk.setTime(Integer.parseInt((keywords.get(3))));
+			rk.setType(Integer.parseInt((keywords.get(4))));
+		}
 		StringBuilder cautionsString = new StringBuilder();
-		for(int i=0; i< cautions.length;i++) {
-			cautionsString.append(cautions[i]);
-			
-			if(i== cautions.length-1) {
+		for(int i=0; i < cautions.size(); i++) {
+			cautionsString.append(cautions.get(i));
+			if(i == cautions.size()-1) {
 				break;
 			}
 			cautionsString.append(",");
@@ -62,9 +65,30 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	// 레시피 수정
-	public void updateRecipe(Recipe recipe) {
-		mapper.updateRecipe(recipe);
+	public void updateRecipe(Recipe recipe, List<String> keywords, List<String> cautions) {
+		mapper.updateRecipe(recipe);;
+		RecipeKeywordCode rk = new RecipeKeywordCode();
+		
+		for(int i=0; i<keywords.size(); i++) {
+			rk.setCountry(Integer.parseInt((keywords.get(0))));
+			rk.setSituation(Integer.parseInt((keywords.get(1))));
+			rk.setLevel(Integer.parseInt((keywords.get(2))));
+			rk.setTime(Integer.parseInt((keywords.get(3))));
+			rk.setType(Integer.parseInt((keywords.get(4))));
+		}
+		StringBuilder cautionsString = new StringBuilder();
+		for(int i=0; i < cautions.size(); i++) {
+			cautionsString.append(cautions.get(i));
+			if(i == cautions.size()-1) {
+				break;
+			}
+			cautionsString.append(",");
+		}
+		rk.setCaution(cautionsString.toString());
+		rk.setRecipeNo(recipe.getRecipeNo());
+		mapper.updateKeywordFromRecipe(rk);
 	}
+	
 
 	// 레시피 삭제
 	public void deleteRecipe(int no) {
@@ -131,7 +155,73 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<RecipePage> selectRecipeByCate(RecipePage page) {		
 		return mapper.selectRecipeByCate(page);
 	}
+	// 1등 레시피 정보
+	public Recipe selectWinRecipe() {
+		return mapper.selectWinRecipe();
+	}
 	
+	// 메인 회원 레시피 목록
+	public List<Recipe> selectMemRecipeByRate() {
+		return mapper.selectMemRecipeByRate();
+	}
 	
+	// 회원 레시피 목록
+	public List<Recipe> selectRecipeByMem(int no) {		
+		return mapper.selectRecipeByMem(no);
+	}
+
+	// 레시피 좋아요 기능
+	public void insertRecipeLike(RecipeLike recipe) {
+		mapper.insertRecipeLike(recipe);
+	}
 	
+	public int selectCountLike(RecipeLike recipe) {
+		return mapper.selectCountLike(recipe);
+	}
+	
+	public void updateLikeCnt(int no) {
+		mapper.updateLikeCnt(no);
+	}
+	public void updateRecipeLike(RecipeLike recipe) {
+		mapper.updateRecipeLike(recipe);
+	}
+	public void deleteLikeCnt(int no) {
+		mapper.deleteLikeCnt(no);
+	}	
+	
+	public String selectLikeStatus(RecipeLike recipe) {
+		return mapper.selectLikeStatus(recipe);
+	}
+	public int countLikeCnt(int no) {
+		return mapper.countLikeCnt(no);
+	}
+	
+	// 레시피 팔로우
+	public void insertRecipeFollow(RecipeFollow follow) {
+		mapper.insertRecipeFollow(follow);		
+	}
+
+	public int selectCountFollow(RecipeFollow follow) {
+		return mapper.selectCountFollow(follow);
+	}
+
+	public void updateRecipeFollow(RecipeFollow follow) {
+		mapper.updateRecipeFollow(follow);
+	}
+
+	public String selectFollowStatus(RecipeFollow follow) {
+		return mapper.selectFollowStatus(follow);
+	}
+
+	public void updateKeywordFromRecipe(RecipeKeywordCode rk) {
+		mapper.updateKeywordFromRecipe(rk);
+	}
+
+	public RecipeKeywordCode selectKeywordByRecipe(int no) {		
+		return mapper.selectKeywordByRecipe(no);
+	}
+	
+	public List<Recipe> selectRecipeByMemNo(int memNo) {
+		return mapper.selectRecipeByMemNo(memNo);
+	}
 }

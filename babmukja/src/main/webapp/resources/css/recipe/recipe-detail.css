@@ -57,7 +57,29 @@
 .fa-instagram:hover{
     background: #7db341;
 }
-#content-button-wrapper > button{
+.recipeScrap {
+	width: 120px;
+    padding: 3px;
+    border : 0px;
+    margin-top: 15px;
+    background : #eee;
+    color : #bbb;
+    border-radius: 5px;
+}
+.recipeScrap:hover {
+	background: #7db341;
+    color:white;
+}
+#likeNo{
+    width: 120px;
+    padding: 3px;
+    border : 0px;
+    margin-top: 15px;
+    background: #7db341;
+    color:white;
+    border-radius: 5px;
+}
+#likeYes{
     width: 120px;
     padding: 3px;
     border : 0px;
@@ -65,6 +87,30 @@
     background : #eee;
     color : #bbb;
     border-radius: 5px;
+}
+#likeLogin{
+    width: 120px;
+    padding: 3px;
+    border : 0px;
+    margin-top: 15px;
+    background : #eee;
+    color : #bbb;
+    border-radius: 5px;
+}
+#likeYes:hover{
+    background: #7db341;
+    color:white;
+}
+#likeNo:hover{
+     background : #eee;
+     color : #bbb;
+}
+#likeLogin:hover{
+    background: #7db341;
+    color:white;
+}
+#content-button-wrapper > button {
+	cursor : pointer;
 }
 #content-button-wrapper > button > i{
 	font-size : 18px;
@@ -74,10 +120,6 @@
     margin-left : 5px;
     line-height: 40px;
     font-weight: lighter;
-}
-#content-button-wrapper > button:hover{
-    background: #7db341;
-    color:white;
 }
 #content-button-wrapper{
     display: flex;
@@ -112,7 +154,31 @@
     color: #777;
     border-radius: 5px;
 }
+#followNo {
+	height: 40px;
+    margin-top: 20px;
+    border : 0;
+     background : #7db341;
+    color: white;
+    border-radius: 5px;
+}
+#followLogin {
+	height: 40px;
+    margin-top: 20px;
+    border : 0;
+    background : #eee;
+    color: #777;
+    border-radius: 5px;
+}
 #follow:hover{
+    background : #7db341;
+    color: white;
+}
+#followNo:hover{
+    background : #eee;
+    color: #777;
+}
+#followLogin:hover{
     background : #7db341;
     color: white;
 }
@@ -198,6 +264,13 @@
 .post-content{
     color:rgb(81,81,81);
 }
+#a-button {	
+	text-align : right;
+}
+#a-button > a {
+	color:rgb(81,81,81);
+}
+	
 #reviewStars-input input:checked ~ label, #reviewStars-input label, 
 #reviewStars-input label:hover, #reviewStars-input label:hover ~ label,
 #reviewStarsinput input:checked ~ label, #reviewStarsinput label, 
@@ -265,7 +338,7 @@
     z-index: 1;
   }
   
- /*  #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+   #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
     background-position: 0 -19px;
     height: 20px;
     width: 20px;
@@ -274,7 +347,7 @@
     background-position: 0 -19px;
     height: 20px;
     width: 20px;
-  } */
+  } 
 
 #comment-header{
     font-size: 19px;

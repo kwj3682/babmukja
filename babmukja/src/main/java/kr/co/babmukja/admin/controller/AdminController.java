@@ -68,6 +68,8 @@ public class AdminController {
 	@RequestMapping("/insertpb.do")
 	@ResponseBody
 	public void insertpb(StorePB storepb) {
+		String[] imgPath = storepb.getImgPath().split(",");
+		storepb.setThumnail(imgPath[0]);
 		service.insertPBStore(storepb);
 	}
 	

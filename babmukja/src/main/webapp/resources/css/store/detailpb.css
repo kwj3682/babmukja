@@ -50,11 +50,13 @@
     margin-right: 150px;
     height: 500px;
     color: rgb(81, 81, 81);
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 #pb_detail_title {
-    font-size: 30px;
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
 }
 
 
@@ -100,7 +102,7 @@
     border: 1px solid gainsboro;
     border-radius: 5px;
     padding: 5px;
-    font-size: 10px;
+    font-size: 17px;
 }
 
 #select_product_title {
@@ -133,8 +135,9 @@
     justify-content: space-between;
     margin-right: 20px;
     margin-left: 20px;
-    margin-top: 10px;
+    margin-top: 25px;
     color: rgb(81, 81, 81);
+    font-size: 17px;
 }
 
 #select_product_total-price > .total__price {
@@ -145,6 +148,7 @@
     margin-top: 30px;
     margin-left: 10px;
     width: 250px;
+    font-weight: bold;
 }
 
 #pb_detail_btns > button {
@@ -268,37 +272,29 @@
 .pb_review_profile {
     display: grid;
     grid-template-columns: 10% 90%;
-    margin-top: 50px;
+    margin-top: 15px;
 }
 
 .pb_review_profile_img img {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-    margin-top: -20px;
+    width: 110px;
+    height: 110px;
+    border-radius: 55px;
 }
 
 .pb_review_user_info {
-    margin-top: -15px;
-    margin-left: -15px;
-    display: flex;
+	display :grid;
+	grid-template-rows : 50% 50%;
 }
 
-.pb_review_user_info > .review_user_rating {
-    color: #7db341;
-    margin-top: 40px;
-    margin-left: -150px;
-}
-
-.pb_review_user_info > .review_user_rating span {
-    margin-left: 15px;
-    color: rgb(81,81,81);
-}
 
 .review_user_nickname {
     font-weight: bold;
+    font-size: 20px;
+    float: left;
 }
-
+.reviewBUTTON{
+	margin-left : 15px;
+}
 .pb_review_select {
 	height: auto;
 	border-bottom: 1px solid gainsboro;
@@ -322,6 +318,13 @@
     width: 100px;
     height: 100px;
     border-radius: 5px;
+    -webkit-transition: 0.4s ease;
+  	transition: 0.4s ease;
+}
+
+.pb_review_select_img img:hover {
+	-webkit-transform: scale(1.08);
+	transform: scale(1.08);
 }
 
 
@@ -785,11 +788,7 @@
   .reviewUpdateBTN:hover {
   	color: #7db341;
   }
-  
-  .reviewBUTTON {
-  	margin-left: 20px;
-  }
-  
+ 
   .reviewDeleteBTN {
   	  	border: none;
   	color: black;
@@ -890,3 +889,121 @@
     letter-spacing: 1px;
 }
 
+.cartmodal_msg {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.cart_move_btn {
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    border: 1px solid #7db341;
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #7db341;
+    color: white;
+    cursor: pointer;
+}
+
+.cart_move_not_btn {
+    margin-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    outline: none;
+    background-color: white;
+    color: #7db341;
+    border: 1px solid #7db341;
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+
+#cart-modal-content {
+	position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    top: 200px;
+    width: 500px;
+    height: 300px;
+}
+.check-stars{
+    box-sizing: border-box;
+    margin : 0 auto;
+    display: grid;
+    grid-template-columns: 100%;
+    width:300px;
+}
+.check-backStar{
+    background: url(/babmukja/resources/images/star5-gray-big.png);
+    width: 100%;
+    height: 59px;
+}
+
+.check-frontStar-wrapper{
+    width: 120px;
+    position: absolute;
+}
+.check-frontStar{
+    background: url(/babmukja/resources/images/star5-big.png) no-repeat;
+    width : 0px;
+    height: 59px;
+}
+
+.stars{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 100%;
+    width:120px;
+    margin-bottom: 15px;
+}
+.backStar{
+    background: url(/babmukja/resources/images/star5-gray.png);
+    width : 100%;
+    height: 23px;
+}
+.frontStar-wrapper{
+    width: 120px;
+    position: absolute;
+}
+.frontStar{
+    background: url(/babmukja/resources/images/star5.png) no-repeat;
+    height: 23px;
+}
+
+.storeRating{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 100%;
+    width:200px;
+    margin-bottom: 15px;
+}
+.storeRating-backStar{
+    background: url(/babmukja/resources/images/star5-gray.png);
+    background-size : cover;
+    width : 200px;
+    height: 38px;
+}
+.storeRating-frontStar-wrapper{
+    width: 200px;
+    position: absolute;
+}
+.storeRating-frontStar{
+    background: url(/babmukja/resources/images/star5.png) no-repeat;
+    background-size : cover;
+    height: 38px;
+}
+
+
+.user_info_sec1{
+	display:grid;
+	grid-template-columns : 90% 10%;
+}

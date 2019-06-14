@@ -85,7 +85,7 @@ html, body {
     text-align: center;
     margin-top: 30px;
 }
-#sec1-content1-wrapper> div>img{
+#sec1-content1-wrapper> div img{
     width : 100%;
     height:100%;
     background: #222;
@@ -140,16 +140,16 @@ html, body {
     background: url(../../images/boardgrid.png) no-repeat;
     background-size: cover;
 }
-#sec1-content2-wrapper > div:nth-child(3) > div{
+#sec1-content2-wrapper > div:nth-child(3) div{
     padding-left: 18px;
     height: 210px;
 }
-#sec1-content2-wrapper > div:nth-child(3) > div >img{
+#sec1-content2-wrapper > div:nth-child(3) div img{
     width: 100px;
     height: 100px;
     transition: .6s;
 }
-#sec1-content2-wrapper > div:nth-child(3) > div >img:hover{
+#sec1-content2-wrapper > div:nth-child(3) div img:hover{
     transform: rotateZ(10deg);
 }
 #bottle{
@@ -157,6 +157,7 @@ html, body {
     height: 110px;
     transition: .7s;
     margin-left: 10px;
+    cursor : pointer;
 }
 #bottle:hover{
     transform: rotate(15deg);
@@ -458,7 +459,7 @@ html, body {
 	height: 500px;
 	background-image : url(../../images/sector3.jpg);
 }
-#writeform-button{
+#writeform-button, .writeno-button{
 	position: absolute;
 	top:64%;
 	margin: 0 auto;
@@ -476,8 +477,7 @@ html, body {
 	transition: .4s;
 	cursor: pointer;
 }
-#writeform-button:hover{ 
+#writeform-button:hover, .writeno-button:hover{ 
 	opacity: 1;
 	box-shadow : 0 0 15px 3px white;
 }
-

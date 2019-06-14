@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/js/slider/slider-radio.css"/>">
     <script src="<c:url value="/resources/js/slider/slider-radio.js"/>"></script>
     <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="writeform-header">레시피 작성</div>
@@ -137,19 +138,7 @@
                     <input type="radio" id="foodtypeetc" name="foodtype" value="58"><label for="foodtypeetc">기타</label>
             </div>
         </div>
-    </div>
-    	<!-- 동영상 부분 -->
-    	<label class="fileContainer">
-                <div class="videoPlus">
-                	<span>레시피 영상을 올려보세요!</span>
-                </div>
-                <input type="file" name="videoFile"/>
-        </label>
-        <video id='my-video' class='video-js' controls preload='auto' 
-        width='649' height='380' poster='<c:url value="/resources/images/logo.png"/>' data-setup='{"fluid": true}'>          
-            <source id="source" src='' type='video/mp4'>
-        </video> 
-    
+    </div>  	
     
     <div id="editorjs">
             <input type="text" id="title" placeholder="제목을 입력해주세요.">
@@ -157,11 +146,8 @@
     <div id="buttonWrapper">
         <button>저장</button>
     </div>
-    <script>
     
-    $('input[name="videoFile"]').change(function(e){ 
-        $(".video-js").attr('src',URL.createObjectURL(e.target.files[0]));
-    });
+    <script>
     
          let fileList="";
        const editor = new EditorJS({
@@ -197,31 +183,6 @@
                         captionPlaceholder: '출처',
                     },
                 },
-//                 image: {
-//                     class: ImageTool,
-//                     config: {
-//                        uploader:{
-//                           uploadByFile(file){
-//                              alert("asdsa");
-//                              console.dir(file);
-//                                 // your own uploading logic here
-//                                 return $.ajax.upload(file).then(() => {
-//                                   return {
-//                                     success: 1,
-//                                     file: {
-//                                       url: 'https://codex.so/upload/redactor_images/o_80beea670e49f04931ce9e3b2122ac70.jpg',
-//                                       // any other image data you want to store, such as width, height, color, extension, etc
-//                                     }
-//                                   };
-//                                });
-//                           }
-//                        }
-// //                         endpoints: {
-// //                         byFile: 'http://localhost:8085/babmukja/recipe/write.do', // Your backend file uploader endpoint
-// //                         byUrl: ''
-// //                         }
-//                     }
-//                 },
             image: {
                     class: ImageTool,
                     config: {
@@ -230,17 +191,21 @@
 
                                 function imgUpload() {
                                     console.dir(file);
+                                    if(file.size > 20 * 1024 * 1024 ) {
+                                    	alert("첨부파일 사이즈는 20MB 이내로 등록 가능합니다.");
+
+                                    	return;
+                                    }
                                     let fileData = new FormData();
                                     
-                                        fileData.append("attach", file);  
-                                        
+                                        fileData.append("attach", file);                                         
                                     return new Promise(function (resolve, reject) {
-                              alert("이미지 업로드 중...");
+                              alert("업로드 중...");
                                         $.ajax({
                                             url: 'upload.do',
                                             type: "post",
-                                         processData: false,
-                                             contentType: false,
+                                         	processData: false,
+                                            contentType: false,
                                             data: fileData,
                                             success: function (response) {
                                                 
@@ -248,7 +213,6 @@
                                                   console.dir(response);
                                                   var obj = JSON.parse(response);
                                                    console.log(obj.path);
-                                                   console.log(obj.sysname);
 //                                                    console.log("${pageContext.request.contextPath}/recipe/download.do?path="+obj.path+"&sysname=" + obj.sysname);
                                                    resolve({
                                                      cnt: 1,
@@ -317,60 +281,93 @@
         });
 
         let saveBtn = document.querySelector("button");
-        saveBtn.addEventListener("click", function () {
+        saveBtn.addEventListener("click", function () {    			
+
            let recipeTitle = $("#title").val();
-            console.dir(editor)
+            console.dir(editor);
             editor.save().then((outputData)=>{
         
                let cnt = 0;
                for(let fileUrl of outputData.blocks){
+            	   
                   if(fileUrl.type == 'image'){
                      fileList += (cnt==0)?fileUrl.data.file.url:","+fileUrl.data.file.url;   
                      cnt++;
                   }
                }
                
-               let keyword = [];
-               keyword.push($("input[name='country']:checked").val());
-               keyword.push($("input[name='caution']:checked").val());
-               keyword.push($("input[name='level']:checked").val());
-               keyword.push($("input[name='taketime']:checked").val());
-               keyword.push($("input[name='foodtype']:checked").val());
-               keyword.push($("input[name='situation']:checked").val());
-        	   
+               
+               if($("input[name='country']:checked").val() == null) {
+            	   alert("나라별 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='caution']:checked").val() == null) {
+            	   alert("주의사항 키워드를 하나 이상 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='situation']:checked").val() == null) {
+            	   alert("상황 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='level']:checked").val() == null) {
+            	   alert("난이도 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='taketime']:checked").val() == null) {
+            	   alert("조리시간 키워드를 선택해주세요.");
+            	   return;
+               }
+               if($("input[name='foodtype']:checked").val() == null) {
+            	   alert("종류 키워드를 선택해주세요.");
+            	   return;
+               }
+               let keywords = []; 
+               let keyword = "";
+               keywords.push($("input[name='country']:checked").val());
+               keywords.push($("input[name='situation']:checked").val());
+               keywords.push($("input[name='level']:checked").val());
+               keywords.push($("input[name='taketime']:checked").val());
+               keywords.push($("input[name='foodtype']:checked").val());
+                 
+               console.log("fileList : " + fileList);
                let cautions = [];
                $("input[name='caution']:checked").each(function(){
             	   cautions.push($(this).val());
                });
 				
-               console.log("주의 사항: " + cautions );
                let content = JSON.stringify(outputData);
-               let title= $("#title").val();
+               let title= $("#title").val();   
                
-               let f = new FormData();
-               f.append("keywordNo",keyword);
-               f.append("content",content);
-               f.append("title",title);
-               f.append("imgPath",fileList);
-               f.append("cautions",cautions);
+               let imgPath = "";           	   
+               if(fileList == "") imgPath = "";
+               else if(fileList != "" && cnt == 1) imgPath = fileList;
+               else imgPath = fileList.split(",")[0];             		   
+          	              	   
+				
+               let form = new FormData();
+               form.append("imgPath",imgPath);
+               form.append("content",content);
+               form.append("keywords",keywords);
+               form.append("cautions",cautions);
+               form.append("title",title);
                
                $.ajax({
-               type: "post",
-                     url:"write.do",
-                  data: f,
-                  processData: false,
-                  contentType: false,
-                  success:function(result){
+               	  type: "post",
+                  url:"write.do",
+               	  processData : false,
+               	  contentType : false,
+                  data: form,
+                  success:function(result){               
                   }
-               });
-                console.log("Article data : ", outputData);
-                console.log("title : "+title);
-                console.log("content : " + content);
-                location.href="<c:url value="/recipe/main.do"/>";
+               });                
+          
+                 location.href="<c:url value="/recipe/main.do"/>";
             }).catch((error)=>{
                 console.log("Saving failed : ", error);
             });
         });
+        
+        
     </script>
 </body>
 </html>

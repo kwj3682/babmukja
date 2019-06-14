@@ -17,7 +17,9 @@ import kr.co.babmukja.common.page.MeetupPageResult;
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
+import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.mapper.AdminMapper;
@@ -30,8 +32,8 @@ public class MeetupServiceImpl implements MeetupService{
 	public MeetupMapper mapper;
 
 	
-	public String selectIntro() {
-		return mapper.selectIntro();
+	public String selectIntro(int meetNo) {
+		return mapper.selectIntro(meetNo);
 	}
 
 	 public MeetupFile uploadImage(MultipartFile file) throws Exception {
@@ -40,8 +42,8 @@ public class MeetupServiceImpl implements MeetupService{
 		
 		 
 	 }
-	public void updateIntro(String intro) {
-		 mapper.updateIntro(intro);
+	public void updateIntro(MeetupIntro meetupIntro) {
+		 mapper.updateIntro(meetupIntro);
 	}
 
 	public void deleteIntro() {
@@ -70,4 +72,50 @@ public class MeetupServiceImpl implements MeetupService{
 			return result;
 	}
 	
+	
+	
+	
+	
+	@Override
+	public List<Meetup> SelectRecommendAll() {
+		
+		return mapper.selectRecommendAll();
+	}
+
+	@Override
+	public List<Meetup> SelectRecommendKorean() {
+		return mapper.selectRecommendKorean();
+	}
+
+	@Override
+	public List<Meetup> SelectRecommendChinese() {
+		return mapper.selectRecommendChinese();
+	}
+
+	@Override
+	public List<Meetup> SelectRecommendJapanese() {
+		return mapper.selectRecommendJapanese();
+	}
+
+	@Override
+	public List<Meetup> SelectRecommendWestern() {
+		return mapper.selectRecommendWestern();
+	}
+	
+	@Override
+	public List<Meetup> SelectRecommendEastAsia() {
+		return mapper.selectRecommendEastAsia();
+	}
+	
+	public Meetup selectBoard(int no) {
+		return mapper.selectBoard(no);
+	}
+
+	public void insertMeetupMember(MeetupMember meetupMember) {
+		mapper.insertMeetupMember(meetupMember);
+	}
+
+	public List<Meetup> createdBoardByMe(int no){
+		return mapper.createdBoardByMe(no);
+	}
 }

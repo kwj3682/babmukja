@@ -7,7 +7,6 @@ public class Member {
 	private String memName;
 	private String memPhone;
 	private String memEmail;
-	private String memId;
 	private String memNickname;
 	private String memPass;
 	private String postNo;
@@ -161,15 +160,6 @@ public class Member {
 	public void setMemEmail(String memEmail) {
 		this.memEmail = memEmail;
 	}
-
-	public String getMemId() {
-		return memId;
-	}
-
-	public void setMemId(String memId) {
-		this.memId = memId;
-	}
-
 	
 	public String getMemNickname() {
 		return memNickname;

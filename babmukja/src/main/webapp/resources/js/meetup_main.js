@@ -45,13 +45,14 @@ $('#modalSave').click(function(){
 });
 
 //클릭시 주소 이동부분
-$(".info_block").click(function(){
-	location.href="detail.do";
+$(".info_block").on("click",function(){
+	let meetNo = $(this).find('.recommendMeetNo').val();
+	console.log("meetNo" +meetNo);
+	location.href="detail.do?meetNo="+meetNo;
 });
 
 //검색창 none->block 변경 부분
 $(".header_search").click(function () {
-
     $(".after_click").css("display", "block");
 });
 $(".location_title_container").click(function () {
@@ -147,3 +148,9 @@ $('.image-upload-wrap').bind('dragleave', function () {
     $('.image-upload-wrap').removeClass('image-dropping');
 });
 
+
+$('.header_meetup_manage').click(function(){
+
+	location.href="/babmukja/meetup/manage.do?hostNo="+$("#hiddenHostNo").val();
+
+});

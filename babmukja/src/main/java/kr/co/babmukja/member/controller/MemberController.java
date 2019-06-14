@@ -243,14 +243,14 @@ public class MemberController {
 	 *        PHP
 	 */
 	public void smsSend(Member member) {
-		String api_key = "api_key";
-		String api_secret = "api_secret";
+		String api_key = "NCSXPNU9OHH2KJA8";
+		String api_secret = "0BKWWJIMBI34EVLENVH5GS3CZ9EFZPCZ";
 		Message coolsms = new Message(api_key, api_secret);
 
 		// 4 params(to, from, type, text) are mandatory. must be filled
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", member.getMemPhone());
-		params.put("from", "전화번호");
+		params.put("from", "01051369426");
 		params.put("type", "SMS");
 		params.put("text", "안녕하세요 밥먹자 인증메일 입니다. 인증번호는 [" + cert + "] 입니다.");
 		params.put("app_version", "test app 1.2"); // application name and version
@@ -363,7 +363,11 @@ public class MemberController {
 		return service.searchMemberByNick(nick);
 	}
 	
-	
+	@RequestMapping("/mypage.do")
+	public void myPage(Member member,Model model) {
+		
+		model.addAttribute("user",service.searchMemberByNick(member.getMemNickname()).get(0));
+	}
 	
 	
 	

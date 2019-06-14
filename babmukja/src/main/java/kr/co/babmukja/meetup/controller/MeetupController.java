@@ -1,4 +1,3 @@
-//mvn install:install-file -Dfile=C:\bitcamp2019\bin\ojdbc6 -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
 package kr.co.babmukja.meetup.controller;
 
 import java.io.BufferedInputStream;
@@ -12,6 +11,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,8 +27,11 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.babmukja.meetup.service.MeetupService;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
+import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.MeetupSearch;
+import kr.co.babmukja.repository.domain.MeetupTag;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 import kr.co.babmukja.repository.domain.Pagepb;
 
@@ -38,12 +41,29 @@ import kr.co.babmukja.repository.domain.Pagepb;
 
 @RequestMapping("/meetup")
 public class MeetupController {
+	
+	@RequestMapping("/requestAdmission.do")
+	@ResponseBody
+	public String requestAdmission(MeetupMember meetupMember) {
+		System.out.println("승인 memNo :" + meetupMember.getMemNo());
+		System.out.println("승인 meetNo :" + meetupMember.getMeetNo());
+		System.out.println("승인 이름 :" + meetupMember.getMemName());
+		System.out.println("승인 상태 :" + meetupMember.getStatus());
+		System.out.println("이메일 :" + meetupMember.getMemEmail());
+		System.out.println("meetNo :" + meetupMember.getStatus());
+		service.insertMeetupMember(meetupMember);
+		
+	
+		System.out.println("수정 데이터 처리요청");
+		return null;
+	}
 
 	@RequestMapping("/test.do")
 	public void test() {
 	System.out.println("controller 찍히는 확인");
 	}
-	
+
+
 	@RequestMapping("/afterSearch.do")
 	public void afterSearch(Model model, PageAfterSearch page) {
 		
@@ -96,17 +116,18 @@ public class MeetupController {
 	private MeetupService service;
 
 	
-	@RequestMapping("/createM"
-			+ "eetup.do")
-	public void CreateMeetup(MultipartFile file, String title,
+	@RequestMapping("/createMeetup.do")
+	public void CreateMeetup(MultipartFile file, String tag, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
-		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee
+		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
+		String hostName, int hostNo
+			
 			) {
-		service.selectIntro();
+		System.out.println("호스트 내임, 이름" +hostName +hostNo );
 		System.out.println("파일 " + file);
 		System.out.println("카테고리" + category);
 		System.out.println("제목" + title);
-		
+		System.out.println("태그" + tag );
 		
 		
 		
@@ -159,11 +180,15 @@ public class MeetupController {
 		
 		//xml에 담아주기
 		Meetup meetupBoard = new Meetup();	
+		MeetupTag meetupTag = new MeetupTag();
+		meetupTag.setTag(tag);
 		System.out.println("진짜첫번째:" +meetupBoard.getMeetNo());
 		meetupBoard.setCategory(category);
 		meetupBoard.setDay(meetupDay);
 		meetupBoard.setFee(detailFee);
 		meetupBoard.setTitle(title);
+		meetupBoard.setHostName(hostName);
+		meetupBoard.setHostNo(hostNo);
 		meetupBoard.setFileDir(filePath + sysFileName);
 		System.out.println("첫번째:" +meetupBoard.getMeetNo());
 
@@ -249,18 +274,40 @@ public class MeetupController {
 		service.insertMeetupBoard(meetupBoard);
 	}//createMeetup
 	
+	@RequestMapping("/manage.do")
+	public void manage(int hostNo, Model model) {
+	System.out.println("manage 컨트롤러 들어왔음");
+	System.out.println("host no" +hostNo);
+	List<Meetup> meetupList; 
+	meetupList = service.createdBoardByMe(hostNo);
+	for(int i=1; i<meetupList.size()+1; i++) {
+		meetupList.get(i-1).setManageNo(i);
+		System.out.println(meetupList.get(i-1).getManageNo());
+	}
+	model.addAttribute("createdMeetup",meetupList);
+	}
+	
 	@RequestMapping("/main.do")
-	public void meetupMain() {
-//		service.selectIntro();
-		System.out.println("메인 들어왔음");
+	public void meetupMain(Model model) {
+	
+	model.addAttribute("selectAll", service.SelectRecommendAll());
+	model.addAttribute("selectKorean", service.SelectRecommendKorean());
+	model.addAttribute("selectChinese", service.SelectRecommendChinese());
+	model.addAttribute("selectJapanese", service.SelectRecommendJapanese());
+	model.addAttribute("selectWestern", service.SelectRecommendWestern());
+	model.addAttribute("selectEastAsia", service.SelectRecommendEastAsia());
 	}
 	
 	
 	@RequestMapping("/detail.do")
-	public void meetupDetail(Model model) {
+	public void meetupDetail(Model model, int meetNo) {
+//		System.out.println("meetNo" + meetNo );
 //		service.selectIntro();
-		model.addAttribute("intro", service.selectIntro());
-	}
+		
+		
+		model.addAttribute("meetup", service.selectBoard(meetNo));
+		
+		}
 
 
 
@@ -330,13 +377,17 @@ public class MeetupController {
 
 	@RequestMapping("/updateIntro.do")
 	@ResponseBody
-	public String updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath) {
+	public String updateIntro(String[] fileDirectory, String[] deleteDirectory, String dbPath, int meetNo) {
 		System.out.println("세이브 후 들어왔음");
 		if (deleteDirectory != null) {
 		System.out.println("파일 들어왔나 확인 :" + fileDirectory[0]);
 		}
 		System.out.println("dbpath 들어왔나 확인 :" + dbPath);
-		service.updateIntro(dbPath);
+		System.out.println("meetNo:" + meetNo);
+		MeetupIntro meetupIntro = new MeetupIntro();
+		meetupIntro.setDbPath(dbPath);
+		meetupIntro.setMeetNo(meetNo);
+		service.updateIntro(meetupIntro);
 		if (deleteDirectory != null) {
 			System.out.println("지울 파일 들어오나 확인 :" + deleteDirectory[0]);
 
@@ -369,9 +420,10 @@ public class MeetupController {
 
 	@RequestMapping("/editIntro.do")
 	@ResponseBody
-	public String editIntro() {
+	public String editIntro(int meetNo) {
+		System.out.println("수정 meetNo :" +meetNo);
 		System.out.println("수정 데이터 처리요청");
-		String data = service.selectIntro();
+		String data = service.selectIntro(meetNo);
 		return data;
 	}
 

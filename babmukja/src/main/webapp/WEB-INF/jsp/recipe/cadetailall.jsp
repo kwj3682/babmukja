@@ -169,8 +169,7 @@
 	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
 	                           </div>
 	                           <div class="profile-name">
-	                               <p> 
-			                          <span>조회수 :${ca.viewCnt }</span>
+	                               <p>
 			                    	  <span>평점 : ${ca.rating }</span>
 	                           <br>
 	                                  ${ca.title}
@@ -183,9 +182,9 @@
 	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
 	                       </div>
 	                       <div class="recipe-info">
-	                           <i class="fas fa-heart fa-2x">50</i>
+	                           <i class="fas fa-heart fa-2x">${ca.likeCnt }</i>
 	                           <i class="fas fa-scroll fa-2x">60</i>
-	                           <i class="fas fa-eye fa-2x">120</i>
+	                           <i class="fas fa-eye fa-2x">${ca.viewCnt }</i>
 	                       </div>
 	                   </div>
 	               </c:forEach>	                
@@ -275,8 +274,7 @@
           	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
           	                           </div>
           	                           <div class="profile-name">
-          	                               <p> 
-          			                          <span>조회수 : `+ result[i].viewCnt + `</span>
+          	                               <p>
           			                    	  <span>평점 :` + result[i].rating + ` </span>
           	                           <br>
           	                               ` +  result[i].title + `
@@ -289,9 +287,9 @@
           	                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
           	                       </div>
           	                       <div class="recipe-info">
-          	                           <i class="fas fa-heart fa-2x">50</i>
+          	                           <i class="fas fa-heart fa-2x"> ` + result[i].likeCnt + `</i>
           	                           <i class="fas fa-scroll fa-2x">60</i>
-          	                           <i class="fas fa-eye fa-2x">120</i>
+          	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
           	                       </div>
           	                   </div>`)
                          }

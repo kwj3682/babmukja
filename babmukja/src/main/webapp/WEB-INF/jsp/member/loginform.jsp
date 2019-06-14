@@ -125,11 +125,12 @@
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
             success: function(authObj) {
+            	alert("됨?");
             	 Kakao.API.request({
     		      	 url: '/v1/user/me',
      			     success: function(res) { 
     					 let meminfo = {id:res.id,nickName:res.properties['nickname'],
-    					 accessToken:authObj.access_token,refreshToken:authObj.refresh_token, profileImageUrl:res.profileImageUrl, thumbnailUrl:res.thumbnailUrl}
+    					 accessToken:authObj.access_token,refreshToken:authObj.refresh_token}
     					 $.ajax({
     						type:"POST",
     						data: "memEmail="+res.id,
@@ -154,7 +155,7 @@
              	})
             },
             fail: function(err) {
-            	alert(JSON.stringify(err));
+            	alert("386ffcb6d820846f81e354df11f5c8cc :" + JSON.stringify(err));
             }
           });
         };
