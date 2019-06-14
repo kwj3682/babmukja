@@ -104,7 +104,16 @@
     <!-- <script src="http://192.168.0.53:10001/socket.io/socket.io.js"></script> -->
 
     <script>
-    
+	    window.onload = function(){
+	    	if($(".swiper-container").height() == undefined){
+		         menubarCon.removeClass("opacity");        
+		         optCon.removeClass("opacity");         
+		         menubarCon.addClass("non-opacity");
+		    	 optCon.addClass("non-opacity");
+	
+		      }
+	    }
+
 	
 	    
         let menu = [$("#menu1"),$("#menu2"),$("#menu3")];
@@ -136,6 +145,7 @@
 		
 	    let menubarCon = $("#menubarContainer");
 	    let optCon = $(".optionalMenubar"); 
+
 	    $(window).scroll(function() {
 
 	      if($(this).scrollTop() < $(".swiper-container").height()){
@@ -299,7 +309,6 @@
 	        		url : "/babmukja/member/searchmember.do",
 	        		data: {nick : $("input[name='member']").val()}
 	        	}).done(function(response){
-	        		console.dir(response);	
 	        		let chatListWrapper = $("#chatProfile-wrapper");
 	        			let profiles = "";
 	        		for(let member of response){

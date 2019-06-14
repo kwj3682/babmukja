@@ -106,6 +106,7 @@
 					<p class="total__price" id="total__price">원</p>
 				</div>
 				<div id="pb_detail_btns">
+               	<input type="hidden" name="memhidden" value="${sessionScope.user.memNo}">
 					<button class="add_to_cart">장바구니</button>
 					<button class="buy_now">구매하기</button>
 				</div>
@@ -892,7 +893,7 @@
 				let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
 				let count = $("#total_count").text();			// 상품 개수
 				let memNo = $("input[name='memhidden']").val();
-				alert(memNo);
+// 				alert(memNo);
 				console.log(price);
 				console.log(pbNo);
 				console.log(count);
@@ -905,7 +906,7 @@
 						memNo : memNo
 					}
 				}).done(function () {
-					alert(memNo);
+// 					alert(memNo);
 					$("#cartmodal").modal("show");
 					$(".cart_move_btn").click(function () {
 						location.href = "cartpb.do?memNo="+memNo;
@@ -951,7 +952,6 @@
 	        }).click(function(){
             	let widthVal = checkedValue * 60;
             	$checkStar.css({width: widthVal + "px"});
-            	alert(checkedValue + " : " + widthVal);
             });
     </script>
 </body>

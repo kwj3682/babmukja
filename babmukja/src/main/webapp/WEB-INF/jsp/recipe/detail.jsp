@@ -71,22 +71,14 @@
                     <div id="comment-mine"><!-- comment-mine start -->
                         <img src="<c:url value='/resources/images/ma.jpg'/>">
                         <div id="comment-input-wrapper">
-                               <div id="reviewStars-input">  
-	                                <input id="star-4" type="radio" name="reviewStars" value="5"/>
-	                                <label title="gorgeous" for="star-4"></label>
-	                            
-	                                <input id="star-3" type="radio" name="reviewStars" value="4"/>
-	                                <label title="good" for="star-3"></label>
-	                            
-	                                <input id="star-2" type="radio" name="reviewStars" value="3"/>
-	                                <label title="regular" for="star-2"></label>
-	                            
-	                                <input id="star-1" type="radio" name="reviewStars" value="2"/>
-	                                <label title="poor" for="star-1"></label>
-	                            
-	                                <input id="star-0" type="radio" name="reviewStars" value="1"/>
-	                                <label title="bad" for="star-0"></label>
-		                       </div>
+	     					
+	     					<div class="check-stars">
+								<div class="check-backStar"></div>
+								<div class="check-frontStar-wrapper">
+									<div class="check-frontStar"></div>
+								</div>
+							</div>
+							
 		                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
                             <textarea class="comment-input"></textarea>
                         <c:choose>
@@ -254,115 +246,7 @@
 		}
 		else alert("로그인 후 이용가능합니다.");
     	});
-    
-    // 댓글 별점 함수
-   	 	var a;
-   		function ratingreturn(no,i){
-   		switch(no){
-   		case 1 : 
-   	  	a=	`
-   	    	<div id="reviewStarsinput">  
-   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
-   	        <label title="gorgeous" for="star-4"></label>
-   	    
-   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4"  disabled = "true"/>
-   	        <label title="good" for="star-3"></label>
-   	    
-   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
-   	        <label title="regular" for="star-2"></label>
-   	    
-   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
-   	        <label title="poor" for="star-1"></label>
-   	    
-   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" checked disabled = "true"/>
-   	        <label title="bad" for="star-0"></label>
-   	   		</div>
-   	   		`
-   			break;
-   		case 2 :
-   			 a=	`
-   	    	<div id="reviewStarsinput">  
-   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
-   	        <label title="gorgeous" for="star-4"></label>
-   	    
-   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4"  disabled = "true"/>
-   	        <label title="good" for="star-3"></label>
-   	    
-   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
-   	        <label title="regular" for="star-2"></label>
-   	    
-   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" checked disabled = "true"/>
-   	        <label title="poor" for="star-1"></label>
-   	    
-   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" disabled = "true"/>
-   	        <label title="bad" for="star-0"></label>
-   	   		</div>
-   	   		`
-   			break;
-   		case 3 :
-   			 a=	`
-   	    	<div id="reviewStarsinput">  
-   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
-   	        <label title="gorgeous" for="star-4"></label>
-   	    
-   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4" disabled = "true"/>
-   	        <label title="good" for="star-3"></label>
-   	    
-   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" checked disabled = "true"/>
-   	        <label title="regular" for="star-2"></label>
-   	    
-   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
-   	        <label title="poor" for="star-1"></label>
-   	    
-   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" disabled = "true"/>
-   	        <label title="bad" for="star-0"></label>
-   	   		</div>
-   	   		`
-   			break;
-   		case 4 :
-   			 a=	`
-   	    	<div id="reviewStarsinput">  
-   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5"  disabled = "true" />
-   	        <label title="gorgeous" for="star-4"></label>
-   	    
-   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4" checked disabled = "true"/>
-   	        <label title="good" for="star-3"></label>
-   	    
-   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
-   	        <label title="regular" for="star-2"></label>
-   	    
-   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
-   	        <label title="poor" for="star-1"></label>
-   	    
-   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1" disabled = "true"/>
-   	        <label title="bad" for="star-0"></label>
-   	   		</div>
-   	   		`
-   			break;
-   		case 5 :
-   			 a=	`
-   	    	<div id="reviewStarsinput">  
-   	        <input id="star-4" type="radio" name="reviewStars`+i+`" value="5" checked  disabled = "true" />
-   	        <label title="gorgeous" for="star-4"></label>
-   	    
-   	        <input id="star-3" type="radio" name="reviewStars`+i+`" value="4"  disabled = "true"/>
-   	        <label title="good" for="star-3"></label>
-   	    
-   	        <input id="star-2" type="radio" name="reviewStars`+i+`" value="3" disabled = "true"/>
-   	        <label title="regular" for="star-2"></label>
-   	    
-   	        <input id="star-1" type="radio" name="reviewStars`+i+`" value="2" disabled = "true"/>
-   	        <label title="poor" for="star-1"></label>
-   	    
-   	        <input id="star-0" type="radio" name="reviewStars`+i+`" value="1"  disabled = "true"/>
-   	        <label title="bad" for="star-0"></label>
-   	   		</div>
-   	   		`
-   			break;
-   		}	
-   		return a;
-   	
-   		}
+   	 	
     
     $("#comment-nope").click(function () {
     	alert("로그인 후 이용가능합니다.");
@@ -371,16 +255,12 @@
     
     // 댓글 등록하기
      $("#comment-submit").click(function () {   
-    	 if($("input[name='reviewStars']:checked").val() == "" || $("input[name='reviewStars']:checked").val() == null) {
-    		 alert("별점을 입력해주세요.");
-    		 return;
-    	 }
     	$.ajax({
 	    		type: "post",
 	    		url : "recipeCommentWrite.do",
 	    		data : {
 	    				recipeNo : $("input[name='no']").val(),
-	    				score : $("input[name='reviewStars']:checked").val(),
+	    				score : checkedValue,
 	    				content : $(".comment-input").val()
 	    		},
 				success : function(result) {
@@ -392,7 +272,14 @@
 	    	 					+'<input type="hidden" class="reviewNo" value=' + result.recipeReviewNo + '>' 
 	    	 					+'<div>'
 	    	 					+'<div class="other-id">'+ result.memNickname +'</div>'
-	    	 					+'<div class="other-rating">' +ratingreturn(result.score, result.recipeReviewNo) + '</div>'
+	    	 					+'<div class="other-rating">' 
+	    	 					+'<div class="stars">'
+								+'<div class="backStar"></div>'
+								+'<div class="frontStar-wrapper">'
+								+'<div class="frontStar" style="width:'+result.score*24+'px;"></div>'
+								+'</div>'		
+								+'</div>'	
+	    	 					+'</div>'
 	    	 					+'<div class="other-date">' +  dateFormat(new Date(result.regdate)) + '</div>'
 	    	 					+'</div>'
 	    	 	     			+'<div class="other-content" id=c' + result.recipeReviewNo + '>' + result.content + '</div>'
@@ -400,8 +287,7 @@
 	    	 	     			+'<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
 	    	 	     			+'</c:if>'
 	    	 	     			+'</div></div>';
-		    	 	     			
-		    	 	 $("input[name='reviewStars']").prop('checked',false);	    	 	 
+		    	 	     				 	 
 		    	 	 $(".comment-input").val("");		
 		    	 	 $("#h3").html("");
 		    	 	 $("#comment-other").prepend(html);	
@@ -432,7 +318,12 @@
 	 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
 	 					+'<div>'
 	 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'	
-	 					+ ratingreturn(result.comment[i].score,i)
+	 					+'<div class="stars">'
+						+'<div class="backStar"></div>'
+						+'<div class="frontStar-wrapper">'
+						+'<div class="frontStar" style="width:'+result.comment[i].score*24+'px;"></div>'
+						+'</div>'		
+						+'</div>'
 	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
 	 					+'</div>'
 	 	     			+'<div class="other-content" id=c' + result.comment[i].recipeReviewNo + '>' + result.comment[i].content + '</div>';
@@ -595,7 +486,34 @@
 //     	   	console.log($("#post-body").width() + " " + $("#post-body").height());
     	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
        }
-        
+       let mOverValue = 0;
+       let checkedValue = 5;
+       let $checkStar = $(".check-frontStar");
+		 $(".check-stars").mouseover(function(e){
+	            let x,y;
+	            $(this).mousemove(function(e){
+	                let x = e.offsetX;
+	                if(x <= 24){
+	                	mOverValue = 1;
+	                }else if(x <= 48){
+	                	mOverValue = 2;
+	                }else if(x <= 72){
+	                	mOverValue = 3;
+	                }else if(x <= 96){
+	                	mOverValue = 4;
+	                }else if(x <= 120){
+	                	mOverValue = 5;
+	                	
+	                }else{
+	                	$checkStar.css({width: "0px"});
+	                	mOverValue = 0;
+	                }
+	            })   
+	        }).click(function(){
+		       	checkedValue = mOverValue;
+	           	let widthVal = checkedValue * 24;
+	           	$checkStar.css({width: widthVal + "px"});
+           });
     </script>
     
 </body>

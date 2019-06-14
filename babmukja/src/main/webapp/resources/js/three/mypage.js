@@ -370,6 +370,7 @@ function update() {
 				textMesh.scale.z = size;
 				textMesh.rotation.y = 0.1;
 			}).on('click',function(){
+				location.href="/babmukja/recipe/main.do";
 			});
 		},
 		// called while loading is progressing
