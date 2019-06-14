@@ -106,6 +106,7 @@
 					<p class="total__price" id="total__price">원</p>
 				</div>
 				<div id="pb_detail_btns">
+               	<input type="hidden" name="memhidden" value="${sessionScope.user.memNo}">
 					<button class="add_to_cart">장바구니</button>
 					<button class="buy_now">구매하기</button>
 				</div>

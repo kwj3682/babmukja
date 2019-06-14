@@ -38,6 +38,9 @@
 		 	<when test="sortType == 2">
 		 		order by price asc
 		 	</when>
+		 	<when test="sortType == 1">
+		 		order by rating desc
+		 	</when>
 		 	<when test="sortType == 0">
 		 		order by regdate desc
 		 	</when>
