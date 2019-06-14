@@ -103,7 +103,7 @@
 	</form>
     <hr>
  <!--  댓글  -->
-    <div class="container">
+    <div class="comment_container">
         <label for="content" style="font-size:1.3em;">comment</label>
         <input type="checkbox" id="secretAt">비밀댓글
         <form id= "commentInsert" name="commentInsertForm" method="post">
@@ -127,14 +127,9 @@
 </div>
 
 <script>
-var noticeNo = ${notice.noticeNo};
-alert("noticeNo: " + noticeNo );//`${detail.noticeNo}`; //게시글 번호
-var noticeCommentNo = ${comment.noticeCommentNo} + 1;
-console.log("noticeCommentNo" + noticeCommentNo);
-var data ={};
-var content = $("#content").val();
-data.noticeNo = noticeNo;
-data.content = content;
+// alert("noticeNo: " + noticeNo );//`${detail.noticeNo}`; //게시글 번호
+/* var noticeCommentNo = ${comment.noticeCommentNo} + 1;
+console.log("noticeCommentNo" + noticeCommentNo); */
 
 /* var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function(){
@@ -156,6 +151,11 @@ xhttp.onreadystatechange = function() {
   }
 }; */
 
+var noticeNo = ${notice.noticeNo};
+var data ={};
+var content = $("#content").val();
+data.noticeNo = noticeNo;
+data.content = content;
 
 //댓글 목록 
 function commentList(){
@@ -170,22 +170,23 @@ function commentList(){
 /* 	       alert("ajax data 성공" + data);; */
 	       /* alert(data["content"]); */
 	      // if(data.length > 0){
-	       for(let i=0; i < data.length; i++){	   
-	    	 $(".commentList").append(
-	   			      '<div class="commentArea" id="commentArea'+i+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">'
-	    			 +'<div class="commentContent"> <p> 댓글 : ' + data[i].content + '  <a style="float:right;"></a>'
-	    			 +'<a href="'+ data[i].noticeCommentNo +'" style="float:right;"><button id="commentUpdate">수정</button></a>'
-	    			 +'<a onclick="commentDelete('+ data[i].noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button></a></p></div></div>'
-	    		        );  /* return false; */ 
-	            } 
+	       $(".commentList").html("");    
+	       for(let i=0; i < data.length; i++){
+	    	 $(".commentList").append(  
+	    	             '<div class="commentArea" id="commentArea'+i+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">'
+	    			    +'<div class="commentContent"> <p> 댓글 : ' + data[i].content + '  <a style="float:right;"></a>'
+	    			    +'<a href="'+ data[i].noticeCommentNo +'" style="float:right;"><button id="commentUpdate">수정</button></a>'
+	    			    +'<a onclick="commentDelete('+ data[i].noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button></a></p></div></div>'
+	    	     ); /* return false; */
+	    	 }  
 	       /* } else {
 	    	   $(".commentList").append( 
 	    			   '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">'
 		    			 +'<div class="commentContent"> <p> 댓글 : ' + "등록된 댓글이 없습니다." + '</p></div></div>');
 	       } */
 					             
-	   }
-	});
+	   } 
+    }); 
 }	 
 
 
@@ -216,35 +217,37 @@ $("#submitComment").click(function() {
 	/* $(document).on("click", "button[id='submitComment']", function(){
 	alert($(this).parent());});  */
 	
-	/* $("#secretAt").click(function(){
+	  $("#secretAt").click(function(){
 		var content = $("#content").val();
 		var noticeCommentNo = "${comment.noticeCommentNo}"
 		var secretAt ="n";
 		if($("#secretAt").is(":checked")){
 			secretAt = "y";
-		}
-		var param = "content=" +content+"&noticeCommentNo="+noticeCommentNo+"&secretAt="+secretAt;
+		} 
+        	}); 
+		/* var param = "content=" +content+"&noticeCommentNo="+noticeCommentNo+"&secretAt="+secretAt;
 	    $.ajax({
 	             type: "post",
 	             url:'/babmukja/comment/comment-insert.do',
 	             data: param,
 	             success: function(){
 	            	 alert("댓글이 등록되었습니다.");
-	        }
-	    }); 
-	}); */
-   
+	         }
+	    });  */
+	
 	$.ajax({
 	   url : '/babmukja/comment/comment-insert.do',
 	   type : 'post',
 	   data : insertData,
 	   success : function(data){
 	       if(data == 1) {
-	           $('[name=content]').val('');
 	    	   alert("등록되었습니다.");
-	           commentList("1"); //댓글 작성 후 댓글 목록 reload  
-	     }
-	   }
+	           commentList("1"); //댓글 작성 후 댓글 목록 reload 
+	           $('[name=content]').val('');
+	           
+	     
+		   } 		             
+	    }
 	});
 }); 
 
@@ -285,35 +288,44 @@ $("#submitComment").click(function() {
 //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
 	 $(document).on("click", "button[id='commentUpdate']", function(){
          let noticeCommentNo = $(this).parent().attr("href");
-		 
+         let commentAreaId =$(this).parent().parent().parent().parent().attr("id");
+         console.log(commentAreaId);
+         
          $(this).parent().parent().parent().html('<div class="input-group">'
 	   		   	 + '<input type="text" class="form-control" style="width:95%;" name="content_'+noticeCommentNo+'" value="'+content+'"/>'
-	   		   	 + '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+');">수정</button></span>'
+	   		   	 + '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+', '+commentAreaId+');">수정</button></span>'
 	   		   	 + '</div>');
 		 return false; 
 	     }); 
   
   
 //댓글 수정
-    function commentUpdate(noticeCommentNo){
+    function commentUpdate(noticeCommentNo, commentAreaId){
 	var updateContent = $('[name=content_'+noticeCommentNo+']').val(); 
 	var data ={};
 	  data.noticeCommentNo = noticeCommentNo; 
 	  data.content = content;
 	  
 	if(confirm("수정하시겠습니까?")){		
-	 console.log("ajax 수정데이터 들어감");	
+	 console.log("ajax 수정데이터 들어감");
+	/*   $(".btn.btn-default").on("click", function(){
+     $(".form-control").remove();	
+    });  */
 	 $.ajax({
 	    url : '/babmukja/comment/comment-update.do',
 	  // async: 'false', 
 	    type : 'post',
 	    data :{'content' : updateContent, 'noticeCommentNo' : noticeCommentNo},
 	    success : function(data){
-	    if(data == 1) 
-	    /* $(".btn.btn-default").on("click", function(){
-	     $("#commentArea").html(data);	
-	    }); */
-	    // $(this).show();
+	   // if(data == 1) commentList(noticeCommentNo); 
+	     console.dir(data);  
+	  
+		 let a ='<div class="commentContent"> <p> 댓글 : ' + data.content + '  <a style="float:right;"></a>'
+		 +'<a href="'+ data.noticeCommentNo +'" style="float:right;"><button id="commentUpdate">수정</button></a>'
+		 +'<a onclick="commentDelete('+ data.noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button></a></p></div>'
+	    
+		 $(commentAreaId).html(a);
+	     // $(this).show();
 	    alert("수정되었습니다.");
 	    
 
