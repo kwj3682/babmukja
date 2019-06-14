@@ -127,14 +127,9 @@
 </div>
 
 <script>
-var noticeNo = ${notice.noticeNo};
 // alert("noticeNo: " + noticeNo );//`${detail.noticeNo}`; //게시글 번호
 /* var noticeCommentNo = ${comment.noticeCommentNo} + 1;
 console.log("noticeCommentNo" + noticeCommentNo); */
-var data ={};
-var content = $("#content").val();
-data.noticeNo = noticeNo;
-data.content = content;
 
 /* var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function(){
@@ -156,6 +151,11 @@ xhttp.onreadystatechange = function() {
   }
 }; */
 
+var noticeNo = ${notice.noticeNo};
+var data ={};
+var content = $("#content").val();
+data.noticeNo = noticeNo;
+data.content = content;
 
 //댓글 목록 
 function commentList(){
@@ -170,6 +170,7 @@ function commentList(){
 /* 	       alert("ajax data 성공" + data);; */
 	       /* alert(data["content"]); */
 	      // if(data.length > 0){
+	       $(".commentList").html("");    
 	       for(let i=0; i < data.length; i++){
 	    	 $(".commentList").append(  
 	    	             '<div class="commentArea" id="commentArea'+i+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">'
@@ -216,23 +217,23 @@ $("#submitComment").click(function() {
 	/* $(document).on("click", "button[id='submitComment']", function(){
 	alert($(this).parent());});  */
 	
-	/* $("#secretAt").click(function(){
+	  $("#secretAt").click(function(){
 		var content = $("#content").val();
 		var noticeCommentNo = "${comment.noticeCommentNo}"
 		var secretAt ="n";
 		if($("#secretAt").is(":checked")){
 			secretAt = "y";
-		}
-		var param = "content=" +content+"&noticeCommentNo="+noticeCommentNo+"&secretAt="+secretAt;
+		} 
+        	}); 
+		/* var param = "content=" +content+"&noticeCommentNo="+noticeCommentNo+"&secretAt="+secretAt;
 	    $.ajax({
 	             type: "post",
 	             url:'/babmukja/comment/comment-insert.do',
 	             data: param,
 	             success: function(){
 	            	 alert("댓글이 등록되었습니다.");
-	        }
-	    }); 
-	}); */
+	         }
+	    });  */
 	
 	$.ajax({
 	   url : '/babmukja/comment/comment-insert.do',
@@ -325,7 +326,7 @@ $("#submitComment").click(function() {
 	    
 		 $(commentAreaId).html(a);
 	     // $(this).show();
-	     alert("수정되었습니다.");
+	    alert("수정되었습니다.");
 	    
 
 	   }

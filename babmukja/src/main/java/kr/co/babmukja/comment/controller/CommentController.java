@@ -22,8 +22,14 @@ public class CommentController {
 	@ResponseBody
 	public List<Comment> commentList(Comment comment, int noticeNo) {
 		List<Comment> list = service.commentList(noticeNo);
-		System.out.println("list :" + list.get(0));
-		System.out.println("comment :" + comment);
+//		System.out.println("list :" + list.get(0));
+//      System.out.println("comment :" + comment);
+		
+//		for(Comment com: list) {
+//		if(com.getSecretAt().equals("y")) {	
+//		  String content = com.getContent();
+//		 }
+//		}
 		return list;
 	}
 
