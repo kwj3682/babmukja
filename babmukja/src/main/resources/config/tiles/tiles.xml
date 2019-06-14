@@ -29,6 +29,10 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/meetup/{1}.jsp" />
     </definition>
     
+    <definition name="board/*" extends="template">
+        <put-attribute name="body"   value="/WEB-INF/jsp/board/{1}.jsp" />
+    </definition>
+    
      <definition name="member/emailform" extends="template">
         <put-attribute name="body"   value="/WEB-INF/jsp/member/emailform.jsp"/>
     </definition>

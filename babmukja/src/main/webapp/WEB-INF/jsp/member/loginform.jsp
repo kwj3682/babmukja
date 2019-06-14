@@ -120,7 +120,7 @@
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kako app_key');
+		Kakao.init('072fb95d2a5996674a2be4cdea4145c3');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
@@ -139,7 +139,8 @@
     							 $("#socialsigupform #memEmail").val(res.id);
     		    			     $("#socialsigupform #memName").val(res.properties['nickname']);
     		    			     $("#socialsigupform #socialAt").val("1");
-    							 $("#socialsigupform").submit();
+    							 $("#social
+    									 sigupform").submit();
     						}else{
     							$("#sociallogin #memEmail").val(res.id);
     	    					$("#sociallogin #memNickname").val(res.properties['nickname']);
