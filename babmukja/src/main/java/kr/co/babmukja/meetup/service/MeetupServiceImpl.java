@@ -19,6 +19,7 @@ import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.mapper.AdminMapper;
@@ -109,5 +110,12 @@ public class MeetupServiceImpl implements MeetupService{
 	public Meetup selectBoard(int no) {
 		return mapper.selectBoard(no);
 	}
-	
+
+	public void insertMeetupMember(MeetupMember meetupMember) {
+		mapper.insertMeetupMember(meetupMember);
+	}
+
+	public List<Meetup> createdBoardByMe(int no){
+		return mapper.createdBoardByMe(no);
+	}
 }

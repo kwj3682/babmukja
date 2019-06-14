@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 
 public interface MeetupMapper {
@@ -23,5 +24,8 @@ public List<Meetup> selectRecommendWestern();
 public List<Meetup> selectRecommendEastAsia();
 public List<Meetup>	selectMeetup(PageAfterSearch page);
 public Meetup selectBoard(int no);
+public void insertMeetupMember(MeetupMember meetupMember);
 //public List<MeetupLocation> selectLocation()
+public List<Meetup>createdBoardByMe(int no);
+
 }

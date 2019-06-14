@@ -120,7 +120,7 @@
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('386ffcb6d820846f81e354df11f5c8cc');
+		Kakao.init('kako app_key');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({

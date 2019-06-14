@@ -15,6 +15,7 @@
 		<result column="location" property="location" />
 		<result column="host_name" property="hostName" />
 		<result column="host_no" property="hostNo" />
+		<result column="manage_no" property="manageNo" />
 	</resultMap>	
     
     <select id="selectIntro" parameterType="int" resultType="String">
@@ -34,6 +35,10 @@
     	 			   values(#{meetNo},#{city},#{town})
     </insert>
     
+    <insert id="insertMeetupMember" parameterType="meetupMember">
+    	insert into tb_meetup_member(mem_no,mem_name,meet_no,status,mem_email)
+    	 			   values(#{memNo},#{memName},#{meetNo},#{status},#{memEmail})
+    </insert>
     
     
     <update id= "updateIntro" parameterType="meetupIntro" >
@@ -105,16 +110,23 @@
 		order by view_cnt desc
 		limit 0,3
 	</select>
+	
 	<select id="selectRecommendEastAsia" resultMap="meetupMap">
 		select * from tb_meetup
 		where category like '%동남아시아%'
 		order by view_cnt desc
 		limit 0,3
 	</select>
+	
 		
 	<select id="selectBoard" parameterType="int" resultMap="meetupMap">
 	   select * from tb_meetup
 		where meet_no =#{meet_No};
+	</select>
+
+<select id="createdBoardByMe" parameterType="int" resultMap="meetupMap">
+	   select * from tb_meetup
+		where host_no =#{hostNo}
 	</select>
 
 </mapper>

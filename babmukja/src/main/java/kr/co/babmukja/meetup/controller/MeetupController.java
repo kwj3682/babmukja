@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -28,7 +29,9 @@ import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.MeetupSearch;
+import kr.co.babmukja.repository.domain.MeetupTag;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 import kr.co.babmukja.repository.domain.Pagepb;
 
@@ -38,6 +41,22 @@ import kr.co.babmukja.repository.domain.Pagepb;
 
 @RequestMapping("/meetup")
 public class MeetupController {
+	
+	@RequestMapping("/requestAdmission.do")
+	@ResponseBody
+	public String requestAdmission(MeetupMember meetupMember) {
+		System.out.println("승인 memNo :" + meetupMember.getMemNo());
+		System.out.println("승인 meetNo :" + meetupMember.getMeetNo());
+		System.out.println("승인 이름 :" + meetupMember.getMemName());
+		System.out.println("승인 상태 :" + meetupMember.getStatus());
+		System.out.println("이메일 :" + meetupMember.getMemEmail());
+		System.out.println("meetNo :" + meetupMember.getStatus());
+		service.insertMeetupMember(meetupMember);
+		
+	
+		System.out.println("수정 데이터 처리요청");
+		return null;
+	}
 
 	@RequestMapping("/test.do")
 	public void test() {
@@ -98,7 +117,7 @@ public class MeetupController {
 
 	
 	@RequestMapping("/createMeetup.do")
-	public void CreateMeetup(MultipartFile file, String title,
+	public void CreateMeetup(MultipartFile file, String tag, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
 		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
 		String hostName, int hostNo
@@ -108,7 +127,7 @@ public class MeetupController {
 		System.out.println("파일 " + file);
 		System.out.println("카테고리" + category);
 		System.out.println("제목" + title);
-		
+		System.out.println("태그" + tag );
 		
 		
 		
@@ -161,6 +180,8 @@ public class MeetupController {
 		
 		//xml에 담아주기
 		Meetup meetupBoard = new Meetup();	
+		MeetupTag meetupTag = new MeetupTag();
+		meetupTag.setTag(tag);
 		System.out.println("진짜첫번째:" +meetupBoard.getMeetNo());
 		meetupBoard.setCategory(category);
 		meetupBoard.setDay(meetupDay);
@@ -252,6 +273,19 @@ public class MeetupController {
 		meetupBoard.setLocation(location);
 		service.insertMeetupBoard(meetupBoard);
 	}//createMeetup
+	
+	@RequestMapping("/manage.do")
+	public void manage(int hostNo, Model model) {
+	System.out.println("manage 컨트롤러 들어왔음");
+	System.out.println("host no" +hostNo);
+	List<Meetup> meetupList; 
+	meetupList = service.createdBoardByMe(hostNo);
+	for(int i=1; i<meetupList.size()+1; i++) {
+		meetupList.get(i-1).setManageNo(i);
+		System.out.println(meetupList.get(i-1).getManageNo());
+	}
+	model.addAttribute("createdMeetup",meetupList);
+	}
 	
 	@RequestMapping("/main.do")
 	public void meetupMain(Model model) {
