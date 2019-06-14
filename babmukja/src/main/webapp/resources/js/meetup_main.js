@@ -148,3 +148,9 @@ $('.image-upload-wrap').bind('dragleave', function () {
     $('.image-upload-wrap').removeClass('image-dropping');
 });
 
+
+$('.header_meetup_manage').click(function(){
+
+	location.href="/babmukja/meetup/manage.do?hostNo="+$("#hiddenHostNo").val();
+
+});

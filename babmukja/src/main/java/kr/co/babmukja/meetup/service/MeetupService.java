@@ -9,6 +9,7 @@ import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 
 public interface MeetupService {
@@ -29,4 +30,6 @@ public interface MeetupService {
 	public MeetupFile uploadImage(MultipartFile file) throws Exception; 
 	public Map<String, Object> selectMeetup(PageAfterSearch page);
 	public Meetup selectBoard(int no);
+	public void insertMeetupMember(MeetupMember meetupMember);
+	public List<Meetup> createdBoardByMe(int no);
 }

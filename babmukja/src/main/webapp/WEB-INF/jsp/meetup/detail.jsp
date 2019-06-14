@@ -41,7 +41,7 @@
 
 	<div class="header">
 		<div class="headerLeft">
-			<div class=title>오늘은 내가 짜파게티 요리사</div>
+			<div class=title>${meetup.title}</div>
 			<div class="subInfo">
 				<div class="infoTagContainer">
 					<span class="infoTag">요일</span>
@@ -110,7 +110,6 @@
 
 		</div>
 		<div class="tabPanel">모임공지
-			${sessionScope.user.memNo}, ${sessionScope.user.memName}
 		<div class="requestPermissionContainer">
 		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
 		<span class="requestPermission">모임 가입 신청</span>
@@ -129,7 +128,7 @@
 	<script>
 
 	$(".area").click(function () {
-		$(".area").animate({ left: -600 }, 1000);
+		$(".area").animate({ left: -60 }, 1000);
 	});
 
 
@@ -373,6 +372,7 @@
 			cache: false,
 			contentType: false,
 			processData: false,
+			enctype: 'multipart/form-data',
 			success: function (url) { // 처리가 성공할 경우
 				//                                    alert("sendFile함수 들어옴")
 				// 에디터에 이미지 출력
@@ -386,7 +386,35 @@
 			}
 		});
 	}
+	
+	
+	$(".requestPermission").click(function(){
+		
+		
+		
+		meetupMember={};
+		meetupMember.memName = '${sessionScope.user.memName}';
+		meetupMember.memEmail = '${sessionScope.user.memEmail}';
+		meetupMember.memNo = ${sessionScope.user.memNo};
+		meetupMember.meetNo = ${meetup.meetNo};
+		meetupMember.status = 0;
+		
+		$.ajax({ // ajax를 통해 파일 업로드 처리
+			data: meetupMember,
+			type: 'POST',
+			url: "<c:url value='/meetup/requestAdmission.do' />",
+			cache: false,
+			success: function (data) { // 처리가 성공할 경우
+				$(".requestPermissionContainer").html(`
+						<br>
 
+						가입신청이 완료되었습니다. 방장이 승인하면 모임 가입이 완료됩니다.
+						`);
+			}
+		});
+		
+		
+	});
 
 
 	</script>

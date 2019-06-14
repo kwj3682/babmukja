@@ -14,8 +14,15 @@ String location;
 int viewCnt;
 String hostName;
 int hostNo;
+int manageNo;
 
 
+public int getManageNo() {
+	return manageNo;
+}
+public void setManageNo(int manageNo) {
+	this.manageNo = manageNo;
+}
 public String getHostName() {
 	return hostName;
 }
