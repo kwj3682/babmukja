@@ -109,8 +109,9 @@
 			<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>
 
 		</div>
-		<div class="tabPanel">모임공지
+		<div class="tabPanel">
 		<div class="requestPermissionContainer">
+		<br>
 		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
 		<span class="requestPermission">모임 가입 신청</span>
 		</div>

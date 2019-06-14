@@ -124,9 +124,15 @@
 		where meet_no =#{meet_No};
 	</select>
 
-<select id="createdBoardByMe" parameterType="int" resultMap="meetupMap">
+	<select id="createdBoardByMe" parameterType="int" resultMap="meetupMap">
 	   select * from tb_meetup
 		where host_no =#{hostNo}
 	</select>
+
+	<select id="selectManageMemberBoard" parameterType="int" resultType="meetupMember">
+	select * from tb_meetup_member
+	where meet_no = #{meetNo}
+	</select>
+
 
 </mapper>

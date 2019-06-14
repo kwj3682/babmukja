@@ -174,6 +174,7 @@
 	                        <div class="info_line">${meetup.title}</div>
 	                        <div class="info_monthly_fee">
 	                            <span>${meetup.fee}</span>
+	                           
 	                        </div>
 	
 	                        <div class="info_bottom">

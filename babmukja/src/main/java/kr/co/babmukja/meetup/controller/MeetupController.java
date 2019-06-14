@@ -42,6 +42,17 @@ import kr.co.babmukja.repository.domain.Pagepb;
 @RequestMapping("/meetup")
 public class MeetupController {
 	
+	//모임 번호에 따른 회원 명단 보내기
+	@RequestMapping("/manageMember.do")
+	@ResponseBody
+	public List<MeetupMember> manageMember(int meetNo) {
+		System.out.println("manage member 들어왔음" + meetNo);
+		List<MeetupMember> memberList = service.selectManageMemberBoard(meetNo);
+		System.out.println(memberList.get(0).getMemName());
+		return memberList;
+	}
+	
+	
 	@RequestMapping("/requestAdmission.do")
 	@ResponseBody
 	public String requestAdmission(MeetupMember meetupMember) {
@@ -353,6 +364,7 @@ public class MeetupController {
 
 	}
 
+
 	@RequestMapping("download.do")
 	public void download(String path, HttpServletResponse response) throws IOException {
 
@@ -374,6 +386,7 @@ public class MeetupController {
 		bos.close();
 		out.close();
 	}
+	
 
 	@RequestMapping("/updateIntro.do")
 	@ResponseBody
