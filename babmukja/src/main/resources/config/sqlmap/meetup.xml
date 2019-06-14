@@ -132,6 +132,7 @@
 	<select id="selectManageMemberBoard" parameterType="int" resultType="meetupMember">
 	select * from tb_meetup_member
 	where meet_no = #{meetNo}
+	and status =1;
 	</select>
 
 

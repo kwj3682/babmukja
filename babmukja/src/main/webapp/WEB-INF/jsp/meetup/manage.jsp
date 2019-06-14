@@ -119,22 +119,16 @@
     </section>
   
     <section id=B class="tl_section b">
+        <div class="member_approval_title"></div>
+        <div class="member_approval_header">
+			<div class="member_approval_header_no">번호</div>
+			<div class="member_approval_header_name">이름</div>       
+			<div class="member_approval_header_email">이메일</div>  
+			<div class="member_approval_header_manage"></div>  
+		 </div><!--host_meetup_list -->
         <!-- 가입 승인 명단 -->
-     <div class="member_approval_title"></div>
-     <div class="member_approval_header">
-       <div class="member_approval_header_no">번호</div>
-       <div class="member_approval_header_name">이름</div>       
-       <div class="member_approval_header_email">이메일</div>  
-       <div class="member_approval_header_manage"></div>  
-     </div><!--host_meetup_list -->
-     <div class="member_approval">
-         <div class="member_approval_no">1</div>
-         <div class="member_approval_name">구본좌</div>
-         <div class="member_approval_email">kim@naver.com</div>  
-         <div class="member_approval_manage">
-             <div class="manage_approval">승인</div><div class="manage_reject">거절</div>
-         </div>  
-       </div><!--host_meetup_list -->
+    
+     
        <!-- 회원 명단끝-->
     </section>
   

@@ -48,6 +48,10 @@ public class MeetupController {
 	public List<MeetupMember> manageMember(int meetNo) {
 		System.out.println("manage member 들어왔음" + meetNo);
 		List<MeetupMember> memberList = service.selectManageMemberBoard(meetNo);
+		for(int i=1; i<memberList.size()+1; i++) {
+			memberList.get(i-1).setMeetMemNo(i);
+			System.out.println("나열되는 번호" +memberList.get(i-1).getMeetMemNo());
+		}
 		System.out.println(memberList.get(0).getMemName());
 		return memberList;
 	}
