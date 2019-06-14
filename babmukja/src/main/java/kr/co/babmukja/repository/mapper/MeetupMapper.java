@@ -25,6 +25,7 @@ public List<Meetup> selectRecommendEastAsia();
 public List<Meetup>	selectMeetup(PageAfterSearch page);
 public Meetup selectBoard(int no);
 public void insertMeetupMember(MeetupMember meetupMember);
+public List<MeetupMember> selectManageMemberBoard(int no);  
 //public List<MeetupLocation> selectLocation()
 public List<Meetup>createdBoardByMe(int no);
 

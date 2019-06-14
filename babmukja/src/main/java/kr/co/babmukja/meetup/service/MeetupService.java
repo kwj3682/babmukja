@@ -32,4 +32,5 @@ public interface MeetupService {
 	public Meetup selectBoard(int no);
 	public void insertMeetupMember(MeetupMember meetupMember);
 	public List<Meetup> createdBoardByMe(int no);
+	public List<MeetupMember> selectManageMemberBoard(int no);
 }

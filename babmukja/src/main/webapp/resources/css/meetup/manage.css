@@ -357,3 +357,8 @@ display: inline-block;
     line-height: 23px;
     margin-right:15px;
 }
+
+.host_meetup_atag{
+	text-decoration:none;	
+	color:black;
+}
