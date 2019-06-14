@@ -893,7 +893,7 @@
 				let pbNo = ${storepb.pbNo};	  					// 해당 상품 번호
 				let count = $("#total_count").text();			// 상품 개수
 				let memNo = $("input[name='memhidden']").val();
-				alert(memNo);
+// 				alert(memNo);
 				console.log(price);
 				console.log(pbNo);
 				console.log(count);
@@ -906,7 +906,7 @@
 						memNo : memNo
 					}
 				}).done(function () {
-					alert(memNo);
+// 					alert(memNo);
 					$("#cartmodal").modal("show");
 					$(".cart_move_btn").click(function () {
 						location.href = "cartpb.do?memNo="+memNo;
