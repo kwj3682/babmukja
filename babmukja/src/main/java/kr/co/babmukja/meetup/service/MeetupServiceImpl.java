@@ -118,4 +118,8 @@ public class MeetupServiceImpl implements MeetupService{
 	public List<Meetup> createdBoardByMe(int no){
 		return mapper.createdBoardByMe(no);
 	}
-}
+
+	public List<MeetupMember> selectManageMemberBoard(int no){
+	return mapper.selectManageMemberBoard(no);
+	}
+	}

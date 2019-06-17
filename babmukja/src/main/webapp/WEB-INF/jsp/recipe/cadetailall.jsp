@@ -59,7 +59,7 @@
                         <label for="high-blood-pressure">고혈압 주의</label>
                         <input type="checkbox" id="vegan" name="caution" value="10" <c:if test="${caution10 == 10}">checked</c:if>>
                         <label for="vegan">채식주의자를 위한</label>
-                        <input type="checkbox" id="halal" name="caution" value="11" <c:if test="${caution11 == 11}">checked</c:if>>
+                        <br><input type="checkbox" id="halal" name="caution" value="11" <c:if test="${caution11 == 11}">checked</c:if>>
                         <label for="halal">돼지고기 포함</label>
                         <input type="checkbox" id="old" name="caution" value="12" <c:if test="${caution12 == 12}">checked</c:if>>
                         <label for="old">노약자 주의</label>
@@ -84,7 +84,7 @@
                         <input type="radio" id="drinkalone" name="situation" value="19" <c:if test="${param.situation == 19}">checked</c:if>><label for="drinkalone">혼술</label>
                         <input type="radio" id="eatalone" name="situation" value="20" <c:if test="${param.situation == 20}">checked</c:if>><label for="eatalone">혼밥</label> 
                         <input type="radio" id="coupledate" name="situation" value="21" <c:if test="${param.situation == 21}">checked</c:if>><label for="coupledate">데이트</label>
-                        <input type="radio" id="snack" name="situation" value="22" <c:if test="${param.situation == 22}">checked</c:if>><label for="snack">간식</label> 
+                        <input type="radio" id="snack" name="situation" value="22" <c:if test="${param.situation == 22}">checked</c:if>><label for="snack">간식</label> <br>
                         <input type="radio" id="wholetable" name="situation" value="23" <c:if test="${param.situation == 23}">checked</c:if>><label for="wholetable">한상차림</label>
                         <input type="radio" id="dinner" name="situation" value="24" <c:if test="${param.situation == 24}">checked</c:if>><label for="dinner">저녁</label>
                         <input type="radio" id="lunch" name="situation" value="25" <c:if test="${param.situation == 25}">checked</c:if>><label for="lunch">점심</label> 
@@ -134,7 +134,7 @@
                         <input type="radio" id="dumpling" name="foodtype" value="42" <c:if test="${param.type == 42}">checked</c:if>><label for="dumpling">만두</label>
                         <input type="radio" id="rice" name="foodtype" value="43" <c:if test="${param.type == 43}">checked</c:if>><label for="rice">밥</label>
                         <input type="radio" id="salad" name="foodtype" value="44" <c:if test="${param.type == 44}">checked</c:if>><label for="salad">샐러드</label>
-                        <input type="radio" id="soup" name="foodtype" value="45" <c:if test="${param.type == 45}">checked</c:if>><label for="soup">스프</label>
+                        <input type="radio" id="soup" name="foodtype" value="45" <c:if test="${param.type == 45}">checked</c:if>><label for="soup">스프</label><br>
                         <input type="radio" id="beverage" name="foodtype" value="46" <c:if test="${param.type == 46}">checked</c:if>><label for="beverage">음료</label>
                         <input type="radio" id="bread" name="foodtype" value="47" <c:if test="${param.type == 47}">checked</c:if>><label for="bread">빵/디저트</label>
                         <input type="radio" id="hardboiled" name="foodtype" value="48" <c:if test="${param.type == 48}">checked</c:if>><label for="hardboiled">조림</label>
@@ -142,7 +142,7 @@
                         <input type="radio" id="hardmixed" name="foodtype" value="50" <c:if test="${param.type == 50}">checked</c:if>><label for="hardmixed">비빔</label>
                         <input type="radio" id="steamed" name="foodtype" value="51" <c:if test="${param.type == 51}">checked</c:if>><label for="steamed">찜</label>
                         <input type="radio" id="pickled" name="foodtype" value="52" <c:if test="${param.type == 52}">checked</c:if>><label for="pickled">절임</label>
-                        <input type="radio" id="fried" name="foodtype" value="53" <c:if test="${param.type == 53}">checked</c:if>><label for="fried">튀김</label>
+                        <input type="radio" id="fried" name="foodtype" value="53" <c:if test="${param.type == 53}">checked</c:if>><label for="fried">튀김</label><br>
                         <input type="radio" id="boiled" name="foodtype" value="54" <c:if test="${param.type == 54}">checked</c:if>><label for="boiled">삶기</label>
                         <input type="radio" id="cooked" name="foodtype" value="55" <c:if test="${param.type == 55}">checked</c:if>><label for="cooked">굽기</label>
                         <input type="radio" id="blanch" name="foodtype" value="56" <c:if test="${param.type == 56}">checked</c:if>><label for="blanch">데치기</label>

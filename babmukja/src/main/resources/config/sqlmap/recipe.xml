@@ -150,7 +150,7 @@
            and mem_no = #{memNo} 			   
 	</update>
 	
-	<select id="selectLikeStatus" parameterType="recipefollow" resultType="String">
+	<select id="selectLikeStatus" parameterType="recipelike" resultType="String">
 		select like_status
 		  from tb_recipe_like
 		 where recipe_no = #{recipeNo}
