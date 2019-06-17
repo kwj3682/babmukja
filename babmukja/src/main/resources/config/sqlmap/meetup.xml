@@ -22,6 +22,7 @@
     	select intro from tb_meetup WHERE meet_no= #{meetNo}
     </select>
     
+    
     <insert id="insertMeetupBoard" parameterType="meetup">
     	<selectKey keyProperty="meetNo" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -64,19 +65,34 @@
 	</when>
 	<when test="fee == 0">
 	and  REPLACE(fee, ',', '') <![CDATA[ >=]]>  #{fee}
-
 	</when>
 	</choose>
-	and ( (location like concat('%',#{city1},'%') and location like concat('%',#{town1},'%')) or 
+	and ( (location like concat('%',#{city1},'%') and location like concat('%',#{town1},'%')) or
 		   (location like concat('%',#{city2},'%') and location like concat('%',#{town2},'%')) or
 		   (location like concat('%',#{city3},'%') and location like concat('%',#{town3},'%'))
 	)
 		 limit #{begin}, #{end}	
 	</select>
 	
-	<select id="selectAllMeetupCount" resultType="int">
-		select count(*)
-		  from tb_meetup
+	<select id="selectAllMeetupCount" resultType="int" parameterType="pageAfterSearch">
+		select count(*) from tb_meetup
+		where title like concat('%',#{search},'%') and category like concat('%',#{category},'%') 
+	  <choose>
+	  <when test="fee != 0">
+		and  REPLACE(fee, ',', '') <![CDATA[ <=]]>  #{fee}
+
+		</when>
+		<when test="fee == 0">
+		and  REPLACE(fee, ',', '') <![CDATA[ >=]]>  #{fee}
+
+	</when>
+	</choose>
+		and ( (location like concat('%',#{city1},'%') and location like concat('%',#{town1},'%')) or 
+		   (location like concat('%',#{city2},'%') and location like concat('%',#{town2},'%')) or
+		   (location like concat('%',#{city3},'%') and location like concat('%',#{town3},'%'))
+	)
+		
+
 	</select>
     
     <select id="selectRecommendAll" resultMap="meetupMap">
@@ -135,5 +151,27 @@
 	and status =1;
 	</select>
 
+   
+    <select id="selectMeetupMemberList" parameterType="int" resultType="meetupMember">
+	select * from tb_meetup_member
+	where meet_no = #{meetNo}
+	and status =2;
+	</select>
+	
+	<select id="selectMeetupMemberStatus" parameterType="meetupMember" resultType="meetupMember">
+	select * from tb_meetup_member
+	where meet_no = #{meetNo} and mem_no = #{memNo}
+	</select>
 
+
+    <update id= "updateApprovalStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 2 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+ 
+	<update id= "updateViewCnt" parameterType="int" >
+    update tb_meetup
+	set view_cnt = view_cnt +1
+	where meet_no = #{meetNo};     
+    </update>
+	
 </mapper>

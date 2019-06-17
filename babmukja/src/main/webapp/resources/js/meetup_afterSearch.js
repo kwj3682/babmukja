@@ -38,7 +38,7 @@ $(".monthly_fee_title").click(function () {
 $(".info_block").on("click",function(){
 	let meetNo = $(this).find('.afterMeetNo').val();
 	console.log("meetNo" +meetNo);
-	location.href="detail.do?meetNo="+meetNo;
+	location.href="detail.do?meetNo="+meetNo+"&memNo=" + $("#hiddenmemNo").val();
 });
 
 
