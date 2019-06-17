@@ -9,6 +9,7 @@ import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBLike;
 import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 
@@ -38,6 +39,7 @@ public interface StorePBService {
 	public void updatePBStore(StorePB storepb);
 	//public void deletePBStore(int no);
 	public int selectPBStoreCount(Pagepb page);
+	public void addViewCnt(int pbNo);
 	
 	// 후기
 	public void insertPBReview(StorePBReview reviewpb,StorePB spb);
@@ -66,4 +68,13 @@ public interface StorePBService {
 	public void insertPBCart(StorePBCart storePBCart);
 	public List<StorePBCart> selectPBCartByMember(int memNo);
 	public void deletePBCart(int cartNo);
+	
+	// pb 상품 좋아요
+	public void insertPBLike(StorePBLike pbLike);
+	public void updatePBLike(StorePBLike pbLike);
+	public void updateLikeCnt(int no);
+	public void deleteLikeCnt(int no);
+	public int selectCountLike(StorePBLike pbLike);
+	public String selectLikeStatus(StorePBLike pbLike);
+	public int countLikeCnt(int no);	
 }

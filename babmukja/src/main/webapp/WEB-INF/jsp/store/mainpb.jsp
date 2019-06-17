@@ -100,10 +100,13 @@
                                 <div class="pb_store_popular_product_price">
                                     <p><fmt:formatNumber value="${pbList.price}" groupingUsed="true"/>원</p>
                                 </div>
-                                <div class="pb_store_popular_product_rating">
-                                    <span id="pb_store_popular_product_rating_star">★</span>
-                                    <span>4.3</span>        
-                                </div>
+		                        <div class="pb_list_product_rating">
+		                            <span id="pb_store_popular_product_rating_star"></span>
+		                            <span class="pb_store_popular_rating_cnt"><fmt:formatNumber value="${pbList.rating}" pattern="#.##"/></span>
+	                            	<img class="likeheart" src="<c:url value='/resources/images/icons/like2.png'/>">
+	                            	<span class="likeheartCnt">${pbList.likeCnt}</span>
+	                            	<i class="far fa-eye" id="viewCntIcon"><span class="PBviewCnt">${pbList.viewCnt}</span></i>
+		                        </div>
                             </div>
                         </a>
                     </c:forEach>

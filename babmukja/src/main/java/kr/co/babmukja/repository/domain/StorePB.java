@@ -12,11 +12,17 @@ public class StorePB {
 	private int viewCnt;
 	private String imgPath;
 	private String thumnail;
-	
+	private int likeCnt;
 	private double rating;	
 	private int ratingCnt;
 	
 	
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
 	public int getRatingCnt() {
 		return ratingCnt;
 	}
