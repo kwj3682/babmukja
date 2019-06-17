@@ -1,7 +1,7 @@
 package kr.co.babmukja.common.page;
 
 public class MeetupPageResult {
-	private int pageNo;
+	private int pageNo ;
 	private int count;
 	private int beginPage;
 	private int endPage;
@@ -12,6 +12,7 @@ public class MeetupPageResult {
 		this.count = count;
 		setPageInfo();
 	}
+	
 	
 	private void setPageInfo() {
 		int lastPage = (count % 6 == 0) ? count / 6

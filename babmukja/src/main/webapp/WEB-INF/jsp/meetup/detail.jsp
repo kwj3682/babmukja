@@ -84,7 +84,7 @@
 
 			</div>
 			<div class="tag">#짜파게티&nbsp; #치즈 짜파게티 &nbsp;#불닭 짜파게티</div>
-
+			
 		</div>
 		<div class="headerRight">
 			<div class="area">
@@ -109,14 +109,26 @@
 			<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>
 
 		</div>
-		<div class="tabPanel">모임공지
+		<div class="tabPanel">
+	${memberStatus.status}${memberStatus.status}${memberStatus.status}	
+			<c:set var="status"  value="${memberStatus.status}"/>  
+		<c:choose>
+		<c:when test = "${status == 0}"> 
 		<div class="requestPermissionContainer">
+		<br>
 		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
 		<span class="requestPermission">모임 가입 신청</span>
 		</div>
-		<Script>
+		</c:when>
+		<c:when test = "${status == 1}"> 
+		<div class="requestPermissionContainer">
+		<br>
+			가입 승인요청을 기다리는 중입니다.		
+		</div>
+		</c:when>
+		</c:choose>
 		
-		</Script>
+	
 	
 			
 		</div><!--tab panel 끝  -->
@@ -397,7 +409,7 @@
 		meetupMember.memEmail = '${sessionScope.user.memEmail}';
 		meetupMember.memNo = ${sessionScope.user.memNo};
 		meetupMember.meetNo = ${meetup.meetNo};
-		meetupMember.status = 0;
+		meetupMember.status = 1;
 		
 		$.ajax({ // ajax를 통해 파일 업로드 처리
 			data: meetupMember,

@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,8 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.babmukja.meetup.service.MeetupService;
 import kr.co.babmukja.repository.domain.Meetup;
@@ -41,6 +44,46 @@ import kr.co.babmukja.repository.domain.Pagepb;
 
 @RequestMapping("/meetup")
 public class MeetupController {
+	
+	//승인처리
+	@RequestMapping("/manageApproval.do")
+	@ResponseBody
+	public void manageApproval(int meetMemNo) {
+		System.out.println("meetMemNo"+meetMemNo);
+		service.updateApprovalStatus(meetMemNo);
+	}
+	
+	//모임 번호에 따른 회원 명단 보내기
+	@RequestMapping("/manageMember.do")
+	@ResponseBody
+	public HashMap<String,Object> manageMember(int meetNo ) {
+		System.out.println("manage member 들어왔음" + meetNo);
+		
+		HashMap<String,Object> hm =new HashMap<String,Object>();
+		
+		List<MeetupMember> approvalRequestList = service.selectManageMemberBoard(meetNo);
+	
+		for(int i=1; i<approvalRequestList.size()+1; i++) {
+			approvalRequestList.get(i-1).setAdmissionNum(i);
+			System.out.println("나열되는 번호" +approvalRequestList.get(i-1).getAdmissionNum());
+		}
+		hm.put("approvalRequestList", approvalRequestList);
+     
+
+		
+		List<MeetupMember> meetupMemberList = service.selectMeetupMemberList(300);
+
+		
+		for(int i=1; i<meetupMemberList.size()+1; i++) {
+			meetupMemberList.get(i-1).setAdmissionNum(i);
+			System.out.println("회원목록 나열되는 번호" +meetupMemberList.get(i-1).getAdmissionNum());
+		}
+	
+		hm.put("meetupMemberList", meetupMemberList);
+		return hm;
+	}
+	
+	
 	
 	@RequestMapping("/requestAdmission.do")
 	@ResponseBody
@@ -63,9 +106,14 @@ public class MeetupController {
 	System.out.println("controller 찍히는 확인");
 	}
 
-
+	
 	@RequestMapping("/afterSearch.do")
-	public void afterSearch(Model model, PageAfterSearch page) {
+	public void afterSearch(Model model, PageAfterSearch page,
+			@RequestParam(required=true,defaultValue="1") int pageNo
+			) {
+		//페이징 처리
+		System.out.println("1번째에서 page번호" +pageNo);
+		page.setPageNo(pageNo);
 		
 		//검색 처리 해주기
 		if(page.getCategory() ==null) {
@@ -77,35 +125,52 @@ public class MeetupController {
 		if(page.getSearch() ==null) {
 			page.setSearch("");
 		}
-		if(page.getSearch().equals("전체")) {
-			page.setSearch("");
-		}
+		
 		if(page.getCategory() ==null) {
-			
-			
 			page.setCategory("");
 		}
+		
 		if(page.getCity1() ==null || page.getCity1().equals("-선택-")  ) {
 			System.out.println("도시확인 : " + page.getCity1());
 			page.setCity1("");
 		}
-		if( page.getTown1() ==null || page.getTown1().equals("-선택-")  ) {
+//		if(page.getCity2() ==null || page.getCity2().equals("-선택-")  ) {
+//			System.out.println("도시확인 : " + page.getCity2());
+//			page.setCity1("");
+//		}
+//		if(page.getCity3() ==null || page.getCity2().equals("-선택-")  ) {
+//			System.out.println("도시확인 : " + page.getCity3());
+//			page.setCity3("");
+//		}
+		
+		if( page.getTown1() ==null || page.getTown1().equals("-선택-") || page.getTown1().equals("전체")  ) {
 			System.out.println("도시확인 : " + page.getTown1());
 			page.setTown1("");
 		}
+		
+//		if( page.getTown2() ==null || page.getTown2().equals("-선택-") || page.getTown2().equals("전체")  ) {
+//			System.out.println("도시확인 : " + page.getTown2());
+//			page.setTown2("");
+//		}
+//
+//		if( page.getTown3() ==null || page.getTown3().equals("-선택-") || page.getTown3().equals("전체")  ) {
+//			System.out.println("도시확인 : " + page.getTown3());
+//			page.setTown3("");
+//		}
+		
 		System.out.println("회비 :" + page.getFee() );
 		Map<String, Object> result = service.selectMeetup(page);
 		model.addAttribute("meetupList", result.get("meetupList"));
 		model.addAttribute("pageResult", result.get("pageResult"));
 		model.addAttribute("pageAfterSearch", page);
 
-		System.out.println("page 번호" + page.getPageNo());
+		System.out.println("2번째 page 번호" + page.getPageNo());
 		System.out.println(page.getCategory());
 		System.out.println(page.getSearch());
 		
 		System.out.println("지역" +page.getCity2());
 		System.out.println("지역");
-		
+	
 		}
 	
 	
@@ -120,7 +185,7 @@ public class MeetupController {
 	public void CreateMeetup(MultipartFile file, String tag, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
 		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
-		String hostName, int hostNo
+		String hostName, int hostNo, String hostEmail
 			
 			) {
 		System.out.println("호스트 내임, 이름" +hostName +hostNo );
@@ -272,6 +337,14 @@ public class MeetupController {
 		
 		meetupBoard.setLocation(location);
 		service.insertMeetupBoard(meetupBoard);
+		MeetupMember member = new MeetupMember();
+		member.setMemNo(hostNo);
+		member.setMemName(hostName);
+		member.setMemEmail(hostEmail);
+		member.setMeetNo(meetupBoard.getMeetNo());
+		member.setStatus(5);
+		service.insertMeetupMember(member);
+		
 	}//createMeetup
 	
 	@RequestMapping("/manage.do")
@@ -300,10 +373,22 @@ public class MeetupController {
 	
 	
 	@RequestMapping("/detail.do")
-	public void meetupDetail(Model model, int meetNo) {
-//		System.out.println("meetNo" + meetNo );
-//		service.selectIntro();
-		
+	public void meetupDetail(Model model, int meetNo, int memNo) {
+		System.out.println("meetNo" + meetNo +  memNo );
+		//view cnt 관리
+		service.updateViewCnt(meetNo);
+		MeetupMember meetupMember = new MeetupMember();
+		meetupMember.setMeetNo(meetNo);
+		meetupMember.setMemNo(memNo);
+		if(service.selectMeetupMemberStatus(meetupMember) !=null) {
+		MeetupMember MeetupMemberStatus = service.selectMeetupMemberStatus(meetupMember);
+		model.addAttribute("memberStatus", MeetupMemberStatus);
+
+		}
+		else {
+			meetupMember.setStatus(0);
+			model.addAttribute("memberStatus", meetupMember);
+		}
 		
 		model.addAttribute("meetup", service.selectBoard(meetNo));
 		
@@ -353,6 +438,7 @@ public class MeetupController {
 
 	}
 
+
 	@RequestMapping("download.do")
 	public void download(String path, HttpServletResponse response) throws IOException {
 
@@ -374,6 +460,7 @@ public class MeetupController {
 		bos.close();
 		out.close();
 	}
+	
 
 	@RequestMapping("/updateIntro.do")
 	@ResponseBody

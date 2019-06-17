@@ -94,12 +94,13 @@
         <!--1 추천모임 박스 복사시작 -->
         <c:forEach var="meetup" items="${meetupList}">
         <div class="info_block">
-            <div class="info_pic"><img src="<c:url value='/meetup/download.do' />?path=${meetup.fileDir}" width="384px" ,
-                    height="190px">
+            <div class="info_pic"><img src="<c:url value='/meetup/download.do' />?path=${meetup.fileDir}" width="384px" height="190px">
             </div>
             <div class="info_line">${meetup.title}</div>
             <div class="info_monthly_fee">
-                <sapn>${meetup.fee}</sapn>
+                <span>${meetup.fee}</span>
+                	<!-- hidden으로 번호값 넘겨주기 -->
+	                            		 <input type="hidden"  name="afterMeetNo" class="afterMeetNo" value="${meetup.meetNo}">
             </div>
 
             <div class="info_bottom">
@@ -119,6 +120,9 @@
         <!-- 추천모임 박스 복사끝 -->
         
     </div>
+    <!--회원 번호 가져오기  -->
+   <input type="hidden"  name="memNo" id="hiddenmemNo" value="${sessionScope.user.memNo}">
+    
     <!-- 추천모임 박스 복사끝 -->
 <div class="page">
 	    <c:if test="${pageResult.count != 0}">

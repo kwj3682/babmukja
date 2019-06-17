@@ -370,6 +370,7 @@ function update() {
 				textMesh.scale.z = size;
 				textMesh.rotation.y = 0.1;
 			}).on('click',function(){
+				location.href="/babmukja/recipe/main.do";
 			});
 		},
 		// called while loading is progressing
@@ -553,13 +554,14 @@ function update() {
 		}
 	);
 //------------------------plane ---------------------------------------//
-var planeG = new THREE.PlaneGeometry( 150, 150, 1 );
+var planeG = new THREE.PlaneGeometry( 60, 30, 1 );
 var planeM = new THREE.MeshBasicMaterial( {transparent: true, opacity: 0} );
+//var planeM = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 var plane = new THREE.Mesh( planeG, planeM );
 scene.add( plane );
-plane.position.x = -100;
-plane.position.y = -30;
-plane.position.z = -70;
+plane.position.x = -110;
+plane.position.y = -8;
+plane.position.z = -50;
 plane.rotation.y = 1.4;
 //------------------------lighting ------------------------------------//
 // var pointLight = new THREE.PointLight( 0xffff95, 6, 150 );

@@ -34,6 +34,13 @@ $(".monthly_fee_title").click(function () {
 });
 
 
+//클릭시 주소 이동부분
+$(".info_block").on("click",function(){
+	let meetNo = $(this).find('.afterMeetNo').val();
+	console.log("meetNo" +meetNo);
+	location.href="detail.do?meetNo="+meetNo+"&memNo=" + $("#hiddenmemNo").val();
+});
+
 
 
 

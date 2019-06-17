@@ -174,6 +174,7 @@
 	                        <div class="info_line">${meetup.title}</div>
 	                        <div class="info_monthly_fee">
 	                            <span>${meetup.fee}</span>
+	                           
 	                        </div>
 	
 	                        <div class="info_bottom">
@@ -376,6 +377,8 @@
                             <!--방장과 방장번호 자동 선택  -->
                             <input type="hidden"  name="hostName" value="${sessionScope.user.memName}">
  							<input type="hidden"  name="hostNo" id="hiddenHostNo" value="${sessionScope.user.memNo}">
+ 							<input type="hidden"  name="hostEmail" id="hiddenHostEmail" value="${sessionScope.user.memEmail}">
+ 							
                             <div class="modal_meetup_category">
                                 <select name="category" class="food_nation_category">
                                     <option value="카테고리">카테고리</option>

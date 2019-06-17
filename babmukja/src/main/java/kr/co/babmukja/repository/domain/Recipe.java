@@ -13,7 +13,7 @@ public class Recipe {
 	private String title;
 	private String content;
 	private Date regDate;
-	private int rating;
+	private double rating;
 	private int viewCnt;
 	
 	private int likeCnt;
@@ -112,10 +112,10 @@ public class Recipe {
 	public void setMemNickname(String memNickname) {
 		this.memNickname = memNickname;
 	}
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
-	public void setRating(int rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 	public Date getRegDate() {

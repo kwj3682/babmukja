@@ -28,25 +28,25 @@
             <select id="selectbox">
             	<c:if test="${sortType eq 0}">
 	                <option value="0" id="dateDESC" selected>최신순</option>
-	                <option value="1">인기순</option>
+	                <option value="1" id="popularDESC">인기순</option>
 	                <option value="2" id="priceDESC">낮은 가격순</option>
 	                <option value="3" id="priceASC">높은 가격순</option>
             	</c:if>
             	<c:if test="${sortType eq 1}">
 	                <option value="0" id="dateDESC" >최신순</option>
-	                <option value="1" selected>인기순</option>
+	                <option value="1" id="popularDESC" selected>인기순</option>
 	                <option value="2" id="priceDESC">낮은 가격순</option>
 	                <option value="3" id="priceASC">높은 가격순</option>
             	</c:if>
             	<c:if test="${sortType eq 2}">
 	                <option value="0" id="dateDESC">최신순</option>
-	                <option value="1">인기순</option>
+	                <option value="1" id="popularDESC">인기순</option>
 	                <option value="2" id="priceDESC" selected>낮은 가격순</option>
 	                <option value="3" id="priceASC">높은 가격순</option>
             	</c:if>
             	<c:if test="${sortType eq 3}">
 	                <option value="0" id="dateDESC">최신순</option>
-	                <option value="1">인기순</option>
+	                <option value="1" id="popularDESC">인기순</option>
 	                <option value="2" id="priceDESC">낮은 가격순</option>
 	                <option value="3" id="priceASC" selected>높은 가격순</option>
             	</c:if>
@@ -67,7 +67,10 @@
 	                        </div>
 	                        <div class="pb_list_product_rating">
 	                            <span id="pb_store_popular_product_rating_star"></span>
-	                            <span><fmt:formatNumber value="${listpb.rating}" pattern="#.##"/></span>
+	                            <span class="pb_store_popular_rating_cnt"><fmt:formatNumber value="${listpb.rating}" pattern="#.##"/></span>
+	                            <img class="likeheart" src="<c:url value='/resources/images/icons/like2.png'/>">
+                            	<span class="likeheartCnt">${listpb.likeCnt}</span>
+                            	<i class="far fa-eye" id="viewCntIcon"><span class="PBviewCnt">${listpb.viewCnt}</span></i>
 	                        </div>
 	                    </div>
 	                </a>

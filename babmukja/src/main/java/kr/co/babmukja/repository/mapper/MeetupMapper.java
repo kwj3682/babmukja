@@ -15,7 +15,7 @@ public void updateIntro(MeetupIntro meetupIntro);
 public void deleteIntro();
 public void insertMeetupBoard(Meetup meetup);
 public void insertMeetupLocation(MeetupLocation meetupLocation);
-public int selectAllMeetupCount();
+public int selectAllMeetupCount(PageAfterSearch pageAfterSearch);
 public List<Meetup> selectRecommendAll();
 public List<Meetup> selectRecommendKorean();
 public List<Meetup> selectRecommendChinese();
@@ -25,7 +25,12 @@ public List<Meetup> selectRecommendEastAsia();
 public List<Meetup>	selectMeetup(PageAfterSearch page);
 public Meetup selectBoard(int no);
 public void insertMeetupMember(MeetupMember meetupMember);
+public List<MeetupMember> selectManageMemberBoard(int no);  
 //public List<MeetupLocation> selectLocation()
 public List<Meetup>createdBoardByMe(int no);
+public void updateApprovalStatus(int no);
+public List<MeetupMember> selectMeetupMemberList(int no);
+public MeetupMember selectMeetupMemberStatus (MeetupMember meetupMember);
+public void updateViewCnt(int meetNo);
 
 }

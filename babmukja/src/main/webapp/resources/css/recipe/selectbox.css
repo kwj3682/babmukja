@@ -34,10 +34,15 @@
     width: 210px;
     height: 50px;
     border: 1px solid gainsboro;
-    margin-top : 100px;
     border-radius: 5px;
     transition: .3s;
     cursor: pointer;
+    position: fixed;
+    top: 5px;
+    right: 400px;
+    z-index: 1000;
+    animation: glitter2 2s linear 0s 3;
+    font-size: 10px;
 }
 #selectBoxSelector > p{
     font-size: 14px;
@@ -48,16 +53,20 @@
 }
 #selectBoxSelector:hover{
     background: #7db;
-    color:white;
 }
 @keyframes glitter{
     0%{opacity: 0.4;}
     50%{opacity: 1;}
     100%{opacity: 0.4;}
 }
+@keyframes glitter2{
+    0%{background: white;}
+    50%{background: #7db;}
+    100%{background: white;}
+}
 .hiddenMenu{
     display: none;
-    font-size: 12px;
+    font-size: 13px;
 }
 .selectmenuContent-detail{
     line-height: 35px;
@@ -73,4 +82,11 @@
 input[name='foodtype']{
     background-position: center;
     background-size: cover;
+}
+#submitBtn{
+	color: rgb(81,81,81);
+	transition: .3s;
+}
+#submitBtn:hover{
+	color: #7db;
 }

@@ -48,7 +48,7 @@ $('#modalSave').click(function(){
 $(".info_block").on("click",function(){
 	let meetNo = $(this).find('.recommendMeetNo').val();
 	console.log("meetNo" +meetNo);
-	location.href="detail.do?meetNo="+meetNo;
+	location.href="detail.do?meetNo="+meetNo+"&memNo="+$("#hiddenHostNo").val();
 });
 
 //검색창 none->block 변경 부분

@@ -14,6 +14,7 @@ import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBLike;
 import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.repository.mapper.StorePBMapper;
@@ -64,6 +65,10 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public List<StorePB> selectPBStore() {
 		return mapper.selectPBStore();
+	}
+	
+	public void addViewCnt(int pbNo) {
+		mapper.addViewCnt(pbNo);
 	}
 	
 	public Map<String, Object> selectPBStoreList(Pagepb page) {
@@ -179,6 +184,27 @@ public class StorePBServiceImpl implements StorePBService{
 	public void deletePBCart(int cartNo) {
 		mapper.deletePBCart(cartNo);
 	}
-
-
+	
+	// pb 상품 좋아요
+	public void insertPBLike(StorePBLike pbLike) {
+		mapper.insertPBLike(pbLike);
+	}
+	public void updatePBLike(StorePBLike pbLike) {
+		mapper.updatePBLike(pbLike);
+	}
+	public void updateLikeCnt(int no) {
+		mapper.updateLikeCnt(no);
+	}
+	public void deleteLikeCnt(int no) {
+		mapper.deleteLikeCnt(no);
+	}
+	public int selectCountLike(StorePBLike pbLike) {
+		return mapper.selectCountLike(pbLike);
+	}
+	public String selectLikeStatus(StorePBLike pbLike) {
+		return mapper.selectLikeStatus(pbLike);
+	}
+	public int countLikeCnt(int no) {
+		return mapper.countLikeCnt(no);
+	}
 }
