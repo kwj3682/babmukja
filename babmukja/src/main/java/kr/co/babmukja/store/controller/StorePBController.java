@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -35,6 +36,7 @@ import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBLike;
 import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 import kr.co.babmukja.store.service.StorePBService;
@@ -143,8 +145,9 @@ public class StorePBController {
 	
 	// pb 상품 상세조회
 	@RequestMapping("/detailpb.do")
-	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview, StorePBInquire storePBInquire) {
+	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview, StorePBInquire storePBInquire, HttpSession session) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
+		service.addViewCnt(pbNo);
 		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
 		List<StorePBReview> reviewList = service.selectReview(pbNo);
 		List<ReviewMap> reviewMap = new ArrayList<>();
@@ -170,6 +173,14 @@ public class StorePBController {
 			mav.addObject("store");
 			mav.addObject("imgList",  "/babmukja/store/downloadpb.do?path=/&sysname=default.png");
 			return mav;
+		}
+		
+		Member user = (Member)session.getAttribute("user");
+		if (user != null) {
+			StorePBLike like = new StorePBLike();
+			like.setMemNo(user.getMemNo());
+			like.setPbNo(store.getPbNo());
+			mav.addObject("likeStatus", service.selectLikeStatus(like));
 		}
 		
 		mav.setViewName("store/detailpb");
@@ -429,5 +440,44 @@ public class StorePBController {
 	@ResponseBody
 	public void deletePBCart(int cartNo) {
 		service.deletePBCart(cartNo);
+	}
+	
+	@RequestMapping("/pblike.do")
+	@ResponseBody
+	public Map<String, Object> like(StorePBLike pbLike, HttpSession session) {
+		System.out.println("pbLike 컨트롤러 도착쓰");
+		int count = service.selectCountLike(pbLike);
+		String status = service.selectLikeStatus(pbLike);
+		
+		Map<String, Object> list = new HashMap<>();
+		
+		if (count == 1) {
+			if (status.equals("Y")) {
+				pbLike.setLikeStatus("N");
+				service.updatePBLike(pbLike);
+				service.deleteLikeCnt(pbLike.getPbNo());
+				
+				list.put("status", pbLike.getLikeStatus());
+				list.put("cnt", service.countLikeCnt(pbLike.getPbNo()));
+				return list;
+				
+			} else if (status.equals("N")){
+				pbLike.setLikeStatus("Y");
+				service.updatePBLike(pbLike);
+				service.deleteLikeCnt(pbLike.getPbNo());
+				
+				list.put("status", pbLike.getLikeStatus());
+				list.put("cnt", service.countLikeCnt(pbLike.getPbNo()));
+				return list;
+			}
+		} else {
+			service.insertPBLike(pbLike);
+			service.updateLikeCnt(pbLike.getPbNo());
+			
+			list.put("status", pbLike.getLikeStatus());
+			list.put("cnt", service.countLikeCnt(pbLike.getPbNo()));
+			return list;
+		}
+		return list;
 	}
 }

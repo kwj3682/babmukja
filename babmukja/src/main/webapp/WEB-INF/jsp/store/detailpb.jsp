@@ -87,6 +87,23 @@
 					<p id="pb_detail_promotion_price"></p>
 					<p>&nbsp;적립해드립니다</p>
 				</div>
+				
+				<!-- 좋아요 -->
+				<div class="pb_product_like">
+					<div id="like_icon">
+						<c:choose>
+							<c:when test="${likeStatus eq 'Y'}">
+								<img class="likeheart" id="likeNo" src="<c:url value='/resources/images/icons/like2.png'/>"/>
+							</c:when>
+							<c:when test="${likeStatus eq 'N'}">
+								<img class="likeheart" id="likeYes" src="<c:url value='/resources/images/icons/like1.png'/>"/>
+							</c:when>
+							<c:otherwise>
+								<img class="likeheart" id="likeLogin" src="<c:url value='/resources/images/icons/like1.png'/>"/>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
 
 				<div id="pb_detail_select_box">
 					<div id="select_product_title">${storepb.name}</div>
@@ -208,11 +225,19 @@
 							<div class="pb_review_user_info">
 
 								<div class="user_info_sec1">
-									<p class="review_user_nickname">${reviewList.member.memNickname}</p>
+									<div class="review_flex">
+										<p class="review_user_nickname">${reviewList.member.memNickname}</p>
+										<div class="review_date">
+											<fmt:formatDate value="${reviewList.reviewList.regDate}"
+												pattern="yyyy.MM.dd" />
+										</div>
+									
+									</div>
 									<div class="reviewBUTTON">
 										<input type="hidden" name="pbReviewNo"
 											value="${reviewList.reviewList.pbReviewNo}">
 										<button class="reviewUpdateBTN">수정</button>
+										<p class="pb_inq_icon">ㅣ</p>
 										<button class="reviewDeleteBTN">삭제</button>
 									</div>
 								</div>
@@ -224,10 +249,6 @@
 											<div class="frontStar"
 												style="width:${reviewList.reviewList.rating*24}px;"></div>
 										</div>
-									</div>
-									<div>
-										<fmt:formatDate value="${reviewList.reviewList.regDate}"
-											pattern="yyyy.MM.dd hh:mm:ss" />
 									</div>
 								</div>
 
@@ -332,29 +353,43 @@
 				<c:forEach var="inqList" items="${inqList}">
 					<div class="pb_inquire_body" id="${inqList.inquiryNo}">
 						<div id="pb_inquire_profile">
+							<div class="pb_inquire_header">
+                                    <div class="pb_inq_flex">
+                                        <p id="pb_inquire_state">구매</p>
+                                        <p class="pb_inq_icon">ㅣ</p>
+                                        <p id="pb_inquire_state2">미답변</p>
+                                    </div>
+                                    <div class="pb_inq_flex">
+                                    <input type="hidden" name="inquiryNo" value="${inqList.inquiryNo}">
+                                        <button class="inq_update_btn">수정</button>
+                                        <p class="pb_inq_icon">ㅣ</p>
+                                        <button class="inq_delete_btn">삭제</button>
+                                    </div>
+                            </div>
+							
 							<div id="pb_inquire_nickname">
 								<p id="pb_inquire_user_nickname">
-									${inqList.member.memNickname} <input type="hidden"
-										name="inquiryNo" value="${inqList.inquiryNo}">
-									<button class="inq_update_btn">수정</button>
-									<button class="inq_delete_btn">삭제</button>
+									${inqList.member.memNickname} 
 								</p>
 								<p id="pb_inquire_user_regdate">
 									<fmt:formatDate value="${inqList.inquiryRegdate}"
-										pattern="yyyy-MM-dd hh:mm:ss" />
+										pattern="yyyy-MM-dd" />
 								</p>
 							</div>
 							<div id="pb_inquire_Q&A">
 								<p>
-									Q<span id="pb_inquire_question">${inqList.content}</span>
+									<span class="pb_inquire_q">Q</span>
+									<span id="pb_inquire_question">${inqList.content}</span>
 								</p>
-								<p>
-									A<span id="pb_inquire_answer">관리자 답변</span><span
-										id="pb_inquire_admin_regdate">2019.05.05</span>
-								</p>
+                                <div class="pb_inquire_admin_answer">
+                                    <p class="pb_inquire_a">A</p>
+                                    <p class="pb_inquire_admin">관리자 답변</p>
+                                    <p class="pb_inquire_answer_regdate">2019-06-17</p>
+                                </div>
 								<p id="pb_inquire_admin_msg">안녕하세요 고객님</p>
-								<p id="pb_inquire_answer_content">오늘 상품을 주문하시면 3일 이내 배송 받으실
-									수 있습니다.</p>
+								<p id="pb_inquire_answer_content">
+									오늘 상품을 주문하시면 3일 이내 배송 받으실 수 있습니다.
+								</p>
 							</div>
 						</div>
 						<div id="pb_inquire_boder-bottom"></div>
@@ -952,8 +987,33 @@
 	        }).click(function(){
             	let widthVal = checkedValue * 60;
             	$checkStar.css({width: widthVal + "px"});
-            	alert(checkedValue + " : " + widthVal);
             });
+		 
+		 
+		 // 상품 좋아요 버튼
+		 $(".likeheart").click(function () {
+// 			 $(this).attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
+// 			 ${storepb.pbNo};
+// 			 ${sessionScope.user.memNo};
+			 $.ajax({
+				 url : "pblike.do",
+				 data : {
+					 'pbNo' : '${storepb.pbNo}',
+					 'memNo' : '${sessionScope.user.memNo}'
+				 },
+				 success : function (result) {
+					 if (result.status == 'Y') {
+						 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
+					 } else if (result.status == 'N') {
+						 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like1.png'/>");
+					 } else {
+						 alert("좋아요");
+						 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
+					 }
+				 }
+			 });
+		 });
+		 
     </script>
 </body>
 </html>

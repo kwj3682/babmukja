@@ -297,3 +297,40 @@ hr {
 .pb_store_more_product:hover {
 	color: rgb(81, 81, 81);
 }
+
+.pb_list_product_rating {
+    margin-top: -10px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.pb_store_popular_rating_cnt {
+    margin-left: 5px;	
+}
+
+#pb_store_popular_product_rating_star {
+    display : inline-block;
+    width: 25px;
+    height: 24px;
+	background: url(/babmukja/resources/images/star5.png) no-repeat;
+}
+
+.likeheart {
+    height: 25px;
+	margin-left: 20px;
+}
+
+.likeheartCnt {
+	margin-left : 5px;
+}
+
+#viewCntIcon {
+	margin-left: 10px;	
+}
+
+.PBviewCnt {
+	margin-left: 5px;	
+}
