@@ -5,10 +5,12 @@ import java.util.Map;
 
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Pagepb;
+import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
+import kr.co.babmukja.repository.domain.StorePBLike;
 import kr.co.babmukja.repository.domain.StorePBPayment;
 import kr.co.babmukja.repository.domain.StorePBReview;
 
@@ -40,6 +42,7 @@ public interface StorePBMapper {
 	public List<StorePBReview> selectPBReviewSelect(StorePBReview storePBReview);
 	// public List<ReviewFileVO> selectPBReviewSelectImage(int pbReviewNo);
 	public int selectPBStoreCount(Pagepb page);
+	public void addViewCnt(int pbNo);
 	
 	// PB 상품 후기
 	public void insertPBReview(StorePBReview reviewpb);
@@ -72,4 +75,13 @@ public interface StorePBMapper {
 	// pb 상품 장바구니 삭제
 	public void deletePBCart(int cartNo);
 	public void updateRatingByMember(StorePB spb);
+	
+	// PB 상품 좋아요 기능
+	public void insertPBLike(StorePBLike pbLike);
+	public void updatePBLike(StorePBLike pbLike);
+	public void updateLikeCnt(int no);
+	public void deleteLikeCnt(int no);
+	public int selectCountLike(StorePBLike pbLike);
+	public String selectLikeStatus(StorePBLike pbLike);
+	public int countLikeCnt(int no);	
 }

@@ -20,6 +20,13 @@
 		 order by regDate desc
 	</select>
 	
+	<!-- 조회수 증가 -->
+	<update id="addViewCnt" parameterType="int">
+		update tb_pb
+		   set viewcnt = viewcnt + 1
+		 where pb_no = #{pbNo}
+	</update>
+		
 	<sql id="searchSQL">
 	  <if test="searchName != null and searchName != ''">
  			and name like concat('%', #{searchName}, '%')
@@ -348,4 +355,49 @@
 		   	   rating_cnt=#{ratingCnt}
 		 where pb_no = #{pbNo}
 	</update>
+	
+	<!-- pb 좋아요 기능 -->
+	<select id="selectCountLike" parameterType="StorePBLike" resultType="int">
+		select count(*)
+		  from tb_pb_like
+		 where pb_no = #{pbNo}
+		   and mem_no = #{memNo}
+	</select>
+	
+	<insert id="insertPBLike" parameterType="StorePBLike">
+       insert into tb_pb_like(pb_no, mem_no)
+       values(#{pbNo}, #{memNo})
+   </insert>
+	
+	<update id="updateLikeCnt" parameterType="int">
+		update tb_pb
+		   set likecnt = likecnt + 1
+		 where pb_no = #{pbNo}
+	</update>
+	
+	<update id="deleteLikeCnt" parameterType="int">
+		update tb_pb
+		   set likecnt = likecnt - 1
+		 where pb_no = #{pbNo}
+	</update>
+	
+	<update id="updatePBLike" parameterType="StorePBLike">
+		update tb_pb_like
+		   set like_status = #{likeStatus}
+		 where pb_no = #{pbNo}
+           and mem_no = #{memNo} 			   
+	</update>
+	
+	<select id="selectLikeStatus" parameterType="StorePBLike" resultType="String">
+		select like_status
+		  from tb_pb_like
+		 where pb_no = #{pbNo}
+		   and mem_no = #{memNo}
+	</select>
+	
+	<select id="countLikeCnt" resultType="int" parameterType="int">
+		select likecnt
+		  from tb_pb
+		 where pb_no = #{pbNo}
+	</select>
 </mapper>
