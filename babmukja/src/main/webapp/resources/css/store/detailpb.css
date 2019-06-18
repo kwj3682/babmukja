@@ -1128,3 +1128,27 @@
 .pb_inq_info {
    display: flex;
 }
+
+.comment-prev,.comment-next {
+	display: inline-block;
+	width : 35px;
+	height : 25px;
+	margin: 5px;
+    margin-bottom: 10px;
+}
+
+.pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+}
+
+.pagination:hover {
+	background : #7db341;	
+}
+.pagination:hover a{
+	color : white;
+}

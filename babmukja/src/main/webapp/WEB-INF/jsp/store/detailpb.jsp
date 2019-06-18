@@ -281,6 +281,8 @@
 				</c:forEach>
 				--%>
 			</div>
+			<div id="pageResult">
+			</div>
 <%-- 			<c:if test="${empty reviewMap}"> --%>
 <!-- 				<p class="reviewMSG">후기가 존재하지 않습니다.</p> -->
 <!-- 				<p class="reviewMSG2">새 후기를 작성해주세요 !</p> -->
@@ -1108,13 +1110,15 @@
 				 alert("로그인 후 이용 가능합니다.");
 			 }
 		 });
-		 
+		 let pageCnt = 0;
+		 let reviewCnt = 0;
 		 // 후기 전체조회 ajax 페이징 부분
-		 function  detailpbAjax(){
+		 function  detailpbAjax(pageNo){
 			 $.ajax({
 				 url : "/babmukja/store/detailpbAjax.do",
 				 data : {
-					 'pbNo' : '${storepb.pbNo}'
+					 'pbNo' : '${storepb.pbNo}',
+					 'pageNo' : pageNo
 				 },
 				 success : function (result) {
 					 console.dir(result);
@@ -1174,9 +1178,24 @@
 							
 							html+='		</div>';
 							html+='</div>';
-							
-							
+							reviewCnt ++;
+							if(i%3 == 0){
+								
+								pageCnt++;
+								console.log(pageCnt);
+								let aTag = "<a id='review-page"+pageCnt+"'>"+pageCnt+"</a>";
+								$("#pageResult").append(aTag);
+							}
 						}
+						if(reviewCnt > 3 && pageCnt%3 !=0){
+							pageCnt++;
+							let aTag = "<a class='pages' id='review-page"+pageCnt+"'>"+pageCnt+"</a>";
+							console.log("page cnt : " + pageCnt +"review cnt : "+ reviewCnt);
+							
+							$("#pageResult").append(aTag);
+						}
+
+						
 						if (result.length == 0) {
 							html+='<p class="reviewMSG">후기가 존재하지 않습니다.</p>';								
 							html+='<p class="reviewMSG2">새 후기를 작성해주세요 !</p>';
@@ -1186,8 +1205,12 @@
 			  });
 		 }
 		 // 후기 조회부분 함수 실행
-		 detailpbAjax();
-		 
+		 detailpbAjax(0);
+		 $(document).on("click",".pages",function(){
+			 
+			 detailpbAjax($(this).text());
+			 return false;
+		 });
 	       // review 삭제
 	       $(document).on("click", ".reviewDeleteBTN", function () {
 //	     		let pbNo = ${storepb.pbNo};

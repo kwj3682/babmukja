@@ -7,6 +7,7 @@ public class ReviewMap {
 	private List<ReviewFileVO> reviewFile;
 	private StorePB storepb;
 	private Member member;
+	
 	public StorePB getStorepb() {
 		return storepb;
 	}
