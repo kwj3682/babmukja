@@ -1,12 +1,21 @@
 package kr.co.babmukja.member.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -17,11 +26,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.google.gson.Gson;
+
 import kr.co.babmukja.member.service.MemberService;
+import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.MailHandler;
 import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.MemberFileVO;
+import net.coobird.thumbnailator.Thumbnails;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -365,16 +380,82 @@ public class MemberController {
 	
 	@RequestMapping("/mypage.do")
 	public void myPage(Member member,Model model) {
-		
-		model.addAttribute("user",service.searchMemberByNick(member.getMemNickname()).get(0));
+		model.addAttribute("user",service.searchMemberByNickForMypage(member.getMemNickname()));
 	}
 	
 	
-	
-	
-	
-	
-	
+	@RequestMapping("/upload.do")
+	public String profileUpload(MemberFileVO fileVO) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/member" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false)
+			file.mkdirs();
+		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+		
+		MultipartFile mFile = fileVO.getAttach();
+		
+		if (mFile.isEmpty()) {
+			System.out.println("is empty");
+		}
+		System.out.println(mFile.getOriginalFilename());
+		
+		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
+		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		System.out.println("what the file name : " + file.getPath() +":::: " +  uName);
+		
+		Thumbnails.of(new File(file.getPath(),uName))
+		.size(400,400)
+		.outputFormat("jpg")
+		.toFile(new File(file.getPath(),"_thumb_"+uName));
+		
+		Member member = new Member();
+		member.setImgOrgname(mFile.getOriginalFilename());
+		member.setImgPath(uploadRoot + path);
+		member.setImgSysname(uName);
+		member.setMemNickname(fileVO.getMemNickname());
+		
+		service.updateMemberProfile(member);
+		
+		fileVO.setPath(path);
+		fileVO.setOrgname(mFile.getOriginalFilename());
+		fileVO.setSysname(uName);
+		System.out.println("file upload succeed.");
+		System.out.println(fileVO.getMemNickname());
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
+
+	}
+	@RequestMapping("/download.do")
+	public void profileDownload(MemberFileVO fileVO, HttpServletResponse response) throws Exception {
+		System.out.println("profileDownload.do 실행");
+		
+		File f = new File( fileVO.getPath() 
+							+ "/" 
+							+ "_thumb_" 
+							+ fileVO.getSysname());
+
+		response.setHeader("Content-Type", "image/jpg");
+
+		// 파일을 읽고 사용자에게 전송
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+
+		OutputStream out = response.getOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		while (true) {
+			int ch = bis.read();
+			if (ch == -1)
+				break;
+			bos.write(ch);
+		}
+
+		bis.close();
+		fis.close();
+		bos.close();
+		out.close();
+	}
 	
 	
 	

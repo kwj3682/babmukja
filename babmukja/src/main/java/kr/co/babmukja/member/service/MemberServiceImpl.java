@@ -99,4 +99,17 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> searchMemberByNick(String nick){
 		return mapper.searchMemberByNick(nick);
 	}
+
+	@Override
+	public void updateMemberProfile(Member member) {
+		// TODO Auto-generated method stub
+		mapper.updateMemberProfile(member);
+	}
+
+	@Override
+	public Member searchMemberByNickForMypage(String nick) {
+		return mapper.searchMemberByNickForMypage(nick);
+	}
+	
+	
 }

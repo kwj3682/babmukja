@@ -134,4 +134,20 @@
 		 where mem_nickname like concat('%',#{nick},'%')
 
 	</select>
+	<select id="searchMemberByNickForMypage" parameterType="String" resultMap="memberMap">
+		SELECT *,
+		    (select count(*) from tb_recipe r where r.mem_no = m.mem_no and m.mem_nickname = #{nick}) `recipe_cnt`,
+		    (select count(*) from tb_recipe_follow f where f.follow_mem_no = m.mem_no and m.mem_nickname = #{nick}) `follow`,
+		    (select count(*) `follower` from tb_recipe_follow f where f.follower_mem_no = m.mem_no and m.mem_nickname = #{nick}) `follower`
+		  FROM tb_member m
+		 where mem_nickname = #{nick}
+	</select>
+	
+	<update id="updateMemberProfile" parameterType="member">
+		update tb_member
+		  set img_orgname = #{imgOrgname},
+		      img_sysname = #{imgSysname},
+		      img_path = #{imgPath}
+		where mem_nickname = #{memNickname}
+	</update>
 </mapper>

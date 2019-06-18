@@ -12,10 +12,7 @@
 	<a href="<c:url value='/recipe/writeform.do'/>">레시피 작성폼</a> 
 	<a href="<c:url value='/recipe/main.do'/>">레시피메인</a>
 	<a href="<c:url value='/notice/index.do'/>">공지사항</a>
-<<<<<<< HEAD
 	 <a href="<c:url value='/meetup/manage.do'/>">모임 관리자</a>
-=======
 	<a href="<c:url value='/board/list.do'/>">자유게시판</a>	
->>>>>>> 6bdc1b9841f982f99a2ab3f222d8b0ef3e440c48
 </body>
 </html>
