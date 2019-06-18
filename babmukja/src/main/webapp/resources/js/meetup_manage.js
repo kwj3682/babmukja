@@ -187,22 +187,92 @@ accessibleTabs6.init({
 	});
 	
 	
-	$(".manage_member").click(function(){
+	$(".manage_member").on("click",function(){
 		let meetNo =$(this).parent().parent().find(".meetNo").val();
 		data ={};
 		data.meetNo =meetNo;
-		alert("클릭됨");
+		
+		//클릭 눌렀을 때 ajax 화면 처리
+		
+		$("#B").html(` <div class="member_approval_title"></div>
+			     <div class="member_approval_header">
+			       <div class="member_approval_header_no">번호</div>
+			       <div class="member_approval_header_name">이름</div>       
+			       <div class="member_approval_header_email">이메일</div>  
+			       <div class="member_approval_header_manage"></div>  
+			     </div><!--host_meetup_list -->`);
+		
+		$("#A").html(`<div class="member_list_title"></div>
+	     <div class="member_list_header">
+	       <div class="member_list_header_no">번호</div>
+	       <div class="member_list_header_name">이름</div>       
+	       <div class="member_list_header_email">이메일</div>  
+	       <div class="member_list_header_manage"></div>  
+	     </div><!--host_meetup_list -->`);
 		$.ajax({ 
 			data: data,
 			type: 'POST',
 			url:'/babmukja/meetup/manageMember.do',
 			success: function (data) { // 처리가 성공할 경우
 			console.dir(data);
-	}
+			console.dir(data.meetupMemberList);
+			console.log(data.approvalRequestList.length);
+			console.log(data.approvalRequestList)
+			let approvalRequestList= data.approvalRequestList
+			for(let i=0; i<data.approvalRequestList.length;i++){
+				
+				
+
+				$("#B").append(`	
+					<div class="member_approval">
+		         	<div class="member_approval_no">`+approvalRequestList[i].admissionNum+`</div>
+		         	<input type="hidden"  name="meetNo" class="meetMemNo" value="`+approvalRequestList[i].meetMemNo+`">
+		         	<div class="member_approval_name">` +approvalRequestList[i].memName + `</div>
+		         	<div class="member_approval_email">` +approvalRequestList[i].memEmail + `</div>  
+		         	<div class="member_approval_manage">
+		             <div class="manage_approval">승인</div><div class="manage_reject">거절</div>
+		         </div>  
+		       </div><!--host_meetup_list -->
+				`);
+				
+		}//for
+			let meetupMemberList= data.meetupMemberList	
+		for(let i=0; i<data.meetupMemberList.length;i++){	
+			$("#A").append(
+					`<div class="member_list">
+					<div class="member_list_no">`+meetupMemberList[i].admissionNum+`</div>
+	                <div class="member_list_name">`+meetupMemberList[i].memName+`</div>
+	                <div class="member_list_email">`+meetupMemberList[i].memEmail+`</div>  
+	                <div class="member_list_manage">
+	                <div class="manage_ban">강퇴하기</div>
+	                </div>  
+	                </div><!--host_meetup_list -->
+							
+					`);
+		}//for	
+			
+		}//success
 		
 	
-	});
+	});//ajax
 		
 		
-	});
+	});//버튼클릭
 
+
+	$(document).on("click",".manage_approval",function(){
+	let afterComplete = $(this).parent();
+		alert($(".meetMemNo").val());
+		data={};
+		data.meetMemNo =$(".meetMemNo").val();
+		$.ajax({ 
+			data: data,
+			type: 'POST',
+			url:'/babmukja/meetup/manageApproval.do',
+			success: function (data) { // 처리가 성공할 경우
+			afterComplete.html("승인완료");
+			}
+		
+		});//ajax
+	});
+	

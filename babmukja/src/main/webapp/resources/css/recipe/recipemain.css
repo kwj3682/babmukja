@@ -477,3 +477,8 @@ html, body {
 	opacity: 1;
 	box-shadow : 0 0 15px 3px white;
 }
+.chalkStars{
+	display: inline-block;
+	width: 120px;
+}
+

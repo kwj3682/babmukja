@@ -102,7 +102,16 @@
             <div id="sec1-content2">
                 <div id="sec1-content2-wrapper">
                     <div>만든 이 <span id="monthly-profile-wrapper"><img id="monthly-profile" src="<c:url value="/resources/images/profile15.jpg"/>"></span></div>
-                    <div id="paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem cum expedita libero unde quos nemo blanditiis molestias mollitia! Vitae deserunt minima accusantium, inventore magnam fuga doloribus dolorem illum dolorum debitis perferendis porro quasi, similique maxime? Eum, officiis nemo? Repellat, deserunt.</div>
+                    <div id="paragraph">
+                    	<p>
+	                    	최고의 레시피, 지금까지 이런 레시피는 없었다 <img class="chalkStars" src="<c:url value='/resources/images/chalkstar.png'/>"><br>
+	                    	- 주부9단빛찬맘 -<br>
+	                    	인생 레시피를 여기서 찾았다 <img class="chalkStars" src="<c:url value='/resources/images/star5-big.png'/>"><br>
+	                    	- soo -<br>
+	                    	Holy Moly! ★★★★☆<br>
+	                    	- 렁래쓰 -<br>	                    	 
+                    	</p>
+                    </div>
                     <div>
                 <c:forEach var="w" items="${winner }">
                         <div>${w.title }<br><a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    

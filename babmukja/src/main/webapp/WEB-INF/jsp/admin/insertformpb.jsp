@@ -115,7 +115,6 @@
                                         fileData.append("attach", file);  
                                         
                                     return new Promise(function (resolve, reject) {
-										alert("이미지 업로드 중...");
                                         $.ajax({
                                             url: '${pageContext.request.contextPath}/store/uploadpb.do',
                                             type: "post",
@@ -144,7 +143,6 @@
                                 }
 
                                 return imgUpload().then((result) => {
-                                    alert("업로드 완료!");
                                     console.dir(result);
                                     return {
                                         success: result.cnt,

@@ -8,7 +8,13 @@ String memName;
 int meetNo;
 int status;
 String memEmail;
-
+int admissionNum;
+public int getAdmissionNum() {
+	return admissionNum;
+}
+public void setAdmissionNum(int admissionNum) {
+	this.admissionNum = admissionNum;
+}
 public String getMemEmail() {
 	return memEmail;
 }
