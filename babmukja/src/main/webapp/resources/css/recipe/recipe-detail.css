@@ -8,7 +8,9 @@
     min-height: 1000px;
     margin-top:130px;
 }
-
+a {
+	color : black;
+}
 #left-body{
     height: 100%;
     border-right: 1px solid gainsboro;
@@ -419,6 +421,38 @@
 #comment-other{
     border-top: 1px solid gainsboro;
     margin-top: 10px;
+}
+#comment-page {
+	text-align : center;
+	font-size : 16px;
+}
+.pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+}
+
+.pagination:hover {
+	background : #7db341;	
+}
+.pagination:hover a{
+	color : white;
+}
+.comment-prev,.comment-next {
+	display: inline-block;
+	width : 35px;
+	height : 25px;
+	margin: 5px;
+    margin-bottom: 10px;
+}
+.right-arrow, .left-arrow {
+	width : 15px;
+	position : relative;
+	top : 3px;
+	left : -3px;
 }
 .other-profile{
     margin-top: 10px;

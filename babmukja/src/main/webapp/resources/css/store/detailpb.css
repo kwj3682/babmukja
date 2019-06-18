@@ -276,24 +276,27 @@
 }
 
 .pb_review_profile_img img {
-    width: 110px;
-    height: 110px;
+    width: 65px;
+    height: 65px;
     border-radius: 55px;
 }
 
 .pb_review_user_info {
 	display :grid;
 	grid-template-rows : 50% 50%;
+	margin-left: -25px;
+    margin-top: 5px;
 }
-
 
 .review_user_nickname {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 15px;
     float: left;
+    margin-right: 15px;
 }
 .reviewBUTTON{
 	margin-left : 15px;
+	display: flex;
 }
 .pb_review_select {
 	height: auto;
@@ -366,14 +369,8 @@
     color: #7db341;
 }
 
-#pb_inquire_profile {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
-
 #pb_inquire_user_nickname {
-    font-size: 20px;
-    width: 250px;
+    font-size: 15px;
     font-weight: bold;
     color: rgb(81, 81, 81);
 }
@@ -396,12 +393,12 @@
 }
 
 #pb_inquire_admin_msg {
-    margin-left: 30px;
+    margin-left: 35px;
     color: rgb(81, 81, 81);
 }
 
 #pb_inquire_answer_content {
-    margin-left: 30px;
+    margin-left: 35px;
     color: rgb(81, 81, 81);
 }
 
@@ -781,7 +778,7 @@
   
   .reviewUpdateBTN {
   	border: none;
-  	color: black;
+  	color: gray;
   	background: white;
   }
   
@@ -790,8 +787,8 @@
   }
  
   .reviewDeleteBTN {
-  	  	border: none;
-  	color: black;
+  	border: none;
+  	color: gray;
   	background: white;
   }
   
@@ -861,8 +858,6 @@
     outline: none;
     border: none;
     background: white;
-    font-size: 15px;
-    margin-left: 8px;
     color: gray;
 }
 
@@ -873,7 +868,6 @@
 .inq_delete_btn {
     outline: none;
     border: none;
-    font-size: 15px;
     background: white;
     color: gray;
 }
@@ -884,9 +878,9 @@
 }
 
 #pb_inquire_user_regdate {
-	font-size: 15px;
     color: gray;
     letter-spacing: 1px;
+    margin-left: 25px;
 }
 
 .cartmodal_msg {
@@ -964,6 +958,7 @@
     grid-template-columns: 100%;
     width:120px;
     margin-bottom: 15px;
+    margin-top: -3px;
 }
 .backStar{
     background: url(/babmukja/resources/images/star5-gray.png);
@@ -1006,4 +1001,96 @@
 .user_info_sec1{
 	display:grid;
 	grid-template-columns : 90% 10%;
+}
+
+.pb_product_like {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px;
+    border: 1px solid;
+    /* width: 50px; */
+    border-radius: 8px;
+    color: gainsboro;
+}
+
+#like_icon {
+    font-weight: lighter;
+    color: gainsboro;
+}
+
+#like_icon:hover {
+	color: red;
+}
+
+.likeheart {
+	width: 30px;
+	cursor: pointer;
+}
+
+.review_date {
+	color: gray;
+}
+
+.pb_inquire_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pb_inq_flex {
+    display: flex;
+}
+
+#pb_inquire_state {
+    margin-top: 15px;
+    color: gray
+}
+
+#pb_inquire_state2 {
+    margin-top: 15px;
+    color: gray
+}
+
+.pb_inq_icon {
+    margin-top: 14px;
+    color: gray;
+}
+
+#pb_inquire_updatebtn {
+    margin-top: 15px;
+    color: gray;
+}
+
+#pb_inquire_delbtn {
+    margin-top: 15px;
+    color: gray;
+}
+
+#pb_inquire_nickname {
+    display: flex;
+}
+
+.pb_inquire_q {
+    color: #7db341;
+    font-weight: bold;
+}
+
+.pb_inquire_a {
+    color:#7db341;
+    font-weight: bold;
+}
+
+.pb_inquire_admin_answer {
+    display: flex;   
+}
+
+.pb_inquire_admin {
+    margin-left: 23px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(81, 81, 81);
+}
+
+.pb_inquire_answer_regdate {
+    margin-left: 25px;
+    color: gray;
 }

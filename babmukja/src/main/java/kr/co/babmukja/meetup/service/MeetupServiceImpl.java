@@ -66,7 +66,7 @@ public class MeetupServiceImpl implements MeetupService{
 			result.put("meetupList", mapper.selectMeetup(page));
 			result.put("locationList", mapper.selectMeetup(page));
 			result.put("pageResult", new MeetupPageResult(
-			page.getPageNo(), mapper.selectAllMeetupCount()));
+			page.getPageNo(), mapper.selectAllMeetupCount(page)));
 			
 		
 			return result;
@@ -122,4 +122,21 @@ public class MeetupServiceImpl implements MeetupService{
 	public List<MeetupMember> selectManageMemberBoard(int no){
 	return mapper.selectManageMemberBoard(no);
 	}
+	
+	public void updateApprovalStatus(int no) {
+		mapper.updateApprovalStatus(no);
 	}
+
+	public List<MeetupMember> selectMeetupMemberList(int no){
+		return mapper.selectMeetupMemberList(no);
+	}
+
+	public MeetupMember selectMeetupMemberStatus(MeetupMember meetupMember) {
+	return mapper.selectMeetupMemberStatus(meetupMember);
+	}
+	
+	public void updateViewCnt(int meetNo) {
+	mapper.updateViewCnt(meetNo);	
+	}
+
+}

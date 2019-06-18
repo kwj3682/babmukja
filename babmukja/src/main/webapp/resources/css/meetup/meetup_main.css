@@ -343,7 +343,7 @@
     box-sizing: border-box;
     border-top: 1px solid gainsboro;
     display: grid;
-    grid-template-columns: 35% 43% 22%;
+    grid-template-columns: 77% 1% 22%;
     align-items: center;
     font-size: 17px;
 }

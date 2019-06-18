@@ -41,7 +41,7 @@
             <c:forEach var ="meetup" items="${createdMeetup}">
             <div class="host_meetup_list">
                 <div class="host_meetup_no">${meetup.manageNo}</div>
-                <div class="host_meetup_name">	<a class="host_meetup_atag" href="<c:url value='/meetup/detail.do?meetNo=${meetup.meetNo}'/>">${meetup.title}</a>
+                <div class="host_meetup_name">	<a class="host_meetup_atag" href="<c:url value='/meetup/detail.do?meetNo=${meetup.meetNo}&memNo=${sessionScope.user.memNo}'/>">${meetup.title}</a>
                 </div>
               <input type="hidden"  name="meetNo" class="meetNo" value="${meetup.meetNo}">
                 <div class="host_meetup_manage">
@@ -106,14 +106,7 @@
        <div class="member_list_header_email">이메일</div>  
        <div class="member_list_header_manage"></div>  
      </div><!--host_meetup_list -->
-     <div class="member_list">
-         <div class="member_list_no">1</div>
-         <div class="member_list_name">구본좌</div>
-         <div class="member_list_email">kim@naver.com</div>  
-         <div class="member_list_manage">
-             <div class="manage_ban">강퇴하기</div>
-         </div>  
-       </div><!--host_meetup_list -->
+     
        <!-- 회원 명단끝-->
       
     </section>

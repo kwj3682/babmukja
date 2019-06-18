@@ -116,6 +116,9 @@
         <!-- 추천모임 박스 복사끝 -->
         
     </div>
+    <!--회원 번호 가져오기  -->
+   <input type="hidden"  name="memNo" id="hiddenmemNo" value="${sessionScope.user.memNo}">
+    
     <!-- 추천모임 박스 복사끝 -->
 <div class="page">
 	    <c:if test="${pageResult.count != 0}">

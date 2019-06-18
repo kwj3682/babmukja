@@ -104,6 +104,8 @@ public class RecipeServiceImpl implements RecipeService {
 	public Map selectReviewByNo(Page page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectReviewByNo(page));
+		System.out.println("pageNo"+ page.getPageNo());
+		System.out.println("index" + page.getIndex());
 		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectReviewCount(page)));
 		return result;
 	}
@@ -147,7 +149,6 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	// 레시피 카테고리 전체목록 가져오기
 	public List<RecipePage> selectRecipeAll(RecipePage page) {	
-		System.out.println(page.getCaution());
 		return mapper.selectRecipeAll(page);
 	}	
 	

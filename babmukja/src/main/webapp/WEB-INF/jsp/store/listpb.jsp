@@ -68,6 +68,9 @@
 	                        <div class="pb_list_product_rating">
 	                            <span id="pb_store_popular_product_rating_star"></span>
 	                            <span class="pb_store_popular_rating_cnt"><fmt:formatNumber value="${listpb.rating}" pattern="#.##"/></span>
+	                            <img class="likeheart" src="<c:url value='/resources/images/icons/like2.png'/>">
+                            	<span class="likeheartCnt">${listpb.likeCnt}</span>
+                            	<i class="far fa-eye" id="viewCntIcon"><span class="PBviewCnt">${listpb.viewCnt}</span></i>
 	                        </div>
 	                    </div>
 	                </a>

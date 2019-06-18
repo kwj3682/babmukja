@@ -189,7 +189,7 @@
     	    on r.mem_no = m.mem_no
     	 where recipe_no = #{recipeNo}    	   
     	 order by recipe_review_no desc
-    	 limit #{begin}, #{end}
+    	 limit #{index}, 10
     </select>   
     
     <!-- 전체 댓글 수 -->    
