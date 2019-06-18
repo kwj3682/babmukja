@@ -129,6 +129,10 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.deleteReviewByNo(pbReviewNo);
 	}
 	
+	// 후기 페이징
+	
+	
+	
 	// pb 후기 수정
 	
 	public StorePBReview updatePBReview(StorePBReview storePBReview) {
@@ -145,7 +149,7 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.insertInquiry(storePBInquire);
 	}
 	
-	// pb 상품 조회
+	// pb 상품 문의 조회
 	public List<StorePBInquire> selectPBInquire(int pbNo) {
 		return mapper.selectPBInquire(pbNo);
 	}
@@ -160,6 +164,12 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public void deleteInquiry(int inquiryNo) {
 		mapper.deleteInquiry(inquiryNo);
+	}
+	
+	// PB 상품 문의 답변
+	
+	public void updateInquiryAnswer(StorePBInquire storePBInquire) {
+		mapper.updateInquiryAnswer(storePBInquire);
 	}
 	
 	// pb 상품 결제

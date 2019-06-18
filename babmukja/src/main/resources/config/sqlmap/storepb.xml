@@ -39,6 +39,12 @@
 		 where 1 = 1
 		<include refid="searchSQL"/>
 		 <choose>
+		 	<when test="sortType == 5">
+		 		order by viewcnt desc
+		 	</when>
+		 	<when test="sortType == 4">
+		 		order by rating desc
+		 	</when>
 		 	<when test="sortType == 3">
 		 		order by price desc
 		 	</when>
@@ -46,7 +52,7 @@
 		 		order by price asc
 		 	</when>
 		 	<when test="sortType == 1">
-		 		order by rating desc
+		 		order by likecnt desc
 		 	</when>
 		 	<when test="sortType == 0">
 		 		order by regdate desc
@@ -68,6 +74,7 @@
 	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
 		select *
 		  from tb_pb
+		  
 		 where pb_no = #{pbNo}
 	</select>
 	
@@ -225,6 +232,7 @@
 		<result column="answer" property="answer"/>
 		<result column="mem_no" property="memNo"/>
 		<result column="mem_Nickname" property="memNickname"/>
+		<result column="answer_status" property="answerStatus"/>
 		
 		<collection property="member" column="mem_no" select="selectInquiryNickName"/>
 	</resultMap>
@@ -273,7 +281,15 @@
 		 where inquiry_no = #{inquiryNo}
 	</delete>
 	
-	
+	<!-- 문의 답변(관리자) -->
+	<update id="updateInquiryAnswer" parameterType="StorePBInquire">
+		update tb_pb_inquiry
+		   set answer = #{answer},
+		       answer_status = #{answerStatus},
+			   answer_regdate = now()
+		 where inquiry_no = #{inquiryNo}
+	</update>
+
 	<!--  pb 상품 결제 부분  -->
 	<resultMap id="pbpaymentMap" type="StorePBPayment" >
 		<result column="payment_no" property="paymentNo"/>

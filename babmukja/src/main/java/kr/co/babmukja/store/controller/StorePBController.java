@@ -149,31 +149,30 @@ public class StorePBController {
 		StorePB store = service.selectPBStoreByNo(pbNo);
 		service.addViewCnt(pbNo);
 		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
-		List<StorePBReview> reviewList = service.selectReview(pbNo);
+//		List<StorePBReview> reviewList = service.selectReview(pbNo);
 		List<ReviewMap> reviewMap = new ArrayList<>();
-		for(StorePBReview pb : reviewList) {
-			
-			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
-			ReviewMap rm = new ReviewMap();
-			rm.setReviewFile(reviewFileList);
-			rm.setReviewList(pb);
-			rm.setMember(pb.getMember());
-			reviewMap.add(rm);
-		}
+//		for(StorePBReview pb : reviewList) {
+//			
+//			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
+//			ReviewMap rm = new ReviewMap();
+//			rm.setReviewFile(reviewFileList);
+//			rm.setReviewList(pb);
+//			rm.setMember(pb.getMember());
+//			reviewMap.add(rm);
+//		}
 		
 		if (store == null) {
-			System.out.println("store is null !!!");
 			mav.setViewName("store/mainpb");
 			return mav;
 		}
 		
-		if (store.getImgPath() == null ) {
-			
-			mav.setViewName("store/detailpb");
-			mav.addObject("store");
-			mav.addObject("imgList",  "/babmukja/store/downloadpb.do?path=/&sysname=default.png");
-			return mav;
-		}
+//		if (store.getImgPath() == null ) {
+//			
+//			mav.setViewName("store/detailpb");
+//			mav.addObject("store");
+//			mav.addObject("imgList",  "/babmukja/store/downloadpb.do?path=/&sysname=default.png");
+//			return mav;
+//		}
 		
 		Member user = (Member)session.getAttribute("user");
 		if (user != null) {
@@ -186,10 +185,28 @@ public class StorePBController {
 		mav.setViewName("store/detailpb");
 		mav.addObject("storepb", store);
 		mav.addObject("imgList", store.getImgPath().split(","));
-		mav.addObject("reviewList", reviewList);
+//		mav.addObject("reviewList", reviewList);
 		mav.addObject("reviewMap",reviewMap);
 		mav.addObject("inqList", sInquire);
 		return mav;
+	}
+	
+	// pb 후기 전체조회 ajax 페이징
+	@RequestMapping("/detailpbAjax.do")
+	@ResponseBody
+	public List<ReviewMap> detailpb(int pbNo) {
+		List<ReviewMap> reviewMap = new ArrayList<>();
+		List<StorePBReview> reviewList = service.selectReview(pbNo);
+		for(StorePBReview pb : reviewList) {
+			
+			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
+			ReviewMap rm = new ReviewMap();
+			rm.setReviewFile(reviewFileList);
+			rm.setReviewList(pb);
+			rm.setMember(pb.getMember());
+			reviewMap.add(rm);
+		}
+		return reviewMap;
 	}
 	
 	// pb 상품 수정 폼
@@ -259,30 +276,30 @@ public class StorePBController {
 		return new Gson().toJson(fileVO);
 	}
 
-	@RequestMapping("/reviewuploadpb.do")
-	@ResponseBody
-	public Object reviewuploadpb(FileVO fileVO) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat(
-				"/yyyy/MM/dd"
-				);
-		String uploadRoot = "C:/bit2019/upload";
-		String path = "/pbreview" + sdf.format(new Date());
-		File file = new File(uploadRoot + path);
-		if (file.exists() == false) file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
-		
-		MultipartFile mFile = fileVO.getAttach();
-		
-		String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
-		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
-		
-		fileVO.setPath(path);
-		fileVO.setOrgname(mFile.getOriginalFilename());
-		fileVO.setSysname(uName);
-		System.out.println("file upload succeed.");
-		
-		return new Gson().toJson(fileVO);
-	}
+//	@RequestMapping("/reviewuploadpb.do")
+//	@ResponseBody
+//	public Object reviewuploadpb(FileVO fileVO) throws Exception {
+//		SimpleDateFormat sdf = new SimpleDateFormat(
+//				"/yyyy/MM/dd"
+//				);
+//		String uploadRoot = "C:/bit2019/upload";
+//		String path = "/pbreview" + sdf.format(new Date());
+//		File file = new File(uploadRoot + path);
+//		if (file.exists() == false) file.mkdirs();
+//		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+//		
+//		MultipartFile mFile = fileVO.getAttach();
+//		
+//		String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
+//		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+//		
+//		fileVO.setPath(path);
+//		fileVO.setOrgname(mFile.getOriginalFilename());
+//		fileVO.setSysname(uName);
+//		System.out.println("file upload succeed.");
+//		
+//		return new Gson().toJson(fileVO);
+//	}
 	
 	// pb 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
@@ -357,6 +374,20 @@ public class StorePBController {
 		storePBInquire.setPbNo(storePBInquire.getPbNo());
 		storePBInquire.setContent(storePBInquire.getContent());
 		service.insertInquiry(storePBInquire);
+	}
+	
+	// pb 상품 문의 답변
+	@RequestMapping("/insertanswer.do")
+	@ResponseBody
+	public void updateInquiryAnswer(StorePBInquire storePBInquire) {
+		storePBInquire.setAnswerStatus("Y");
+		service.updateInquiryAnswer(storePBInquire);
+	}
+	
+	@RequestMapping("/insertanswerform.do")
+	@ResponseBody
+	public StorePBInquire answerInquiryForm(int inquiryNo) {
+		return service.selectInquiryByNo(inquiryNo);
 	}
 	
 	// pb 상품 문의 수정폼
