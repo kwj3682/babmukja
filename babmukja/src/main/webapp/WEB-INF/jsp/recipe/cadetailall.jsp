@@ -161,8 +161,11 @@
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
-	            <div id="sector3-body">            
-	                <c:forEach var="ca" items="${calist }">  
+	            <div id="sector3-body">   
+	            	<c:if test="${empty calist}">
+	            		<p class="no-search">검색결과가 존재하지 않습니다.</p>  
+	            	</c:if>      
+	                <c:forEach var="ca" items="${calist }">  	                
 	                <input type="hidden" name="pageNo" value="${param.pageNo }">             
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
@@ -277,11 +280,10 @@
 		       console.log(data);
                
                $.ajax({               
-		                /* type : "POST", */
 		                data : data,
 		                url : "cadetailAllScroll.do"
          
-               }).done(function (result) {
+               }).done(function (result) {            	   
                  	if(result.length != 0) {
                  		 for(let i = 0 ; i < result.length ; i ++) {
                           	 $("#sector3-body").append(`
@@ -310,7 +312,7 @@
           	                       </div>
           	                   </div>`)
                          }
-                 	}
+                 	} 
             	  
               }).fail(function(xhr){	               
 	               console.dir(xhr);
