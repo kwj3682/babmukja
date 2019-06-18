@@ -17,13 +17,14 @@ public class PageResult {
 		int lastPage = (count % 10 == 0) ? count / 10
 				                         : count / 10 + 1;
 		int tabSize = 10;
-		int currTab = (pageNo -1) / tabSize + 1; 
+		int currTab = (pageNo) / tabSize + 1; 
 		
 		beginPage = (currTab -1) * tabSize + 1;
 		endPage = (currTab * tabSize > lastPage) ? lastPage 
 				                                     : currTab * tabSize;
 		prev = beginPage != 1;
 		next = endPage != lastPage;
+
 	}
 
 	public int getPageNo() {

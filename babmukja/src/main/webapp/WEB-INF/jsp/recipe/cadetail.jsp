@@ -283,7 +283,6 @@
                
                  	if(result.length != 0) {
                  		 for(let i = 0 ; i < result.length ; i ++) { 
-                 			 console.log(result[i].recipeNo);
                           	 $("#sector3-body").append(`
               	                   <div class="profile-container">
           	                       <div class="profile-pic-box">

@@ -303,6 +303,7 @@
      function commentList(pageNo){
     	 pageNo = pageNo - 1;
     	 let index = pageNo * 10;
+    	 console.log(index);
 	     $.ajax({    	 
 		 		url: "recipeCommentList.do"	,
 		 		data : {
@@ -361,13 +362,13 @@
     	 console.log(page);
     	 var str = "";
     	 if(page.prev) {
-    		 str += "<div class='comment-prev'><a href='"+ page.beginPage - 1 +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
+    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
     	 }
 		 for(var i = page.beginPage; i <= page.endPage; i++) {
 			 str += "<div class='pagination'><a href='"+ i +"'>" + i + "</a></div>";
 		 }
 		 if(page.next) {
-			 str += "<div class='comment-next'><a href='"+ page.endPage + 1 +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
+			 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
 		 }
 		 $("#comment-page").html(str);
 	}

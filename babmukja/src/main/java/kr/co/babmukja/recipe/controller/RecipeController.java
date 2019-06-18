@@ -72,6 +72,7 @@ public class RecipeController {
 
 		model.addAttribute("win", service.selectWinRecipe());
 		model.addAttribute("winner", service.selectMemRecipeByRate());
+		model.addAttribute("comment",service.selectReviewByRate());
 	}
 
 	@RequestMapping("/recipekeyword.do")

@@ -99,6 +99,12 @@ html, body {
 #paragraph{
     margin-left: 15px;
 }
+#paragraph > p {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 350px;
+    text-overflow: ellipsis;
+}
 #monthly-profile{
     width : 90px;
     height: 90px;
