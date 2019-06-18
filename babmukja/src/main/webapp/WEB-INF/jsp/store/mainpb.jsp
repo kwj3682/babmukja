@@ -92,7 +92,7 @@
                     <div id="pb_store_popular_product_imges_grid">
                     <c:forEach var="pbList" items="${storepb}" begin="0" end="3">
                         <a class="pb_store_popular_product_img" href="<c:url value="/store/detailpb.do?pbNo=${pbList.pbNo}"/>">
-                            <img src="${pbList.imgPath}"/>
+                            <img src="${pbList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
                             <div class="pb_store_popular_product_text">
                                 <div class="pb_store_popular_product_title">
                                     <p>${pbList.name}</p>

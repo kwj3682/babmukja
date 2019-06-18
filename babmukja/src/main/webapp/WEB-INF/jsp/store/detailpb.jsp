@@ -56,8 +56,8 @@
 				</div>
 				<%-- 			     <c:set var="detailpb" value="${detailpb}"/> --%>
 				<div id="pb_detail_main_image">
-					<a href="${imgList[0]}" data-lightbox="gallery"> <img
-						src="${imgList[0]}">
+					<a href="${imgList[0]}" data-lightbox="gallery"> 
+					<img src="${imgList[0]}">
 					</a>
 				</div>
 			</div>
@@ -136,7 +136,7 @@
 				<a href="#pb_info_move">&nbsp;상품정보&nbsp;</a>
 			</div>
 			<div id="detail_product_review">
-				<a href="#pb_review_header">&nbsp;후기&nbsp;</a>
+				<a href="#pb_review_header" id="zzz">&nbsp;후기&nbsp;</a>
 			</div>
 			<div id="detail_product_inquire">
 				<a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a>
@@ -214,6 +214,7 @@
 			</div>
 
 			<div class="review_con">
+			<%-- 
 				<c:forEach var="reviewList" items="${reviewMap}">
 					<div class="pb_review_body"
 						id='${reviewList.reviewList.pbReviewNo}'>
@@ -236,9 +237,13 @@
 									<div class="reviewBUTTON">
 										<input type="hidden" name="pbReviewNo"
 											value="${reviewList.reviewList.pbReviewNo}">
-										<button class="reviewUpdateBTN">수정</button>
-										<p class="pb_inq_icon">ㅣ</p>
-										<button class="reviewDeleteBTN">삭제</button>
+										<c:choose>
+											<c:when test="${sessionScope.user.memNo eq reviewList.member.memNo}">
+												<button class="reviewUpdateBTN">수정</button>
+												<p class="pb_inq_icon">ㅣ</p>
+												<button class="reviewDeleteBTN">삭제</button>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 
@@ -264,8 +269,8 @@
 									<div>
 										<a
 											href="downloadpb.do?path=${file.path}&sysname=${file.sysname}"
-											data-lightbox="mygallery"> <img
-											src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
+											data-lightbox="mygallery"> 
+											<img src="downloadpb.do?path=${file.path}&sysname=${file.sysname}">
 										</a>
 									</div>
 								</c:forEach>
@@ -274,16 +279,18 @@
 					</div>
 					<!-- pb_review_body 끝-->
 				</c:forEach>
+				--%>
 			</div>
-			<c:if test="${empty reviewMap}">
-				<p class="reviewMSG">후기가 존재하지 않습니다.</p>
-				<p class="reviewMSG2">새 후기를 작성해주세요 !</p>
-			</c:if>
+<%-- 			<c:if test="${empty reviewMap}"> --%>
+<!-- 				<p class="reviewMSG">후기가 존재하지 않습니다.</p> -->
+<!-- 				<p class="reviewMSG2">새 후기를 작성해주세요 !</p> -->
+<%-- 			</c:if> --%>
+			
 		</div>
 		<!-- 후기 끝 -->
 
 
-		<!-- modal -->
+		<!-- 후기 작성 modal -->
 		<form method="POST" enctype="multipart/form-data">
 			<div id="reviewmodal" class="modal fade" tabindex="-1">
 				<div class="moadl-dialog">
@@ -300,6 +307,7 @@
 									</div>
 									<div class="pb_product_item_info">
 										<p class="pb_product_item_name">${storepb.name}</p>
+										
 									</div>
 								</div>
 								<div class="pb_product_item_rating">
@@ -357,13 +365,34 @@
                                     <div class="pb_inq_flex">
                                         <p id="pb_inquire_state">구매</p>
                                         <p class="pb_inq_icon">ㅣ</p>
-                                        <p id="pb_inquire_state2">미답변</p>
+                                        <c:choose>
+											<c:when test="${inqList.answerStatus eq 'Y'}">
+		                                        <p id="pb_inquire_state2">답변완료</p>
+											</c:when>
+											<c:otherwise>
+		                                        <p id="pb_inquire_state2">미답변</p>
+											</c:otherwise>                                        
+                                        </c:choose>
                                     </div>
                                     <div class="pb_inq_flex">
                                     <input type="hidden" name="inquiryNo" value="${inqList.inquiryNo}">
-                                        <button class="inq_update_btn">수정</button>
-                                        <p class="pb_inq_icon">ㅣ</p>
-                                        <button class="inq_delete_btn">삭제</button>
+                                    	<c:choose>
+                                    		<c:when test="${sessionScope.user.memNo eq inqList.memNo}">
+			                                    <c:choose>
+			                                    	<c:when test="${sessionScope.user.memNo eq 1}">
+				                                    	<c:choose>
+				                                    		<c:when test="${inqList.answerStatus eq 'N'}">
+						                                        <button class="pb_inq_admin_answer_btn">답변하기</button>
+																<p class="pb_inq_icon">ㅣ</p>
+				                                    		</c:when>
+				                                    	</c:choose>
+			                                    	</c:when>
+			                                    </c:choose>
+		                                        <button class="inq_update_btn">수정</button>
+		                                        <p class="pb_inq_icon">ㅣ</p>
+		                                        <button class="inq_delete_btn">삭제</button>
+                                    		</c:when>
+                                    	</c:choose>
                                     </div>
                             </div>
 							
@@ -381,15 +410,23 @@
 									<span class="pb_inquire_q">Q</span>
 									<span id="pb_inquire_question">${inqList.content}</span>
 								</p>
-                                <div class="pb_inquire_admin_answer">
-                                    <p class="pb_inquire_a">A</p>
-                                    <p class="pb_inquire_admin">관리자 답변</p>
-                                    <p class="pb_inquire_answer_regdate">2019-06-17</p>
-                                </div>
-								<p id="pb_inquire_admin_msg">안녕하세요 고객님</p>
-								<p id="pb_inquire_answer_content">
-									오늘 상품을 주문하시면 3일 이내 배송 받으실 수 있습니다.
-								</p>
+								<c:choose>
+									<c:when test="${inqList.answerStatus eq 'Y'}">
+		                                <div class="pb_inquire_admin_answer">
+		                                    <p class="pb_inquire_a">A</p>
+		                                    <p class="pb_inquire_admin">관리자 답변</p>
+		                                    <p class="pb_inquire_answer_regdate">
+		                                    	<fmt:formatDate value="${inqList.answerRegdate}" pattern="yyyy-MM-dd"/>
+		                                    </p>
+		                                </div>
+										<div class="pb_inq_answer_con" id="${inqList.inquiryNo}">
+											<p id="pb_inquire_admin_msg">안녕하세요 <span class="answer_mem_nickname">${inqList.member.memNickname}&nbsp</span>님</p>
+											<p id="pb_inquire_answer_content">
+												${inqList.answer}
+											</p>
+										</div>
+									</c:when>
+								</c:choose>
 							</div>
 						</div>
 						<div id="pb_inquire_boder-bottom"></div>
@@ -434,6 +471,39 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-insert"
 						id="inquireInsertmodalbtn">등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 문의 답변 등록 modal -->
+	<div id="inquireAnswerModal" class="modal fade" tabindex="-1">
+		<div class="moadl-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<p class="modal-title">문의 답변</p>
+				</div>
+				<div class="modal-body">
+					<div class="pb_insertform_container">
+						<div class="pb_product_item">
+							<div class="pb_inq_info">
+								<p class="pb_inq_content_text">문의 내용 : </p>
+								<p class="pb_inq_content_val"></p>
+							</div>
+						</div>
+
+						<div class="pb_reviewMap">
+							<div class="pb_product_content">
+								<textarea name="content" class="inquire__answer__content" cols="60"
+									rows="10" placeholder="문의에 답변 해 주세요!"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-insert"
+						id="inq_answer_btn">등록</button>
 				</div>
 			</div>
 		</div>
@@ -506,6 +576,8 @@
     	$("#inquiremodal").modal("hide");
     	$("#inquireupdatemodal").modal("hide");
     	$("#cartmodal").modal("hide");
+    	$("#inquireAnswerModal").modal("hide");
+    	
 //     	let num = $("input[name='pbReviewNo']").val();
 //     	console.log(num);
 //     	console.log($(".review_user_rating").text());
@@ -526,6 +598,10 @@
     });
     
     $("#reviewmodal").modal({
+      backdrop: 'static'
+    });
+
+    $("#inquireAnswerModal").modal({
       backdrop: 'static'
     });
 
@@ -735,28 +811,9 @@
 			});
        });
        
-       // review 삭제
-       $(".reviewDeleteBTN").click(function () {
-//     		let pbNo = ${storepb.pbNo};
-   	  		let num = $(this).siblings("input[name='pbReviewNo']").val();
-   	  		console.log(num.length);
-   	  		$.ajax({
-   	  			url: "/babmukja/store/pbreviewdelete.do",
-   	  			data: {
-   	  				pbReviewNo : num
-   	  			}
-   	  		}).done(function(response) {
-   	  			if ($(".pb_review_body").length == 1) {
-	   	  			$(".review_con").html("<p class='reviewMSG'>후기가 존재하지 않습니다.</p><p class='reviewMSG2'>새 후기를 작성해주세요 !</p>");
-   	  			}
-   	  			$("#" + num).remove();
-   	  		});
-       });
-       
        // review 수정
       $(document).on("click",".reviewUpdateBTN",function () {
           $("#reviewmodal").modal("show");
-
       });
        
 		$(document).on("click",".preview_img_btn",function () {
@@ -795,6 +852,43 @@
 					alert("문의가 등록되었습니다.");
 					location.href="detailpb.do?pbNo="+${storepb.pbNo};
 				}
+			});
+		});
+		
+		// 문의 답변 modal 오픈
+		let inqNoData = new FormData();
+		$(".pb_inq_admin_answer_btn").click(function () {
+			$("#inquireAnswerModal").modal("show");
+			let inquiryNo = $(this).siblings("input[name='inquiryNo']").val();
+			console.log(inquiryNo);
+			inqNoData.append("inquiryNo", inquiryNo);
+			$.ajax({
+				url: "/babmukja/store/insertanswerform.do",
+				data : {
+					inquiryNo : inquiryNo
+				}
+			}).done(function (response) {
+				console.dir(response);
+				$(".pb_inq_content_val").text(response.content);
+			});
+		});
+		
+		// 문의 답변
+		$("#inq_answer_btn").click(function () {
+			let inqNo = inqNoData.get("inquiryNo");
+			let content = $(".inquire__answer__content").val();
+			console.log(inqNo);
+			console.log(content);
+			$.ajax({
+				url: "/babmukja/store/insertanswer.do",
+				data : {
+					inquiryNo : inqNo,
+					answer : content,
+					answerStatus : "N"
+				}
+			}).done(function (result) {
+				alert("문의답변등록성공");
+				location.href="detailpb.do?pbNo="+${storepb.pbNo};
 			});
 		});
 		
@@ -992,28 +1086,126 @@
 		 
 		 // 상품 좋아요 버튼
 		 $(".likeheart").click(function () {
-// 			 $(this).attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
-// 			 ${storepb.pbNo};
-// 			 ${sessionScope.user.memNo};
-			 $.ajax({
-				 url : "pblike.do",
-				 data : {
-					 'pbNo' : '${storepb.pbNo}',
-					 'memNo' : '${sessionScope.user.memNo}'
-				 },
-				 success : function (result) {
-					 if (result.status == 'Y') {
-						 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
-					 } else if (result.status == 'N') {
-						 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like1.png'/>");
-					 } else {
-						 alert("좋아요");
-						 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
+			 if ('${sessionScope.user}' != "") {
+				 $.ajax({
+					 url : "pblike.do",
+					 data : {
+						 'pbNo' : '${storepb.pbNo}',
+						 'memNo' : '${sessionScope.user.memNo}'
+					 },
+					 success : function (result) {
+						 if (result.status == 'Y') {
+							 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
+						 } else if (result.status == 'N') {
+							 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like1.png'/>");
+						 } else {
+							 alert("좋아요");
+							 $(".likeheart").attr("src", "<c:url value='/resources/images/icons/like2.png'/>");
+						 }
 					 }
-				 }
-			 });
+				 });
+			 } else {
+				 alert("로그인 후 이용 가능합니다.");
+			 }
 		 });
 		 
+		 // 후기 전체조회 ajax 페이징 부분
+		 function  detailpbAjax(){
+			 $.ajax({
+				 url : "/babmukja/store/detailpbAjax.do",
+				 data : {
+					 'pbNo' : '${storepb.pbNo}'
+				 },
+				 success : function (result) {
+					 console.dir(result);
+					 let html = '';
+						for(let i=0; i < result.length;i++){
+							html+='<div class="pb_review_body" id="'+result[i].reviewList.pbReviewNo+'">'
+							html+='		<div class="pb_review_profile">';
+							html+='			<div class="pb_review_profile_img">';
+							html+='				<img src="/babmukja/resources/images/profile19.jpg">';
+							html+='			</div>';
+							
+							html+='		<div class="pb_review_user_info">';
+
+							html+='		<div class="user_info_sec1">';
+							html+='			<div class="review_flex">';
+							html+='		<p class="review_user_nickname">'+result[i].reviewList.member.memNickname+'</p>';
+							html+='		<div class="review_date">';
+							html+=		  new Date(result[i].reviewList.regDate);
+							html+='		</div>';
+							html+='	</div>';
+							html+='	<div class="reviewBUTTON">';
+							html+='		<input type="hidden" name="pbReviewNo" value="'+result[i].reviewList.pbReviewNo+'">';
+							if('${sessionScope.user.memNo}' == result[i].reviewList.member.memNo){
+								html+='				<button class="reviewUpdateBTN">수정</button>';
+								html+='				<p class="pb_inq_icon">ㅣ</p>';
+								html+='				<button class="reviewDeleteBTN">삭제</button>';
+								
+							}
+							html+='	</div>';
+							html+='</div>';
+							html+='<div class="user_info_sec2">';
+							html+='	<div class="stars">';
+							html+='		<div class="backStar"></div>';
+							html+='		<div class="frontStar-wrapper">';
+							html+='			<div class="frontStar" style="width:'+result[i].reviewList.rating*24+'px"></div>';
+							html+='		</div>';
+							html+='	</div>';
+							html+='</div>';
+
+							html+='	</div>';
+							html+='</div>';
+							html+='<div class="pb_review_select">';
+							html+='	<div class="pb_review_select_content">';
+							html+='		<p>'+result[i].reviewList.content+'</p>';
+							html+='	</div>';
+							html+='	<div class="pb_review_select_img">';
+							for(let j=0; j < result[i].reviewFile.length;j++){
+								let file = result[i].reviewFile[j];
+								html+='			<div>';
+								html+='				<a href="downloadpb.do?path='+file.path +'&sysname='+file.sysname+'" data-lightbox="mygallery">';
+								html+='					<img src="downloadpb.do?path='+file.path+'&sysname='+file.sysname+'">';
+								html+='				</a>';
+								html+='			</div>';
+								
+							}
+							html+='	</div>';
+							
+							html+='		</div>';
+							html+='</div>';
+							
+							
+						}
+						if (result.length == 0) {
+							html+='<p class="reviewMSG">후기가 존재하지 않습니다.</p>';								
+							html+='<p class="reviewMSG2">새 후기를 작성해주세요 !</p>';
+						}
+					$(".review_con").html(html);	
+				 }
+			  });
+		 }
+		 // 후기 조회부분 함수 실행
+		 detailpbAjax();
+		 
+	       // review 삭제
+	       $(document).on("click", ".reviewDeleteBTN", function () {
+//	     		let pbNo = ${storepb.pbNo};
+	   	  		let num = $(this).siblings("input[name='pbReviewNo']").val();
+	   	  		console.log(num.length);
+	   	  		$.ajax({
+	   	  			url: "/babmukja/store/pbreviewdelete.do",
+	   	  			data: {
+	   	  				pbReviewNo : num
+	   	  			}
+	   	  		}).done(function(response) {
+	   	  			if ($(".pb_review_body").length == 1) {
+		   	  			$(".review_con").html("<p class='reviewMSG'>후기가 존재하지 않습니다.</p><p class='reviewMSG2'>새 후기를 작성해주세요 !</p>");
+	   	  			}
+	   	  			$("#" + num).remove();
+	   	  		});
+	    	   
+	       })
     </script>
 </body>
 </html>

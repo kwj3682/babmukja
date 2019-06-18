@@ -14,6 +14,5 @@
 	<a href="<c:url value='/notice/index.do'/>">공지사항</a>
 	<a href="<c:url value='/meetup/manage.do'/>">모임 관리자</a>
 	<a href="<c:url value='/board/list.do'/>">자유게시판</a>	
-
 </body>
 </html>
