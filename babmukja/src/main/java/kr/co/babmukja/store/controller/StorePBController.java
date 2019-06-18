@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.PagePbReview;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.ReviewMap;
@@ -145,7 +146,7 @@ public class StorePBController {
 	
 	// pb 상품 상세조회
 	@RequestMapping("/detailpb.do")
-	public ModelAndView detailpb(ModelAndView mav, int pbNo, StorePBReview storePBReview, StorePBInquire storePBInquire, HttpSession session) {
+	public ModelAndView detailpb(ModelAndView mav, int pbNo,  StorePBReview storePBReview, StorePBInquire storePBInquire, HttpSession session) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
 		service.addViewCnt(pbNo);
 		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
@@ -194,9 +195,10 @@ public class StorePBController {
 	// pb 후기 전체조회 ajax 페이징
 	@RequestMapping("/detailpbAjax.do")
 	@ResponseBody
-	public List<ReviewMap> detailpb(int pbNo) {
+	public List<ReviewMap> detailpb(PagePbReview page) {
 		List<ReviewMap> reviewMap = new ArrayList<>();
-		List<StorePBReview> reviewList = service.selectReview(pbNo);
+		List<StorePBReview> reviewList = service.selectReview(page);
+		int reviewCnt = reviewList.size();
 		for(StorePBReview pb : reviewList) {
 			
 			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
@@ -208,6 +210,17 @@ public class StorePBController {
 		}
 		return reviewMap;
 	}
+
+//	// pb 후기 전체조회 ajax 페이징
+//	@RequestMapping("/detailpbAjax.do")
+//	@ResponseBody
+//	public Map detailpb(PagePbReview page) {
+//		Map<String, Object> list = service.selectReviewByNo(page);
+//		list.put("review", list.get("list"));
+//		list.put("pageResult", list.get("pageResult"));
+//		list.put("reviewMap", list.get("reviewMap"));
+//		return list;
+//	}
 	
 	// pb 상품 수정 폼
 	@RequestMapping("/updateformpb.do")
