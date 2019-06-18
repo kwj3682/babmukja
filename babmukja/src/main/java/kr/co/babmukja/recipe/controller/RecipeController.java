@@ -268,7 +268,6 @@ public class RecipeController {
 	public void commentDelete(int no) {
 		System.out.println(no);
 		service.deleteRecipeReview(no);
-
 	}
 
 	@RequestMapping("/updateComment.do")

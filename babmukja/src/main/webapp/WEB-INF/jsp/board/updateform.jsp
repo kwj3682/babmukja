@@ -37,7 +37,7 @@
 				<i class="material-icons">attach_file</i> 
 					<span class="title">Add File</span>
 					<div class="board_update_file_div">
-						<img src="" id="board_update_img">
+						<img src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>" id="board_update_img">
 					</div>
 				</label>
 			</div>
