@@ -399,12 +399,28 @@
                         
                         <!-- model tag 부분 -->
                         <div class="modal_meetup_tag_container">
-                            <div id="modal_meetup_tag">태그</div>
-                            <div></div>
+                            <div class="tag1" id="modal_meetup_tag">태그</div>
+                            <div class="tag2"></div>
+                            
                             <div class="modal_meetup_tag_box">
-                                <input type="text" name="tag" class="meetup_tag" placeholder="#모임을 표현할 태그명를 입력해주세요" />
+                                <input type="text" name="tag" class="meetup_tag" value="#"/>
                             </div>
+                         
                         </div>
+                      
+                      <!--  tagSelected-->
+                      
+                      <div class="modal_meetup_tagSelected_container">
+                            <div id="modal_meetup_tagSelected"></div>
+                            <div></div>
+                            <div class="modal_meetup_tagSelected_box">
+                            	<span class="selected_tag_container">
+                            		<span class="tag_letter">1234</span>
+                            		<span><i class="fas fa-times-circle"></i></span>
+                           		 </span>
+                           </div>
+                      
+                      </div>
 
                         <div class="modal_meetup_location_container">
                             <div class="location">활동지역</div>
