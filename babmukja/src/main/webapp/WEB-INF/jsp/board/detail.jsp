@@ -54,42 +54,23 @@
 				<div class="board_comment_title">
 					<p class="comment_msg">답글</p>
 				</div>
+				
+				<!-- 댓글 입력부분 -->
 				<div class="board_comment_input">
-					<i class="fas fa-comments"></i> <input type="text"
-						placeholder="댓글을 입력해주세요." />
+					<i class="fas fa-comments"></i> <input type="text" class="board_detail_content" name="board_detail_content" id="content" placeholder="댓글을 입력해주세요." />
 					<button class="detail_comment_button">
 						<i class="fas fa-pencil-alt"></i>
 					</button>
 				</div>
+				
+				<!-- 댓글 목록부분 -->
 				<div class="board_comment_content">
-					<div class="board_detail_profile">
-						<img src="<c:url value="/resources/images/짱구사진.jpg"/>">
-
-						<div class="detail_name_content">
-							<span class="detail_comment_nickname">주부9단빛찬맘</span> <span
-								class="detail_comment_content">좋은 의견이네요!</span>
-							<div class="board_detail_info">
-								<span class="comment_regDate">2019-06-10</span> <span
-									class="comment_update_button"><i class="far fa-edit"></i>수정</span>
-								<span class="comment_delete_button"><i
-									class="far fa-trash-alt"></i>삭제</span>
-							</div>
-						</div>
-					</div>
-					<div class="board_detail_profile">
-						<img src="<c:url value="/resources/images/짱구우산.jpg"/>">
-						<div class="detail_name_content">
-							<span class="detail_comment_nickname">렁래쓰</span> <span
-								class="detail_comment_content">좋은 정보 완벽!</span>
-							<div class="board_detail_info">
-								<span class="comment_regDate">2019-06-11</span> <span
-									class="comment_update_button"><i class="far fa-edit"></i>수정</span>
-								<span class="comment_delete_button"><i
-									class="far fa-trash-alt"></i>삭제</span>
-							</div>
-						</div>
-					</div>
 				</div>
+				
+				<!-- 댓글이 없을 때 -->
+				<div class="board_comment_none">
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -100,6 +81,139 @@
 		$(".heart").on("click", function() {
 			$(this).toggleClass("is_animating");
 		});
+		
+		// 댓글 목록
+		$.ajax({
+			url : "boardreviewList.do",
+			data : { boardNo : $("input[name='boardNo']").val()}
+		})
+		.done(function(result) {
+			let html = "";
+			for (let i = 0; i < result.comment.length; i++) {
+				let date = new Date(result.comment[i].regdate);
+				html += '<div class="board_comment__wrapper" id=' + result.comment[i].boardReviewNo + '>' 
+				     + '<div class="board_detail_profile">'
+				     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
+				     + '<div class="detail_name_content">' 
+				     + '<input type="hidden" class="boardReviewNo" value=' + result.comment[i].boardReviewNo + '>' 
+				     + '<span class="detail_comment_nickname">주부9단빛찬맘</span>'
+				     + '<span class="detail_comment_content" id=content'+ result.comment[i].boardReviewNo +'>'+ result.comment[i].content + '</span>'
+				     + '<div class="board_detail_info">'
+				     + '<span class="comment_regDate">'+ dateFormat(date)+ '</span>'
+				     + '<span class="comment_update_button"><i class="far fa-edit"></i>수정</span>'
+				     + '<span class="comment_delete_button"><i class="far fa-trash-alt"></i>삭제</span>';
+				     html += '</div></div></div></div>'
+			}
+			$(".board_comment_content").append(html);
+		});
+		
+		// timestamp 날짜형식 바꾸는 함수
+     	function dateFormat(date){
+    	    function pad(num) {
+    	        num = num + '';
+    	        return num.length < 2 ? '0' + num : num;
+    	    }
+    	    return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
+    	}
+		
+		// 댓글 등록
+		$(".detail_comment_button").click(function() {
+			$.ajax({
+				type: "post",
+				url: "boardreviewWrite.do",
+				data: { boardNo : $("input[name='boardNo']").val(),
+						content: $("input[name='board_detail_content']").val() },
+			    success : function(result) {
+			    	let html = "";
+			    	
+			    	html += '<div class="board_comment_wrapper" id=' + result.boardReviewNo + '>' 
+			    	 + '<div class="board_detail_profile">'
+				     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
+				     + '<div class="detail_name_content">' 
+				     + '<input type="hidden" class="boardReviewNo" value=' + result.boardReviewNo + '>' 
+				     + '<span class="detail_comment_nickname">주부9단빛찬맘</span>'
+				     + '<span class="detail_comment_content" id=content'+ result.boardReviewNo +'>'+ result.content + '</span>'
+				     + '<div class="board_detail_info">'
+				     + '<span class="comment_regDate">'+ dateFormat(new Date(result.regdate))+ '</span>'
+				     + '<span class="comment_update_button"><i class="far fa-edit"></i>수정</span>'
+				     + '<span class="comment_delete_button"><i class="far fa-trash-alt"></i>삭제</span>';
+				     html += '</div></div></div></div>';
+				     
+				     $(".board_detail_content").val("");
+				     $(".board_comment_content").prepend(html);
+			    }
+			})
+		});
+		
+		// 댓글 삭제
+		$(document).on("click", ".comment_delete_button", function() {
+			let $detailNameContent = $(this).parent().parent();
+			let delNo = $detailNameContent.find(".boardReviewNo").val();
+			
+			$.ajax({
+				url: "boardreviewdelete.do",
+				data: "boardReviewNo=" + delNo
+			}).done(function(result) {
+				$detailNameContent.parent().parent().html("");
+			})
+		});
+		
+		// 댓글 수정폼
+		$(document).on("click", ".comment_update_button", function() {
+			let upfNo = $(this).parent().parent().find(".boardReviewNo").val(); 
+			let html = "";
+			
+			$.ajax({
+				url: "boardreviewupdateform.do",
+				data: "boardReviewNo=" + upfNo
+			}).done(function(data) {
+				$("#content" + upfNo).html(` 
+						<input type="hidden" name="boardReviewNo" class="boardReviewNo" value= `+ data.boardReviewNo + `>
+					    <input type="hidden" name="boardNo" value="${board.boardNo}"/> 
+					    <input type="hidden" name="orgContent" value="`+data.content+`"/> 
+						<textarea class="board_update_form">`+data.content+`</textarea> 
+						<span class="comment_update_plus_button"><i class="far fa-plus-square"></i>수정</span>
+						<span class="comment_update_cancel_button"><i class="far fa-minus-square"></i>수정취소</span>
+						</div>`);
+			}).fail(function() {
+				alert("에러");				
+			})
+		});
+		
+		// 댓글 수정취소
+		$(document).on("click", ".comment_update_cancel_button", function() {
+			let $this = $(this);
+			let canNo = $this.parent().find(".boardReviewNo").val();
+			let orgContent = $this.siblings("input[name='orgContent']").val();
+			$this.parent().html('<span class="detail_comment_content">'+ orgContent + '</span>');
+		});
+		
+		// 댓글 수정
+		$(document).on("click", ".comment_update_plus_button", function() {
+			let $thisParent = $(this).parent();			
+			let upNo = $thisParent.parent().find(".boardReviewNo").val();
+			$.ajax({
+				url: "boardreviewupdate.do",
+				data:  {
+					boardReviewNo : $("input[name='boardReviewNo']").val(),
+					content : $(".board_update_form").val()
+				}
+			}).done(function(result) {
+			     $thisParent.html(result.content);     
+			})
+		});
+		
+		// 댓글이 없을 때
+		/*
+		let none = $(".board_comment_none").val();
+		if(none.length == 0) {
+			$(".board_comment_none").html("<h3>댓글을 작성해주세요.</h3>");
+		} else {
+			$(".board_comment_none").html("");
+		}
+		*/
+		
+		// 댓글 페이징
 	</script>
 </body>
 </html>

@@ -35,5 +35,6 @@ public interface MemberService {
 	
 //----------------------------------------우중------------------------------------------------//
 	List<Member> searchMemberByNick(String nick);
-
+	Member searchMemberByNickForMypage(String nick);
+	void updateMemberProfile(Member member);
 }

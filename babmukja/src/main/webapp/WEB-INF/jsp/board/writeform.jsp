@@ -19,7 +19,7 @@
 			<div class="board_insert_header">글등록</div>
 
 			<div class="board_insert_recipe">
-				레시피를 작성하고 싶다면 <a href="#">레시피등록 하러가기</a>
+				레시피를 작성하고 싶다면 <a href="<c:url value="/recipe/writeform.do"/>">레시피등록 하러가기</a>
 			</div>
 
 			<form id="writeform" action="write.do" method="POST" enctype="multipart/form-data">

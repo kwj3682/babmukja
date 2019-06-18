@@ -391,20 +391,26 @@ function update() {
 		'/babmukja/resources/images/apron.gltf',
 		// called when the resource is loaded
 		function ( gltf ) {
-			scene.add( gltf.scene );
-			console.dir(gltf.scene.position);
+			apronMesh = gltf.scene;
+			scene.add( apronMesh );
+			console.dir(apronMesh.position);
 			let size = 20;
-			gltf.scene.position.x = 2;
-			gltf.scene.position.y = -3;
-			gltf.scene.position.z = -3;
-			gltf.scene.scale.x = size;
-			gltf.scene.scale.y = size;
-			gltf.scene.scale.z = size;
-			console.dir(gltf.scene.scale);
+			apronMesh.position.x = 2;
+			apronMesh.position.y = -3;
+			apronMesh.position.z = -3;
+			apronMesh.scale.x = size;
+			apronMesh.scale.y = size;
+			apronMesh.scale.z = size;
 							
-			gltf.scene.rotation.x = 0;
-			gltf.scene.rotation.y = -1.5;
-			gltf.scene.rotation.z = 0;
+			apronMesh.rotation.x = 0;
+			apronMesh.rotation.y = -1.5;
+			apronMesh.rotation.z = 0;
+			apronMesh.on("click",function(){
+				apronMeshFlag = true;
+			}).on("pointerout",function(){
+				apronMeshFlag = false;
+				apronMesh.rotation.x = 0;
+			});
 
 		},
 		// called while loading is progressing
@@ -688,6 +694,10 @@ function animate() {
 		}
 	
 	}
+	
+	if(apronMeshFlag){
+		$("#modal-user-detail").modal("show");
+	}
 	update();
 }
 
@@ -699,3 +709,207 @@ function dateFormat(date){
     }
     return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
 }
+
+let $sec2 = $("#updateform-sec2");
+let userProfile = $("#profile-picture").attr("src");
+let userNickname = $("#updateform-sec2-userinfo-id").text();
+
+for(let i=1;i<=2;i++){
+    $("#updateform-sec1-menu"+i).click(function(){
+        $(this).css({background:"white"});
+        $(this).siblings().css({background:"lightgray"});
+        switch(i){
+            case 1:
+            $sec2.html(
+                `
+                <div id="check-userinfo">
+                    <div id="updateform-sec2-imgSelector">
+                            <img id="profile-picture" src="${userProfile}">
+                        </div>
+                        <div id="updateform-sec2-userinfo">
+                        <p id="updateform-sec2-userinfo-id">${userNickname}</p>
+                        <div id="updateform-sec2-userinfo-opt">
+                            <button id="profile-change-button">프로필 사진 변경</button>
+                            <button>팔로우</button>
+                            <p>팔로우 중</p>
+                        </div>
+                        <p id="updateform-sec2-userinfo-info">
+                            작성한 레시피<b>15</b>
+                            팔로우<b>10</b>
+                            팔로워<b>11</b>
+                        </p>
+                    </div>
+                </div>`);
+            break;
+            case 2:
+                $sec2.html(
+                    `<div id="change-pass">
+                        <p id="change-pass-notice1">영어, 숫자 특수문자 합쳐서 8자리 이상 입력해주세요.</p>
+                        <input type="password" name="pass1">
+                        <p id="change-pass-notice2"></p>
+                        <input type="password" name="pass2">
+                        <p id="change-pass-notice3"></p>
+                        <div id="change-pass-button">비밀번호 변경</div>
+                    </div>`
+                );
+        }
+    
+    });
+}
+
+
+
+$(document).on("click","#profile-change-button",function(){
+	$("input[name='profile-picture']").click();
+});
+$(document).on("change","input[name='profile-picture']",function (e) {
+   	let fileData = new FormData();
+	let path = $(this).val();
+   	console.dir(e.target.files[0]);
+
+		var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    fileData.append("attach",e.target.files[0]);
+    fileData.append("memNickname", $("#memNickname").text());
+    
+/*     reader.onload = function () {
+         var tempImage = new Image();
+         tempImage.src = reader.result;
+         
+         tempImage.onload = function () {
+             var canvas = document.createElement('canvas');
+             var canvasContext = canvas.getContext("2d");
+
+             canvas.width = 200;
+             canvas.height = 200;
+             canvasContext.drawImage(this, 0, 0, 200, 200);
+                 
+             var dataURI = canvas.toDataURL("image/jpeg");
+             var imgTag = "<img id='profile-picture' class='preview_img' src='"+dataURI+"'/>";
+				 $("#updateform-sec2-imgSelector").html(imgTag);
+         };
+     };*/
+     var result = confirm("프로필 사진을 변경하시겠습니까?");
+     if(result){
+    	 $.ajax({
+    		 url: 'upload.do',
+             type: "post",
+          	 processData: false,
+             contentType: false,
+             data: fileData
+    	 }).done(function(){
+    		 alert("프로필 사진이 성공적으로 변경되었습니다.");
+    		 location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
+    	 });
+     }else{
+    	 alert("프로필 사진 변경이 취소되었습니다.");
+//    	 $("#updateform-sec2-imgSelector").html(`<img src='<c:url value='/resources/images/default/userdefault.png'/>'>`);
+    	 return;
+     }
+     
+});
+
+let passFlag = false;
+let pass2Flag = false;
+let pass = "";
+$(document).on("keyup","input[name='pass1']",function(){			
+    let $notice2 = $("#change-pass-notice2");
+    let $this = $(this);
+    if(this == ""){
+        return;            				
+    }
+    if($this.val().length >= 13) {
+
+        $this.val($this.val().substring(0, 13));
+
+    }
+    
+    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test($this.val())){ 
+    	$notice2.text("8자 이상 입력해주세요.");
+    	$notice2.css({color: "red"});
+    }    
+    var checkNumber = $this.val().search(/[0-9]/g);
+    var checkEnglish = $this.val().search(/[a-z]/ig);
+    
+    if(checkNumber <0 || checkEnglish <0){
+        $notice2.text("숫자와 영문자를 혼용하여야 합니다.");
+        $notice2.css({color: "red"});
+    }else if(/(\w)\1\1\1/.test($this.val())){
+        $notice2.text ("같은 문자를 4번 이상 사용하실 수 없습니다.");
+        $notice2.css({color: "red"});
+    }else if($this.val().length < 8){
+    	$notice2.text ("너무 짧습니다.");
+    	$notice2.css({color: "red"});
+    	
+    }else{
+        $notice2.text("사용가능한 비밀번호입니다.");									            				
+        $notice2.css({"color" : "springgreen"});	
+        passFlag = true;
+    }
+});
+
+$(document).on("keyup","input[name='pass2']",function(){		
+    let $notice3 = $("#change-pass-notice3");
+    let $pass1 = $("input[name='pass1']");
+    let $pass2 = $(this);
+    if($pass1.val().length == 0 || $pass2.val().length == 0){
+        return;            				
+    }
+    if($pass2.val().length >= 13) {
+
+        $pass2.val($pass2.val().substring(0, 13));
+
+    }
+    if($pass1.val() != $pass2.val() || !passFlag){
+                $notice3.text("비밀번호를 확인해주세요.");									
+                $notice3.css({"color" : "red"});	
+    }else{
+                $notice3.html("확인했습니다.");									            				
+                $notice3.css({"color" : "springgreen"});	
+                pass2Flag = true;
+                pass = $pass1.val();
+    }
+    
+    }            		
+);
+
+$(document).on("click","#change-pass-button",function(){
+    if(!passFlag || !pass2Flag){
+        alert("입력한 비밀번호를 다시 확인해주세요.");
+        return;
+    }
+    $.ajax({
+        url:"repass.do",
+        type:"POST",
+        data:{memPass: pass,
+        	  memEmail:$("input[name='memEmail']").val()}
+    }).done(function(result){
+    	alert("변경되었습니다.");
+    	location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
+    });
+});
+// 팔로우 기능
+$(document).on("click","#follow-button",function () {  	
+	if('${sessionScope.user.memNo}' != '${user.memNo}' && '${sessionScope.user}' != '') {
+	    	$.ajax({
+	    		url : "/babmukja/recipe/follow.do",
+	    		data : {
+	    			'followMemNo': '${user.memNo}',
+	    			'followerMemNo':  '${sessionScope.user.memNo}'
+	    		},
+	    		success : function(result) {		    		
+	    			if(result == 1) {
+		    			alert("팔로우가 되었습니다.");	
+		    			$("#updateform-sec2-userinfo-opt").html("<p>팔로우 중</p>");
+	    			} else if(result == 0){
+	    				alert("팔로우가 해제되었습니다.");
+	    				$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우</button>");
+	    			}else alert("로그인 후 이용가능합니다.");
+	    		}
+	    	});
+		} 
+	if('${sessionScope.user.memNo}' == '${user.memNo}') {
+		alert("같은 회원은 팔로우 할 수 없습니다.");
+	}
+	else alert("로그인 후 이용가능합니다.");
+});

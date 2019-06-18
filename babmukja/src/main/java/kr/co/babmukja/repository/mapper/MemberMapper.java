@@ -35,5 +35,7 @@ public interface MemberMapper {
 	
 	//----------------------------우중---------------------------//
 	List<Member> searchMemberByNick(String nick);
-
+	void updateMemberProfile(Member member);
+	
+	Member searchMemberByNickForMypage(String nick);
 }

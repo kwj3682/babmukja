@@ -60,6 +60,9 @@ public interface StorePBService {
 	public void updateInquiry(StorePBInquire storePBInquire);
 	public void deleteInquiry(int inquiryNo);
 	
+	// pb 상품 문의 답변
+	public void updateInquiryAnswer(StorePBInquire storePBInquire);
+	
 	// pb 상품 결제
 	public void insertPBPayment(StorePBPayment storePBPayment);
 	public StorePBPayment selectPBPaymentByNo(int paymentNo);
