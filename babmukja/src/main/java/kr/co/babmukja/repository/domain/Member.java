@@ -23,7 +23,6 @@ public class Member {
 	private String hintAnswer;
 	private String imgPath;
 	private int gradeNo;
-	private int recipeCnt;
 	private int sellingCnt;
 	private String gradeName;
 	private int totalBuy;
@@ -41,6 +40,28 @@ public class Member {
 	private String profileImageUrl;
 	private String thumbnailUrl;
 	
+	private int recipeCnt;
+	private int follower;
+	private int follow;
+	
+	
+	
+	public int getFollower() {
+		return follower;
+	}
+
+	public void setFollower(int follower) {
+		this.follower = follower;
+	}
+
+	public int getFollow() {
+		return follow;
+	}
+
+	public void setFollow(int follow) {
+		this.follow = follow;
+	}
+
 	public String getProfileImageUrl() {
 		return profileImageUrl;
 	}

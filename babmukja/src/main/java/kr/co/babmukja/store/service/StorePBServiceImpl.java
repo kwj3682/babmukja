@@ -1,5 +1,6 @@
 package kr.co.babmukja.store.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.common.page.PBPageResult;
+import kr.co.babmukja.common.page.PBReviewPageResult;
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.PagePbReview;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
+import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
@@ -79,6 +83,10 @@ public class StorePBServiceImpl implements StorePBService{
 		return map;
 	}
 	
+//	public int selectReviewCount(PagePbReview page) {
+//		return mapper.selectReviewCount(page);
+//	}
+//	
 	public StorePB selectPBStoreByNo(int pbNo) {
 		return mapper.selectPBStoreByNo(pbNo);
 	}
@@ -113,8 +121,25 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBReviewSelect(storePBReview);
 	}
 	
-	public List<StorePBReview> selectReview(int pbNo) {
-		return mapper.selectReview(pbNo);
+//	public Map<String, Object> selectReviewByNo(PagePbReview page) {
+//		Map<String, Object> result = new HashMap<>();
+//		List<ReviewMap> reviewMap = new ArrayList<>();
+//		List<StorePBReview> reviewList = mapper.selectReview(page);
+//		for (StorePBReview pb : reviewList) {
+//			List<ReviewFileVO> reviewFileList = mapper.selectReviewFile(pb.getPbReviewNo());
+//			ReviewMap rm = new ReviewMap();
+//			rm.setReviewFile(reviewFileList);
+//			rm.setReviewList(pb);
+//			rm.setMember(pb.getMember());
+//			reviewMap.add(rm);
+//		}
+//		result.put("list", mapper.selectReview(page));
+//		result.put("pageResult", new PBReviewPageResult(page.getPageNo(), mapper.selectReviewCount(page)));
+//		result.put("reviewMap", reviewMap);
+//		return result;
+//	}
+	public List<StorePBReview> selectReview(PagePbReview page) {
+		return mapper.selectReview(page);
 	}
 	
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo) {
@@ -128,6 +153,10 @@ public class StorePBServiceImpl implements StorePBService{
 	public void deleteReviewByNo(int pbReviewNo) {
 		mapper.deleteReviewByNo(pbReviewNo);
 	}
+	
+	// 후기 페이징
+	
+	
 	
 	// pb 후기 수정
 	
@@ -145,7 +174,7 @@ public class StorePBServiceImpl implements StorePBService{
 		mapper.insertInquiry(storePBInquire);
 	}
 	
-	// pb 상품 조회
+	// pb 상품 문의 조회
 	public List<StorePBInquire> selectPBInquire(int pbNo) {
 		return mapper.selectPBInquire(pbNo);
 	}
@@ -160,6 +189,12 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public void deleteInquiry(int inquiryNo) {
 		mapper.deleteInquiry(inquiryNo);
+	}
+	
+	// PB 상품 문의 답변
+	
+	public void updateInquiryAnswer(StorePBInquire storePBInquire) {
+		mapper.updateInquiryAnswer(storePBInquire);
 	}
 	
 	// pb 상품 결제

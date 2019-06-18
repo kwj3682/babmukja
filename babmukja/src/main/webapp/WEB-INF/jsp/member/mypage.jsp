@@ -17,15 +17,18 @@
 </head>
 <body>
     <div id="open-filter">
-        <p>"${user.memNickname}'s KITCHEN"</p>
-        <input type="hidden" name="memNo" value="${user.memNo}"/>
-        
+        <p>"<b id="memNickname">${user.memNickname}</b>'s KITCHEN"</p>
+        <input type="hidden" name="memNo" value="${user.memNo}">
+        <input type="hidden" name="memEmail" value="${user.memEmail}">
+        <input type="hidden" name="follow" value="${user.follow}">
+        <input type="hidden" name="follower" value="${user.follower}">
+        <input type="hidden" name="recipeCnt" value="${user.recipeCnt}">
     </div>
     <div id="container">
     </div>
 	<div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-			<div class="modal-dialog" role="document" style="min-width:1100px">
-				<div class="modal-content" style="width:1200px; height: 700px;">
+			<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
+				<div class="modal-content" style="width:1200px; height: 700px;margin:0 auto;">
 					
 					<div class="modal-body">
 						<table id="writtenrecipe">
@@ -44,6 +47,59 @@
 							</tbody>
 						</table>
 					</div>
+				</div>
+		</div>
+	</div>
+	<!-- user info -->
+	<div class="modal fade" id="modal-user-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
+				<div class="modal-content" style="width:800px; height: 400px;margin:0 auto;">
+					
+					
+                        <input type="file" name="profile-picture" style="display:none;">
+					    <div id="updateform-body">
+					        <div id="updateform-sec1">
+					            <div id="updateform-sec1-menu1" style="background: white;">회원 정보</div>
+					            <c:choose>
+					            	<c:when test="${sessionScope.user.memNickname == user.memNickname}">
+							            <div id="updateform-sec1-menu2">비밀번호 변경</div>
+					            	</c:when>
+					            	<c:otherwise>
+					            		<div style="background:gray;"></div>
+					            	</c:otherwise>
+					            </c:choose>
+					        </div>
+					        <div id="updateform-sec2">
+					            <div id="check-userinfo">
+					                <div id="updateform-sec2-imgSelector">
+					                	<c:choose>
+						                	<c:when test="${user.imgPath == null}">
+						                    	<img id="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+						                	</c:when>
+						                	<c:otherwise>					                	
+						                    	<img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${user.imgPath}&memNickname=${user.memNickname}&sysname=${user.imgSysname}">
+						                	</c:otherwise>
+					                	</c:choose>
+					                </div>
+					                <div id="updateform-sec2-userinfo">
+					                    <p id="updateform-sec2-userinfo-id">${user.memNickname}</p>
+					                    <div id="updateform-sec2-userinfo-opt">
+							            	<c:if test="${sessionScope.user.memNickname == user.memNickname}">
+						                        <button id="profile-change-button">프로필 사진 변경</button>
+				            				</c:if>
+					                        <button id="follow-button">팔로우</button>
+					                        <p>팔로우 중</p>				            					
+					                    </div>
+					                    <p id="updateform-sec2-userinfo-info">
+								                        작성한 레시피<b>${user.recipeCnt}</b>
+								                        팔로워<b>${user.follower}</b>
+								                        팔로우<b>${user.follow}</b>
+					                    </p>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					
 				</div>
 		</div>
 	</div>

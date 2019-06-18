@@ -11,7 +11,15 @@ public class StorePBInquire {
 	private Date answerRegdate;
 	private int memNo;
 	private String memNickname;
+	private String answerStatus;
 	private Member member;
+	
+	public String getAnswerStatus() {
+		return answerStatus;
+	}
+	public void setAnswerStatus(String answerStatus) {
+		this.answerStatus = answerStatus;
+	}
 	public Member getMember() {
 		return member;
 	}

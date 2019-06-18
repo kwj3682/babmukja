@@ -1,11 +1,10 @@
 package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.PagePbReview;
 import kr.co.babmukja.repository.domain.Pagepb;
-import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
@@ -48,7 +47,7 @@ public interface StorePBMapper {
 	public void insertPBReview(StorePBReview reviewpb);
 	public void insertPBReviewImage(FileVO fileVO);
 	public int selectMaxNum();
-	public List<StorePBReview> selectReview(int pbNo);
+	public List<StorePBReview> selectReview(PagePbReview page);
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo);
 	
 	// pb 상품 후기 수정관련
@@ -64,6 +63,9 @@ public interface StorePBMapper {
 	public StorePBInquire selectInquiryByNo(int inquiryNo);
 	public void updateInquiry(StorePBInquire storePBInquire);
 	public void deleteInquiry(int inquiryNo);
+	
+	// PB 상품 문의 답변
+	public void updateInquiryAnswer(StorePBInquire storePBInquire);
 	
 	// PB 상품 결제
 	public void insertPBPayment(StorePBPayment storePBPayment);

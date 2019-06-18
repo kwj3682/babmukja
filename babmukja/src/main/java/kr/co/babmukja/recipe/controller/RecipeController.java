@@ -72,18 +72,12 @@ public class RecipeController {
 
 		model.addAttribute("win", service.selectWinRecipe());
 		model.addAttribute("winner", service.selectMemRecipeByRate());
-
-		System.out.println("countryrank:" + service.selectKeywordMost("country").getCountry());
-		System.out.println("situationrank:" + service.selectKeywordMost("situation").getSituation());
-		System.out.println("levelrank:" + service.selectKeywordMost("level").getLevel());
-		System.out.println("typerank:" + service.selectKeywordMost("type").getType());
-
+		model.addAttribute("comment",service.selectReviewByRate());
 	}
 
 	@RequestMapping("/recipekeyword.do")
 	@ResponseBody
 	public List<Recipe> recipeSeachByKeywordNo(int keywordNo) {
-
 		return service.selectRecipeByKeyword(keywordNo);
 	}
 
@@ -101,7 +95,7 @@ public class RecipeController {
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+//		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 
 		MultipartFile mFile = fileVO.getAttach();
 
@@ -161,7 +155,7 @@ public class RecipeController {
 	}
 
 	@RequestMapping("/detail.do")
-	public ModelAndView detail(ModelAndView mav, int no, HttpSession session) {
+	public ModelAndView detail(ModelAndView mav, int no, HttpSession session, Page page) {
 		Recipe recipe = service.selectRecipeByNo(no);
 		service.addViewCnt(no);
 		if (recipe == null) {
@@ -260,7 +254,7 @@ public class RecipeController {
 		Map<String, Object> list = service.selectReviewByNo(page);
 		list.put("comment", list.get("list"));
 		list.put("pageResult", list.get("pageResult"));
-
+		
 		return list;
 	}
 
@@ -275,7 +269,6 @@ public class RecipeController {
 	public void commentDelete(int no) {
 		System.out.println(no);
 		service.deleteRecipeReview(no);
-
 	}
 
 	@RequestMapping("/updateComment.do")
@@ -353,7 +346,6 @@ public class RecipeController {
 	@RequestMapping("/cadetailAllScroll.do")
 	@ResponseBody
 	public List<RecipePage> cadetailAllScroll(RecipePage page) {
-		System.out.println(page.getCaution());
 		List<RecipePage> list = service.selectRecipeAll(page);
 		return list;
 	}

@@ -28,6 +28,8 @@ public interface RecipeMapper {
 	public List<Recipe> selectRecipeByMem(int no);
 	// 1등 레시피 정보
 	public Recipe selectWinRecipe();
+	// 1등 레시피 댓글
+	public List<RecipeReview> selectReviewByRate();
 	// 메인 회원 레시피 목록
 	public List<Recipe> selectMemRecipeByRate();	
 	// 레시피 조회수 증가

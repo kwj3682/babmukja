@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,7 @@
 	                	<div class="keyword-wrapper">#${keyword.type}</div>
 	                	
                 </div>
-                <div id="post-date">방금 전</div>
+                <div id="post-date"><fmt:formatDate value="${recipe.regDate}" pattern="yyyy.MM.dd"/></div>
             </div><!-- post-info end -->
             <h2>${recipe.title}</h2>
 
@@ -96,9 +97,10 @@
                     <div id="comment-other"><!-- comment-other start -->
                        
                     </div><!-- comment-other end -->
+                    <div id="comment-page"></div>
                 </div><!-- comment-container end -->
-            </div><!-- comment-body end -->
-     </div><!-- left-body end -->
+            </div><!-- comment-body end -->   
+    	</div><!-- left-body end -->
         
 
         <!------------------------------------------------------------------------------------------------>
@@ -231,20 +233,20 @@
 			    				background : "#7db341",
 			    				color : "white"	
 			    			});
-		    			} else {
+		    			} else if(result == 0) {
 		    				alert("팔로우가 해제되었습니다.");
 		    				$(".follow").css({
 		    					background : "#eee",
 		    			    	color: "#777"
 			    			});
-		    			}
+		    			} else alert("로그인 후 이용가능합니다.");
 		    		}
 		    	});
 			} 
 		if('${sessionScope.user.memNo}' == '${recipe.memNo}') {
 			alert("같은 회원은 팔로우 할 수 없습니다.");
 		}
-		else alert("로그인 후 이용가능합니다.");
+		
     	});
    	 	
     
@@ -290,51 +292,87 @@
 		    	 	     				 	 
 		    	 	 $(".comment-input").val("");		
 		    	 	 $("#h3").html("");
-		    	 	 $("#comment-other").prepend(html);	
-
+		    	 	 $("#comment-other").prepend(html);
+		    	 	 $("#comment-other").html("");
+					commentList(1);
     			}
     		})
     	});
      
      // 댓글 목록 불러오기
-     $.ajax({    	 
-	 		url: "recipeCommentList.do"	,
-	 		data : {
-	 			recipeNo : $("input[name='no']").val()	 			
-	 		}
-	 	})
-	 	.done(function (result) {
-	 		let loginMemNo = '${sessionScope.user.memNo}';
-	 		if(result.comment.length == 0) {	 			
-	 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
-	 		}
-	 		let html = "";	
-	 		for(let i = 0; i < result.comment.length; i++) {
-
-	 			let date = new Date(result.comment[i].regdate);
-	 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
-	 					+'<img class="other-profile" src="">'
-	 					+'<div class="other-content-wrapper">'
-	 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
-	 					+'<div>'
-	 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'	
-	 					+'<div class="stars">'
-						+'<div class="backStar"></div>'
-						+'<div class="frontStar-wrapper">'
-						+'<div class="frontStar" style="width:'+result.comment[i].score*24+'px;"></div>'
-						+'</div>'		
-						+'</div>'
-	 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
-	 					+'</div>'
-	 	     			+'<div class="other-content" id=c' + result.comment[i].recipeReviewNo + '>' + result.comment[i].content + '</div>';
-	 	     			if (loginMemNo == result.comment[i].memNo) {	 	     		
-	 	     				html += '<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
-	 					}
-	 	     			html += '</div></div>';	 
-	 			}	
-	 	 		$("#comment-other").append(html);
-	 	});
+     function commentList(pageNo){
+    	 pageNo = pageNo - 1;
+    	 let index = pageNo * 10;
+    	 console.log(index);
+	     $.ajax({    	 
+		 		url: "recipeCommentList.do"	,
+		 		data : {
+		 			recipeNo : $("input[name='no']").val(),
+		 			index : index,
+		 			pageNo : pageNo
+		 		}
+		 	})
+		 	.done(function (result) {
+		 		console.dir(result);
+		 		let loginMemNo = '${sessionScope.user.memNo}';
+		 		if(result.comment.length == 0) {	 			
+		 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+		 		}
+		 		let html = "";	
+		 		for(let i = 0; i < result.comment.length; i++) {
 	
+		 			let date = new Date(result.comment[i].regdate);
+		 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
+		 					+'<img class="other-profile" src="">'
+		 					+'<div class="other-content-wrapper">'
+		 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
+		 					+'<div>'
+		 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'	
+		 					+'<div class="stars">'
+							+'<div class="backStar"></div>'
+							+'<div class="frontStar-wrapper">'
+							+'<div class="frontStar" style="width:'+result.comment[i].score*24+'px;"></div>'
+							+'</div>'		
+							+'</div>'
+		 					+'<div class="other-date">' + dateFormat(date)+ '</div>'
+		 					+'</div>'
+		 	     			+'<div class="other-content" id=c' + result.comment[i].recipeReviewNo + '>' + result.comment[i].content + '</div>';
+		 	     			if (loginMemNo == result.comment[i].memNo) {	 	     		
+		 	     				html += '<div><button class="updateComment" id="updateComment">수정</button><button class="deleteComment">삭제</button></div>'
+		 					}
+		 	     			html += `</div></div>`; 	     			
+		 	     		
+		 			}	
+		 	 		$("#comment-other").append(html);
+		 	 		printPaging(result.pageResult);
+		 	});
+	     
+    	 
+     }
+     
+     $(document).on("click","#comment-page a",function(e){
+         e.preventDefault();
+         page = $(this).attr("href");         
+         $("#comment-other").html("");
+         commentList(page);
+      });
+     
+     // 페이징 함수
+     function printPaging(page) {
+    	 console.log(page);
+    	 var str = "";
+    	 if(page.prev) {
+    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
+    	 }
+		 for(var i = page.beginPage; i <= page.endPage; i++) {
+			 str += "<div class='pagination'><a href='"+ i +"'>" + i + "</a></div>";
+		 }
+		 if(page.next) {
+			 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
+		 }
+		 $("#comment-page").html(str);
+	}
+    	 
      // 댓글 수정 버튼 이벤트
      $(document).on("click",".updateComment",function () {
     	 let no = $(this).parent().parent().find(".reviewNo").val();
@@ -354,7 +392,6 @@
                   			 		<i class="far fa-times-circle"></i>
                   			 	</button>
                   			 </div>`); 
- 			
  		}).fail(function(xhr) {
  			alert("오류 발생");
  		})	
@@ -405,11 +442,12 @@
  				$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
  			}
  		
-	    	$("#"+ num).html("");   
+	    	$("#"+ num).html("");
+	    	$("#comment-other").html("");
+			commentList(1);
  		})  
  	});
  		
-     
      
      	// timestamp 날짜형식 바꾸는 함수
      	function dateFormat(date){
@@ -514,6 +552,9 @@
 	           	let widthVal = checkedValue * 24;
 	           	$checkStar.css({width: widthVal + "px"});
            });
+		 
+		 
+		 commentList(1);
     </script>
     
 </body>

@@ -161,7 +161,10 @@
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
-	            <div id="sector3-body">            
+	            <div id="sector3-body">           
+	            	<c:if test="${empty calist}">
+	            		<p class="no-search">검색결과가 존재하지 않습니다.</p>  
+	            	</c:if>   
 	                <c:forEach var="ca" items="${calist }">               
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
@@ -243,9 +246,9 @@
         });
     });
         
-	    $(".search-icon > i").click(function () {
-			 $("form[name='searhForm']").submit();
-		}); 
+    $("#submitBtn").click(function () {
+		 $("form[name='searhForm']").submit();
+	});
 	    
          // 무한스크롤
          let pageNo = 0;
@@ -280,7 +283,6 @@
                
                  	if(result.length != 0) {
                  		 for(let i = 0 ; i < result.length ; i ++) { 
-                 			 console.log(result[i].recipeNo);
                           	 $("#sector3-body").append(`
               	                   <div class="profile-container">
           	                       <div class="profile-pic-box">

@@ -1,8 +1,8 @@
 package kr.co.babmukja.repository.domain;
 
-public class Page {
+public class PagePbReview {
 	private int pageNo = 0;
-	private int recipeNo;	
+	private int pbNo;
 	private int index;
 	
 	public int getIndex() {
@@ -11,11 +11,11 @@ public class Page {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	public int getRecipeNo() {
-		return recipeNo;
+	public int getPbNo() {
+		return pbNo;
 	}
-	public void setRecipeNo(int recipeNo) {
-		this.recipeNo = recipeNo;
+	public void setPbNo(int pbNo) {
+		this.pbNo = pbNo;
 	}
 	public int getPageNo() {
 		return pageNo;
@@ -24,9 +24,9 @@ public class Page {
 		this.pageNo = pageNo;
 	}
 	public int getBegin() {
-		return (this.pageNo) * 10;
+		return (this.pageNo -1) * 3;
 	}
 	public int getEnd() {
-		return 10;
+		return 3;
 	}
 }
