@@ -369,9 +369,23 @@ a {
     justify-content: space-between;
 }
 #comment-mine img{
-    width: 60px;
-    height: 60px;
-    border-radius :30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+#comment-nick {
+    font-size: 25px;
+    position: relative;
+    top: 30px;
+    left: -30px;
+}
+#comment-login {
+	font-size: 13px;
+    position: relative;
+    top: 40px;
 }
 .comment-input{
     width: 600px;
