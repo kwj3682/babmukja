@@ -1147,49 +1147,110 @@
 }
 
 .review-pagination {
-	font-size: 20px;
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 .review-pagination > a {
-	color: black;
-	margin-left: 10px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .review-pagination > a:link {
     text-decoration: none;
-    color: black;
+    color: #7db341;
 }
 
 .review-pagination > a:visited {
     text-decoration: none;
-    color: rgb(81, 81, 81);
+    color: #7db341;
 }
 
-.review-pagination > a:hover {
-    color:#7db341;
+.review-pagination:hover a{
+	color : #7db341;
 }
 
+
+
+.this-review-page {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+}
+.this-review-page > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.this-review-page > a:hover {
+	color: white;
+}
+
+.this-inq-pagination {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+}
+.this-inq-pagination > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.this-inq-pagination > a:hover {
+	color: white;
+}
 .inq-pagination {
-	font-size: 20px;
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 .inq-pagination > a {
-	color: black;
-	margin-left: 10px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .inq-pagination > a:link {
     text-decoration: none;
-    color: black;
+    color: #7db341;
 }
 
 .inq-pagination > a:visited {
     text-decoration: none;
-    color: rgb(81, 81, 81);
+    color: #7db341;
 }
 
-.inq-pagination > a:hover {
-    color:#7db341;
+.inq-pagination:hover a{
+	color : #7db341;
 }
 
 #inq-page {
@@ -1201,7 +1262,7 @@
 .right-arrow, .left-arrow {
 	width : 15px;
 	position : relative;
-	top : -2px;
+	top : 2px;
 	left : 10px;
 }
 
@@ -1211,4 +1272,13 @@
 	height : 25px;
 	margin: 5px;
     margin-bottom: 10px;
+}
+
+#pb_review_move {
+    height: 30px;
+    width: 10px;
+}
+#pb_inq_move {
+    height: 30px;
+    width: 10px;
 }

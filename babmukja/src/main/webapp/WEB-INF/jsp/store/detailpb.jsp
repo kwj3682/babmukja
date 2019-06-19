@@ -135,10 +135,10 @@
 				<a href="#pb_info_move">&nbsp;상품정보&nbsp;</a>
 			</div>
 			<div id="detail_product_review">
-				<a href="#pb_review_header" id="zzz">&nbsp;후기&nbsp;</a>
+				<a href="#pb_review_move">&nbsp;후기&nbsp;</a>
 			</div>
 			<div id="detail_product_inquire">
-				<a href="#pb_review_inquire_detail">&nbsp;문의&nbsp;</a>
+				<a href="#pb_inq_move">&nbsp;문의&nbsp;</a>
 			</div>
 			<div id="detail_product_refund">
 				<a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a>
@@ -160,6 +160,7 @@
 		<div id="post-body"></div>
 
 		<!-- 후기 -->
+		<div id="pb_review_move"></div>
 		<div id="pb_review_detail">
 			<div id="pb_review_header">
 				<div id="pb_review">
@@ -233,6 +234,7 @@
 
 
 		<!-- 문의 -->
+		<div id="pb_inq_move"></div>
 		<div id="pb_review_inquire_detail">
 			<div id="pb_review_inquire_header">
 				<div id="pb_review_inquire">
@@ -971,6 +973,7 @@
 	         page = $(this).attr("href");         
 	         $(".review_con").html("");
 	         detailpbAjax(page);
+	         $("#detail_product_review a").click();
 	      });
 		 
 		 // 문의 페이징 번호
@@ -979,6 +982,7 @@
 	         page = $(this).attr("href");         
 	         $(".inquiry_con").html("");
 	         inqAjax(page);
+	         $("#detail_product_inquire a").click();
 	      });
 		 
 	     // 후기 페이징 함수
@@ -989,7 +993,11 @@
 	    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
 	    	 }
 			 for(var i = page.beginPage; i <= page.endPage; i++) {
-				 str += "<div class='review-pagination'><a href='"+ i +"'>" + i + "</a></div>";
+				 if (page.pageNo == (i-1)) {
+					 str += "<div class='this-review-page'><a href='"+ i +"'>" + i + "</a></div>";
+				 } else {
+					 str += "<div class='review-pagination'><a href='"+ i +"'>" + i + "</a></div>";
+				 }
 			 }
 			 if(page.next) {
 				 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
@@ -1005,7 +1013,11 @@
 	    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
 	    	 }
 			 for(var i = page.beginPage; i <= page.endPage; i++) {
-				 str += "<div class='inq-pagination'><a href='"+ i +"'>" + i + "</a></div>";
+				 if (page.pageNo == (i-1)) {
+					 str += "<div class='this-inq-pagination'><a href='"+ i +"'>" + i + "</a></div>";
+				 } else {
+					 str += "<div class='inq-pagination'><a href='"+ i +"'>" + i + "</a></div>";
+				 }
 			 }
 			 if(page.next) {
 				 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
