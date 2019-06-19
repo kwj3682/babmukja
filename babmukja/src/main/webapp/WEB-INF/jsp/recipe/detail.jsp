@@ -302,8 +302,7 @@
      // 댓글 목록 불러오기
      function commentList(pageNo){
     	 pageNo = pageNo - 1;
-    	 let index = pageNo * 10;
-    	 console.log(index);
+    	 let index = pageNo * 5;
 	     $.ajax({    	 
 		 		url: "recipeCommentList.do"	,
 		 		data : {
@@ -313,7 +312,6 @@
 		 		}
 		 	})
 		 	.done(function (result) {
-		 		console.dir(result);
 		 		let loginMemNo = '${sessionScope.user.memNo}';
 		 		if(result.comment.length == 0) {	 			
 		 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
@@ -346,8 +344,6 @@
 		 	 		$("#comment-other").append(html);
 		 	 		printPaging(result.pageResult);
 		 	});
-	     
-    	 
      }
      
      $(document).on("click","#comment-page a",function(e){
@@ -357,6 +353,7 @@
          commentList(page);
       });
      
+
      // 페이징 함수
      function printPaging(page) {
     	 console.log(page);
@@ -365,18 +362,21 @@
     		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
     	 }
 		 for(var i = page.beginPage; i <= page.endPage; i++) {
-			 str += "<div class='pagination'><a href='"+ i +"'>" + i + "</a></div>";
+			 if(page.pageNo == (i-1)) {
+				 str += "<div class ='current-page'><a href='"+ i +"'>" + i + "</a></div>";
+			 } else {
+				 str += "<div class='pagination'><a href='"+ i +"'>" + i + "</a></div>";				 
+			 }
 		 }
 		 if(page.next) {
 			 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
 		 }
-		 $("#comment-page").html(str);
+		 $("#comment-page").html(str); 
 	}
-    	 
+     
      // 댓글 수정 버튼 이벤트
      $(document).on("click",".updateComment",function () {
     	 let no = $(this).parent().parent().find(".reviewNo").val();
-    	 console.log("수정 no : " + no);
     	 let html = "";
   		$.ajax({
  			url : "commentUpdateForm.do",
@@ -521,7 +521,6 @@
         });
 		
        function myTimeWait(){	   
-//     	   	console.log($("#post-body").width() + " " + $("#post-body").height());
     	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
        }
        let mOverValue = 0;
