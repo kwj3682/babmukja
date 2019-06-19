@@ -70,9 +70,21 @@
                 <div id="comment-header">댓글</div>                
                 <div id="comment-container"><!-- comment-container start -->
                     <div id="comment-mine"><!-- comment-mine start -->
-                        <img src="<c:url value='/resources/images/ma.jpg'/>">
+                    <c:choose>
+                    	<c:when test="${sessionScope.user != null }">
+	                        <img src="<c:url value='/resources/images/ma.jpg'/>">
+							<div id="comment-nick">
+								${sessionScope.user.memNickname }
+							</div>                    
+                    	</c:when>
+                    	<c:otherwise>
+                    		<img src="<c:url value='/resources/images/default/userdefault.png'/>">
+                    		<div id="comment-login">
+								로그인 후 이용해주세요.
+							</div>
+                    	</c:otherwise>
+                    </c:choose>        
                         <div id="comment-input-wrapper">
-	     					
 	     					<div class="check-stars">
 								<div class="check-backStar"></div>
 								<div class="check-frontStar-wrapper">

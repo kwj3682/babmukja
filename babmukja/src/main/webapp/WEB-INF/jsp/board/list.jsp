@@ -52,7 +52,7 @@
 	<div class="board_list_container">
 		<div class="board_list_wrapper">
 			<div class="board_list_title">
-				자유게시판 <i class="far fa-clipboard"></i>
+				모임 자유게시판
 			</div>
 
 			<div class="list_insert_button">
