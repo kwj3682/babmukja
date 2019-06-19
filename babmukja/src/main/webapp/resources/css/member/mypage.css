@@ -45,7 +45,7 @@ canvas { width: 100%; height: 100% }
     80%{background-color: rgba(0,0,0,0.3);}
     100%{background-color: rgba(0,0,0,0.2);}
 }
-.modal-content:nth-child(1){
+#recipe-content{
     background : url(/babmukja/resources/images/recipelistboard.jpg);
     background-size: cover;
     border-radius : 0;
@@ -170,4 +170,174 @@ body{
 }
 #change-pass-button:hover{
     background: #7db;
+}
+#follow-button{
+	padding : 3px 10px 3px 10px;
+	outline : none;
+	border : 1px solid lightgray;
+	border-radius : 3px;
+	background : white;
+		
+}
+.follow-needed{
+	background : #7db;
+}
+#scrapbook-container{
+    display: flex;
+    align-content: space-between;
+    justify-content: space-between;
+    height : 700px;
+    margin: 0 auto;
+    border : 1px solid red;
+}
+#scrapbook-add{
+    width: 400px;
+    height: 600px;
+    border: 5px dashed gainsboro;
+    transition: .3s;
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+}
+#scrapbook-add:hover{
+    border: 5px solid #7db;
+    background: #7db;
+    color: #7db;
+    opacity: 0.8;
+}
+#scrapbook-add-text1{
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    font-weight: lighter;
+}
+#scrapbook-add-text2{
+    font-size: 200px;
+    text-align: center;
+    color: white;
+    font-weight: lighter;
+}
+#scrapbook-add-text3{
+    font-size: 17px;
+    text-align: center;
+    color: white;
+    font-weight: lighter;
+}
+#scrapbook-wrapper{
+    height: 620px;
+    width: 400px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 15px;
+
+    margin-left: 30px;
+}
+.scrapbooks{
+    width: 400px;
+    height: 600px;
+    margin-right: 20px;
+    box-shadow: 5px 5px 15px 3px darkgray;
+    display: inline-block;
+}
+#scrapbook-wrapper::-webkit-scrollbar {
+    background-color: #fff;
+    height: 10px;
+}
+  
+#scrapbook-wrapper::-webkit-scrollbar-track {
+    background-color: white;
+}
+#scrapbook-wrapper::-webkit-scrollbar-thumb {
+    background-color: lightgrey;
+    border-radius: 20px;
+    border: 2px solid #fff;
+}
+  
+#scrapbook-wrapper::-webkit-scrollbar-button {display:none}
+
+#scrapbook-content{
+	background : rgba(0,0,0,0);
+}
+   
+#scrapbook-creator{
+
+    background: white;
+}
+#scrapbook-creator-header{
+    display: block;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: lighter;
+}
+input[name='scrapbook-title']{
+    display:block;
+    margin: 0 auto;
+    padding : 0 10px 0 10px;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid gainsboro;
+    transition: .3s;
+}
+input[name='scrapbook-title']:focus{
+    border: 1px solid #7db;
+    box-shadow: 0 0 10px 3px #8db;
+}
+#scrapbook-creator-wrapper p{
+    text-align: center;
+    font-weight: lighter;
+}
+#scrapbook-coverselector{
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border: 5px dashed gainsboro;
+    transition: .3s;
+}
+
+#scrapbook-coverselector-text{
+}
+#scrapbook-coverselector:hover{
+    background: #7db;
+    opacity: 0.8;
+    border: 5px solid #7db;
+    color:white;
+}
+
+#book-button{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 20px;
+}
+#book-create{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    margin-top:10px;
+    transition: .3s;
+}
+#book-cancel{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    margin-top:10px;
+    margin-left: 10px;
+    transition: .3s;
+}
+#book-create:hover{
+    background: #7db341;
+    color:white;
+}
+#book-cancel:hover{
+    background: #7db341;
+    color:white;
+}
+#cover-picture{
+	width: 100%;
 }

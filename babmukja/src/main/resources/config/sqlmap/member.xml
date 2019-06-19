@@ -137,8 +137,8 @@
 	<select id="searchMemberByNickForMypage" parameterType="String" resultMap="memberMap">
 		SELECT *,
 		    (select count(*) from tb_recipe r where r.mem_no = m.mem_no and m.mem_nickname = #{nick}) `recipe_cnt`,
-		    (select count(*) from tb_recipe_follow f where f.follow_mem_no = m.mem_no and m.mem_nickname = #{nick}) `follow`,
-		    (select count(*) `follower` from tb_recipe_follow f where f.follower_mem_no = m.mem_no and m.mem_nickname = #{nick}) `follower`
+		    (select count(*) from tb_recipe_follow f where f.follow_mem_no = m.mem_no and m.mem_nickname = #{nick} and f.follow_status = 'Y') `follower`,
+		    (select count(*) from tb_recipe_follow f where f.follower_mem_no = m.mem_no and m.mem_nickname = #{nick} and f.follow_status = 'Y') `follow`
 		  FROM tb_member m
 		 where mem_nickname = #{nick}
 	</select>
@@ -150,4 +150,10 @@
 		      img_path = #{imgPath}
 		where mem_nickname = #{memNickname}
 	</update>
+	<select id="selectFollowStatus" parameterType="recipefollow" resultType="String">
+		select follow_status
+		  from tb_recipe_follow
+		 where follow_mem_no = #{followMemNo}
+           and follower_mem_no = #{followerMemNo}
+	</select>
 </mapper>

@@ -3,6 +3,7 @@ package kr.co.babmukja.member.service;
 import java.util.List;
 
 import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 
 public interface MemberService {
 	Member selectLogin (Member member); // 로그인
@@ -37,4 +38,5 @@ public interface MemberService {
 	List<Member> searchMemberByNick(String nick);
 	Member searchMemberByNickForMypage(String nick);
 	void updateMemberProfile(Member member);
+	public String selectFollowStatus(RecipeFollow follow);
 }
