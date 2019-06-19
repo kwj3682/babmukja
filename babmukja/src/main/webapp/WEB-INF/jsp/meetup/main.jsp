@@ -404,6 +404,7 @@
                             
                             <div class="modal_meetup_tag_box">
                                 <input type="text" name="tag" class="meetup_tag" value="#"/>
+                                <input type="hidden" name="hiddenTag" class="meetup_hiddenTag" value=""/>
                             </div>
                          
                         </div>
@@ -414,10 +415,7 @@
                             <div id="modal_meetup_tagSelected"></div>
                             <div></div>
                             <div class="modal_meetup_tagSelected_box">
-                            	<span class="selected_tag_container">
-                            		<span class="tag_letter">1234</span>
-                            		<span><i class="fas fa-times-circle"></i></span>
-                           		 </span>
+                            	
                            </div>
                       
                       </div>

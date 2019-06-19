@@ -87,7 +87,12 @@
 				<div class="tagBottom">1</div>
 
 			</div>
-			<div class="tag">#짜파게티&nbsp; #치즈 짜파게티 &nbsp;#불닭 짜파게티</div>
+			<div class="tag">
+			<c:forEach var ="meetupTag" items="${meetupTags}">
+			
+			${meetupTag} &nbsp;&nbsp;
+			</c:forEach>
+			</div>
 			
 		</div>
 		<div class="headerRight">
@@ -106,7 +111,6 @@
 				<td>자유게시판</td>
 				<td>사진첩</td>
 				<td>회원</td>
-			</tr>
 		</table>
 
 		<div class="tabPanel" id="tabPanel1">
@@ -128,6 +132,22 @@
 		<div class="requestPermissionContainer">
 		<br>
 			가입 승인요청을 기다리는 중입니다.		
+		</div>
+		</c:when>
+		<c:when test = "${status == 3}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		 	당신은 방장에 의해 강퇴되어 더이상  활동하실 수 없습니다.
+		<span class="requestPermission">재가입 신청</span>
+		 			
+		</div>
+		</c:when>
+		<c:when test = "${status == 4}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		 	승인이 거절되어 모임에서 활동하실 수 없습니다.
+		<span class="requestPermission">재가입 신청</span>
+		 			
 		</div>
 		</c:when>
 		</c:choose>

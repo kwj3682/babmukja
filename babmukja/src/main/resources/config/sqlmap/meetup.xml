@@ -16,6 +16,7 @@
 		<result column="host_name" property="hostName" />
 		<result column="host_no" property="hostNo" />
 		<result column="manage_no" property="manageNo" />
+		<result column="tag" property="tag" />
 	</resultMap>	
     
     <select id="selectIntro" parameterType="int" resultType="String">
@@ -27,8 +28,8 @@
     	<selectKey keyProperty="meetNo" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no)
-    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostName},#{hostNo})
+    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no,tag)
+    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostName},#{hostNo},#{tag})
     </insert>
     
     <insert id="insertMeetupLocation" parameterType="meetupLocation">
@@ -162,10 +163,32 @@
 	select * from tb_meetup_member
 	where meet_no = #{meetNo} and mem_no = #{memNo}
 	</select>
+	
+	<select id="selectFollowMeetup" parameterType="int" resultMap="meetupMap">
+		select meet.* from tb_meetup meet
+		inner join tb_meetup_member member
+		on mem_no
+		where member.status = 2 and member.meet_no = meet.meet_no and  member.mem_no =#{memNo};
+	</select>
 
+	
 
     <update id= "updateApprovalStatus" parameterType="int" >
     UPDATE tb_meetup_member SET status = 2 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+    
+    <update id= "updateBanStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 3 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+    
+    <update id= "updateWidthdrawlStatus" parameterType="int" >
+      UPDATE tb_meetup_member SET status = 0 WHERE meet_no = #{meetNo} and status =2;
+
+    </update>
+    
+    <!-- 관리자 거절 처리 -->
+    <update id= "updateRejectStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 4 WHERE meet_mem_no = #{meetMemNo}     
     </update>
  
 	<update id= "updateViewCnt" parameterType="int" >

@@ -25,12 +25,19 @@ public List<Meetup> selectRecommendEastAsia();
 public List<Meetup>	selectMeetup(PageAfterSearch page);
 public Meetup selectBoard(int no);
 public void insertMeetupMember(MeetupMember meetupMember);
-public List<MeetupMember> selectManageMemberBoard(int no);  
+public List<MeetupMember> selectManageMemberBoard(int no);
+//내가 참여하는 모임 선택
+public List<Meetup> selectFollowMeetup(int memNo);
 //public List<MeetupLocation> selectLocation()
 public List<Meetup>createdBoardByMe(int no);
 public void updateApprovalStatus(int no);
 public List<MeetupMember> selectMeetupMemberList(int no);
 public MeetupMember selectMeetupMemberStatus (MeetupMember meetupMember);
 public void updateViewCnt(int meetNo);
+public void updateBanStatus(int no);
+// 관리자 거절 처리
+public void updateRejectStatus(int no);
 
+//회원 탈퇴
+public void updateWidthdrawlStatus(int meetNo);
 }
