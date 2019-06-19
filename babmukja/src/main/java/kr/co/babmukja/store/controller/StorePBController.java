@@ -420,4 +420,9 @@ public class StorePBController {
 		}
 		return list;
 	}
+	
+	@RequestMapping("/buyList.do")
+	public void buyList() {
+		
+	}
 }

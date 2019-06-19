@@ -518,6 +518,7 @@
 
 .pb_product_content textarea {
     width: 500px;
+    margin-top: 30px;
 }
 
 #preview_img_div {
@@ -1125,7 +1126,12 @@
 }
 
 .pb_inq_info {
-   display: flex;
+   	display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 600px; */
+    justify-content: center;
+    text-align: center;
 }
 
 /* .pagination { */
@@ -1280,4 +1286,14 @@
 #pb_inq_move {
     height: 30px;
     width: 10px;
+}
+
+.pb_answer_item {
+    margin-left: 65px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+    justify-content: center;
 }

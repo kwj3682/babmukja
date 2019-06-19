@@ -206,9 +206,10 @@
 	</select>
 	
 	<select id="selectReviewAjax" parameterType="PagePbReview" resultMap="pbReviewSelectMap">
-		select *
-		  from tb_pb_review
-		 where pb_no = #{pbNo}
+		select r.*, m.*
+		  from tb_pb_review r, tb_member m
+		 where r.mem_no = m.mem_no 
+		   and pb_no = #{pbNo}
 		 order by pb_review_no desc
 		 limit #{index}, 3
 	</select>

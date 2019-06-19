@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,7 +121,7 @@
 	</div>
 	<!-- scrapbook -->
 	<div class="modal fade" id="modal-scrapbook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-		<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
+		<div class="modal-dialog" role="document" style="margin: 0;">
 			<div class="modal-content" id="scrapbook-content" style="width:1200px; height: 800px;margin:0 auto;">
 					
 				<div class="modal-body">
@@ -135,14 +136,7 @@
 			        </div>
 			
 			        <div id="scrapbook-wrapper">
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
+
 			        </div>
 			
 			    </div>
@@ -191,7 +185,7 @@
 	<script src="<c:url value="/resources/js/three/GeometryUtils.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/mypage.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/scrapbook.js"/>"></script>
-
+    <script src="<c:url value="/resources/js/turn.min.js"/>"></script>
     
 </body>
 </html>

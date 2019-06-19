@@ -298,9 +298,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="pb_insertform_container">
-						<div class="pb_product_item">
+						<div class="pb_answer_item">
 							<div class="pb_inq_info">
-								<p class="pb_inq_content_text">문의 내용 : </p>
+								<p class="pb_inq_content_text">문의 내용</p>
 								<p class="pb_inq_content_val"></p>
 							</div>
 						</div>
@@ -657,7 +657,7 @@
 		
 		// 문의 답변 modal 오픈
 		let inqNoData = new FormData();
-		$(".pb_inq_admin_answer_btn").click(function () {
+		$(document).on("click", ".pb_inq_admin_answer_btn", function () {
 			$("#inquireAnswerModal").modal("show");
 			let inquiryNo = $(this).siblings("input[name='inquiryNo']").val();
 			console.log(inquiryNo);
@@ -694,7 +694,7 @@
 		
 		// 문의 수정 모달 오픈
 		let inqData = new FormData();
-		$(".inq_update_btn").click(function () {
+		$(document).on("click", ".inq_update_btn", function () {
 			$("#inquireupdatemodal").modal("show");
 			let inquiryNo = $(this).siblings("input[name='inquiryNo']").val();
 			inqData.append("inquiryNo", inquiryNo);
@@ -710,7 +710,7 @@
 		});
 		
 		// 문의 수정
-		$("#inquireUpdatemodalbtn").click(function () {
+		$(document).on("click", "#inquireUpdatemodalbtn", function () {
 			let inqNo = inqData.get("inquiryNo");
 			console.log(inqNo);
 			console.log($(".inquire__update__content").val());
@@ -907,7 +907,13 @@
 							html+='<div class="pb_review_body" id="'+result.list[i].pbReviewNo+'">'
 							html+='		<div class="pb_review_profile">';
 							html+='			<div class="pb_review_profile_img">';
-							html+='				<img src="/babmukja/resources/images/profile19.jpg">';
+							if ('${sessionScope.user}' != null) {
+								if ('${sessionScope.user.memImgPath}' == null) {
+									html+='<img id="default_profile_imges" src="<c:url value="/resources/images/default/userdefault.png"/>">';
+								} else {
+									html+='<img id="user_profile_imges" src="/babmukja/member/download.do?path='+result.list[i].member.memImgPath+'&sysname='+result.list[i].member.memImgSysname+'">';
+								}
+							}
 							html+='			</div>';
 							
 							html+='		<div class="pb_review_user_info">';
@@ -1082,7 +1088,6 @@
                            	if ('${sessionScope.user.memNo}' == 578) {
                            		if (result.list[i].answerStatus == 'N') {
                            			html +='<button class="pb_inq_admin_answer_btn">답변하기</button>';
-                           			html +='<p class="pb_inq_icon">ㅣ</p>';
                            		}
                            	}
                             if ('${sessionScope.user.memNo}' == result.list[i].member.memNo) {

@@ -68,7 +68,9 @@ $(document).on("click","#book-create",function(){
 		processData: false,
 		contentType: false,
 		data: fData
-	}).done(function(){
+	}).done(function(result){
+		location.href = "/babmukja/member/mypage.do?memNickname="+encodeURI(result , "UTF-8");;
 	});
 	
 });
+

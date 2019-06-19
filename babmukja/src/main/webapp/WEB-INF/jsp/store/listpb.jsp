@@ -15,7 +15,9 @@
 </head>
 <body>
  <div class="pb_list_container">
-        <p class="pb_list_title">PRODUCTS</p><br><br><br>
+ 		<div class="pb_list_title_con">
+	        <p class="pb_list_title">PRODUCTS</p><br><br><br>
+ 		</div>
 
 
         <div class="pb_list_search">
@@ -25,7 +27,7 @@
                     <button class="searchNameBTN"><i class="fas fa-search" id="searchicon"></i></button>
                 </div>
                 	
-            <select id="selectbox">
+            <select id="selectbox" class="pb_list_selectbox">
             	<c:if test="${sortType eq 0}">
 	                <option value="0" id="dateDESC" selected>최신순</option>
 	                <option value="1" id="popularDESC">인기순</option>

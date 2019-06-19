@@ -73,15 +73,24 @@
     justify-content: center;
 }
 
+.pb_list_title_con {
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 300px;
+}
+
 .pb_list_title {
     font-size: 35px;
     font-weight: bold;
     text-align: center;
     margin-top: 130px;
+    width: 200px;
     cursor: pointer;
+    height: 50px;
 }
 
-select {
+.pb_list_selectbox {
     -webkit-appearance: none; 
     -moz-appearance: none; 
     appearance: none;
@@ -91,6 +100,14 @@ select {
     font-weight: bold;
     color: black;
    	CURSOR: pointer;
+}
+
+.pb_list_selectbox label {
+	color : white;
+}
+
+.pb_list_selectbox select {
+	color : white;
 }
 
 .pb_list_search {

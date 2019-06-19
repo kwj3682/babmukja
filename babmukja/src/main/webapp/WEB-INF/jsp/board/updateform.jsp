@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="board_update_content">
-				<input type="text" id="content" name="content" placeholder="내용을 입력해주세요.">
+				<input type="text" id="content" name="content" value="${board.content}" placeholder="내용을 입력해주세요.">
 			</div>
 
 			<div class="board_update_file">

@@ -43,5 +43,5 @@ public interface MemberMapper {
 	public String selectFollowStatus(RecipeFollow follow);
 	
 	public void insertScrapbook(Scrapbook book);
-
+	public List<Scrapbook> selectScrapbookListByNo(int memNo);
 }

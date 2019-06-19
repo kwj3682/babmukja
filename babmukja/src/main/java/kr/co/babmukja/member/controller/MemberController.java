@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -305,11 +306,12 @@ public class MemberController {
 		return service.selectConfirmCertification(member);
 	}
 
-	// 비밀번호 재설정
+	// 비밀번호 재설정 (이메일)
 	@RequestMapping("/resetpass.do")
 	public void resetPass(Member member, Model model) {
 		model.addAttribute("email", member.getMemEmail());
 	}
+	
 
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
@@ -397,9 +399,13 @@ public class MemberController {
 	@RequestMapping("/mypage.do")
 	public ModelAndView myPage(Member member,ModelAndView model,HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
+		
 		if (user != null) {
+			System.out.println(member.getMemNickname()  + "왜 안됨 ㅎㅎㅎㅎㅎ");
 			Member searchUser = service.searchMemberByNickForMypage( member.getMemNickname() );
+			
 			RecipeFollow follow = new RecipeFollow();
+			System.out.println(searchUser.getMemNo());
 			follow.setFollowMemNo(searchUser.getMemNo());
 			follow.setFollowerMemNo(user.getMemNo());
 			
@@ -421,6 +427,7 @@ public class MemberController {
 	
 	
 	@RequestMapping("/upload.do")
+	@ResponseBody
 	public String profileUpload(MemberFileVO fileVO,HttpSession session) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
@@ -463,8 +470,9 @@ public class MemberController {
 		
 		session.setAttribute("user", service.searchMemberByNickForMypage(fileVO.getMemNickname()));
 		
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
-
+		return fileVO.getMemNickname();
+//		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+URLEncoder.encode(fileVO.getMemNickname(), "UTF-8");
+		
 	}
 	@RequestMapping("/download.do")
 	public void profileDownload(MemberFileVO fileVO, HttpServletResponse response) throws Exception {
@@ -498,6 +506,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("insertscrapbook.do")
+	@ResponseBody
 	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
@@ -521,14 +530,18 @@ public class MemberController {
 		
 		Scrapbook book = new Scrapbook();
 		book.setMemNo(fileVO.getMemNo());
-		book.setImgPath(path + "/" + uName);
+		book.setImgPath("/babmukja/recipe/download.do?path=" + path + "&sysname=" + uName);
 		book.setTitle(fileVO.getTitle());
 		
 		service.insertScrapbook(book);
 		System.out.println(fileVO.getMemNickname());
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
+		return fileVO.getMemNickname();
 	}
 	
 	
-	
+	@RequestMapping("scrapbookAjax.do")
+	@ResponseBody
+	public List<Scrapbook> selectScrapbookList (int memNo){
+		return service.selectScrapbookListByNo(memNo);
+	}
 }

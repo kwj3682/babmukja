@@ -153,16 +153,15 @@
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kako app_key');
+		Kakao.init('kakao app_key');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
             success: function(authObj) {
-            	alert("됨?");
             	 Kakao.API.request({
     		      	 url: '/v1/user/me',
      			     success: function(res) { 
-    					 let meminfo = {id:res.id,nickName:res.properties['nickname'],
+    					 let meminfo = {id:res.id, email:res.email, nickName:res.properties['nickname'],
     					 accessToken:authObj.access_token,refreshToken:authObj.refresh_token}
     					 $.ajax({
     						type:"POST",
@@ -170,12 +169,12 @@
     						url:"checksocialemail.do",
     					 }).done(function(result){
     						if(result == 0){
-    							 $("#socialsigupform #memEmail").val(res.id);
+    							 $("#socialsigupform #memEmail").val(res.email);
     		    			     $("#socialsigupform #memName").val(res.properties['nickname']);
     		    			     $("#socialsigupform #socialAt").val("1");
     							 $("#socialsigupform").submit();
     						}else{
-    							$("#sociallogin #memEmail").val(res.id);
+    							$("#sociallogin #memEmail").val(res.email);
     	    					$("#sociallogin #memNickname").val(res.properties['nickname']);
     	    					$("#sociallogin #accessToken").val(authObj.access_token);
     							$("#sociallogin").submit();
@@ -186,9 +185,6 @@
     					})
               	 	}
              	})
-            },
-            fail: function(err) {
-            	alert("386ffcb6d820846f81e354df11f5c8cc :" + JSON.stringify(err));
             }
           });
         };
