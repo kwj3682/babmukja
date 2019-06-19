@@ -136,14 +136,7 @@
 			        </div>
 			
 			        <div id="scrapbook-wrapper">
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
+
 			        </div>
 			
 			    </div>
@@ -192,7 +185,7 @@
 	<script src="<c:url value="/resources/js/three/GeometryUtils.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/mypage.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/scrapbook.js"/>"></script>
-
+    <script src="<c:url value="/resources/js/turn.min.js"/>"></script>
     
 </body>
 </html>

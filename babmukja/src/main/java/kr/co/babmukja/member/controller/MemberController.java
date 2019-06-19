@@ -529,7 +529,7 @@ public class MemberController {
 		
 		Scrapbook book = new Scrapbook();
 		book.setMemNo(fileVO.getMemNo());
-		book.setImgPath(path + "/" + uName);
+		book.setImgPath("/babmukja/recipe/download.do?path=" + path + "&sysname=" + uName);
 		book.setTitle(fileVO.getTitle());
 		
 		service.insertScrapbook(book);
@@ -538,5 +538,9 @@ public class MemberController {
 	}
 	
 	
-	
+	@RequestMapping("scrapbookAjax.do")
+	@ResponseBody
+	public List<Scrapbook> selectScrapbookList (int memNo){
+		return service.selectScrapbookListByNo(memNo);
+	}
 }

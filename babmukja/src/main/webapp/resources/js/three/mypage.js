@@ -465,6 +465,23 @@ function update() {
 			selectBoxFlag = false;
 		}).on("click",function(){
 			$("#modal-scrapbook").modal("show");
+			$.ajax({
+				url : "scrapbookAjax.do",
+				data : {memNo : userNo}
+			}).done(function(list){
+				let html = "";
+				for(let book of list){
+					html +='<div class="scrapbook-content">';
+					html +=		'<div class="scrapbooks-title-conatiner">';
+					html +=			'<p>'+book.title+'</p>';
+					html +=		'</div>';
+					html +=			'<div class="scrapbooks" style="background:url('+ book.imgPath +')">';
+					html +=		'</div>';
+					html +='</div>';
+					
+				}
+				$("#scrapbook-wrapper").append(html);
+			});
 		});
 		selectBox.position.x = -21;
 		selectBox.position.y = -15;

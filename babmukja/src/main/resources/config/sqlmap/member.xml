@@ -159,4 +159,7 @@
 	<insert id="insertScrapbook" parameterType="Scrapbook">
 		insert into tb_scrap (mem_no, imgpath, title) values(#{memNo},#{imgPath},#{title});
 	</insert>
+	<select id="selectScrapbookListByNo" parameterType="int" resultType="Scrapbook">
+		select * from tb_scrap where mem_no = #{memNo}
+	</select>
 </mapper>
