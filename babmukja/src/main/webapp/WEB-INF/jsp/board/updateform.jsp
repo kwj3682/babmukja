@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="board_update_content">
-				<textarea id="content" name="content" placeholder="내용을 입력해주세요.">${board.content}</textarea>
+				<input type="text" id="content" name="content" placeholder="내용을 입력해주세요.">
 			</div>
 
 			<div class="board_update_file">
