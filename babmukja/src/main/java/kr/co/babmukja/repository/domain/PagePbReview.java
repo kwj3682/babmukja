@@ -24,7 +24,7 @@ public class PagePbReview {
 		this.pageNo = pageNo;
 	}
 	public int getBegin() {
-		return (this.pageNo -1) * 3;
+		return (this.pageNo) * 3;
 	}
 	public int getEnd() {
 		return 3;
