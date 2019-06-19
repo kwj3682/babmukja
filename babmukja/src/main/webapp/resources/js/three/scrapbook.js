@@ -50,7 +50,7 @@ $(document).on("change","input[name='bookcover']",function(e){
 });
 $(document).on("click","#book-create",function(){
 	title = $("input[name='scrapbook-title']").val();
-	
+
 	if(title == "") {
 		alert("제목을 입력해주세요.");
 		return;
@@ -61,6 +61,7 @@ $(document).on("click","#book-create",function(){
 	}
 	fData.append("attach",readFile);
 	fData.append("booktitle",title);
+	fData.append("memNickname",userNickname);
 	$.ajax({
 		url: 'insertscrapbook.do',
 		type: "post",
@@ -68,7 +69,6 @@ $(document).on("click","#book-create",function(){
 		contentType: false,
 		data: fData
 	}).done(function(){
-		location.href="/babmukja/member/mypage.do?memNickname="+userNickname;
 	});
 	
 });

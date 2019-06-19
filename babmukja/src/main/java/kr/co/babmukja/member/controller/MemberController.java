@@ -421,7 +421,7 @@ public class MemberController {
 	
 	
 	@RequestMapping("/upload.do")
-	public String profileUpload(MemberFileVO fileVO) throws Exception {
+	public String profileUpload(MemberFileVO fileVO,HttpSession session) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/member" + sdf.format(new Date());
@@ -460,6 +460,9 @@ public class MemberController {
 		fileVO.setSysname(uName);
 		System.out.println("file upload succeed.");
 		System.out.println(fileVO.getMemNickname());
+		
+		session.setAttribute("user", service.searchMemberByNickForMypage(fileVO.getMemNickname()));
+		
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
 
 	}
@@ -522,7 +525,7 @@ public class MemberController {
 		book.setTitle(fileVO.getTitle());
 		
 		service.insertScrapbook(book);
-		
+		System.out.println(fileVO.getMemNickname());
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
 	}
 	
