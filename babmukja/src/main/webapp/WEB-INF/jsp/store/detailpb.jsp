@@ -1079,7 +1079,7 @@
                          	html += '</div>';
 							html +='			<div class="pb_inq_flex">';		
                             html +='			<input type="hidden" name="inquiryNo" value="'+result.list[i].inquiryNo+'">';
-                           	if ('${sessionScope.user.memNo}' == 1) {
+                           	if ('${sessionScope.user.memNo}' == 578) {
                            		if (result.list[i].answerStatus == 'N') {
                            			html +='<button class="pb_inq_admin_answer_btn">답변하기</button>';
                            			html +='<p class="pb_inq_icon">ㅣ</p>';
