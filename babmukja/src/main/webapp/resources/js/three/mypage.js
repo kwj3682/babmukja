@@ -936,7 +936,9 @@ $("#scrapbook-add").click(function(){
 	$("#modal-scrapbook").modal("hide");
 	$("#modal-scrapbook-creator").modal("show");
 });
-$("#scrapbook-coverselector-text").click(function(){
+
+$(document).on("click","#scrapbook-coverselector",function(){
+	alert("!d");
 	$("input[name='bookcover']").click();
 });
 
@@ -946,6 +948,7 @@ $("input[name='bookcover']").change(function(e){
     reader.readAsDataURL(e.target.files[0]);
     fData.append("attach",e.target.files[0]);
     fData.append("memNo",userNo);
+    
     	 reader.onload = function () {
          var tempImage = new Image();
          tempImage.src = reader.result;
@@ -959,20 +962,22 @@ $("input[name='bookcover']").change(function(e){
              canvasContext.drawImage(this, 0, 0, 200, 200);
                  
              var dataURI = canvas.toDataURL("image/jpeg");
-             var imgTag = "<img id='profile-picture' class='preview_img' src='"+dataURI+"'/>";
-			 $("#scrapbook-coverselector-text").css({border: "0px"}).html(imgTag);
+             var imgTag = "<img id='cover-picture' class='preview_img' src='"+dataURI+"'/>";
+			 $("#scrapbook-coverselector").html(imgTag);
          };
      };
-     
-	 $.ajax({
-		 url: 'upload.do',
-         type: "post",
-      	 processData: false,
-         contentType: false,
-         data: fileData
-	 }).done(function(){
-		 
-	 });
-
+     $("#book-cancel").click(function(){
+    	 
+     });
+//	 $.ajax({
+//		 url: 'upload.do',
+//         type: "post",
+//      	 processData: false,
+//         contentType: false,
+//         data: fileData
+//	 }).done(function(){
+//		 
+//	 });
+//
 
 });

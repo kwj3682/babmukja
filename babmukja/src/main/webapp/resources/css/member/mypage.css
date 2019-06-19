@@ -260,8 +260,7 @@ body{
 }
    
 #scrapbook-creator{
-    width: 500px;
-    height: 600px;
+
     background: white;
 }
 #scrapbook-creator-header{
@@ -338,4 +337,7 @@ input[name='scrapbook-title']:focus{
 #book-cancel:hover{
     background: #7db341;
     color:white;
+}
+#cover-picture{
+	width: 100%;
 }

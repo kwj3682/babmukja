@@ -432,7 +432,7 @@ public class MemberController {
 		
 		Member member = new Member();
 		member.setImgOrgname(mFile.getOriginalFilename());
-		member.setImgPath(uploadRoot + path);
+		member.setImgPath(path);
 		member.setImgSysname(uName);
 		member.setMemNickname(fileVO.getMemNickname());
 		
@@ -449,8 +449,9 @@ public class MemberController {
 	@RequestMapping("/download.do")
 	public void profileDownload(MemberFileVO fileVO, HttpServletResponse response) throws Exception {
 		System.out.println("profileDownload.do 실행");
-		
-		File f = new File( fileVO.getPath() 
+		String uploadRoot = "c:/bit2019/upload";
+		File f = new File( uploadRoot
+							+ fileVO.getPath() 
 							+ "/" 
 							+ "_thumb_" 
 							+ fileVO.getSysname());

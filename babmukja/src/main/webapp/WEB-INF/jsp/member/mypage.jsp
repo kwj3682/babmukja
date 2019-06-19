@@ -154,7 +154,7 @@
 	
 	<div class="modal fade" id="modal-scrapbook-creator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
-			<div class="modal-content" style="width:500px; height: 500px;margin:0 auto;">
+			<div class="modal-content" style="width:500px; height: 600px;margin:0 auto;">
 					
 				
 				    <div id="scrapbook-creator">
