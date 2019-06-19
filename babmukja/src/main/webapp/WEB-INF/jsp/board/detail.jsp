@@ -33,15 +33,18 @@
 					</div>
 					<div class="board_detail_button">
 						<span class="board_update_button"> <i class="far fa-edit"></i>
-						<a href="<c:url value='/board/updateform.do?boardNo=${board.boardNo}'/>">수정</a></span>&nbsp;
-						<span class="board_delete_button"> <i class="far fa-trash-alt"></i>
-						<a href="<c:url value='/board/delete.do?boardNo=${board.boardNo}'/>">삭제</a></span>
+							<a
+							href="<c:url value='/board/updateform.do?boardNo=${board.boardNo}'/>">수정</a></span>&nbsp;
+						<span class="board_delete_button"> <i
+							class="far fa-trash-alt"></i> <a
+							href="<c:url value='/board/delete.do?boardNo=${board.boardNo}'/>">삭제</a></span>
 					</div>
 				</div>
 
 				<div class="board_img_content">
 					<div class="board_detail_img">
-						<img src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
+						<img
+							src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
 					</div>
 					<div class="board_detail_content">${board.content}</div>
 				</div>
@@ -52,14 +55,14 @@
 			<!--댓글 부분-->
 			<div class="board_detail_comment">
 				<div class="board_comment_title">
-					<p class="comment_msg">답글</p>
+					<p class="comment_msg">댓글</p>
 				</div>
 
 				<!-- 댓글 입력부분 -->
 				<div class="board_comment_input">
 					<i class="fas fa-comments"></i> 
 					<input type="text" class="board_detail_content" name="board_detail_content" id="content" placeholder="댓글을 입력해주세요." />
-					<button class="detail_comment_button">
+					<button class="detail_comment_button" type="">
 						<i class="fas fa-pencil-alt"></i>
 					</button>
 				</div>
@@ -87,7 +90,7 @@
 		// 댓글 목록
 		function boardReviewList(pageNo) {
 			pageNo = pageNo - 1;
-			let index = pageNo * 10;
+			let index = pageNo * 5;
 			$.ajax({
 				url : "boardreviewList.do",
 				data : { 
@@ -97,11 +100,13 @@
 				}
 			})
 			.done(function(result) {
-				console.log(result);
+				if(result.comment.length == 0) {
+					$(".board_comment_content").html("<span class='board_detail_span'>댓글을 작성해주세요.</span>")
+				}
 				let html = "";
 				for (let i = 0; i < result.comment.length; i++) {
 					let date = new Date(result.comment[i].regdate);
-					html += '<div class="board_comment__wrapper" id=' + result.comment[i].boardReviewNo + '>' 
+					html += '<div class="board_comment_wrapper" id=' + result.comment[i].boardReviewNo + '>' 
 					     + '<div class="board_detail_profile">'
 					     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
 					     + '<div class="detail_name_content">' 
@@ -128,20 +133,25 @@
      	});
 		
 		// 페이징 함수
-	     function printPaging(page) {
-	    	 console.log(page);
-	    	 var str = "";
-	    	 if(page.prev) {
-	    		 str += "<div class='board_comment_page_prev'><a href='"+ page.beginPage - 1 +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
-	    	 }
-			 for(var i = page.beginPage; i <= page.endPage; i++) {
-				 str += "<div class='board_detail_pagination'><a href='"+ i +"'>" + i + "</a></div>";
+		function printPaging(page) {
+    	 console.log(page);
+    	 let str = "";
+    	 if(page.prev) {
+    		 str += "<div class='board_comment_prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
+    	 }
+		 for(var i = page.beginPage; i <= page.endPage; i++) {
+			 if(page.pageNo == (i-1)) {
+				 str += "<div class ='board_current_page'><a href='"+ i +"'>" + i + "</a></div>";
+			 } else {
+				 str += "<div class='board_comment_pagination'><a href='"+ i +"'>" + i + "</a></div>";				 
 			 }
-			 if(page.next) {
-				 str += "<div class=''board_comment_next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
-			 }
-			 $(".board_detail_comment_page").html(str);
-		}
+		 }
+		 if(page.next) {
+			 str += "<div class='board_comment_next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
+		 }
+		 $(".board_detail_comment_page").html(str); 
+	}
+
 		
 		// timestamp 날짜형식 바꾸는 함수
      	function dateFormat(date){
@@ -176,7 +186,10 @@
 				     html += '</div></div></div></div>';
 				     
 				     $(".board_detail_content").val("");
+				     $(".board_detail_span").html("");
 				     $(".board_comment_content").prepend(html);
+				     $(".board_comment_content").html("");
+				     boardReviewList(1);
 			    }
 			})
 		});
@@ -191,6 +204,9 @@
 				data: "boardReviewNo=" + delNo
 			}).done(function(result) {
 				$detailNameContent.parent().parent().html("");
+				$("#"+ delNo).html("");
+		    	$(".board_comment_content").html("");
+				boardReviewList(1);
 			})
 		});
 		
@@ -243,6 +259,16 @@
 		$(document).ready(function(){
 			boardReviewList(1);
 		})
+		
+		// 댓글 유효성 검사
+		$(".detail_comment_button i").click(function() {
+			let content = $("#content").val();
+			if(content.length == 0) {
+				alert("댓글을 입력해주세요.");
+				$("#content").focus;
+				return false;
+			}
+		});
 	</script>
 </body>
 </html>

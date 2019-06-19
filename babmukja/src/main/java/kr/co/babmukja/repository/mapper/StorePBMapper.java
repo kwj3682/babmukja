@@ -61,10 +61,11 @@ public interface StorePBMapper {
 	
 	// PB 상품 문의
 	public void insertInquiry(StorePBInquire storePBInquire);
-	public List<StorePBInquire> selectPBInquire(int pbNo);
+	public List<StorePBInquire> selectPBInquire(PagePbReview page);
 	public StorePBInquire selectInquiryByNo(int inquiryNo);
 	public void updateInquiry(StorePBInquire storePBInquire);
 	public void deleteInquiry(int inquiryNo);
+	public int selectInquireCount(PagePbReview page);
 	
 	// PB 상품 문의 답변
 	public void updateInquiryAnswer(StorePBInquire storePBInquire);

@@ -4,12 +4,14 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,6 +37,8 @@ import kr.co.babmukja.repository.domain.MailHandler;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.MemberFileVO;
 import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.ScrapbookFileVO;
 import net.coobird.thumbnailator.Thumbnails;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -63,25 +67,38 @@ public class MemberController {
 
 	// 로그인 처리
 	@RequestMapping("/login.do")
-	public String login(Member member, HttpSession session) {
-
+	@ResponseBody
+	public Map login(Member member, HttpSession session) {
+		HashMap<String,Integer> map = new HashMap<>();
 		String pass = passEncoder.encode(member.getMemPass());
 		Member mem = service.selectLogin(member);
-
+		if(mem == null) {
+			System.out.println("아예 잘못된 아이디");
+			map.put("code",1);
+			return map;
+		}
 		boolean passMatch = passEncoder.matches(member.getMemPass(), mem.getMemPass());
 
 		if (mem != null && passMatch) {
-			if (mem.getVerify() == 0) {
+			System.out.println(mem.getVerify());
+			if (mem.getVerify() == '0') {
 				System.out.println("회원 이메일 인증안함");
-				return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?email=0";
+				map.put("code", 2);
+				return map;
+//				return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?email=0";
 			} else {
 				System.out.println("이메일 인증 함");
 				session.setAttribute("user", mem);
 			}
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
+			
+			map.put("code", 0);
+			return map;
+//			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
 		} else {
 			System.out.println("로그인 실패");
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?fail=1";
+//			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?fail=1";
+			map.put("code", 3);
+			return map;
 			// complete라는 변수를 만들어서 성공했을 때 1을 넘겨주고 화면에 alert창이 보여지지 않게
 			// 1이 넘어오지 않았을 때는 실패 했으니까 화면에 alert창을 보여주게
 		}
@@ -431,9 +448,9 @@ public class MemberController {
 		.toFile(new File(file.getPath(),"_thumb_"+uName));
 		
 		Member member = new Member();
-		member.setImgOrgname(mFile.getOriginalFilename());
-		member.setImgPath(path);
-		member.setImgSysname(uName);
+		member.setMemImgOrgname(mFile.getOriginalFilename());
+		member.setMemImgPath(path);
+		member.setMemImgSysname(uName);
 		member.setMemNickname(fileVO.getMemNickname());
 		
 		service.updateMemberProfile(member);
@@ -477,7 +494,37 @@ public class MemberController {
 		out.close();
 	}
 	
-	
+	@RequestMapping("insertscrapbook.do")
+	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/scrap" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false)
+			file.mkdirs();
+		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+		
+		MultipartFile mFile = fileVO.getAttach();
+		
+		if (mFile.isEmpty()) {
+			System.out.println("is empty");
+		}
+		System.out.println(mFile.getOriginalFilename());
+		
+		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
+		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		System.out.println("what the file name : " + file.getPath() +":::: " +  uName);
+		
+		Scrapbook book = new Scrapbook();
+		book.setMemNo(fileVO.getMemNo());
+		book.setImgPath(path + "/" + uName);
+		book.setTitle(fileVO.getTitle());
+		
+		service.insertScrapbook(book);
+		
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
+	}
 	
 	
 	

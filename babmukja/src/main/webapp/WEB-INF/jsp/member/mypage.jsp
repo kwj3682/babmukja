@@ -76,11 +76,11 @@
 					            <div id="check-userinfo">
 					                <div id="updateform-sec2-imgSelector">
 					                	<c:choose>
-						                	<c:when test="${user.imgPath == null}">
+						                	<c:when test="${user.memImgPath == null}">
 						                    	<img id="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
 						                	</c:when>
 						                	<c:otherwise>					                	
-						                    	<img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${user.imgPath}&memNickname=${user.memNickname}&sysname=${user.imgSysname}">
+						                    	<img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${user.memImgPath}&memNickname=${user.memNickname}&sysname=${user.memImgSysname}">
 						                	</c:otherwise>
 					                	</c:choose>
 					                </div>
@@ -166,9 +166,9 @@
 				            </div>
 				            <div id="scrapbook-creator-wrapper-inner2">
 				                <div id="scrapbook-coverselector">
-				                    <input type="file" style="display:none;" name="bookcover">
 				                    <p id="scrapbook-coverselector-text">표지로 설정할 이미지를<br>업로드해주세요!</p>
 				                </div>
+				                    <input type="file" style="display:none;" name="bookcover">
 				            </div>
 				        </div>
 				    </div>
@@ -190,6 +190,7 @@
 	<script src="<c:url value="/resources/js/three/DirectionalLight.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/GeometryUtils.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/mypage.js"/>"></script>
+	<script src="<c:url value="/resources/js/three/scrapbook.js"/>"></script>
 
     
 </body>

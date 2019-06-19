@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.Scrapbook;
 
 public interface MemberMapper {
 	Member selectLogin(Member member); // 로그인
@@ -40,5 +41,7 @@ public interface MemberMapper {
 	
 	Member searchMemberByNickForMypage(String nick);
 	public String selectFollowStatus(RecipeFollow follow);
+	
+	public void insertScrapbook(Scrapbook book);
 
 }
