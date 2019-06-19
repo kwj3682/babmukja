@@ -23,7 +23,7 @@
     <div id="main-body">
     
        <!-- 검색 부분 -->
-     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p><i id="submitBtn" class="fa fa-search fa-2x"></i></div>
+     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p><i id="submitBtn" class="fa fa-search fa-2x" style="position: absolute; top: 15px; left: 220px;"></i></div>
    <div id="selectBox-wrapper">
             <form name="searhForm" method="post" action="cadetailall.do">
        <div id="selectBox">
@@ -170,11 +170,11 @@
 	                       <div class="profile-pic-box">
 	                           <div>
 	                           <c:choose>
-				                	<c:when test="${list.memImgPath == null}">
+				                	<c:when test="${ca.memImgPath == null}">
 				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
 				                	</c:when>
 				                	<c:otherwise>					                	
-				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${list.memImgPath}&sysname=${list.memImgSysname}">
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${ca.memImgPath}&sysname=${ca.memImgSysname}">
 				                	</c:otherwise>
 		                		</c:choose>
 	                           </div>
@@ -189,7 +189,15 @@
 	                           </div>
 	                       </div>
 	                       <div class="recipe-pic-box">
-	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
+	                           <a href = "detail.do?no=${ca.recipeNo }">
+	                           <c:choose>
+				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+			                           <img src="${ca.imgPath}"></a>
+				                	</c:otherwise>
+		                		</c:choose>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt}</i>
@@ -203,19 +211,18 @@
 	        </div>
 	    </div>
 	
-    <script>
-    
-    let arrow = $("#fa-arrow");
-	let $selectBoxSelector = $("#selectBoxSelector");
-	let $selectBoxWrapper = $("#selectBox-wrapper");
-	let offLeft = $selectBoxSelector.offset().left;
+    <script>    
+	    let arrow = $("#fa-arrow");
+		let $selectBoxSelector = $("#selectBoxSelector");
+		let $selectBoxWrapper = $("#selectBox-wrapper");
+		let offLeft = $selectBoxSelector.offset().left;
 	
 	
-    $("#submitBtn").css({
-    	position: "absolute",
-    	top: 15,
-    	left: 220
-    });
+	    $("#submitBtn").css({
+	    	position: "absolute",
+	    	top: 15,
+	    	left: 220
+	    });
     $selectBoxWrapper.css({
     	position: "fixed",
     	top: 55,
@@ -311,8 +318,13 @@
 	                           			</div>
 	                       			</div>
 			                        <div class="recipe-pic-box">
-			                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
-			                        </div>
+			                           <a href = "detail.do?no=` + result[i].recipeNo + `">`;
+                           if(result[i].imgPath == "" || result[i].imgPath == null) {
+                        		html += "<img src="<c:url value="/resources/images/default.png"/>"></a>";
+                           } else {
+                        		html += "<img src='result[i].imgPath'></a>";
+                           }
+			                html +=`</div>
 			                        <div class="recipe-info">
 			                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
 			                           <i class="fas fa-scroll fa-2x">60</i>

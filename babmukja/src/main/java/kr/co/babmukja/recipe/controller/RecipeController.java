@@ -49,22 +49,8 @@ public class RecipeController {
 	@RequestMapping("/main.do")
 	public void main(Model model) {
 		List<Recipe> list = service.selectRecipe();
-		List<Recipe> result = new ArrayList<>();
-		for (Recipe recipe : list) {
-			String imgpath = "";
-
-			if (recipe.getImgPath() == null) {
-				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
-				recipe.setImgPath(imgpath);
-				result.add(recipe);
-				continue;
-			}
-			String[] imgList = recipe.getImgPath().split(",");
-			recipe.setImgPath(imgList[0]);
-			result.add(recipe);
-		}
-		result.addAll(service.selectRecipe());
-		model.addAttribute("recipe", result);
+		
+		model.addAttribute("recipe", list);
 		model.addAttribute("countryrank", service.selectKeywordMost("country").getCountry());
 		model.addAttribute("situationrank", service.selectKeywordMost("situation").getSituation());
 		model.addAttribute("levelrank", service.selectKeywordMost("level").getLevel());
@@ -114,7 +100,6 @@ public class RecipeController {
 
 	@RequestMapping("/download.do")
 	public void download(FileVO fileVO, HttpServletResponse response) throws Exception {
-		System.out.println("Download.do 실행");
 		String uploadRoot = "c:/bit2019/upload";
 		String path = fileVO.getPath();
 		String sysname = fileVO.getSysname();
@@ -145,12 +130,9 @@ public class RecipeController {
 	@RequestMapping("/write.do")
 	@ResponseBody
 	public void write(Recipe recipe, HttpSession session) {
-		System.out.println(recipe);		
 		Member user = (Member)session.getAttribute("user");		
-		recipe.setMemNo(user.getMemNo());
-		
-		service.insertRecipe(recipe,recipe.getKeywords(),recipe.getCautions());
-		 
+		recipe.setMemNo(user.getMemNo());		
+		service.insertRecipe(recipe,recipe.getKeywords(),recipe.getCautions());		 
 	}
 
 	@RequestMapping("/detail.do")
@@ -287,19 +269,7 @@ public class RecipeController {
 	@RequestMapping("/cadetailall.do")
 	public void cadetailall(Model model, RecipePage page) {
 		List<RecipePage> list = service.selectRecipeAll(page);
-		List<RecipePage> result = new ArrayList<>();
-		for (RecipePage recipe : list) {
-			String imgpath = "";
-			if (recipe.getImgPath() == null) {
-				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
-				recipe.setImgPath(imgpath);
-				result.add(recipe);
-				continue;
-			}
-			String[] imgList = recipe.getImgPath().split(",");
-			recipe.setImgPath(imgList[0]);
-			result.add(recipe);
-		}
+		
 		try {
 			List<Integer> cautions = new ArrayList<>();
 			for (String key : page.getCaution().split(",")) {
@@ -338,7 +308,7 @@ public class RecipeController {
 
 		}
 
-		model.addAttribute("calist", result);
+		model.addAttribute("calist", list);
 	}
 
 	// 레시피 카테고리 전체 목록 무한스크롤
