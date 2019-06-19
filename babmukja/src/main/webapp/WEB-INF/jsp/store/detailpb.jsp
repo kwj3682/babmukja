@@ -298,9 +298,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="pb_insertform_container">
-						<div class="pb_product_item">
+						<div class="pb_answer_item">
 							<div class="pb_inq_info">
-								<p class="pb_inq_content_text">문의 내용 : </p>
+								<p class="pb_inq_content_text">문의 내용</p>
 								<p class="pb_inq_content_val"></p>
 							</div>
 						</div>
@@ -657,7 +657,7 @@
 		
 		// 문의 답변 modal 오픈
 		let inqNoData = new FormData();
-		$(".pb_inq_admin_answer_btn").click(function () {
+		$(document).on("click", ".pb_inq_admin_answer_btn", function () {
 			$("#inquireAnswerModal").modal("show");
 			let inquiryNo = $(this).siblings("input[name='inquiryNo']").val();
 			console.log(inquiryNo);
@@ -1082,7 +1082,6 @@
                            	if ('${sessionScope.user.memNo}' == 578) {
                            		if (result.list[i].answerStatus == 'N') {
                            			html +='<button class="pb_inq_admin_answer_btn">답변하기</button>';
-                           			html +='<p class="pb_inq_icon">ㅣ</p>';
                            		}
                            	}
                             if ('${sessionScope.user.memNo}' == result.list[i].member.memNo) {
