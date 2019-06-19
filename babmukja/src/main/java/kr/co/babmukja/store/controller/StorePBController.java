@@ -180,7 +180,6 @@ public class StorePBController {
 		String path = "/pbstore" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false) file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 		
 		MultipartFile mFile = fileVO.getAttach();
 		
@@ -191,7 +190,6 @@ public class StorePBController {
 		fileVO.setPath(path);
 		fileVO.setOrgname(mFile.getOriginalFilename());
 		fileVO.setSysname(uName);
-		System.out.println("file upload succeed.");
 
 		return new Gson().toJson(fileVO);
 	}
@@ -235,7 +233,6 @@ public class StorePBController {
 	public double pbreviewinsert(ReviewFileVO fileVO, StorePBReview reviewpb, int ratingCnt, double storeRating,HttpSession session) throws Exception {
 		Member user = (Member)session.getAttribute("user");
 		reviewpb.setMemNo(user.getMemNo());
-		System.out.println(reviewpb.getContent());
 		reviewpb.setPbNo(reviewpb.getPbNo());
 		
 		int pbNo = reviewpb.getPbNo();
@@ -258,6 +255,7 @@ public class StorePBController {
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false) file.mkdirs();
 		
+		if (fileVO.getImageList() == null) return avg;
 		for (MultipartFile mFile : fileVO.getImageList()) {
 			if (mFile.isEmpty()) {
 				break;
@@ -265,7 +263,6 @@ public class StorePBController {
 			String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
 			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
 			
-			System.out.println(reviewpb.getPbReviewNo());
 			fileVO.setPbReviewNo(reviewpb.getPbReviewNo());
 			fileVO.setPath(path);
 			fileVO.setOrgname(mFile.getOriginalFilename());
@@ -326,9 +323,6 @@ public class StorePBController {
 	@RequestMapping("/pbinquiryupdate.do")
 	@ResponseBody
 	public void updateInquiry(StorePBInquire storePBInquire) {
-		System.out.println(storePBInquire.getPbNo());
-		System.out.println(storePBInquire.getInquiryNo());
-		System.out.println(storePBInquire.getContent());
 		service.updateInquiry(storePBInquire);
 	}
 	
@@ -344,9 +338,6 @@ public class StorePBController {
 	@ResponseBody
 	public int insertPBPayment(@RequestBody List<StorePBPayment> storePBPayment, HttpSession session) {
 		for (StorePBPayment s : storePBPayment) {
-			System.out.println("mem_no : " + s.getMemNo());
-			System.out.println("price : " + s.getPrice());
-			System.out.println("count : " + s.getProdCount());
 			Member user = (Member)session.getAttribute("user");
 			s.setMemNo(user.getMemNo());
 			service.insertPBPayment(s);
@@ -395,7 +386,6 @@ public class StorePBController {
 	@RequestMapping("/pblike.do")
 	@ResponseBody
 	public Map<String, Object> like(StorePBLike pbLike, HttpSession session) {
-		System.out.println("pbLike 컨트롤러 도착쓰");
 		int count = service.selectCountLike(pbLike);
 		String status = service.selectLikeStatus(pbLike);
 		
