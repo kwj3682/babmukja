@@ -63,8 +63,8 @@ public class RecipeController {
 			recipe.setImgPath(imgList[0]);
 			result.add(recipe);
 		}
+		result.addAll(service.selectRecipe());
 		model.addAttribute("recipe", result);
-
 		model.addAttribute("countryrank", service.selectKeywordMost("country").getCountry());
 		model.addAttribute("situationrank", service.selectKeywordMost("situation").getSituation());
 		model.addAttribute("levelrank", service.selectKeywordMost("level").getLevel());
@@ -208,7 +208,7 @@ public class RecipeController {
 			mav.addObject("followStatus", service.selectFollowStatus(follow));
 			mav.addObject("likeStatus", service.selectLikeStatus(like));
 		}
-
+		
 		mav.addObject("memRecipe", service.selectRecipeByMem(recipe.getMemNo()));
 		mav.addObject("recipe", recipe);
 		mav.addObject("keyword", recipeKeyword);
