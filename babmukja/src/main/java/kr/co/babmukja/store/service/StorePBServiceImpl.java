@@ -1,6 +1,5 @@
 package kr.co.babmukja.store.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.PagePbReview;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
-import kr.co.babmukja.repository.domain.ReviewMap;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
 import kr.co.babmukja.repository.domain.StorePBInquire;
@@ -83,10 +81,6 @@ public class StorePBServiceImpl implements StorePBService{
 		return map;
 	}
 	
-//	public int selectReviewCount(PagePbReview page) {
-//		return mapper.selectReviewCount(page);
-//	}
-//	
 	public StorePB selectPBStoreByNo(int pbNo) {
 		return mapper.selectPBStoreByNo(pbNo);
 	}
@@ -121,6 +115,10 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBReviewSelect(storePBReview);
 	}
 	
+	public int selectReviewCount(PagePbReview page) {
+		return mapper.selectReviewCount(page);
+	}
+	
 //	public Map<String, Object> selectReviewByNo(PagePbReview page) {
 //		Map<String, Object> result = new HashMap<>();
 //		List<ReviewMap> reviewMap = new ArrayList<>();
@@ -140,6 +138,14 @@ public class StorePBServiceImpl implements StorePBService{
 //	}
 	public List<StorePBReview> selectReview(PagePbReview page) {
 		return mapper.selectReview(page);
+	}
+	
+	public Map<String, Object> selectReviewAjax(PagePbReview page) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("list", mapper.selectReviewAjax(page));
+		System.out.println("pageNo : " + page.getPageNo());
+		result.put("pageResult", new PBReviewPageResult(page.getPageNo(), mapper.selectReviewCount(page)));
+		return result;
 	}
 	
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo) {

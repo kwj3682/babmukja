@@ -49,6 +49,8 @@ public interface StorePBMapper {
 	public int selectMaxNum();
 	public List<StorePBReview> selectReview(PagePbReview page);
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo);
+	public int selectReviewCount(PagePbReview page);
+	public List<StorePBReview> selectReviewAjax(PagePbReview page);
 	
 	// pb 상품 후기 수정관련
 	public StorePBReview selectReviewByNo(int pbReviewNo);

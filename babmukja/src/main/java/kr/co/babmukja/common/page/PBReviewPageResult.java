@@ -17,7 +17,7 @@ public class PBReviewPageResult {
 		int lastPage = (count % 3 == 0) ? count / 3
 				                         : count / 3 + 1;
 		int tabSize = 3;
-		int currTab = (pageNo -1) / tabSize + 1; 
+		int currTab = (pageNo) / tabSize + 1; 
 		
 		beginPage = (currTab -1) * tabSize + 1;
 		endPage = (currTab * tabSize > lastPage) ? lastPage 

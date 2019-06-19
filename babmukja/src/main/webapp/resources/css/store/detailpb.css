@@ -1129,26 +1129,42 @@
    display: flex;
 }
 
-.comment-prev,.comment-next {
-	display: inline-block;
-	width : 35px;
-	height : 25px;
-	margin: 5px;
-    margin-bottom: 10px;
+/* .pagination { */
+/* 	font-size: 15px; */
+/* } */
+
+/* .pagination:hover { */
+
+/* 	} */
+/* .pagination:hover a{ */
+
+/* 	} */
+
+#review-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
 }
 
-.pagination {
-	display: inline-block;
-    border: 1px solid #7db341;
-    width: 25px;
-    height: 25px;
-    margin: 5px;
-    margin-bottom: 10px;
+.review-pagination {
+	font-size: 20px;
 }
 
-.pagination:hover {
-	background : #7db341;	
+.review-pagination > a {
+	color: black;
+	margin-left: 10px;
 }
-.pagination:hover a{
-	color : white;
+
+.review-pagination > a:link {
+    text-decoration: none;
+    color: black;
+}
+
+.review-pagination > a:visited {
+    text-decoration: none;
+    color: rgb(81, 81, 81);
+}
+
+.review-pagination > a:hover {
+    color:#7db341;
 }
