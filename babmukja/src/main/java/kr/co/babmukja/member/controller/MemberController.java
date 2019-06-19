@@ -27,15 +27,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.google.gson.Gson;
-
 import kr.co.babmukja.member.service.MemberService;
-import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.MailHandler;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.MemberFileVO;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 import net.coobird.thumbnailator.Thumbnails;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -379,8 +378,28 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/mypage.do")
-	public void myPage(Member member,Model model) {
-		model.addAttribute("user",service.searchMemberByNickForMypage(member.getMemNickname()));
+	public ModelAndView myPage(Member member,ModelAndView model,HttpSession session) {
+		Member user = (Member) session.getAttribute("user");
+		if (user != null) {
+			Member searchUser = service.searchMemberByNickForMypage( member.getMemNickname() );
+			RecipeFollow follow = new RecipeFollow();
+			follow.setFollowMemNo(searchUser.getMemNo());
+			follow.setFollowerMemNo(user.getMemNo());
+			
+			String status = service.selectFollowStatus(follow);
+			if(searchUser.getMemNo() == user.getMemNo()) {				
+				model.addObject("followStatus",  "M");
+			}else if(status == null && searchUser.getMemNo() != user.getMemNo()){				
+				model.addObject("followStatus",  "N");				
+			}else if(status != null ){
+				model.addObject("followStatus",  status);				
+			}
+			model.addObject("user", searchUser);
+			model.setViewName("member/mypage");
+		}else {
+			model.setViewName("member/loginform");
+		}
+		return model;
 	}
 	
 	

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.RecipeFollow;
 import kr.co.babmukja.repository.mapper.MemberMapper;
 
 @Service("kr.co.babmukja.member.service.MemberService")
@@ -111,5 +112,7 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.searchMemberByNickForMypage(nick);
 	}
 	
-	
+	public String selectFollowStatus(RecipeFollow follow) {
+		return mapper.selectFollowStatus(follow);
+	}
 }

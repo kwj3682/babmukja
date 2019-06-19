@@ -226,7 +226,8 @@ function update() {
 		selectBoxFlag = true;
 	}).on("pointerout",function(){
 		selectBoxFlag = false;
-
+	}).on("click",function(){
+		$("#modal-scrapbook").modal("show");
 	});
 	selectBox.position.x = -21;
 	selectBox.position.y = -15;
@@ -713,33 +714,46 @@ function dateFormat(date){
 let $sec2 = $("#updateform-sec2");
 let userProfile = $("#profile-picture").attr("src");
 let userNickname = $("#updateform-sec2-userinfo-id").text();
+let userNo = $("input[name='memNo']").val();
+let visitorNo = $("input[name='visitor']").val();
+let followCnt = $("input[name='follow']").val();
+let followerCnt = $("input[name='follower']").val();
+let recipeCnt = $("input[name='recipeCnt']").val();
+let followStatus = $("input[name='followStatus']").val();
 
 for(let i=1;i<=2;i++){
     $("#updateform-sec1-menu"+i).click(function(){
         $(this).css({background:"white"});
         $(this).siblings().css({background:"lightgray"});
+        let html = "";
         switch(i){
             case 1:
-            $sec2.html(
-                `
-                <div id="check-userinfo">
-                    <div id="updateform-sec2-imgSelector">
-                            <img id="profile-picture" src="${userProfile}">
-                        </div>
-                        <div id="updateform-sec2-userinfo">
-                        <p id="updateform-sec2-userinfo-id">${userNickname}</p>
-                        <div id="updateform-sec2-userinfo-opt">
-                            <button id="profile-change-button">프로필 사진 변경</button>
-                            <button>팔로우</button>
-                            <p>팔로우 중</p>
-                        </div>
-                        <p id="updateform-sec2-userinfo-info">
-                            작성한 레시피<b>15</b>
-                            팔로우<b>10</b>
-                            팔로워<b>11</b>
-                        </p>
-                    </div>
-                </div>`);
+            	
+            	html+= '<div id="check-userinfo">';
+	            html+= 	'<div id="updateform-sec2-imgSelector">';
+	            html+= 	'<img id="profile-picture" src="'+userProfile+'">';
+	            html+= 	'</div>';
+	            html+= 	'<div id="updateform-sec2-userinfo">';
+	            html+= 		'<p id="updateform-sec2-userinfo-id">'+ userNickname +'</p>';
+	            html+= 		'<div id="updateform-sec2-userinfo-opt">';
+
+	            if(followStatus == 'Y'){
+	            	html+=     	'<button id="follow-button">팔로우 해제</button>';
+	            	html+=     	'<p>팔로우 중</p>';	            	
+	            }else if(followStatus == 'N'){
+	            	html+=     	'<button id="follow-button" class="follow-needed">팔로우</button>';	            	
+	            }else if(followStatus == 'M'){	            	
+	            	html+=     	'<button id="profile-change-button">프로필 사진 변경</button>';	            	
+	            }
+	            html+= 		'</div>';
+	            html+= 		'<p id="updateform-sec2-userinfo-info">';
+			    html+=         	'작성한 레시피<b>'+ recipeCnt + '</b>';
+			    html+=         	'팔로우<b>'+ followCnt +'</b>';
+			    html+=         	'팔로워<b>'+ followerCnt +'</b>';
+		        html+=     	'</p>';
+	            html+= 	'</div>';
+            	html+= '</div>';
+            $sec2.html(html);
             break;
             case 2:
                 $sec2.html(
@@ -767,7 +781,7 @@ $(document).on("change","input[name='profile-picture']",function (e) {
 	let path = $(this).val();
    	console.dir(e.target.files[0]);
 
-		var reader = new FileReader();
+	var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     fileData.append("attach",e.target.files[0]);
     fileData.append("memNickname", $("#memNickname").text());
@@ -888,28 +902,77 @@ $(document).on("click","#change-pass-button",function(){
     	location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
     });
 });
+
+
 // 팔로우 기능
-$(document).on("click","#follow-button",function () {  	
-	if('${sessionScope.user.memNo}' != '${user.memNo}' && '${sessionScope.user}' != '') {
+$(document).on("click","#follow-button",function () { 
+	if(visitorNo != userNo) {
 	    	$.ajax({
 	    		url : "/babmukja/recipe/follow.do",
 	    		data : {
-	    			'followMemNo': '${user.memNo}',
-	    			'followerMemNo':  '${sessionScope.user.memNo}'
+	    			'followMemNo': userNo,
+	    			'followerMemNo': visitorNo
 	    		},
 	    		success : function(result) {		    		
 	    			if(result == 1) {
-		    			alert("팔로우가 되었습니다.");	
-		    			$("#updateform-sec2-userinfo-opt").html("<p>팔로우 중</p>");
-	    			} else if(result == 0){
-	    				alert("팔로우가 해제되었습니다.");
+	    				followerCnt++;
+	    				$("#follower-cnt").text(followerCnt);
+		    			$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우 해제</button><p>팔로우 중</p>");
+	    			} else if(result == 0) {
+	    				
+	    				followerCnt--;
+	    				$("#follower-cnt").text(followerCnt);
 	    				$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우</button>");
-	    			}else alert("로그인 후 이용가능합니다.");
+	    			} else alert("로그인 후 이용가능합니다.");
 	    		}
 	    	});
 		} 
-	if('${sessionScope.user.memNo}' == '${user.memNo}') {
+	if(visitorNo == userNo) {
 		alert("같은 회원은 팔로우 할 수 없습니다.");
 	}
-	else alert("로그인 후 이용가능합니다.");
+});
+
+$("#scrapbook-add").click(function(){
+	$("#modal-scrapbook").modal("hide");
+	$("#modal-scrapbook-creator").modal("show");
+});
+$("#scrapbook-coverselector-text").click(function(){
+	$("input[name='bookcover']").click();
+});
+
+$("input[name='bookcover']").change(function(e){
+	var reader = new FileReader();
+	let fData = new FormData();
+    reader.readAsDataURL(e.target.files[0]);
+    fData.append("attach",e.target.files[0]);
+    fData.append("memNo",userNo);
+    	 reader.onload = function () {
+         var tempImage = new Image();
+         tempImage.src = reader.result;
+         
+         tempImage.onload = function () {
+             var canvas = document.createElement('canvas');
+             var canvasContext = canvas.getContext("2d");
+
+             canvas.width = 200;
+             canvas.height = 200;
+             canvasContext.drawImage(this, 0, 0, 200, 200);
+                 
+             var dataURI = canvas.toDataURL("image/jpeg");
+             var imgTag = "<img id='profile-picture' class='preview_img' src='"+dataURI+"'/>";
+			 $("#scrapbook-coverselector-text").css({border: "0px"}).html(imgTag);
+         };
+     };
+     
+	 $.ajax({
+		 url: 'upload.do',
+         type: "post",
+      	 processData: false,
+         contentType: false,
+         data: fileData
+	 }).done(function(){
+		 
+	 });
+
+
 });
