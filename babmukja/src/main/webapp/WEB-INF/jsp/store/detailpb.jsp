@@ -281,6 +281,7 @@
 				</c:forEach>
 				--%>
 			</div>
+			<div id="review-page"></div>
 <%-- 			<c:if test="${empty reviewMap}"> --%>
 <!-- 				<p class="reviewMSG">후기가 존재하지 않습니다.</p> -->
 <!-- 				<p class="reviewMSG2">새 후기를 작성해주세요 !</p> -->
@@ -1109,18 +1110,32 @@
 			 }
 		 });
 		 
+		 function getFormatDate(date) {
+			 var year = date.getFullYear();
+			 var month = (1 + date.getMonth());
+			 month = month >= 10 ? month : '0' + month;
+			 var day = date.getDate();
+			 day = day >= 10 ? day : '0' + day;
+			 return year + '-' + month + '-' + day;
+		 }
+		 
+		 
 		 // 후기 전체조회 ajax 페이징 부분
-		 function  detailpbAjax(){
+		 function  detailpbAjax(pageNo){
+			 pageNo = pageNo - 1;
+			 let index = pageNo * 3;
 			 $.ajax({
-				 url : "/babmukja/store/detailpbAjax.do",
+				 url : "/babmukja/store/pbReviewAjax.do",
 				 data : {
-					 'pbNo' : '${storepb.pbNo}'
+					 'pbNo' : '${storepb.pbNo}',
+					 'pageNo' : pageNo,
+					 index : index
 				 },
 				 success : function (result) {
 					 console.dir(result);
 					 let html = '';
-						for(let i=0; i < result.length;i++){
-							html+='<div class="pb_review_body" id="'+result[i].reviewList.pbReviewNo+'">'
+						for(let i=0; i < result.list.length;i++){
+							html+='<div class="pb_review_body" id="'+result.list[i].pbReviewNo+'">'
 							html+='		<div class="pb_review_profile">';
 							html+='			<div class="pb_review_profile_img">';
 							html+='				<img src="/babmukja/resources/images/profile19.jpg">';
@@ -1130,14 +1145,14 @@
 
 							html+='		<div class="user_info_sec1">';
 							html+='			<div class="review_flex">';
-							html+='		<p class="review_user_nickname">'+result[i].reviewList.member.memNickname+'</p>';
+							html+='		<p class="review_user_nickname">'+result.list[i].member.memNickname+'</p>';
 							html+='		<div class="review_date">';
-							html+=		  new Date(result[i].reviewList.regDate);
+							html+=		  getFormatDate(new Date(result.list[i].regDate));
 							html+='		</div>';
 							html+='	</div>';
 							html+='	<div class="reviewBUTTON">';
-							html+='		<input type="hidden" name="pbReviewNo" value="'+result[i].reviewList.pbReviewNo+'">';
-							if('${sessionScope.user.memNo}' == result[i].reviewList.member.memNo){
+							html+='		<input type="hidden" name="pbReviewNo" value="'+result.list[i].pbReviewNo+'">';
+							if('${sessionScope.user.memNo}' == result.list[i].member.memNo){
 								html+='				<button class="reviewUpdateBTN">수정</button>';
 								html+='				<p class="pb_inq_icon">ㅣ</p>';
 								html+='				<button class="reviewDeleteBTN">삭제</button>';
@@ -1149,7 +1164,7 @@
 							html+='	<div class="stars">';
 							html+='		<div class="backStar"></div>';
 							html+='		<div class="frontStar-wrapper">';
-							html+='			<div class="frontStar" style="width:'+result[i].reviewList.rating*24+'px"></div>';
+							html+='			<div class="frontStar" style="width:'+result.list[i].rating*24+'px"></div>';
 							html+='		</div>';
 							html+='	</div>';
 							html+='</div>';
@@ -1158,11 +1173,11 @@
 							html+='</div>';
 							html+='<div class="pb_review_select">';
 							html+='	<div class="pb_review_select_content">';
-							html+='		<p>'+result[i].reviewList.content+'</p>';
+							html+='		<p>'+result.list[i].content+'</p>';
 							html+='	</div>';
 							html+='	<div class="pb_review_select_img">';
-							for(let j=0; j < result[i].reviewFile.length;j++){
-								let file = result[i].reviewFile[j];
+							for(let j=0; j < result.list[i].reviewFile.length;j++){
+								let file = result.list[i].reviewFile[j];
 								html+='			<div>';
 								html+='				<a href="downloadpb.do?path='+file.path +'&sysname='+file.sysname+'" data-lightbox="mygallery">';
 								html+='					<img src="downloadpb.do?path='+file.path+'&sysname='+file.sysname+'">';
@@ -1174,19 +1189,40 @@
 							
 							html+='		</div>';
 							html+='</div>';
-							
-							
 						}
-						if (result.length == 0) {
+						
+						if (result.reviewMap.length == 0) {
 							html+='<p class="reviewMSG">후기가 존재하지 않습니다.</p>';								
 							html+='<p class="reviewMSG2">새 후기를 작성해주세요 !</p>';
 						}
-					$(".review_con").html(html);	
+					$(".review_con").html(html);
+					printPaging(result.pageResult);
 				 }
 			  });
 		 }
-		 // 후기 조회부분 함수 실행
-		 detailpbAjax();
+		 
+		 $(document).on("click","#review-page a",function(e){
+	         e.preventDefault();
+	         page = $(this).attr("href");         
+	         $(".review_con").html("");
+	         detailpbAjax(page);
+	      });
+		 
+	     // 페이징 함수
+	     function printPaging(page) {
+	    	 console.log(page);
+	    	 var str = "";
+	    	 if(page.prev) {
+	    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
+	    	 }
+			 for(var i = page.beginPage; i <= page.endPage; i++) {
+				 str += "<div class='review-pagination'><a href='"+ i +"'>" + i + "</a></div>";
+			 }
+			 if(page.next) {
+				 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
+			 }
+			 $("#review-page").html(str);
+		}
 		 
 	       // review 삭제
 	       $(document).on("click", ".reviewDeleteBTN", function () {
@@ -1203,9 +1239,11 @@
 		   	  			$(".review_con").html("<p class='reviewMSG'>후기가 존재하지 않습니다.</p><p class='reviewMSG2'>새 후기를 작성해주세요 !</p>");
 	   	  			}
 	   	  			$("#" + num).remove();
+		   	  		detailpbAjax(1);
 	   	  		});
-	    	   
 	       })
+	       
+	       detailpbAjax(1);
     </script>
 </body>
 </html>

@@ -18,6 +18,10 @@
 <link href="<c:url value="/resources/css/meetup/meetup-detail.css"/>"
 	rel="stylesheet" type="text/css">
 
+<!-- lightbox -->
+<link rel="stylesheet"
+	href="<c:url value="/resources/js/dist/css/lightbox.css"/>">
+<script src="<c:url value="/resources/js/dist/js/lightbox.js"/>"></script>
 <!-- include libraries(jQuery, bootstrap) -->
 <link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
@@ -133,7 +137,21 @@
 			
 		</div><!--tab panel 끝  -->
 		<div class="tabPanel">자유게시판</div>
-		<div class="tabPanel">사진첩</div>
+		<div class="tabPanel">
+		
+		  <div class="album_container">
+		  			<c:forEach var="filePath" items="${filesPath}">
+   		  	<div>
+   		  		<a href="<c:url value='/meetup/download.do' />?path=${filePath}" data-lightbox="gallery">
+   		  			<img src="<c:url value='/meetup/download.do' />?path=${filePath}" width="287.5px" height="285px">
+				</a>
+				</div>
+					</c:forEach>
+               
+                
+            </div>
+		
+		</div>
 		<div class="tabPanel">회원</div>
 	</div>
 
@@ -372,6 +390,7 @@
 		// 파일 전송을 위한 폼생성
 		console.log("전달가나 확인");
 		data = new FormData();
+		data.append("meetNo", ${meetup.meetNo});
 		data.append("file", file);
 		console.log("file" + file);
 		console.log(data);
@@ -393,7 +412,8 @@
 				let sysFileName = url.sysFileName;
 
 				tempFileDirectory.push(url.filePath + url.sysFileName);
-				$("#summernote").summernote('editor.insertImage', "<c:url value='/meetup/download.do' />" + "?path=" + path + sysFileName);
+				$("#summernote").summernote('editor.insertImage', "<c:url value='/meetup/download.do' />" + "?path=" + 
+						path + sysFileName);
 
 			}
 		});

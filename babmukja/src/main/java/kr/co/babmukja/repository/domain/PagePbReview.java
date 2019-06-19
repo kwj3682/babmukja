@@ -1,9 +1,16 @@
 package kr.co.babmukja.repository.domain;
 
 public class PagePbReview {
-	private int pageNo = 1;
+	private int pageNo = 0;
 	private int pbNo;
+	private int index;
 	
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
 	public int getPbNo() {
 		return pbNo;
 	}
@@ -17,7 +24,7 @@ public class PagePbReview {
 		this.pageNo = pageNo;
 	}
 	public int getBegin() {
-		return (this.pageNo -1) * 3;
+		return (this.pageNo) * 3;
 	}
 	public int getEnd() {
 		return 3;

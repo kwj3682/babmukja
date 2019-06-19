@@ -190,11 +190,33 @@
 		<collection property="reviewFile" column="pb_review_no" select="selectReviewFile"/>
 	</resultMap>
 	
-	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="int">
+<!-- 	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="PagePbReview"> -->
+<!-- 		select *  -->
+<!-- 		  from tb_pb_review  -->
+<!-- 		 where pb_no = #{pbNo} -->
+<!-- 		 order by pb_review_no desc -->
+<!-- 		 limit #{pageNo},3 -->
+<!-- 	</select> -->
+	
+	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="PagePbReview">
 		select * 
 		  from tb_pb_review 
 		 where pb_no = #{pbNo}
 		 order by pb_review_no desc
+	</select>
+	
+	<select id="selectReviewAjax" parameterType="PagePbReview" resultMap="pbReviewSelectMap">
+		select *
+		  from tb_pb_review
+		 where pb_no = #{pbNo}
+		 order by pb_review_no desc
+		 limit #{index}, 3
+	</select>
+	
+	<select id="selectReviewCount" parameterType="PagePbReview" resultType="int">
+		select count(*)
+		  from tb_pb_review
+		 where pb_no = #{pbNo}
 	</select>
 	
 	<select id="selectReviewFile" resultMap="fileMap" parameterType="int">

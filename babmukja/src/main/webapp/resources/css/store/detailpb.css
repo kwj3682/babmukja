@@ -1128,3 +1128,43 @@
 .pb_inq_info {
    display: flex;
 }
+
+/* .pagination { */
+/* 	font-size: 15px; */
+/* } */
+
+/* .pagination:hover { */
+
+/* 	} */
+/* .pagination:hover a{ */
+
+/* 	} */
+
+#review-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.review-pagination {
+	font-size: 20px;
+}
+
+.review-pagination > a {
+	color: black;
+	margin-left: 10px;
+}
+
+.review-pagination > a:link {
+    text-decoration: none;
+    color: black;
+}
+
+.review-pagination > a:visited {
+    text-decoration: none;
+    color: rgb(81, 81, 81);
+}
+
+.review-pagination > a:hover {
+    color:#7db341;
+}

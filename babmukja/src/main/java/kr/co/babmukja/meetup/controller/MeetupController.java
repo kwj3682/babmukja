@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -383,7 +384,7 @@ public class MeetupController {
 		if(service.selectMeetupMemberStatus(meetupMember) !=null) {
 		MeetupMember MeetupMemberStatus = service.selectMeetupMemberStatus(meetupMember);
 		model.addAttribute("memberStatus", MeetupMemberStatus);
-
+		
 		}
 		else {
 			meetupMember.setStatus(0);
@@ -392,8 +393,32 @@ public class MeetupController {
 		
 		model.addAttribute("meetup", service.selectBoard(meetNo));
 		
-		}
+		//모임의 사진 뿌려주기
+		
+	File dir = new File("C:/bit2019/upload/meetup/2019/06");
+	File[] files = dir.listFiles(new FilenameFilter() {
 
+		public boolean accept(File dir, String name) {
+			// TODO Auto-generated method stub
+			return name.contains("meetNo="+meetNo);
+		}});
+	
+	System.out.println("파일 오나확인" +files.length);
+	
+	model.addAttribute("images", files);
+	ArrayList<String> filePath = new ArrayList<>();	
+	for(File file : files) {
+		System.out.println("file :" + file);
+	
+	
+	filePath.add(file.getPath().replace("\\", "/"));
+	
+
+		System.out.println(file.getPath());
+	}
+	model.addAttribute("filesPath", filePath);
+	}//detail.do
+	
 
 
 	@RequestMapping("/meetupAddress.do")
@@ -404,17 +429,18 @@ public class MeetupController {
 
 	@RequestMapping("/uploadImage.do")
 	@ResponseBody
-	public MeetupFile uploadImage(MultipartFile file) {
+	public MeetupFile uploadImage(MultipartFile file, int meetNo) {
 		System.out.println("들어왔음");
+		System.out.println("meetNo왔나 확인 " +meetNo);
 		System.out.println("file 들어왔나 확인" + file);
 		// service.updateIntro(data);
 		UUID uuid = UUID.randomUUID();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
-		String path = "/meetup/" + sdf.format(new Date());
+		String path = "/meetup/" + sdf.format(new Date()); 
 		String orgFileName = file.getOriginalFilename();
-		String sysFileName = uuid.toString() + orgFileName;
-		String filePath = uploadRoot + path;
+		String sysFileName = uuid.toString() +"meetNo="+meetNo+ orgFileName;
+		String filePath = uploadRoot + path + "/";
 		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 		MeetupFile mFile = new MeetupFile();
 		mFile.setOrgFileName(orgFileName);
@@ -441,7 +467,9 @@ public class MeetupController {
 
 	@RequestMapping("download.do")
 	public void download(String path, HttpServletResponse response) throws IOException {
-
+		
+//		String paths[] = path.split("C:/bit2019/upload");
+		System.out.println("download.do" +path);
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
 		BufferedInputStream bis = new BufferedInputStream(fis);
@@ -534,4 +562,5 @@ public class MeetupController {
 		service.deleteIntro();
 	}
 
+	
 }
