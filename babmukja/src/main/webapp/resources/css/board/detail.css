@@ -173,29 +173,44 @@
 	height: 50px;
 	border-radius: 25px;
 }
-
+.board_comment_page_prev {
+	display: inline-block;
+	width : 35px;
+	height : 25px;
+	margin: 5px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: rgb(81,81,81); !important
+}
+.board_detail_pagination {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+}
 /* 하트 효과*/
 .heart {
 	height: 100px;
 	width: 100px;
 	margin: auto auto;
 	background-image:
-		url(https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png);
+		url("https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png");
 	cursor: pointer;
 }
 
 .heart:hover {
 	background-position: right;
-	/*   animation: heart-splash 6s steps(28); */
+/* 	animation: heart-splash 6s steps(28);  */
 }
 
 .is_animating {
 	animation: heart-splash 2s steps(28);
 }
 
-@
-keyframes heart-splash {from { background-position:left
-	
+@keyframes heart-splash {
+	from { 
+	background-position:left
 }
 
 to {

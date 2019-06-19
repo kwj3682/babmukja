@@ -83,7 +83,7 @@
 		  from tb_board_review
 		  where board_no = #{boardNo}
 		  order by board_review_no desc
-		  limit #{begin}, #{end}
+		  limit #{index}, 10
 	</select>
 	
 	<!-- 페이징 -->
