@@ -377,11 +377,12 @@ a {
     left: 5px;
 }
 #comment-nick {
-    font-size: 25px;
+    font-size: 20px;
     position: relative;
-    top: 30px;
-    left: -30px;
+    top: 35px;
+    left: -11px;
 }
+
 #comment-login {
 	font-size: 13px;
     position: relative;
@@ -408,6 +409,8 @@ a {
     border : 0;
     background: white;
     cursor: pointer;
+    position:relative;
+    top:-10px;
 }
 .comment-exit {	
     color: #7db341;

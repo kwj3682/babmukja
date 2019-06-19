@@ -34,7 +34,8 @@
 	
 	<!-- 레시피 조회 -->
 	<select id="selectRecipe" resultMap="recipeMap">
-		select m.mem_nickname,r.* from tb_member m,tb_recipe r
+		select m.*,r.* 
+		  from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
 		 order by regDate desc
 	</select>
