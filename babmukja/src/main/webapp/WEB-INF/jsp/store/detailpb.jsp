@@ -694,7 +694,7 @@
 		
 		// 문의 수정 모달 오픈
 		let inqData = new FormData();
-		$(".inq_update_btn").click(function () {
+		$(document).on("click", ".inq_update_btn", function () {
 			$("#inquireupdatemodal").modal("show");
 			let inquiryNo = $(this).siblings("input[name='inquiryNo']").val();
 			inqData.append("inquiryNo", inquiryNo);
@@ -710,7 +710,7 @@
 		});
 		
 		// 문의 수정
-		$("#inquireUpdatemodalbtn").click(function () {
+		$(document).on("click", "#inquireUpdatemodalbtn", function () {
 			let inqNo = inqData.get("inquiryNo");
 			console.log(inqNo);
 			console.log($(".inquire__update__content").val());
@@ -907,7 +907,13 @@
 							html+='<div class="pb_review_body" id="'+result.list[i].pbReviewNo+'">'
 							html+='		<div class="pb_review_profile">';
 							html+='			<div class="pb_review_profile_img">';
-							html+='				<img src="/babmukja/resources/images/profile19.jpg">';
+							if ('${sessionScope.user}' != null) {
+								if ('${sessionScope.user.memImgPath}' == null) {
+									html+='<img id="default_profile_imges" src="<c:url value="/resources/images/default/userdefault.png"/>">';
+								} else {
+									html+='<img id="user_profile_imges" src="/babmukja/member/download.do?path='+result.list[i].member.memImgPath+'&sysname='+result.list[i].member.memImgSysname+'">';
+								}
+							}
 							html+='			</div>';
 							
 							html+='		<div class="pb_review_user_info">';
