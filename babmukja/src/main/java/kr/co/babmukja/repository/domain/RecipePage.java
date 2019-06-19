@@ -7,6 +7,8 @@ public class RecipePage {
 	private int memNo;
 	private String memName;
 	private String memNickname;
+	private String memImgPath;
+	private String memImgSysname;
 	
 	private int recipeNo;
 	private String title;
@@ -31,6 +33,18 @@ public class RecipePage {
 	private String searchTitle;
 	private String searchNickname;	
 	
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
 	public String getSearchTitle() {
 		return searchTitle;
 	}

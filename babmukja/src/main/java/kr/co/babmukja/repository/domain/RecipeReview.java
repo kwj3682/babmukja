@@ -10,7 +10,21 @@ public class RecipeReview {
 	private String content;
 	private Date regdate;
 	private int score;	
+	private String memImgPath;
+	private String memImgSysname;
 	
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
 	public Date getRegdate() {
 		return regdate;
 	}

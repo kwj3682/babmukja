@@ -169,7 +169,14 @@
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
 	                           <div>
-	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           <c:choose>
+				                	<c:when test="${list.memImgPath == null}">
+				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${list.memImgPath}&sysname=${list.memImgSysname}">
+				                	</c:otherwise>
+		                		</c:choose>
 	                           </div>
 	                           <div class="profile-name">
 	                               <p>
@@ -279,41 +286,46 @@
 		                data : data,
 		                url : "cadetailScroll.do"
          
-               }).done(function (result) { 
-               
+               }).done(function (result) {               
                  	if(result.length != 0) {
-                 		 for(let i = 0 ; i < result.length ; i ++) { 
-                          	 $("#sector3-body").append(`
-              	                   <div class="profile-container">
-          	                       <div class="profile-pic-box">
-          	                           <div>
-          	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
-          	                           </div>
-          	                           <div class="profile-name">
-          	                               <p>
-          			                    	  <span>평점 :` + result[i].rating + ` </span>
-          	                           <br>
-          	                               ` +  result[i].title + `
-          	                           <br>
-          	                               ` +  result[i].memNickname + `
-          	                               </p>
-          	                           </div>
-          	                       </div>
-          	                       <div class="recipe-pic-box">
-          	                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
-          	                       </div>
-          	                       <div class="recipe-info">
-          	                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
-          	                           <i class="fas fa-scroll fa-2x">60</i>
-          	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
-          	                       </div>
-          	                   </div>`)
-                         }
-                 	}
-            	  
-              }).fail(function(xhr){
-	               alert("서버 처리중 에러발생")
-	               console.dir(xhr);
+               			 let html = "";
+                 		 for(let i = 0 ; i < result.length ; i ++) {
+                 			 html += '<div class="profile-container">'
+        	                        + '<div class="profile-pic-box">'
+	                           		+ '<div>'
+                       		 if(result[i].memImgPath == null) {
+                       			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">'				                	
+                       		 } else {
+                       			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='
+                       					  + result[i].memImgPath + '&sysname=' + result[i].memImgSysname + '">'
+                       		 }
+	                         html += `</div>
+	                        			<div class="profile-name">
+	                               			<p>
+			                    	  			<span>평점 :` + result[i].rating + ` </span>
+	                          			 <br>
+	                              			 ` +  result[i].title + `
+	                          			 <br>
+	                               			 ` +  result[i].memNickname + `
+	                               			</p>
+	                           			</div>
+	                       			</div>
+			                        <div class="recipe-pic-box">
+			                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
+			                        </div>
+			                        <div class="recipe-info">
+			                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
+			                           <i class="fas fa-scroll fa-2x">60</i>
+			                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
+			                        </div>
+			                    </div>`;
+                 			 
+                 		 	}
+                          	 $("#sector3-body").append(html);
+                 		}
+	              }).fail(function(xhr){
+		               alert("서버 처리중 에러발생")
+		               console.dir(xhr);
               })
              }
            });

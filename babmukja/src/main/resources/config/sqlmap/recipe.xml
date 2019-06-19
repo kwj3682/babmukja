@@ -97,7 +97,7 @@
 		 order by regDate desc
 		 limit 0,4
 	</select>
-	
+
 	<!-- 조회수 증가 -->
 	<update id="addViewCnt" parameterType="int">
 		update tb_recipe

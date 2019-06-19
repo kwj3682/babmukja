@@ -95,7 +95,6 @@ public class RecipeController {
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
-//		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 
 		MultipartFile mFile = fileVO.getAttach();
 
