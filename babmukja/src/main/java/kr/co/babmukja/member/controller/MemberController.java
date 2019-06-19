@@ -306,11 +306,12 @@ public class MemberController {
 		return service.selectConfirmCertification(member);
 	}
 
-	// 비밀번호 재설정
+	// 비밀번호 재설정 (이메일)
 	@RequestMapping("/resetpass.do")
 	public void resetPass(Member member, Model model) {
 		model.addAttribute("email", member.getMemEmail());
 	}
+	
 
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
