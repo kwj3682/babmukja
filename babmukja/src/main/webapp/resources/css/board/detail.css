@@ -196,10 +196,11 @@
 	background :#7db341;
 	color : white;
 	text-align: center;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .board_current_page > a{
 	color : white;
+	font-weight: bold
 }
 .board_comment_pagination {
 	display: inline-block;
@@ -209,13 +210,15 @@
     margin: 5px;
     margin-bottom: 10px;
     text-align: center;
-    border-radius: 3px
+    border-radius: 5px
 }
 .board_comment_pagination a {
-	color: rgb(81,81,81);
+	color: #7db341;
+	font-weight: bold;
 }
 .board_comment_pagination:hover {
-	background : #7db341;	
+	background : #7db341;
+	font-weight: bold;	
 }
 .board_comment_pagination:hover a{
 	color : white;
