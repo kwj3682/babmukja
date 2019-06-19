@@ -176,24 +176,13 @@ public class BoardController {
 	@ResponseBody
 	// 댓글 수정 폼
 	public BoardReview boardReviewUpdateForm(int boardReviewNo) {
-		System.out.println("수정폼");
 		return service.selectBoardReviewOneByNo(boardReviewNo);
 	}
-	
-//	@RequestMapping("/boardviewupdatecancel.do")
-//	@ResponseBody
-//	// 댓글 수정 취소
-//	public BoardReview boardReviewUpdateCancel(int boardReviewNo) {
-//		System.out.println("수정취소");
-//		return service.selectBoardReviewOneByNo(boardReviewNo);
-//	}
 	
 	@RequestMapping("/boardreviewupdate.do")
 	@ResponseBody
 	// 댓글 수정
 	public BoardReview boardReviewUpdate(BoardReview boardReview) {
-		System.out.println("수정");
-		System.out.println(boardReview.getContent());
 		service.updateBoardView(boardReview);
 		return service.selectBoardReviewOneByNo(boardReview.getBoardReviewNo());
 	}
