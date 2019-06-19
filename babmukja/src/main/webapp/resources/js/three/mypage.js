@@ -787,7 +787,7 @@ $(document).on("change","input[name='profile-picture']",function (e) {
 	var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     fileData.append("attach",e.target.files[0]);
-    fileData.append("memNickname", $("#memNickname").text());
+    fileData.append("memNickname", userNickname);
     
 /*     reader.onload = function () {
          var tempImage = new Image();
@@ -814,9 +814,9 @@ $(document).on("change","input[name='profile-picture']",function (e) {
           	 processData: false,
              contentType: false,
              data: fileData
-    	 }).done(function(){
+    	 }).done(function(result){
     		 alert("프로필 사진이 성공적으로 변경되었습니다.");
-    		 location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
+    		 location.href="/babmukja/member/mypage.do?memNickname=" + result;
     	 });
      }else{
     	 alert("프로필 사진 변경이 취소되었습니다.");
@@ -902,7 +902,7 @@ $(document).on("click","#change-pass-button",function(){
         	  memEmail:$("input[name='memEmail']").val()}
     }).done(function(result){
     	alert("변경되었습니다.");
-    	location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
+    	location.href = "/babmukja/member/mypage.do?memNickname=" + encodeURI(userNickname , "UTF-8");;
     });
 });
 
