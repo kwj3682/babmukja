@@ -536,7 +536,7 @@
    	   	  console.dir(e.target.files[0]);
 		  let imgKey = imgArr.pop();
 		  fileList[imgKey] = e.target.files[0];
-		  console.log(fileList);
+		  console.log("fileList : " + fileList);
 		  idx++;
 
 			var reader = new FileReader();
@@ -562,13 +562,14 @@
 					imgCnt++;
                     var imgTag = "<div class='image_box' id='idx"+idx+"'><img name='preview_img"+imgCnt+"' class='preview_img' src='"+dataURI+"'/><div id='"+imgKey+"' class='preview_img_btn' >x</div></div>";
 						
-                    if(fileList.length == 10){
+                    console.log(imgArr);
+                    if(imgArr.length == 0){
                     	$(".imgPlus").hide();
                     }
                     
                     $("#preview_img_div").prepend(imgTag);
 					
-                    if(fileList.length > 3){						
+                    if(imgArr.length > 5){						
 	                    $(".modal-backdrop").css({height:"1100px"});
 					}
                 };
@@ -614,12 +615,14 @@
           $("#reviewmodal").modal("show");
       });
        
+       // review 사진 삭제
 		$(document).on("click",".preview_img_btn",function () {
 			let key = $(this).attr("id");
 			delete fileList[key];
 			console.log(fileList);
 			
 			imgArr.push(key);
+			console.log(imgArr);
  		   $(this).parent().remove(); 
  	   });
 		
