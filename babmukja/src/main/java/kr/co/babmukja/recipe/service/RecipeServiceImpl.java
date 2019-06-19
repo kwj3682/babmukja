@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
+import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
@@ -232,4 +233,5 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> selectRecipeByMemNo(int memNo) {
 		return mapper.selectRecipeByMemNo(memNo);
 	}
+	
 }

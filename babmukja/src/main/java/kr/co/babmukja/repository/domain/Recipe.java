@@ -8,6 +8,8 @@ public class Recipe {
 	private int memNo;
 	private String memName;
 	private String memNickname;
+	private String memImgSysname;
+	private String memImgPath;
 	
 	private int recipeNo;
 	private String title;
@@ -26,8 +28,20 @@ public class Recipe {
 	private List<String> keywords;
 	private List<String> cautions;
 	private int country;
-	private String keyword;
+	private String keyword;	
 	
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
 	public String getKeyword() {
 		return keyword;
 	}

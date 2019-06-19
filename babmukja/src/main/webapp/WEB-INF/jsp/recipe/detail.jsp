@@ -72,7 +72,14 @@
                     <div id="comment-mine"><!-- comment-mine start -->
                     <c:choose>
                     	<c:when test="${sessionScope.user != null }">
-	                        <img src="<c:url value='/resources/images/ma.jpg'/>">
+	                        <c:choose>
+			                	<c:when test="${sessionScope.user.memImgPath == null}">
+			                    	<img id="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+			                    	<img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${sessionScope.user.memImgPath}&sysname=${sessionScope.user.memImgSysname}">
+			                	</c:otherwise>
+		                	</c:choose>
 							<div id="comment-nick">
 								${sessionScope.user.memNickname }
 							</div>                    
@@ -149,7 +156,14 @@
                 <div id="writer-info"><!-- writer-info start -->
 
                     <div id="profile-wrapper"> <!-- profile-wrapper start -->
-                        <img id="profile-img" src="<c:url value="/resources/images/ma.jpg"/>">
+                        <c:choose>
+		                	<c:when test="${recipe.memImgPath == null}">
+		                    	<img id="profile-img" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+		                	</c:when>
+		                	<c:otherwise>					                	
+		                    	<img id="profile-img" src="${pageContext.request.contextPath}/member/download.do?path=${recipe.memImgPath}&sysname=${recipe.memImgSysname}">
+		                	</c:otherwise>
+	                	</c:choose>
                         <div id="profile-id">
                             <div>${recipe.memNickname }</div>
                             <div>#level9</div>
@@ -281,8 +295,12 @@
 	    			let html = "";	
 	    		
 	    	 		html +=  '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>'
-	    	 					+'<img class="other-profile" src="">'
-	    	 					+'<div class="other-content-wrapper">'
+				    	 		if (result.memImgPath != null) {
+			 						html += '<img class="other-profile" src="<c:url value="/resources/images/default/userdefault.png"/>">'
+			 					} else {
+			 						html += '<img class="other-profile" src="${pageContext.request.contextPath}/member/download.do?path=${sessionScope.user.memImgPath}&sysname=${sessionScope.user.memImgSysname}">'
+			 					}
+	    	 			html	+='<div class="other-content-wrapper">'
 	    	 					+'<input type="hidden" class="reviewNo" value=' + result.recipeReviewNo + '>' 
 	    	 					+'<div>'
 	    	 					+'<div class="other-id">'+ result.memNickname +'</div>'
@@ -330,11 +348,15 @@
 		 		}
 		 		let html = "";	
 		 		for(let i = 0; i < result.comment.length; i++) {
-	
+					console.dir(result.comment[i]);
 		 			let date = new Date(result.comment[i].regdate);
-		 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
-		 					+'<img class="other-profile" src="">'
-		 					+'<div class="other-content-wrapper">'
+		 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>'
+		 					if (result.comment[i].memImgPath == null) {
+		 						html += '<img class="other-profile" src="<c:url value="/resources/images/default/userdefault.png"/>">'
+		 					} else {
+		 						html += '<img class="other-profile" src="${pageContext.request.contextPath}/member/download.do?path='+ result.comment[i].memImgPath + '&sysname='+ result.comment[i].memImgSysname+ '">'
+		 					}
+		 			html	+='<div class="other-content-wrapper">'
 		 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
 		 					+'<div>'
 		 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'	
@@ -456,7 +478,7 @@
  		
 	    	$("#"+ num).html("");
 	    	$("#comment-other").html("");
-			commentList(1);
+			commentList(result.pageNo);
  		})  
  	});
  		

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.babmukja.repository.domain.Keyword;
+import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
