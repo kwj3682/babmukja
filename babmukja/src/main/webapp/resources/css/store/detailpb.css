@@ -1168,3 +1168,47 @@
 .review-pagination > a:hover {
     color:#7db341;
 }
+
+.inq-pagination {
+	font-size: 20px;
+}
+
+.inq-pagination > a {
+	color: black;
+	margin-left: 10px;
+}
+
+.inq-pagination > a:link {
+    text-decoration: none;
+    color: black;
+}
+
+.inq-pagination > a:visited {
+    text-decoration: none;
+    color: rgb(81, 81, 81);
+}
+
+.inq-pagination > a:hover {
+    color:#7db341;
+}
+
+#inq-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.right-arrow, .left-arrow {
+	width : 15px;
+	position : relative;
+	top : -2px;
+	left : 10px;
+}
+
+.comment-prev,.comment-next {
+	display: inline-block;
+	width : 35px;
+	height : 25px;
+	margin: 5px;
+    margin-bottom: 10px;
+}

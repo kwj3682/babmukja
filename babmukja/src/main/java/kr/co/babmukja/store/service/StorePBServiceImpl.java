@@ -27,44 +27,6 @@ public class StorePBServiceImpl implements StorePBService{
 	@Autowired
 	private StorePBMapper mapper;
 
-	/*
-	 *   editor 이전
-	public List<StorePB> selectPBList() {
-		return mapper.selectPBList();
-	}
-	
-	public void insertpb(StorePB storepb) {
-		mapper.insertpb(storepb);
-	}
-	
-	public void insertPBImage(FileVO fileVO) {
-		mapper.insertPBImage(fileVO);
-	}
-	public int getMax() {
-		return mapper.selectMaxNum();
-	}
-	
-	public List<StorePB> selectPBMainList() {
-		return mapper.selectPBMainList();
-	}
-	
-	// 상세조회
-	
-	public StorePB selectPBdetail(int pbNo) {
-		return mapper.selectPBdetail(pbNo);
-	}
-	
-	public List<FileVO> selectPBDetailImage(int groupNo) {
-		return mapper.selectPBDetailImage(groupNo);
-	}
-	
-	// 삭제
-	
-	public void deletePBByNo(int pbNo) {
-		mapper.deletePBByNo(pbNo);
-	}
-	*/
-	
 	public List<StorePB> selectPBStore() {
 		return mapper.selectPBStore();
 	}
@@ -143,7 +105,6 @@ public class StorePBServiceImpl implements StorePBService{
 	public Map<String, Object> selectReviewAjax(PagePbReview page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectReviewAjax(page));
-		System.out.println("pageNo : " + page.getPageNo());
 		result.put("pageResult", new PBReviewPageResult(page.getPageNo(), mapper.selectReviewCount(page)));
 		return result;
 	}
@@ -181,9 +142,13 @@ public class StorePBServiceImpl implements StorePBService{
 	}
 	
 	// pb 상품 문의 조회
-	public List<StorePBInquire> selectPBInquire(int pbNo) {
-		return mapper.selectPBInquire(pbNo);
+	public Map<String, Object> selectPBInquire(PagePbReview page) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("list", mapper.selectPBInquire(page));
+		result.put("pageResult", new PBReviewPageResult(page.getPageNo(), mapper.selectInquireCount(page)));
+		return result;
 	}
+	
 	
 	public StorePBInquire selectInquiryByNo(int inquiryNo) {
 		return mapper.selectInquiryByNo(inquiryNo);

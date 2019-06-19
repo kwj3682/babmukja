@@ -85,9 +85,9 @@ public class StorePBController {
 	public ModelAndView detailpb(ModelAndView mav, int pbNo,  StorePBReview storePBReview, StorePBInquire storePBInquire, HttpSession session) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
 		service.addViewCnt(pbNo);
-		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
+//		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
 //		List<StorePBReview> reviewList = service.selectReview(pbNo);
-		List<ReviewMap> reviewMap = new ArrayList<>();
+//		List<ReviewMap> reviewMap = new ArrayList<>();
 //		for(StorePBReview pb : reviewList) {
 //			
 //			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
@@ -123,33 +123,11 @@ public class StorePBController {
 		mav.addObject("storepb", store);
 		mav.addObject("imgList", store.getImgPath().split(","));
 //		mav.addObject("reviewList", reviewList);
-		mav.addObject("reviewMap",reviewMap);
-		mav.addObject("inqList", sInquire);
+//		mav.addObject("reviewMap",reviewMap);
+//		mav.addObject("inqList", sInquire);
 		return mav;
 	}
 
-	// PB STORE REVIEW 전체조회 ajax 페이징
-	@RequestMapping("/pbReviewAjax.do")
-	@ResponseBody
-	public Map detailpb(PagePbReview page) {
-		Map<String, Object> map = service.selectReviewAjax(page);
-		System.out.println(page.getPageNo());
-		List<ReviewMap> reviewMap = new ArrayList<>();
-		List<StorePBReview> reviewList = service.selectReview(page);
-		for(StorePBReview pb : reviewList) {
-			
-			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
-			ReviewMap rm = new ReviewMap();
-			rm.setReviewFile(reviewFileList);
-			rm.setReviewList(pb);
-			rm.setMember(pb.getMember());
-			reviewMap.add(rm);
-		}
-		map.put("reviewMap", reviewMap);
-		map.put("reviewpage", map.get("list"));
-		map.put("pageResult", map.get("pageResult"));
-		return map;
-	}
 	
 	// PB STORE 상품 수정 폼
 	@RequestMapping("/updateformpb.do")
@@ -218,6 +196,39 @@ public class StorePBController {
 		return new Gson().toJson(fileVO);
 	}
 	
+	// PB STORE REVIEW 전체조회 ajax 페이징
+	@RequestMapping("/pbReviewAjax.do")
+	@ResponseBody
+	public Map pbreviewajax(PagePbReview page) {
+		Map<String, Object> map = service.selectReviewAjax(page);
+		List<ReviewMap> reviewMap = new ArrayList<>();
+		List<StorePBReview> reviewList = service.selectReview(page);
+		for(StorePBReview pb : reviewList) {
+			
+			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
+			ReviewMap rm = new ReviewMap();
+			rm.setReviewFile(reviewFileList);
+			rm.setReviewList(pb);
+			rm.setMember(pb.getMember());
+			reviewMap.add(rm);
+		}
+		map.put("reviewMap", reviewMap);
+		map.put("reviewpage", map.get("list"));
+		map.put("pageResult", map.get("pageResult"));
+		return map;
+	}
+	
+
+	// PB STORE 문의 전체조회 ajax 페이징
+	@RequestMapping("/pbInqAjax.do")
+	@ResponseBody
+	public Map<String, Object> pbInqAjax(PagePbReview page) {
+		Map<String, Object> map = service.selectPBInquire(page);
+		map.put("inqList", map.get("list"));
+		map.put("pageResult", map.get("pageResult"));
+		return map;
+	}
+
 	// PB STORE 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
