@@ -13,15 +13,17 @@ public class Member {
 	private String addrDefault;
 	private String addrDetail;
 	private char managerAt;
-	private String imgOrgname;
-	private String imgSysname;
+	
+	private String memImgOrgname;
+	private String memImgSysname;
+	private String memImgPath;
+	
 	private Date signDate;
 	private Date lastDate;
 	private int socialAt;
 	private int point;
 	private int hintNo;
 	private String hintAnswer;
-	private String imgPath;
 	private int gradeNo;
 	private int sellingCnt;
 	private String gradeName;
@@ -230,22 +232,6 @@ public class Member {
 		this.managerAt = managerAt;
 	}
 
-	public String getImgOrgname() {
-		return imgOrgname;
-	}
-
-	public void setImgOrgname(String imgOrgname) {
-		this.imgOrgname = imgOrgname;
-	}
-
-	public String getImgSysname() {
-		return imgSysname;
-	}
-
-	public void setImgSysname(String imgSysname) {
-		this.imgSysname = imgSysname;
-	}
-
 	public Date getSignDate() {
 		return signDate;
 	}
@@ -294,13 +280,6 @@ public class Member {
 		this.hintAnswer = hintAnswer;
 	}
 
-	public String getImgPath() {
-		return imgPath;
-	}
-
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
 
 	public int getGradeNo() {
 		return gradeNo;
@@ -357,5 +336,31 @@ public class Member {
 	public void setVerify(char verify) {
 		this.verify = verify;
 	}
+
+	public String getMemImgOrgname() {
+		return memImgOrgname;
+	}
+
+	public void setMemImgOrgname(String memImgOrgname) {
+		this.memImgOrgname = memImgOrgname;
+	}
+
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
+
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
+	
+	
 
 }

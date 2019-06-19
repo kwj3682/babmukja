@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.Scrapbook;
 import kr.co.babmukja.repository.mapper.MemberMapper;
 
 @Service("kr.co.babmukja.member.service.MemberService")
@@ -115,4 +116,8 @@ public class MemberServiceImpl implements MemberService {
 	public String selectFollowStatus(RecipeFollow follow) {
 		return mapper.selectFollowStatus(follow);
 	}
+	public void insertScrapbook(Scrapbook book) {
+		mapper.insertScrapbook(book);
+	}
+
 }

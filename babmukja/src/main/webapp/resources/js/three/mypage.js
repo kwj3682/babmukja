@@ -1,4 +1,14 @@
 
+let $sec2 = $("#updateform-sec2");
+let userProfile = $("#profile-picture").attr("src");
+let userNickname = $("#updateform-sec2-userinfo-id").text();
+let userNo = $("input[name='memNo']").val();
+let visitorNo = $("input[name='visitor']").val();
+let followCnt = $("input[name='follow']").val();
+let followerCnt = $("input[name='follower']").val();
+let recipeCnt = $("input[name='recipeCnt']").val();
+let followStatus = $("input[name='followStatus']").val();
+
 var camera, scene, renderer;
 var selectBox;
 var textMesh;
@@ -212,34 +222,14 @@ function update() {
 		recipeArea.rotation.x = 0;
 	});
 
-	// var selectBoxM1 = new THREE.LineDashedMaterial( { linewidth : 6, color: 0x01f123, dashSize: 3, gapSize: 1} );
-	var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
-	var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
 	
-	
-	// selectBox = new THREE.LineSegments( selectBoxG, selectBoxM2 );
-	// selectBox.computeLineDistances();
-	// selectBoxG = new THREE.EdgesGeometry( selectBoxG );
-	selectBox = new THREE.Mesh( selectBoxG, selectBoxM2 );
-
-	selectBox.on("mouseover",function(){
-		selectBoxFlag = true;
-	}).on("pointerout",function(){
-		selectBoxFlag = false;
-	}).on("click",function(){
-		$("#modal-scrapbook").modal("show");
-	});
-	selectBox.position.x = -21;
-	selectBox.position.y = -15;
-	selectBox.position.z = 11;
-	selectBox.rotation.y = -1.2;
-
 	
 	scene.add( book1 );
 	scene.add( book2 );
 	scene.add( book3 );
 	scene.add( recipeArea );
-	scene.add( selectBox );
+
+	
 	//-------------------------- Geometry loading part------------------------------//
 	
 	var loader = new THREE.GLTFLoader();
@@ -463,39 +453,59 @@ function update() {
 
 		}
 	);
-	loader.load(
-		// resource URL
-		'/babmukja/resources/images/scrapbooktext.gltf',
-		// called when the resource is loaded
-		function ( gltf ) {
-			scrapbookTextMesh = gltf.scene;
-			scene.add( scrapbookTextMesh );
-			console.dir(scrapbookTextMesh.position);
-			let size = 5;
-			scrapbookTextMesh.position.x = -23.5;
-			scrapbookTextMesh.position.y = -13;
-			scrapbookTextMesh.position.z = 12.5;
-			scrapbookTextMesh.scale.x = size;
-			scrapbookTextMesh.scale.y = size;
-			scrapbookTextMesh.scale.z = size;	
-			scrapbookTextMesh.rotation.y = 2;
-			scrapbookTextFlagKey = true;
-
+	if(visitorNo == userNo){
+		var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
+		var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
 		
-		},
-		// called while loading is progressing
-		function ( xhr ) {
+		selectBox = new THREE.Mesh( selectBoxG, selectBoxM2 );
 
-			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		selectBox.on("mouseover",function(){
+			selectBoxFlag = true;
+		}).on("pointerout",function(){
+			selectBoxFlag = false;
+		}).on("click",function(){
+			$("#modal-scrapbook").modal("show");
+		});
+		selectBox.position.x = -21;
+		selectBox.position.y = -15;
+		selectBox.position.z = 11;
+		selectBox.rotation.y = -1.2;
 
-		},
-		// called when loading has errors
-		function ( error ) {
-
-			console.log( 'An error happened' );
-
-		}
-	);
+		scene.add( selectBox );
+		loader.load(
+				// resource URL
+				'/babmukja/resources/images/scrapbooktext.gltf',
+				// called when the resource is loaded
+				function ( gltf ) {
+					scrapbookTextMesh = gltf.scene;
+					scene.add( scrapbookTextMesh );
+					console.dir(scrapbookTextMesh.position);
+					let size = 5;
+					scrapbookTextMesh.position.x = -23.5;
+					scrapbookTextMesh.position.y = -13;
+					scrapbookTextMesh.position.z = 12.5;
+					scrapbookTextMesh.scale.x = size;
+					scrapbookTextMesh.scale.y = size;
+					scrapbookTextMesh.scale.z = size;	
+					scrapbookTextMesh.rotation.y = 2;
+					scrapbookTextFlagKey = true;
+					
+					
+				},
+				// called while loading is progressing
+				function ( xhr ) {
+					
+					console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+					
+				},
+				// called when loading has errors
+				function ( error ) {
+					
+					console.log( 'An error happened' );
+					
+				}
+		);
+	}
 	loader.load(
 		// resource URL
 		'/babmukja/resources/images/updateusertext.gltf',
@@ -656,18 +666,20 @@ function animate() {
 		}
 	
 	}
-	if(scrapbookTextFlag){
-		
-		scrapbookTextMesh.position.y += 0.006;
-		if(scrapbookTextMesh.position.y > -12){
-			scrapbookTextFlag = false;
+	if(visitorNo == userNo){		
+		if(scrapbookTextFlag){
+			
+			scrapbookTextMesh.position.y += 0.006;
+			if(scrapbookTextMesh.position.y > -12){
+				scrapbookTextFlag = false;
+			}
+		}else if(recipeTextFlagKey && !scrapbookTextFlag){
+			scrapbookTextMesh.position.y -= 0.006;
+			if(scrapbookTextMesh.position.y < -13.2){
+				scrapbookTextFlag = true;
+			}
+			
 		}
-	}else if(recipeTextFlagKey && !scrapbookTextFlag){
-		scrapbookTextMesh.position.y -= 0.006;
-		if(scrapbookTextMesh.position.y < -13.2){
-			scrapbookTextFlag = true;
-		}
-	
 	}
 	if(updateuserTextFlag){
 		
@@ -711,15 +723,6 @@ function dateFormat(date){
     return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
 }
 
-let $sec2 = $("#updateform-sec2");
-let userProfile = $("#profile-picture").attr("src");
-let userNickname = $("#updateform-sec2-userinfo-id").text();
-let userNo = $("input[name='memNo']").val();
-let visitorNo = $("input[name='visitor']").val();
-let followCnt = $("input[name='follow']").val();
-let followerCnt = $("input[name='follower']").val();
-let recipeCnt = $("input[name='recipeCnt']").val();
-let followStatus = $("input[name='followStatus']").val();
 
 for(let i=1;i<=2;i++){
     $("#updateform-sec1-menu"+i).click(function(){
@@ -930,54 +933,4 @@ $(document).on("click","#follow-button",function () {
 	if(visitorNo == userNo) {
 		alert("같은 회원은 팔로우 할 수 없습니다.");
 	}
-});
-
-$("#scrapbook-add").click(function(){
-	$("#modal-scrapbook").modal("hide");
-	$("#modal-scrapbook-creator").modal("show");
-});
-
-$(document).on("click","#scrapbook-coverselector",function(){
-	alert("!d");
-	$("input[name='bookcover']").click();
-});
-
-$("input[name='bookcover']").change(function(e){
-	var reader = new FileReader();
-	let fData = new FormData();
-    reader.readAsDataURL(e.target.files[0]);
-    fData.append("attach",e.target.files[0]);
-    fData.append("memNo",userNo);
-    
-    	 reader.onload = function () {
-         var tempImage = new Image();
-         tempImage.src = reader.result;
-         
-         tempImage.onload = function () {
-             var canvas = document.createElement('canvas');
-             var canvasContext = canvas.getContext("2d");
-
-             canvas.width = 200;
-             canvas.height = 200;
-             canvasContext.drawImage(this, 0, 0, 200, 200);
-                 
-             var dataURI = canvas.toDataURL("image/jpeg");
-             var imgTag = "<img id='cover-picture' class='preview_img' src='"+dataURI+"'/>";
-			 $("#scrapbook-coverselector").html(imgTag);
-         };
-     };
-     $("#book-cancel").click(function(){
-    	 
-     });
-//	 $.ajax({
-//		 url: 'upload.do',
-//         type: "post",
-//      	 processData: false,
-//         contentType: false,
-//         data: fileData
-//	 }).done(function(){
-//		 
-//	 });
-//
-
 });
