@@ -34,9 +34,11 @@
 	
 	<!-- 레시피 조회 -->
 	<select id="selectRecipe" resultMap="recipeMap">
-		select m.mem_nickname,r.* from tb_member m,tb_recipe r
+		select m.*,r.* 
+		  from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
 		 order by regDate desc
+		 limit 0, 12
 	</select>
 	
 	<!-- 레시피 상세 조회 -->
@@ -97,7 +99,7 @@
 		 order by regDate desc
 		 limit 0,4
 	</select>
-	
+
 	<!-- 조회수 증가 -->
 	<update id="addViewCnt" parameterType="int">
 		update tb_recipe
@@ -203,7 +205,7 @@
     	    on r.mem_no = m.mem_no
     	 where recipe_no = #{recipeNo}    	   
     	 order by recipe_review_no desc
-    	 limit #{index}, 10
+    	 limit #{index}, 5
     </select>   
     
     <!-- 전체 댓글 수 -->    
@@ -362,6 +364,7 @@
          where rk.recipe_no = r.recipe_no
            and m.mem_no = r.mem_no
       <include refid="searchWhere"/>
+         order by r.regdate desc
          limit #{pageNo}, 12
 	</select>
 	
@@ -375,7 +378,8 @@
            and m.mem_no = r.mem_no
            and rk.country = #{country}
       <include refid="searchWhere"/>
-         limit #{pageNo}, 12         
+         order by r.regdate desc      
+         limit #{pageNo}, 12  
 	</select>
 
 	<!-- (우중) 회원 번호로 레시피 가져오기-->

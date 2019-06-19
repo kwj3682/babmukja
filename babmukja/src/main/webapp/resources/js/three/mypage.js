@@ -1,4 +1,14 @@
 
+let $sec2 = $("#updateform-sec2");
+let userProfile = $("#profile-picture").attr("src");
+let userNickname = $("#updateform-sec2-userinfo-id").text();
+let userNo = $("input[name='memNo']").val();
+let visitorNo = $("input[name='visitor']").val();
+let followCnt = $("input[name='follow']").val();
+let followerCnt = $("input[name='follower']").val();
+let recipeCnt = $("input[name='recipeCnt']").val();
+let followStatus = $("input[name='followStatus']").val();
+
 var camera, scene, renderer;
 var selectBox;
 var textMesh;
@@ -212,33 +222,14 @@ function update() {
 		recipeArea.rotation.x = 0;
 	});
 
-	// var selectBoxM1 = new THREE.LineDashedMaterial( { linewidth : 6, color: 0x01f123, dashSize: 3, gapSize: 1} );
-	var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
-	var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
 	
-	
-	// selectBox = new THREE.LineSegments( selectBoxG, selectBoxM2 );
-	// selectBox.computeLineDistances();
-	// selectBoxG = new THREE.EdgesGeometry( selectBoxG );
-	selectBox = new THREE.Mesh( selectBoxG, selectBoxM2 );
-
-	selectBox.on("mouseover",function(){
-		selectBoxFlag = true;
-	}).on("pointerout",function(){
-		selectBoxFlag = false;
-
-	});
-	selectBox.position.x = -21;
-	selectBox.position.y = -15;
-	selectBox.position.z = 11;
-	selectBox.rotation.y = -1.2;
-
 	
 	scene.add( book1 );
 	scene.add( book2 );
 	scene.add( book3 );
 	scene.add( recipeArea );
-	scene.add( selectBox );
+
+	
 	//-------------------------- Geometry loading part------------------------------//
 	
 	var loader = new THREE.GLTFLoader();
@@ -462,39 +453,76 @@ function update() {
 
 		}
 	);
-	loader.load(
-		// resource URL
-		'/babmukja/resources/images/scrapbooktext.gltf',
-		// called when the resource is loaded
-		function ( gltf ) {
-			scrapbookTextMesh = gltf.scene;
-			scene.add( scrapbookTextMesh );
-			console.dir(scrapbookTextMesh.position);
-			let size = 5;
-			scrapbookTextMesh.position.x = -23.5;
-			scrapbookTextMesh.position.y = -13;
-			scrapbookTextMesh.position.z = 12.5;
-			scrapbookTextMesh.scale.x = size;
-			scrapbookTextMesh.scale.y = size;
-			scrapbookTextMesh.scale.z = size;	
-			scrapbookTextMesh.rotation.y = 2;
-			scrapbookTextFlagKey = true;
-
+	if(visitorNo == userNo){
+		var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
+		var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
 		
-		},
-		// called while loading is progressing
-		function ( xhr ) {
+		selectBox = new THREE.Mesh( selectBoxG, selectBoxM2 );
 
-			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		selectBox.on("mouseover",function(){
+			selectBoxFlag = true;
+		}).on("pointerout",function(){
+			selectBoxFlag = false;
+		}).on("click",function(){
+			$("#modal-scrapbook").modal("show");
+			$.ajax({
+				url : "scrapbookAjax.do",
+				data : {memNo : userNo}
+			}).done(function(list){
+				let html = "";
+				for(let book of list){
+					html +='<div class="scrapbook-content">';
+					html +=		'<div class="scrapbooks-title-conatiner">';
+					html +=			'<p>'+book.title+'</p>';
+					html +=		'</div>';
+					html +=			'<div class="scrapbooks" style="background:url('+ book.imgPath +')">';
+					html +=		'</div>';
+					html +='</div>';
+					
+				}
+				$("#scrapbook-wrapper").append(html);
+			});
+		});
+		selectBox.position.x = -21;
+		selectBox.position.y = -15;
+		selectBox.position.z = 11;
+		selectBox.rotation.y = -1.2;
 
-		},
-		// called when loading has errors
-		function ( error ) {
-
-			console.log( 'An error happened' );
-
-		}
-	);
+		scene.add( selectBox );
+		loader.load(
+				// resource URL
+				'/babmukja/resources/images/scrapbooktext.gltf',
+				// called when the resource is loaded
+				function ( gltf ) {
+					scrapbookTextMesh = gltf.scene;
+					scene.add( scrapbookTextMesh );
+					console.dir(scrapbookTextMesh.position);
+					let size = 5;
+					scrapbookTextMesh.position.x = -23.5;
+					scrapbookTextMesh.position.y = -13;
+					scrapbookTextMesh.position.z = 12.5;
+					scrapbookTextMesh.scale.x = size;
+					scrapbookTextMesh.scale.y = size;
+					scrapbookTextMesh.scale.z = size;	
+					scrapbookTextMesh.rotation.y = 2;
+					scrapbookTextFlagKey = true;
+					
+					
+				},
+				// called while loading is progressing
+				function ( xhr ) {
+					
+					console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+					
+				},
+				// called when loading has errors
+				function ( error ) {
+					
+					console.log( 'An error happened' );
+					
+				}
+		);
+	}
 	loader.load(
 		// resource URL
 		'/babmukja/resources/images/updateusertext.gltf',
@@ -655,18 +683,20 @@ function animate() {
 		}
 	
 	}
-	if(scrapbookTextFlag){
-		
-		scrapbookTextMesh.position.y += 0.006;
-		if(scrapbookTextMesh.position.y > -12){
-			scrapbookTextFlag = false;
+	if(visitorNo == userNo){		
+		if(scrapbookTextFlag){
+			
+			scrapbookTextMesh.position.y += 0.006;
+			if(scrapbookTextMesh.position.y > -12){
+				scrapbookTextFlag = false;
+			}
+		}else if(recipeTextFlagKey && !scrapbookTextFlag){
+			scrapbookTextMesh.position.y -= 0.006;
+			if(scrapbookTextMesh.position.y < -13.2){
+				scrapbookTextFlag = true;
+			}
+			
 		}
-	}else if(recipeTextFlagKey && !scrapbookTextFlag){
-		scrapbookTextMesh.position.y -= 0.006;
-		if(scrapbookTextMesh.position.y < -13.2){
-			scrapbookTextFlag = true;
-		}
-	
 	}
 	if(updateuserTextFlag){
 		
@@ -710,36 +740,40 @@ function dateFormat(date){
     return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
 }
 
-let $sec2 = $("#updateform-sec2");
-let userProfile = $("#profile-picture").attr("src");
-let userNickname = $("#updateform-sec2-userinfo-id").text();
 
 for(let i=1;i<=2;i++){
     $("#updateform-sec1-menu"+i).click(function(){
         $(this).css({background:"white"});
         $(this).siblings().css({background:"lightgray"});
+        let html = "";
         switch(i){
             case 1:
-            $sec2.html(
-                `
-                <div id="check-userinfo">
-                    <div id="updateform-sec2-imgSelector">
-                            <img id="profile-picture" src="${userProfile}">
-                        </div>
-                        <div id="updateform-sec2-userinfo">
-                        <p id="updateform-sec2-userinfo-id">${userNickname}</p>
-                        <div id="updateform-sec2-userinfo-opt">
-                            <button id="profile-change-button">프로필 사진 변경</button>
-                            <button>팔로우</button>
-                            <p>팔로우 중</p>
-                        </div>
-                        <p id="updateform-sec2-userinfo-info">
-                            작성한 레시피<b>15</b>
-                            팔로우<b>10</b>
-                            팔로워<b>11</b>
-                        </p>
-                    </div>
-                </div>`);
+            	
+            	html+= '<div id="check-userinfo">';
+	            html+= 	'<div id="updateform-sec2-imgSelector">';
+	            html+= 	'<img id="profile-picture" src="'+userProfile+'">';
+	            html+= 	'</div>';
+	            html+= 	'<div id="updateform-sec2-userinfo">';
+	            html+= 		'<p id="updateform-sec2-userinfo-id">'+ userNickname +'</p>';
+	            html+= 		'<div id="updateform-sec2-userinfo-opt">';
+
+	            if(followStatus == 'Y'){
+	            	html+=     	'<button id="follow-button">팔로우 해제</button>';
+	            	html+=     	'<p>팔로우 중</p>';	            	
+	            }else if(followStatus == 'N'){
+	            	html+=     	'<button id="follow-button" class="follow-needed">팔로우</button>';	            	
+	            }else if(followStatus == 'M'){	            	
+	            	html+=     	'<button id="profile-change-button">프로필 사진 변경</button>';	            	
+	            }
+	            html+= 		'</div>';
+	            html+= 		'<p id="updateform-sec2-userinfo-info">';
+			    html+=         	'작성한 레시피<b>'+ recipeCnt + '</b>';
+			    html+=         	'팔로우<b>'+ followCnt +'</b>';
+			    html+=         	'팔로워<b>'+ followerCnt +'</b>';
+		        html+=     	'</p>';
+	            html+= 	'</div>';
+            	html+= '</div>';
+            $sec2.html(html);
             break;
             case 2:
                 $sec2.html(
@@ -767,10 +801,10 @@ $(document).on("change","input[name='profile-picture']",function (e) {
 	let path = $(this).val();
    	console.dir(e.target.files[0]);
 
-		var reader = new FileReader();
+	var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     fileData.append("attach",e.target.files[0]);
-    fileData.append("memNickname", $("#memNickname").text());
+    fileData.append("memNickname", userNickname);
     
 /*     reader.onload = function () {
          var tempImage = new Image();
@@ -797,9 +831,9 @@ $(document).on("change","input[name='profile-picture']",function (e) {
           	 processData: false,
              contentType: false,
              data: fileData
-    	 }).done(function(){
+    	 }).done(function(result){
     		 alert("프로필 사진이 성공적으로 변경되었습니다.");
-    		 location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
+    		 location.href="/babmukja/member/mypage.do?memNickname=" + result;
     	 });
      }else{
     	 alert("프로필 사진 변경이 취소되었습니다.");
@@ -885,31 +919,35 @@ $(document).on("click","#change-pass-button",function(){
         	  memEmail:$("input[name='memEmail']").val()}
     }).done(function(result){
     	alert("변경되었습니다.");
-    	location.href = "/babmukja/member/mypage.do?memNickname=" + $("#memNickname").text();
+    	location.href = "/babmukja/member/mypage.do?memNickname=" + encodeURI(userNickname , "UTF-8");;
     });
 });
+
+
 // 팔로우 기능
-$(document).on("click","#follow-button",function () {  	
-	if('${sessionScope.user.memNo}' != '${user.memNo}' && '${sessionScope.user}' != '') {
+$(document).on("click","#follow-button",function () { 
+	if(visitorNo != userNo) {
 	    	$.ajax({
 	    		url : "/babmukja/recipe/follow.do",
 	    		data : {
-	    			'followMemNo': '${user.memNo}',
-	    			'followerMemNo':  '${sessionScope.user.memNo}'
+	    			'followMemNo': userNo,
+	    			'followerMemNo': visitorNo
 	    		},
 	    		success : function(result) {		    		
 	    			if(result == 1) {
-		    			alert("팔로우가 되었습니다.");	
-		    			$("#updateform-sec2-userinfo-opt").html("<p>팔로우 중</p>");
-	    			} else if(result == 0){
-	    				alert("팔로우가 해제되었습니다.");
+	    				followerCnt++;
+	    				$("#follower-cnt").text(followerCnt);
+		    			$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우 해제</button><p>팔로우 중</p>");
+	    			} else if(result == 0) {
+	    				
+	    				followerCnt--;
+	    				$("#follower-cnt").text(followerCnt);
 	    				$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우</button>");
-	    			}else alert("로그인 후 이용가능합니다.");
+	    			} else alert("로그인 후 이용가능합니다.");
 	    		}
 	    	});
 		} 
-	if('${sessionScope.user.memNo}' == '${user.memNo}') {
+	if(visitorNo == userNo) {
 		alert("같은 회원은 팔로우 할 수 없습니다.");
 	}
-	else alert("로그인 후 이용가능합니다.");
 });

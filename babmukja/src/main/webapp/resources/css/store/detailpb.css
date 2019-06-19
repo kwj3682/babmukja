@@ -310,7 +310,6 @@
 
 .pb_review_select_img{
     width: 600px;
-    height: 112px;
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-gap : 5px;
@@ -519,6 +518,7 @@
 
 .pb_product_content textarea {
     width: 500px;
+    margin-top: 30px;
 }
 
 #preview_img_div {
@@ -1126,7 +1126,149 @@
 }
 
 .pb_inq_info {
-   display: flex;
+   	display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 600px; */
+    justify-content: center;
+    text-align: center;
+}
+
+/* .pagination { */
+/* 	font-size: 15px; */
+/* } */
+
+/* .pagination:hover { */
+
+/* 	} */
+/* .pagination:hover a{ */
+
+/* 	} */
+
+#review-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.review-pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.review-pagination > a {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.review-pagination > a:link {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.review-pagination > a:visited {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.review-pagination:hover a{
+	color : #7db341;
+}
+
+
+
+.this-review-page {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+}
+.this-review-page > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.this-review-page > a:hover {
+	color: white;
+}
+
+.this-inq-pagination {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+}
+.this-inq-pagination > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.this-inq-pagination > a:hover {
+	color: white;
+}
+.inq-pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inq-pagination > a {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.inq-pagination > a:link {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.inq-pagination > a:visited {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.inq-pagination:hover a{
+	color : #7db341;
+}
+
+#inq-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.right-arrow, .left-arrow {
+	width : 15px;
+	position : relative;
+	top : 2px;
+	left : 10px;
 }
 
 .comment-prev,.comment-next {
@@ -1137,18 +1279,21 @@
     margin-bottom: 10px;
 }
 
-.pagination {
-	display: inline-block;
-    border: 1px solid #7db341;
-    width: 25px;
-    height: 25px;
-    margin: 5px;
-    margin-bottom: 10px;
+#pb_review_move {
+    height: 30px;
+    width: 10px;
+}
+#pb_inq_move {
+    height: 30px;
+    width: 10px;
 }
 
-.pagination:hover {
-	background : #7db341;	
-}
-.pagination:hover a{
-	color : white;
+.pb_answer_item {
+    margin-left: 65px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+    justify-content: center;
 }

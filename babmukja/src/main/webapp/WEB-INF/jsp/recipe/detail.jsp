@@ -70,9 +70,28 @@
                 <div id="comment-header">댓글</div>                
                 <div id="comment-container"><!-- comment-container start -->
                     <div id="comment-mine"><!-- comment-mine start -->
-                        <img src="<c:url value='/resources/images/ma.jpg'/>">
+                    <c:choose>
+                    	<c:when test="${sessionScope.user != null }">
+	                        <c:choose>
+			                	<c:when test="${sessionScope.user.memImgPath == null}">
+			                    	<img id="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+			                    	<img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${sessionScope.user.memImgPath}&sysname=${sessionScope.user.memImgSysname}">
+			                	</c:otherwise>
+		                	</c:choose>
+							<div id="comment-nick">
+								${sessionScope.user.memNickname }
+							</div>                    
+                    	</c:when>
+                    	<c:otherwise>
+                    		<img src="<c:url value='/resources/images/default/userdefault.png'/>">
+                    		<div id="comment-login">
+								로그인 후 이용해주세요.
+							</div>
+                    	</c:otherwise>
+                    </c:choose>        
                         <div id="comment-input-wrapper">
-	     					
 	     					<div class="check-stars">
 								<div class="check-backStar"></div>
 								<div class="check-frontStar-wrapper">
@@ -137,7 +156,14 @@
                 <div id="writer-info"><!-- writer-info start -->
 
                     <div id="profile-wrapper"> <!-- profile-wrapper start -->
-                        <img id="profile-img" src="<c:url value="/resources/images/ma.jpg"/>">
+                        <c:choose>
+		                	<c:when test="${recipe.memImgPath == null}">
+		                    	<img id="profile-img" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+		                	</c:when>
+		                	<c:otherwise>					                	
+		                    	<img id="profile-img" src="${pageContext.request.contextPath}/member/download.do?path=${recipe.memImgPath}&sysname=${recipe.memImgSysname}">
+		                	</c:otherwise>
+	                	</c:choose>
                         <div id="profile-id">
                             <div>${recipe.memNickname }</div>
                             <div>#level9</div>
@@ -269,8 +295,12 @@
 	    			let html = "";	
 	    		
 	    	 		html +=  '<div class="comment-other-wrapper" id=' + result.recipeReviewNo + '>'
-	    	 					+'<img class="other-profile" src="">'
-	    	 					+'<div class="other-content-wrapper">'
+				    	 		if (result.memImgPath != null) {
+			 						html += '<img class="other-profile" src="<c:url value="/resources/images/default/userdefault.png"/>">'
+			 					} else {
+			 						html += '<img class="other-profile" src="${pageContext.request.contextPath}/member/download.do?path=${sessionScope.user.memImgPath}&sysname=${sessionScope.user.memImgSysname}">'
+			 					}
+	    	 			html	+='<div class="other-content-wrapper">'
 	    	 					+'<input type="hidden" class="reviewNo" value=' + result.recipeReviewNo + '>' 
 	    	 					+'<div>'
 	    	 					+'<div class="other-id">'+ result.memNickname +'</div>'
@@ -302,8 +332,7 @@
      // 댓글 목록 불러오기
      function commentList(pageNo){
     	 pageNo = pageNo - 1;
-    	 let index = pageNo * 10;
-    	 console.log(index);
+    	 let index = pageNo * 5;
 	     $.ajax({    	 
 		 		url: "recipeCommentList.do"	,
 		 		data : {
@@ -313,18 +342,21 @@
 		 		}
 		 	})
 		 	.done(function (result) {
-		 		console.dir(result);
 		 		let loginMemNo = '${sessionScope.user.memNo}';
 		 		if(result.comment.length == 0) {	 			
 		 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
 		 		}
 		 		let html = "";	
 		 		for(let i = 0; i < result.comment.length; i++) {
-	
+					console.dir(result.comment[i]);
 		 			let date = new Date(result.comment[i].regdate);
-		 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>' 
-		 					+'<img class="other-profile" src="">'
-		 					+'<div class="other-content-wrapper">'
+		 			html += '<div class="comment-other-wrapper" id=' + result.comment[i].recipeReviewNo + '>'
+		 					if (result.comment[i].memImgPath == null) {
+		 						html += '<img class="other-profile" src="<c:url value="/resources/images/default/userdefault.png"/>">'
+		 					} else {
+		 						html += '<img class="other-profile" src="${pageContext.request.contextPath}/member/download.do?path='+ result.comment[i].memImgPath + '&sysname='+ result.comment[i].memImgSysname+ '">'
+		 					}
+		 			html	+='<div class="other-content-wrapper">'
 		 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
 		 					+'<div>'
 		 					+'<div class="other-id">'+ result.comment[i].memNickname +'</div>'	
@@ -346,8 +378,6 @@
 		 	 		$("#comment-other").append(html);
 		 	 		printPaging(result.pageResult);
 		 	});
-	     
-    	 
      }
      
      $(document).on("click","#comment-page a",function(e){
@@ -357,6 +387,7 @@
          commentList(page);
       });
      
+
      // 페이징 함수
      function printPaging(page) {
     	 console.log(page);
@@ -365,18 +396,21 @@
     		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
     	 }
 		 for(var i = page.beginPage; i <= page.endPage; i++) {
-			 str += "<div class='pagination'><a href='"+ i +"'>" + i + "</a></div>";
+			 if(page.pageNo == (i-1)) {
+				 str += "<div class ='current-page'><a href='"+ i +"'>" + i + "</a></div>";
+			 } else {
+				 str += "<div class='pagination'><a href='"+ i +"'>" + i + "</a></div>";				 
+			 }
 		 }
 		 if(page.next) {
 			 str += "<div class='comment-next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
 		 }
-		 $("#comment-page").html(str);
+		 $("#comment-page").html(str); 
 	}
-    	 
+     
      // 댓글 수정 버튼 이벤트
      $(document).on("click",".updateComment",function () {
     	 let no = $(this).parent().parent().find(".reviewNo").val();
-    	 console.log("수정 no : " + no);
     	 let html = "";
   		$.ajax({
  			url : "commentUpdateForm.do",
@@ -444,7 +478,7 @@
  		
 	    	$("#"+ num).html("");
 	    	$("#comment-other").html("");
-			commentList(1);
+			commentList(result.pageNo);
  		})  
  	});
  		
@@ -521,7 +555,6 @@
         });
 		
        function myTimeWait(){	   
-//     	   	console.log($("#post-body").width() + " " + $("#post-body").height());
     	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
        }
        let mOverValue = 0;

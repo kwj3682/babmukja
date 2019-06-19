@@ -32,45 +32,50 @@
 						<span class="board_viewCnt"><i class="far fa-eye"></i>&nbsp;${board.viewcnt}</span>
 					</div>
 					<div class="board_detail_button">
-						<span class="board_update_button">
-						<i class="far fa-edit"></i><a href="<c:url value='/board/updateform.do?boardNo=${board.boardNo}'/>">수정</a></span>&nbsp; 
-						<span class="board_delete_button">
-						<i class="far fa-trash-alt"></i><a href="<c:url value='/board/delete.do?boardNo=${board.boardNo}'/>">삭제</a></span>
+						<span class="board_update_button"> <i class="far fa-edit"></i>
+							<a
+							href="<c:url value='/board/updateform.do?boardNo=${board.boardNo}'/>">수정</a></span>&nbsp;
+						<span class="board_delete_button"> <i
+							class="far fa-trash-alt"></i> <a
+							href="<c:url value='/board/delete.do?boardNo=${board.boardNo}'/>">삭제</a></span>
 					</div>
 				</div>
-				
-				<div class="board_img_content"> 	
-				<div class="board_detail_img">
-					<img src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
+
+				<div class="board_img_content">
+					<div class="board_detail_img">
+						<img
+							src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
+					</div>
+					<div class="board_detail_content">${board.content}</div>
 				</div>
-				<div class="board_detail_content">${board.content}</div>
-				</div>
-				
+
 				<div class="heart"></div>
 			</div>
 
 			<!--댓글 부분-->
 			<div class="board_detail_comment">
 				<div class="board_comment_title">
-					<p class="comment_msg">답글</p>
+					<p class="comment_msg">댓글</p>
 				</div>
-				
+
 				<!-- 댓글 입력부분 -->
 				<div class="board_comment_input">
-					<i class="fas fa-comments"></i> <input type="text" class="board_detail_content" name="board_detail_content" id="content" placeholder="댓글을 입력해주세요." />
-					<button class="detail_comment_button">
+					<i class="fas fa-comments"></i> 
+					<input type="text" class="board_detail_content" name="board_detail_content" id="content" placeholder="댓글을 입력해주세요." />
+					<button class="detail_comment_button" type="">
 						<i class="fas fa-pencil-alt"></i>
 					</button>
 				</div>
-				
+
 				<!-- 댓글 목록부분 -->
-				<div class="board_comment_content">
-				</div>
-				
+				<div class="board_comment_content"></div>
+
 				<!-- 댓글이 없을 때 -->
-				<div class="board_comment_none">
-				</div>
-				
+				<div class="board_comment_none"></div>
+
+				<!-- 댓글 페이징 -->
+				<div class="board_detail_comment_page"></div>
+
 			</div>
 		</div>
 	</div>
@@ -83,29 +88,70 @@
 		});
 		
 		// 댓글 목록
-		$.ajax({
-			url : "boardreviewList.do",
-			data : { boardNo : $("input[name='boardNo']").val()}
-		})
-		.done(function(result) {
-			let html = "";
-			for (let i = 0; i < result.comment.length; i++) {
-				let date = new Date(result.comment[i].regdate);
-				html += '<div class="board_comment__wrapper" id=' + result.comment[i].boardReviewNo + '>' 
-				     + '<div class="board_detail_profile">'
-				     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
-				     + '<div class="detail_name_content">' 
-				     + '<input type="hidden" class="boardReviewNo" value=' + result.comment[i].boardReviewNo + '>' 
-				     + '<span class="detail_comment_nickname">주부9단빛찬맘</span>'
-				     + '<span class="detail_comment_content" id=content'+ result.comment[i].boardReviewNo +'>'+ result.comment[i].content + '</span>'
-				     + '<div class="board_detail_info">'
-				     + '<span class="comment_regDate">'+ dateFormat(date)+ '</span>'
-				     + '<span class="comment_update_button"><i class="far fa-edit"></i>수정</span>'
-				     + '<span class="comment_delete_button"><i class="far fa-trash-alt"></i>삭제</span>';
-				     html += '</div></div></div></div>'
-			}
-			$(".board_comment_content").append(html);
-		});
+		function boardReviewList(pageNo) {
+			pageNo = pageNo - 1;
+			let index = pageNo * 5;
+			$.ajax({
+				url : "boardreviewList.do",
+				data : { 
+					boardNo : $("input[name='boardNo']").val(),
+					index : index,
+					pageNo : pageNo
+				}
+			})
+			.done(function(result) {
+				if(result.comment.length == 0) {
+					$(".board_comment_content").html("<span class='board_detail_span'>댓글을 작성해주세요.</span>")
+				}
+				let html = "";
+				for (let i = 0; i < result.comment.length; i++) {
+					let date = new Date(result.comment[i].regdate);
+					html += '<div class="board_comment_wrapper" id=' + result.comment[i].boardReviewNo + '>' 
+					     + '<div class="board_detail_profile">'
+					     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
+					     + '<div class="detail_name_content">' 
+					     + '<input type="hidden" class="boardReviewNo" value=' + result.comment[i].boardReviewNo + '>' 
+					     + '<span class="detail_comment_nickname">주부9단빛찬맘</span>'
+					     + '<span class="detail_comment_content" id=content'+ result.comment[i].boardReviewNo +'>'+ result.comment[i].content + '</span>'
+					     + '<div class="board_detail_info">'
+					     + '<span class="comment_regDate">'+ dateFormat(date)+ '</span>'
+					     + '<span class="comment_update_button"><i class="far fa-edit"></i>수정</span>'
+					     + '<span class="comment_delete_button"><i class="far fa-trash-alt"></i>삭제</span>';
+					     html += '</div></div></div></div>'
+				}
+				$(".board_comment_content").append(html);
+				printPaging(result.pageResult);
+			});
+		}
+		
+		// 목록 불러오기
+		 $(document).on("click",".board_detail_comment_page a",function(e){
+  			  e.preventDefault();
+        	  page = $(this).attr("href");         
+        	  $(".board_comment_content").html("");
+        	  boardReviewList(page);
+     	});
+		
+		// 페이징 함수
+		function printPaging(page) {
+    	 console.log(page);
+    	 let str = "";
+    	 if(page.prev) {
+    		 str += "<div class='board_comment_prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
+    	 }
+		 for(var i = page.beginPage; i <= page.endPage; i++) {
+			 if(page.pageNo == (i-1)) {
+				 str += "<div class ='board_current_page'><a href='"+ i +"'>" + i + "</a></div>";
+			 } else {
+				 str += "<div class='board_comment_pagination'><a href='"+ i +"'>" + i + "</a></div>";				 
+			 }
+		 }
+		 if(page.next) {
+			 str += "<div class='board_comment_next'><a href='"+ (page.endPage + 1) +"'><img class='right-arrow' src='<c:url value='/resources/images/icons/right-arrow.png'/>'/></a></div>";
+		 }
+		 $(".board_detail_comment_page").html(str); 
+	}
+
 		
 		// timestamp 날짜형식 바꾸는 함수
      	function dateFormat(date){
@@ -140,7 +186,10 @@
 				     html += '</div></div></div></div>';
 				     
 				     $(".board_detail_content").val("");
+				     $(".board_detail_span").html("");
 				     $(".board_comment_content").prepend(html);
+				     $(".board_comment_content").html("");
+				     boardReviewList(1);
 			    }
 			})
 		});
@@ -155,6 +204,9 @@
 				data: "boardReviewNo=" + delNo
 			}).done(function(result) {
 				$detailNameContent.parent().parent().html("");
+				$("#"+ delNo).html("");
+		    	$(".board_comment_content").html("");
+				boardReviewList(1);
 			})
 		});
 		
@@ -203,17 +255,20 @@
 			})
 		});
 		
-		// 댓글이 없을 때
-		/*
-		let none = $(".board_comment_none").val();
-		if(none.length == 0) {
-			$(".board_comment_none").html("<h3>댓글을 작성해주세요.</h3>");
-		} else {
-			$(".board_comment_none").html("");
-		}
-		*/
+		// 댓글 목록 + 페이징 함수 실행
+		$(document).ready(function(){
+			boardReviewList(1);
+		})
 		
-		// 댓글 페이징
+		// 댓글 유효성 검사
+		$(".detail_comment_button i").click(function() {
+			let content = $("#content").val();
+			if(content.length == 0) {
+				alert("댓글을 입력해주세요.");
+				$("#content").focus;
+				return false;
+			}
+		});
 	</script>
 </body>
 </html>

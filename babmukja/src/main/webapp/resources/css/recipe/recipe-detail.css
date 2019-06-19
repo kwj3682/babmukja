@@ -9,7 +9,7 @@
     margin-top:130px;
 }
 a {
-	color : black;
+	color : #7db341;;
 }
 #left-body{
     height: 100%;
@@ -185,7 +185,7 @@ a {
     color: white;
 }
 #writer-post{
-    height: 300px;
+    height: 250px;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
@@ -369,9 +369,24 @@ a {
     justify-content: space-between;
 }
 #comment-mine img{
-    width: 60px;
-    height: 60px;
-    border-radius :30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+#comment-nick {
+    font-size: 20px;
+    position: relative;
+    top: 35px;
+    left: -11px;
+}
+
+#comment-login {
+	font-size: 13px;
+    position: relative;
+    top: 40px;
 }
 .comment-input{
     width: 600px;
@@ -394,6 +409,8 @@ a {
     border : 0;
     background: white;
     cursor: pointer;
+    position:relative;
+    top:-10px;
 }
 .comment-exit {	
     color: #7db341;
@@ -427,12 +444,14 @@ a {
 	font-size : 16px;
 }
 .pagination {
-	display: inline-block;
+    display: inline-block;
     border: 1px solid #7db341;
     width: 25px;
     height: 25px;
     margin: 5px;
     margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 .pagination:hover {
@@ -453,6 +472,20 @@ a {
 	position : relative;
 	top : 3px;
 	left : -3px;
+}
+.current-page {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    background: #7db341;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.current-page > a{
+	color : white;
 }
 .other-profile{
     margin-top: 10px;

@@ -24,9 +24,9 @@ public class Page {
 		this.pageNo = pageNo;
 	}
 	public int getBegin() {
-		return (this.pageNo) * 10;
+		return (this.pageNo) * 5;
 	}
 	public int getEnd() {
-		return 10;
+		return 5;
 	}
 }

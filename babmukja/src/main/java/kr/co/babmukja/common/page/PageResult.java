@@ -14,9 +14,9 @@ public class PageResult {
 	}
 	
 	private void setPageInfo() {
-		int lastPage = (count % 10 == 0) ? count / 10
-				                         : count / 10 + 1;
-		int tabSize = 10;
+		int lastPage = (count % 5 == 0) ? count / 5
+				                         : count / 5 + 1;
+		int tabSize = 5;
 		int currTab = (pageNo) / tabSize + 1; 
 		
 		beginPage = (currTab -1) * tabSize + 1;

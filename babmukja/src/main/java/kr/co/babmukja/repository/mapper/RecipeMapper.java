@@ -3,6 +3,7 @@ package kr.co.babmukja.repository.mapper;
 import java.util.List;
 
 import kr.co.babmukja.repository.domain.Keyword;
+import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
@@ -27,7 +28,7 @@ public interface RecipeMapper {
 	// 회원 레시피 목록 
 	public List<Recipe> selectRecipeByMem(int no);
 	// 1등 레시피 정보
-	public Recipe selectWinRecipe();
+	public Recipe selectWinRecipe();	
 	// 1등 레시피 댓글
 	public List<RecipeReview> selectReviewByRate();
 	// 메인 회원 레시피 목록

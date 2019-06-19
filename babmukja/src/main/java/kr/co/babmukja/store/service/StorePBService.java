@@ -53,10 +53,12 @@ public interface StorePBService {
 	public StorePBReview selectReviewByNo(int pbReviewNo);
 	public void deleteReviewByNo(int pbReviewNo);
 	public StorePBReview updatePBReview(StorePBReview storePBReview);
+	public int selectReviewCount(PagePbReview page);
+	public Map<String, Object> selectReviewAjax(PagePbReview page);
 	
 	// pb 상품 문의
 	public void insertInquiry(StorePBInquire storePBInquire);
-	public List<StorePBInquire> selectPBInquire(int pbNo);
+	public Map<String, Object> selectPBInquire(PagePbReview page);
 	public StorePBInquire selectInquiryByNo(int inquiryNo);
 	public void updateInquiry(StorePBInquire storePBInquire);
 	public void deleteInquiry(int inquiryNo);

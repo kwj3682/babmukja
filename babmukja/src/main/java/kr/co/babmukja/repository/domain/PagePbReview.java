@@ -4,7 +4,21 @@ public class PagePbReview {
 	private int pageNo = 0;
 	private int pbNo;
 	private int index;
+	private String memImgPath;
+	private String memImgSysname;
 	
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
 	public int getIndex() {
 		return index;
 	}
@@ -24,7 +38,7 @@ public class PagePbReview {
 		this.pageNo = pageNo;
 	}
 	public int getBegin() {
-		return (this.pageNo -1) * 3;
+		return (this.pageNo) * 3;
 	}
 	public int getEnd() {
 		return 3;

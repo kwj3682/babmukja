@@ -4,12 +4,15 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,15 +30,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.google.gson.Gson;
-
 import kr.co.babmukja.member.service.MemberService;
-import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.MailHandler;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.MemberFileVO;
+import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.ScrapbookFileVO;
 import net.coobird.thumbnailator.Thumbnails;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -64,25 +68,38 @@ public class MemberController {
 
 	// 로그인 처리
 	@RequestMapping("/login.do")
-	public String login(Member member, HttpSession session) {
-
+	@ResponseBody
+	public Map login(Member member, HttpSession session) {
+		HashMap<String,Integer> map = new HashMap<>();
 		String pass = passEncoder.encode(member.getMemPass());
 		Member mem = service.selectLogin(member);
-
+		if(mem == null) {
+			System.out.println("아예 잘못된 아이디");
+			map.put("code",1);
+			return map;
+		}
 		boolean passMatch = passEncoder.matches(member.getMemPass(), mem.getMemPass());
 
 		if (mem != null && passMatch) {
-			if (mem.getVerify() == 0) {
+			System.out.println(mem.getVerify());
+			if (mem.getVerify() == '0') {
 				System.out.println("회원 이메일 인증안함");
-				return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?email=0";
+				map.put("code", 2);
+				return map;
+//				return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?email=0";
 			} else {
 				System.out.println("이메일 인증 함");
 				session.setAttribute("user", mem);
 			}
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
+			
+			map.put("code", 0);
+			return map;
+//			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
 		} else {
 			System.out.println("로그인 실패");
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?fail=1";
+//			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?fail=1";
+			map.put("code", 3);
+			return map;
 			// complete라는 변수를 만들어서 성공했을 때 1을 넘겨주고 화면에 alert창이 보여지지 않게
 			// 1이 넘어오지 않았을 때는 실패 했으니까 화면에 alert창을 보여주게
 		}
@@ -289,11 +306,12 @@ public class MemberController {
 		return service.selectConfirmCertification(member);
 	}
 
-	// 비밀번호 재설정
+	// 비밀번호 재설정 (이메일)
 	@RequestMapping("/resetpass.do")
 	public void resetPass(Member member, Model model) {
 		model.addAttribute("email", member.getMemEmail());
 	}
+	
 
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
@@ -379,13 +397,38 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/mypage.do")
-	public void myPage(Member member,Model model) {
-		model.addAttribute("user",service.searchMemberByNickForMypage(member.getMemNickname()));
+	public ModelAndView myPage(Member member,ModelAndView model,HttpSession session) {
+		Member user = (Member) session.getAttribute("user");
+		
+		if (user != null) {
+			System.out.println(member.getMemNickname()  + "왜 안됨 ㅎㅎㅎㅎㅎ");
+			Member searchUser = service.searchMemberByNickForMypage( member.getMemNickname() );
+			
+			RecipeFollow follow = new RecipeFollow();
+			System.out.println(searchUser.getMemNo());
+			follow.setFollowMemNo(searchUser.getMemNo());
+			follow.setFollowerMemNo(user.getMemNo());
+			
+			String status = service.selectFollowStatus(follow);
+			if(searchUser.getMemNo() == user.getMemNo()) {				
+				model.addObject("followStatus",  "M");
+			}else if(status == null && searchUser.getMemNo() != user.getMemNo()){				
+				model.addObject("followStatus",  "N");				
+			}else if(status != null ){
+				model.addObject("followStatus",  status);				
+			}
+			model.addObject("user", searchUser);
+			model.setViewName("member/mypage");
+		}else {
+			model.setViewName("member/loginform");
+		}
+		return model;
 	}
 	
 	
 	@RequestMapping("/upload.do")
-	public String profileUpload(MemberFileVO fileVO) throws Exception {
+	@ResponseBody
+	public String profileUpload(MemberFileVO fileVO,HttpSession session) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/member" + sdf.format(new Date());
@@ -412,9 +455,9 @@ public class MemberController {
 		.toFile(new File(file.getPath(),"_thumb_"+uName));
 		
 		Member member = new Member();
-		member.setImgOrgname(mFile.getOriginalFilename());
-		member.setImgPath(uploadRoot + path);
-		member.setImgSysname(uName);
+		member.setMemImgOrgname(mFile.getOriginalFilename());
+		member.setMemImgPath(path);
+		member.setMemImgSysname(uName);
 		member.setMemNickname(fileVO.getMemNickname());
 		
 		service.updateMemberProfile(member);
@@ -424,14 +467,19 @@ public class MemberController {
 		fileVO.setSysname(uName);
 		System.out.println("file upload succeed.");
 		System.out.println(fileVO.getMemNickname());
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+fileVO.getMemNickname();
-
+		
+		session.setAttribute("user", service.searchMemberByNickForMypage(fileVO.getMemNickname()));
+		
+		return fileVO.getMemNickname();
+//		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/mypage.do?memNickname="+URLEncoder.encode(fileVO.getMemNickname(), "UTF-8");
+		
 	}
 	@RequestMapping("/download.do")
 	public void profileDownload(MemberFileVO fileVO, HttpServletResponse response) throws Exception {
 		System.out.println("profileDownload.do 실행");
-		
-		File f = new File( fileVO.getPath() 
+		String uploadRoot = "c:/bit2019/upload";
+		File f = new File( uploadRoot
+							+ fileVO.getPath() 
 							+ "/" 
 							+ "_thumb_" 
 							+ fileVO.getSysname());
@@ -457,8 +505,43 @@ public class MemberController {
 		out.close();
 	}
 	
+	@RequestMapping("insertscrapbook.do")
+	@ResponseBody
+	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/scrap" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false)
+			file.mkdirs();
+		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
+		
+		MultipartFile mFile = fileVO.getAttach();
+		
+		if (mFile.isEmpty()) {
+			System.out.println("is empty");
+		}
+		System.out.println(mFile.getOriginalFilename());
+		
+		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
+		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		System.out.println("what the file name : " + file.getPath() +":::: " +  uName);
+		
+		Scrapbook book = new Scrapbook();
+		book.setMemNo(fileVO.getMemNo());
+		book.setImgPath("/babmukja/recipe/download.do?path=" + path + "&sysname=" + uName);
+		book.setTitle(fileVO.getTitle());
+		
+		service.insertScrapbook(book);
+		System.out.println(fileVO.getMemNickname());
+		return fileVO.getMemNickname();
+	}
 	
 	
-	
-	
+	@RequestMapping("scrapbookAjax.do")
+	@ResponseBody
+	public List<Scrapbook> selectScrapbookList (int memNo){
+		return service.selectScrapbookListByNo(memNo);
+	}
 }
