@@ -275,3 +275,20 @@
             text-align: center;
             line-height: 30px;
         }
+        .album_container{
+            padding:6px;
+            border: 1px solid black;
+            margin-top: 15px;
+            width: 1190px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-column-gap: 6px;
+            grid-row-gap: 6px;
+            box-sizing: border-box;
+        }
+        .album_container > div{
+            border:1px solid black;
+            background-color: tomato;
+            height:287.5px;
+            
+        }

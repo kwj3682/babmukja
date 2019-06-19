@@ -297,3 +297,19 @@
     background-color: #7db341;
     color: white;
 }
+
+ .album_container{
+     padding:6px;
+     margin-top: 15px;
+     width: 1190px;
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+     grid-column-gap: 6px;
+     grid-row-gap: 6px;
+     box-sizing: border-box;
+        }
+        .album_container > div{
+            
+            height:287.5px;
+            
+        }

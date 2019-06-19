@@ -118,8 +118,8 @@
 }
 
 #select_product_count button {
-    outline: 0;
     font-size: 10px;
+    outline: 0;
     background-color: white;
     color: rgb(81, 81, 81);
 }
@@ -1051,7 +1051,7 @@
 }
 
 .pb_inq_icon {
-    margin-top: 14px;
+    margin-top: 15px;
     color: gray;
 }
 
@@ -1093,4 +1093,78 @@
 .pb_inquire_answer_regdate {
     margin-left: 25px;
     color: gray;
+}
+
+.pb_inq_admin_answer_btn {
+    margin-top: 3px;
+    color: gray;
+    outline: 0;
+    background-color: white;
+    border: 0;
+}
+
+.pb_inq_admin_answer_btn:hover {
+    color: #7db341;
+}
+
+.answer_mem_nickname {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(81, 81, 81);
+}
+
+.pb_inq_content_text {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.pb_inq_content_val {
+	font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.pb_inq_info {
+   display: flex;
+}
+
+/* .pagination { */
+/* 	font-size: 15px; */
+/* } */
+
+/* .pagination:hover { */
+
+/* 	} */
+/* .pagination:hover a{ */
+
+/* 	} */
+
+#review-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.review-pagination {
+	font-size: 20px;
+}
+
+.review-pagination > a {
+	color: black;
+	margin-left: 10px;
+}
+
+.review-pagination > a:link {
+    text-decoration: none;
+    color: black;
+}
+
+.review-pagination > a:visited {
+    text-decoration: none;
+    color: rgb(81, 81, 81);
+}
+
+.review-pagination > a:hover {
+    color:#7db341;
 }

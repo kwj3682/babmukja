@@ -60,6 +60,20 @@
          limit 0,1
 	</select>
 	
+	<!-- 일등 레시피 댓글 정보 가져오기 -->
+	<select id="selectReviewByRate" resultType="RecipeReview">
+		select rw.*,m.*
+          from tb_recipe_review rw, tb_recipe r, tb_member m
+         where r.recipe_no = rw.recipe_no
+           and m.mem_no = rw.mem_no
+           and r.recipe_no = (select recipe_no 
+                                from tb_recipe 
+                               order by rating desc, regdate desc
+                               limit 0,1)
+         order by score desc, regdate desc
+         limit 0,3
+	</select>
+	
 	<!-- 메인 페이지 회원 레시피 목록 -->
 	<select id="selectMemRecipeByRate" resultType="recipe">
 		select *
@@ -189,7 +203,7 @@
     	    on r.mem_no = m.mem_no
     	 where recipe_no = #{recipeNo}    	   
     	 order by recipe_review_no desc
-    	 limit #{index}, 10
+    	 limit #{index}, 5
     </select>   
     
     <!-- 전체 댓글 수 -->    

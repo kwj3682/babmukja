@@ -103,14 +103,9 @@
                 <div id="sec1-content2-wrapper">
                     <div>만든 이 <span id="monthly-profile-wrapper"><img id="monthly-profile" src="<c:url value="/resources/images/profile15.jpg"/>"></span></div>
                     <div id="paragraph">
-                    	<p>
-	                    	최고의 레시피, 지금까지 이런 레시피는 없었다 <img class="chalkStars" src="<c:url value='/resources/images/chalkstar.png'/>"><br>
-	                    	- 주부9단빛찬맘 -<br>
-	                    	인생 레시피를 여기서 찾았다 <img class="chalkStars" src="<c:url value='/resources/images/star5-big.png'/>"><br>
-	                    	- soo -<br>
-	                    	Holy Moly! ★★★★☆<br>
-	                    	- 렁래쓰 -<br>	                    	 
-                    	</p>
+                    	<c:forEach var="c" items="${comment }">
+	                    	<p>${c.content}</p> - ${c.memNickname} -                    	
+                    	</c:forEach>
                     </div>
                     <div>
                 <c:forEach var="w" items="${winner }">
@@ -236,7 +231,7 @@
     </div>
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
-    <script>
+    <script>    
     $("#bottle").click(function () {
     	location.href = "<c:url value='/member/mypage.do?memNickname=${win.memNickname}'/>";
     });

@@ -72,6 +72,7 @@ public class RecipeController {
 
 		model.addAttribute("win", service.selectWinRecipe());
 		model.addAttribute("winner", service.selectMemRecipeByRate());
+		model.addAttribute("comment",service.selectReviewByRate());
 	}
 
 	@RequestMapping("/recipekeyword.do")
@@ -268,7 +269,6 @@ public class RecipeController {
 	public void commentDelete(int no) {
 		System.out.println(no);
 		service.deleteRecipeReview(no);
-
 	}
 
 	@RequestMapping("/updateComment.do")

@@ -106,7 +106,11 @@ public class RecipeServiceImpl implements RecipeService {
 		result.put("list", mapper.selectReviewByNo(page));
 		System.out.println("pageNo"+ page.getPageNo());
 		System.out.println("index" + page.getIndex());
-		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectReviewCount(page)));
+		System.out.println(mapper.selectReviewCount(page));
+		PageResult pageResult = new PageResult(page.getPageNo(), mapper.selectReviewCount(page));
+		System.out.println(pageResult.getEndPage());
+		System.out.println(pageResult.getBeginPage());
+		result.put("pageResult", pageResult);
 		return result;
 	}
 	// 레시피 댓글 전체 수
@@ -160,7 +164,10 @@ public class RecipeServiceImpl implements RecipeService {
 	public Recipe selectWinRecipe() {
 		return mapper.selectWinRecipe();
 	}
-	
+	// 1등 레시피 댓글
+	public List<RecipeReview> selectReviewByRate() {		
+		return mapper.selectReviewByRate();
+	}
 	// 메인 회원 레시피 목록
 	public List<Recipe> selectMemRecipeByRate() {
 		return mapper.selectMemRecipeByRate();

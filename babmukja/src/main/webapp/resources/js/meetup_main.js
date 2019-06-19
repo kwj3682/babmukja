@@ -154,3 +154,21 @@ $('.header_meetup_manage').click(function(){
 	location.href="/babmukja/meetup/manage.do?hostNo="+$("#hiddenHostNo").val();
 
 });
+
+
+$(document).ready(function() {
+	  $('.meetup_tag').keydown(function(event){
+	    if(event.keyCode == 13) {
+	      event.preventDefault();
+	     
+	      $('.modal_meetup_tagSelected_box').append(`
+              		<span class="selected_tag_container">
+              		<span class="tag_letter">`+$('.meetup_tag').val()+`</span>
+              		<span><i class="fas fa-times-circle"></i></span>
+	    		</div>	  
+	      		`);
+	      $('.meetup_tag').val("#");
+	      
+	    }//if
+	  });
+	});

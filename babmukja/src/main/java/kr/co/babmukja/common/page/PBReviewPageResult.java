@@ -1,22 +1,22 @@
 package kr.co.babmukja.common.page;
 
-public class PageResult {
+public class PBReviewPageResult {
 	private int pageNo;
 	private int count;
 	private int beginPage;
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	public PageResult(int pageNo, int count) {
+	public PBReviewPageResult(int pageNo, int count) {
 		this.pageNo = pageNo;
 		this.count = count;
 		setPageInfo();
 	}
 	
 	private void setPageInfo() {
-		int lastPage = (count % 5 == 0) ? count / 5
-				                         : count / 5 + 1;
-		int tabSize = 5;
+		int lastPage = (count % 3 == 0) ? count / 3
+				                         : count / 3 + 1;
+		int tabSize = 3;
 		int currTab = (pageNo) / tabSize + 1; 
 		
 		beginPage = (currTab -1) * tabSize + 1;
@@ -24,7 +24,6 @@ public class PageResult {
 				                                     : currTab * tabSize;
 		prev = beginPage != 1;
 		next = endPage != lastPage;
-
 	}
 
 	public int getPageNo() {
