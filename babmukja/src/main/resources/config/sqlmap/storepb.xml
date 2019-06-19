@@ -259,11 +259,18 @@
 		<collection property="member" column="mem_no" select="selectInquiryNickName"/>
 	</resultMap>
 	
-	<select id="selectPBInquire" parameterType="int" resultMap="pbInquireMap">
+	<select id="selectPBInquire" parameterType="PagePbReview" resultMap="pbInquireMap">
 		select *
 		  from tb_pb_inquiry
 		 where pb_no = #{pbNo}
 		 order by inquiry_no desc
+		 limit #{index}, 3
+	</select>
+	
+	<select id="selectInquireCount" parameterType="PagePbReview" resultType="int">
+		select count(*)
+		  from tb_pb_inquiry
+		 where pb_no = #{pbNo}
 	</select>
 	
 	<select id="selectInquiryNickName" parameterType="int" resultMap="MemberMap">
