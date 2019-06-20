@@ -26,8 +26,8 @@
         </div>
         <!-- Add Scrollbar -->
         <div class="swiper-scrollbar"></div>
-        
     </div>
+   <div id="information_about_store"></div>
     <!-- PB스토어 메인화면 -->
   <div id="pb_store_container"> 
 		<div class="new_product_container">
