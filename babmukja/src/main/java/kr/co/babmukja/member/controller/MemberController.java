@@ -508,6 +508,9 @@ public class MemberController {
 	@RequestMapping("insertscrapbook.do")
 	@ResponseBody
 	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
+		System.out.println(fileVO.getTitle());
+
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/scrap" + sdf.format(new Date());
