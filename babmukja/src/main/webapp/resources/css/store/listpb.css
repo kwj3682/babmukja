@@ -211,3 +211,58 @@ outline: 0;
 .PBviewCnt {
 	margin-left: 5px;	
 }
+
+
+.review-pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.review-pagination:link {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.review-pagination:visited {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.review-pagination:hover {
+	background-color : #7db341;
+	color: white;
+}
+
+.this-review-page {
+	display: inline-block;
+    width: 27px;
+    height: 27px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+    font-size: 19px;
+    font-weight: bold;
+}
+	
+.pageList {
+    display: flex;
+    justify-content: center;	
+}
+
+.right-arrow {
+    width: 23px;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+

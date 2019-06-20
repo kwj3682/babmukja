@@ -97,6 +97,15 @@ public class MemberServiceImpl implements MemberService {
 	public void updateResetPass(Member member) {
 		mapper.updateResetPass(member);
 	}
+	
+	public int selectConfirmCertificationByEmail(int memNo) {
+		return mapper.selectConfirmCertificationByEmail(memNo);
+	}
+	
+	public int selectMemnoByEmail(String memEmail) {
+		return mapper.selectMemnoByEmail(memEmail);
+	}
+	
 	//----------------------------------------우중------------------------------------------------//
 	public List<Member> searchMemberByNick(String nick){
 		return mapper.searchMemberByNick(nick);

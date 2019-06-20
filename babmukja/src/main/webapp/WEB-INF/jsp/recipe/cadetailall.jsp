@@ -155,7 +155,7 @@
         </div>
              </form>
    </div> 
-            
+   
     <!-- 레시피 목록 부분 -->
 	    <div class="boundary"></div>  
 	        <div id="sector3-mid">
@@ -347,7 +347,7 @@
               })
              }
            });
-         
+
     </script>
 </body>
 </html>

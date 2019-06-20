@@ -73,6 +73,7 @@ public interface StorePBMapper {
 	// PB 상품 결제
 	public void insertPBPayment(StorePBPayment storePBPayment);
 	public StorePBPayment selectPBPaymentByNo(int paymentNo);
+	public List<StorePBPayment> selectBuyList(int memNo);
 	
 	// PB 상품 장바구니
 	public void insertPBCart(StorePBCart storePBCart);
