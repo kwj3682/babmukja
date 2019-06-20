@@ -177,6 +177,10 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBPaymentByNo(paymentNo);
 	}
 	
+	public List<StorePBPayment> selectBuyList(int memNo) {
+		return mapper.selectBuyList(memNo);
+	}
+	
 	// pb 상품 장바구니
 	
 	public void insertPBCart(StorePBCart storePBCart) {

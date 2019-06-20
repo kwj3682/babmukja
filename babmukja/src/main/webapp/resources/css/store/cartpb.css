@@ -183,3 +183,10 @@ body {
 	text-align: center;
 	margin-top: 30px;
 }
+
+.pb_cart_text {
+    font-size: 35px;
+    margin-top: 100px;
+    font-weight: bold;
+    text-align: center;
+}
