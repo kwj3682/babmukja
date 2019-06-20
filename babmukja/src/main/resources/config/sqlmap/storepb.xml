@@ -328,8 +328,8 @@
 		<result column="price" property="price"/>
 		<result column="prod_count" property="prodCount"/>
 		<result column="regdate" property="regdate"/>
+		<result column="name" property="name"/>
 
-		<collection property="member" column="mem_no" select="selectPaymentNickName"/>
 	</resultMap>
 	
 	<insert id="insertPBPayment" parameterType="StorePBPayment">
@@ -445,5 +445,13 @@
 		select likecnt
 		  from tb_pb
 		 where pb_no = #{pbNo}
+	</select>
+	
+	<!-- PB STORE 상품 결제내역 확인하기 -->
+	<select id="selectBuyList" parameterType="int" resultMap="pbpaymentMap">
+		select * 
+		  from tb_payment p, tb_pb b
+		 where p.pb_no = b.pb_no
+		   and p.mem_no = #{memNo}
 	</select>
 </mapper>

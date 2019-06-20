@@ -8,8 +8,23 @@ public class StorePBPayment {
 	private int pbNo;
 	private int price;
 	private int prodCount;
+	private String name;
 	private Date regdate;
 	private Member member;
+	private int cartNo;
+	
+	public int getCartNo() {
+		return cartNo;
+	}
+	public void setCartNo(int cartNo) {
+		this.cartNo = cartNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Member getMember() {
 		return member;
 	}

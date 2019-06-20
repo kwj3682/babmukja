@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
     
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,7 @@
 </head>
 <body>
     <div id="buylist-container">
-    <p class="buyList-text">Payment details</p>
+    <p class="buyList-text">PAYMENT DETAILS</p>
         <table id="buylist">
             <thead>
                 <tr>
@@ -27,12 +28,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>ㅇ</td>
-                    <td>eㅇㅁ</td>
-                    <td>asd</td>
-                    <td>vxv</td>
-                </tr>
+	            <c:forEach var="buyList" items="${buyList}">
+	                <tr>
+	                    <td><a class="product_move" href="<c:url value='/store/detailpb.do?pbNo=${buyList.pbNo}'/>">${buyList.name}</a></td>
+	                    <td><fmt:formatNumber value="${buyList.price}" groupingUsed="true"/>원</td>
+	                    <td>${buyList.prodCount}개</td>
+	                    <td><fmt:formatDate value="${buyList.regdate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+	                </tr>
+	            </c:forEach>
             </tbody>
             <tfoot>
                 <tr>
@@ -55,7 +58,7 @@
         
             // DataTable
             var table = $('#buylist').DataTable({
-                "order":[[0,"asc"]]
+                "order":[[3,"desc"]]
             });
         
             // Apply the search
@@ -74,5 +77,4 @@
         } );
         </script>
 </body>
-
 </html>

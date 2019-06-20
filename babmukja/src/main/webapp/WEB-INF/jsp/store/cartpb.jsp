@@ -16,6 +16,7 @@
 </head>
 <body>
     <div class="pb_cart_container">
+    <p class="pb_cart_text">SHOPPING BASKET</p>
 	      <div class="pb_cart_grid">
 	          <div class="pb_cart_con">
 	            <input type="hidden" name="memhidden" value="${sessionScope.user.memNo}">
@@ -24,6 +25,7 @@
 		            <div class="pb_cart_product" id="${cartList.cartNo}">
 		            <input type="hidden" name="hiddenNo" id="hiddenNo" value="${cartList.cartNo}">
 		            <input type="hidden" name="hiddenpbNo" id="hiddenpbNo" value="${cartList.pbNo}">
+		            <input type="hidden" name="hiddencartNo" id="hiddenpbNo" value="${cartList.cartNo}">
 		                <div class="product_image">
 		                    <img src="${cartList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
 		                </div>
@@ -98,7 +100,6 @@
     	
     	// 결제
 		$(".payment_btn").click(function () {
-			alert("구매하기버튼 클릭됨");
 			let t = new Array();
 			let obj = null;
 			$(".pb_cart_product").each(function () {
@@ -107,30 +108,13 @@
 				obj.pbNo = parseInt($(this).children("input[name='hiddenpbNo']").val());
 				obj.prodCount = parseInt($(this).children().children().children("#total_count").text());
 				obj.memNo = $("input[name='memhidden']").val();
-// 				t.push({'pbNo' : pbNo, 'price' : price, 'prodCount' : count, 'memNo' : memNo});
+				obj.cartNo = parseInt($(this).children("input[name='hiddencartNo']").val());
 				t.push(obj);
     		});
 			console.log(t);
-// 			for (key of t) {
-// 				console.log(key["pbNo"]);
-// 				console.log(key["price"]);
-// 				console.log(key["prodCount"]);
-// 				console.log(key["memNo"]);
-// 			}
-			
-// 			console.log(JSON.stringify(t));
-// 			alert(JSON.stringify(t));			
-// 			for (let i = 0; i < t.length; i++) {
-// 				console.log(t[i].pbNo, t[i].price, t[i].count);
-// 			}
 
 			
 			let price= $(".order_price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
-// 			let count = $("#total_count").text();			// 상품 개수
-// 			let pbName = $("#pb_detail_title > p").text();	// 상품 명
-// 			console.log("개수 : " + count);
-// 			console.log("총 금액 : " + price);
-// 			console.log("상품번호 : " + pbNo);
 	        var IMP = window.IMP; // 생략가능
 	        IMP.init("imp21130958"); // 가맹점 식별 코드
 
@@ -155,10 +139,10 @@
 	            		type:"POST",
 	            		data: JSON.stringify(t),
 	            		success: function(result){
+	            			console.log("t:"+t);
 	    					if (result == 1) {
-		            			alert("결제 성공");
-		            			console.log("결제성공");
-		    					location.href="mainpb.do";
+		            			alert("결제가 완료되었습니다.");
+		    					location.href="buyList.do?memNo="+${sessionScope.user.memNo};
 	    					}
 	    				}
 	            	});

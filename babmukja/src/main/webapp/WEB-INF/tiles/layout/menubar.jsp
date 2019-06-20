@@ -37,7 +37,8 @@
             <i class="fas fa-caret-up fa-3x" style="display: none;"></i>
             <c:if test="${sessionScope.user ne null}">
 		        <a id="nickName" href="#">${user.memNickname}</a>
-		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>">장바구니</a>
+		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>">결제내역</a>
+		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/cart.png'/>"></a>
 	         	<a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
 	        </c:if>
 	        
