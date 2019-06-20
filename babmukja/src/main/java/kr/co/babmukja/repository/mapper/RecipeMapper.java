@@ -3,7 +3,6 @@ package kr.co.babmukja.repository.mapper;
 import java.util.List;
 
 import kr.co.babmukja.repository.domain.Keyword;
-import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
@@ -12,6 +11,9 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.StatusChecker;
 
 
 public interface RecipeMapper {
@@ -81,5 +83,10 @@ public interface RecipeMapper {
 	public RecipeKeywordCode selectKeywordByRecipe(int no);
 
 	public List<Recipe> selectRecipeByMemNo(int memNo);
-
+	public void updateScrapbookContent(Scrapbook book);
+	public void insertRecipeScrap(RecipeScrap sb);
+	
+	//status checker
+	public StatusChecker selectStatusAll(StatusChecker checker);
+	public void updateRecipeScrapCnt(int recipeNo);
 }

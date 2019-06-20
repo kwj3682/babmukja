@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.babmukja.repository.domain.Keyword;
-import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
@@ -13,6 +12,9 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.StatusChecker;
 
 public interface RecipeService {	
 	// 레시피 등록
@@ -83,5 +85,11 @@ public interface RecipeService {
 
 	//(우중) 회원번호로 레시피 가져오기
 	public List<Recipe> selectRecipeByMemNo(int memNo); 
-
+	
+	//scrapbook content 
+	public void updateScrapbookContent(Scrapbook book);
+	public void insertRecipeScrap(RecipeScrap sb);
+	
+	public StatusChecker selectStatusAll(StatusChecker checker);
+	public void updateRecipeScrapCnt(int recipeNo);
 }

@@ -389,4 +389,36 @@
 		 	   and m.mem_no = #{memNo}
 		 order by recipe_no asc
 	</select>
+	
+	<!-- (우중) 스크랩북 content 추가 -->
+	<update id="updateScrapbookContent" parameterType="Scrapbook">
+		update tb_scrap
+		   set content = concat(content,#{content})
+		 where scrap_no = #{scrapNo}
+	</update>
+	<insert id="insertRecipeScrap" parameterType="RecipeScrap">
+		insert into tb_recipe_scrap (mem_no, recipe_no, scrap_no) values(#{memNo},#{recipeNo},#{scrapNo})
+	</insert>
+	<select id="selectStatusAll" parameterType="StatusChecker" resultType="StatusChecker">
+		select (select follow_status
+		  		  from tb_recipe_follow 
+		  		 where follow_mem_no = #{followMemNo} 
+		  		   and follower_mem_no = #{followerMemNo} ) `follow_status`,
+		   	   (select like_status
+			      from tb_recipe_like l 
+			     where l.recipe_no = #{recipeNo} 
+			       and mem_no = #{memNo}) `like_status`,
+		   	   (select scrap_status
+		          from tb_recipe_scrap s 
+		         where s.recipe_no = #{recipeNo} 
+		           and mem_no = #{memNo}) `scrap_status`
+  		 from tb_member m
+		where m.mem_no = #{memNo}
+
+	</select>
+	<update id="updateRecipeScrapCnt" parameterType="int">
+		update tb_recipe
+		   set scrapcnt = scrapcnt + 1
+		 where recipe_no = #{no}
+	</update>
 </mapper>
