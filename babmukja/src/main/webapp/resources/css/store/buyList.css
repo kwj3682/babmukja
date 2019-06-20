@@ -5,6 +5,7 @@
     margin: 0 auto;
     margin-top: 100px;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 .buyList-text {
@@ -13,3 +14,18 @@
     margin-bottom: 50px;
     color: black;
 }
+
+.product_move{
+	text-decoration: none !important;
+	color: black;
+}
+
+.product_move:visited{
+	text-decoration: none !important;
+	color: black;
+}
+
+.product_move:hover {
+	color: #7db341;
+}
+
