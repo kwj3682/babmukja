@@ -233,25 +233,27 @@ body{
     margin-left: 30px;
 }
 .scrapbooks{
-    width: 400px;
+    width: 350px;
     height: 500px;
-    box-shadow: 5px 5px 15px 3px darkgray;
+    background-size : cover;
+    background-repeat : no-repeat;
+    box-shadow: 5px 5px 15px 3px black;
 }
 .scrapbook-content{
-    width: 400px;
     height: 600px;
     margin-right: 20px;
     display: inline-block;	
 }
-#scrapbooks-title-conatiner{
-	width: 400px;
-	margin: 0;
-	height: 90px;
-}
-#scrapbooks-title-conatiner p{
+
+.scrapbooks-title-conatiner p{
 	font-weight: lighter;
-	font-size : 17px;
+	font-size : 20px;
 	text-align : center;
+	color:white;
+
+    overflow: hidden;
+	white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #scrapbook-wrapper::-webkit-scrollbar {
     background-color: #fff;
