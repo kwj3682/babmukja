@@ -181,7 +181,6 @@
 				url : 'checkemail.do',
 				dataType : "json",
 				success : function(data) {
-					console.log(data);
 					if (data != 0 || (email === null)) {
 						$(".email_check .email_result").text("존재하는 이메일 입니다.");
 						$(".email_check .email_result").attr("style", "color:blue;");
@@ -303,7 +302,6 @@
 				$("#pcertification").focus();
 				return;
 			}
-			alert(memPhone +" , "+ ctf);
 			$.ajax({
 				type : 'POST',
 				data : {
