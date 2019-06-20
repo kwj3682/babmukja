@@ -246,7 +246,7 @@
                        </div>
                        <div class="recipe-info">
                            <i class="fas fa-heart fa-2x">${list.likeCnt }</i>
-                           <i class="fas fa-scroll fa-2x">60</i>
+                           <i class="fas fa-scroll fa-2x">${list.scrapCnt }</i>
                            <i class="fas fa-eye fa-2x">${list.viewCnt }</i>
                        </div>
                    </div>

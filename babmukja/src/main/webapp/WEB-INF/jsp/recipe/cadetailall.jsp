@@ -202,7 +202,7 @@
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt }</i>
-	                           <i class="fas fa-scroll fa-2x">60</i>
+	                           <i class="fas fa-scroll fa-2x">${ca.scrapCnt }</i>
 	                           <i class="fas fa-eye fa-2x">${ca.viewCnt }</i>
 	                       </div>
 	                   </div>
@@ -304,14 +304,14 @@
                		 for(let i = 0 ; i < result.length ; i ++) {
                			 html += '<div class="profile-container">'
       	                        + '<div class="profile-pic-box">'
-	                           		+ '<div>'
-                     		 if(result[i].memImgPath == null) {
-                     			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
-                     		 } else {
-                     			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='
-                     					  + result[i].memImgPath + '&sysname=' + result[i].memImgSysname + '">';
-                     		 }
-	                         html += `</div>
+	                           	+ '<div>'
+	                           	
+                   		 if(result[i].memImgPath == null || result[i].memImgPath == "") {
+                   			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
+                   		 } else {
+                   			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='+ result[i].memImgPath + '&sysname='+ result[i].memImgSysname+ '">';
+                   		 }
+	                        html += `</div>
 	                        			<div class="profile-name">
 	                               			<p>
 			                    	  			<span>평점 :` + result[i].rating + ` </span>
@@ -323,11 +323,17 @@
 	                           			</div>
 	                       			</div>
 			                        <div class="recipe-pic-box">
-			                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
-			                        </div>
+			                           <a href = "detail.do?no=` + result[i].recipeNo + `">`;
+			                           
+                           if(result[i].imgPath == null || result[i].imgPath == "") {
+                   			html += '<img src="<c:url value="/resources/images/default.png"/>"></a>';				                	
+                   		  } else {
+                   			html += '<img src="'+ result[i].imgPath + '"></a>';
+                   		  }
+			                html += `</div>
 			                        <div class="recipe-info">
 			                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
-			                           <i class="fas fa-scroll fa-2x">60</i>
+			                           <i class="fas fa-scroll fa-2x">` + result[i].scrapCnt + `</i>
 			                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
 			                        </div>
 			                    </div>`;

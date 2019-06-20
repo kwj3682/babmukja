@@ -329,9 +329,9 @@ public class RecipeController {
 	// 레시피 카테고리별 목록 무한스크롤
 	@RequestMapping("/cadetailScroll.do")
 	@ResponseBody
-	public void cadetilScroll(Model model, RecipePage page) {
+	public List<RecipePage> cadetilScroll(RecipePage page) {
 		List<RecipePage> list = service.selectRecipeByCate(page);
-		model.addAttribute("calist", list);
+		return list;
 	}
 
 	// 레시피 좋아요
