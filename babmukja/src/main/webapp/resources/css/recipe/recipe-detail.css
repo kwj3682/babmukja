@@ -435,6 +435,8 @@ a {
     border : 0;
     background: white;
     cursor: pointer;
+    position:relative;
+    top:-10px;
 }
 
 .comment-update {
