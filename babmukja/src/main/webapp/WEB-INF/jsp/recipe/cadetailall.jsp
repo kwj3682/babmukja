@@ -190,7 +190,15 @@
 	                           </div>
 	                       </div>
 	                       <div class="recipe-pic-box">
-	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
+	                           <a href = "detail.do?no=${ca.recipeNo }">
+	                           <c:choose>
+				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+			                           <img src="${ca.imgPath}"></a>
+				                	</c:otherwise>
+		                		</c:choose>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt }</i>
@@ -298,10 +306,10 @@
       	                        + '<div class="profile-pic-box">'
 	                           		+ '<div>'
                      		 if(result[i].memImgPath == null) {
-                     			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">'				                	
+                     			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
                      		 } else {
                      			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='
-                     					  + result[i].memImgPath + '&sysname=' + result[i].memImgSysname + '">'
+                     					  + result[i].memImgPath + '&sysname=' + result[i].memImgSysname + '">';
                      		 }
 	                         html += `</div>
 	                        			<div class="profile-name">

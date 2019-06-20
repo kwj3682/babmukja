@@ -37,5 +37,14 @@ public interface MeetupService {
 	public List<MeetupMember> selectMeetupMemberList(int no);
 	public MeetupMember selectMeetupMemberStatus(MeetupMember meetupMember);
 	public void updateViewCnt(int meetNo);
+	//관리자 강퇴처리하기
+	public void updateBanStatus(int no);
+	//관리자 거절처리하기
+	public void updateRejectStatus(int no);
 
+	//참여하는 모임 가져오기
+	public List<Meetup> selectFollowMeetup(int memNo);
+	
+	//모임 탈퇴하기
+	public void updateWidthdrawlStatus(int meetNo);
 }
