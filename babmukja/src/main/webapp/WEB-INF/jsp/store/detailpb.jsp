@@ -82,10 +82,6 @@
 						원
 					</p>
 				</div>
-				<div id="pb_detail_promotion">
-					<p id="pb_detail_promotion_price"></p>
-					<p>&nbsp;적립해드립니다</p>
-				</div>
 				
 				<!-- 좋아요 -->
 				<div class="pb_product_like">
@@ -138,10 +134,7 @@
 				<a href="#pb_review_move">&nbsp;후기&nbsp;</a>
 			</div>
 			<div id="detail_product_inquire">
-				<a href="#pb_inq_move">&nbsp;문의&nbsp;</a>
-			</div>
-			<div id="detail_product_refund">
-				<a href="#product_info_detail">&nbsp;배송/교환/환불&nbsp;</a>
+				<a href="#pb_inq_move">&nbsp;문의</a>
 			</div>
 		</div>
 
@@ -441,9 +434,6 @@
       // 수량 늘리기 줄이기.
       let price = parseInt($("#pb_detail_price_p").text().replace(/,/g,""));
       
-      $("#pb_detail_promotion_price").html(price * 0.01 + " POINT");
-      $("#pb_detail_promotion_price").text(changeComma($("#pb_detail_promotion_price").text()));
-      
       let cnt = $("#total_count").html();
       $(".total__price").text(price * cnt + "원");
       $(".total__price").text(changeComma($(".total__price:first").text()));
@@ -610,11 +600,6 @@
 			});
        });
        
-       // review 수정
-      $(document).on("click",".reviewUpdateBTN",function () {
-          $("#reviewmodal").modal("show");
-      });
-       
        // review 사진 삭제
 		$(document).on("click",".preview_img_btn",function () {
 			let key = $(this).attr("id");
@@ -687,7 +672,7 @@
 					answerStatus : "N"
 				}
 			}).done(function (result) {
-				alert("문의답변등록성공");
+				alert("문의 답변이 등록되었습니다.");
 				location.href="detailpb.do?pbNo="+${storepb.pbNo};
 			});
 		});
@@ -928,9 +913,7 @@
 							html+='	<div class="reviewBUTTON">';
 							html+='		<input type="hidden" name="pbReviewNo" value="'+result.list[i].pbReviewNo+'">';
 							if('${sessionScope.user.memNo}' == result.list[i].member.memNo){
-								html+='				<button class="reviewUpdateBTN">수정</button>';
-								html+='				<p class="pb_inq_icon">ㅣ</p>';
-								html+='				<button class="reviewDeleteBTN">삭제</button>';
+								html+='				<button class="reviewDeleteBTN">삭제하기</button>';
 								
 							}
 							html+='	</div>';
@@ -1074,8 +1057,6 @@
 							html +='	<div id="pb_inquire_profile">';
 							html +='		<div class="pb_inquire_header">';
 							html +='			<div class="pb_inq_flex">';		
-							html +='				<p id="pb_inquire_state">구매</p>';
-							html +='				<p class="pb_inq_icon">ㅣ</p>';
 							if (result.list[i].answerStatus == 'Y') {
 								html +='<p id="pb_inquire_state2">답변완료</p>';
 							} else {
