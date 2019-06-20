@@ -103,10 +103,10 @@
                             <textarea class="comment-input"></textarea>
                         <c:choose>
                         	<c:when test="${sessionScope.user ne null}">
-	                        	<button id="comment-submit"><i class="fas fa-pen-square fa-3x"></i></button>                        	
+	                        	<button id="comment-submit"><img src="<c:url value='/resources/images/comments.png'/>"></button>                        	
                         	</c:when>
                         	<c:otherwise>
-                        		<button id="comment-nope"><i class="fas fa-pen-square fa-3x"></i></button>
+                        		<button id="comment-nope"><img src="<c:url value='/resources/images/comments.png'/>"></button>
                         	</c:otherwise>
                         </c:choose>                       
                         </div>
@@ -427,10 +427,10 @@
 	                    	    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
 	                    		<textarea class="comment-updateform">`+data.content+`</textarea>                			  
 	                  			 <button class="comment-update">
-	                  			 	<i class="fas fa-pen-square fa-3x"></i>
+	                  			 	<img src="<c:url value='/resources/images/comments.png'/>">
 	                  			 </button>                  			
                   			 	<button class="comment-exit">
-                  			 		<i class="fas fa-window-close"></i>
+                  			 		<i class="far fa-times-circle"></i>
                   			 	</button>
                   			 </div>`); 
  		}).fail(function(xhr) {

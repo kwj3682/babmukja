@@ -120,7 +120,18 @@
                     </div>
                     <div>
                 <c:forEach var="w" items="${winner }">
-                        <div>${w.title }<br><a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
+                        <div>${w.title }<br>
+                        	<a href="detail.do?no=${w.recipeNo }">
+	                        	<c:choose>
+				                	<c:when test="${w.imgPath == null || w.imgPath == ''}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img src="${w.imgPath}">
+				                	</c:otherwise>
+		                		</c:choose>
+                        	</a>
+                        </div>    
                  </c:forEach>
                         <div>더 보기 <b>↓</b>
                         	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>">

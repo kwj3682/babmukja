@@ -412,14 +412,20 @@ a {
     position:relative;
     top:-10px;
 }
+#comment-submit > img, #comment-nope > img {
+    width: 40px;
+    height: 45px;
+    position: relative;
+    left: -3px;
+}
 .comment-exit {	
     color: #7db341;
     border : 0;
     background: white;
     cursor: pointer;
-    font-size : 35px;
+    font-size : 30px;
     position: relative;
-    top: -10px;
+    top: -15px;
     left: -5px;
 }
 
@@ -430,6 +436,7 @@ a {
     background: white;
     cursor: pointer;
 }
+
 .comment-update {
 	height: 50px;
     color: #7db341;
@@ -439,6 +446,10 @@ a {
     display : inline-block;
     position: relative;
     top: -10px;
+}
+.comment-update > img {
+	width: 30px;
+    height: 35px;
 }
 #comment-other{
     border-top: 1px solid gainsboro;

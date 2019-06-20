@@ -169,7 +169,7 @@ html, body {
     transform: rotate(15deg);
 }
 #sec1-content2-wrapper > div:nth-child(3){
-    font-size: 30px;
+    font-size: 25px;
 }
 #sec1-content2-wrapper > div:nth-child(3) > div> b{
     font-size: 30px;
