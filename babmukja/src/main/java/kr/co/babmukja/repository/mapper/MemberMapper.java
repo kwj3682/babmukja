@@ -35,6 +35,10 @@ public interface MemberMapper {
 
 	void updateResetPass(Member member); // 비밀번호 재설정
 	
+	int selectConfirmCertificationByEmail(int memNo);
+	
+	int selectMemnoByEmail(String memEmail);
+	
 	//----------------------------우중---------------------------//
 	List<Member> searchMemberByNick(String nick);
 	void updateMemberProfile(Member member);

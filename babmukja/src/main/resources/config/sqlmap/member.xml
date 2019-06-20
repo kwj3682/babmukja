@@ -110,7 +110,8 @@
 	<update id="updateCertification" parameterType="member">
 		update tb_member
 		set certification = #{certification}
-		where mem_email = #{memEmail}
+		where mem_email = #{memEmail} 
+		   or mem_phone = #{memPhone}
 	</update>
 
 	<!-- 인증번호 확인 -->
@@ -118,14 +119,28 @@
 		select count(*)
 		from tb_member
 		where certification = #{certification}
-		and mem_email = #{memEmail}
+		and mem_phone = #{memPhone} 
+		 or mem_email = #{memEmail}
+	</select>
+	
+	<select id="selectConfirmCertificationByEmail" parameterType="int" resultType="int">
+		select certification
+		  from tb_member
+		 where mem_no = #{memNo}
+	</select>
+
+	<select id="selectMemnoByEmail" parameterType="String" resultType="int">
+		select mem_no
+		  from tb_member
+		 where mem_email = #{memEamil}
 	</select>
 
 	<!-- 비밀번호 재설정 -->
 	<update id="updateResetPass" parameterType="member">
 		update tb_member
 		   set mem_pass = #{memPass}
-		 where mem_email = #{memEmail}
+		 where mem_email = #{memEmail} 
+		    or mem_phone = #{memPhone}
 	</update>
 	
 	<select id="searchMemberByNick" parameterType="String" resultMap="memberMap">
@@ -134,6 +149,8 @@
 		 where mem_nickname like concat('%',#{nick},'%')
 
 	</select>
+	
+	<!-- 우중 -->
 	<select id="searchMemberByNickForMypage" parameterType="String" resultMap="memberMap">
 		SELECT *,
 		    (select count(*) from tb_recipe r where r.mem_no = m.mem_no and m.mem_nickname = #{nick}) `recipe_cnt`,
@@ -150,16 +167,20 @@
 		      mem_img_path = 	#{memImgPath}
 		where mem_nickname = #{memNickname}
 	</update>
+	
 	<select id="selectFollowStatus" parameterType="recipefollow" resultType="String">
 		select follow_status
 		  from tb_recipe_follow
 		 where follow_mem_no = #{followMemNo}
            and follower_mem_no = #{followerMemNo}
 	</select>
+	
 	<insert id="insertScrapbook" parameterType="Scrapbook">
 		insert into tb_scrap (mem_no, imgpath, title) values(#{memNo},#{imgPath},#{title});
 	</insert>
+	
 	<select id="selectScrapbookListByNo" parameterType="int" resultType="Scrapbook">
 		select * from tb_scrap where mem_no = #{memNo}
 	</select>
+	
 </mapper>
