@@ -61,20 +61,18 @@
               <div class="follow_meetup_name">모임명</div>  
               <div class="follow_meetup_manage"> </div>  
             </div><!--host_meetup_list -->
+           <c:forEach var ="meetupFollow" items="${meetupFollows}"> 
             <div class="follow_meetup_list">
-                <div class="follow_meetup_no">1</div>
-                <div class="follow_meetup_name">수안이와 함께하는 개복치 조리교실</div>  
+                <div class="follow_meetup_no">${meetupFollow.manageNo}</div>
+                <div class="follow_meetup_name">	<a class="host_meetup_atag" href="<c:url value='/meetup/detail.do?meetNo=${meetupFollow.meetNo}&memNo=${sessionScope.user.memNo}'/>">${meetupFollow.title}</a>
+                </div>
                 <div class="follow_meetup_manage">
-                    <div class="manage_member">모임탈퇴</div>
+                    <div class="manage_widthdrawl">모임탈퇴</div>
+                   <input type="hidden"  name="meetNo" class="widthdrawMeetNo" value="${meetupFollow.meetNo}">
+                    
                 </div>  
               </div><!--host_meetup_list -->
-              <div class="follow_meetup_list">
-                <div class="follow_meetup_no">2</div>
-                <div class="follow_meetup_name">빛찬맘과 함께하는 주부구단 햄 조리교실</div>  
-                <div class="follow_meetup_manage">
-                    <div class="meetup_withdrawal">모임탈퇴</div>
-                </div>  
-              </div><!--host_meetup_list -->
+              </c:forEach>
         </div><!-- 내가 참여는 모임 끝 -->
 	</div><!-- manage_container -->
 <!-- modal 부분 -->

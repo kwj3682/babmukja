@@ -38,6 +38,7 @@
 		  from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
 		 order by regDate desc
+		 limit 0, 12
 	</select>
 	
 	<!-- 레시피 상세 조회 -->
@@ -363,6 +364,7 @@
          where rk.recipe_no = r.recipe_no
            and m.mem_no = r.mem_no
       <include refid="searchWhere"/>
+         order by r.regdate desc
          limit #{pageNo}, 12
 	</select>
 	
@@ -376,7 +378,8 @@
            and m.mem_no = r.mem_no
            and rk.country = #{country}
       <include refid="searchWhere"/>
-         limit #{pageNo}, 12         
+         order by r.regdate desc      
+         limit #{pageNo}, 12  
 	</select>
 
 	<!-- (우중) 회원 번호로 레시피 가져오기-->

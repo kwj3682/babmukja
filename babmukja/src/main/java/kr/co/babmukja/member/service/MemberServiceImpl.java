@@ -119,5 +119,7 @@ public class MemberServiceImpl implements MemberService {
 	public void insertScrapbook(Scrapbook book) {
 		mapper.insertScrapbook(book);
 	}
-
+	public List<Scrapbook> selectScrapbookListByNo(int memNo){
+		return mapper.selectScrapbookListByNo(memNo); 
+	}
 }

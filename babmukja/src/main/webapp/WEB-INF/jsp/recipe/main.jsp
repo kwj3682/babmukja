@@ -224,7 +224,7 @@
                            </div>
                            <div class="profile-name">
                                <p>   
-                            <fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd hh:mm:ss" />
+                            <fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd" />
                            <br>
                                   ${list.title}
                            <br>
@@ -233,11 +233,20 @@
                            </div>
                        </div>
                        <div class="recipe-pic-box">
-                           <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
+                           <a href = "detail.do?no=${list.recipeNo }">
+                            <c:choose>
+			                	<c:when test='${list.imgPath == "" || list.imgPath == null}'>
+			                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+		                           	<img src="${list.imgPath}">
+			                	</c:otherwise>
+	                		</c:choose>
+                           	</a>
                        </div>
                        <div class="recipe-info">
                            <i class="fas fa-heart fa-2x">${list.likeCnt }</i>
-                           <i class="fas fa-scroll fa-2x">60</i>
+                           <i class="fas fa-scroll fa-2x">${list.scrapCnt }</i>
                            <i class="fas fa-eye fa-2x">${list.viewCnt }</i>
                        </div>
                    </div>

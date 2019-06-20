@@ -41,4 +41,5 @@ public interface MemberService {
 	void updateMemberProfile(Member member);
 	public String selectFollowStatus(RecipeFollow follow);
 	public void insertScrapbook(Scrapbook book);
+	public List<Scrapbook> selectScrapbookListByNo(int smemNo);
 }

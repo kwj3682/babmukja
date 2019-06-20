@@ -46,7 +46,36 @@ import kr.co.babmukja.repository.domain.Pagepb;
 @RequestMapping("/meetup")
 public class MeetupController {
 	
-	//승인처리
+	
+	
+	//탈퇴처리하기
+	@RequestMapping("/manageWidthdrawl.do")
+	@ResponseBody
+	public void manageWidthdrawl(int meetNo) {
+		System.out.println("탈퇴meetNo"+meetNo);
+		service.updateWidthdrawlStatus(meetNo);
+
+	}
+
+	
+	//관리자 거절처리
+			@RequestMapping("/manageReject.do")
+			@ResponseBody
+			public void manageReject(int meetMemNo) {
+				System.out.println("meetMemNo"+meetMemNo);
+				service.updateRejectStatus(meetMemNo);
+
+			}
+	
+	//관리자 강퇴처리
+		@RequestMapping("/manageBan.do")
+		@ResponseBody
+		public void manageBan(int meetMemNo) {
+			System.out.println("meetMemNo"+meetMemNo);
+			service.updateBanStatus(meetMemNo);
+		}
+	
+	//관리자 승인처리
 	@RequestMapping("/manageApproval.do")
 	@ResponseBody
 	public void manageApproval(int meetMemNo) {
@@ -72,12 +101,14 @@ public class MeetupController {
      
 
 		
-		List<MeetupMember> meetupMemberList = service.selectMeetupMemberList(300);
+		List<MeetupMember> meetupMemberList = service.selectMeetupMemberList(meetNo);
 
 		
 		for(int i=1; i<meetupMemberList.size()+1; i++) {
 			meetupMemberList.get(i-1).setAdmissionNum(i);
 			System.out.println("회원목록 나열되는 번호" +meetupMemberList.get(i-1).getAdmissionNum());
+			System.out.println("회원목록 나열되는 이름" +meetupMemberList.get(i-1).getMemName());
+
 		}
 	
 		hm.put("meetupMemberList", meetupMemberList);
@@ -186,15 +217,24 @@ public class MeetupController {
 	public void CreateMeetup(MultipartFile file, String tag, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
 		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
-		String hostName, int hostNo, String hostEmail
+		String hostName, int hostNo, String hostEmail,String hiddenTag
 			
 			) {
 		System.out.println("호스트 내임, 이름" +hostName +hostNo );
 		System.out.println("파일 " + file);
 		System.out.println("카테고리" + category);
 		System.out.println("제목" + title);
-		System.out.println("태그" + tag );
-		
+		if(hiddenTag !=null) {
+		System.out.println("태그 :" + hiddenTag );
+		}
+		StringBuffer deleteTag= new StringBuffer(hiddenTag);
+		String updatedTag="";
+		if(hiddenTag.substring(hiddenTag.length()-1).equals(",")){
+			  
+			  deleteTag.deleteCharAt(hiddenTag.length()-1);
+			  updatedTag = deleteTag.toString();
+			System.out.println(",제거된태그 :" + updatedTag );	
+		}
 		
 		
 		String meetupDay = "";
@@ -247,7 +287,8 @@ public class MeetupController {
 		//xml에 담아주기
 		Meetup meetupBoard = new Meetup();	
 		MeetupTag meetupTag = new MeetupTag();
-		meetupTag.setTag(tag);
+		System.out.println("들어가기전에 update 제발" +updatedTag);
+		meetupBoard.setTag(updatedTag);
 		System.out.println("진짜첫번째:" +meetupBoard.getMeetNo());
 		meetupBoard.setCategory(category);
 		meetupBoard.setDay(meetupDay);
@@ -353,12 +394,21 @@ public class MeetupController {
 	System.out.println("manage 컨트롤러 들어왔음");
 	System.out.println("host no" +hostNo);
 	List<Meetup> meetupList; 
-	meetupList = service.createdBoardByMe(hostNo);
+	meetupList = service.createdBoardByMe(hostNo);	
+	
 	for(int i=1; i<meetupList.size()+1; i++) {
 		meetupList.get(i-1).setManageNo(i);
 		System.out.println(meetupList.get(i-1).getManageNo());
 	}
+	//내가 참여하는 모임 처리하기
+	List<Meetup> meetupFollow;
+	meetupFollow = service.selectFollowMeetup(hostNo);
+	for(int i=1; i<meetupFollow.size()+1; i++) {
+		meetupFollow.get(i-1).setManageNo(i);
+		System.out.println(meetupFollow.get(i-1).getManageNo());
+	}
 	model.addAttribute("createdMeetup",meetupList);
+	model.addAttribute("meetupFollows", meetupFollow);
 	}
 	
 	@RequestMapping("/main.do")
@@ -391,8 +441,13 @@ public class MeetupController {
 			model.addAttribute("memberStatus", meetupMember);
 		}
 		
-		model.addAttribute("meetup", service.selectBoard(meetNo));
+		Meetup meetupBoard = service.selectBoard(meetNo);
+		//ArrayList<String> meetupTag = new ArrayList<String>();
+		String[] meetupTag = meetupBoard.getTag().split(",");
 		
+		model.addAttribute("meetup", service.selectBoard(meetNo));
+		model.addAttribute("meetupTags", meetupTag);
+
 		//모임의 사진 뿌려주기
 		
 	File dir = new File("C:/bit2019/upload/meetup/2019/06");

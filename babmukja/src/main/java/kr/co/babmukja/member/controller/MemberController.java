@@ -508,6 +508,9 @@ public class MemberController {
 	@RequestMapping("insertscrapbook.do")
 	@ResponseBody
 	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
+		System.out.println(fileVO.getTitle());
+
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/scrap" + sdf.format(new Date());
@@ -530,7 +533,7 @@ public class MemberController {
 		
 		Scrapbook book = new Scrapbook();
 		book.setMemNo(fileVO.getMemNo());
-		book.setImgPath(path + "/" + uName);
+		book.setImgPath("/babmukja/recipe/download.do?path=" + path + "&sysname=" + uName);
 		book.setTitle(fileVO.getTitle());
 		
 		service.insertScrapbook(book);
@@ -539,5 +542,9 @@ public class MemberController {
 	}
 	
 	
-	
+	@RequestMapping("scrapbookAjax.do")
+	@ResponseBody
+	public List<Scrapbook> selectScrapbookList (int memNo){
+		return service.selectScrapbookListByNo(memNo);
+	}
 }

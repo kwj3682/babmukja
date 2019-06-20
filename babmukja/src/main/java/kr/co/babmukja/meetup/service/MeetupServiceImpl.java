@@ -139,4 +139,25 @@ public class MeetupServiceImpl implements MeetupService{
 	mapper.updateViewCnt(meetNo);	
 	}
 
+	//관리자 강퇴처리하기
+	public void updateBanStatus(int no) {
+	mapper.updateBanStatus(no);	
+	}
+	
+	//관리자 거절처리하기
+	public void updateRejectStatus(int no) {
+	mapper.updateRejectStatus(no);
+	}
+
+	//내가 참여하는 모임 리스트
+	public List<Meetup> selectFollowMeetup(int memNo){
+	return	mapper.selectFollowMeetup(memNo);
+		
+	}
+
+	// 모임 탈퇴 처리
+	public void updateWidthdrawlStatus(int meetNo) {
+		mapper.updateWidthdrawlStatus(meetNo);
+	}
+
 }

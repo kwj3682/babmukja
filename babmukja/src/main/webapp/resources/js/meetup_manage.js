@@ -241,6 +241,7 @@ accessibleTabs6.init({
 			$("#A").append(
 					`<div class="member_list">
 					<div class="member_list_no">`+meetupMemberList[i].admissionNum+`</div>
+					<input type="hidden"  name="meetNo" class="listMeetMemNo" value="`+meetupMemberList[i].meetMemNo+`">
 	                <div class="member_list_name">`+meetupMemberList[i].memName+`</div>
 	                <div class="member_list_email">`+meetupMemberList[i].memEmail+`</div>  
 	                <div class="member_list_manage">
@@ -259,7 +260,24 @@ accessibleTabs6.init({
 		
 	});//버튼클릭
 
-
+	
+	//거절 처리
+	$(document).on("click",".manage_reject",function(){
+		let afterComplete = $(this).parent();
+			alert($(".meetMemNo").val());
+			data={};
+			data.meetMemNo =$(".meetMemNo").val();
+			$.ajax({ 
+				data: data,
+				type: 'POST',
+				url:'/babmukja/meetup/manageReject.do',
+				success: function (data) { // 처리가 성공할 경우
+				afterComplete.html("거절완료");
+				}
+			
+			});//ajax
+		});
+	
 	$(document).on("click",".manage_approval",function(){
 	let afterComplete = $(this).parent();
 		alert($(".meetMemNo").val());
@@ -275,4 +293,40 @@ accessibleTabs6.init({
 		
 		});//ajax
 	});
+	
+	$(document).on("click",".manage_ban",function(){
+		let afterComplete = $(this).parent();
+			alert($(".listMeetMemNo").val());
+			data={};
+			data.meetMemNo =$(".listMeetMemNo").val();
+			$.ajax({ 
+				data: data,
+				type: 'POST',
+				url:'/babmukja/meetup/manageBan.do',
+				success: function (data) { // 처리가 성공할 경우
+				afterComplete.html("강퇴완료");
+				}
+			
+			});//ajax
+		});
+	
+	$(document).on("click",".manage_widthdrawl",function(){
+		let afterComplete = $(this).parent();
+			alert("정말 탈퇴하시겠습니까?");
+			data={};
+			data.meetNo =$(".widthdrawMeetNo").val();
+			$.ajax({ 
+				data: data,
+				type: 'POST',
+				url:'/babmukja/meetup/manageWidthdrawl.do',
+				success: function (data) { // 처리가 성공할 경우
+				alert("성공적으로 탈퇴되었습니다.");
+					
+				afterComplete.html(
+						`<div class="manage_widthdrawl">탈퇴완료</div>`		
+				);
+				}
+			
+			});//ajax
+		});
 	

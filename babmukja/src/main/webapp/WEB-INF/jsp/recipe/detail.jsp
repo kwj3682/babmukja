@@ -58,8 +58,8 @@
 	        <c:choose>
             	<c:when test="${sessionScope.user.memNo eq recipe.memNo}">
 	            	<div id="a-button">
-	            		<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정</a>
-	            		<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제</a>	            	
+	            		<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>"><i class="far fa-edit"></i>수정</a>
+	            		<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>"><i class="far fa-trash-alt"></i>삭제</a>	            	
 	            	</div>
             	</c:when>
             </c:choose>
@@ -67,7 +67,7 @@
              <!------------------------------------------------------------------------------------------------>
            
             <div id="comment-body"><!-- comment-body start -->
-                <div id="comment-header">댓글</div>                
+                <div id="comment-header">댓글&nbsp;<i class="far fa-comments"></i></div>                
                 <div id="comment-container"><!-- comment-container start -->
                     <div id="comment-mine"><!-- comment-mine start -->
                     <c:choose>
@@ -182,9 +182,16 @@
                     </div><!-- profile-wrapper end -->
 
                     <div id="writer-post"><!-- writer-post start -->
-                    <c:forEach var="mrecipe" items="${memRecipe}">
-                        <a href="detail.do?no=${mrecipe.recipeNo }">
-                        	<img id="post-img1" src="${mrecipe.imgPath }">
+                    <c:forEach var="m" items="${memRecipe}">
+                        <a href="detail.do?no=${m.recipeNo }">
+	                        <c:choose>
+			                	<c:when test="${m.imgPath == null || m.imgPath == ''}">
+			                    	<img id="post-img1" src="<c:url value="/resources/images/default.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+			                    	<img id="post-img1" src="${m.imgPath }">
+			                	</c:otherwise>
+	                		</c:choose>
                         </a>
                     </c:forEach>
                     </div><!-- writer-post end -->
@@ -423,7 +430,7 @@
 	                  			 	<i class="fas fa-pen-square fa-3x"></i>
 	                  			 </button>                  			
                   			 	<button class="comment-exit">
-                  			 		<i class="far fa-times-circle"></i>
+                  			 		<i class="fas fa-window-close"></i>
                   			 	</button>
                   			 </div>`); 
  		}).fail(function(xhr) {

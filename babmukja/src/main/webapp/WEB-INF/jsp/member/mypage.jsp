@@ -15,6 +15,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/DataTables/DataTables-1.10.18/js/jquery.dataTables.1.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/modernizr.2.5.3.min.js"/>"></script>
+   	<script type="text/javascript" src="<c:url value="/resources/js/hash.js"/>"></script>
+	
 </head>
 <body>
     <div id="open-filter">
@@ -136,14 +139,7 @@
 			        </div>
 			
 			        <div id="scrapbook-wrapper">
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
-			            <div class="scrapbooks">
-			            </div>
+
 			        </div>
 			
 			    </div>
@@ -163,7 +159,7 @@
 				        <div id="scrapbook-creator-wrapper">
 				            <div id="scrapbook-creator-wrapper-inner1">
 				                <p>제목</p>
-				                <input type="text" name="scrapbook-title">
+				                <input type="text" name="scrapbook-title" id="scrapbook-title">
 				            </div>
 				            <div id="scrapbook-creator-wrapper-inner2">
 				                <div id="scrapbook-coverselector">
@@ -190,9 +186,10 @@
     <script src="<c:url value="/resources/js/three/three.interaction/build/three.interaction.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/DirectionalLight.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/GeometryUtils.js"/>"></script>
+
+	<script src="<c:url value="/resources/js/turn.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/mypage.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/scrapbook.js"/>"></script>
-
     
 </body>
 </html>
