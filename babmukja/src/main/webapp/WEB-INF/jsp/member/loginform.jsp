@@ -137,23 +137,10 @@
 					break;
 				}
 			});
-
-// 		console.log(fail);
-// 			console.log(fail === 1);
-// 			console.log(fail === null);
-
-// 			$(".login__button").click(function() {
-// 				if (fail === null) {
-// 					alert("이메일과 패스워드가 일치하지 않습니다.");
-// 					return;
-// 				}
-
-// 			});
-// 			$("#doLogin").submit();
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kakao app_key');
+		Kakao.init('kako app_key');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
@@ -161,7 +148,7 @@
             	 Kakao.API.request({
     		      	 url: '/v1/user/me',
      			     success: function(res) { 
-    					 let meminfo = {id:res.id, email:res.email, nickName:res.properties['nickname'],
+    					 let meminfo = {id:res.id,nickName:res.properties['nickname'],
     					 accessToken:authObj.access_token,refreshToken:authObj.refresh_token}
     					 $.ajax({
     						type:"POST",
@@ -169,12 +156,12 @@
     						url:"checksocialemail.do",
     					 }).done(function(result){
     						if(result == 0){
-    							 $("#socialsigupform #memEmail").val(res.email);
+    							 $("#socialsigupform #memEmail").val(res.id);
     		    			     $("#socialsigupform #memName").val(res.properties['nickname']);
     		    			     $("#socialsigupform #socialAt").val("1");
     							 $("#socialsigupform").submit();
     						}else{
-    							$("#sociallogin #memEmail").val(res.email);
+    							$("#sociallogin #memEmail").val(res.id);
     	    					$("#sociallogin #memNickname").val(res.properties['nickname']);
     	    					$("#sociallogin #accessToken").val(authObj.access_token);
     							$("#sociallogin").submit();
@@ -188,8 +175,8 @@
             }
           });
         };
-		
 	</script>
+
 
 </body>
 </html>
