@@ -33,7 +33,7 @@
 		<form id="searchPass" method="post" action="resetpass.do">
 			<div class="search_pass_input visiable" id="email-form">
 				<div class="email_email">
-					<input type="text" name="memEmail" id="memEmail" />
+					<input type="text" name="memEmail" id="memEmail" placeholder="이메일"/>
 					<button id="email_btn" type="button">메일 전송</button>
 				</div>
 
@@ -66,7 +66,6 @@
 			<div class="search_pass_input">
 				<div class="phone_name">
 					<input type="text" name="name" id="memName" placeholder="이름" />
-					<input type="text" name="memEmail" id="memEmail" />
 				</div>
 				
 				<div class="phone_email">
@@ -121,6 +120,10 @@
 			if (certifications.length == 0) {
 				alert("인증번호를 입력해 주세요.");
 				$("#certification").focus();
+				return false;
+			}
+			if(certifications != certification) {
+				alert("인증번호가 일치하지 않습니다.")
 				return false;
 			}
 		});
@@ -315,6 +318,8 @@
 				}
 			});
 		});
+		
+		
 	</script>
 </body>
 </html>
