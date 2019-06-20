@@ -60,14 +60,14 @@
 
             </ul>
         </div>
-        <div id="optionalMenu2" class="optionalMenubar opacity">
-            <ul>
-                <li><a href="#">스토어메뉴1</a></li>
-                <li><a href="#">스토어메뉴2</a></li>
-                <li><a href="#">스토어메뉴3</a></li>
-                <li><a href="#">스토어메뉴4</a></li>
-            </ul>
-        </div>
+		<c:if test="${user.memNo == 578}">
+	        <div id="optionalMenu2" class="optionalMenubar opacity">
+		            <ul>
+		                <li><a href="<c:url value="/admin/pbstoreselectlist.do"/>">상품조회</a></li>
+		                <li><a href="<c:url value="/admin/insertformpb.do"/>">상품등록</a></li>
+		            </ul>
+	        </div>
+		</c:if>
         <div id="optionalMenu3" class="optionalMenubar opacity">
             <ul>
                 <li><a href="#">쿠킹미팅1</a></li>
