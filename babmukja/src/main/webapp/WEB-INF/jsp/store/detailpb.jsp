@@ -578,6 +578,20 @@
     	   let ratingCnt = $("#hiddenRatingCnt").val();
     	   let storeRating = $("input[name='storeRating']").val();
     	   console.log(rating);
+	   	   if (content == null || content == '') {
+	   		  alert("내용을 입력해주세요.");
+	   		  return;
+		   }
+	   	   if ($(".check-frontStar").css("width") == "0px") {
+	   		   alert("별점을 선택해주세요.");
+	   		   return;
+	   	   }
+	   	   
+// 	   	   if ($(rating).is(':checked') == false ) {
+// 	   		  alert("별점을 선택해주세요.");
+// 	   		  return;
+// 		   }
+	   	   
     	   reviewData.append("content",content );
     	   reviewData.append("pbNo", pbNo);
     	   reviewData.append("rating", checkedValue);
@@ -625,6 +639,10 @@
 			let inquireData = new FormData();
     	   	let content = $(".inquire__content").val();
     	   	let pbNo = ${storepb.pbNo};
+    	   	if (content == null || content == '') {
+    	   		alert("내용을 입력해주세요.");
+    	   		return;
+    	   	}
     	   	inquireData.append("content", content);
     	   	inquireData.append("pbNo", pbNo);
 			$.ajax({
@@ -893,7 +911,7 @@
 							html+='		<div class="pb_review_profile">';
 							html+='			<div class="pb_review_profile_img">';
 							if ('${sessionScope.user}' != null) {
-								if ('${sessionScope.user.memImgPath}' == null) {
+								if ('${sessionScope.user.memImgPath}' == null || '${sessionScope.user.memImgPath}' == '') {
 									html+='<img id="default_profile_imges" src="<c:url value="/resources/images/default/userdefault.png"/>">';
 								} else {
 									html+='<img id="user_profile_imges" src="/babmukja/member/download.do?path='+result.list[i].member.memImgPath+'&sysname='+result.list[i].member.memImgSysname+'">';
