@@ -63,9 +63,11 @@
 		            <div class="product">
 		                <img src="${storepb.thumnail}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'">
 		                <div class="product_msg">
+		                    <a class="pb_store_popular_product_img" href="<c:url value="/store/detailpb.do?pbNo=${storepb.pbNo}"/>">
 		                    <p>
 		                        ${storepb.name}
 		                    </p>
+		                    </a>
 		                    <p class="product_price"><fmt:formatNumber value="${storepb.price}" groupingUsed="true"/>원</p>
 		                </div>
 		            </div>
