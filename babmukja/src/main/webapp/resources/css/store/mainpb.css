@@ -481,11 +481,12 @@ hr {
 }
 #kakaopay_information{
 	width: 100%;
-	height: 80%;
+	height: 20%;
 }
 #threeshin_information{
+	margin-top: 50px;
 	width: 100%;
-	height: 80%;
+	height: 70%;
 }
 #kakaopay_information img{
 	width: 100%;
@@ -493,5 +494,5 @@ hr {
 }
 #threeshin_information img{
 	width: 100%;
-	height: 100%;
+	height: 90%;
 }

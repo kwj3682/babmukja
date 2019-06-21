@@ -53,22 +53,8 @@ public class StorePBController {
 	// PB STORE 메인페이지
 	@RequestMapping("/mainpb.do")
 	public void mainpb(Model model) {
-		List<StorePB> list = service.selectPBStore();
-		List<StorePB> result = new ArrayList<>();
-		for (StorePB storepb : list) {
-			String imgpath = "";
-			
-			if(storepb.getImgPath() == null) {
-				imgpath = "/babmukja/store/downloadpb.do?path=/&sysname=default.png";
-				storepb.setImgPath(imgpath);
-				result.add(storepb);
-				continue;
-			}
-			String[] imgList = storepb.getImgPath().split(",");
-			storepb.setImgPath(imgList[0]);
-			result.add(storepb);
-		}
-		model.addAttribute("storepb", result);
+		model.addAttribute("storepb", service.selectPBStore());
+		model.addAttribute("storepbBest", service.selectPBBestItem());
 	}
 	
 	// PB STORE 상품 리스트 페이지

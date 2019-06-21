@@ -211,7 +211,7 @@
                                         fileData.append("attach", file);  
                                         
                                     return new Promise(function (resolve, reject) {
-										alert("이미지 업로드 중...");
+// 										alert("이미지 업로드 중...");
                                         $.ajax({
                                             url: 'upload.do',
                                             type: "post",
@@ -240,7 +240,7 @@
                                 }
 
                                 return imgUpload().then((result) => {
-                                    alert("업로드 완료!");
+//                                     alert("업로드 완료!");
                                     console.dir(result);
                                     return {
                                         success: result.cnt,
@@ -344,7 +344,7 @@
                   url:"update.do",
                   data: form,
                   success:function(result){    
-                	  alert("레시피 수정이 되었습니다.");
+                	  alert("레시피가 수정되었습니다.");
                   }
                });                
                location.href="<c:url value='/recipe/main.do'/>";

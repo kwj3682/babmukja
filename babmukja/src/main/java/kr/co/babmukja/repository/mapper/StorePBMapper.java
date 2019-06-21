@@ -31,6 +31,7 @@ public interface StorePBMapper {
 	*/
 	
 	public List<StorePB> selectPBStore();
+	public List<StorePB> selectPBBestItem();
 	public List<StorePB> selectPBStoreList(Pagepb page);
 	public StorePB selectPBStoreByNo(int pbNo);
 	//public List<StorePB> selectAdminPBList(Pagepb page);

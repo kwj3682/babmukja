@@ -20,6 +20,12 @@
 		 order by regDate desc
 	</select>
 	
+	<select id="selectPBBestItem" resultMap="storepbMap">
+		select *  
+		  from tb_pb
+		 order by likecnt desc, rating_cnt desc
+	</select>
+	
 	<!-- 조회수 증가 -->
 	<update id="addViewCnt" parameterType="int">
 		update tb_pb

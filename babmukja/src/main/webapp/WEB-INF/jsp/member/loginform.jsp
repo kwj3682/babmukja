@@ -118,7 +118,7 @@
 				
 				switch(code){
 				case 0:
-					alert("로그인 완료.");
+// 					alert("로그인 완료.");
 					location.href="/babmukja/recipe/main.do";
 					break;
 				case 1:
