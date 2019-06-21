@@ -26,17 +26,18 @@
         <table class="notice_commt">
           <tr>
             <th class="notice_th2">관리자</th>
-            <td class="notice_td2"><input type="text" name="writer"/></td>
+            <td class="notice_td2"><input type="text" id="writer" name="writer"/></td>
           </tr>
           <tr>
             <th class="notice_th2">제목</th>
-            <td class="notice_td2"><input type="text" name="title"/></td>
+            <td class="notice_td2"><input type="text" id="title"name="title"/></td>
           </tr>
           <tr>
             <th class="notice_th3">내용</th>
             <td class="notice_td3">
               <textarea
                 name="content"
+                id="content"
                 rows="25"
                 cols="100"
                 class="notice_textarea"
@@ -101,6 +102,27 @@
 		};
 	}); 
     	
+	$("#uploadbutton").click(function() {
+		let title = $("#title").val();
+		let writer = $("#writer").val();
+		let content = $("#content").val();
+		
+		if(title.length == 0) {
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+			return false;
+		}
+		if(writer.length == 0) {
+			alert("글쓴이를 입력해주세요.");
+			$("#writer").focus();
+			return false;
+		}
+		if(content.length == 0) {
+			alert("내용을 입력해주세요.");
+			$("#content").focus;
+			return false;
+		}
+	});
 </script>
 </body>
 </html>

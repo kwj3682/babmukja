@@ -49,6 +49,7 @@
 		delete
 		from tb_notice
 		where notice_no = #{noticeNo}
+
 	</delete>
 
 	<update id="updateNotice" parameterType="notice">

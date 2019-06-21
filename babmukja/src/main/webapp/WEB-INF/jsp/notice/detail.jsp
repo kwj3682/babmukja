@@ -37,11 +37,11 @@
 				</div>
 				<br>
 				<div>
-					제목 : <c:out value="${notice.title}" />
+					제목 : <c:out value="${notice.title}"/>
 				</div>
 				<br>
 				<div style="width:620px;">
-				        내용 : <c:out value="${notice.content}" /> 
+				        내용 : <c:out value="${notice.content}"/> 
 				</div> 
 				<c:if test="${notice.imgSysname != null}">
 				<div class="notice_content_img">  	
@@ -73,8 +73,8 @@
 	<div class="btnView2" style="float:center;">
         <td class="btnView">
 <%--         <c:if test="{sessionScope.admin != null}"> --%>
-        <button input type="button" style="font-size: 1.2em;"><a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a></button>
-		<button input type="button" style="font-size: 1.2em;"><a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
+        <button input type="button" id="noticeEdit" style="font-size: 1.2em;"><a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a></button>
+		<button input type="button" id="noticeDelete" style="font-size: 1.2em;"><a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
 <%-- 		</c:if> --%>
 		<button input type="button" style="font-size: 1.2em;"><a href='list.do'>목록</a></button>
 		</td> 
@@ -85,7 +85,7 @@
  <!--  댓글  -->
     <div class="comment_container">
         <label for="content" style="font-size:1.5em; font-weight:bold; display:flex; justify-content:center;">COMMENTS</label>
-        <%-- <c:if test="{sessionScope.user.memNo != null}"> --%>
+        <%-- <c:if test="{sessionScope.user.memName != null}"> --%>
         <!-- <input type="checkbox" id="secretAt">비밀댓글 -->
         <%--  </c:if>  --%>
         <form id= "commentInsert" name="commentInsertForm" method="post">
@@ -93,7 +93,7 @@
   			
               <div class="input-group">
                <input type="text" style="width:95%; border-radius: 5px 5px 5px 5px;" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-               <%-- <c:if test="{sessionScope.user.memNo != null}">  --%>
+               <%-- <c:if test="{sessionScope.user.memName != null}">  --%>
                     <button class="btn btn-default" id="submitComment" type="button" name="commentInsertBtn">등록</button>
                <%--  </c:if> --%>
               </div>
@@ -104,8 +104,16 @@
         <div class="commentList"></div>
     </div>
  </div>
-
 <script>
+/* $("#noticeEdit").click(function() {
+	if(confirm("수정하시겠습니까?")){
+	}
+});
+
+$("#noticeDelete").click(function() {
+	if(confirm("삭제하시겠습니까?")){	   
+   }
+}); */
 // alert("noticeNo: " + noticeNo );
 // `${detail.noticeNo}`; //게시글 번호
 /* var noticeCommentNo = ${comment.noticeCommentNo} + 1;
@@ -144,7 +152,7 @@ function commentList(){
 	    	 $(".commentList").append(  
 	    	             '<div class="commentArea" id="commentArea'+i+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px; color:blue;">'
 	    			    +'<div class="commentContent">' /* <div class="avatar"><span class="user"><img data-role="user-avatar" src="https://c.disquscdn.com/next/embed/assets/img/noavatar92.7b2fde640943965cc88df0cdee365907.png" alt="아바타"></span></div>' */
-	    			    +'<p> 댓글 : ' + data[i].content + '  <a style="float:right;"></a>' /* <c:if test="{sessionScope.user.memNo != null}"> </c:if> */  
+	    			    +'<p> 댓글 : ' + data[i].content + '  <a style="float:right;"></a>' /* <c:if test="{sessionScope.user.memName != null}"> </c:if> */  
 	    			    +'<a href="'+ data[i].noticeCommentNo +'" style="float:right;"><button id="commentUpdate">수정</button></a>'
 	    			    +'<a onclick="commentDelete('+ data[i].noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button>&nbsp;</a></p></div></div>'
 	    	     ); /* return false; */

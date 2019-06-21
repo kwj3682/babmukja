@@ -30,13 +30,14 @@
           </tr>
           <tr>
             <th class="notice_th2">제목</th>
-            <td class="notice_td2"><input type="text" name="title" value="" placeholder="제목을 입력하세요."/></td>
+            <td class="notice_td2"><input type="text" id="title" name="title" value="" placeholder="제목을 입력하세요."/></td>
           </tr>
           <tr>
             <th class="notice_th3">내용</th>
             <td class="notice_td3">
               <textarea  
                 name="content"
+                id="content"
                 rows="25"
                 cols="100"
                 class="notice_textarea">${notice.content}
@@ -45,10 +46,13 @@
           </tr>
           <tr>
             <th class="notice_th2">첨부파일</th>
-            <td class="notice_td5"><img src="" id="notice_img"> 
-            <input type="file" name="imageList" id="notice_file"/>               
-            </td>
-          </tr>
+            <td class="notice_td5">
+            <c:if test="${notice.imgSysname != null}">
+            <img src="<c:url value='download.do?path=${notice.imgSysname}'/>" id="notice_update_img"> 
+            <input type="file" name="imageList" id="update_file" value="${notice.noticefile}"/> 
+            </td>            
+            </c:if>
+          </tr> 
           <!-- <tr>
             <th class="notice_th2">첨부파일</th>
             <td class="notice_td5"><input type="file" class="notice_search"/></td>
@@ -68,6 +72,40 @@
           <h2>BABMUKJA COMPANY</h2>
           <div>Lorem ipsum dolor sit.</div>
   </footer>
- 
+
+<script>
+// 이미지 썸네일
+let file = document.querySelector("#update_file");
+$('#update_file').change(function() {
+	let fileList = file.files;
+	// 읽기
+	let reader = new FileReader();
+	reader.readAsDataURL(fileList[0]);
+	//로드 한 후
+	reader.onload = function() {
+		//로컬 이미지를 보여주기
+		document.querySelector("#notice_update_img").src = reader.result;
+		//썸네일 이미지 생성
+		let tempImage = new Image(); //drawImage 메서드에 넣기 위해 이미지 객체화
+		tempImage.src = reader.result; //data-uri를 이미지 객체에 주입
+		tempImage.onload = function() {
+			//리사이즈를 위해 캔버스 객체 생성
+			let canvas = document.createElement("canvas");
+			let canvasContext = canvas.getContext("2d");
+			//캔버스 크기 설정
+			canvas.width = 30; //가로
+			canvas.height = 30; //세로
+			//이미지를 캔버스에 그리기
+			canvasContext.drawImage(this, 0, 0, 30, 30);
+			//캔버스에 그린 이미지를 다시 data-uri 형태로 변환
+			let dataURI = canvas.toDataURL("image/jpeg");
+			//썸네일 이미지 보여주기
+			document.querySelector("#notice_update_img").src = dataURI;
+		};
+	};
+});
+
+
+</script>
 </body>
 </html>
