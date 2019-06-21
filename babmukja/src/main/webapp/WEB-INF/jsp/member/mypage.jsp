@@ -15,6 +15,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/DataTables/DataTables-1.10.18/js/jquery.dataTables.1.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/modernizr.2.5.3.min.js"/>"></script>
+   	<script type="text/javascript" src="<c:url value="/resources/js/hash.js"/>"></script>
+	
 </head>
 <body>
     <div id="open-filter">
@@ -129,10 +132,10 @@
 				 <div id="scrapbook-container">
 			        <div id="scrapbook-add">
 			            <p id="scrapbook-add-text1">
-			                스크랩북을 생성하시려면 영역을 선택해주세요.
+			               	 스크랩북을 생성하시려면<br>영역을 선택해주세요.
 			            </p>
 			            <p id="scrapbook-add-text2">+</p>
-			            <p id="scrapbook-add-text3">자신만의 레시피북을 만들어보세요!</p>
+			            <p id="scrapbook-add-text3">자신만의 레시피북을<br>만들어보세요!</p>
 			        </div>
 			
 			        <div id="scrapbook-wrapper">
@@ -156,7 +159,7 @@
 				        <div id="scrapbook-creator-wrapper">
 				            <div id="scrapbook-creator-wrapper-inner1">
 				                <p>제목</p>
-				                <input type="text" name="scrapbook-title">
+				                <input type="text" name="scrapbook-title" id="scrapbook-title">
 				            </div>
 				            <div id="scrapbook-creator-wrapper-inner2">
 				                <div id="scrapbook-coverselector">
@@ -183,9 +186,10 @@
     <script src="<c:url value="/resources/js/three/three.interaction/build/three.interaction.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/DirectionalLight.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/GeometryUtils.js"/>"></script>
+
+	<script src="<c:url value="/resources/js/turn.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/mypage.js"/>"></script>
 	<script src="<c:url value="/resources/js/three/scrapbook.js"/>"></script>
-    <script src="<c:url value="/resources/js/turn.min.js"/>"></script>
     
 </body>
 </html>

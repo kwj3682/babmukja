@@ -31,6 +31,7 @@ public interface StorePBMapper {
 	*/
 	
 	public List<StorePB> selectPBStore();
+	public List<StorePB> selectPBBestItem();
 	public List<StorePB> selectPBStoreList(Pagepb page);
 	public StorePB selectPBStoreByNo(int pbNo);
 	//public List<StorePB> selectAdminPBList(Pagepb page);
@@ -73,6 +74,7 @@ public interface StorePBMapper {
 	// PB 상품 결제
 	public void insertPBPayment(StorePBPayment storePBPayment);
 	public StorePBPayment selectPBPaymentByNo(int paymentNo);
+	public List<StorePBPayment> selectBuyList(int memNo);
 	
 	// PB 상품 장바구니
 	public void insertPBCart(StorePBCart storePBCart);

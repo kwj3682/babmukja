@@ -147,7 +147,7 @@ html, body {
     background-size: cover;
 }
 #sec1-content2-wrapper > div:nth-child(3) div{
-    padding-left: 30px;
+    padding-left: 20px;
     height: 210px;
 }
 #sec1-content2-wrapper > div:nth-child(3) div img{
@@ -169,7 +169,7 @@ html, body {
     transform: rotate(15deg);
 }
 #sec1-content2-wrapper > div:nth-child(3){
-    font-size: 30px;
+    font-size: 25px;
 }
 #sec1-content2-wrapper > div:nth-child(3) > div> b{
     font-size: 30px;
@@ -349,8 +349,7 @@ html, body {
 }
 
 #turnJsDiv {
-	display : none;
-	
+	display : none;	
 }
 
 .modal-dialog {
@@ -384,7 +383,7 @@ html, body {
 	-ms-border-radius:0 15px 15px 0;
 	-o-border-radius:0 15px 15px 0;
 	border-radius:0 15px 15px 0;
-/* 	transition :.3s; */
+ 	transition :.3s;
 }
 
 .previous-button{
@@ -394,12 +393,12 @@ html, body {
 	-ms-border-radius:15px 0 0 15px;
 	-o-border-radius:15px 0 0 15px;
 	border-radius:15px 0 0 15px;
-	/* transition :.3s; */
+	transition :.3s;
 }
 
 .previous-button-hover,
 .next-button-hover{
-	background-color:rgb(125, 179, 65);
+	background-color: gainsboro;
 }
 
 .previous-button-hover,
@@ -412,7 +411,7 @@ html, body {
 
 .previous-button-down,
 .next-button-down{
-	background-color:rgba(125, 179, 65,0.5);
+	background-color:rgb(199, 198, 198);
 }
 
 .next-button-hover,

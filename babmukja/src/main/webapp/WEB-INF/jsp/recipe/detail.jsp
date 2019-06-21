@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">    
     <link rel="stylesheet" href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/recipe/recipe-detail.css"/>">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="<c:url value="/resources/js/editor.min.js"/>"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
@@ -26,10 +27,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+    <script src="<c:url value="/resources/js/html2canvas/html2canvas.js"/>"></script>
+    <script src="<c:url value="/resources/js/html2canvas/jquery.plugin.html2canvas.js"/>"></script>
+    
     <title>Document</title>
 </head>
+<input type="hidden" value="${sessionScope.user.memNo}" name="memNo">
 <body onload="myTimeWait()">
 <%--     <input id="hiddenValue" type="text" value="${inputData}"/> --%>
+	
     <div id="body"><!-- 전체 body start -->
         <!---------------------------------------------------------------------------------------->
         <div id="left-body"><!-- left-body start -->
@@ -58,8 +66,8 @@
 	        <c:choose>
             	<c:when test="${sessionScope.user.memNo eq recipe.memNo}">
 	            	<div id="a-button">
-	            		<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>">수정</a>
-	            		<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>">삭제</a>	            	
+	            		<a href="<c:url value="/recipe/updateform.do?no=${recipe.recipeNo }"/>"><i class="far fa-edit"></i>수정</a>
+	            		<a id="delete-button" href="<c:url value="/recipe/delete.do?no=${recipe.recipeNo }"/>"><i class="far fa-trash-alt"></i>삭제</a>	            	
 	            	</div>
             	</c:when>
             </c:choose>
@@ -67,7 +75,7 @@
              <!------------------------------------------------------------------------------------------------>
            
             <div id="comment-body"><!-- comment-body start -->
-                <div id="comment-header">댓글</div>                
+                <div id="comment-header">댓글&nbsp;<i class="far fa-comments"></i></div>                
                 <div id="comment-container"><!-- comment-container start -->
                     <div id="comment-mine"><!-- comment-mine start -->
                     <c:choose>
@@ -103,10 +111,10 @@
                             <textarea class="comment-input"></textarea>
                         <c:choose>
                         	<c:when test="${sessionScope.user ne null}">
-	                        	<button id="comment-submit"><i class="fas fa-pen-square fa-3x"></i></button>                        	
+	                        	<button id="comment-submit"><img src="<c:url value='/resources/images/comments.png'/>"></button>                        	
                         	</c:when>
                         	<c:otherwise>
-                        		<button id="comment-nope"><i class="fas fa-pen-square fa-3x"></i></button>
+                        		<button id="comment-nope"><img src="<c:url value='/resources/images/comments.png'/>"></button>
                         	</c:otherwise>
                         </c:choose>                       
                         </div>
@@ -147,9 +155,19 @@
 	                        		  <b class="likeCnt">${recipe.likeCnt}</b>
                         		  </button>
                         	</c:otherwise>
-                        </c:choose>      
-                    
-                        <button class="recipeScrap"><i class="fas fa-scroll"></i> <b>12</b></button>
+                        </c:choose>
+                        <input type="hidden" name="scrap-status" value="${scrapStatus}">      
+                    	<c:choose>
+                    		<c:when test="${scrapStatus eq 'Y'}">
+		                        <button class="recipeScrap" style="color:white;background-color:#7db341;"><i class="fas fa-scroll"></i> <b>${recipe.scrapCnt}</b></button>                    		                    			
+                    		</c:when>
+                    		<c:when test="${scrapStatus eq 'N'}">
+		                        <button class="recipeScrap"><i class="fas fa-scroll"></i> <b>${recipe.scrapCnt}</b></button>                    		
+                    		</c:when>
+                    		<c:otherwise>
+		                        <button class="recipeScrap"><i class="fas fa-scroll"></i> <b>${recipe.scrapCnt}</b></button>                    		
+                    		</c:otherwise>
+                    	</c:choose>
                     </div><!-- content-button-wrapper end -->
                 </div><!-- content-info end -->
 
@@ -182,25 +200,51 @@
                     </div><!-- profile-wrapper end -->
 
                     <div id="writer-post"><!-- writer-post start -->
-                    <c:forEach var="mrecipe" items="${memRecipe}">
-                        <a href="detail.do?no=${mrecipe.recipeNo }">
-                        	<img id="post-img1" src="${mrecipe.imgPath }">
+                    <c:forEach var="m" items="${memRecipe}">
+                        <a href="detail.do?no=${m.recipeNo }">
+	                        <c:choose>
+			                	<c:when test="${m.imgPath == null || m.imgPath == ''}">
+			                    	<img id="post-img1" src="<c:url value="/resources/images/default.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+			                    	<img id="post-img1" src="${m.imgPath }">
+			                	</c:otherwise>
+	                		</c:choose>
                         </a>
                     </c:forEach>
                     </div><!-- writer-post end -->
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
                 </div><!-- writer-info end -->
-                
-                <div id="share-button">
-                    <i class="fab fa-facebook-f fa-3x"></i>
-                    <i class="fab fa-instagram fa-3x"></i>
-                </div>
-            
             </div><!-- content-wrapper end -->            
         </div><!-- right;body end -->
     </div> <!-- 전체 body end -->
     
-    
+	
+	<input type="hidden" name="img_val" id="img_val" value="" /> 
+	<!-- scrap modal -->
+   	<div class="modal fade" id="modal-scrap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
+			<div class="modal-content" id="recipe-content" style="width:900px; height: 700px;margin:0 auto;">
+				
+					<div id="modal-container">
+				        <div id="scrapbook-wrapper-sec1">
+				            <p>${sessionScope.user.memNickname}'s 스크랩북</p>
+				        </div>
+				        <div id="scrapbook-wrapper-sec2">
+				        </div>
+				        <div id="scrapbook-wrapper-sec3">
+
+				        </div>
+				        <div id="scrapbook-wrapper-sec4">
+				            <button id="scrapbook-wrapper-sec4-button1">등록</button>
+				            <button id="scrapbook-wrapper-sec4-button2">취소</button>
+				        </div>
+				    </div>
+				    
+			</div>
+		</div>
+	</div>
+	<script src="<c:url value="/resources/js/html2canvas/recipe-capture.js"/>"></script>
     <script>      
     $("#more-post").click(function () {
     	location.href = "<c:url value='/member/mypage.do?memNickname=${recipe.memNickname}'/>";
@@ -216,14 +260,14 @@
 	    		},
 	    		success : function (result) {  
 	    			if(result.status == 'Y') {
-	    				alert("좋아요가 되었습니다.");
+// 	    				alert("좋아요가 되었습니다.");
 	    				$(".recipeLike").css({
 	    					background : "#7db341",
 		    				color : "white"		    				    
 	    				});	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			} else if(result.status == 'N') {
-	    				alert("좋아요가 해제되었습니다.");
+// 	    				alert("좋아요가 해제되었습니다.");
 	    				$(".recipeLike").css({	    					
 	    				    background: "#eee",
 	    			    	color: "#bbb"
@@ -231,7 +275,7 @@
 	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			} else {
-	    				alert("좋아요가 되었습니다.");
+// 	    				alert("좋아요가 되었습니다.");
 	    				$(".recipeLike").css({
 	    					background : "#7db341",
 		    				color : "white"		    				    
@@ -254,13 +298,13 @@
 		    		},
 		    		success : function(result) {		    		
 		    			if(result == 1) {
-			    			alert("팔로우가 되었습니다.");	
+// 			    			alert("팔로우가 되었습니다.");	
 			    			$(".follow").css({
 			    				background : "#7db341",
 			    				color : "white"	
 			    			});
 		    			} else if(result == 0) {
-		    				alert("팔로우가 해제되었습니다.");
+// 		    				alert("팔로우가 해제되었습니다.");
 		    				$(".follow").css({
 		    					background : "#eee",
 		    			    	color: "#777"
@@ -270,7 +314,7 @@
 		    	});
 			} 
 		if('${sessionScope.user.memNo}' == '${recipe.memNo}') {
-			alert("같은 회원은 팔로우 할 수 없습니다.");
+			alert("자신은 팔로우 할 수 없습니다.");
 		}
 		
     	});
@@ -321,7 +365,7 @@
 	    	 	     			+'</div></div>';
 		    	 	     				 	 
 		    	 	 $(".comment-input").val("");		
-		    	 	 $("#h3").html("");
+		    	 	 $("#h4").html("");
 		    	 	 $("#comment-other").prepend(html);
 		    	 	 $("#comment-other").html("");
 					commentList(1);
@@ -344,7 +388,7 @@
 		 	.done(function (result) {
 		 		let loginMemNo = '${sessionScope.user.memNo}';
 		 		if(result.comment.length == 0) {	 			
-		 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+		 			$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
 		 		}
 		 		let html = "";	
 		 		for(let i = 0; i < result.comment.length; i++) {
@@ -420,7 +464,7 @@
 	                    	    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
 	                    		<textarea class="comment-updateform">`+data.content+`</textarea>                			  
 	                  			 <button class="comment-update">
-	                  			 	<i class="fas fa-pen-square fa-3x"></i>
+	                  			 	<img src="<c:url value='/resources/images/comments.png'/>">
 	                  			 </button>                  			
                   			 	<button class="comment-exit">
                   			 		<i class="far fa-times-circle"></i>
@@ -473,11 +517,10 @@
  		}).done(function (result) {    		
  			if($(".other-content").length == 1 ) {
  				$("#"+ num).html("");
- 				$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+ 				$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
  			}
  		
 	    	$("#"+ num).html("");
-	    	$("#comment-other").html("");
 			commentList(result.pageNo);
  		})  
  	});
@@ -555,7 +598,7 @@
         });
 		
        function myTimeWait(){	   
-    	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
+    	   	$("#post-body").append($("<div id='recipe-cover'></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
        }
        let mOverValue = 0;
        let checkedValue = 5;

@@ -260,6 +260,7 @@ public class MemberController {
 	public static String RandomNum() {
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i <= 5; i++) {
+			
 			int n = (int) (Math.random() * 10);
 			buffer.append(n);
 		}
@@ -306,17 +307,34 @@ public class MemberController {
 		return service.selectConfirmCertification(member);
 	}
 
+	@RequestMapping("/emailchecknum.do")
+	@ResponseBody
+	public int emailcertificationCheck(Member member) {
+		int memNo = service.selectMemnoByEmail(member.getMemEmail());
+		int cerNo = service.selectConfirmCertificationByEmail(memNo);
+		// cerNo 비교.. 사용자가 input 창에 입력한 값과 비교 맞으면 return 1 틀리면 return 0
+		// cerNo => DB 컬럼에 certification 의 값
+		// member.getCertification => 사용자가 입력한 input창의 값
+		if (member.getCertification() == cerNo) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
 	// 비밀번호 재설정 (이메일)
 	@RequestMapping("/resetpass.do")
 	public void resetPass(Member member, Model model) {
 		model.addAttribute("email", member.getMemEmail());
+		model.addAttribute("memPhone", member.getMemPhone());
+	
 	}
 	
 
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
 	public String rePass(Member member) {
-		
+		System.out.println("shit"+member.getMemPhone());
 		// 암호화
 		String inputPass = member.getMemPass();
 		String pass = passEncoder.encode(inputPass);
@@ -388,6 +406,7 @@ public class MemberController {
 	public void changePass() {
 		
 	}
+	
 	//--------------------------우중----------------------------------------//
 	@RequestMapping("/searchmember.do")
 	@ResponseBody
@@ -508,6 +527,9 @@ public class MemberController {
 	@RequestMapping("insertscrapbook.do")
 	@ResponseBody
 	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
+		System.out.println(fileVO.getTitle());
+
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/scrap" + sdf.format(new Date());

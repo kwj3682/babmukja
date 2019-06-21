@@ -31,6 +31,10 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBStore();
 	}
 	
+	public List<StorePB> selectPBBestItem() {
+		return mapper.selectPBBestItem();
+	}
+	
 	public void addViewCnt(int pbNo) {
 		mapper.addViewCnt(pbNo);
 	}
@@ -175,6 +179,10 @@ public class StorePBServiceImpl implements StorePBService{
 	
 	public StorePBPayment selectPBPaymentByNo(int paymentNo) {
 		return mapper.selectPBPaymentByNo(paymentNo);
+	}
+	
+	public List<StorePBPayment> selectBuyList(int memNo) {
+		return mapper.selectBuyList(memNo);
 	}
 	
 	// pb 상품 장바구니

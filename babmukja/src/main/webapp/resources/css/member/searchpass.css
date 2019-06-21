@@ -92,6 +92,9 @@
 .email_check {
   margin-bottom: 15px;
 }
+.certification_check2 .certification_result2 {
+	font-weight: bold;
+}
 
 .search_pass_input {
   display: none;

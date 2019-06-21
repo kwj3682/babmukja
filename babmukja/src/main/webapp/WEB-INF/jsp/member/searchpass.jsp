@@ -33,7 +33,7 @@
 		<form id="searchPass" method="post" action="resetpass.do">
 			<div class="search_pass_input visiable" id="email-form">
 				<div class="email_email">
-					<input type="text" name="memEmail" id="memEmail" />
+					<input type="text" name="memEmail" id="memEmail" placeholder="이메일"/>
 					<button id="email_btn" type="button">메일 전송</button>
 				</div>
 
@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="search_pass_button">
-				<button>비밀번호 재설정</button>
+				<button id="phone_reset_button_e">비밀번호 재설정</button>
 			</div>
 		</form>
 
@@ -66,11 +66,10 @@
 			<div class="search_pass_input">
 				<div class="phone_name">
 					<input type="text" name="name" id="memName" placeholder="이름" />
-					<input type="text" name="memEmail" id="memEmail" />
 				</div>
 				
 				<div class="phone_email">
-					<input type="text" name="phone" id="memPhone" placeholder="전화번호" />
+					<input type="text" name="memPhone" id="memPhone" placeholder="전화번호" />
 					<input type="hidden" id="hPhone" value="0" />
 					<button type="button" id="sms_btn">전송</button>
 					
@@ -80,7 +79,7 @@
 				</div>
 				
 				<div class="phone_certification">
-					<input type="text" name="certification" id="certification" placeholder="인증번호" />
+					<input type="text" name="certification" id="pcertification" placeholder="인증번호" />
 					<button id="certification_btn_one" type="button">인증번호 확인</button>
 					<input type="hidden" id="hcertification" value="0" />
 				</div>
@@ -90,7 +89,7 @@
 				</div>
 				
 				<div class="search_pass_button_one">
-					<button>비밀번호 재설정</button>
+					<button id="phone_reset_button">비밀번호 재설정</button>
 				</div>
 			</div>
 		</form>
@@ -98,6 +97,16 @@
 	</main>
 
 	<script>
+	
+		let phoneVal = 0;
+		$(document).on("keyup","#memPhone",function(){
+			$this = $(this);
+			var regex= /[^0-9]/g;
+			$this.val().replace(regex,"");
+
+			phoneVal = $this.val();
+		});
+	
 		$(".search_pass_search i").click(function() {
 			$(this).parent().next().fadeToggle("fast");
 		})
@@ -163,7 +172,7 @@
 
 		// 이메일 확인
 		let em = 0;
-		$("#memEmail").click(function() {
+		$("#memEmail").keyup(function() {
 			let email = $("#memEmail").val();
 
 			$.ajax({
@@ -172,8 +181,6 @@
 				url : 'checkemail.do',
 				dataType : "json",
 				success : function(data) {
-					// alert(data.cnt);
-					// console.log(data);
 					if (data != 0 || (email === null)) {
 						$(".email_check .email_result").text("존재하는 이메일 입니다.");
 						$(".email_check .email_result").attr("style", "color:blue;");
@@ -191,29 +198,30 @@
 		});
 
 		// 이메일 인증번호 확인
-		let number = 0;
+		let numberCheckFlag1 = false;
 		$("#certification_btn").click( function() {
 			let ctf = $("#certification").val();
+			let memEmail = $("#memEmail").val();
 			
 			$.ajax({
 				type : 'POST',
-				data : "certification=" + ctf,
-				url : 'checknum.do',
-				dataType : "json",
+				data : {
+					certification : ctf,
+					memEmail : memEmail
+				},
+				url : 'emailchecknum.do',
 				success : function(data) {
-					// alert(data.cnt);
-					console.log(data);
-					if (data != 0 || (ctf === false)) {
+					if (data == 0) {
 						$(".certification_check .certification_result").text("인증번호가 일치하지 않습니다.");
 						$(".certification_check .certification_result").attr("style", "color:red;");
 						$("#certification").focus();
-						$("#hcertification").val(1);
+						$("#hcertification").val();
 					} else {
 						$(".certification_check .certification_result").text("인증번호가 일치 합니다.");
 						$(".certification_check .certification_result").attr("style", "color:blue;");
 						$("#certification").focus();
-						$("#hcertification").val(2);
-						number = 1;
+						$("#hcertification").val();
+						let numberCheckFlag1 = true;
 					}
 				}
 			});
@@ -261,7 +269,6 @@
 		let ph = 0;
 		$("#memPhone").keyup(function() {
 			let phone = $("#memPhone").val();
-			console.log(phone);
 			
 			$.ajax({
 				type : 'POST',
@@ -269,8 +276,6 @@
 				url : 'checkphone.do',
 				dataType : "json",
 				success : function(data) {
-					// alert(data.cnt);
-					console.log(data);
 					if (data != 0 || (phone === null)) {
 						$(".phone_check .phone_result").text("존재하는 전화번호 입니다.");
 						$(".phone_check .phone_result").attr("style", "color:blue;");
@@ -288,33 +293,49 @@
 		});
 
 		// sms 인증번호 중복체크
-		let number2 = 0;
-		$("#certification_btn_one").keyup( function() {
-			let ctf = $("#certification").val();
-			//console.log(ctf);
-			
+		let numberCheckFlag = false;
+		$("#certification_btn_one").click( function() {
+			let ctf = $("#pcertification").val();
+			let memPhone = $("#memPhone").val();
+			if(ctf == "" || memPhone == ""){
+				alert("입력된 값을 확인해주세요.");
+				$("#pcertification").focus();
+				return;
+			}
 			$.ajax({
 				type : 'POST',
-				data : "certification=" + ctf,
+				data : {
+					certification : ctf,
+					memPhone : memPhone 
+				},
 				url : 'checknum.do',
-				dataType : "json",
 				success : function(data) {
-					// alert(data.cnt);
-					if (data != 0 || (ctf === false)) {
+					if (data == 0) {
 						$(".certification_check2 .certification_result2").text("인증번호가 일치하지 않습니다.");
 						$(".certification_check2 .certification_result2").attr("style","color:red;");
 						$("#certification").focus();
-						$("#hcertification").val(1);
+						$("#hcertification").val();
+						numberCheckFlag = false;
 					} else {
 						$(".certification_check2 .certification_result2").text("인증번호가 일치 합니다.");
 						$(".certification_check2 .certification_result2").attr("style","color:blue;");
 						$("#certification").focus();
-						$("#hcertification").val(2);
-						number2 = 1;
+						$("#hcertification").val();
+						numberCheckFlag = true;
 					}
 				}
 			});
+			
 		});
+		$(document).on("click","#phone_reset_button",function(){
+			if(numberCheckFlag){
+				$("#searchPass2").submit();
+			}else{
+				alert("인증번호를 확인해주세요.");
+				return false;
+			}
+		});
+		
 	</script>
 </body>
 </html>

@@ -453,6 +453,9 @@ function update() {
 
 		}
 	);
+
+	let scrapbookAlreadyFlag = false;
+
 	if(visitorNo == userNo){
 		var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
 		var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
@@ -465,23 +468,40 @@ function update() {
 			selectBoxFlag = false;
 		}).on("click",function(){
 			$("#modal-scrapbook").modal("show");
-			$.ajax({
-				url : "scrapbookAjax.do",
-				data : {memNo : userNo}
-			}).done(function(list){
-				let html = "";
-				for(let book of list){
-					html +='<div class="scrapbook-content">';
-					html +=		'<div class="scrapbooks-title-conatiner">';
-					html +=			'<p>'+book.title+'</p>';
-					html +=		'</div>';
-					html +=			'<div class="scrapbooks" style="background:url('+ book.imgPath +')">';
-					html +=		'</div>';
-					html +='</div>';
-					
-				}
-				$("#scrapbook-wrapper").append(html);
-			});
+			if(!scrapbookAlreadyFlag){
+					$.ajax({
+						url : "scrapbookAjax.do",
+						data : {memNo : userNo}
+					}).done(function(list){
+						let i = 0;
+						for(let book of list){
+							let html = "";
+							html +='<div class="scrapbook-content">';
+							html +=		'<div class="scrapbooks-title-conatiner">';
+							html +=			'<p>'+book.title+'</p>';
+							html +=		'</div>';
+							html +=     '<div class="scrapbooks-turn" id="scrapbooks-turn'+i+'">'; 
+							html +=			'<div class="scrapbooks hard" style="background:url('+ book.imgPath +')"></div>';
+							html +=			'<div class="hard" style="background : rgb(230,230,230);">'+book.title+'</div>';
+							html +=          book.content;
+							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg)"></div>';
+							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-outercover.jpg)"></div>';
+							html +=     '</div>'; 
+							html +='</div>';
+							$("#scrapbook-wrapper").append(html);
+							
+							$("#scrapbooks-turn" + i).turn({
+								width : 850,
+								height : 580,
+								elevation : 50   
+							}).css({marginBottom : "15px;"}).find(".scrapbooks").css({backgroundSize:"cover" });
+							
+							i++;
+						}
+						
+					});
+					scrapbookAlreadyFlag = true;
+			}
 		});
 		selectBox.position.x = -21;
 		selectBox.position.y = -15;

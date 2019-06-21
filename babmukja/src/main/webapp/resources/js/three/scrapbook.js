@@ -2,8 +2,6 @@
 $("#scrapbook-add").click(function(){
 	$("#modal-scrapbook").modal("hide");
 	$("#modal-scrapbook-creator").modal("show");
-	
-
 });
 $(document).on("keyup","input[name='scrapbook-title']",function(){
 	if($(this).val().length > 30) $(this).val($(this).val().substring(0,30)); 
@@ -49,8 +47,7 @@ $(document).on("change","input[name='bookcover']",function(e){
 
 });
 $(document).on("click","#book-create",function(){
-	title = $("input[name='scrapbook-title']").val();
-
+	title = $("#scrapbook-title").val();
 	if(title == "") {
 		alert("제목을 입력해주세요.");
 		return;
@@ -60,7 +57,7 @@ $(document).on("click","#book-create",function(){
 		return;
 	}
 	fData.append("attach",readFile);
-	fData.append("booktitle",title);
+	fData.append("title",title);
 	fData.append("memNickname",userNickname);
 	$.ajax({
 		url: 'insertscrapbook.do',

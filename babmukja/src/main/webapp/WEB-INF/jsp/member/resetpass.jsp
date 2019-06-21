@@ -39,6 +39,7 @@
 			
 			<!-- 앞에서는 이메일을 받아오는데 여기서 이메일을 안받으면 null 에러발생 -->
 			<input type="hidden" id="iemail" value="${email}" name="memEmail">
+			<input type="hidden" id="iphone" value="${memPhone}" name="memPhone">
 <%-- 			<div>${email}</div> --%>
 			
 			<div class="reset_pass_button">

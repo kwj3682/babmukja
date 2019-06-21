@@ -49,25 +49,12 @@ public class StorePBController {
 	@Autowired
 	private StorePBService service;
 	
+	// PB STORE 상품 관련 부분
 	// PB STORE 메인페이지
 	@RequestMapping("/mainpb.do")
 	public void mainpb(Model model) {
-		List<StorePB> list = service.selectPBStore();
-		List<StorePB> result = new ArrayList<>();
-		for (StorePB storepb : list) {
-			String imgpath = "";
-			
-			if(storepb.getImgPath() == null) {
-				imgpath = "/babmukja/store/downloadpb.do?path=/&sysname=default.png";
-				storepb.setImgPath(imgpath);
-				result.add(storepb);
-				continue;
-			}
-			String[] imgList = storepb.getImgPath().split(",");
-			storepb.setImgPath(imgList[0]);
-			result.add(storepb);
-		}
-		model.addAttribute("storepb", result);
+		model.addAttribute("storepb", service.selectPBStore());
+		model.addAttribute("storepbBest", service.selectPBBestItem());
 	}
 	
 	// PB STORE 상품 리스트 페이지
@@ -85,32 +72,11 @@ public class StorePBController {
 	public ModelAndView detailpb(ModelAndView mav, int pbNo,  StorePBReview storePBReview, StorePBInquire storePBInquire, HttpSession session) {
 		StorePB store = service.selectPBStoreByNo(pbNo);
 		service.addViewCnt(pbNo);
-//		List<StorePBInquire> sInquire = service.selectPBInquire(pbNo);
-//		List<StorePBReview> reviewList = service.selectReview(pbNo);
-//		List<ReviewMap> reviewMap = new ArrayList<>();
-//		for(StorePBReview pb : reviewList) {
-//			
-//			List<ReviewFileVO> reviewFileList = service.selectReviewFile(pb.getPbReviewNo());
-//			ReviewMap rm = new ReviewMap();
-//			rm.setReviewFile(reviewFileList);
-//			rm.setReviewList(pb);
-//			rm.setMember(pb.getMember());
-//			reviewMap.add(rm);
-//		}
-		
 		if (store == null) {
 			mav.setViewName("store/mainpb");
 			return mav;
 		}
-		
-//		if (store.getImgPath() == null ) {
-//			
-//			mav.setViewName("store/detailpb");
-//			mav.addObject("store");
-//			mav.addObject("imgList",  "/babmukja/store/downloadpb.do?path=/&sysname=default.png");
-//			return mav;
-//		}
-		
+
 		Member user = (Member)session.getAttribute("user");
 		if (user != null) {
 			StorePBLike like = new StorePBLike();
@@ -122,9 +88,6 @@ public class StorePBController {
 		mav.setViewName("store/detailpb");
 		mav.addObject("storepb", store);
 		mav.addObject("imgList", store.getImgPath().split(","));
-//		mav.addObject("reviewList", reviewList);
-//		mav.addObject("reviewMap",reviewMap);
-//		mav.addObject("inqList", sInquire);
 		return mav;
 	}
 
@@ -170,6 +133,7 @@ public class StorePBController {
 		bos.close();  out.close();
 	}
 
+	// 파일 업로드
 	@RequestMapping("/uploadpb.do")
 	@ResponseBody
 	public Object uploadpb(FileVO fileVO) throws Exception {
@@ -194,7 +158,9 @@ public class StorePBController {
 		return new Gson().toJson(fileVO);
 	}
 	
-	// PB STORE REVIEW 전체조회 ajax 페이징
+	// PB STORE 상품 후기 관련 부분
+	
+	// PB STORE 상품 후기 전체조회 ajax 페이징
 	@RequestMapping("/pbReviewAjax.do")
 	@ResponseBody
 	public Map pbreviewajax(PagePbReview page) {
@@ -216,17 +182,6 @@ public class StorePBController {
 		return map;
 	}
 	
-
-	// PB STORE 문의 전체조회 ajax 페이징
-	@RequestMapping("/pbInqAjax.do")
-	@ResponseBody
-	public Map<String, Object> pbInqAjax(PagePbReview page) {
-		Map<String, Object> map = service.selectPBInquire(page);
-		map.put("inqList", map.get("list"));
-		map.put("pageResult", map.get("pageResult"));
-		return map;
-	}
-
 	// PB STORE 상품 후기  등록
 	@RequestMapping("/pbreviewinsert.do")
 	@ResponseBody
@@ -286,6 +241,18 @@ public class StorePBController {
 		service.deleteReviewByNo(pbReviewNo);
 	}
 	
+	// PB STORE 상품 문의 관련 부분
+	
+	// PB STORE 문의 전체조회 ajax 페이징
+	@RequestMapping("/pbInqAjax.do")
+	@ResponseBody
+	public Map<String, Object> pbInqAjax(PagePbReview page) {
+		Map<String, Object> map = service.selectPBInquire(page);
+		map.put("inqList", map.get("list"));
+		map.put("pageResult", map.get("pageResult"));
+		return map;
+	}
+	
 	// PB STORE 상품 문의 등록
 	@RequestMapping("/pbinquiryinsert.do")
 	@ResponseBody
@@ -333,6 +300,8 @@ public class StorePBController {
 		service.deleteInquiry(inquiryNo);
 	}
 
+	// PB STORE 상품 결제 관련 부분
+	
 	// PB STORE 상품 결제 등록
 	@RequestMapping("/pbpaymentinsert.do")
 	@ResponseBody
@@ -341,9 +310,18 @@ public class StorePBController {
 			Member user = (Member)session.getAttribute("user");
 			s.setMemNo(user.getMemNo());
 			service.insertPBPayment(s);
+			service.deletePBCart(s.getCartNo());
 		}
 		return 1;
 	}
+	
+	// 결제내역 확인하기
+	@RequestMapping("/buyList.do")
+	public void buyList(int memNo, Model model) {
+		model.addAttribute("buyList", service.selectBuyList(memNo));
+	}
+	
+	// PB STORE 상품 장바구니 관련 부분
 	
 	// PB STORE 상품 장바구니 등록
 	@RequestMapping("/pbcartinsert.do")
@@ -419,10 +397,5 @@ public class StorePBController {
 			return list;
 		}
 		return list;
-	}
-	
-	@RequestMapping("/buyList.do")
-	public void buyList() {
-		
 	}
 }

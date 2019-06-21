@@ -32,6 +32,7 @@ public interface StorePBService {
 	*/
 	
 	public List<StorePB> selectPBStore();
+	public List<StorePB> selectPBBestItem();
 	public Map<String, Object> selectPBStoreList(Pagepb page);
 	public StorePB selectPBStoreByNo(int pbNo);
 	// public Map<String, Object> selectAdminPBList(Pagepb page);
@@ -69,6 +70,7 @@ public interface StorePBService {
 	// pb 상품 결제
 	public void insertPBPayment(StorePBPayment storePBPayment);
 	public StorePBPayment selectPBPaymentByNo(int paymentNo);
+	public List<StorePBPayment> selectBuyList(int memNo);
 	
 	// pb 상품 장바구니
 	public void insertPBCart(StorePBCart storePBCart);

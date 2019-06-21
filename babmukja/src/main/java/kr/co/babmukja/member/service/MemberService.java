@@ -35,6 +35,10 @@ public interface MemberService {
 	
 	void updateResetPass(Member member); // 비밀번호 재설정
 	
+	public int selectConfirmCertificationByEmail(int memNo);
+	
+	int selectMemnoByEmail(String memEmail);
+	
 //----------------------------------------우중------------------------------------------------//
 	List<Member> searchMemberByNick(String nick);
 	Member searchMemberByNickForMypage(String nick);

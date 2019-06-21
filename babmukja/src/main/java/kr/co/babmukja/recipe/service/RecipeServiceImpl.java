@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Keyword;
-import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
@@ -18,6 +17,9 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.StatusChecker;
 import kr.co.babmukja.repository.mapper.RecipeMapper;
 
 @Service("kr.co.babmukja.recipe.service.RecipeService")
@@ -233,5 +235,26 @@ public class RecipeServiceImpl implements RecipeService {
 	public List<Recipe> selectRecipeByMemNo(int memNo) {
 		return mapper.selectRecipeByMemNo(memNo);
 	}
+	
+	public void updateScrapbookContent(Scrapbook book) {
+		mapper.updateScrapbookContent(book);
+	}
+
+	@Override
+	public void insertRecipeScrap(RecipeScrap sb) {
+		mapper.insertRecipeScrap(sb);
+	}
+
+	@Override
+	public StatusChecker selectStatusAll(StatusChecker checker) {
+		return mapper.selectStatusAll(checker);
+	}
+
+	@Override
+	public void updateRecipeScrapCnt(int recipeNo) {
+		mapper.updateRecipeScrapCnt(recipeNo);
+		
+	}
+	
 	
 }
