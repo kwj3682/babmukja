@@ -182,15 +182,17 @@
 
 .editDelete {
 	margin-top: 35px;
-	margin-bottom: 200px;
+	margin-bottom: 20px;
 	display: inline-block;
 	width: 1190px;
+	padding-top:5px;
+	background-color:#fafbfd;
 }
 
 #introEdit {
 	display: inline-block;
 	margin-bottom: 10px;
-	border: 1px solid gainsboro;
+	border: 1px solid #7db341;
 	width: 70px;
 	height: 30px;
 	text-align: center;
@@ -201,7 +203,7 @@
 	margin-left: 10px;
 	display: inline-block;
 	margin-bottom: 10px;
-	border: 1px solid gainsboro;
+	border: 1px solid #7db341;
 	width: 70px;
 	height: 30px;
 	text-align: center;
@@ -313,3 +315,149 @@
             height:287.5px;
             
         }
+ /*list 나오는 부분  */       
+.board_list_container {
+  width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  position : relative;
+  z-index : 05400;
+}
+.board_list_title {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 30px;
+}
+.list_insert_button {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.list_insert_button a {
+  color: #7db341;
+}
+.list_insert_button a:hover {
+  font-size: 18px;
+}
+.board_list_count_insert {
+  display: flex;
+}
+.board_list_count {
+  font-weight: bold;
+}
+.board_list_count span {
+  color: #7db341;
+}
+.board_list table,
+th,
+td {
+  text-align: center !important;
+  border: 1px solid rgba(220, 220, 220, 0.61);
+  border-collapse: collapse;
+  width: 1190px;
+  height: 55px;
+  margin-bottom: 20px;
+  border-left: none;
+  border-right: none;
+  color: rgb(81, 81, 81);
+  font-size:18px;
+}
+.board_list a {
+  color: rgb(81, 81, 81);
+}
+.board_list a:hover {
+    font-size: 20px;
+    border-bottom: 1px solid rgb(81, 81, 81);
+}
+.board_list_page {
+  font-size: 18px;
+  color: rgb(81, 81, 81);
+}        
+ .detail_member_container{
+            padding:6px;
+            margin-top: 15px;
+            width: 1190px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-column-gap: 6px;
+            grid-row-gap: 6px;
+            box-sizing: border-box;
+        }
+        .detail_member_container > div{
+            border:1px solid gainsboro;
+            
+            height:287.5px;       
+        }
+
+		.profile_picture_container{
+		 	margin:0 auto;
+            margin-top:20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+			overflow: hidden;
+		}
+		
+        #profile_picture{
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid gainsboro;
+            transition: .7s;
+        }
+        
+        #profile_picture:hover{
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid gainsboro;
+            transform: scale(1.3, 1.3);
+            
+        }
+        .detail_member_name{
+            margin: 0 auto;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .detail_member_regDate_container{
+            margin-top:17px;
+            border-top:1px solid gainsboro;
+            border-bottom: 1px solid gainsboro;
+            padding:5px;
+            background: #7db341;
+            height: 30px;
+            display: grid;
+            grid-template-columns: 30% 70%;
+            color:white;
+        }
+
+        .detail_member_name > div{
+            border:1px solid black;
+        }
+        .detail_member_regDate_container > div:nth-child(1){
+            padding-left: 5px;
+            
+        }
+        
+        .detail_member_regDate_container > div:nth-child(2){
+            text-align: center;
+        }
+        .detail_member_info >div:nth-last-child() >i{
+            margin-top:100px;
+        }
+        .detail_member_message_container{
+            margin-top: 14px;
+            text-align: center;
+        }
+        .fa-envelope{
+            font-size:34px;
+        }        

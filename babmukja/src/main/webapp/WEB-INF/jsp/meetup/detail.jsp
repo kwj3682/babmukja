@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -89,8 +91,8 @@
 			</div>
 			<div class="tag">
 			<c:forEach var ="meetupTag" items="${meetupTags}">
-			
-			${meetupTag} &nbsp;&nbsp;
+				${meetupTag} &nbsp;
+
 			</c:forEach>
 			</div>
 			
@@ -107,7 +109,7 @@
 		<table class="selectTab">
 			<tr>
 				<td>모임소개</td>
-				<td>모임공지</td>
+				<td id="noticeTap">모임공지</td>
 				<td>자유게시판</td>
 				<td>사진첩</td>
 				<td>회원</td>
@@ -117,9 +119,8 @@
 			<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>
 
 		</div>
-		<div class="tabPanel">
-	${memberStatus.status}${memberStatus.status}${memberStatus.status}	
-			<c:set var="status"  value="${memberStatus.status}"/>  
+		<div class="tabPanel" >
+		<c:set var="status"  value="${memberStatus.status}"/>  
 		<c:choose>
 		<c:when test = "${status == 0}"> 
 		<div class="requestPermissionContainer">
@@ -150,13 +151,168 @@
 		 			
 		</div>
 		</c:when>
+		 <c:otherwise>
+		<!-- noticeList 부분 -->
+	<div class="board_list_container">
+		<div class="board_list_wrapper">
+			<div class="board_list_title">
+				모임 공지게시판
+			</div>
+
+			<div class="list_insert_button">
+				모임 공지를 작성하고 싶다면 <a href="<c:url value="/meetup/detailNoticeWriteform.do"/>">글등록 하러가기</a>
+			</div>
+
+			<div class="board_list_count_insert">
+				<div class="board_list_count">
+					전체 게시물<span class="board_count"> ${noticePageResult.count}</span>개
+				</div>
+			</div>
+
+
+			<div class="board_list">
+				<table id="board_list_heard">
+					<thead>
+						<tr class="board_list_tr_title">
+							<th>글번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>등록일</th>
+							<th>조회수</th>
+						</tr>
+
+						<c:forEach var="board" items="${noticeList}">
+							<tr>
+								<td>${board.boardNo}</td>
+								<td><a href="<c:url value='/meetup/detailNoticeDetail.do?boardNo=${board.boardNo}&memName=${sessionScope.user.memName}'/>">${board.title}</a></td>
+								<td>${board.writer}</td>
+								<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" /></td>
+								<td>${board.viewcnt}</td>
+							</tr>
+						</c:forEach>
+					</thead>
+				</table>
+			</div>
+
+			<div class="board_list_page">
+				<c:if test="${noticePageResult.count != 0}">
+					<jsp:include page="/WEB-INF/jsp/include/meetupDetailNoticePage.jsp">
+						<jsp:param name="link" value="detail.do" />
+					</jsp:include>
+				</c:if>
+			</div>
+		</div>
+	</div>
+		
+	    
+	   
+  		</c:otherwise>
+		
 		</c:choose>
 		
 	
 	
 			
 		</div><!--tab panel 끝  -->
-		<div class="tabPanel">자유게시판</div>
+		<!--자유게시판시작 -->
+		<div class="tabPanel">
+		<c:set var="status"  value="${memberStatus.status}"/>  
+		<c:choose>
+		<c:when test = "${status == 0}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
+		<span class="requestPermission">모임 가입 신청</span>
+		</div>
+		</c:when>
+		<c:when test = "${status == 1}"> 
+		<div class="requestPermissionContainer">
+		<br>
+			가입 승인요청을 기다리는 중입니다.		
+		</div>
+		</c:when>
+		<c:when test = "${status == 3}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		 	당신은 방장에 의해 강퇴되어 더이상  활동하실 수 없습니다.
+		<span class="requestPermission">재가입 신청</span>
+		 			
+		</div>
+		</c:when>
+		<c:when test = "${status == 4}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		 	승인이 거절되어 모임에서 활동하실 수 없습니다.
+		<span class="requestPermission">재가입 신청</span>
+		 			
+		</div>
+		</c:when>
+		 <c:otherwise>
+		<!-- noticeList 부분 -->
+	<div class="board_list_container">
+		<div class="board_list_wrapper">
+			<div class="board_list_title">
+				모임 자유게시판
+			</div>
+
+			<div class="list_insert_button">
+				글을 작성하고 싶으시면  <a href="<c:url value="/meetup/detailFreeWriteform.do"/>">글등록 하러가기</a>
+			</div>
+
+			<div class="board_list_count_insert">
+				<div class="board_list_count">
+					전체 게시물<span class="board_count"> ${freePageResult.count}</span>개
+				</div>
+			</div>
+
+
+			<div class="board_list">
+				<table id="board_list_heard">
+					<thead>
+						<tr class="board_list_tr_title">
+							<th>글번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>등록일</th>
+							<th>조회수</th>
+						</tr>
+
+						<c:forEach var="board" items="${freeList}">
+							<tr>
+								<td>${board.boardNo}</td>
+								<td><a href="<c:url value='/meetup/detailFreeDetail.do?boardNo=${board.boardNo}'/>">${board.title}</a></td>
+								<td>${board.writer}</td>
+								<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" /></td>
+								<td>${board.viewcnt}</td>
+							</tr>
+						</c:forEach>
+					</thead>
+				</table>
+			</div>
+
+			<div class="board_list_page">
+				<c:if test="${freePageResult.count != 0}">
+					<jsp:include page="/WEB-INF/jsp/include/meetupDetailFreePage.jsp">
+						<jsp:param name="link" value="detail.do" />
+					</jsp:include>
+				</c:if>
+			</div>
+		</div>
+	</div>
+		
+	    
+	   
+  		</c:otherwise>
+		
+		</c:choose>
+		
+	
+	
+			
+		</div><!--tab panel 끝  -->
+		
+	
+		<!--자유게시판끝  -->
 		<div class="tabPanel">
 		
 		  <div class="album_container">
@@ -169,20 +325,62 @@
 					</c:forEach>
                
                 
-            </div>
-		
+            </div>	
 		</div>
-		<div class="tabPanel">회원</div>
+		<div class="tabPanel">
+		  <c:forEach var ="meetupMember" items="${meetupMemberList}">
+		
+			<div class="detail_member_container">
+                <div class="detail_member_info">
+                    <div class="profile_picture_container">
+                    <c:choose>
+                    <c:when test="${meetupMember.memImgSysname == null}">
+                        <img id="profile_picture" src="<c:url value="/resources/images/default/userdefault.png"/>">
+                     </c:when>
+                     
+                     <c:otherwise>
+                        <img src="${pageContext.request.contextPath}/meetup/download.do?path=${meetupMember.memImgSysname}">
+                     </c:otherwise>
+                     </c:choose>    
+                    </div>
+             			<div class="detail_member_name">${meetupMember.memName}</div>
+                    	<div class="detail_member_regDate_container">
+                        	<div>가입일</div>
+                        
+                        	<div><fmt:formatDate value="${meetupMember.joinDate}" pattern="yyyy년 MM월  dd일" /></div>
+                    	</div>
+                    <div class="detail_member_message_container" ><i class="far fa-envelope"></i>
+
+                    </div>
+                </div>
+                
+                
+            </div>
+		</c:forEach>
+		</div><!--회원테이블  -->
 	</div>
 
 	<script>
+	
+	
 
+	
+ 	// timestamp 날짜형식 바꾸는 함수
+	function dateFormat(date){
+	    function pad(num) {
+	        num = num + '';
+	        return num.length < 2 ? '0' + num : num;
+	    }
+	    return date.getFullYear() + '년' + pad(date.getMonth()+1) + '월' + pad(date.getDate() +'일');
+	}
+	
 	$(".area").click(function () {
 		$(".area").animate({ left: -60 }, 1000);
 	});
 
 
 
+	
 	for (let i = 0; i <= 4; i++) {
 		let number = i;
 
@@ -220,7 +418,7 @@
 
 	}//for
 	//intro 를 넘겨 받아서...             
-	var intro = `${intro}`;
+	var intro = `${meetup.intro}`;
 
 	dataProcess();
 
@@ -274,7 +472,7 @@
 			enctype: 'multipart/form-data',
 			success: function (data) {
 
-				$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` + data);
+				$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div></div>` + data);
 			}
 		});
 
@@ -388,7 +586,7 @@
 		} else { //null 이 아니면 원래 자료를 뿌려준다.
 			console.log("intro 는 :" + intro + "정래");
 			console.log("intro가 null 이 아닙니다.");
-			$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` + `${intro}`);
+			$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div></div>` + intro);
 
 
 
@@ -440,6 +638,8 @@
 	}
 	
 	
+
+	
 	$(".requestPermission").click(function(){
 		
 		
@@ -459,7 +659,6 @@
 			success: function (data) { // 처리가 성공할 경우
 				$(".requestPermissionContainer").html(`
 						<br>
-
 						가입신청이 완료되었습니다. 방장이 승인하면 모임 가입이 완료됩니다.
 						`);
 			}
@@ -468,6 +667,17 @@
 		
 	});
 
+	
+	//페이지 처리
+	$(document).ready(function(){
+		if(${noticeClicked}==1){
+			
+			$("#noticeTap").trigger("click");
+			$(window).scrollTop($('.board_list_title').offset().top);
+
+			 
+		}
+	});
 
 	</script>
 
