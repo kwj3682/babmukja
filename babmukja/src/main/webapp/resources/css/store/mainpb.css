@@ -472,7 +472,10 @@ hr {
 }
  
 #information_about_store{
-	background: url(/babmukja/resources/images/storemain.jpg);
 	width: 100%;
-	height: 1600px;
+	height: 150%;
+}
+#information_about_store img{
+	width: 100%;
+	height: 100%;
 }
