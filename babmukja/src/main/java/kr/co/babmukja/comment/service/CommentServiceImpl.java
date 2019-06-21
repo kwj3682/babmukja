@@ -13,30 +13,24 @@ public class CommentServiceImpl implements CommentService {
 	    @Autowired   
 	    public CommentMapper mapper;
 	    
- public int commentInsert(Comment comment) {
+ public int commentInsert(Comment comment) throws Exception{
 		    return mapper.commentInsert(comment);		
 	    }
 	
-	public List<Comment> commentList(int noticeNo) {
+	public List<Comment> commentList(int noticeNo) throws Exception{
 		return mapper.commentList(noticeNo);
 	}
 	
-	public int commentUpdate(Comment comment){
+	public int commentUpdate(Comment comment) throws Exception{
         return mapper.commentUpdate(comment);
     }
     
-    public int commentDelete(int noticeCommentNo){
+    public int commentDelete(int noticeCommentNo) throws Exception{
         return mapper.commentDelete(noticeCommentNo);
     }
     
-    public Comment commentSelectByNo(int noticeCommentNo) {
+    public Comment commentSelectByNo(int noticeCommentNo) throws Exception{
     	return mapper.commentSelectByNo(noticeCommentNo);
     }
-
 }
-//
-//	
-//	
-//
-//
-//	
+

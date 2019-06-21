@@ -7,28 +7,24 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.google.gson.Gson;
-
 import kr.co.babmukja.notice.service.NoticeService;
-import kr.co.babmukja.repository.domain.Comment;
-import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Notice;
-import kr.co.babmukja.repository.domain.Page;
+import kr.co.babmukja.repository.domain.NoticeFileVO;
+import kr.co.babmukja.repository.domain.PageNotice;
 
 @Controller("kr.co.babmukja.notice.controller.NoticeController")
 @RequestMapping("/notice")
@@ -37,84 +33,72 @@ public class NoticeController {
 	private NoticeService service;
 
 	@RequestMapping("/writeForm.do")
-	public void writeForm() {
-	}
-
-	@RequestMapping("/detailsample.do")
-	public void detailsample() {
-	}
-
-	@RequestMapping("/write.do")
-	public String write(Notice notice) {
-		notice.setWriter(notice.getWriter());
-		notice.setTitle(notice.getTitle());
-		notice.setContent(notice.getContent());
-		service.write(notice);
-		System.out.println("컨텐츠 가져오기 :" + notice.getContent());
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do";
-	}
-
-	@RequestMapping("/uploadnotice.do")
-	@ResponseBody
-	public Object uploadnotice(FileVO fileVO) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
-		String uploadRoot = "C:/bit2019/upload";
-		String path = "/notice" + sdf.format(new Date());
-		File file = new File(uploadRoot + path);
-		if (file.exists() == false)
-			file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
-
-		MultipartFile mFile = fileVO.getAttach();
-
-		if (mFile.isEmpty()) {
-			System.out.println("is empty");
-		}
-		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
-		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
-
-		fileVO.setPath(path);
-		fileVO.setOrgname(mFile.getOriginalFilename());
-		fileVO.setSysname(uName);
-		System.out.println("file upload succeed.");
-
-		return new Gson().toJson(fileVO);
+	public void writeForm() throws Exception{
 	}
 
 	@RequestMapping("/download.do")
-	public void downloadnotice(FileVO fileVO, HttpServletResponse response) throws Exception {
-		System.out.println("Download.do 실행");
-		String uploadRoot = "c:/bit2019/upload";
-		String path = fileVO.getPath();
-		String sysname = fileVO.getSysname();
-		File f = new File(uploadRoot + path + "/" + sysname);
-		response.setHeader("Content-Type", "image/jpg");
+	public void download(String path, HttpServletResponse response) throws Exception {
+		  response.setHeader("Content-Type", "image/jpg");
+		  File file = new File(path);
+	      FileInputStream fis = new FileInputStream(file);
+	      BufferedInputStream bis = new BufferedInputStream(fis);
+	      OutputStream out = response.getOutputStream();
+	      BufferedOutputStream bos = new BufferedOutputStream(out);
 
-		FileInputStream fis = new FileInputStream(f);
-		BufferedInputStream bis = new BufferedInputStream(fis);
-
-		OutputStream out = response.getOutputStream();
-		BufferedOutputStream bos = new BufferedOutputStream(out);
-		while (true) {
-			int ch = bis.read();
-			if (ch == -1)
-				break;
-			bos.write(ch);
-		}
-
-		bis.close();
-		fis.close();
-		bos.close();
-		out.close();
+	      while (true) {
+	         int ch = bis.read();
+	         if (ch == -1) {
+	            break;
+	         }
+	         bos.write(ch);
+	      }
+	      bis.close();
+	      fis.close();
+	      bos.close();
+	      out.close();
 	}
-
+	
+	 @RequestMapping("/write.do") 
+	  public String write(NoticeFileVO fileVO, Notice notice, HttpSession session) throws Exception {
+		 Member user = (Member)session.getAttribute("user");
+		 System.out.println(notice.getContent());
+//		 notice.setNoticeNo(notice.getNoticeNo());
+	
+	    System.out.println("컨텐츠 가져오기 :" + notice.getContent()); 
+	    String uploadRoot = "c:/bit2019/upload";
+		SimpleDateFormat sdf = new SimpleDateFormat(
+				"/yyyy/MM/dd");
+		String path = "/notice" + sdf.format(new Date());
+	//	String sysname = notice.getImgSysname();
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false) file.mkdirs();
+		for (MultipartFile mFile : fileVO.getImageList()) {
+			if (mFile.isEmpty()) {
+				break;
+			}
+			String uName =  UUID.randomUUID().toString() + mFile.getOriginalFilename();
+			mFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+			System.out.println(notice.getNoticeNo());
+			notice.setImgSysname(uploadRoot + path + "/" + uName );
+			notice.setImgpath(path);
+			fileVO.setFileNo(notice.getNoticeNo());
+			fileVO.setImgpath(path);
+			fileVO.setImgOrgname(mFile.getOriginalFilename());
+			fileVO.setImgSysname(uName);
+			service.insertNoticeImage(fileVO);
+		}
+		  service.write(notice);
+	  return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do"; 	
+	}
+	  
 	@RequestMapping("/updateForm.do")
-	public void updateForm(int noticeNo, Model model) {
+	public void updateForm(int noticeNo, Model model) throws Exception {
 		model.addAttribute("notice", service.updateForm(noticeNo));
 	}
 
 	@RequestMapping("/update.do")
-	public String update(int noticeNo, Notice notice) {
+	public String update(Notice notice) throws Exception{
 		System.out.println("no:" + notice.getNoticeNo());
 		System.out.println("title:" + notice.getTitle());
 		System.out.println("content:" + notice.getContent());
@@ -123,30 +107,36 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/delete.do")
-	public String delete(int noticeNo) {
+	public String delete(int noticeNo) throws Exception{
 		service.delete(noticeNo);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do";
 	}
 
 	@RequestMapping("/detail.do")
-	public void detail(int no, Model model) {
+	public void detail(int no, Model model) throws Exception{
 		model.addAttribute("notice", service.detail(no));
+      //  model.addAttribute("files", service.fileDetail(no));
 	}
 
 	@RequestMapping("/index.do")
-	public void index() {
-	}
+	public void index() {}
 
-	@RequestMapping("/list.do")
-	public void list(Page page, Model model) {
-		List<Notice> list = service.selectNoticeList();
-		for (Notice notice : list) {
-			System.out.println(notice.getWriter());
-			System.out.println(notice.getNoticeNo());
-			System.out.println(notice.getRegDate());
-			System.out.println(notice.getViewCnt());
-		}
-		model.addAttribute("list", service.selectNoticeList());
-
+//	@RequestMapping("/list.do")
+//	public void list(Page page, Model model) {
+//		List<Notice> list = service.selectNoticeList();
+//		for (Notice notice : list) {
+//			System.out.println(notice.getWriter());
+//			System.out.println(notice.getNoticeNo());
+//			System.out.println(notice.getRegDate());
+//			System.out.println(notice.getViewCnt());
+//		}
+//		model.addAttribute("list", service.selectNoticeList());
+//	}
+	
+	@RequestMapping("/list.do") // 글목록, 페이징
+	public void list(PageNotice page, Model model) throws Exception{
+		Map<String, Object> result = service.list(page);
+		model.addAttribute("list", result.get("list"));
+		model.addAttribute("pageResult", result.get("pageResult"));
 	}
 }

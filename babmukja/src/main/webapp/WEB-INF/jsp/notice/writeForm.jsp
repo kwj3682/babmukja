@@ -15,7 +15,7 @@
 <body style="background: white;">
         <form
         action="write.do"
-        id="uploadForm"
+        id="writeForm"
         method="post"
         name="inqform"
         encType="multipart/form-data"
@@ -26,17 +26,18 @@
         <table class="notice_commt">
           <tr>
             <th class="notice_th2">관리자</th>
-            <td class="notice_td2"><input type="text" name="writer"/></td>
+            <td class="notice_td2"><input type="text" id="writer" name="writer"/></td>
           </tr>
           <tr>
             <th class="notice_th2">제목</th>
-            <td class="notice_td2"><input type="text" name="title"/></td>
+            <td class="notice_td2"><input type="text" id="title"name="title"/></td>
           </tr>
           <tr>
             <th class="notice_th3">내용</th>
             <td class="notice_td3">
               <textarea
                 name="content"
+                id="content"
                 rows="25"
                 cols="100"
                 class="notice_textarea"
@@ -45,19 +46,23 @@
           </tr>
           <tr>
             <th class="notice_th2">첨부파일</th>
-            <td class="notice_td5"><input type="file" name="upload" class="file"/></td>
+            <td class="notice_td5"><img src="" id="notice_img">      
+            <input type="file" name="imageList" id="notice_file"/>                        
+            </td>
           </tr>
-          <tr>
-            <th class="notice_th2">첨부파일</th>
-            <td class="notice_td5"><input type="file" name="upload" class="file"/></td>
-          </tr>
+         <!--  <tr>
+            <th class="notice_th2">첨부파일2</th>
+            <td class="notice_td5"><img src="" id="notice_img"> 
+            <input type="file" name="imageList" id="notice_file"/> 
+            </td>
+          </tr>  -->
         </table>
         <hr />
         <br /><br><br>
         <div class="notice_wsubd">
           <th class="notice_wsub"><button type="submit"><a href="list.do">목록보기</a></button></th>
           &nbsp; &nbsp; &nbsp;
-          <th class="notice_wsub"><button type="submit">등록하기</button></th>
+          <th class="notice_wsub"><button type="submit" id="uploadbutton">등록하기</button></th>
         </div>
       </form>
       <br />
@@ -67,55 +72,57 @@
           <div>Lorem ipsum dolor sit.</div>
   </footer>
     <script>
-    	$("form").submit(function inqform() {
-    		
-    		var notice_no = document.inqform.notice_no 
-    		var writer = document.inqform.writer;
-    		var title = document.inqform.title;
-    		var content = document.inqform.content;
-    		
-    		var notnull = [notice_no, writer, title, content]
-    		
-    		if (isEmpty(notice_no , "글번호를 입력하세요.")) return false; 
-    		if (isEmpty(writer , "글쓴이를 입력하세요.")) return false;
-    		if (isEmpty(title, "제목을 입력하세요.")) return false;
-    		if (isEmpty(content, "내용을 입력하세요.")) return false;
-    		
-    		function isEmpty(ele, msg) {
-    			if (ele.value == "") {
-    				alert(msg);
-    				ele.focus();
-    				return true;
-    			}
-    			return false;
-    		}
-    	});
+	let file = document.querySelector("#notice_file");
+	$('#notice_file').change(function() {
+		let fileList = file.files;
+		// 읽기
+		let reader = new FileReader();
+		reader.readAsDataURL(fileList[0]);
+		//로드 한 후
+		reader.onload = function() {
+			//로컬 이미지를 보여주기
+			document.querySelector("#notice_img").src = reader.result;
+			//썸네일 이미지 생성
+			let tempImage = new Image(); //drawImage 메서드에 넣기 위해 이미지 객체화
+			tempImage.src = reader.result; //data-uri를 이미지 객체에 주입
+			tempImage.onload = function() {
+				//리사이즈를 위해 캔버스 객체 생성
+				let canvas = document.createElement("canvas");
+				let canvasContext = canvas.getContext("2d");
+				//캔버스 크기 설정
+				canvas.width = 30; //가로
+				canvas.height = 30; //세로
+				//이미지를 캔버스에 그리기
+				canvasContext.drawImage(this, 0, 0, 30, 30);
+				//캔버스에 그린 이미지를 다시 data-uri 형태로 변환
+				let dataURI = canvas.toDataURL("image/jpeg");
+				//썸네일 이미지 보여주기
+				document.querySelector("#notice_img").src = dataURI;
+			};
+		};
+	}); 
     	
-    	$('.file').change(function(){                            //업로드할 파일을 선택 할 경우 동작을 일으킵니다.
-
-    		var form = $('#uploadForm');
-
-    		form.ajaxSubmit({
-
-    		           url: 'uploadnotice',
-
-    		           data: form.serialize(),                         //폼의 값들을 주소화하여 보내게 됩니다.
-
-    		           type: 'POST',     
-
-    		           success: function(data){
-
-    		         $('.file').val('');                           //file input에 들어가 있는 값을 비워줍니다.
-
-    		               console.log(data);                      //업로드 되었다면 결과를 콘솔에 출력해봅니다.
-
-    		           }
-
-    		});
-
-    		});
- 	     
- 	 
-    	</script>
+	$("#uploadbutton").click(function() {
+		let title = $("#title").val();
+		let writer = $("#writer").val();
+		let content = $("#content").val();
+		
+		if(title.length == 0) {
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+			return false;
+		}
+		if(writer.length == 0) {
+			alert("글쓴이를 입력해주세요.");
+			$("#writer").focus();
+			return false;
+		}
+		if(content.length == 0) {
+			alert("내용을 입력해주세요.");
+			$("#content").focus;
+			return false;
+		}
+	});
+</script>
 </body>
 </html>

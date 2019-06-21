@@ -6,56 +6,50 @@
 		<result column="notice_no" property="noticeNo" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
-		<result column="regdate" property="regDate" />
-		<result column="viewcnt" property="viewCnt" />
+		<result column="regdate" property="regdate" />
+		<result column="viewcnt" property="viewcnt" />
 		<result column="writer" property="writer" />
-		<result column="imgpath" property="imgPath" />
+		<result column="imgpath" property="imgpath" />
+	    <result column="img_orgname" property="imgOrgname" />
+		<result column="img_sysname" property="imgSysname" /> 
 	</resultMap>
-<!-- 	<select id="selectNotice" parameterType="page" -->
-<!-- 		resultMap="noticeMap"> -->
-<!-- 		select * -->
-<!-- 		from tb_notice -->
-<!-- 		order by no desc -->
-<!-- 	</select> -->
-		
-		<!-- select * -->
-		<!-- from (select rownum rnum, a.* -->
-		<!-- from ( select * -->
-		<!-- from tb_notice -->
-		<!-- order by no desc) a -->
-		<!-- ) -->
-		<!-- where rnum between #{begin} and #{end} -->
-
 	<select id="selectNoticeCount" resultType="int">
 		select count(*)
 		from tb_notice
 	</select>
 
-	<select id="selectNoticeByNo" parameterType="int" resultMap="noticeMap">
+	<select id="selectNoticeByNo" parameterType="int" resultType="notice">
 		select *
 		from tb_notice
 		where notice_no = #{noticeNo}
 	</select>
 
 <!-- 	전체 조회 -->
-	<select id="selectNoticeList" resultMap="noticeMap">
+	<!-- <select id="selectNoticeList" resultMap="noticeMap">
 	select *
 	from tb_notice
 	order by notice_no desc
+	</select> -->
+	
+	<select id="selectNotice" parameterType="page" resultMap="noticeMap">
+		select *
+		from tb_notice
+		order by notice_no desc
+		limit #{begin},#{end}
 	</select>
 
 	<insert id="insertNotice" parameterType="notice">
 		insert into tb_notice(
-		title, content, writer, group_no
-		) values (
-		#{title}, #{content}, #{writer}, 2
-		)
+		title, content, writer, group_no, imgpath, img_orgname, img_sysname ) 
+		values (
+		#{title}, #{content}, #{writer}, 2, #{imgpath}, #{imgOrgname}, #{imgSysname}) 
 	</insert>
-
+	 
 	<delete id="deleteNotice" parameterType="int">
 		delete
 		from tb_notice
 		where notice_no = #{noticeNo}
+
 	</delete>
 
 	<update id="updateNotice" parameterType="notice">
@@ -72,47 +66,20 @@
 		where notice_no = #{noticeNo}
 	</update>
 	
-	<resultMap id="fileMap" type="NoticeFileVO" >
-		<result column="file_no" property="fileNo"/>
-		<result column="sysname" property="sysname"/>
-		<result column="orgname" property="orgname"/>
-		<result column="path" property="path"/>
-		<result column="notice_no" property="noticeNo"/>
-	</resultMap>
-
-<insert id="insertNoticeImage" parameterType="NoticeFileVO">
+    <insert id="insertNoticeImage" parameterType="notice">
 		insert into tb_file 
 		(
-			sysname, 
-			orgname, 
-			path,
+			img_sysname, 
+			img_orgname, 
+			imgpath,
 			notice_no
 		)
 		values 
 		(
-			#{sysname}, 
-			#{orgname}, 
-			#{path},
+			#{imgSysname}, 
+			#{imgOrgname}, 
+			#{imgpath},
 			#{noticeNo}
 		)
-	</insert>
-	
-<!-- 	 <select id="commentCount" resultType="int"> -->
-<!--         select -->
-<!--             count(*) -->
-<!--         from tb_notice_comment -->
-<!--     </select> -->
-    
-<!--     <select id="commentList" resultType="kr.co.babmukja.repository.domain.Comment"> -->
-<!--     select * -->
-<!-- 	from tb_notice_comment -->
-<!-- 	where notice_no = #{noticeNo} -->
-<!-- 	order by notice_comment_no desc -->
-<!--     </select> -->
-
-<!--     <insert id="commentInsert" parameterType="kr.co.babmukja.repository.domain.Comment"> -->
-<!--         insert into tb_notice_comment  -->
-<!--         (notice_comment_no, reg_date, content, secret_at, mem_no, notice_no) -->
-<!--         values(#{noticeCommentNO}, now(),#{content}, 1, 2, #{noticeNO})  -->
-<!--     </insert> -->
+	 </insert> 
 </mapper>

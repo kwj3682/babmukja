@@ -3,8 +3,14 @@
 #tableDesign{
     border-collapse: collapse;
     margin: 20px auto;
-    width:1200px;height: 300px;
+    width: 1200px;
+    height: 300px;
     box-sizing: border-box;
+}
+
+#tableDesign tr{
+	border: 1px solid #7db341; 
+	
 }
 #tableDesign caption{
    display:none;
@@ -13,6 +19,7 @@
     border-top: 1px solid #7db341;
     border-bottom: 1px solid #7db341;
     background-color:white;
+    
 }
 #tableDesign th:first-child{
   width:80px;
@@ -31,13 +38,14 @@
   background: no-repeat right top;
 }
 #tableDesign th span{
- display: block;
- border-right: 1px solid #7db341;
+ display: block;    
 }
+
 #tableDesign td{
   padding: 8px 0px;
   text-align: center;
-  border-bottom: 1px solid #7db341; 
+  border-bottom: 1px solid #7db341;
+  border-collapse: collapse; 
 }
 #tableDesign td.leftstyle{
   text-align: center;
@@ -45,10 +53,16 @@
   font-weight: bold;
 }
 #tableDesign td.leftstyle2{
-  text-align: left;
+  text-align: center;
   font-size: 1.2em;
-  font-weight: bold;
+  font-weight: bold; 
+  border: 1px solid #7db341;  
 }
+#tableDesign td.leftstyle2 a:hover{
+	text-decoration: underline;
+	color: BLUE/* #7db341 */;
+}
+
 #tableDesign tr:hover{
   background-color:white;
   color:#7db341;
@@ -57,10 +71,22 @@
   font-size:1.2em;
   font-weight: bold;
 }
+
+.inquirelist{
+ border: 1px solid #7db341;
+ }
+ 
 .inquirelist2{
   font-size:1.2em;
   font-weight: bold;
+  border: 1px solid #7db341;
 }
+
+.inquirelist2 button{
+  font-size:1em;	
+  background-color: #ff80c0;
+}
+
 .bntView{
     padding:5px 20px;
     background-color:#7db341;
@@ -78,6 +104,9 @@
 #pageNav ul{
   padding:50px 30px 30px 0px;
   text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color:#7db341;
 }
 
 #pageNav ul li{
@@ -85,26 +114,29 @@
   padding:2px;
 }
 
-#pageNav ul li a {
-  background-color:#7db341;
+#pageNav ul li{
+  /* background-color:#7db341; */
   padding:5px;
   color: #fff;
   font-weight: bold;
   font-size: 1.2em;
 }
-#pageNav ul li:last-child a {
+ #pageNav ul li div:last-child a {
   padding:5px 10px;
-  background-color: #7db341;
+  /* background-color: #7db341; */
   color:black;
-}
-#pageNav ul li a:hover{
-  background-color: #7db341;
-}
+} 
+ #pageNav ul li div a:hover{
+  text-decoration: underline;
+  color: #FA7268;
+  /* background-color: #FA7268; */
+} 
 
 #tableDesign span{
   font-size: 1.3em;
   font-weight: bolder;
 }
+  /* border: 1px solid #7db341; */
 
 
 #tableDesign td.noticeNo{

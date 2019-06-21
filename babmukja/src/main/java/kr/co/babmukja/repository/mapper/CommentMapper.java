@@ -4,18 +4,12 @@ import java.util.List;
 
 import kr.co.babmukja.repository.domain.Comment;
 
-//package kr.co.babmukja.repository.mapper;
-//
-//import java.util.List;
-//
-//import kr.co.babmukja.repository.domain.Comment;
-//
 public interface CommentMapper {
-    List<Comment> selectCommentByNo();
-    public int commentUpdate(Comment comment);
-    public int commentDelete(int noticeCommentNo);
-    int commentInsert(Comment comment);
-	List<Comment> commentList(int noticeNo);
-	public int commentCount();
-	public Comment commentSelectByNo(int noticeCommentNo);
+    List<Comment> selectCommentByNo() throws Exception;
+    public int commentUpdate(Comment comment) throws Exception;
+    public int commentDelete(int noticeCommentNo) throws Exception;
+    int commentInsert(Comment comment) throws Exception;
+	List<Comment> commentList(int noticeNo) throws Exception;
+	public int commentCount() throws Exception;
+	public Comment commentSelectByNo(int noticeCommentNo) throws Exception;
 }

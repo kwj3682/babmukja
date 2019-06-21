@@ -10,7 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             count(*)
         from tb_notice_comment
     </select>
-    
     <select id="commentSelectByNo" resultType="int">
         select
             regdate, notice_comment_no, content, secret_at, mem_no, notice_no
@@ -24,39 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where notice_no = #{noticeNo}
 	order by notice_comment_no desc
     </select>
-
     <insert id="commentInsert" parameterType="Comment">
         insert into tb_notice_comment 
         (regdate, content, secret_at, mem_no, notice_no)
         values(now(), #{content}, 2, #{memNo}, #{noticeNo}) 
-    </insert>
-<!--     <select id="selectCommentsByNo" parameterType="int" resultMap="CommentMap"> -->
-<!-- 		select * -->
-<!-- 		from tb_notice_comment -->
-<!-- 		where notice_no = #{noticeNo} -->
-<!-- 		order by comment_no -->
-<!-- 	</select>  -->
-	
-<!--     <select id="commentCount" resultType="int"> -->
-<!--         select -->
-<!--             count(*) -->
-<!--         from tb_notice_comment -->
-<!--     </select> -->
-    
-<!--     <select id="commentList" resultType="kr.co.babmukja.repository.domain.Comment"> -->
-<!--     select * -->
-<!-- 	from tb_notice_comment -->
-<!-- 	where notice_no = #{noticeNo} -->
-<!-- 	order by notice_comment_no desc -->
-<!--     </select> -->
-    
-    
-<!--     <insert id="commentInsert" parameterType="kr.co.babmukja.repository.domain.Comment"> -->
-<!--         insert into tb_notice_comment  -->
-<!--         (notice_comment_no, reg_date, content, secret_at, mem_no, notice_no) -->
-<!--         values(#{noticeCommentNO}, now(),#{content}, 1, 2, #{noticeNO})  -->
-<!--     </insert> -->
-    
+    </insert>   
     <update id="commentUpdate" parameterType="Comment">
        update tb_notice_comment
             set content = #{content}

@@ -9,6 +9,10 @@
     color:rgba(0, 0, 255, 0.664);
     padding:8px;
 }
+#notice_update_img{
+	 width:130px;
+     height:65px;
+}
 
 .notice_commt{
     margin:0 auto;
@@ -128,3 +132,5 @@ td.notice_td3{
     font-weight: 600;
     padding: 10px auto;
 }
+
+
