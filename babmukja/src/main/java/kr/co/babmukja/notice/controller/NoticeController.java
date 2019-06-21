@@ -98,35 +98,10 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/update.do")
-	public String update(int noticeNo, Notice notice, String[] fileDirectory, String[] deleteDirectory) throws Exception{
+	public String update(Notice notice) throws Exception{
 		System.out.println("no:" + notice.getNoticeNo());
 		System.out.println("title:" + notice.getTitle());
 		System.out.println("content:" + notice.getContent());
-		if (deleteDirectory != null) {
-			System.out.println("파일 들어왔나 확인 :" + fileDirectory[0]);
-			}
-		if (deleteDirectory != null) {
-			System.out.println("지울 파일 들어오나 확인 :" + deleteDirectory[0]);
-
-			for (int i = 0; i < fileDirectory.length; i++) {
-
-				System.out.println("----------------");
-				System.out.println(fileDirectory[i]);
-			}
-			for (int i = 0; i < deleteDirectory.length; i++) {
-
-				System.out.println("----------------");
-				System.out.println(deleteDirectory[i]);
-
-				File file = new File(deleteDirectory[i]);
-
-				if (file.exists()) {
-					if (file.delete()) {
-						System.out.println("파일삭제 성공");
-					}
-				}
-			} 
-		}
 		service.update(notice);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do";
 	}
