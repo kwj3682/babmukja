@@ -24,7 +24,7 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> list(MeetupDetailNoticePage page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectBoard(page));
-		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectBoardCount()));
+		result.put("pageResult", new PageResult(page.getNoticePageNo(), mapper.selectBoardCount()));
 		return result;
 	}
 	

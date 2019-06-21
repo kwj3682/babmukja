@@ -173,6 +173,7 @@ public class MeetupServiceImpl implements MeetupService{
 	public Map<String, Object> list(MeetupDetailNoticePage page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectNoticeBoard(page));
+		//수정된 부분
 		result.put("pageResult", new PageResult(page.getNoticePageNo(), mapper.selectBoardCount()));
 		return result;
 	}
