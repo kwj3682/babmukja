@@ -439,10 +439,8 @@
       $(".total__price").text(changeComma($(".total__price:first").text()));
       $("#count_plus").click(function () {
           cnt++;
-          console.log(cnt);
         $("#total_count").text(cnt);
         $(".total__price").text(price * cnt + "원");
-	      console.log($(".total__price").html());
 	      $(".total__price").text(changeComma($(".total__price:first").text()));
       });
 
@@ -504,7 +502,6 @@
       // editor.js 커버 div
      function myTimeWait(){
 	   
-  	   	console.log($("#post-body").width() + " " + $("#post-body").height());
   	   	$("#post-body").append($("<div></div>").css({zIndex:"50","position":"absolute","width":"100%","height":"100%",top:"0px",left:"0px",background:"rgba(0,0,0,0)"}));	    
      }
 
@@ -523,10 +520,8 @@
 		
        $("#img_file").change(function (e) {
    	   	  let path = $(this).val();
-   	   	  console.dir(e.target.files[0]);
 		  let imgKey = imgArr.pop();
 		  fileList[imgKey] = e.target.files[0];
-		  console.log("fileList : " + fileList);
 		  idx++;
 
 			var reader = new FileReader();
@@ -552,7 +547,6 @@
 					imgCnt++;
                     var imgTag = "<div class='image_box' id='idx"+idx+"'><img name='preview_img"+imgCnt+"' class='preview_img' src='"+dataURI+"'/><div id='"+imgKey+"' class='preview_img_btn' >x</div></div>";
 						
-                    console.log(imgArr);
                     if(imgArr.length == 0){
                     	$(".imgPlus").hide();
                     }
@@ -564,12 +558,8 @@
 					}
                 };
             };
-            
-            
        });
-
-
-
+       
        // review 등록 - 체크포인트
        $("#insertmodalbtn").click(function () {
     	   let content = $(".product__content").val();
@@ -577,13 +567,20 @@
     	   let rating = $("input[name='reviewStars']:checked").val();
     	   let ratingCnt = $("#hiddenRatingCnt").val();
     	   let storeRating = $("input[name='storeRating']").val();
-    	   console.log(rating);
+	   	   if (content == null || content == '') {
+	   		  alert("내용을 입력해주세요.");
+	   		  return;
+		   }
+	   	   if ($(".check-frontStar").css("width") == "0px") {
+	   		   alert("별점을 선택해주세요.");
+	   		   return;
+	   	   }
+	   	   
     	   reviewData.append("content",content );
     	   reviewData.append("pbNo", pbNo);
     	   reviewData.append("rating", checkedValue);
     	   reviewData.append("ratingCnt", ratingCnt);
     	   reviewData.append("storeRating", storeRating );
-    	   console.log( Object.keys(fileList).length + "길이");
     	   for(key in fileList){
     		   reviewData.append("imageList", fileList[key]);
     	   }
@@ -604,10 +601,7 @@
 		$(document).on("click",".preview_img_btn",function () {
 			let key = $(this).attr("id");
 			delete fileList[key];
-			console.log(fileList);
-			
 			imgArr.push(key);
-			console.log(imgArr);
  		   $(this).parent().remove(); 
  	   });
 		
@@ -625,6 +619,10 @@
 			let inquireData = new FormData();
     	   	let content = $(".inquire__content").val();
     	   	let pbNo = ${storepb.pbNo};
+    	   	if (content == null || content == '') {
+    	   		alert("내용을 입력해주세요.");
+    	   		return;
+    	   	}
     	   	inquireData.append("content", content);
     	   	inquireData.append("pbNo", pbNo);
 			$.ajax({
@@ -645,7 +643,6 @@
 		$(document).on("click", ".pb_inq_admin_answer_btn", function () {
 			$("#inquireAnswerModal").modal("show");
 			let inquiryNo = $(this).siblings("input[name='inquiryNo']").val();
-			console.log(inquiryNo);
 			inqNoData.append("inquiryNo", inquiryNo);
 			$.ajax({
 				url: "/babmukja/store/insertanswerform.do",
@@ -653,7 +650,6 @@
 					inquiryNo : inquiryNo
 				}
 			}).done(function (response) {
-				console.dir(response);
 				$(".pb_inq_content_val").text(response.content);
 			});
 		});
@@ -662,8 +658,6 @@
 		$("#inq_answer_btn").click(function () {
 			let inqNo = inqNoData.get("inquiryNo");
 			let content = $(".inquire__answer__content").val();
-			console.log(inqNo);
-			console.log(content);
 			$.ajax({
 				url: "/babmukja/store/insertanswer.do",
 				data : {
@@ -689,7 +683,6 @@
    	  				inquiryNo : $(this).siblings("input[name='inquiryNo']").val()
    	  			}
 			}).done(function (response) {
-				console.dir(response);
 				$(".inquire__update__content").val(response.content);
 			});
 		});
@@ -697,8 +690,6 @@
 		// 문의 수정
 		$(document).on("click", "#inquireUpdatemodalbtn", function () {
 			let inqNo = inqData.get("inquiryNo");
-			console.log(inqNo);
-			console.log($(".inquire__update__content").val());
 			let inqContent = $(".inquire__update__content").val();
 			inqData.append("content", inqContent)
 			$.ajax({
@@ -723,7 +714,6 @@
 				obj.prodCount = $("#total_count").text();			// 상품 개수
 				obj.memNo = $("input[name='memhidden']").val();
 				t.push(obj);
-				console.log(t);
 				let price = $("#total__price").text().replace(/,/g, "").replace("원", "");    // 상품 총 금액
 				
 		        var IMP = window.IMP; // 생략가능
@@ -886,14 +876,13 @@
 					 index : index
 				 },
 				 success : function (result) {
-					 console.dir(result);
 					 let html = '';
 						for(let i=0; i < result.list.length;i++){
 							html+='<div class="pb_review_body" id="'+result.list[i].pbReviewNo+'">'
 							html+='		<div class="pb_review_profile">';
 							html+='			<div class="pb_review_profile_img">';
 							if ('${sessionScope.user}' != null) {
-								if ('${sessionScope.user.memImgPath}' == null) {
+								if ('${sessionScope.user.memImgPath}' == null || '${sessionScope.user.memImgPath}' == '') {
 									html+='<img id="default_profile_imges" src="<c:url value="/resources/images/default/userdefault.png"/>">';
 								} else {
 									html+='<img id="user_profile_imges" src="/babmukja/member/download.do?path='+result.list[i].member.memImgPath+'&sysname='+result.list[i].member.memImgSysname+'">';
@@ -979,7 +968,6 @@
 		 
 	     // 후기 페이징 함수
 	     function printPaging(page) {
-	    	 console.log(page);
 	    	 var str = "";
 	    	 if(page.prev) {
 	    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
@@ -999,7 +987,6 @@
 
 		// 문의 페이징 함수
 	     function inqPrintPaging(page) {
-	    	 console.log(page);
 	    	 var str = "";
 	    	 if(page.prev) {
 	    		 str += "<div class='comment-prev'><a href='"+ (page.beginPage - 1) +"'><img class='left-arrow' src='<c:url value='/resources/images/icons/left-arrow.png'/>'/></a></div>";
@@ -1021,7 +1008,6 @@
 	       $(document).on("click", ".reviewDeleteBTN", function () {
 //	     		let pbNo = ${storepb.pbNo};
 	   	  		let num = $(this).siblings("input[name='pbReviewNo']").val();
-	   	  		console.log(num.length);
 	   	  		$.ajax({
 	   	  			url: "/babmukja/store/pbreviewdelete.do",
 	   	  			data: {
@@ -1050,7 +1036,6 @@
 	    			   index : index
 	    		   },
 	    		   success : function (result) {
-	    			   console.dir(result);
 	    			   let html = '';
 	    			   	for (let i = 0; i < result.list.length; i++) {
 							html +='<div class="pb_inquire_body" id="'+result.list[i].inquiryNo+'">';
