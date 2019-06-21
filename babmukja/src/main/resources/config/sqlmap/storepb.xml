@@ -22,8 +22,8 @@
 	
 	<select id="selectPBBestItem" resultMap="storepbMap">
 		select *  
-		  from tb_pb p
-		 order by likecnt, rating_cnt
+		  from tb_pb
+		 order by likecnt desc, rating_cnt desc
 	</select>
 	
 	<!-- 조회수 증가 -->
