@@ -45,6 +45,7 @@
         <!-- Add Scrollbar -->
         <div class="swiper-scrollbar"></div>
     </div>
+   <div id="threeshin_information"> <img src="<c:url value="/resources/images/store3shin.jpg"/>"> </div>
    <div id="information_about_store">
    		<img src="<c:url value='/resources/images/storemain.jpg'/>">
    </div>
@@ -149,8 +150,8 @@
             </div>
            </div>
         </div>
+
         <div id="kakaopay_information">  <img src="<c:url value="/resources/images/kakaostoremain.jpg"/>"> </div>
-        <div id="threeshin_information"> <img src="<c:url value="/resources/images/store3shin.jpg"/>"> </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
