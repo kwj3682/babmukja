@@ -263,14 +263,17 @@
 	
 	<!-- 레시피 키워드 시작 -->
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
-		select r.*,m.mem_nickname
-		  from tb_recipe r,tb_recipe_keyword k,tb_member m
-		 where m.mem_no = r.mem_no
-		   and r.recipe_no = k.recipe_no
-		    or k.country = #{no} 
-		    or k.situation = #{no} 
-		    or k.level = #{no} 
-		    or k.type = #{no}
+		select r.*, m.mem_nickname
+		  from tb_recipe r
+		 inner join tb_member m
+		    on r.mem_no = m.mem_no
+		 inner join tb_recipe_keyword rk
+		    on rk.recipe_no = r.recipe_no
+		 where 1 = 1
+		    or rk.country = #{no}
+		    or rk.situation = #{no}
+		    or rk.level = #{no}
+		    or rk.type = #{no}
 		 order by r.recipe_no desc
 	</select>
 	

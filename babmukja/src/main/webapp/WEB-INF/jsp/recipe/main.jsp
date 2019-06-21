@@ -179,8 +179,7 @@
                     <div id="turnJsDiv">
                       <div id="turnJs">
                          <div ignore="1" class="next-button"></div>
-                         <div class="hard" id="resultImage"></div>
-                         
+                         <div class="hard" id="resultImage"></div>                         
                          <div class="pageX" id="page1"></div>
                          <div class="pageX" id="page2"></div>
                          <div class="pageX" id="page3"></div>
@@ -189,8 +188,7 @@
                       </div>
                 </div>
                 </div>
-                <div class="modal-footer">
-                    
+                <div class="modal-footer">                    
                 </div>
             </div>
         </div>
@@ -342,8 +340,8 @@
       
        loadApp("#turnJs");       
        
-    });    
-     
+    });   
+    
 
     $(document).ready(function () {
        $("#turnModal").modal("hide");
