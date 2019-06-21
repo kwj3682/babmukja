@@ -16,13 +16,31 @@
 <body>
 	<div class="swiper-container">
         <div class="swiper-wrapper">
-   			<c:forEach var="pbList" items="${storepb}" begin="0" end="4">
-	            <div class="swiper-slide">
-	            	<div></div>
-		            <p>"BABMUKJA PB STORE"</p>
-	             	<img src="${pbList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>	
-	            </div>
-			</c:forEach>
+            <div class="swiper-slide">
+            	<div></div>
+	            <p>"BABMUKJA PB STORE"</p>
+             	<img src="<c:url value="/resources/images/storemain/main-slide4.png"/>"/>	
+            </div>
+            <div class="swiper-slide">
+            	<div></div>
+	            <p>"BABMUKJA PB STORE"</p>
+             	<img src="<c:url value="/resources/images/storemain/store-image3.png"/>"/>	
+            </div>
+            <div class="swiper-slide">
+            	<div></div>
+	            <p>"BABMUKJA PB STORE"</p>
+             	<img src="<c:url value="/resources/images/storemain/store-image1.png"/>"/>	
+            </div>
+            <div class="swiper-slide">
+            	<div></div>
+	            <p>"BABMUKJA PB STORE"</p>
+             	<img src="<c:url value="/resources/images/storemain/main-slide8.jpg"/>"/>	
+            </div>
+            <div class="swiper-slide">
+            	<div></div>
+	            <p>"BABMUKJA PB STORE"</p>
+             	<img src="<c:url value="/resources/images/storemain/main-slide3.png"/>"/>	
+            </div>
         </div>
         <!-- Add Scrollbar -->
         <div class="swiper-scrollbar"></div>
