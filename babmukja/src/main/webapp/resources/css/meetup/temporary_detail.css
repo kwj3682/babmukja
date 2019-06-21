@@ -292,3 +292,71 @@
             height:287.5px;
             
         }
+
+        .detail_member_container{
+            padding:6px;
+            border: 1px solid black;
+            margin-top: 15px;
+            width: 1190px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-column-gap: 6px;
+            grid-row-gap: 6px;
+            box-sizing: border-box;
+        }
+        .detail_member_container > div{
+            border:1px solid gainsboro;
+            
+            height:287.5px;       
+        }
+
+        #profile-picture{
+            margin:0 auto;
+            margin-top:20px;
+            
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid gainsboro;
+            overflow: hidden;
+        }
+        .detail_member_name{
+            margin: 0 auto;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .detail_member_regDate_container{
+            margin-top:17px;
+            border-top:1px solid gainsboro;
+            border-bottom: 1px solid gainsboro;
+            padding:5px;
+            background: #7db341;
+            height: 20px;
+            display: grid;
+            grid-template-columns: 30% 70%;
+            color:white;
+        }
+
+        .detail_member_name > div{
+            border:1px solid black;
+        }
+        .detail_member_regDate_container > div:nth-child(1){
+            padding-left: 5px;
+            
+        }
+        
+        .detail_member_regDate_container > div:nth-child(2){
+            text-align: center;
+        }
+        .detail_member_info >div:nth-last-child() >i{
+            margin-top:100px;
+        }
+        .detail_member_message_container{
+            margin-top: 14px;
+            text-align: center;
+        }
+        .fa-envelope{
+            font-size:34px;
+        }

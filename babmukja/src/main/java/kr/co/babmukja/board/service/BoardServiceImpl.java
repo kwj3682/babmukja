@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.babmukja.common.page.PageResult;
 import kr.co.babmukja.repository.domain.Board;
 import kr.co.babmukja.repository.domain.BoardReview;
-import kr.co.babmukja.repository.domain.PageBoard;
+import kr.co.babmukja.repository.domain.MeetupDetailNoticePage;
 import kr.co.babmukja.repository.domain.PageBoardReview;
 import kr.co.babmukja.repository.mapper.BoardMapper;
 
@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	// 글목록, 페이징
 	@Override
-	public Map<String, Object> list(PageBoard page) {
+	public Map<String, Object> list(MeetupDetailNoticePage page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectBoard(page));
 		result.put("pageResult", new PageResult(page.getPageNo(), mapper.selectBoardCount()));

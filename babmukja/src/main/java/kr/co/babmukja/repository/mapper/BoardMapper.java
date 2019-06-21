@@ -4,11 +4,11 @@ import java.util.List;
 
 import kr.co.babmukja.repository.domain.Board;
 import kr.co.babmukja.repository.domain.BoardReview;
-import kr.co.babmukja.repository.domain.PageBoard;
+import kr.co.babmukja.repository.domain.MeetupDetailNoticePage;
 import kr.co.babmukja.repository.domain.PageBoardReview;
 
 public interface BoardMapper {
-	public List<Board> selectBoard(PageBoard page); // 글목록
+	public List<Board> selectBoard(MeetupDetailNoticePage page); // 글목록
 	
 	public int selectBoardCount(); // 페이징
 	

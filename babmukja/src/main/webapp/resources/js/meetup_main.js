@@ -1,3 +1,14 @@
+$( document ).ready(function() {
+   	if($("#hiddenHostName").val()==""){
+  	alert("먼저 로그인을 먼저 진행해 주세요^^");
+  	location.href="/babmukja/member/loginform.do"; 
+  	}
+});
+
+//헤더 쿠킹모임 이름 클릭시 초기화 
+$(".header_cooking_meetup").click(function () {
+	location.href="/babmukja/meetup/main.do";
+});
 //모달 적용부분
 
 
@@ -39,7 +50,6 @@ $('#Defined').change(function(){
 	        	}
 	        
 	    });
-
 
 
 //클릭시 주소 이동부분

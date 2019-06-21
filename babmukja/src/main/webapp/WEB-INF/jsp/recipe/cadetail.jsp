@@ -229,8 +229,14 @@
     	top: 55,
     	left: offLeft
     });
-	
+    let openFlag = false;
     $selectBoxSelector.click(function(e){
+    	if(!openFlag){
+    		openFlag = true;
+    	}else{	    		
+    		openFlag = false;
+    		$(".selectmenuContent").children(".selectmenuContentFold").children().attr({class:"fas fa-chevron-right"});
+    	}
         $selectBoxWrapper.slideToggle(150);
         
         if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});

@@ -37,8 +37,12 @@
     <title>Document</title>
 </head>
 <body>
+  <!--로그인 여부 확인  -->
+  
+  
   <!-- 쿠킹 모임 메인 컨테이너 -->
     <div class="main_container">
+    
         <!-- 쿠킹 모임 헤더  -->
         <div class=main_header>
             <span class="header_cooking_meetup">쿠킹모임</span>
@@ -368,6 +372,7 @@
                     </div>
                     
                     <div class="modal-body">
+                    
                         <!-- modal 이름 적는부분 -->
                         <div class="modal_meetup_name_container">
                             <div class="modal_meetup_name">
@@ -375,7 +380,7 @@
                             </div>
                             <div></div>
                             <!--방장과 방장번호 자동 선택  -->
-                            <input type="hidden"  name="hostName" value="${sessionScope.user.memName}">
+                            <input type="hidden"  name="hostName" id="hiddenHostName" value="${sessionScope.user.memName}">
  							<input type="hidden"  name="hostNo" id="hiddenHostNo" value="${sessionScope.user.memNo}">
  							<input type="hidden"  name="hostEmail" id="hiddenHostEmail" value="${sessionScope.user.memEmail}">
  							

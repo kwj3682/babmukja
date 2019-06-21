@@ -107,7 +107,11 @@
                 <div class="bottom_location"><span><i class="fas fa-map-marker-alt "></i>&nbsp; ${meetup.location}</span>
                 </div>
                 <div class="border_line"></div>
+<<<<<<< HEAD
+                <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp; ${meetup.viewCnt}</span>
+=======
                 <div class="bottom_view_count"><span><i class="fas fa-eye"></i>&nbsp;${meetup.viewCnt}</span>
+>>>>>>> master
                 </div>
             </div>
         </div>

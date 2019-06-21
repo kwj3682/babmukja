@@ -32,6 +32,7 @@ public interface StorePBService {
 	*/
 	
 	public List<StorePB> selectPBStore();
+	public List<StorePB> selectPBBestItem();
 	public Map<String, Object> selectPBStoreList(Pagepb page);
 	public StorePB selectPBStoreByNo(int pbNo);
 	// public Map<String, Object> selectAdminPBList(Pagepb page);

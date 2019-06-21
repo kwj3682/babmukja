@@ -4,12 +4,12 @@ import java.util.Map;
 
 import kr.co.babmukja.repository.domain.Board;
 import kr.co.babmukja.repository.domain.BoardReview;
-import kr.co.babmukja.repository.domain.PageBoard;
+import kr.co.babmukja.repository.domain.MeetupDetailNoticePage;
 import kr.co.babmukja.repository.domain.PageBoardReview;
 
 public interface BoardService {
 	
-	public Map<String, Object> list(PageBoard page); // 글목록
+	public Map<String, Object> list(MeetupDetailNoticePage page); // 글목록
 	
 	public Board detail(int boardNo); // 글상세
 	

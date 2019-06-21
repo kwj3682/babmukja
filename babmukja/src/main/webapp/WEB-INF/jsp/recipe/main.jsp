@@ -179,35 +179,16 @@
                     <div id="turnJsDiv">
                       <div id="turnJs">
                          <div ignore="1" class="next-button"></div>
-                         <div class="hard" id="resultImage"></div>
-                         
-                         <div class="pageX" id="page1">
-<%--                             <img src="<c:url value="/resources/images/food1.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page2">
-<%--                             <img src="<c:url value="/resources/images/food2.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page3">
-<%--                             <img src="<c:url value="/resources/images/food3.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page4">
-<%--                             <img src="<c:url value="/resources/images/food4.jpg"/>"> --%>
-                         </div>
-<!--                          <div> -->
-<%--                             <img src=" <c:url value="/resources/images/f1.jpg"/>"> --%>
-<!--                          </div> -->
-<!--                          <div> -->
-<%--                             <img src="<c:url value="/resources/images/f2.jpg"/>">                          --%>
-<!--                      </div> -->
-<!--                          <div class="hard"> -->
-<%--                             <img src="<c:url value="/resources/images/f3.jpg"/>">                          --%>
-<!--                      </div> -->
+                         <div class="hard" id="resultImage"></div>                         
+                         <div class="pageX" id="page1"></div>
+                         <div class="pageX" id="page2"></div>
+                         <div class="pageX" id="page3"></div>
+                         <div class="pageX" id="page4"></div>
                          <div ignore="1" class="previous-button"></div>
                       </div>
                 </div>
                 </div>
-                <div class="modal-footer">
-                    
+                <div class="modal-footer">                    
                 </div>
             </div>
         </div>
@@ -292,7 +273,7 @@
        $("#resultImage").css({background:$(this).css("backgroundImage"),
          backgroundSize: "cover",
          backgroundRepeat : "no-repeat"});
-      console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
+         console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
        $.ajax({
           type:"GET",
           url: "recipekeyword.do",
@@ -301,13 +282,9 @@
              }
        }).done(function(response){
           let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';
-          
-
-         let i = 1;
+          let i = 1;
           for(let res of response){
              console.log("res : " + res);
-//              html +="<div id='page"+i+"' class='pageX'></div>";
-//              console.log("page : " + i);
               let editor = new EditorJS({
                   holderId: 'page'+i,
                   autofocus: false,
@@ -352,8 +329,6 @@
               });
               i++;
           }
-//           html+= '<div ignore="1" class="previous-button"></div>';
-//           $("#turnJs").append(html);
        });
 
 
@@ -365,15 +340,12 @@
       
        loadApp("#turnJs");       
        
-    });
+    });   
     
 
     $(document).ready(function () {
        $("#turnModal").modal("hide");
     });
-//    $("#turnModal").modal({
-//          backdrop: 'static'
-//     });
 
 
    // modal 창 이전버튼
@@ -441,7 +413,7 @@
         });
         
         $("#logout").click(function() {
-           alert("로그아웃 성공!");
+//            alert("로그아웃 성공!");
         });
 
     </script>

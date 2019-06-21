@@ -229,10 +229,16 @@
         	top: 55,
         	left: offLeft
         });
-    	
+    	let openFlag = false;
 	    $selectBoxSelector.click(function(e){
+	    	if(!openFlag){
+	    		openFlag = true;
+	    	}else{	    		
+	    		openFlag = false;
+	    		$(".selectmenuContent").children(".selectmenuContentFold").children().attr({class:"fas fa-chevron-right"});
+	    	}
 	        $selectBoxWrapper.slideToggle(150);
-	        
+
 	        if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
 	        else{
 	            arrow.attr({class : "fas fa-caret-down"});
@@ -240,7 +246,6 @@
 	            $(".selectmenuContent").find(".hiddenMenu").css({display:"none"});
 	        } 
 	    });
-	    
 	    $(".selectmenuContent").click(function(){
 	        let $this = $(this);
 	        let $hiddenMenu = $this.children(".selectmenuContent-detail").children();

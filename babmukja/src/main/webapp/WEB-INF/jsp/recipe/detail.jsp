@@ -215,12 +215,6 @@
                     </div><!-- writer-post end -->
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
                 </div><!-- writer-info end -->
-                
-                <div id="share-button">
-                    <i class="fab fa-facebook-f fa-3x"></i>
-                    <i class="fab fa-instagram fa-3x"></i>
-                </div>
-            
             </div><!-- content-wrapper end -->            
         </div><!-- right;body end -->
     </div> <!-- 전체 body end -->
@@ -266,14 +260,14 @@
 	    		},
 	    		success : function (result) {  
 	    			if(result.status == 'Y') {
-	    				alert("좋아요가 되었습니다.");
+// 	    				alert("좋아요가 되었습니다.");
 	    				$(".recipeLike").css({
 	    					background : "#7db341",
 		    				color : "white"		    				    
 	    				});	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			} else if(result.status == 'N') {
-	    				alert("좋아요가 해제되었습니다.");
+// 	    				alert("좋아요가 해제되었습니다.");
 	    				$(".recipeLike").css({	    					
 	    				    background: "#eee",
 	    			    	color: "#bbb"
@@ -281,7 +275,7 @@
 	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			} else {
-	    				alert("좋아요가 되었습니다.");
+// 	    				alert("좋아요가 되었습니다.");
 	    				$(".recipeLike").css({
 	    					background : "#7db341",
 		    				color : "white"		    				    
@@ -304,13 +298,13 @@
 		    		},
 		    		success : function(result) {		    		
 		    			if(result == 1) {
-			    			alert("팔로우가 되었습니다.");	
+// 			    			alert("팔로우가 되었습니다.");	
 			    			$(".follow").css({
 			    				background : "#7db341",
 			    				color : "white"	
 			    			});
 		    			} else if(result == 0) {
-		    				alert("팔로우가 해제되었습니다.");
+// 		    				alert("팔로우가 해제되었습니다.");
 		    				$(".follow").css({
 		    					background : "#eee",
 		    			    	color: "#777"
@@ -320,7 +314,7 @@
 		    	});
 			} 
 		if('${sessionScope.user.memNo}' == '${recipe.memNo}') {
-			alert("같은 회원은 팔로우 할 수 없습니다.");
+			alert("자신은 팔로우 할 수 없습니다.");
 		}
 		
     	});
@@ -371,7 +365,7 @@
 	    	 	     			+'</div></div>';
 		    	 	     				 	 
 		    	 	 $(".comment-input").val("");		
-		    	 	 $("#h3").html("");
+		    	 	 $("#h4").html("");
 		    	 	 $("#comment-other").prepend(html);
 		    	 	 $("#comment-other").html("");
 					commentList(1);
@@ -394,7 +388,7 @@
 		 	.done(function (result) {
 		 		let loginMemNo = '${sessionScope.user.memNo}';
 		 		if(result.comment.length == 0) {	 			
-		 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+		 			$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
 		 		}
 		 		let html = "";	
 		 		for(let i = 0; i < result.comment.length; i++) {
@@ -523,11 +517,10 @@
  		}).done(function (result) {    		
  			if($(".other-content").length == 1 ) {
  				$("#"+ num).html("");
- 				$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+ 				$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
  			}
  		
 	    	$("#"+ num).html("");
-	    	$("#comment-other").html("");
 			commentList(result.pageNo);
  		})  
  	});

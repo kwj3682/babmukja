@@ -118,7 +118,7 @@
 				
 				switch(code){
 				case 0:
-					alert("로그인 완료.");
+// 					alert("로그인 완료.");
 					location.href="/babmukja/recipe/main.do";
 					break;
 				case 1:
@@ -140,7 +140,7 @@
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kako app_key');
+		Kakao.init('6d1d12aeec7199df6e42d9c90c771a35');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({

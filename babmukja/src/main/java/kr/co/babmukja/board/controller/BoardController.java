@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import kr.co.babmukja.board.service.BoardService;
 import kr.co.babmukja.repository.domain.Board;
 import kr.co.babmukja.repository.domain.BoardReview;
-import kr.co.babmukja.repository.domain.PageBoard;
+import kr.co.babmukja.repository.domain.MeetupDetailNoticePage;
 import kr.co.babmukja.repository.domain.PageBoardReview;
 
 @Controller("kr.co.babmukja.board.controller.BoardController")
@@ -36,7 +36,7 @@ public class BoardController {
 
 	@RequestMapping("/list.do")
 	// 글목록, 페이징
-	public void list(PageBoard page, Model model) {
+	public void list(MeetupDetailNoticePage page, Model model) {
 		Map<String, Object> result = service.list(page);
 		model.addAttribute("list", result.get("list"));
 		model.addAttribute("pageResult", result.get("pageResult"));
@@ -76,7 +76,7 @@ public class BoardController {
 		board.setImgSysname(uName);
 
 		service.write(board);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/b/list.do";
 	}
 	
 	@RequestMapping("/imgdownload.do")

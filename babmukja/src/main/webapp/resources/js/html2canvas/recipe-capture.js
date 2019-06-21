@@ -7,6 +7,7 @@ $(".recipeScrap").click(function(){
 		alert("이미 스크랩한 게시물입니다.");
 		return;
 	}
+	
 	let loginMemNo = $("input[name='memNo']").val();
 	$("#modal-scrap").modal("show");
 	if(!scrapbookFlag){
@@ -38,7 +39,7 @@ $(".recipeScrap").click(function(){
 });
 $("#scrapbook-wrapper-sec4-button2").click(function(){
 	$("#modal-scrap").modal("hide");
-	scrapbookFlag = false;
+//	scrapbookFlag = false;
 });
 $("#scrapbook-wrapper-sec4-button1").click(function(){
 	let radioVal = $("input[name='scrapbook-radio']:checked").val();
