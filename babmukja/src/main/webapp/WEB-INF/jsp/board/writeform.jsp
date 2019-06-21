@@ -19,7 +19,7 @@
 			<div class="board_insert_header">글등록</div>
 
 			<div class="board_insert_recipe">
-				레시피를 작성하고 싶다면 <a href="#">레시피등록 하러가기</a>
+				레시피를 작성하고 싶다면 <a href="<c:url value="/recipe/writeform.do"/>">레시피등록 하러가기</a>
 			</div>
 
 			<form id="writeform" action="write.do" method="POST" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
 			</div>
 
 			<div class="board_insert_content">
-				<textarea id="content" name="content" placeholder="내용을 입력해주세요."></textarea>
+				<input type="text" id="content" name="content" placeholder="내용을 입력해주세요.">
 			</div>
 
 			<input type="hidden" id="memNo" />
@@ -92,6 +92,31 @@
 				};
 			};
 		};
+		
+		// 유효성 검사
+		$(".board_insert_button").click(function() {
+			
+			let title = $("#title").val();
+			let writer = $("#writer").val();
+			let content = $("#content").val();
+			
+			if(title.length == 0) {
+				alert("제목을 입력해주세요.");
+				$("#title").focus();
+				return false;
+			}
+			if(writer.length == 0) {
+				alert("작성자를 입력해주세요.");
+				$("#writer").focus();
+				return false;
+			}
+			if(content.length == 0) {
+				alert("내용을 입력해주세요.");
+				$("#content").focus;
+				return false;
+			}
+		});
+		
 	</script>
 </body>
 </html>

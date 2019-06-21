@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="board_update_content">
-				<textarea id="content" name="content" placeholder="내용을 입력해주세요.">${board.content}</textarea>
+				<input type="text" id="content" name="content" value="${board.content}" placeholder="내용을 입력해주세요.">
 			</div>
 
 			<div class="board_update_file">
@@ -37,7 +37,7 @@
 				<i class="material-icons">attach_file</i> 
 					<span class="title">Add File</span>
 					<div class="board_update_file_div">
-						<img src="" id="board_update_img">
+						<img src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>" id="board_update_img">
 					</div>
 				</label>
 			</div>

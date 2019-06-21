@@ -34,9 +34,11 @@
 	
 	<!-- 레시피 조회 -->
 	<select id="selectRecipe" resultMap="recipeMap">
-		select m.mem_nickname,r.* from tb_member m,tb_recipe r
+		select m.*,r.* 
+		  from tb_member m,tb_recipe r
 		 where m.mem_no = r.mem_no
 		 order by regDate desc
+		 limit 0, 12
 	</select>
 	
 	<!-- 레시피 상세 조회 -->
@@ -58,6 +60,20 @@
          order by rating desc,
                   regdate desc		          
          limit 0,1
+	</select>
+	
+	<!-- 일등 레시피 댓글 정보 가져오기 -->
+	<select id="selectReviewByRate" resultType="RecipeReview">
+		select rw.*,m.*
+          from tb_recipe_review rw, tb_recipe r, tb_member m
+         where r.recipe_no = rw.recipe_no
+           and m.mem_no = rw.mem_no
+           and r.recipe_no = (select recipe_no 
+                                from tb_recipe 
+                               order by rating desc, regdate desc
+                               limit 0,1)
+         order by score desc, regdate desc
+         limit 0,3
 	</select>
 	
 	<!-- 메인 페이지 회원 레시피 목록 -->
@@ -83,7 +99,7 @@
 		 order by regDate desc
 		 limit 0,4
 	</select>
-	
+
 	<!-- 조회수 증가 -->
 	<update id="addViewCnt" parameterType="int">
 		update tb_recipe
@@ -189,7 +205,7 @@
     	    on r.mem_no = m.mem_no
     	 where recipe_no = #{recipeNo}    	   
     	 order by recipe_review_no desc
-    	 limit #{begin}, #{end}
+    	 limit #{index}, 5
     </select>   
     
     <!-- 전체 댓글 수 -->    
@@ -247,14 +263,17 @@
 	
 	<!-- 레시피 키워드 시작 -->
 	<select id="selectRecipeByKeyword" parameterType="int" resultMap="recipeMap">
-		select r.*,m.mem_nickname
-		  from tb_recipe r,tb_recipe_keyword k,tb_member m
-		 where m.mem_no = r.mem_no
-		   and r.recipe_no = k.recipe_no
-		   and k.country = #{no} 
-		       or k.situation = #{no} 
-		       or k.level = #{no} 
-		       or k.type = #{no}
+		select r.*, m.mem_nickname
+		  from tb_recipe r
+		 inner join tb_member m
+		    on r.mem_no = m.mem_no
+		 inner join tb_recipe_keyword rk
+		    on rk.recipe_no = r.recipe_no
+		 where 1 = 1
+		    or rk.country = #{no}
+		    or rk.situation = #{no}
+		    or rk.level = #{no}
+		    or rk.type = #{no}
 		 order by r.recipe_no desc
 	</select>
 	
@@ -348,6 +367,7 @@
          where rk.recipe_no = r.recipe_no
            and m.mem_no = r.mem_no
       <include refid="searchWhere"/>
+         order by r.regdate desc
          limit #{pageNo}, 12
 	</select>
 	
@@ -361,7 +381,8 @@
            and m.mem_no = r.mem_no
            and rk.country = #{country}
       <include refid="searchWhere"/>
-         limit #{pageNo}, 12         
+         order by r.regdate desc      
+         limit #{pageNo}, 12  
 	</select>
 
 	<!-- (우중) 회원 번호로 레시피 가져오기-->
@@ -371,4 +392,36 @@
 		 	   and m.mem_no = #{memNo}
 		 order by recipe_no asc
 	</select>
+	
+	<!-- (우중) 스크랩북 content 추가 -->
+	<update id="updateScrapbookContent" parameterType="Scrapbook">
+		update tb_scrap
+		   set content = concat(content,#{content})
+		 where scrap_no = #{scrapNo}
+	</update>
+	<insert id="insertRecipeScrap" parameterType="RecipeScrap">
+		insert into tb_recipe_scrap (mem_no, recipe_no, scrap_no) values(#{memNo},#{recipeNo},#{scrapNo})
+	</insert>
+	<select id="selectStatusAll" parameterType="StatusChecker" resultType="StatusChecker">
+		select (select follow_status
+		  		  from tb_recipe_follow 
+		  		 where follow_mem_no = #{followMemNo} 
+		  		   and follower_mem_no = #{followerMemNo} ) `follow_status`,
+		   	   (select like_status
+			      from tb_recipe_like l 
+			     where l.recipe_no = #{recipeNo} 
+			       and mem_no = #{memNo}) `like_status`,
+		   	   (select scrap_status
+		          from tb_recipe_scrap s 
+		         where s.recipe_no = #{recipeNo} 
+		           and mem_no = #{memNo}) `scrap_status`
+  		 from tb_member m
+		where m.mem_no = #{memNo}
+
+	</select>
+	<update id="updateRecipeScrapCnt" parameterType="int">
+		update tb_recipe
+		   set scrapcnt = scrapcnt + 1
+		 where recipe_no = #{no}
+	</update>
 </mapper>

@@ -561,3 +561,7 @@ input[name='member']:focus{
     transform: rotateZ(-15deg);
 }
 
+.cartIcon {
+	width : 30px;
+	margin-top: 7px;
+}

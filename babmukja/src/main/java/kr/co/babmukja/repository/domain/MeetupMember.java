@@ -1,5 +1,7 @@
 package kr.co.babmukja.repository.domain;
 
+import java.sql.Date;
+
 public class MeetupMember {
 
 int meetMemNo;
@@ -9,6 +11,28 @@ int meetNo;
 int status;
 String memEmail;
 int admissionNum;
+String memImgSysname;
+String regDate;
+Date joinDate;
+
+public Date getJoinDate() {
+	return joinDate;
+}
+public void setJoinDate(Date joinDate) {
+	this.joinDate = joinDate;
+}
+public String getRegDate() {
+	return regDate;
+}
+public void setRegDate(String regDate) {
+	this.regDate = regDate;
+}
+public String getMemImgSysname() {
+	return memImgSysname;
+}
+public void setMemImgSysname(String memImgSysname) {
+	this.memImgSysname = memImgSysname;
+}
 public int getAdmissionNum() {
 	return admissionNum;
 }

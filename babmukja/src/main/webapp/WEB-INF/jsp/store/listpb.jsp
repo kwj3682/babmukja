@@ -15,7 +15,9 @@
 </head>
 <body>
  <div class="pb_list_container">
-        <p class="pb_list_title">PRODUCTS</p><br><br><br>
+ 		<div class="pb_list_title_con">
+	        <p class="pb_list_title">PRODUCTS</p><br><br><br>
+ 		</div>
 
 
         <div class="pb_list_search">
@@ -25,30 +27,54 @@
                     <button class="searchNameBTN"><i class="fas fa-search" id="searchicon"></i></button>
                 </div>
                 	
-            <select id="selectbox">
+            <select id="selectbox" class="pb_list_selectbox">
             	<c:if test="${sortType eq 0}">
 	                <option value="0" id="dateDESC" selected>최신순</option>
 	                <option value="1" id="popularDESC">인기순</option>
 	                <option value="2" id="priceDESC">낮은 가격순</option>
 	                <option value="3" id="priceASC">높은 가격순</option>
+	                <option value="4" id="ratingDESC">별점순</option>
+	                <option value="5" id="viewcntDESC">조회수순</option>
             	</c:if>
             	<c:if test="${sortType eq 1}">
 	                <option value="0" id="dateDESC" >최신순</option>
 	                <option value="1" id="popularDESC" selected>인기순</option>
 	                <option value="2" id="priceDESC">낮은 가격순</option>
 	                <option value="3" id="priceASC">높은 가격순</option>
+	                <option value="4" id="ratingDESC">별점순</option>
+	                <option value="5" id="viewcntDESC">조회수순</option>
             	</c:if>
             	<c:if test="${sortType eq 2}">
 	                <option value="0" id="dateDESC">최신순</option>
 	                <option value="1" id="popularDESC">인기순</option>
 	                <option value="2" id="priceDESC" selected>낮은 가격순</option>
 	                <option value="3" id="priceASC">높은 가격순</option>
+	                <option value="4" id="ratingDESC">별점순</option>
+	                <option value="5" id="viewcntDESC">조회수순</option>
             	</c:if>
             	<c:if test="${sortType eq 3}">
 	                <option value="0" id="dateDESC">최신순</option>
 	                <option value="1" id="popularDESC">인기순</option>
 	                <option value="2" id="priceDESC">낮은 가격순</option>
 	                <option value="3" id="priceASC" selected>높은 가격순</option>
+	                <option value="4" id="ratingDESC">별점순</option>
+	                <option value="5" id="viewcntDESC">조회수순</option>
+            	</c:if>
+            	<c:if test="${sortType eq 4}">
+	                <option value="0" id="dateDESC">최신순</option>
+	                <option value="1" id="popularDESC">인기순</option>
+	                <option value="2" id="priceDESC">낮은 가격순</option>
+	                <option value="3" id="priceASC">높은 가격순</option>
+	                <option value="4" id="ratingDESC" selected>별점순</option>
+	                <option value="5" id="viewcntDESC">조회수순</option>
+            	</c:if>
+            	<c:if test="${sortType eq 5}">
+	                <option value="0" id="dateDESC">최신순</option>
+	                <option value="1" id="popularDESC">인기순</option>
+	                <option value="2" id="priceDESC">낮은 가격순</option>
+	                <option value="3" id="priceASC">높은 가격순</option>
+	                <option value="4" id="ratingDESC">별점순</option>
+	                <option value="5" id="viewcntDESC" selected>조회수순</option>
             	</c:if>
             </select>
         </div>
@@ -79,12 +105,19 @@
         </div>
         <div class="page">
 		    <c:if test="${pageResult.count != 0}">
-		    	<div>
+		    	<div class="pageList">
 					<c:if test="${pageResult.prev eq true}">
 						<a href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
 					</c:if>
 					<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
-						<a class="pageLink" href="${param.link}?pageNo=${i}">[${i}]</a>
+					<c:choose>
+						<c:when test="${pageResult.pageNo eq (i)}">
+							<a class="this-review-page" href="${param.link}?pageNo=${i}">${i}</a>
+						</c:when>
+						<c:otherwise>
+							<a class="review-pagination" href="${param.link}?pageNo=${i}">${i}</a>
+						</c:otherwise>
+					</c:choose>
 						</c:forEach>
 					<c:if test="${pageResult.next eq true}">
 						<a href="${param.link}?pageNo=${pageResult.endPage + 1}">다음</a>

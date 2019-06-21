@@ -23,9 +23,10 @@
     <div id="main-body">
     
        <!-- 검색 부분 -->
-     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p><i id="submitBtn" class="fa fa-search fa-2x"></i></div>
+     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p><i id="submitBtn" class="fa fa-search fa-2x" style="position: absolute; top: 15px; left: 220px;"></i></div>
    <div id="selectBox-wrapper">
-            <form name="searhForm" method="post" action="cadetailall.do">
+            <form name="searhForm" method="post" action="cadetail.do">
+            <input type="hidden" name="country" value="${param.country }">
        <div id="selectBox">
             <div class="selectmenuContent">
                 <img src="<c:url value="/resources/images/icons/title.png"/>">    
@@ -161,12 +162,22 @@
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
-	            <div id="sector3-body">            
+	            <div id="sector3-body">           
+	            	<c:if test="${empty calist}">
+	            		<p class="no-search">검색결과가 존재하지 않습니다.</p>  
+	            	</c:if>   
 	                <c:forEach var="ca" items="${calist }">               
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
 	                           <div>
-	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           <c:choose>
+				                	<c:when test="${ca.memImgPath == null}">
+				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${ca.memImgPath}&sysname=${ca.memImgSysname}">
+				                	</c:otherwise>
+		                		</c:choose>
 	                           </div>
 	                           <div class="profile-name">
 	                               <p>
@@ -179,11 +190,19 @@
 	                           </div>
 	                       </div>
 	                       <div class="recipe-pic-box">
-	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
+	                           <a href = "detail.do?no=${ca.recipeNo }">
+	                           <c:choose>
+				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+			                           <img src="${ca.imgPath}"></a>
+				                	</c:otherwise>
+		                		</c:choose>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt}</i>
-	                           <i class="fas fa-scroll fa-2x">60</i>
+	                           <i class="fas fa-scroll fa-2x">${ca.scrapCnt }</i>
 	                           <i class="fas fa-eye fa-2x">${ca.viewCnt }</i>
 	                       </div>
 	                   </div>
@@ -193,8 +212,7 @@
 	        </div>
 	    </div>
 	
-    <script>
-    
+    <script>    
     let arrow = $("#fa-arrow");
 	let $selectBoxSelector = $("#selectBoxSelector");
 	let $selectBoxWrapper = $("#selectBox-wrapper");
@@ -211,8 +229,16 @@
     	top: 55,
     	left: offLeft
     });
-    $("#selectBoxSelector").click(function(){
-        $("#selectBox-wrapper").slideToggle(150);
+    let openFlag = false;
+    $selectBoxSelector.click(function(e){
+    	if(!openFlag){
+    		openFlag = true;
+    	}else{	    		
+    		openFlag = false;
+    		$(".selectmenuContent").children(".selectmenuContentFold").children().attr({class:"fas fa-chevron-right"});
+    	}
+        $selectBoxWrapper.slideToggle(150);
+        
         if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
         else{
             arrow.attr({class : "fas fa-caret-down"});
@@ -242,79 +268,92 @@
             $fold.children().attr({class:"fas fa-chevron-right"});
         });
     });
-        
-	    $(".search-icon > i").click(function () {
-			 $("form[name='searhForm']").submit();
-		}); 
-	    
-         // 무한스크롤
-         let pageNo = 0;
-         $(window).scroll( 
-           function(){
-             let sh = $(window).scrollTop() + $(window).height();
-             let dh = $(document).height();
-             
-             if(sh >= dh-10){            
-               pageNo = pageNo+12;
-               let cautions = [];
-		       $("input[name='caution']:checked").each(function(){
-		       	 cautions.push($(this).val());
-		       });
-		       
-		       let data = {
-		    		   pageNo : pageNo,
-		    		   searchTitle : $("input[name='searchTitle']").val(),
-		    		   searchNickname : $("input[name='searchNickname']").val(),
-	                   caution : cautions,
-	                   situation : $("input[name='situation']:checked").val(),
-	                   level : $("input[name='level']:checked").val(),
-	                   time : $("input[name='taketime']:checked").val(),
-	                   type : $("input[name='foodtype']:checked").val()
-		       }
-               $.ajax({               
-		                type : "POST",
-		                data : data,
-		                url : "cadetailScroll.do"
-         
-               }).done(function (result) { 
-               
-                 	if(result.length != 0) {
-                 		 for(let i = 0 ; i < result.length ; i ++) { 
-                 			 console.log(result[i].recipeNo);
-                          	 $("#sector3-body").append(`
-              	                   <div class="profile-container">
-          	                       <div class="profile-pic-box">
-          	                           <div>
-          	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
-          	                           </div>
-          	                           <div class="profile-name">
-          	                               <p>
-          			                    	  <span>평점 :` + result[i].rating + ` </span>
-          	                           <br>
-          	                               ` +  result[i].title + `
-          	                           <br>
-          	                               ` +  result[i].memNickname + `
-          	                               </p>
-          	                           </div>
-          	                       </div>
-          	                       <div class="recipe-pic-box">
-          	                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
-          	                       </div>
-          	                       <div class="recipe-info">
-          	                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
-          	                           <i class="fas fa-scroll fa-2x">60</i>
-          	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
-          	                       </div>
-          	                   </div>`)
-                         }
-                 	}
-            	  
-              }).fail(function(xhr){
-	               alert("서버 처리중 에러발생")
-	               console.dir(xhr);
-              })
-             }
-           });
+
+     $("#submitBtn").click(function () {
+    		 $("form[name='searhForm']").submit();
+     });
+     
+    
+    // 무한스크롤
+    let pageNo = 0;
+    $(window).scroll( 
+      function () {
+        let sh = $(window).scrollTop() + $(window).height();
+        let dh = $(document).height(); 
+       
+        if(sh >= dh-10) {
+       	 
+          pageNo = pageNo+12;
+	       let cautions = [];
+	       $("input[name='caution']:checked").each(function(){
+	       	 cautions.push($(this).val());
+	       });
+	       
+	       let data = {
+	    		   pageNo : pageNo,
+	    		   country : $("input[name='country']").val(),
+	    		   searchTitle : $("input[name='searchTitle']").val(),
+	    		   searchNickname : $("input[name='searchNickname']").val(),
+                   caution : cautions,
+                   situation : $("input[name='situation']:checked").val(),
+                   level : $("input[name='level']:checked").val(),
+                   time : $("input[name='taketime']:checked").val(),
+                   type : $("input[name='foodtype']:checked").val()
+	       }
+          
+          $.ajax({               
+	                data : data,
+	                url : "cadetailScroll.do"
+    
+          }).done(function (result) {            	   
+       	   if(result.length != 0) {
+   			 let html = "";
+     		 for(let i = 0 ; i < result.length ; i ++) {
+     			 html += '<div class="profile-container">'
+                        + '<div class="profile-pic-box">'
+                     	+ '<div>'
+                     	
+         		 if(result[i].memImgPath == null || result[i].memImgPath == "") {
+         			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
+         		 } else {
+         			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='+ result[i].memImgPath + '&sysname='+ result[i].memImgSysname+ '">';
+         		 }
+                  html += `</div>
+                  			<div class="profile-name">
+                         			<p>
+	                    	  			<span>평점 :` + result[i].rating + ` </span>
+                    			 <br>
+                        			 ` +  result[i].title + `
+                    			 <br>
+                         			 ` +  result[i].memNickname + `
+                         			</p>
+                     			</div>
+                 			</div>
+	                        <div class="recipe-pic-box">
+	                           <a href = "detail.do?no=` + result[i].recipeNo + `">`;
+	                           
+                 if(result[i].imgPath == null || result[i].imgPath == "") {
+         			html += '<img src="<c:url value="/resources/images/default.png"/>"></a>';				                	
+         		  } else {
+         			html += '<img src="'+ result[i].imgPath + '"></a>';
+         		  }
+	                html += `</div>
+	                        <div class="recipe-info">
+	                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
+	                           <i class="fas fa-scroll fa-2x">`+ result[i].scrapCnt + ` </i>
+	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
+	                        </div>
+	                    </div>`;
+     			 
+     		 	}
+                   	 $("#sector3-body").append(html);
+            	} 
+       	  
+         }).fail(function(xhr){	               
+              console.dir(xhr);
+         })
+        }
+      });
          
     </script>
 </body>

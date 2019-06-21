@@ -52,21 +52,20 @@
   padding: 10px;
   color: rgb(81, 81, 81);
 }
-.board_insert_content textarea {
+.board_insert_content input {
   margin-bottom: 10px;
-  width: 685px;
+  width: 690px;
   height: 250px;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  resize: none;
 }
-.board_insert_content textarea:focus {
+.board_insert_content input:focus {
   border-color: #7db341;
   transition: border-color 0.5s ease-in-out;
 }
-.board_insert_content textarea::placeholder {
-  font-size: 13px;
+.board_insert_content input::placeholder {
+  font-size: 15px;
   padding: 10px;
   color: rgb(81, 81, 81);
 }

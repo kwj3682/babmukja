@@ -1,11 +1,19 @@
 package kr.co.babmukja.repository.domain;
 
 public class RecipeScrap {
+	private int recipeScrapNo;
 	private int scrapNo;
 	private int recipeNo;
 	private int memNo;
 	private String scrapStatus;
 	
+	
+	public int getRecipeScrapNo() {
+		return recipeScrapNo;
+	}
+	public void setRecipeScrapNo(int recipeScrapNo) {
+		this.recipeScrapNo = recipeScrapNo;
+	}
 	public int getScrapNo() {
 		return scrapNo;
 	}

@@ -76,7 +76,7 @@
 				console.log(data === undefined);
 				console.log(data === null);
 				if(data == "") {
-					$(".search_id .search_id_result").text("이메일과 비밀번호가 일치하지 않습니다.");
+					$(".search_id .search_id_result").text("이름과 전화번호가 일치하지 않습니다.");
 					$(".search_id .search_id_result").attr("style", "color:red;");
 				} else {
 					$(".search_id .search_id_result").text("회원님의 아이디는" + '"' + data + '"' + "입니다.");

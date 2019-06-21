@@ -8,7 +8,9 @@
     min-height: 1000px;
     margin-top:130px;
 }
-
+a {
+	color : #7db341;
+}
 #left-body{
     height: 100%;
     border-right: 1px solid gainsboro;
@@ -139,36 +141,45 @@
     border-radius: 40px;
 }
 #profile-id{
-    font-size: 21px;
+    font-size: 16px;
     margin-top: 10px;
-    padding-left:3px;
+    text-align:center;
 }
 #profile-id > div:nth-child(2){
     font-size: 15px;
 }
+.follow:focus {
+	outline : none;
+}
 #follow{
-    height: 40px;
+    height: 35px;
+    width:52px;
     margin-top: 20px;
     border : 0;
     background : #eee;
     color: #777;
     border-radius: 5px;
+    font-size : 13px;
 }
 #followNo {
-	height: 40px;
+	height: 35px;
+	width: 52px;
     margin-top: 20px;
     border : 0;
-     background : #7db341;
+    background : #7db341;
     color: white;
     border-radius: 5px;
+    font-size : 13px;
 }
 #followLogin {
-	height: 40px;
+	height: 35px;
+	width: 52px;
     margin-top: 20px;
     border : 0;
     background : #eee;
     color: #777;
     border-radius: 5px;
+    font-size : 13px;
 }
 #follow:hover{
     background : #7db341;
@@ -183,14 +194,14 @@
     color: white;
 }
 #writer-post{
-    height: 300px;
+    height: 250px;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
 }
 #writer-post > a >img{
-    width:97%;
-    height: 97%;
+    width:100%;
+    height: 100%;
 }
 #post-img1{
     border-radius: 5px 0 0 0;
@@ -205,7 +216,7 @@
     border-radius: 0 0 5px 0;
 }
 #more-post{
-    width: 98%;
+    width: 100%;
     border-radius : 0 0 10px 10px;
     height: 40px;
     font-size: 20px;
@@ -367,9 +378,24 @@
     justify-content: space-between;
 }
 #comment-mine img{
-    width: 60px;
-    height: 60px;
-    border-radius :30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+#comment-nick {
+    font-size: 20px;
+    position: relative;
+    top: 35px;
+    left: -11px;
+}
+
+#comment-login {
+	font-size: 13px;
+    position: relative;
+    top: 40px;
 }
 .comment-input{
     width: 600px;
@@ -392,21 +418,43 @@
     border : 0;
     background: white;
     cursor: pointer;
+    position:relative;
+    top:-10px;
+}
+#comment-submit:focus {
+	outline :none;
+}
+#comment-submit > img, #comment-nope > img {
+    width: 40px;
+    height: 45px;
+    position: relative;
+    left: -3px;
+    top : -10px;
 }
 .comment-exit {	
     color: #7db341;
     border : 0;
     background: white;
     cursor: pointer;
-    font-size : 35px;
+    font-size : 30px;
+    position: relative;
+    top: -15px;
+    left: -5px;
 }
-
+.comment-exit:focus {
+	outline : none;
+}
 #comment-nope {
 	height: 50px;
     color: #7db341;
     border : 0;
     background: white;
     cursor: pointer;
+    position:relative;
+    top:-10px;
+}
+#comment-nope:focus {
+	outline:none;
 }
 .comment-update {
 	height: 50px;
@@ -415,16 +463,74 @@
     background: white;
     cursor: pointer;
     display : inline-block;
+    position: relative;
+    top: -10px;
+}
+.comment-update:focus {
+	outline : none;
+}
+.comment-update > img {
+    width: 30px;
+    height: 40px;
+    position: relative;
+    top: -12px;
 }
 #comment-other{
     border-top: 1px solid gainsboro;
     margin-top: 10px;
 }
+#comment-page {
+	text-align : center;
+	font-size : 16px;
+}
+.pagination {
+    display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.pagination:hover {
+	background : #7db341;	
+}
+.pagination:hover a{
+	color : white;
+}
+.comment-prev,.comment-next {
+	display: inline-block;
+	width : 35px;
+	height : 25px;
+	margin: 5px;
+    margin-bottom: 10px;
+}
+.right-arrow, .left-arrow {
+	width : 15px;
+	position : relative;
+	top : 3px;
+	left : -3px;
+}
+.current-page {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    background: #7db341;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.current-page > a{
+	color : white;
+}
 .other-profile{
-    margin-top: 10px;
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 40px;
 }
 .comment-other-wrapper{
     display: grid;
@@ -502,4 +608,94 @@ button{
     background: url(/babmukja/resources/images/star5.png) no-repeat;
     height: 23px;
 }
+
+
+/* 우중 추가 */
+#modal-container{
+    width: 900px;
+    height: 700px;
+    background: white;
+    display : grid;
+    grid-template-rows: 10% 40% 42% 8%;
+}
+#scrapbook-wrapper-sec1 p{
+    font-size: 25px;
+    text-align: center;
+}
+
+#sec2-img-container{
+	display: block;
+	
+	border : 2px dashed gainsboro;
+    margin: 0 auto;
+    width: 200px;
+    height: 100%;
+}
+#scrapbook-wrapper-sec3{
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+#scrapbook-wrapper-sec3 div{
+    width: 160px;
+    height: 90%;
+    display: inline-block;
+}
+.scrapbook-content{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+.scrapbook-content-title{
+    font-size: 15px;
+    padding : 0;
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.scrapbook-content-cover{
+	background-repeat : no-repeat;
+    
+}
+input[name="scrapbook-radio"]{
+    display: block;
+    margin: 0 auto;
+}
+
+#scrapbook-wrapper-sec4{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#scrapbook-wrapper-sec4-button1{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    margin-top:10px;
+    transition: .3s;
+}
+#scrapbook-wrapper-sec4-button2{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    margin-top:10px;
+    margin-left: 10px;
+    transition: .3s;
+}
+#scrapbook-wrapper-sec4-button1:hover{
+    background: #7db341;
+    color:white;
+}
+#scrapbook-wrapper-sec4-button2:hover{
+    background: #7db341;
+    color:white;
+}
+
+
+
 

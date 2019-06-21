@@ -16,6 +16,7 @@
 		<result column="host_name" property="hostName" />
 		<result column="host_no" property="hostNo" />
 		<result column="manage_no" property="manageNo" />
+		<result column="tag" property="tag" />
 	</resultMap>	
     
     <select id="selectIntro" parameterType="int" resultType="String">
@@ -27,8 +28,8 @@
     	<selectKey keyProperty="meetNo" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no)
-    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostName},#{hostNo})
+    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no,tag)
+    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostName},#{hostNo},#{tag})
     </insert>
     
     <insert id="insertMeetupLocation" parameterType="meetupLocation">
@@ -162,10 +163,32 @@
 	select * from tb_meetup_member
 	where meet_no = #{meetNo} and mem_no = #{memNo}
 	</select>
+	
+	<select id="selectFollowMeetup" parameterType="int" resultMap="meetupMap">
+		select meet.* from tb_meetup meet
+		inner join tb_meetup_member member
+		on mem_no
+		where member.status = 2 and member.meet_no = meet.meet_no and  member.mem_no =#{memNo};
+	</select>
 
+	
 
     <update id= "updateApprovalStatus" parameterType="int" >
     UPDATE tb_meetup_member SET status = 2 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+    
+    <update id= "updateBanStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 3 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+    
+    <update id= "updateWidthdrawlStatus" parameterType="int" >
+      UPDATE tb_meetup_member SET status = 0 WHERE meet_no = #{meetNo} and status =2;
+
+    </update>
+    
+    <!-- 관리자 거절 처리 -->
+    <update id= "updateRejectStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 4 WHERE meet_mem_no = #{meetMemNo}     
     </update>
  
 	<update id= "updateViewCnt" parameterType="int" >
@@ -174,4 +197,245 @@
 	where meet_no = #{meetNo};     
     </update>
 	
+	
+	<!-- 상세 모임 공지 부분 -->
+	
+		<resultMap id="boardMap" type="board">
+		<result column="board_no" property="BoardNo" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="writer" property="writer" />
+		<result column="regdate" property="regdate" />
+		<result column="viewcnt" property="viewcnt" />
+		<result column="imgpath" property="imgpath" />
+		<result column="img_orgname" property="imgOrgname" />
+		<result column="img_sysname" property="imgSysname" />
+	</resultMap>
+
+	<!-- 글목록 -->
+	<select id="selectNoticeBoard" parameterType="page" resultMap="boardMap">
+		select *
+		from tb_board
+		order by board_no desc
+		limit #{begin},#{end}
+	</select>
+
+	<!-- 페이징 -->
+	<select id="selectBoardCount" resultType="int">
+		select count(*)
+		from tb_board
+	</select>
+
+	<!-- 글번호 -->
+	<select id="selectBoardByNo" parameterType="int" resultType="board">
+		select *
+		from tb_board
+		where board_no = #{boardNo}
+	</select>
+
+	<!-- 글등록 -->
+	<insert id="insertBoard" parameterType="board">
+		insert into tb_board (title, writer, content, imgpath, img_orgname, img_sysname)
+		values (#{title}, #{writer}, #{content},#{imgpath}, #{imgOrgname}, #{imgSysname})
+	</insert>
+
+	<!-- 글삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		delete
+		from tb_board
+		where
+		board_no = #{boardNo}
+	</delete>
+	
+	<!-- 글수정 -->
+	<update id="updateBoard" parameterType="board">
+		update tb_board
+		   set title = #{title},
+		       writer = #{writer},
+		       content = #{content},
+		       imgpath = #{imgpath},
+		       img_orgname = #{imgOrgname},
+		       img_sysname = #{imgSysname}
+		 where board_no = #{boardNo}      
+	</update>
+
+	<!-- 조회수 -->
+	<update id="updateBoardViewCnt" parameterType="int">
+		update tb_board
+		set viewcnt = viewcnt + 1
+		where board_no = #{boardNo}
+	</update>
+	
+ 	<!-- 댓글부분 시작 --> 
+	<resultMap id="boardReviewMap" type="boardReview">
+		<result column="board_review_no" property="boardReviewNo" />
+		<result column="board_no" property="boardNo" />
+		<result column="content" property="content" />
+		<result column="regdate" property="regdate" />
+		<result column="viewcnt" property="viewcnt" />
+	</resultMap>
+	
+  	<!-- 댓글 목록 --> 
+	<select id="selectBoardView" parameterType="page" resultMap="boardReviewMap">
+		select *
+		  from tb_board_review
+		  where board_no = #{boardNo}
+		  order by board_review_no desc
+		  limit #{index}, 5
+	</select>
+	
+	<!-- 페이징 -->
+	<select id="selectBoardReviewCount" parameterType="page" resultType="int">
+		select count(*)
+		  from tb_board_review
+		 where board_no = #{boardNo}
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertBoardReview" parameterType="boardReview">
+		insert into tb_board_review (board_no, content)
+		values (#{boardNo}, #{content})
+	<selectKey keyProperty="boardReviewNo" resultType="int" order="AFTER">
+    	SELECT LAST_INSERT_ID()
+  	</selectKey>
+	</insert>
+	
+	<!-- 댓글 하나만 가져오기 -->
+	<select id="selectBoardReviewOneByNo" parameterType="int" resultType="boardReview">
+		select *
+		  from tb_board_review
+		 where board_review_no = #{boardReviewNo}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteBoardReview" parameterType="int">
+		delete
+		 from tb_board_review
+		where board_review_no = #{boardReviewNo}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateBoardView" parameterType="boardReview">
+		update tb_board_review
+		   set content = #{content}
+		 where board_review_no = #{boardReviewNo}
+	</update> 
+	
+	
+	
+	
+	<!--자유게시판  -->
+	<!-- 상세 모임 공지 부분 -->
+	
+	
+
+	<!-- 글목록 -->
+	<select id="selectFreeBoard" parameterType="page" resultMap="boardMap">
+		select *
+		from tb_free_board
+		order by board_no desc
+		limit #{begin},#{end}
+	</select>
+
+	<!-- 페이징 -->
+	<select id="selectFreeBoardCount" resultType="int">
+		select count(*)
+		from tb_free_board
+	</select>
+
+	<!-- 글번호 -->
+	<select id="selectFreeBoardByNo" parameterType="int" resultType="board">
+		select *
+		from tb_free_board
+		where board_no = #{boardNo}
+	</select>
+
+	<!-- 글등록 -->
+	<insert id="insertFreeBoard" parameterType="board">
+		insert into tb_free_board (title, writer, content, imgpath, img_orgname, img_sysname)
+		values (#{title}, #{writer}, #{content},#{imgpath}, #{imgOrgname}, #{imgSysname})
+	</insert>
+
+	<!-- 글삭제 -->
+	<delete id="deletFreeBoard" parameterType="int">
+		delete
+		from tb_free_board
+		where
+		board_no = #{boardNo}
+	</delete>
+	
+	<!-- 글수정 -->
+	<update id="updateFreeBoard" parameterType="board">
+		update tb_free_board
+		   set title = #{title},
+		       writer = #{writer},
+		       content = #{content},
+		       imgpath = #{imgpath},
+		       img_orgname = #{imgOrgname},
+		       img_sysname = #{imgSysname}
+		 where board_no = #{boardNo}      
+	</update>
+
+	<!-- 조회수 -->
+	<update id="updateFreeBoardViewCnt" parameterType="int">
+		update tb_Free_board
+		set viewcnt = viewcnt + 1
+		where board_no = #{boardNo}
+	</update>
+	
+ 	<!-- 댓글부분 시작 --> 
+
+	
+  	<!-- 댓글 목록 --> 
+	<select id="selectFreeBoardView" parameterType="page" resultMap="boardReviewMap">
+		select *
+		  from tb_free_board_review
+		  where board_no = #{boardNo}
+		  order by board_review_no desc
+		  limit #{index}, 5
+	</select>
+	
+	<!-- 페이징 -->
+	<select id="selectFreeBoardReviewCount" parameterType="page" resultType="int">
+		select count(*)
+		  from tb_free_board_review
+		 where board_no = #{boardNo}
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertFreeBoardReview" parameterType="boardReview">
+		insert into tb_free_board_review (board_no, content)
+		values (#{boardNo}, #{content})
+	<selectKey keyProperty="boardReviewNo" resultType="int" order="AFTER">
+    	SELECT LAST_INSERT_ID()
+  	</selectKey>
+	</insert>
+	
+	<!-- 댓글 하나만 가져오기 -->
+	<select id="selectFreeBoardReviewOneByNo" parameterType="int" resultType="boardReview">
+		select *
+		  from tb_free_board_review
+		 where board_review_no = #{boardReviewNo}
+	</select>
+	
+	<select id="selectMeeupMemberList" parameterType="int" resultType="boardReview">
+		select mm.meet_mem_no,mm.meet_no,mm.mem_email,mm.mem_name,mm.mem_no,mm.status,mm.join_date,m.mem_img_sysname from tb_meetup_member mm
+		inner join tb_member m 
+		on  mm.mem_no = m.mem_no
+		where meet_no =#{meetNo} and (status = 2 or status = 5);
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteFreeBoardReview" parameterType="int">
+		delete
+		 from tb_free_board_review
+		where board_review_no = #{boardReviewNo}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateFreeBoardView" parameterType="boardReview">
+		update tb_free_board_review
+		   set content = #{content}
+		 where board_review_no = #{boardReviewNo}
+	</update>
 </mapper>

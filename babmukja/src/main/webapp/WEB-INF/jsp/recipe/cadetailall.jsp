@@ -155,19 +155,29 @@
         </div>
              </form>
    </div> 
-            
+   
     <!-- 레시피 목록 부분 -->
 	    <div class="boundary"></div>  
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
-	            <div id="sector3-body">            
-	                <c:forEach var="ca" items="${calist }">  
+	            <div id="sector3-body">   
+	            	<c:if test="${empty calist}">
+	            		<p class="no-search">검색결과가 존재하지 않습니다.</p>  
+	            	</c:if>      
+	                <c:forEach var="ca" items="${calist }">  	                
 	                <input type="hidden" name="pageNo" value="${param.pageNo }">             
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
 	                           <div>
-	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           <c:choose>
+				                	<c:when test="${ca.memImgPath == null}">
+				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${ca.memImgPath}&sysname=${ca.memImgSysname}">
+				                	</c:otherwise>
+		                		</c:choose>
 	                           </div>
 	                           <div class="profile-name">
 	                               <p>
@@ -180,11 +190,19 @@
 	                           </div>
 	                       </div>
 	                       <div class="recipe-pic-box">
-	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
+	                           <a href = "detail.do?no=${ca.recipeNo }">
+	                           <c:choose>
+				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+			                           <img src="${ca.imgPath}"></a>
+				                	</c:otherwise>
+		                		</c:choose>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt }</i>
-	                           <i class="fas fa-scroll fa-2x">60</i>
+	                           <i class="fas fa-scroll fa-2x">${ca.scrapCnt }</i>
 	                           <i class="fas fa-eye fa-2x">${ca.viewCnt }</i>
 	                       </div>
 	                   </div>
@@ -211,10 +229,16 @@
         	top: 55,
         	left: offLeft
         });
-    	
+    	let openFlag = false;
 	    $selectBoxSelector.click(function(e){
+	    	if(!openFlag){
+	    		openFlag = true;
+	    	}else{	    		
+	    		openFlag = false;
+	    		$(".selectmenuContent").children(".selectmenuContentFold").children().attr({class:"fas fa-chevron-right"});
+	    	}
 	        $selectBoxWrapper.slideToggle(150);
-	        
+
 	        if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
 	        else{
 	            arrow.attr({class : "fas fa-caret-down"});
@@ -222,7 +246,6 @@
 	            $(".selectmenuContent").find(".hiddenMenu").css({display:"none"});
 	        } 
 	    });
-	    
 	    $(".selectmenuContent").click(function(){
 	        let $this = $(this);
 	        let $hiddenMenu = $this.children(".selectmenuContent-detail").children();
@@ -277,47 +300,59 @@
 		       console.log(data);
                
                $.ajax({               
-		                /* type : "POST", */
 		                data : data,
 		                url : "cadetailAllScroll.do"
          
-               }).done(function (result) {
-                 	if(result.length != 0) {
-                 		 for(let i = 0 ; i < result.length ; i ++) {
-                          	 $("#sector3-body").append(`
-              	                   <div class="profile-container">
-          	                       <div class="profile-pic-box">
-          	                           <div>
-          	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
-          	                           </div>
-          	                           <div class="profile-name">
-          	                               <p>
-          			                    	  <span>평점 :` + result[i].rating + ` </span>
-          	                           <br>
-          	                               ` +  result[i].title + `
-          	                           <br>
-          	                               ` +  result[i].memNickname + `
-          	                               </p>
-          	                           </div>
-          	                       </div>
-          	                       <div class="recipe-pic-box">
-          	                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
-          	                       </div>
-          	                       <div class="recipe-info">
-          	                           <i class="fas fa-heart fa-2x"> ` + result[i].likeCnt + `</i>
-          	                           <i class="fas fa-scroll fa-2x">60</i>
-          	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
-          	                       </div>
-          	                   </div>`)
-                         }
-                 	}
+               }).done(function (result) {            	   
+            	   if(result.length != 0) {
+             			 let html = "";
+               		 for(let i = 0 ; i < result.length ; i ++) {
+               			 html += '<div class="profile-container">'
+      	                        + '<div class="profile-pic-box">'
+	                           	+ '<div>'
+	                           	
+                   		 if(result[i].memImgPath == null || result[i].memImgPath == "") {
+                   			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
+                   		 } else {
+                   			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='+ result[i].memImgPath + '&sysname='+ result[i].memImgSysname+ '">';
+                   		 }
+	                        html += `</div>
+	                        			<div class="profile-name">
+	                               			<p>
+			                    	  			<span>평점 :` + result[i].rating + ` </span>
+	                          			 <br>
+	                              			 ` +  result[i].title + `
+	                          			 <br>
+	                               			 ` +  result[i].memNickname + `
+	                               			</p>
+	                           			</div>
+	                       			</div>
+			                        <div class="recipe-pic-box">
+			                           <a href = "detail.do?no=` + result[i].recipeNo + `">`;
+			                           
+                           if(result[i].imgPath == null || result[i].imgPath == "") {
+                   			html += '<img src="<c:url value="/resources/images/default.png"/>"></a>';				                	
+                   		  } else {
+                   			html += '<img src="'+ result[i].imgPath + '"></a>';
+                   		  }
+			                html += `</div>
+			                        <div class="recipe-info">
+			                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
+			                           <i class="fas fa-scroll fa-2x">` + result[i].scrapCnt + `</i>
+			                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
+			                        </div>
+			                    </div>`;
+               			 
+               		 	}
+                        	 $("#sector3-body").append(html);
+                 	} 
             	  
               }).fail(function(xhr){	               
 	               console.dir(xhr);
               })
              }
            });
-         
+
     </script>
 </body>
 </html>

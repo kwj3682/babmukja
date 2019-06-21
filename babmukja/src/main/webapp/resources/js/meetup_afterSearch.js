@@ -23,7 +23,7 @@ $(".location_title_container").click(function () {
 });
 //실험
 $(".header_cooking_meetup").click(function () {
-    alert("실험 나오는지 확인");
+	location.href="/babmukja/meetup/main.do";
 });
 
 $(".food_type_title").click(function () {

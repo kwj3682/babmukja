@@ -12,6 +12,9 @@ import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.StatusChecker;
 
 public interface RecipeService {	
 	// 레시피 등록
@@ -30,6 +33,8 @@ public interface RecipeService {
 	public List<Recipe> selectRecipeByMem(int no);
 	// 1등 레시피 정보
 	public Recipe selectWinRecipe();
+	// 1등 레시피 댓글
+	public List<RecipeReview> selectReviewByRate();
 	// 메인 회원 레시피 목록
 	public List<Recipe> selectMemRecipeByRate();	
 	// 레시피 조회수 증가
@@ -80,5 +85,11 @@ public interface RecipeService {
 
 	//(우중) 회원번호로 레시피 가져오기
 	public List<Recipe> selectRecipeByMemNo(int memNo); 
-
+	
+	//scrapbook content 
+	public void updateScrapbookContent(Scrapbook book);
+	public void insertRecipeScrap(RecipeScrap sb);
+	
+	public StatusChecker selectStatusAll(StatusChecker checker);
+	public void updateRecipeScrapCnt(int recipeNo);
 }

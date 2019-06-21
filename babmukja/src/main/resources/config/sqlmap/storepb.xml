@@ -20,6 +20,12 @@
 		 order by regDate desc
 	</select>
 	
+	<select id="selectPBBestItem" resultMap="storepbMap">
+		select *  
+		  from tb_pb
+		 order by likecnt desc, rating_cnt desc
+	</select>
+	
 	<!-- 조회수 증가 -->
 	<update id="addViewCnt" parameterType="int">
 		update tb_pb
@@ -39,6 +45,12 @@
 		 where 1 = 1
 		<include refid="searchSQL"/>
 		 <choose>
+		 	<when test="sortType == 5">
+		 		order by viewcnt desc
+		 	</when>
+		 	<when test="sortType == 4">
+		 		order by rating desc
+		 	</when>
 		 	<when test="sortType == 3">
 		 		order by price desc
 		 	</when>
@@ -46,7 +58,7 @@
 		 		order by price asc
 		 	</when>
 		 	<when test="sortType == 1">
-		 		order by rating desc
+		 		order by likecnt desc
 		 	</when>
 		 	<when test="sortType == 0">
 		 		order by regdate desc
@@ -68,6 +80,7 @@
 	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
 		select *
 		  from tb_pb
+		  
 		 where pb_no = #{pbNo}
 	</select>
 	
@@ -183,11 +196,34 @@
 		<collection property="reviewFile" column="pb_review_no" select="selectReviewFile"/>
 	</resultMap>
 	
-	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="int">
+<!-- 	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="PagePbReview"> -->
+<!-- 		select *  -->
+<!-- 		  from tb_pb_review  -->
+<!-- 		 where pb_no = #{pbNo} -->
+<!-- 		 order by pb_review_no desc -->
+<!-- 		 limit #{pageNo},3 -->
+<!-- 	</select> -->
+	
+	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="PagePbReview">
 		select * 
 		  from tb_pb_review 
 		 where pb_no = #{pbNo}
 		 order by pb_review_no desc
+	</select>
+	
+	<select id="selectReviewAjax" parameterType="PagePbReview" resultMap="pbReviewSelectMap">
+		select r.*, m.*
+		  from tb_pb_review r, tb_member m
+		 where r.mem_no = m.mem_no 
+		   and pb_no = #{pbNo}
+		 order by pb_review_no desc
+		 limit #{index}, 3
+	</select>
+	
+	<select id="selectReviewCount" parameterType="PagePbReview" resultType="int">
+		select count(*)
+		  from tb_pb_review
+		 where pb_no = #{pbNo}
 	</select>
 	
 	<select id="selectReviewFile" resultMap="fileMap" parameterType="int">
@@ -225,15 +261,23 @@
 		<result column="answer" property="answer"/>
 		<result column="mem_no" property="memNo"/>
 		<result column="mem_Nickname" property="memNickname"/>
+		<result column="answer_status" property="answerStatus"/>
 		
 		<collection property="member" column="mem_no" select="selectInquiryNickName"/>
 	</resultMap>
 	
-	<select id="selectPBInquire" parameterType="int" resultMap="pbInquireMap">
+	<select id="selectPBInquire" parameterType="PagePbReview" resultMap="pbInquireMap">
 		select *
 		  from tb_pb_inquiry
 		 where pb_no = #{pbNo}
 		 order by inquiry_no desc
+		 limit #{index}, 3
+	</select>
+	
+	<select id="selectInquireCount" parameterType="PagePbReview" resultType="int">
+		select count(*)
+		  from tb_pb_inquiry
+		 where pb_no = #{pbNo}
 	</select>
 	
 	<select id="selectInquiryNickName" parameterType="int" resultMap="MemberMap">
@@ -273,7 +317,15 @@
 		 where inquiry_no = #{inquiryNo}
 	</delete>
 	
-	
+	<!-- 문의 답변(관리자) -->
+	<update id="updateInquiryAnswer" parameterType="StorePBInquire">
+		update tb_pb_inquiry
+		   set answer = #{answer},
+		       answer_status = #{answerStatus},
+			   answer_regdate = now()
+		 where inquiry_no = #{inquiryNo}
+	</update>
+
 	<!--  pb 상품 결제 부분  -->
 	<resultMap id="pbpaymentMap" type="StorePBPayment" >
 		<result column="payment_no" property="paymentNo"/>
@@ -282,8 +334,8 @@
 		<result column="price" property="price"/>
 		<result column="prod_count" property="prodCount"/>
 		<result column="regdate" property="regdate"/>
+		<result column="name" property="name"/>
 
-		<collection property="member" column="mem_no" select="selectPaymentNickName"/>
 	</resultMap>
 	
 	<insert id="insertPBPayment" parameterType="StorePBPayment">
@@ -399,5 +451,13 @@
 		select likecnt
 		  from tb_pb
 		 where pb_no = #{pbNo}
+	</select>
+	
+	<!-- PB STORE 상품 결제내역 확인하기 -->
+	<select id="selectBuyList" parameterType="int" resultMap="pbpaymentMap">
+		select * 
+		  from tb_payment p, tb_pb b
+		 where p.pb_no = b.pb_no
+		   and p.mem_no = #{memNo}
 	</select>
 </mapper>

@@ -11,7 +11,7 @@ body {
   padding: 0;
 }
 #main-body{
-  width: 1300px;
+  width: 1200px;
   margin: 0 auto;  
 }
 input[type='text'] {
@@ -34,13 +34,15 @@ input[type='text']:focus {
    color: #7db341;
    cursor : pointer;
 }
+
 .boundary{
     background: url(../../images/wood.png);
     box-shadow: 0px 10px 15px 2px white;
     height:100px;
+    margin-top:60px;
 }
 #sector3{
-    width: 1300px;
+    width: 1200px;
     background:url(../../images/marble.jpg) no-repeat;
     background-size: cover;
     display: grid;
@@ -70,13 +72,20 @@ input[type='text']:focus {
     background:url(../../images/note2.png) no-repeat;
     background-size: cover;
 }
-
+.no-search {
+	width: 1200px;
+    height: 500px;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+}
 .profile-container{
     display: grid;
     grid-template-rows: 25% 60% 15%;
     font-family: 'East Sea Dokdo', cursive;
     font-weight: lighter;
     font-size : 30px;
+    height: 400px;
 }
 .profile-pic-box{
     display: grid;
@@ -121,7 +130,7 @@ a {
 }
 #searchbox {
 	margin-top : 100px;
-	width: 1300px;
+	width: 1200px;
 	height: 80px;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;

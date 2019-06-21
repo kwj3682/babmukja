@@ -101,20 +101,37 @@
             </div>
             <div id="sec1-content2">
                 <div id="sec1-content2-wrapper">
-                    <div>만든 이 <span id="monthly-profile-wrapper"><img id="monthly-profile" src="<c:url value="/resources/images/profile15.jpg"/>"></span></div>
+                    <div>만든 이 
+                    	<span id="monthly-profile-wrapper">
+                    	<c:choose>
+		                	<c:when test="${win.memImgPath == null}">
+		                    	<img id="monthly-profile" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+		                	</c:when>
+		                	<c:otherwise>					                	
+		                    	<img id="monthly-profile" src="${pageContext.request.contextPath}/member/download.do?path=${win.memImgPath}&sysname=${win.memImgSysname}">
+		                	</c:otherwise>
+	                	</c:choose>
+                    	</span>
+                    </div>
                     <div id="paragraph">
-                    	<p>
-	                    	최고의 레시피, 지금까지 이런 레시피는 없었다 <img class="chalkStars" src="<c:url value='/resources/images/chalkstar.png'/>"><br>
-	                    	- 주부9단빛찬맘 -<br>
-	                    	인생 레시피를 여기서 찾았다 <img class="chalkStars" src="<c:url value='/resources/images/star5-big.png'/>"><br>
-	                    	- soo -<br>
-	                    	Holy Moly! ★★★★☆<br>
-	                    	- 렁래쓰 -<br>	                    	 
-                    	</p>
+                    	<c:forEach var="c" items="${comment }">
+	                    	<p>${c.content}</p> - ${c.memNickname} -                    	
+                    	</c:forEach>
                     </div>
                     <div>
                 <c:forEach var="w" items="${winner }">
-                        <div>${w.title }<br><a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
+                        <div>${w.title }<br>
+                        	<a href="detail.do?no=${w.recipeNo }">
+	                        	<c:choose>
+				                	<c:when test="${w.imgPath == null || w.imgPath == ''}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img src="${w.imgPath}">
+				                	</c:otherwise>
+		                		</c:choose>
+                        	</a>
+                        </div>    
                  </c:forEach>
                         <div>더 보기 <b>↓</b>
                         	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>">
@@ -162,35 +179,16 @@
                     <div id="turnJsDiv">
                       <div id="turnJs">
                          <div ignore="1" class="next-button"></div>
-                         <div class="hard" id="resultImage"></div>
-                         
-                         <div class="pageX" id="page1">
-<%--                             <img src="<c:url value="/resources/images/food1.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page2">
-<%--                             <img src="<c:url value="/resources/images/food2.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page3">
-<%--                             <img src="<c:url value="/resources/images/food3.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page4">
-<%--                             <img src="<c:url value="/resources/images/food4.jpg"/>"> --%>
-                         </div>
-<!--                          <div> -->
-<%--                             <img src=" <c:url value="/resources/images/f1.jpg"/>"> --%>
-<!--                          </div> -->
-<!--                          <div> -->
-<%--                             <img src="<c:url value="/resources/images/f2.jpg"/>">                          --%>
-<!--                      </div> -->
-<!--                          <div class="hard"> -->
-<%--                             <img src="<c:url value="/resources/images/f3.jpg"/>">                          --%>
-<!--                      </div> -->
+                         <div class="hard" id="resultImage"></div>                         
+                         <div class="pageX" id="page1"></div>
+                         <div class="pageX" id="page2"></div>
+                         <div class="pageX" id="page3"></div>
+                         <div class="pageX" id="page4"></div>
                          <div ignore="1" class="previous-button"></div>
                       </div>
                 </div>
                 </div>
-                <div class="modal-footer">
-                    
+                <div class="modal-footer">                    
                 </div>
             </div>
         </div>
@@ -207,11 +205,18 @@
                    <div class="profile-container">
                        <div class="profile-pic-box">
                            <div>
-                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           <c:choose>
+				                	<c:when test="${list.memImgPath == null}">
+				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${list.memImgPath}&sysname=${list.memImgSysname}">
+				                	</c:otherwise>
+		                		</c:choose>
                            </div>
                            <div class="profile-name">
                                <p>   
-                            <fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd hh:mm:ss" />
+                            <fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd" />
                            <br>
                                   ${list.title}
                            <br>
@@ -220,11 +225,20 @@
                            </div>
                        </div>
                        <div class="recipe-pic-box">
-                           <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
+                           <a href = "detail.do?no=${list.recipeNo }">
+                            <c:choose>
+			                	<c:when test='${list.imgPath == "" || list.imgPath == null}'>
+			                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+		                           	<img src="${list.imgPath}">
+			                	</c:otherwise>
+	                		</c:choose>
+                           	</a>
                        </div>
                        <div class="recipe-info">
                            <i class="fas fa-heart fa-2x">${list.likeCnt }</i>
-                           <i class="fas fa-scroll fa-2x">60</i>
+                           <i class="fas fa-scroll fa-2x">${list.scrapCnt }</i>
                            <i class="fas fa-eye fa-2x">${list.viewCnt }</i>
                        </div>
                    </div>
@@ -236,7 +250,7 @@
     </div>
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
-    <script>
+    <script>    
     $("#bottle").click(function () {
     	location.href = "<c:url value='/member/mypage.do?memNickname=${win.memNickname}'/>";
     });
@@ -259,7 +273,7 @@
        $("#resultImage").css({background:$(this).css("backgroundImage"),
          backgroundSize: "cover",
          backgroundRepeat : "no-repeat"});
-      console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
+         console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
        $.ajax({
           type:"GET",
           url: "recipekeyword.do",
@@ -268,13 +282,9 @@
              }
        }).done(function(response){
           let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';
-          
-
-         let i = 1;
+          let i = 1;
           for(let res of response){
              console.log("res : " + res);
-//              html +="<div id='page"+i+"' class='pageX'></div>";
-//              console.log("page : " + i);
               let editor = new EditorJS({
                   holderId: 'page'+i,
                   autofocus: false,
@@ -319,8 +329,6 @@
               });
               i++;
           }
-//           html+= '<div ignore="1" class="previous-button"></div>';
-//           $("#turnJs").append(html);
        });
 
 
@@ -332,15 +340,12 @@
       
        loadApp("#turnJs");       
        
-    });
+    });   
     
 
     $(document).ready(function () {
        $("#turnModal").modal("hide");
     });
-//    $("#turnModal").modal({
-//          backdrop: 'static'
-//     });
 
 
    // modal 창 이전버튼
@@ -408,7 +413,7 @@
         });
         
         $("#logout").click(function() {
-           alert("로그아웃 성공!");
+//            alert("로그아웃 성공!");
         });
 
     </script>

@@ -1,11 +1,10 @@
 package kr.co.babmukja.repository.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import kr.co.babmukja.repository.domain.FileVO;
+import kr.co.babmukja.repository.domain.PagePbReview;
 import kr.co.babmukja.repository.domain.Pagepb;
-import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.ReviewFileVO;
 import kr.co.babmukja.repository.domain.StorePB;
 import kr.co.babmukja.repository.domain.StorePBCart;
@@ -32,6 +31,7 @@ public interface StorePBMapper {
 	*/
 	
 	public List<StorePB> selectPBStore();
+	public List<StorePB> selectPBBestItem();
 	public List<StorePB> selectPBStoreList(Pagepb page);
 	public StorePB selectPBStoreByNo(int pbNo);
 	//public List<StorePB> selectAdminPBList(Pagepb page);
@@ -48,8 +48,10 @@ public interface StorePBMapper {
 	public void insertPBReview(StorePBReview reviewpb);
 	public void insertPBReviewImage(FileVO fileVO);
 	public int selectMaxNum();
-	public List<StorePBReview> selectReview(int pbNo);
+	public List<StorePBReview> selectReview(PagePbReview page);
 	public List<ReviewFileVO> selectReviewFile(int pbReviewNo);
+	public int selectReviewCount(PagePbReview page);
+	public List<StorePBReview> selectReviewAjax(PagePbReview page);
 	
 	// pb 상품 후기 수정관련
 	public StorePBReview selectReviewByNo(int pbReviewNo);
@@ -60,14 +62,19 @@ public interface StorePBMapper {
 	
 	// PB 상품 문의
 	public void insertInquiry(StorePBInquire storePBInquire);
-	public List<StorePBInquire> selectPBInquire(int pbNo);
+	public List<StorePBInquire> selectPBInquire(PagePbReview page);
 	public StorePBInquire selectInquiryByNo(int inquiryNo);
 	public void updateInquiry(StorePBInquire storePBInquire);
 	public void deleteInquiry(int inquiryNo);
+	public int selectInquireCount(PagePbReview page);
+	
+	// PB 상품 문의 답변
+	public void updateInquiryAnswer(StorePBInquire storePBInquire);
 	
 	// PB 상품 결제
 	public void insertPBPayment(StorePBPayment storePBPayment);
 	public StorePBPayment selectPBPaymentByNo(int paymentNo);
+	public List<StorePBPayment> selectBuyList(int memNo);
 	
 	// PB 상품 장바구니
 	public void insertPBCart(StorePBCart storePBCart);

@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,11 +36,13 @@ import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.Recipe;
 import kr.co.babmukja.repository.domain.RecipeFollow;
-import kr.co.babmukja.repository.domain.RecipeKeywordCode;
 import kr.co.babmukja.repository.domain.RecipeKeywordName;
 import kr.co.babmukja.repository.domain.RecipeLike;
 import kr.co.babmukja.repository.domain.RecipePage;
 import kr.co.babmukja.repository.domain.RecipeReview;
+import kr.co.babmukja.repository.domain.RecipeScrap;
+import kr.co.babmukja.repository.domain.Scrapbook;
+import kr.co.babmukja.repository.domain.StatusChecker;
 
 @Controller("kr.co.babmukja.recipe.controller.RecipeController")
 @RequestMapping("/recipe")
@@ -49,22 +54,8 @@ public class RecipeController {
 	@RequestMapping("/main.do")
 	public void main(Model model) {
 		List<Recipe> list = service.selectRecipe();
-		List<Recipe> result = new ArrayList<>();
-		for (Recipe recipe : list) {
-			String imgpath = "";
-
-			if (recipe.getImgPath() == null) {
-				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
-				recipe.setImgPath(imgpath);
-				result.add(recipe);
-				continue;
-			}
-			String[] imgList = recipe.getImgPath().split(",");
-			recipe.setImgPath(imgList[0]);
-			result.add(recipe);
-		}
-		model.addAttribute("recipe", result);
-
+		
+		model.addAttribute("recipe", list);
 		model.addAttribute("countryrank", service.selectKeywordMost("country").getCountry());
 		model.addAttribute("situationrank", service.selectKeywordMost("situation").getSituation());
 		model.addAttribute("levelrank", service.selectKeywordMost("level").getLevel());
@@ -72,18 +63,12 @@ public class RecipeController {
 
 		model.addAttribute("win", service.selectWinRecipe());
 		model.addAttribute("winner", service.selectMemRecipeByRate());
-
-		System.out.println("countryrank:" + service.selectKeywordMost("country").getCountry());
-		System.out.println("situationrank:" + service.selectKeywordMost("situation").getSituation());
-		System.out.println("levelrank:" + service.selectKeywordMost("level").getLevel());
-		System.out.println("typerank:" + service.selectKeywordMost("type").getType());
-
+		model.addAttribute("comment",service.selectReviewByRate());
 	}
 
 	@RequestMapping("/recipekeyword.do")
 	@ResponseBody
 	public List<Recipe> recipeSeachByKeywordNo(int keywordNo) {
-
 		return service.selectRecipeByKeyword(keywordNo);
 	}
 
@@ -101,7 +86,6 @@ public class RecipeController {
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 
 		MultipartFile mFile = fileVO.getAttach();
 
@@ -121,7 +105,6 @@ public class RecipeController {
 
 	@RequestMapping("/download.do")
 	public void download(FileVO fileVO, HttpServletResponse response) throws Exception {
-		System.out.println("Download.do 실행");
 		String uploadRoot = "c:/bit2019/upload";
 		String path = fileVO.getPath();
 		String sysname = fileVO.getSysname();
@@ -152,16 +135,13 @@ public class RecipeController {
 	@RequestMapping("/write.do")
 	@ResponseBody
 	public void write(Recipe recipe, HttpSession session) {
-		System.out.println(recipe);		
 		Member user = (Member)session.getAttribute("user");		
-		recipe.setMemNo(user.getMemNo());
-		
-		service.insertRecipe(recipe,recipe.getKeywords(),recipe.getCautions());
-		 
+		recipe.setMemNo(user.getMemNo());		
+		service.insertRecipe(recipe,recipe.getKeywords(),recipe.getCautions());		 
 	}
 
 	@RequestMapping("/detail.do")
-	public ModelAndView detail(ModelAndView mav, int no, HttpSession session) {
+	public ModelAndView detail(ModelAndView mav, int no, HttpSession session, Page page) {
 		Recipe recipe = service.selectRecipeByNo(no);
 		service.addViewCnt(no);
 		if (recipe == null) {
@@ -204,18 +184,38 @@ public class RecipeController {
 		}
 		Member user = (Member) session.getAttribute("user");
 		if (user != null) {
-			RecipeFollow follow = new RecipeFollow();
-			follow.setFollowMemNo(recipe.getMemNo());
-			follow.setFollowerMemNo(user.getMemNo());
+			StatusChecker checker = new StatusChecker();
+			
+			checker.setFollowMemNo(recipe.getMemNo());
+			checker.setFollowerMemNo(user.getMemNo());
 
-			RecipeLike like = new RecipeLike();
-			like.setMemNo(user.getMemNo());
-			like.setRecipeNo(recipe.getRecipeNo());
-
-			mav.addObject("followStatus", service.selectFollowStatus(follow));
-			mav.addObject("likeStatus", service.selectLikeStatus(like));
+//			RecipeLike like = new RecipeLike();
+			checker.setMemNo(user.getMemNo());
+			checker.setRecipeNo(recipe.getRecipeNo());
+			
+			StatusChecker resultChecker = service.selectStatusAll(checker);
+			if(resultChecker == null) {
+				resultChecker = new StatusChecker();
+				resultChecker.setFollowStatus("X");
+				resultChecker.setLikeStatus("X");
+				resultChecker.setScrapStatus("X");
+			}else {	
+				if(resultChecker.getFollowStatus() == null) {
+					resultChecker.setFollowStatus("X");
+				}
+				if(resultChecker.getLikeStatus() == null) {
+					resultChecker.setLikeStatus("X");
+				}
+				if(resultChecker.getScrapStatus() == null) {
+					resultChecker.setScrapStatus("X");
+				}
+			}
+			System.out.println("follow : "+resultChecker.getFollowStatus() + ", " + "like : "+resultChecker.getLikeStatus() + ", " + "scrap : "+resultChecker.getScrapStatus());
+			mav.addObject("followStatus", resultChecker.getFollowStatus());
+			mav.addObject("likeStatus", resultChecker.getLikeStatus());
+			mav.addObject("scrapStatus",resultChecker.getScrapStatus());
 		}
-
+		
 		mav.addObject("memRecipe", service.selectRecipeByMem(recipe.getMemNo()));
 		mav.addObject("recipe", recipe);
 		mav.addObject("keyword", recipeKeyword);
@@ -260,7 +260,7 @@ public class RecipeController {
 		Map<String, Object> list = service.selectReviewByNo(page);
 		list.put("comment", list.get("list"));
 		list.put("pageResult", list.get("pageResult"));
-
+		
 		return list;
 	}
 
@@ -275,7 +275,6 @@ public class RecipeController {
 	public void commentDelete(int no) {
 		System.out.println(no);
 		service.deleteRecipeReview(no);
-
 	}
 
 	@RequestMapping("/updateComment.do")
@@ -295,19 +294,7 @@ public class RecipeController {
 	@RequestMapping("/cadetailall.do")
 	public void cadetailall(Model model, RecipePage page) {
 		List<RecipePage> list = service.selectRecipeAll(page);
-		List<RecipePage> result = new ArrayList<>();
-		for (RecipePage recipe : list) {
-			String imgpath = "";
-			if (recipe.getImgPath() == null) {
-				imgpath = "/babmukja/recipe/download.do?path=/&sysname=default.png";
-				recipe.setImgPath(imgpath);
-				result.add(recipe);
-				continue;
-			}
-			String[] imgList = recipe.getImgPath().split(",");
-			recipe.setImgPath(imgList[0]);
-			result.add(recipe);
-		}
+		
 		try {
 			List<Integer> cautions = new ArrayList<>();
 			for (String key : page.getCaution().split(",")) {
@@ -346,14 +333,13 @@ public class RecipeController {
 
 		}
 
-		model.addAttribute("calist", result);
+		model.addAttribute("calist", list);
 	}
 
 	// 레시피 카테고리 전체 목록 무한스크롤
 	@RequestMapping("/cadetailAllScroll.do")
 	@ResponseBody
 	public List<RecipePage> cadetailAllScroll(RecipePage page) {
-		System.out.println(page.getCaution());
 		List<RecipePage> list = service.selectRecipeAll(page);
 		return list;
 	}
@@ -368,9 +354,9 @@ public class RecipeController {
 	// 레시피 카테고리별 목록 무한스크롤
 	@RequestMapping("/cadetailScroll.do")
 	@ResponseBody
-	public void cadetilScroll(Model model, RecipePage page) {
+	public List<RecipePage> cadetilScroll(RecipePage page) {
 		List<RecipePage> list = service.selectRecipeByCate(page);
-		model.addAttribute("calist", list);
+		return list;
 	}
 
 	// 레시피 좋아요
@@ -442,6 +428,67 @@ public class RecipeController {
      @ResponseBody
      public List<Recipe> selectRecipeByNo(int memNo){
     	return service.selectRecipeByMemNo(memNo); 
+     }
+     
+     
+     public static File binaryToFile(String binaryFile, String filePath, String fileName) {
+    	    if ((binaryFile == null || "".equals(binaryFile)) || (filePath == null || "".equals(filePath))
+    	            || (fileName == null || "".equals(fileName))) { return null; }
+    	 
+    	    FileOutputStream fos = null;
+    	 
+    	    File fileDir = new File(filePath);
+    	    if (!fileDir.exists()) {
+    	        fileDir.mkdirs();
+    	    }
+    	 
+    	    File destFile = new File(filePath + fileName);
+    	 
+    	    byte[] buff = binaryFile.getBytes();
+    	    String toStr = new String(buff);
+    	    byte[] b64dec = Base64.decodeBase64(buff);
+    	 
+    	    try {
+    	        fos = new FileOutputStream(destFile);
+    	        fos.write(b64dec);
+    	        fos.close();
+    	    } catch (IOException e) {
+    	        System.out.println("Exception position : FileUtil - binaryToFile(String binaryFile, String filePath, String fileName)");
+    	    }
+    	 
+    	    return destFile;
+    	}
+
+     
+     @RequestMapping("/capture.do")
+     @ResponseBody
+     public void screenCapture(String radioVal, String base64String,int recipeNo,int memNo) {
+    	 System.out.println("radioVal :" + radioVal +" / recipeNo : " + recipeNo + " memNo : " + memNo);
+    	 String data = base64String.replaceAll("data:image/png;base64,", ""); 
+    	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+
+    	 String uploadRoot = "C:/bit2019/upload";
+ 		 String path = "/scrapbook" + sdf.format(new Date());
+ 		 
+ 		 String uName = UUID.randomUUID().toString() + ".png";
+ 		 
+    	 File file = binaryToFile(data,uploadRoot + path + "/", uName);
+    	 
+    	 String content = "<div class='pageAjax'><img src='/babmukja/recipe/download.do?path="+path+"&sysname="+uName+"'></div>";
+    	 
+    	 Scrapbook book = new Scrapbook();
+    	 book.setContent(content);
+    	 book.setScrapNo(Integer.parseInt(radioVal));
+    	 
+    	 RecipeScrap rs = new RecipeScrap();
+    	 
+    	 rs.setMemNo(memNo);
+    	 rs.setRecipeNo(recipeNo);
+    	 rs.setScrapNo(book.getScrapNo());
+    	 
+    	 service.updateScrapbookContent(book);
+    	 service.insertRecipeScrap(rs);
+    	 service.updateRecipeScrapCnt(recipeNo);
      }
      
 

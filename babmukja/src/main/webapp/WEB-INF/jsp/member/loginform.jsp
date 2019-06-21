@@ -33,11 +33,11 @@
 			<div class="login__input">
 				<input placeholder="이메일" type="text" name="memEmail" id="email" />
 			</div>
-
+	
 			<div class="login__input">
 				<input placeholder="비밀번호" type="password" name="memPass" id="pass" />
 			</div>
-
+	
 			<div class="login__button">
 				<button type="button">로그인</button>
 			</div>
@@ -105,27 +105,46 @@
 				alert("비밀번호를 입력하세요.");
 				return;
 			}
-			const fail =
-	<%=request.getParameter("fail")%>
-		console.log(fail);
-			console.log(fail === 1);
-			console.log(fail === null);
-			$(".login__button").click(function() {
-				if (fail === null) {
-					alert("이메일과 패스워드가 일치하지 않습니다.");
-					return;
+			$.ajax({
+				url : "login.do",
+				type:"POST",
+				data : {
+					memEmail : email,
+					memPass : pass
+				}
+				
+			}).done(function(result){
+				const code = result.code;
+				
+				switch(code){
+				case 0:
+// 					alert("로그인 완료.");
+					location.href="/babmukja/recipe/main.do";
+					break;
+				case 1:
+					alert("아이디를 확인해주세요.");
+					$("#pass").val("");
+					$("#email").val("").focus();
+					break;
+				case 2:
+					alert("이메일 인증 후 이용 가능합니다.");
+					location.href="/babmukja/member/emailform.do";
+					break;					
+				case 3:
+					alert("로그인에 실패하였습니다.");
+					$("#pass").val("");
+					$("#email").val("").focus();
+					break;
 				}
 			});
-			$("#doLogin").submit();
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kako app_key');
+		Kakao.init('6d1d12aeec7199df6e42d9c90c771a35');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
             success: function(authObj) {
-            	alert("됨?");
             	 Kakao.API.request({
     		      	 url: '/v1/user/me',
      			     success: function(res) { 
@@ -153,14 +172,11 @@
     					})
               	 	}
              	})
-            },
-            fail: function(err) {
-            	alert("386ffcb6d820846f81e354df11f5c8cc :" + JSON.stringify(err));
             }
           });
         };
-		
 	</script>
+
 
 </body>
 </html>

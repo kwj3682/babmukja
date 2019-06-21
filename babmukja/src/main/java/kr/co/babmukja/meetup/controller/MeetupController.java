@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -26,9 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import kr.co.babmukja.meetup.service.MeetupService;
+import kr.co.babmukja.repository.domain.Board;
+import kr.co.babmukja.repository.domain.BoardReview;
 import kr.co.babmukja.repository.domain.Meetup;
+import kr.co.babmukja.repository.domain.MeetupDetailFreePage;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
@@ -36,6 +41,8 @@ import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.MeetupSearch;
 import kr.co.babmukja.repository.domain.MeetupTag;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
+import kr.co.babmukja.repository.domain.MeetupDetailNoticePage;
+import kr.co.babmukja.repository.domain.PageBoardReview;
 import kr.co.babmukja.repository.domain.Pagepb;
 
 //파일을 동적으로 받아주기 위해서 File 객체 만들
@@ -45,7 +52,36 @@ import kr.co.babmukja.repository.domain.Pagepb;
 @RequestMapping("/meetup")
 public class MeetupController {
 	
-	//승인처리
+	
+	
+	//탈퇴처리하기
+	@RequestMapping("/manageWidthdrawl.do")
+	@ResponseBody
+	public void manageWidthdrawl(int meetNo) {
+		System.out.println("탈퇴meetNo"+meetNo);
+		service.updateWidthdrawlStatus(meetNo);
+
+	}
+
+	
+	//관리자 거절처리
+			@RequestMapping("/manageReject.do")
+			@ResponseBody
+			public void manageReject(int meetMemNo) {
+				System.out.println("meetMemNo"+meetMemNo);
+				service.updateRejectStatus(meetMemNo);
+
+			}
+	
+	//관리자 강퇴처리
+		@RequestMapping("/manageBan.do")
+		@ResponseBody
+		public void manageBan(int meetMemNo) {
+			System.out.println("meetMemNo"+meetMemNo);
+			service.updateBanStatus(meetMemNo);
+		}
+	
+	//관리자 승인처리
 	@RequestMapping("/manageApproval.do")
 	@ResponseBody
 	public void manageApproval(int meetMemNo) {
@@ -71,12 +107,14 @@ public class MeetupController {
      
 
 		
-		List<MeetupMember> meetupMemberList = service.selectMeetupMemberList(300);
+		List<MeetupMember> meetupMemberList = service.selectMeetupMemberList(meetNo);
 
 		
 		for(int i=1; i<meetupMemberList.size()+1; i++) {
 			meetupMemberList.get(i-1).setAdmissionNum(i);
 			System.out.println("회원목록 나열되는 번호" +meetupMemberList.get(i-1).getAdmissionNum());
+			System.out.println("회원목록 나열되는 이름" +meetupMemberList.get(i-1).getMemName());
+
 		}
 	
 		hm.put("meetupMemberList", meetupMemberList);
@@ -185,15 +223,24 @@ public class MeetupController {
 	public void CreateMeetup(MultipartFile file, String tag, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
 		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
-		String hostName, int hostNo, String hostEmail
+		String hostName, int hostNo, String hostEmail,String hiddenTag
 			
 			) {
 		System.out.println("호스트 내임, 이름" +hostName +hostNo );
 		System.out.println("파일 " + file);
 		System.out.println("카테고리" + category);
 		System.out.println("제목" + title);
-		System.out.println("태그" + tag );
-		
+		if(hiddenTag !=null) {
+		System.out.println("태그 :" + hiddenTag );
+		}
+		StringBuffer deleteTag= new StringBuffer(hiddenTag);
+		String updatedTag="";
+		if(hiddenTag.substring(hiddenTag.length()-1).equals(",")){
+			  
+			  deleteTag.deleteCharAt(hiddenTag.length()-1);
+			  updatedTag = deleteTag.toString();
+			System.out.println(",제거된태그 :" + updatedTag );	
+		}
 		
 		
 		String meetupDay = "";
@@ -246,7 +293,8 @@ public class MeetupController {
 		//xml에 담아주기
 		Meetup meetupBoard = new Meetup();	
 		MeetupTag meetupTag = new MeetupTag();
-		meetupTag.setTag(tag);
+		System.out.println("들어가기전에 update 제발" +updatedTag);
+		meetupBoard.setTag(updatedTag);
 		System.out.println("진짜첫번째:" +meetupBoard.getMeetNo());
 		meetupBoard.setCategory(category);
 		meetupBoard.setDay(meetupDay);
@@ -352,12 +400,21 @@ public class MeetupController {
 	System.out.println("manage 컨트롤러 들어왔음");
 	System.out.println("host no" +hostNo);
 	List<Meetup> meetupList; 
-	meetupList = service.createdBoardByMe(hostNo);
+	meetupList = service.createdBoardByMe(hostNo);	
+	
 	for(int i=1; i<meetupList.size()+1; i++) {
 		meetupList.get(i-1).setManageNo(i);
 		System.out.println(meetupList.get(i-1).getManageNo());
 	}
+	//내가 참여하는 모임 처리하기
+	List<Meetup> meetupFollow;
+	meetupFollow = service.selectFollowMeetup(hostNo);
+	for(int i=1; i<meetupFollow.size()+1; i++) {
+		meetupFollow.get(i-1).setManageNo(i);
+		System.out.println(meetupFollow.get(i-1).getManageNo());
+	}
 	model.addAttribute("createdMeetup",meetupList);
+	model.addAttribute("meetupFollows", meetupFollow);
 	}
 	
 	@RequestMapping("/main.do")
@@ -373,27 +430,83 @@ public class MeetupController {
 	
 	
 	@RequestMapping("/detail.do")
-	public void meetupDetail(Model model, int meetNo, int memNo) {
+	public void meetupDetail(Model model, int meetNo, int memNo,MeetupDetailFreePage freePage, MeetupDetailNoticePage noticePage, @RequestParam(required=true,defaultValue="0")int noticeClicked, @RequestParam(required=true,defaultValue="0")int freeClicked) {
 		System.out.println("meetNo" + meetNo +  memNo );
 		//view cnt 관리
 		service.updateViewCnt(meetNo);
 		MeetupMember meetupMember = new MeetupMember();
 		meetupMember.setMeetNo(meetNo);
 		meetupMember.setMemNo(memNo);
+		
+		//회원 명단 보내주기
+		
+		model.addAttribute("meetupMemberList", service.selectMeetupMemberList(meetNo));
+		
 		if(service.selectMeetupMemberStatus(meetupMember) !=null) {
 		MeetupMember MeetupMemberStatus = service.selectMeetupMemberStatus(meetupMember);
 		model.addAttribute("memberStatus", MeetupMemberStatus);
-
+		
+		
 		}
 		else {
 			meetupMember.setStatus(0);
 			model.addAttribute("memberStatus", meetupMember);
 		}
 		
+		Meetup meetupBoard = service.selectBoard(meetNo);
+		//ArrayList<String> meetupTag = new ArrayList<String>();
+		String[] meetupTag = meetupBoard.getTag().split(",");
+		System.out.println("밋업 태그 들어왔음" +meetupTag[0]);
 		model.addAttribute("meetup", service.selectBoard(meetNo));
-		
-		}
+		model.addAttribute("meetupTags", meetupTag);
 
+		//모임의 사진 뿌려주기
+		
+		File dir = new File("C:/bit2019/upload/meetup/2019/06");
+		File[] files = dir.listFiles(new FilenameFilter() {
+
+		public boolean accept(File dir, String name) {
+			// TODO Auto-generated method stub
+			return name.contains("meetNo="+meetNo);
+		}});
+	
+	System.out.println("파일 오나확인" +files.length);
+	
+	model.addAttribute("images", files);
+	ArrayList<String> filePath = new ArrayList<>();	
+	for(File file : files) {
+		System.out.println("file :" + file);
+	
+	
+	filePath.add(file.getPath().replace("\\", "/"));
+	
+
+		System.out.println(file.getPath());
+	}
+	model.addAttribute("filesPath", filePath);
+	
+	//notice 부분
+			Map<String, Object> result = service.list(noticePage);
+			model.addAttribute("noticeList", result.get("list"));
+		
+				System.out.println("noticeClicked" +noticeClicked);
+			model.addAttribute("noticeClicked", noticeClicked);	
+		
+			model.addAttribute("noticePageNo", noticePage);			
+			model.addAttribute("noticePageResult", result.get("pageResult"));
+			
+	////free 부분
+			Map<String, Object> freeResult = service.freeList(freePage);
+			model.addAttribute("freeList", freeResult.get("list"));
+		
+				System.out.println("freeClicked" +freeClicked);
+			model.addAttribute("freeClicked", freeClicked);	
+		
+			model.addAttribute("freePageNo", freePage);			
+			model.addAttribute("freePageResult", freeResult.get("pageResult"));		
+			
+	}//detail.do
+	
 
 
 	@RequestMapping("/meetupAddress.do")
@@ -404,17 +517,18 @@ public class MeetupController {
 
 	@RequestMapping("/uploadImage.do")
 	@ResponseBody
-	public MeetupFile uploadImage(MultipartFile file) {
+	public MeetupFile uploadImage(MultipartFile file, int meetNo) {
 		System.out.println("들어왔음");
+		System.out.println("meetNo왔나 확인 " +meetNo);
 		System.out.println("file 들어왔나 확인" + file);
 		// service.updateIntro(data);
 		UUID uuid = UUID.randomUUID();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
-		String path = "/meetup/" + sdf.format(new Date());
+		String path = "/meetup/" + sdf.format(new Date()); 
 		String orgFileName = file.getOriginalFilename();
-		String sysFileName = uuid.toString() + orgFileName;
-		String filePath = uploadRoot + path;
+		String sysFileName = uuid.toString() +"meetNo="+meetNo+ orgFileName;
+		String filePath = uploadRoot + path + "/";
 		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 		MeetupFile mFile = new MeetupFile();
 		mFile.setOrgFileName(orgFileName);
@@ -441,7 +555,9 @@ public class MeetupController {
 
 	@RequestMapping("download.do")
 	public void download(String path, HttpServletResponse response) throws IOException {
-
+		
+//		String paths[] = path.split("C:/bit2019/upload");
+		System.out.println("download.do" +path);
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
 		BufferedInputStream bis = new BufferedInputStream(fis);
@@ -534,4 +650,284 @@ public class MeetupController {
 		service.deleteIntro();
 	}
 
+	//상세 보드 부분
+	
+	/*
+	 * @RequestMapping("/detailNoticeList.do") // 글목록, 페이징 public void
+	 * list(PageBoard page, Model model) { Map<String, Object> result =
+	 * service.list(page); model.addAttribute("list", result.get("list"));
+	 * model.addAttribute("pageResult", result.get("pageResult")); }
+	 */
+
+	//공지 보드 부분
+	
+	@RequestMapping("/detailNoticeDetail.do")
+	// 글상세
+	public void detailNoticeDetail(int boardNo,String memName, Model model) {
+		service.updateBoardViewCnt(boardNo);
+		model.addAttribute("memName", memName);
+		model.addAttribute("board", service.detail(boardNo));
+	}
+
+	@RequestMapping("/detailNoticeWriteform.do")
+	// 글등록 폼
+	public void writeForm() {}
+
+	@RequestMapping("/write.do")
+	// 글등록 처리
+	public Object write(Board board) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/board" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false)
+			file.mkdirs();
+
+		MultipartFile bFile = board.getBoardfile();
+
+		if (bFile.isEmpty()) {
+			System.out.println("is empty");
+		}
+		String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+		bFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		board.setImgpath(path);
+		board.setImgOrgname(bFile.getOriginalFilename());
+		board.setImgSysname(uName);
+
+		service.write(board);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo=34&memNo=8";
+	}
+	
+	@RequestMapping("/imgdownload.do")
+	public void download(int boardNo, HttpServletResponse response) throws Exception {
+		Board board = service.detail(boardNo);
+		String uploadRoot = "c:/bit2019/upload";
+		String path = board.getImgpath();
+		String sysname = board.getImgSysname();
+		File f = new File(uploadRoot + path + "/" + sysname);
+		response.setHeader("Content-Type", "image/jpg");
+	
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+
+		OutputStream out = response.getOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		while (true) {
+			int ch = bis.read();
+			if (ch == -1)
+				break;
+			bos.write(ch);
+		}
+
+		bis.close();
+		fis.close();
+		bos.close();
+		out.close();
+	}
+
+	@RequestMapping("/delete.do")
+	// 글삭제
+	public String delete(int boardNo) {
+		service.delete(boardNo);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+	}
+	
+	@RequestMapping("/detailNoticeUpdateform.do")
+	// 글수정 폼
+	public void updateForm(int boardNo, Model model) {
+		model.addAttribute("board", service.updateBoardForm(boardNo));
+	}
+	
+	@RequestMapping("/update.do")
+	// 글수정
+	public String update(Board board) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		String uploadRoot = "C:/bit2019/upload";
+		String path = "/board" + sdf.format(new Date());
+		File file = new File(uploadRoot + path);
+		if (file.exists() == false)
+			file.mkdirs();
+
+		MultipartFile bFile = board.getBoardfile();
+
+		if (bFile.isEmpty()) {
+			System.out.println("is empty");
+		}
+		String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+		bFile.transferTo(new File(uploadRoot + path + "/" + uName));
+		
+		board.setImgpath(path);
+		board.setImgOrgname(bFile.getOriginalFilename());
+		board.setImgSysname(uName);
+		service.updateBoard(board);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+	}
+	
+	/** 댓글 부분*/
+	
+	@RequestMapping("/boardreviewList.do")
+	@ResponseBody
+	// 댓글목록
+	public Map boardReviewList(PageBoardReview page) {
+		Map<String, Object> list = service.selectBoardView(page);
+		list.put("comment", list.get("list"));
+		list.put("pageResult", list.get("pageResult"));
+
+		return list;
+	}
+	
+	@RequestMapping("/boardreviewWrite.do")
+	@ResponseBody
+	// 댓글 등록
+	public BoardReview boardReviewWrite(BoardReview boardReview) {
+		service.insertBoardReview(boardReview);
+		return service.selectBoardReviewOneByNo(boardReview.getBoardReviewNo());
+	}
+	
+	@RequestMapping("/boardreviewdelete.do")
+	@ResponseBody
+	// 댓글 삭제
+	public void boardReviewDelete(int boardReviewNo) {
+		service.deleteBoardReview(boardReviewNo);
+	}
+	
+	@RequestMapping("/boardreviewupdateform.do")
+	@ResponseBody
+	// 댓글 수정 폼
+	public BoardReview boardReviewUpdateForm(int boardReviewNo) {
+		return service.selectBoardReviewOneByNo(boardReviewNo);
+	}
+	
+	@RequestMapping("/boardreviewupdate.do")
+	@ResponseBody
+	// 댓글 수정
+	public BoardReview boardReviewUpdate(BoardReview boardReview) {
+		service.updateBoardView(boardReview);
+		return service.selectBoardReviewOneByNo(boardReview.getBoardReviewNo());
+	}
+
+	//자유게시판 부분
+	
+		@RequestMapping("/detailFreeDetail.do")
+		// 글상세
+		public void detailFreeDetail(int boardNo, Model model) {
+			service.updateBoardViewCnt(boardNo);
+			model.addAttribute("board", service.freeDetail(boardNo));
+		}
+
+		@RequestMapping("/detailFreeWriteform.do")
+		// 글등록 폼
+		public void detailFreeWriteform() {}
+
+		@RequestMapping("/writeFreeBoard.do")
+		// 글등록 처리
+		public Object writeFreeBoard(Board board) throws Exception {
+			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+			String uploadRoot = "C:/bit2019/upload";
+			String path = "/board" + sdf.format(new Date());
+			File file = new File(uploadRoot + path);
+			if (file.exists() == false)
+				file.mkdirs();
+
+			MultipartFile bFile = board.getBoardfile();
+
+			if (bFile.isEmpty()) {
+				System.out.println("is empty");
+			}
+			String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+			bFile.transferTo(new File(uploadRoot + path + "/" + uName));
+			
+			board.setImgpath(path);
+			board.setImgOrgname(bFile.getOriginalFilename());
+			board.setImgSysname(uName);
+
+			service.freeWrite(board);
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo=34&memNo=8";
+		}
+		
+	
+		@RequestMapping("/deleteFreeBoard.do")
+		// 글삭제
+		public String deleteFreeBoard(int boardNo) {
+			service.freeDelete(boardNo);
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+		}
+		
+		@RequestMapping("/detailFreeUpdateform.do")
+		// 글수정 폼
+		public void detailFreeUpdateform(int boardNo, Model model) {
+			model.addAttribute("board", service.updateFreeBoardForm(boardNo));
+		}
+		
+		@RequestMapping("/updateFreeBoard.do")
+		// 글수정
+		public String updateFreeBoard(Board board) throws Exception {
+			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+			String uploadRoot = "C:/bit2019/upload";
+			String path = "/board" + sdf.format(new Date());
+			File file = new File(uploadRoot + path);
+			if (file.exists() == false)
+				file.mkdirs();
+
+			MultipartFile bFile = board.getBoardfile();
+
+			if (bFile.isEmpty()) {
+				System.out.println("is empty");
+			}
+			String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+			bFile.transferTo(new File(uploadRoot + path + "/" + uName));
+			
+			board.setImgpath(path);
+			board.setImgOrgname(bFile.getOriginalFilename());
+			board.setImgSysname(uName);
+			service.updateFreeBoard(board);
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+		}
+		
+		/** 댓글 부분*/
+		
+		@RequestMapping("/freeBoardReviewList.do")
+		@ResponseBody
+		// 댓글목록
+		public Map freeBoardReviewList(PageBoardReview page) {
+			Map<String, Object> list = service.selectBoardView(page);
+			list.put("comment", list.get("list"));
+			list.put("pageResult", list.get("pageResult"));
+
+			return list;
+		}
+		
+		@RequestMapping("/freeBoardReviewWrite.do")
+		@ResponseBody
+		// 댓글 등록
+		public BoardReview freeBoardReviewWrite(BoardReview boardReview) {
+			service.insertBoardReview(boardReview);
+			return service.selectBoardReviewOneByNo(boardReview.getBoardReviewNo());
+		}
+		
+		@RequestMapping("/freeBoardReviewDelete.do")
+		@ResponseBody
+		// 댓글 삭제
+		public void freeBoardReviewDelete(int boardReviewNo) {
+			service.deleteBoardReview(boardReviewNo);
+		}
+		
+		@RequestMapping("/freeBoardReviewUpdateForm.do")
+		@ResponseBody
+		// 댓글 수정 폼
+		public BoardReview freeBoardReviewUpdateForm(int boardReviewNo) {
+			return service.selectBoardReviewOneByNo(boardReviewNo);
+		}
+		
+		@RequestMapping("/freeBoardreviewUpdate.do")
+		@ResponseBody
+		// 댓글 수정
+		public BoardReview freeBoardreviewUpdate(BoardReview boardReview) {
+			service.updateBoardView(boardReview);
+			return service.selectBoardReviewOneByNo(boardReview.getBoardReviewNo());
+		}
+
+	
+	
 }
