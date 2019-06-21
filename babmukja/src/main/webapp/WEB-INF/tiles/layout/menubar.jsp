@@ -37,16 +37,16 @@
             <i class="fas fa-caret-up fa-3x" style="display: none;"></i>
             <c:if test="${sessionScope.user ne null}">
 		        <a id="nickName" href="#">${user.memNickname}</a>
-		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>">결제내역</a>
-		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/cart.png'/>"></a>
 	         	<a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
+		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/payment.png'/>"></a>
+		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/cart.png'/>"></a>
+	            <a href="<c:url value='/member/mypage.do?memNickname=${user.memNickname}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/mykitchen.png'/>"></a>
 	        </c:if>
 	        
 	        <c:if test="${sessionScope.user eq null}">
 	         	<a id="login" href="<c:url value="/member/loginform.do"/>">로그인</a>
         		<a id="signup" href="<c:url value="/member/signupform.do"/>">회원가입</a>
 	        </c:if>
-            <a href="<c:url value='/member/mypage.do?memNickname=${user.memNickname}'/>">마이키친</a>
         </span>
         <div id="optionalMenu1" class="optionalMenubar opacity">
             <ul>
@@ -60,12 +60,13 @@
 
             </ul>
         </div>
-		<c:if test="${user.memNo == 578}">
+        <input type="hidden" name="hiddenmanager" value="${sessionScope.user.managerAt}"/>
+		<c:if test="${sessionScope.user.memNo == 587}">
 	        <div id="optionalMenu2" class="optionalMenubar opacity">
-		            <ul>
-		                <li><a href="<c:url value="/admin/pbstoreselectlist.do"/>">상품조회</a></li>
-		                <li><a href="<c:url value="/admin/insertformpb.do"/>">상품등록</a></li>
-		            </ul>
+	            <ul>
+	                <li><a href="<c:url value="/admin/pbstoreselectlist.do"/>">상품조회</a></li>
+	                <li><a href="<c:url value="/admin/insertformpb.do"/>">상품등록</a></li>
+	            </ul>
 	        </div>
 		</c:if>
         <div id="optionalMenu3" class="optionalMenubar opacity">
@@ -326,6 +327,7 @@
 	        		chatListWrapper.append(profiles);
 	        	});
 	        });
+	        
     </script> 
 </body>
 </html>
