@@ -140,7 +140,7 @@ public class MemberController {
 		StringBuffer sb = new StringBuffer();
 		sendMail.setSubject("[밥먹자] 이메일 인증");
 		sendMail.setText(sb.append("<h2>밥먹자 메일인증 입니다♬<br> 아래 링크를 눌러서 이메일 인증을 해주세요.</h2>")
-				.append("<a href='http://localhost/babmukja/member/confirm.do?MemEmail=" + member.getMemEmail())
+				.append("<a href='http://192.168.0.53/babmukja/member/confirm.do?MemEmail=" + member.getMemEmail())
 				.append(" 'target='_blank'>밥먹자 이메일 인증하기</a>").toString());
 		sendMail.setFrom("babmukja@babmukja.com", "밥먹자");
 		sendMail.setTo(member.getMemEmail());

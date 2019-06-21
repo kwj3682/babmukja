@@ -43,13 +43,19 @@
 	  p:password="${jdbc.mysql.password}" />
     
 <!--     인터셉터 설정하기 -->
-<!--    <mvc:interceptors> -->
-<!--       <mvc:interceptor> -->
-<!--          <mvc:mapping path="/board/**.do"/> -->
-<!--          <mvc:exclude-mapping path="/member/loginform.do"/> -->
-<!--          <bean class="kr.co.babmukja.member.controller.AuthInterceptor"/> -->
-<!--       </mvc:interceptor> -->
-<!--    </mvc:interceptors> -->
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/board/**.do"/>
+         <mvc:mapping path="/recipe/**.do"/>
+         <mvc:mapping path="/store/**.do"/>
+         <mvc:mapping path="/meetup/**.do"/>
+         <mvc:mapping path="/admin/**.do"/>
+         <mvc:exclude-mapping path="/member/loginform.do"/>
+         <mvc:exclude-mapping path="/recipe/main.do"/>
+         <mvc:exclude-mapping path="/store/mainpb.do"/>
+         <bean class="kr.co.babmukja.member.controller.AuthInterceptor"/>
+      </mvc:interceptor>
+   </mvc:interceptors>
     
     
     
