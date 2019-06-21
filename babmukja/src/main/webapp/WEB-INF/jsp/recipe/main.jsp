@@ -181,27 +181,10 @@
                          <div ignore="1" class="next-button"></div>
                          <div class="hard" id="resultImage"></div>
                          
-                         <div class="pageX" id="page1">
-<%--                             <img src="<c:url value="/resources/images/food1.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page2">
-<%--                             <img src="<c:url value="/resources/images/food2.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page3">
-<%--                             <img src="<c:url value="/resources/images/food3.jpg"/>"> --%>
-                         </div>
-                         <div class="pageX" id="page4">
-<%--                             <img src="<c:url value="/resources/images/food4.jpg"/>"> --%>
-                         </div>
-<!--                          <div> -->
-<%--                             <img src=" <c:url value="/resources/images/f1.jpg"/>"> --%>
-<!--                          </div> -->
-<!--                          <div> -->
-<%--                             <img src="<c:url value="/resources/images/f2.jpg"/>">                          --%>
-<!--                      </div> -->
-<!--                          <div class="hard"> -->
-<%--                             <img src="<c:url value="/resources/images/f3.jpg"/>">                          --%>
-<!--                      </div> -->
+                         <div class="pageX" id="page1"></div>
+                         <div class="pageX" id="page2"></div>
+                         <div class="pageX" id="page3"></div>
+                         <div class="pageX" id="page4"></div>
                          <div ignore="1" class="previous-button"></div>
                       </div>
                 </div>
@@ -365,15 +348,84 @@
       
        loadApp("#turnJs");       
        
-    });
-    
+    });    
+    // 레시피 메인  - turn.js 적용부분
+    $("#recipe-book2").click(function () {   
+       $("#resultImage").css({background:$(this).css("backgroundImage"),
+         backgroundSize: "cover",
+         backgroundRepeat : "no-repeat"});
+      console.log("키 랭크 값 : " + $("input[name='situationrank']").val());
+       $.ajax({
+          type:"GET",
+          url: "recipekeyword.do",
+          data:{
+             keywordNo : $("input[name='situationrank']").val()
+             }
+       }).done(function(response){
+          let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';
+  
+         let i = 1;
+          for(let res of response){
+              let editor = new EditorJS({
+                  holderId: 'page'+i,
+                  autofocus: false,
+                  data: JSON.parse(res.content),
+                  tools: { 
+                      warning: {
+                          class: Warning,
+                          inlineToolbar: true,
+                      },
+           
+                      table: {
+                          class: Table,
+                          inlineToolbar: true,
+                      },                       
+                      quote: {
+                          class: Quote,
+                          inlineToolbar: true,
+                      },
+                   image: {
+                          class: ImageTool,
+                      },            
+   
+                      header: {
+                          class: Header,
+                      }, 
+                      checklist: {
+                          class: Checklist,
+                      },
+                      linkTool: {
+                          class: LinkTool,
+                      },
+                      marker: {
+                          class: Marker,
+                      },
+                      list: {
+                          class: List,
+                      },
+                      embed: {
+                          class: Embed,
+                      }
+                  }
+              });
+              i++;
+          }
+       });
+
+
+      $("#turnModal").modal("show");      
+      
+      $("#turnJsDiv").css(
+      "display", "block"                
+      ); 
+      
+       loadApp("#turnJs");       
+       
+    });    
 
     $(document).ready(function () {
        $("#turnModal").modal("hide");
     });
-//    $("#turnModal").modal({
-//          backdrop: 'static'
-//     });
 
 
    // modal 창 이전버튼

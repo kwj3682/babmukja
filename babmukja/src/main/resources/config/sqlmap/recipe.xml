@@ -267,10 +267,10 @@
 		  from tb_recipe r,tb_recipe_keyword k,tb_member m
 		 where m.mem_no = r.mem_no
 		   and r.recipe_no = k.recipe_no
-		   and k.country = #{no} 
-		       or k.situation = #{no} 
-		       or k.level = #{no} 
-		       or k.type = #{no}
+		    or k.country = #{no} 
+		    or k.situation = #{no} 
+		    or k.level = #{no} 
+		    or k.type = #{no}
 		 order by r.recipe_no desc
 	</select>
 	
