@@ -31,6 +31,10 @@ public class StorePBServiceImpl implements StorePBService{
 		return mapper.selectPBStore();
 	}
 	
+	public List<StorePB> selectPBBestItem() {
+		return mapper.selectPBBestItem();
+	}
+	
 	public void addViewCnt(int pbNo) {
 		mapper.addViewCnt(pbNo);
 	}

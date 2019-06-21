@@ -57,46 +57,17 @@
 		        </div>
 		        
 		        <div class="new_product_item">
+		        <c:forEach var="storepb" items="${storepb}" begin="0" end="3">
 		            <div class="product">
-		                <img src="<c:url value='/resources/images/foodthumbnail1.jpg'/>">
+		                <img src="${storepb.thumnail}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'">
 		                <div class="product_msg">
 		                    <p>
-		                        아보카도 샐러드<br>
-		                        개꿀맛입니다!!
+		                        ${storepb.name}
 		                    </p>
-		                    <p class="product_price">54,900원</p>
+		                    <p class="product_price"><fmt:formatNumber value="${storepb.price}" groupingUsed="true"/>원</p>
 		                </div>
 		            </div>
-		            <div class="product">
-		                <img src="<c:url value='/resources/images/f2.jpg'/>">
-		                <div class="product_msg">
-		                    <p>
-		                        아보카도 샐러드<br>
-		                        개꿀맛입니다!!
-		                    </p>
-		                    <p class="product_price">14,900원</p>
-		                </div>
-		            </div>
-		            <div class="product">
-		                <img src="<c:url value='/resources/images/foodthumbnail3.jpg'/>">
-		                <div class="product_msg">
-		                    <p>
-		                        아보카도 샐러드<br>
-		                        개꿀맛입니다!!
-		                    </p>
-		                    <p class="product_price">24,900원</p>
-		                </div>
-		            </div>
-		            <div class="product">
-		                <img src="<c:url value='/resources/images/foodthumbnail4.jpg'/>">
-		                <div class="product_msg">
-		                    <p>
-		                        아보카도 샐러드<br>
-		                        개꿀맛입니다!!
-		                    </p>
-		                    <p class="product_price">34,900원</p>
-		                </div>
-		            </div>
+		        </c:forEach>
 		        </div>
 		    </div>
     
@@ -124,9 +95,9 @@
                 <div id="pb_store_popular_product_imges">
                 <a class="pb_store_more_product" href="<c:url value='/store/listpb.do'/>">더보기</a>
                     <div id="pb_store_popular_product_imges_grid">
-                    <c:forEach var="pbList" items="${storepb}" begin="0" end="3">
+                    <c:forEach var="pbList" items="${storepbBest}" begin="0" end="3">
                         <a class="pb_store_popular_product_img" href="<c:url value="/store/detailpb.do?pbNo=${pbList.pbNo}"/>">
-                            <img src="${pbList.imgPath}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
+                            <img src="${pbList.thumnail}" onerror="this.src='${pageContext.request.contextPath}/resources/images/foodthumbnail1.jpg'"/>
                             <div class="pb_store_popular_product_text">
                                 <div class="pb_store_popular_product_title">
                                     <p>${pbList.name}</p>
