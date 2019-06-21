@@ -105,12 +105,19 @@
         </div>
         <div class="page">
 		    <c:if test="${pageResult.count != 0}">
-		    	<div>
+		    	<div class="pageList">
 					<c:if test="${pageResult.prev eq true}">
 						<a href="${param.link}?pageNo=${pageResult.beginPage - 1}">이전</a>
 					</c:if>
 					<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
-						<a class="pageLink" href="${param.link}?pageNo=${i}">[${i}]</a>
+					<c:choose>
+						<c:when test="${pageResult.pageNo eq (i)}">
+							<a class="this-review-page" href="${param.link}?pageNo=${i}">${i}</a>
+						</c:when>
+						<c:otherwise>
+							<a class="review-pagination" href="${param.link}?pageNo=${i}">${i}</a>
+						</c:otherwise>
+					</c:choose>
 						</c:forEach>
 					<c:if test="${pageResult.next eq true}">
 						<a href="${param.link}?pageNo=${pageResult.endPage + 1}">다음</a>

@@ -26,65 +26,81 @@
         </div>
         <!-- Add Scrollbar -->
         <div class="swiper-scrollbar"></div>
-        
     </div>
+   <div id="information_about_store">
+   		<img src="<c:url value='/resources/images/storemain.jpg'/>">
+   </div>
     <!-- PB스토어 메인화면 -->
   <div id="pb_store_container"> 
-
-        <!-- 키워드 -->
-        <div id="pb_store_popular_keyword">
-            <div id="pb_sotre_popular_keyword_text">KEYWORD<br><br></div>
-            
-            <!-- 키워드 이미지 -->
-            <div id="pb_sotre_popular_keyword_img">
-                <div id="images">
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="http://edgerank.co.kr/wp-content/uploads/2016/11/22.png">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="http://cfd.tourtips.com/@cms_800/2014062365/gjdrmb/%EC%89%91%EC%89%91%EB%B2%84%EA%B1%B0(%EB%89%B4%EC%9A%95%EC%9C%A0%EB%AA%85%ED%96%84%EB%B2%84%EA%B1%B0)_2.jpg">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="https://t1.daumcdn.net/cfile/tistory/15298033513ECBD304">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="https://us.123rf.com/450wm/baibakova/baibakova1609/baibakova160900188/63444373-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D-%EA%B0%9C%EB%85%90%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%9D%B0%EC%83%89-%EB%82%98%EB%AC%B4-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D.jpg?ver=6">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="https://us.123rf.com/450wm/baibakova/baibakova1609/baibakova160900188/63444373-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D-%EA%B0%9C%EB%85%90%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%9D%B0%EC%83%89-%EB%82%98%EB%AC%B4-%EB%B0%B0%EA%B2%BD%EC%97%90-%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0-%EC%9D%8C%EC%8B%9D.jpg?ver=6">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="https://t1.daumcdn.net/cfile/tistory/15298033513ECBD304">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="http://cfd.tourtips.com/@cms_800/2014062365/gjdrmb/%EC%89%91%EC%89%91%EB%B2%84%EA%B1%B0(%EB%89%B4%EC%9A%95%EC%9C%A0%EB%AA%85%ED%96%84%EB%B2%84%EA%B1%B0)_2.jpg">
-                    </a>
-                    <a href="#">
-                        <div class="text">#키워드</div>
-                        <img src="http://edgerank.co.kr/wp-content/uploads/2016/11/22.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <br><br><br>
+		<div class="new_product_container">
+		        <div class="new_product_con">
+		            <p class="new_product_header">NEW ITEM</p>
+		            <p class="new_product_header_submsg">밥먹자에서 새롭게 선보이는 뉴 아이템 !!</p>
+		        </div>
+		        
+		        <div class="new_product_item">
+		            <div class="product">
+		                <img src="<c:url value='/resources/images/foodthumbnail1.jpg'/>">
+		                <div class="product_msg">
+		                    <p>
+		                        아보카도 샐러드<br>
+		                        개꿀맛입니다!!
+		                    </p>
+		                    <p class="product_price">54,900원</p>
+		                </div>
+		            </div>
+		            <div class="product">
+		                <img src="<c:url value='/resources/images/f2.jpg'/>">
+		                <div class="product_msg">
+		                    <p>
+		                        아보카도 샐러드<br>
+		                        개꿀맛입니다!!
+		                    </p>
+		                    <p class="product_price">14,900원</p>
+		                </div>
+		            </div>
+		            <div class="product">
+		                <img src="<c:url value='/resources/images/foodthumbnail3.jpg'/>">
+		                <div class="product_msg">
+		                    <p>
+		                        아보카도 샐러드<br>
+		                        개꿀맛입니다!!
+		                    </p>
+		                    <p class="product_price">24,900원</p>
+		                </div>
+		            </div>
+		            <div class="product">
+		                <img src="<c:url value='/resources/images/foodthumbnail4.jpg'/>">
+		                <div class="product_msg">
+		                    <p>
+		                        아보카도 샐러드<br>
+		                        개꿀맛입니다!!
+		                    </p>
+		                    <p class="product_price">34,900원</p>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
     
-    </div>
+    <!-- 이미지 픽스하기 -->
+    		    <div class="main_image_con">
+			        <div class="main_image">
+			            <div class="main_image_txt">
+			                오늘 하루 소중한 사람들에게
+			                <br>
+			                맛있고 따듯한 한끼를 대접하세요
+			            </div>
+			        </div>
+			    </div>
+    
             <!-- 인기 상품 -->
         
             <div class="product_con">
-        <div id="pb_store_popular_product">
+            <div class="pb_margin_top"></div>
             <div id="pb_store_popular_product_header">
-                <div id="pb_store_popular_product_text">PRODUCTS<br><br></div>
-<!--                 <button id="pb_store_popular_product_btn">더보기<br><br></button> -->
-            </div><br>
-            
+            	<p class="pb_best_text">BEST ITEM</p>
+            	<p class="pb_best_text_sub">밥먹자의 최고 인기 상품 !!</p>
+             </div>
             <!-- 인기상품 이미지 -->
             <div id="pb_store_popular_product_img">
                 <div id="pb_store_popular_product_imges">
@@ -113,8 +129,9 @@
                      </div>
                 </div>
             </div>
+           </div>
         </div>
-       </div>
+        
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>

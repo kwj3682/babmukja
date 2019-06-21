@@ -132,10 +132,10 @@
 				 <div id="scrapbook-container">
 			        <div id="scrapbook-add">
 			            <p id="scrapbook-add-text1">
-			                스크랩북을 생성하시려면 영역을 선택해주세요.
+			               	 스크랩북을 생성하시려면<br>영역을 선택해주세요.
 			            </p>
 			            <p id="scrapbook-add-text2">+</p>
-			            <p id="scrapbook-add-text3">자신만의 레시피북을 만들어보세요!</p>
+			            <p id="scrapbook-add-text3">자신만의 레시피북을<br>만들어보세요!</p>
 			        </div>
 			
 			        <div id="scrapbook-wrapper">
