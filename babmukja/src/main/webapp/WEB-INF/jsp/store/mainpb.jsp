@@ -49,6 +49,7 @@
    <div id="information_about_store">
    		<img src="<c:url value='/resources/images/storemain.jpg'/>">
    </div>
+    <div id="kakaopay_information">  <img src="<c:url value="/resources/images/kakaostoremain.jpg"/>"> </div>
     <!-- PB스토어 메인화면 -->
   <div id="pb_store_container"> 
 		<div class="new_product_container">
@@ -122,7 +123,7 @@
            </div>
         </div>
 
-        <div id="kakaopay_information">  <img src="<c:url value="/resources/images/kakaostoremain.jpg"/>"> </div>
+       
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>

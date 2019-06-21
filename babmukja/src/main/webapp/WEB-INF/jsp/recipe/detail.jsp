@@ -260,14 +260,14 @@
 	    		},
 	    		success : function (result) {  
 	    			if(result.status == 'Y') {
-	    				alert("좋아요가 되었습니다.");
+// 	    				alert("좋아요가 되었습니다.");
 	    				$(".recipeLike").css({
 	    					background : "#7db341",
 		    				color : "white"		    				    
 	    				});	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			} else if(result.status == 'N') {
-	    				alert("좋아요가 해제되었습니다.");
+// 	    				alert("좋아요가 해제되었습니다.");
 	    				$(".recipeLike").css({	    					
 	    				    background: "#eee",
 	    			    	color: "#bbb"
@@ -275,7 +275,7 @@
 	    				
 	    				$(".likeCnt").html(result.cnt);
 	    			} else {
-	    				alert("좋아요가 되었습니다.");
+// 	    				alert("좋아요가 되었습니다.");
 	    				$(".recipeLike").css({
 	    					background : "#7db341",
 		    				color : "white"		    				    
@@ -298,13 +298,13 @@
 		    		},
 		    		success : function(result) {		    		
 		    			if(result == 1) {
-			    			alert("팔로우가 되었습니다.");	
+// 			    			alert("팔로우가 되었습니다.");	
 			    			$(".follow").css({
 			    				background : "#7db341",
 			    				color : "white"	
 			    			});
 		    			} else if(result == 0) {
-		    				alert("팔로우가 해제되었습니다.");
+// 		    				alert("팔로우가 해제되었습니다.");
 		    				$(".follow").css({
 		    					background : "#eee",
 		    			    	color: "#777"
@@ -314,7 +314,7 @@
 		    	});
 			} 
 		if('${sessionScope.user.memNo}' == '${recipe.memNo}') {
-			alert("같은 회원은 팔로우 할 수 없습니다.");
+			alert("자신은 팔로우 할 수 없습니다.");
 		}
 		
     	});

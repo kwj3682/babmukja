@@ -200,7 +200,7 @@
                                     
                                         fileData.append("attach", file);                                         
                                     return new Promise(function (resolve, reject) {
-                              alert("업로드 중...");
+//                               alert("업로드 중...");
                                         $.ajax({
                                             url: 'upload.do',
                                             type: "post",
@@ -228,7 +228,7 @@
                                 }
 
                                 return imgUpload().then((result) => {
-                                    alert("업로드 완료!");
+//                                     alert("업로드 완료!");
                                     console.dir(result);
                                     return {
                                         success: result.cnt,

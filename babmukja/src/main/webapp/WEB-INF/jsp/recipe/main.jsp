@@ -415,7 +415,7 @@
         });
         
         $("#logout").click(function() {
-           alert("로그아웃 성공!");
+//            alert("로그아웃 성공!");
         });
 
     </script>
