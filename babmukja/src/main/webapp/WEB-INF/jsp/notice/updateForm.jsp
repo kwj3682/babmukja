@@ -45,12 +45,14 @@
           </tr>
           <tr>
             <th class="notice_th2">첨부파일</th>
-            <td class="notice_td5"><input type="file" class="notice_search"/></td>
+            <td class="notice_td5"><img src="" id="notice_img"> 
+            <input type="file" name="imageList" id="notice_file"/>               
+            </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th class="notice_th2">첨부파일</th>
             <td class="notice_td5"><input type="file" class="notice_search"/></td>
-          </tr>
+          </tr> -->
         </table>
         <hr />
         <br /><br><br>
@@ -66,5 +68,6 @@
           <h2>BABMUKJA COMPANY</h2>
           <div>Lorem ipsum dolor sit.</div>
   </footer>
+ 
 </body>
 </html>

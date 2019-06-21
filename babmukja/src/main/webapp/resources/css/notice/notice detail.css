@@ -4,15 +4,36 @@
     display: flex;
     justify-content: center;
   }
-  
-  
+ 
+ .notice_content_img {
+	border: 1px solid gainsboro;
+	text-align: center;
+	border-radius: 5px 5px 5px 5px;
+	margin-top: 10px;
+	width: 600px;
+	height: 400px;
+	overflow:hidden;
+	overflow: scroll;
+	overflow: auto;
+	font-size: 1em;
+	font-weight: bold;
+} 
+
+  .notice_detail_img img {
+	all: unset;
+	border-radius: 5px 5px 5px 5px;
+	width: 550px;
+	height: 360px;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
   .babitem{
   background-color: gold;
   border: 1px solid gray;
   padding: 1px 10px 1px 10px;
   flex-basis:150px;
-  text-align: center;
-  
+  text-align: center;  
   }
   
   .babnotices{
@@ -25,8 +46,6 @@
     justify-content: center;
     align-items: center;
   }
-
-  
 
   .babtable, .babtd {
     border-collapse: inherit;
@@ -50,9 +69,12 @@
     background-color: white;
   }
   .bab_tr{
+    border-radius: 5px 5px 5px 5px;
+    display:flex;
+    justify-content: center;
   } 
   .bab_tr:hover {
-    background-color: #ff80c0;
+    background-color: #FA7268;
 /*     color: rebeccapurple; */
     border-radius: 5px 5px 5px 5px;
   }
@@ -66,9 +88,10 @@
 .babtd5{
     font-size: 1.5em;
     font-weight: bolder;
+    color: #0080c0;
     border-collapse: collapse;
-    border-radius: 5px 5px 5px 5px;
 }
+
 .babinfomation{
   font-size: 1.5em;
   text-align: left;
@@ -126,3 +149,34 @@ border-collapse: none;
 #commentList.notice_wr2{
 	font-size:1.3em;
 }
+.btn btn-default button{	
+border-radius:5px 5px 5px 5px;
+color: #7db341;
+}
+
+/* avatar .user, .avatar img {
+    display: block;
+    border-radius: 3px;
+}
+.avatar img {
+    width: 48px;
+    height: 48px;
+}
+
+.avatar .user {
+    position: relative;
+    z-index: 100;
+    background: #dbdfe4;
+    padding: 0;
+}
+.avatar .user, .avatar img {
+    display: block;
+    border-radius: 3px;
+}
+.avatar {
+    float: left;
+}
+.textarea-outer-wrapper--top-level .avatar {
+    position: absolute;
+    left: 0;
+    transition: left .2s linear;}  */   

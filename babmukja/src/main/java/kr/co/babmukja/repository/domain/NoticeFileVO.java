@@ -6,9 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class NoticeFileVO {
 	private int fileNo;
-	private String sysname;
-	private String orgname;
-	private String path;
+	private String imgSysname;
+	private String imgOrgname;
+	private String imgpath;
 	private MultipartFile attach;
 	private List<MultipartFile> imageList;	
 	private int noticeNO;
@@ -18,23 +18,24 @@ public class NoticeFileVO {
 	public void setFileNo(int fileNo) {
 		this.fileNo = fileNo;
 	}
-	public String getSysname() {
-		return sysname;
+	
+	public String getImgSysname() {
+		return imgSysname;
 	}
-	public void setSysname(String sysname) {
-		this.sysname = sysname;
+	public void setImgSysname(String imgSysname) {
+		this.imgSysname = imgSysname;
 	}
-	public String getOrgname() {
-		return orgname;
+	public String getImgOrgname() {
+		return imgOrgname;
 	}
-	public void setOrgname(String orgname) {
-		this.orgname = orgname;
+	public void setImgOrgname(String imgOrgname) {
+		this.imgOrgname = imgOrgname;
 	}
-	public String getPath() {
-		return path;
+	public String getImgpath() {
+		return imgpath;
 	}
-	public void setPath(String path) {
-		this.path = path;
+	public void setImgpath(String imgpath) {
+		this.imgpath = imgpath;
 	}
 	public MultipartFile getAttach() {
 		return attach;
@@ -54,5 +55,4 @@ public class NoticeFileVO {
 	public void setNoticeNO(int noticeNO) {
 		this.noticeNO = noticeNO;
 	}
-	
 }

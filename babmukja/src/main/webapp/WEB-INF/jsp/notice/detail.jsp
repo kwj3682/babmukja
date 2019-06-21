@@ -20,42 +20,14 @@
 <body style="background: white;">
 	<div class="babcontainer">
 		<div class="babnotices">공지사항 상세조회</div>
-	</div>
-	
+	</div>	
 	<br>
 	<br>
-<!-- 	<div class="col-xs-12"> -->
-<!--         <form action="/insertProc" method="post"> -->
-<!--             <dl class="dl-horizontal"> -->
-<!--               <dt>번호</dt> -->
-<%--               <dd>${notice.noticeNo}</dd> --%>
-              
-<!--               <dt>작성자</dt> -->
-<%--               <dd>${notice.writer}</dd> --%>
-              
-<!--               <dt>작성날짜</dt> -->
-<!--               <dd> -->
-<%--                   <fmt:formatDate value="${notice.regDate}" pattern="yyyy.MM.dd HH:mm:ss"/> --%>
-<!--               </dd> -->
-              
-<!--               <dt>첨부파일</dt> -->
-<%--               <dd><a href="/fileDown/${files.noticeNo}">${files.fileOriName}</a></dd> --%>
-              
-<!--               <dt>내용</dt> -->
-<%--               <dd>${notice.content}</dd> --%>
-<!--             </dl> -->
-<!--         </form> -->
-<!--         <div class="btn-group btn-group-sm" role="group" style="float:right;"> -->
-<%--           <button type="button" class="btn btn-default" onclick="location.href='delete.do?noticeNo=${notice.noticeNo}'">삭제</button> --%>
-<%--           <button type="button" class="btn btn-default" onclick="location.href='updateForm.do?noticeNo=${notice.noticeNo}'">수정</button> --%>
-<!--           <button type="button" class="btn btn-default" onclick="location.href='list.do'"> 목록 </button> -->
-<!--         </div> -->
-<!--   </div> -->
-
 	<form action="/insertProc" method="post">
 	<table class="babtable">
 		<tr class="bab_tr">
-			<td class="babtd5" style="float: left">
+			<td class="babtd5">
+				<br>
 				<div>
 					번호 : <c:out value="${notice.noticeNo}" />
 				</div>
@@ -68,34 +40,42 @@
 					제목 : <c:out value="${notice.title}" />
 				</div>
 				<br>
+				<div style="width:620px;">
+				        내용 : <c:out value="${notice.content}" /> 
+				</div> 
+				<c:if test="${notice.imgSysname != null}">
+				<div class="notice_content_img">  	
+				<div class="notice_detail_img">
+				<%-- <div class="notice_detail_content">내용: ${notice.content}</div>  --%>
+				<%-- <c:forEach begin="1" end="4" step="1" varStatus="num"> 
+				  <div>${num.count}</div>
+				 </c:forEach>   --%>
+				  <img src="<c:url value='download.do?path=${notice.imgSysname}'/>">
+				</div> 
+				</div> 
+				</c:if>
+			   <%-- <div id="notice_img"> 
+         	       <c:forEach var="file" items="${imageList}"> 
+           		           <div> 
+       	    	              <img src="download.do?path=${file.path}&sysname=${file.sysname}"> 
+       	    	           </div>      
+ 	    	       </c:forEach> 
+				</div> --%>
+			    <br>
 				<div>
-					내용 : <c:out value="${notice.content}" />
+					등록일 : <fmt:formatDate value="${notice.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /> 
 				</div>
 				<br>
-				<%-- <div id="notice_select_img"> 
-         	                사진: <c:forEach var="file" items="${noticeFilelist}"> 
-           		       <div> 
-       	    	          <img src="downloadnotice.do?path=${file.path}&sysname=${file.sysname}"> 
-       	    	           </div> 
- 	    	          </c:forEach> 
-		        </div>  --%>
-				<br>
-			<br>
-			<br>
-			<br>
-			<br>
-				<div>
-					등록일 : <fmt:formatDate value="${notice.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /> 
-				</div>
-				<br>
-				<div>조회수 : ${notice.viewCnt}</div>
-				<br>
+				<div>조회수 : ${notice.viewcnt}</div>
+				<br> 
 			</td>
 		</tr>
 	<div class="btnView2" style="float:center;">
         <td class="btnView">
+<%--         <c:if test="{sessionScope.admin != null}"> --%>
         <button input type="button" style="font-size: 1.2em;"><a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a></button>
 		<button input type="button" style="font-size: 1.2em;"><a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
+<%-- 		</c:if> --%>
 		<button input type="button" style="font-size: 1.2em;"><a href='list.do'>목록</a></button>
 		</td> 
 	</div>
@@ -104,18 +84,18 @@
     <hr>
  <!--  댓글  -->
     <div class="comment_container">
-        <label for="content" style="font-size:1.3em;">comment</label>
-        <input type="checkbox" id="secretAt">비밀댓글
+        <label for="content" style="font-size:1.5em; font-weight:bold; display:flex; justify-content:center;">COMMENTS</label>
+        <%-- <c:if test="{sessionScope.user.memNo != null}"> --%>
+        <!-- <input type="checkbox" id="secretAt">비밀댓글 -->
+        <%--  </c:if>  --%>
         <form id= "commentInsert" name="commentInsertForm" method="post">
   			<input type="hidden" name="noticeNo" value="${notice.noticeNo}">			
   			
               <div class="input-group">
-               <input type="text" style="width:95%;" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-    
+               <input type="text" style="width:95%; border-radius: 5px 5px 5px 5px;" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+               <%-- <c:if test="{sessionScope.user.memNo != null}">  --%>
                     <button class="btn btn-default" id="submitComment" type="button" name="commentInsertBtn">등록</button>
-<!--                     <button class="btn btn-default2" id="submitComment2" type="button" name="commentUpdateBtn">수정</button> -->
-<!--                     <button class="btn btn-default3" id="submitComment3" type="button" name="commentDeletetBtn">삭제</button> -->
-               </span>
+               <%--  </c:if> --%>
               </div>
         </form>
     </div>
@@ -123,25 +103,13 @@
     <div class="container">
         <div class="commentList"></div>
     </div>
- 
-</div>
+ </div>
 
 <script>
-// alert("noticeNo: " + noticeNo );//`${detail.noticeNo}`; //게시글 번호
+// alert("noticeNo: " + noticeNo );
+// `${detail.noticeNo}`; //게시글 번호
 /* var noticeCommentNo = ${comment.noticeCommentNo} + 1;
 console.log("noticeCommentNo" + noticeCommentNo); */
-
-/* var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function(){
-	if(xhr.readyState == 4){
-		if(xhr.status == 200){
-			var data = xhr.responseText;
-			console.log(data);
-		}
-	}
-};
-xhr.open("GET", "/babmukja/comment/comment-list.do", true);
-xhr.send(); */
 
 /* var xhttp = new XMLHttpRequest();
 xhttp.open("GET", "/babmukja/comment/comment-list.do", true);
@@ -154,9 +122,10 @@ xhttp.onreadystatechange = function() {
 var noticeNo = ${notice.noticeNo};
 var data ={};
 var content = $("#content").val();
+var secretAt ="n";
 data.noticeNo = noticeNo;
 data.content = content;
-
+data.secretAt = secretAt;
 //댓글 목록 
 function commentList(){
 	$.ajax({
@@ -169,72 +138,42 @@ function commentList(){
 		   console.dir(data)
 /* 	       alert("ajax data 성공" + data);; */
 	       /* alert(data["content"]); */
-	      // if(data.length > 0){
+	       if(data.length > 0){
 	       $(".commentList").html("");    
 	       for(let i=0; i < data.length; i++){
 	    	 $(".commentList").append(  
-	    	             '<div class="commentArea" id="commentArea'+i+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">'
-	    			    +'<div class="commentContent"> <p> 댓글 : ' + data[i].content + '  <a style="float:right;"></a>'
+	    	             '<div class="commentArea" id="commentArea'+i+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px; color:blue;">'
+	    			    +'<div class="commentContent">' /* <div class="avatar"><span class="user"><img data-role="user-avatar" src="https://c.disquscdn.com/next/embed/assets/img/noavatar92.7b2fde640943965cc88df0cdee365907.png" alt="아바타"></span></div>' */
+	    			    +'<p> 댓글 : ' + data[i].content + '  <a style="float:right;"></a>' /* <c:if test="{sessionScope.user.memNo != null}"> </c:if> */  
 	    			    +'<a href="'+ data[i].noticeCommentNo +'" style="float:right;"><button id="commentUpdate">수정</button></a>'
-	    			    +'<a onclick="commentDelete('+ data[i].noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button></a></p></div></div>'
+	    			    +'<a onclick="commentDelete('+ data[i].noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button>&nbsp;</a></p></div></div>'
 	    	     ); /* return false; */
 	    	 }  
-	       /* } else {
-	    	   $(".commentList").append( 
-	    			   '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">'
+	        } else {
+	    	   $(".commentList").html( 
+	    			   '<div class="commentArea" style="border-bottom:1px solid darkgray; color: red; margin-bottom: 15px;">'
 		    			 +'<div class="commentContent"> <p> 댓글 : ' + "등록된 댓글이 없습니다." + '</p></div></div>');
-	       } */
-					             
+	       } 	             
 	   } 
     }); 
 }	 
 
-
-////정래 예시
-///* $(document).on("click", "#introDelete", function () {
-//data = {};
-//data.fileDirectory = fileDirectory;
-//alert(fileDirectory);
-//$.ajax({
-//   url: '/babmukja/meetup/deleteIntro.do',
-//   data: data,
-//   type: "POST",
-//   enctype: 'multipart/form-data',
-//   success: function (data) {
-
-//      $("#tabPanel1").html(`<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>`);
-//      dataProcess();
-//   }
-//});
-
-//}); */
-
 //댓글 등록
 $("#submitComment").click(function() {  
-	alert("ajax");
+	// alert("ajax");
 	var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
 	console.log(" ajax데이터 들어감");
-	/* $(document).on("click", "button[id='submitComment']", function(){
-	alert($(this).parent());});  */
 	
-	  $("#secretAt").click(function(){
+	 /*  $("#secretAt").click(function(){
 		var content = $("#content").val();
-		var noticeCommentNo = "${comment.noticeCommentNo}"
+		var noticeNo = "${comment.noticeNo}"
 		var secretAt ="n";
 		if($("#secretAt").is(":checked")){
 			secretAt = "y";
 		} 
-        	}); 
-		/* var param = "content=" +content+"&noticeCommentNo="+noticeCommentNo+"&secretAt="+secretAt;
-	    $.ajax({
-	             type: "post",
-	             url:'/babmukja/comment/comment-insert.do',
-	             data: param,
-	             success: function(){
-	            	 alert("댓글이 등록되었습니다.");
-	         }
-	    });  */
-	
+   	  $("#secretAt").html("비밀 댓글입니다.");
+        	});  */
+    if(confirm("등록하시겠습니까?")){
 	$.ajax({
 	   url : '/babmukja/comment/comment-insert.do',
 	   type : 'post',
@@ -243,61 +182,25 @@ $("#submitComment").click(function() {
 	       if(data == 1) {
 	    	   alert("등록되었습니다.");
 	           commentList("1"); //댓글 작성 후 댓글 목록 reload 
-	           $('[name=content]').val('');
-	           
-	     
-		   } 		             
+	           $('[name=content]').val('');     	     
+		  } 		             
 	    }
-	});
-}); 
+	 });
+   }
+ }); 
 
-
-/*     function commentUpdate(noticeCommentNo, content){	
-	 var a =''; 
-	 a+='<div class="input-group">'
-   	 a+= '<input type="text" class="form-control" name="content_'+noticeCommentNo+'" value="'+noticeCommentNo.content+'"/>'
-   	 a+= '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+');">수정</button></span>'
-   	 a+= '</div>'; 
-   	 $('.commentContent'+noticeCommentNo).html(a); 
-     }	 */   
-   	 
-	/*  alert("noticeCommentNo" + noticeCommentNo)
-	 var data ={};
-	 data.noticeCommentNo =noticeCommentNo;
-	 var updateContent = $('[name=content_'+noticeCommentNo+']').val();
-	 data.updateContent = updateContent;
-	   if(confirm("수정하시겠습니까?")){	  	   */
-        /*    '<div class="input-group">'
-    	 + '<input type="text" class="form-control" name="content_'+data.noticeCommentNo+'" value="'+content+'"/>'
-    	 + '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+');">수정</button></span>'
-    	 + '</div>'; 
-    	 $('.commentContent'+noticeCommentNo); */
-     /*   console.log(" ajax 수정데이터 들어감");
-       $.ajax({
-  	   url : '/babmukja/comment/comment-update.do',
-  	   type : 'post',
-  	   data :{'content' : updateContent, 'noticeCommentNo' : noticeCommentNo},
-  	   success : function(data){
-  	       if(data == 1) 
-  	       alert("수정되었습니다.");	   
-  	       commentList(noticeCommentNo); //댓글 수정후 목록 출력 
-  	    }
-     }); 
-  }  */
-
-//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
+//댓글 수정폼 - 댓글 내용 출력을 input 폼으로 변경 
 	 $(document).on("click", "button[id='commentUpdate']", function(){
          let noticeCommentNo = $(this).parent().attr("href");
          let commentAreaId =$(this).parent().parent().parent().parent().attr("id");
          console.log(commentAreaId);
          
-         $(this).parent().parent().parent().html('<div class="input-group">'
-	   		   	 + '<input type="text" class="form-control" style="width:95%;" name="content_'+noticeCommentNo+'" value="'+content+'"/>'
-	   		   	 + '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+', '+commentAreaId+');">수정</button></span>'
+         $(this).parent().parent().parent().html('<br><div class="input-group">'
+	   		   	 + '<input type="text" class="form-control" placeholder="수정할 내용을 입력하세요." style="width:95%;border-radius:5px 5px 5px 5px;" name="content_'+noticeCommentNo+'" value="'+content+'"/>'
+	   		   	 + '<span class="input-group-btn">&nbsp;<button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+', '+commentAreaId+');">수정</button>&nbsp;</span>'
 	   		   	 + '</div>');
 		 return false; 
 	     }); 
-  
   
 //댓글 수정
     function commentUpdate(noticeCommentNo, commentAreaId){
@@ -308,12 +211,8 @@ $("#submitComment").click(function() {
 	  
 	if(confirm("수정하시겠습니까?")){		
 	 console.log("ajax 수정데이터 들어감");
-	/*   $(".btn.btn-default").on("click", function(){
-     $(".form-control").remove();	
-    });  */
 	 $.ajax({
 	    url : '/babmukja/comment/comment-update.do',
-	  // async: 'false', 
 	    type : 'post',
 	    data :{'content' : updateContent, 'noticeCommentNo' : noticeCommentNo},
 	    success : function(data){
@@ -322,14 +221,11 @@ $("#submitComment").click(function() {
 	  
 		 let a ='<div class="commentContent"> <p> 댓글 : ' + data.content + '  <a style="float:right;"></a>'
 		 +'<a href="'+ data.noticeCommentNo +'" style="float:right;"><button id="commentUpdate">수정</button></a>'
-		 +'<a onclick="commentDelete('+ data.noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button></a></p></div>'
+		 +'<a onclick="commentDelete('+ data.noticeCommentNo +');" style="float:right;"><button id="commentDelete">삭제</button>&nbsp;</a></p></div>'
 	    
 		 $(commentAreaId).html(a);
-	     // $(this).show();
-	    alert("수정되었습니다.");
-	    
-
-	   }
+	     alert("수정되었습니다.");
+	  }
    });
   } 
 }
@@ -340,6 +236,11 @@ $("#submitComment").click(function() {
 	 var data ={};
 	 data.noticeCommentNo =noticeCommentNo; 
 		$(document).on("click", "button[id='commentDelete']", function(){
+			/* var noticeCommentNo = $(this).parent().attr("onclick");
+			 console.log("noticeCommentNo" + noticeCommentNo);
+			 if(noticeCommentNo > 0){
+				 alert("댓글이 있는 게시물은 삭제 할 수 없습니다.")
+				 return;}	 */
 		$(this).parent().parent().parent().parent().remove(); });
 	if(confirm("삭제하시겠습니까?")){
 	$.ajax({
@@ -358,13 +259,7 @@ $("#submitComment").click(function() {
 
 $(document).ready(function(){
 commentList(); //페이지 로딩시 댓글 목록 출력 
-});  
-  
-</script> 
-
-
-
-
-
+});    
+</script>  
 </body>
 </html>
