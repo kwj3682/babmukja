@@ -374,7 +374,7 @@ hr {
     grid-gap: 3em;
 }
 
-.new_product_item > .product > img {
+.new_product_item > .product > a > img {
     height: 100%;
     width: 100%;
     border-radius: 50%;
@@ -435,14 +435,14 @@ hr {
 	color: black;
 }
 
-.product > img {
+.product > a > img {
     width: 100%;
     border-radius: 5px;
     height: 250px;
    	cursor: pointer;
 }
 
-.product > img:hover {
+.product > a > img:hover {
 	opacity: 1;
 	-webkit-animation: flash 1.5s;
 	animation: flash 1.5s;
