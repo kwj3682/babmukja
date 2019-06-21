@@ -587,11 +587,6 @@
 	   		   return;
 	   	   }
 	   	   
-// 	   	   if ($(rating).is(':checked') == false ) {
-// 	   		  alert("별점을 선택해주세요.");
-// 	   		  return;
-// 		   }
-	   	   
     	   reviewData.append("content",content );
     	   reviewData.append("pbNo", pbNo);
     	   reviewData.append("rating", checkedValue);
