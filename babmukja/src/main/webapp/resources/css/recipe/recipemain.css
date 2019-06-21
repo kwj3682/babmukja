@@ -56,7 +56,7 @@ html, body {
       100%{background:rgba(0,0,0,0.3);}
   }
     #main-body{
-      width: 1300px;
+      width: 1200px;
       margin: 0 auto;
       height: 2000px;
     }
@@ -98,6 +98,12 @@ html, body {
 }
 #paragraph{
     margin-left: 15px;
+}
+#paragraph > p {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 350px;
+    text-overflow: ellipsis;
 }
 #monthly-profile{
     width : 90px;
@@ -141,7 +147,7 @@ html, body {
     background-size: cover;
 }
 #sec1-content2-wrapper > div:nth-child(3) div{
-    padding-left: 18px;
+    padding-left: 20px;
     height: 210px;
 }
 #sec1-content2-wrapper > div:nth-child(3) div img{
@@ -163,7 +169,7 @@ html, body {
     transform: rotate(15deg);
 }
 #sec1-content2-wrapper > div:nth-child(3){
-    font-size: 30px;
+    font-size: 25px;
 }
 #sec1-content2-wrapper > div:nth-child(3) > div> b{
     font-size: 30px;
@@ -197,7 +203,7 @@ html, body {
 
 #sector2{
     width: 100%;
-    height: 1300px;
+    height: 1200px;
     font-family: 'East Sea Dokdo', cursive;
     background: url(../../images/chalkboardbig.png);
 }
@@ -269,21 +275,16 @@ html, body {
 }
 
 #sector3{
-    width: 1300px;
-    background:url(../../images/marble.jpg) no-repeat;
-    background-size: cover;
-    height: 1400px;
-    display: grid;
-    grid-template-rows: 60% 40%;
+    width: 1200px;
+    background:url(../../images/chalkboardback.jpg);
 }
 #sector3-body{
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows:50% 50%;
 }
 #sector3-body>div{
     margin: 5px;
-    box-shadow: 1px 1px 10px 1px black;
+/*     box-shadow: 1px 1px 10px 1px black; */
 }
 #sector3-body>div:nth-child(n){
     background:url(../../images/note4.png) no-repeat;
@@ -308,6 +309,7 @@ html, body {
     font-family: 'East Sea Dokdo', cursive;
     font-weight: lighter;
     font-size : 30px;
+    height: 400px;
 }
 .profile-pic-box{
     display: grid;
@@ -370,7 +372,7 @@ html, body {
 .next-button,
 .previous-button{
 	width:22px;
-	height:600px;
+	height:700px;
 	position:absolute;
 	top:0;
 }
@@ -382,7 +384,7 @@ html, body {
 	-ms-border-radius:0 15px 15px 0;
 	-o-border-radius:0 15px 15px 0;
 	border-radius:0 15px 15px 0;
-/* 	transition :.3s; */
+ 	transition :.3s;
 }
 
 .previous-button{
@@ -392,12 +394,12 @@ html, body {
 	-ms-border-radius:15px 0 0 15px;
 	-o-border-radius:15px 0 0 15px;
 	border-radius:15px 0 0 15px;
-	/* transition :.3s; */
+	transition :.3s;
 }
 
 .previous-button-hover,
 .next-button-hover{
-	background-color:rgb(125, 179, 65);
+	background-color: gainsboro;
 }
 
 .previous-button-hover,
@@ -410,7 +412,7 @@ html, body {
 
 .previous-button-down,
 .next-button-down{
-	background-color:rgba(125, 179, 65,0.5);
+	background-color:rgb(199, 198, 198);
 }
 
 .next-button-hover,
@@ -481,3 +483,8 @@ html, body {
 	opacity: 1;
 	box-shadow : 0 0 15px 3px white;
 }
+.chalkStars{
+	display: inline-block;
+	width: 120px;
+}
+

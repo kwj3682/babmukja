@@ -23,15 +23,16 @@
     <div id="main-body">
     
        <!-- 검색 부분 -->
-     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p></div>
+     <div id="selectBoxSelector"><p>검색 조건을 선택해주세요<i id="fa-arrow" class="fas fa-caret-down"></i></p><i id="submitBtn" class="fa fa-search fa-2x" style="position: absolute; top: 15px; left: 220px;"></i></div>
    <div id="selectBox-wrapper">
-            <form name="searhForm" method="post" action="cadetailall.do">
+            <form name="searhForm" method="post" action="cadetail.do">
+            <input type="hidden" name="country" value="${param.country }">
        <div id="selectBox">
             <div class="selectmenuContent">
                 <img src="<c:url value="/resources/images/icons/title.png"/>">    
                 <div class="selectmenuContent-detail">제목
                     <div class="hiddenMenu">
-                        <input type="text" name="searchTitle"<c:if test="${param.searchTitle != '' || param.searchTitle != null}">value="${param.searchTitle }"</c:if>><span class="search-icon"><i class="fa fa-search"></i></span>
+                        <input type="text" name="searchTitle"<c:if test="${param.searchTitle != '' || param.searchTitle != null}">value="${param.searchTitle }"</c:if>><span class="search-icon"></span>
                     </div>  
                 </div>
                 <div class="selectmenuContentFold"><i class="fas fa-chevron-right"></i></div>
@@ -41,7 +42,7 @@
                 <img src="<c:url value="/resources/images/icons/nickname.png"/>">  
                 <div class="selectmenuContent-detail">닉네임     
                     <div class="hiddenMenu">
-                        <input type="text" name="searchNickname" <c:if test="${param.searchNickname != '' || param.searchNickname != null}">value="${param.searchNickname }"</c:if>><span class="search-icon"><i class="fa fa-search"></i></span>
+                        <input type="text" name="searchNickname" <c:if test="${param.searchNickname != '' || param.searchNickname != null}">value="${param.searchNickname }"</c:if>><span class="search-icon"></span>
                     </div>  
                 </div>
                 <div class="selectmenuContentFold"><i class="fas fa-chevron-right"></i></div>
@@ -59,7 +60,7 @@
                         <label for="high-blood-pressure">고혈압 주의</label>
                         <input type="checkbox" id="vegan" name="caution" value="10" <c:if test="${param.caution == 10}">checked</c:if>>
                         <label for="vegan">채식주의자를 위한</label>
-                        <input type="checkbox" id="halal" name="caution" value="11" <c:if test="${param.caution == 11}">checked</c:if>>
+                        <br><input type="checkbox" id="halal" name="caution" value="11" <c:if test="${param.caution == 11}">checked</c:if>>
                         <label for="halal">돼지고기 포함</label>
                         <input type="checkbox" id="old" name="caution" value="12" <c:if test="${param.caution == 12}">checked</c:if>>
                         <label for="old">노약자 주의</label>
@@ -84,7 +85,7 @@
                         <input type="radio" id="drinkalone" name="situation" value="19" <c:if test="${param.situation == 19}">checked</c:if>><label for="drinkalone">혼술</label>
                         <input type="radio" id="eatalone" name="situation" value="20" <c:if test="${param.situation == 20}">checked</c:if>><label for="eatalone">혼밥</label> 
                         <input type="radio" id="coupledate" name="situation" value="21" <c:if test="${param.situation == 21}">checked</c:if>><label for="coupledate">데이트</label>
-                        <input type="radio" id="snack" name="situation" value="22" <c:if test="${param.situation == 22}">checked</c:if>><label for="snack">간식</label> 
+                        <input type="radio" id="snack" name="situation" value="22" <c:if test="${param.situation == 22}">checked</c:if>><label for="snack">간식</label> <br>
                         <input type="radio" id="wholetable" name="situation" value="23" <c:if test="${param.situation == 23}">checked</c:if>><label for="wholetable">한상차림</label>
                         <input type="radio" id="dinner" name="situation" value="24" <c:if test="${param.situation == 24}">checked</c:if>><label for="dinner">저녁</label>
                         <input type="radio" id="lunch" name="situation" value="25" <c:if test="${param.situation == 25}">checked</c:if>><label for="lunch">점심</label> 
@@ -134,7 +135,7 @@
                         <input type="radio" id="dumpling" name="foodtype" value="42" <c:if test="${param.type == 42}">checked</c:if>><label for="dumpling">만두</label>
                         <input type="radio" id="rice" name="foodtype" value="43" <c:if test="${param.type == 43}">checked</c:if>><label for="rice">밥</label>
                         <input type="radio" id="salad" name="foodtype" value="44" <c:if test="${param.type == 44}">checked</c:if>><label for="salad">샐러드</label>
-                        <input type="radio" id="soup" name="foodtype" value="45" <c:if test="${param.type == 45}">checked</c:if>><label for="soup">스프</label>
+                        <input type="radio" id="soup" name="foodtype" value="45" <c:if test="${param.type == 45}">checked</c:if>><label for="soup">스프</label><br>
                         <input type="radio" id="beverage" name="foodtype" value="46" <c:if test="${param.type == 46}">checked</c:if>><label for="beverage">음료</label>
                         <input type="radio" id="bread" name="foodtype" value="47" <c:if test="${param.type == 47}">checked</c:if>><label for="bread">빵/디저트</label>
                         <input type="radio" id="hardboiled" name="foodtype" value="48" <c:if test="${param.type == 48}">checked</c:if>><label for="hardboiled">조림</label>
@@ -142,7 +143,7 @@
                         <input type="radio" id="hardmixed" name="foodtype" value="50" <c:if test="${param.type == 50}">checked</c:if>><label for="hardmixed">비빔</label>
                         <input type="radio" id="steamed" name="foodtype" value="51" <c:if test="${param.type == 51}">checked</c:if>><label for="steamed">찜</label>
                         <input type="radio" id="pickled" name="foodtype" value="52" <c:if test="${param.type == 52}">checked</c:if>><label for="pickled">절임</label>
-                        <input type="radio" id="fried" name="foodtype" value="53" <c:if test="${param.type == 53}">checked</c:if>><label for="fried">튀김</label>
+                        <input type="radio" id="fried" name="foodtype" value="53" <c:if test="${param.type == 53}">checked</c:if>><label for="fried">튀김</label><br>
                         <input type="radio" id="boiled" name="foodtype" value="54" <c:if test="${param.type == 54}">checked</c:if>><label for="boiled">삶기</label>
                         <input type="radio" id="cooked" name="foodtype" value="55" <c:if test="${param.type == 55}">checked</c:if>><label for="cooked">굽기</label>
                         <input type="radio" id="blanch" name="foodtype" value="56" <c:if test="${param.type == 56}">checked</c:if>><label for="blanch">데치기</label>
@@ -161,12 +162,22 @@
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
-	            <div id="sector3-body">            
+	            <div id="sector3-body">           
+	            	<c:if test="${empty calist}">
+	            		<p class="no-search">검색결과가 존재하지 않습니다.</p>  
+	            	</c:if>   
 	                <c:forEach var="ca" items="${calist }">               
 	                   <div class="profile-container">
 	                       <div class="profile-pic-box">
 	                           <div>
-	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           <c:choose>
+				                	<c:when test="${ca.memImgPath == null}">
+				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${ca.memImgPath}&sysname=${ca.memImgSysname}">
+				                	</c:otherwise>
+		                		</c:choose>
 	                           </div>
 	                           <div class="profile-name">
 	                               <p>
@@ -179,11 +190,19 @@
 	                           </div>
 	                       </div>
 	                       <div class="recipe-pic-box">
-	                           <a href = "detail.do?no=${ca.recipeNo }"><img src="${ca.imgPath}"></a>
+	                           <a href = "detail.do?no=${ca.recipeNo }">
+	                           <c:choose>
+				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+			                           <img src="${ca.imgPath}"></a>
+				                	</c:otherwise>
+		                		</c:choose>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt}</i>
-	                           <i class="fas fa-scroll fa-2x">60</i>
+	                           <i class="fas fa-scroll fa-2x">${ca.scrapCnt }</i>
 	                           <i class="fas fa-eye fa-2x">${ca.viewCnt }</i>
 	                       </div>
 	                   </div>
@@ -193,12 +212,27 @@
 	        </div>
 	    </div>
 	
-    <script>
-    
+    <script>    
     let arrow = $("#fa-arrow");
-    
-    $("#selectBoxSelector").click(function(){
-        $("#selectBox-wrapper").slideToggle(150);
+	let $selectBoxSelector = $("#selectBoxSelector");
+	let $selectBoxWrapper = $("#selectBox-wrapper");
+	let offLeft = $selectBoxSelector.offset().left;
+	
+	
+    $("#submitBtn").css({
+    	position: "absolute",
+    	top: 15,
+    	left: 220
+    });
+    $selectBoxWrapper.css({
+    	position: "fixed",
+    	top: 55,
+    	left: offLeft
+    });
+	
+    $selectBoxSelector.click(function(e){
+        $selectBoxWrapper.slideToggle(150);
+        
         if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
         else{
             arrow.attr({class : "fas fa-caret-down"});
@@ -228,79 +262,92 @@
             $fold.children().attr({class:"fas fa-chevron-right"});
         });
     });
-        
-	    $(".search-icon > i").click(function () {
-			 $("form[name='searhForm']").submit();
-		}); 
-	    
-         // 무한스크롤
-         let pageNo = 0;
-         $(window).scroll( 
-           function(){
-             let sh = $(window).scrollTop() + $(window).height();
-             let dh = $(document).height();
-             
-             if(sh >= dh-10){            
-               pageNo = pageNo+12;
-               let cautions = [];
-		       $("input[name='caution']:checked").each(function(){
-		       	 cautions.push($(this).val());
-		       });
-		       
-		       let data = {
-		    		   pageNo : pageNo,
-		    		   searchTitle : $("input[name='searchTitle']").val(),
-		    		   searchNickname : $("input[name='searchNickname']").val(),
-	                   caution : cautions,
-	                   situation : $("input[name='situation']:checked").val(),
-	                   level : $("input[name='level']:checked").val(),
-	                   time : $("input[name='taketime']:checked").val(),
-	                   type : $("input[name='foodtype']:checked").val()
-		       }
-               $.ajax({               
-		                type : "POST",
-		                data : data,
-		                url : "cadetailScroll.do"
-         
-               }).done(function (result) { 
-               
-                 	if(result.length != 0) {
-                 		 for(let i = 0 ; i < result.length ; i ++) { 
-                 			 console.log(result[i].recipeNo);
-                          	 $("#sector3-body").append(`
-              	                   <div class="profile-container">
-          	                       <div class="profile-pic-box">
-          	                           <div>
-          	                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
-          	                           </div>
-          	                           <div class="profile-name">
-          	                               <p>
-          			                    	  <span>평점 :` + result[i].rating + ` </span>
-          	                           <br>
-          	                               ` +  result[i].title + `
-          	                           <br>
-          	                               ` +  result[i].memNickname + `
-          	                               </p>
-          	                           </div>
-          	                       </div>
-          	                       <div class="recipe-pic-box">
-          	                           <a href = "detail.do?no=` + result[i].recipeNo + `"><img src="` + result[i].imgPath + `"></a>
-          	                       </div>
-          	                       <div class="recipe-info">
-          	                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
-          	                           <i class="fas fa-scroll fa-2x">60</i>
-          	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
-          	                       </div>
-          	                   </div>`)
-                         }
-                 	}
-            	  
-              }).fail(function(xhr){
-	               alert("서버 처리중 에러발생")
-	               console.dir(xhr);
-              })
-             }
-           });
+
+     $("#submitBtn").click(function () {
+    		 $("form[name='searhForm']").submit();
+     });
+     
+    
+    // 무한스크롤
+    let pageNo = 0;
+    $(window).scroll( 
+      function () {
+        let sh = $(window).scrollTop() + $(window).height();
+        let dh = $(document).height(); 
+       
+        if(sh >= dh-10) {
+       	 
+          pageNo = pageNo+12;
+	       let cautions = [];
+	       $("input[name='caution']:checked").each(function(){
+	       	 cautions.push($(this).val());
+	       });
+	       
+	       let data = {
+	    		   pageNo : pageNo,
+	    		   country : $("input[name='country']").val(),
+	    		   searchTitle : $("input[name='searchTitle']").val(),
+	    		   searchNickname : $("input[name='searchNickname']").val(),
+                   caution : cautions,
+                   situation : $("input[name='situation']:checked").val(),
+                   level : $("input[name='level']:checked").val(),
+                   time : $("input[name='taketime']:checked").val(),
+                   type : $("input[name='foodtype']:checked").val()
+	       }
+          
+          $.ajax({               
+	                data : data,
+	                url : "cadetailScroll.do"
+    
+          }).done(function (result) {            	   
+       	   if(result.length != 0) {
+   			 let html = "";
+     		 for(let i = 0 ; i < result.length ; i ++) {
+     			 html += '<div class="profile-container">'
+                        + '<div class="profile-pic-box">'
+                     	+ '<div>'
+                     	
+         		 if(result[i].memImgPath == null || result[i].memImgPath == "") {
+         			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
+         		 } else {
+         			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='+ result[i].memImgPath + '&sysname='+ result[i].memImgSysname+ '">';
+         		 }
+                  html += `</div>
+                  			<div class="profile-name">
+                         			<p>
+	                    	  			<span>평점 :` + result[i].rating + ` </span>
+                    			 <br>
+                        			 ` +  result[i].title + `
+                    			 <br>
+                         			 ` +  result[i].memNickname + `
+                         			</p>
+                     			</div>
+                 			</div>
+	                        <div class="recipe-pic-box">
+	                           <a href = "detail.do?no=` + result[i].recipeNo + `">`;
+	                           
+                 if(result[i].imgPath == null || result[i].imgPath == "") {
+         			html += '<img src="<c:url value="/resources/images/default.png"/>"></a>';				                	
+         		  } else {
+         			html += '<img src="'+ result[i].imgPath + '"></a>';
+         		  }
+	                html += `</div>
+	                        <div class="recipe-info">
+	                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
+	                           <i class="fas fa-scroll fa-2x">`+ result[i].scrapCnt + ` </i>
+	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
+	                        </div>
+	                    </div>`;
+     			 
+     		 	}
+                   	 $("#sector3-body").append(html);
+            	} 
+       	  
+         }).fail(function(xhr){	               
+              console.dir(xhr);
+         })
+        }
+      });
          
     </script>
 </body>

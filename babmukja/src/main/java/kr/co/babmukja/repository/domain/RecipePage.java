@@ -7,12 +7,14 @@ public class RecipePage {
 	private int memNo;
 	private String memName;
 	private String memNickname;
+	private String memImgPath;
+	private String memImgSysname;
 	
 	private int recipeNo;
 	private String title;
 	private String content;
 	private Date regDate;
-	private int rating;
+	private double rating;
 	private int viewCnt;
 	
 	private int likeCnt;
@@ -31,6 +33,18 @@ public class RecipePage {
 	private String searchTitle;
 	private String searchNickname;	
 	
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
 	public String getSearchTitle() {
 		return searchTitle;
 	}
@@ -135,10 +149,10 @@ public class RecipePage {
 	public void setMemNickname(String memNickname) {
 		this.memNickname = memNickname;
 	}
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
-	public void setRating(int rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 	public Date getRegDate() {

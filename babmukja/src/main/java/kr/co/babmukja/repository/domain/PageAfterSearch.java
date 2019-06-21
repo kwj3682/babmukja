@@ -1,18 +1,16 @@
 package kr.co.babmukja.repository.domain;
 
 public class PageAfterSearch {
-	String city1;
-	String city2;
-	String city3;
-	
-	
-	String town1;
-	String town2;
-	String town3;
-	
-	String search;	
-	String category;
-	int fee;
+	private String city1;
+	private String city2;
+	private String city3;
+	private String town1;
+	private String town2;
+	private String town3;
+	private String search;	
+	private String category;
+	private int fee;
+	private int pageNo;
 
 	
 	
@@ -54,9 +52,8 @@ public class PageAfterSearch {
 	public void setTown3(String town3) {
 		this.town3 = town3;
 	}
-	private int pageNo = 1;
 	
-		public String getSearch() {
+	public String getSearch() {
 		return search;
 	}
 	public void setSearch(String search) {
@@ -75,13 +72,13 @@ public class PageAfterSearch {
 		this.fee = fee;
 	}
 		
-		public int getPageNo() {
-			return pageNo;
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+	this.pageNo = pageNo;
 		}
-		public void setPageNo(int pageNo) {
-			this.pageNo = pageNo;
-		}
-		public int getBegin() {
+	public int getBegin() {
 			return (this.pageNo -1) * 6;
 		}
 		public int getEnd() {

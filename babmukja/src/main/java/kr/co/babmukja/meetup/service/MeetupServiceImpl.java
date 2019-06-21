@@ -19,6 +19,7 @@ import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 import kr.co.babmukja.repository.domain.Pagepb;
 import kr.co.babmukja.repository.mapper.AdminMapper;
@@ -65,7 +66,7 @@ public class MeetupServiceImpl implements MeetupService{
 			result.put("meetupList", mapper.selectMeetup(page));
 			result.put("locationList", mapper.selectMeetup(page));
 			result.put("pageResult", new MeetupPageResult(
-			page.getPageNo(), mapper.selectAllMeetupCount()));
+			page.getPageNo(), mapper.selectAllMeetupCount(page)));
 			
 		
 			return result;
@@ -109,5 +110,54 @@ public class MeetupServiceImpl implements MeetupService{
 	public Meetup selectBoard(int no) {
 		return mapper.selectBoard(no);
 	}
+
+	public void insertMeetupMember(MeetupMember meetupMember) {
+		mapper.insertMeetupMember(meetupMember);
+	}
+
+	public List<Meetup> createdBoardByMe(int no){
+		return mapper.createdBoardByMe(no);
+	}
+
+	public List<MeetupMember> selectManageMemberBoard(int no){
+	return mapper.selectManageMemberBoard(no);
+	}
 	
+	public void updateApprovalStatus(int no) {
+		mapper.updateApprovalStatus(no);
+	}
+
+	public List<MeetupMember> selectMeetupMemberList(int no){
+		return mapper.selectMeetupMemberList(no);
+	}
+
+	public MeetupMember selectMeetupMemberStatus(MeetupMember meetupMember) {
+	return mapper.selectMeetupMemberStatus(meetupMember);
+	}
+	
+	public void updateViewCnt(int meetNo) {
+	mapper.updateViewCnt(meetNo);	
+	}
+
+	//관리자 강퇴처리하기
+	public void updateBanStatus(int no) {
+	mapper.updateBanStatus(no);	
+	}
+	
+	//관리자 거절처리하기
+	public void updateRejectStatus(int no) {
+	mapper.updateRejectStatus(no);
+	}
+
+	//내가 참여하는 모임 리스트
+	public List<Meetup> selectFollowMeetup(int memNo){
+	return	mapper.selectFollowMeetup(memNo);
+		
+	}
+
+	// 모임 탈퇴 처리
+	public void updateWidthdrawlStatus(int meetNo) {
+		mapper.updateWidthdrawlStatus(meetNo);
+	}
+
 }

@@ -343,7 +343,7 @@
     box-sizing: border-box;
     border-top: 1px solid gainsboro;
     display: grid;
-    grid-template-columns: 35% 43% 22%;
+    grid-template-columns: 77% 1% 22%;
     align-items: center;
     font-size: 17px;
 }
@@ -425,14 +425,16 @@
     margin: 0 auto;
     text-align: center;
     width: 900px;
-    height: 90px;
+    height: 55px;
     display: grid;
-    grid-template-columns: 19% 12% 14%;
-
-    border-bottom: 1px solid gainsboro;
+    
+    grid-template-columns: 19% 12% 54%;
+	
 }
 #modal_meetup_tag{
     text-align: left;
+    align-items: flex-end;
+    
 }
 .modal_meetup_tag_container>div {
     font-size: 17px;
@@ -441,11 +443,73 @@
     align-items: center;
 }
 
+
 .meetup_tag {
     width: 350px;
     height: 26px;
+  
+    
 }
 
+.modal_meetup_tag_container >.modal_meetup_tag_box{
+	justify-items:left;
+	text-align:left;
+	 align-items: flex-end;
+}
+
+
+
+
+.modal_meetup_tagSelected_container {
+    position: relative;
+    top: -18px;
+    margin: 0 auto;
+    text-align: center;
+    width: 900px;
+    height: 34px;
+    display: grid;
+    
+    grid-template-columns: 19% 12% 54%;
+	
+    border-bottom: 1px solid gainsboro;
+}
+	#modal_meetup_tagSelected{
+    text-align: left;
+    
+}
+	.modal_meetup_tagSelected_container>div {
+    font-size: 17px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+
+.meetup_tagSelected {
+    width: 350px;
+    height: 32px;
+}
+
+.modal_meetup_tagSelected_container >.modal_meetup_tagSelected_box{
+	display:block;
+	text-align:left;
+}
+
+.selected_tag_container{
+	display:inline-block;
+	margin-right:10px;
+}
+
+.tag_letter{
+	margin-top:3px;
+	padding-right:6px;
+	padding-left:6px;
+	display:inline-block;
+	text-align:center;
+	background:#7db341;
+	color:white;
+	
+}
 .modal_meetup_location_container {
     position: relative;
     top: -18px;
@@ -489,6 +553,7 @@
     line-height: 85px;
     text-align: left;
 }
+
 .modal_meetup_day_box>span{
 display:inline-block;
 border: 1px solid gainsboro;
@@ -518,6 +583,8 @@ line-height:30px;
     display:none;
    
 }
+
+
 input[type=checkbox]:checked +label{
     
     background-color:  #7db341;

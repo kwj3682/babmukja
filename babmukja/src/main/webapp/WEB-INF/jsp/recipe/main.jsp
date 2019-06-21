@@ -101,11 +101,37 @@
             </div>
             <div id="sec1-content2">
                 <div id="sec1-content2-wrapper">
-                    <div>만든 이 <span id="monthly-profile-wrapper"><img id="monthly-profile" src="<c:url value="/resources/images/profile15.jpg"/>"></span></div>
-                    <div id="paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem cum expedita libero unde quos nemo blanditiis molestias mollitia! Vitae deserunt minima accusantium, inventore magnam fuga doloribus dolorem illum dolorum debitis perferendis porro quasi, similique maxime? Eum, officiis nemo? Repellat, deserunt.</div>
+                    <div>만든 이 
+                    	<span id="monthly-profile-wrapper">
+                    	<c:choose>
+		                	<c:when test="${win.memImgPath == null}">
+		                    	<img id="monthly-profile" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+		                	</c:when>
+		                	<c:otherwise>					                	
+		                    	<img id="monthly-profile" src="${pageContext.request.contextPath}/member/download.do?path=${win.memImgPath}&sysname=${win.memImgSysname}">
+		                	</c:otherwise>
+	                	</c:choose>
+                    	</span>
+                    </div>
+                    <div id="paragraph">
+                    	<c:forEach var="c" items="${comment }">
+	                    	<p>${c.content}</p> - ${c.memNickname} -                    	
+                    	</c:forEach>
+                    </div>
                     <div>
                 <c:forEach var="w" items="${winner }">
-                        <div>${w.title }<br><a href="detail.do?no=${w.recipeNo }"><img src="${w.imgPath }"></a></div>    
+                        <div>${w.title }<br>
+                        	<a href="detail.do?no=${w.recipeNo }">
+	                        	<c:choose>
+				                	<c:when test="${w.imgPath == null || w.imgPath == ''}">
+				                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img src="${w.imgPath}">
+				                	</c:otherwise>
+		                		</c:choose>
+                        	</a>
+                        </div>    
                  </c:forEach>
                         <div>더 보기 <b>↓</b>
                         	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>">
@@ -198,11 +224,18 @@
                    <div class="profile-container">
                        <div class="profile-pic-box">
                            <div>
-                               <img class="profile-picture" src="<c:url value="/resources/images/profile15.jpg"/>">
+	                           <c:choose>
+				                	<c:when test="${list.memImgPath == null}">
+				                    	<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">					                	
+				                	</c:when>
+				                	<c:otherwise>					                	
+				                    	<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${list.memImgPath}&sysname=${list.memImgSysname}">
+				                	</c:otherwise>
+		                		</c:choose>
                            </div>
                            <div class="profile-name">
                                <p>   
-                            <fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd hh:mm:ss" />
+                            <fmt:formatDate value="${list.regDate}" pattern="yyyy.MM.dd" />
                            <br>
                                   ${list.title}
                            <br>
@@ -211,11 +244,20 @@
                            </div>
                        </div>
                        <div class="recipe-pic-box">
-                           <a href = "detail.do?no=${list.recipeNo }"><img src="${list.imgPath}"></a>
+                           <a href = "detail.do?no=${list.recipeNo }">
+                            <c:choose>
+			                	<c:when test='${list.imgPath == "" || list.imgPath == null}'>
+			                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+			                	</c:when>
+			                	<c:otherwise>					                	
+		                           	<img src="${list.imgPath}">
+			                	</c:otherwise>
+	                		</c:choose>
+                           	</a>
                        </div>
                        <div class="recipe-info">
                            <i class="fas fa-heart fa-2x">${list.likeCnt }</i>
-                           <i class="fas fa-scroll fa-2x">60</i>
+                           <i class="fas fa-scroll fa-2x">${list.scrapCnt }</i>
                            <i class="fas fa-eye fa-2x">${list.viewCnt }</i>
                        </div>
                    </div>
@@ -227,7 +269,7 @@
     </div>
     
     <script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
-    <script>
+    <script>    
     $("#bottle").click(function () {
     	location.href = "<c:url value='/member/mypage.do?memNickname=${win.memNickname}'/>";
     });

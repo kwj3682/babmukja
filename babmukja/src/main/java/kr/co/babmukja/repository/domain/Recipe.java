@@ -8,12 +8,14 @@ public class Recipe {
 	private int memNo;
 	private String memName;
 	private String memNickname;
+	private String memImgSysname;
+	private String memImgPath;
 	
 	private int recipeNo;
 	private String title;
 	private String content;
 	private Date regDate;
-	private int rating;
+	private double rating;
 	private int viewCnt;
 	
 	private int likeCnt;
@@ -26,8 +28,20 @@ public class Recipe {
 	private List<String> keywords;
 	private List<String> cautions;
 	private int country;
-	private String keyword;
+	private String keyword;	
 	
+	public String getMemImgSysname() {
+		return memImgSysname;
+	}
+	public void setMemImgSysname(String memImgSysname) {
+		this.memImgSysname = memImgSysname;
+	}
+	public String getMemImgPath() {
+		return memImgPath;
+	}
+	public void setMemImgPath(String memImgPath) {
+		this.memImgPath = memImgPath;
+	}
 	public String getKeyword() {
 		return keyword;
 	}
@@ -112,10 +126,10 @@ public class Recipe {
 	public void setMemNickname(String memNickname) {
 		this.memNickname = memNickname;
 	}
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
-	public void setRating(int rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 	public Date getRegDate() {

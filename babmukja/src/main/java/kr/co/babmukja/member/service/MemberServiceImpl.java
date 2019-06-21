@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.Scrapbook;
 import kr.co.babmukja.repository.mapper.MemberMapper;
 
 @Service("kr.co.babmukja.member.service.MemberService")
@@ -95,8 +97,38 @@ public class MemberServiceImpl implements MemberService {
 	public void updateResetPass(Member member) {
 		mapper.updateResetPass(member);
 	}
+	
+	public int selectConfirmCertificationByEmail(int memNo) {
+		return mapper.selectConfirmCertificationByEmail(memNo);
+	}
+	
+	public int selectMemnoByEmail(String memEmail) {
+		return mapper.selectMemnoByEmail(memEmail);
+	}
+	
 	//----------------------------------------우중------------------------------------------------//
 	public List<Member> searchMemberByNick(String nick){
 		return mapper.searchMemberByNick(nick);
+	}
+
+	@Override
+	public void updateMemberProfile(Member member) {
+		// TODO Auto-generated method stub
+		mapper.updateMemberProfile(member);
+	}
+
+	@Override
+	public Member searchMemberByNickForMypage(String nick) {
+		return mapper.searchMemberByNickForMypage(nick);
+	}
+	
+	public String selectFollowStatus(RecipeFollow follow) {
+		return mapper.selectFollowStatus(follow);
+	}
+	public void insertScrapbook(Scrapbook book) {
+		mapper.insertScrapbook(book);
+	}
+	public List<Scrapbook> selectScrapbookListByNo(int memNo){
+		return mapper.selectScrapbookListByNo(memNo); 
 	}
 }

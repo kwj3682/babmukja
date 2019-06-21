@@ -3,6 +3,8 @@ package kr.co.babmukja.member.service;
 import java.util.List;
 
 import kr.co.babmukja.repository.domain.Member;
+import kr.co.babmukja.repository.domain.RecipeFollow;
+import kr.co.babmukja.repository.domain.Scrapbook;
 
 public interface MemberService {
 	Member selectLogin (Member member); // 로그인
@@ -33,7 +35,15 @@ public interface MemberService {
 	
 	void updateResetPass(Member member); // 비밀번호 재설정
 	
+	public int selectConfirmCertificationByEmail(int memNo);
+	
+	int selectMemnoByEmail(String memEmail);
+	
 //----------------------------------------우중------------------------------------------------//
 	List<Member> searchMemberByNick(String nick);
-
+	Member searchMemberByNickForMypage(String nick);
+	void updateMemberProfile(Member member);
+	public String selectFollowStatus(RecipeFollow follow);
+	public void insertScrapbook(Scrapbook book);
+	public List<Scrapbook> selectScrapbookListByNo(int smemNo);
 }

@@ -14,8 +14,21 @@ String location;
 int viewCnt;
 String hostName;
 int hostNo;
+int manageNo;
+String tag;
 
-
+public String getTag() {
+	return tag;
+}
+public void setTag(String tag) {
+	this.tag = tag;
+}
+public int getManageNo() {
+	return manageNo;
+}
+public void setManageNo(int manageNo) {
+	this.manageNo = manageNo;
+}
 public String getHostName() {
 	return hostName;
 }

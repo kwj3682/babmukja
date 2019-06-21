@@ -9,6 +9,7 @@ import kr.co.babmukja.repository.domain.Meetup;
 import kr.co.babmukja.repository.domain.MeetupFile;
 import kr.co.babmukja.repository.domain.MeetupIntro;
 import kr.co.babmukja.repository.domain.MeetupLocation;
+import kr.co.babmukja.repository.domain.MeetupMember;
 import kr.co.babmukja.repository.domain.PageAfterSearch;
 
 public interface MeetupService {
@@ -29,4 +30,21 @@ public interface MeetupService {
 	public MeetupFile uploadImage(MultipartFile file) throws Exception; 
 	public Map<String, Object> selectMeetup(PageAfterSearch page);
 	public Meetup selectBoard(int no);
+	public void insertMeetupMember(MeetupMember meetupMember);
+	public List<Meetup> createdBoardByMe(int no);
+	public List<MeetupMember> selectManageMemberBoard(int no);
+	public void updateApprovalStatus(int no);
+	public List<MeetupMember> selectMeetupMemberList(int no);
+	public MeetupMember selectMeetupMemberStatus(MeetupMember meetupMember);
+	public void updateViewCnt(int meetNo);
+	//관리자 강퇴처리하기
+	public void updateBanStatus(int no);
+	//관리자 거절처리하기
+	public void updateRejectStatus(int no);
+
+	//참여하는 모임 가져오기
+	public List<Meetup> selectFollowMeetup(int memNo);
+	
+	//모임 탈퇴하기
+	public void updateWidthdrawlStatus(int meetNo);
 }

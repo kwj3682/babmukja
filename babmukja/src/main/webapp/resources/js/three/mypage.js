@@ -1,4 +1,14 @@
 
+let $sec2 = $("#updateform-sec2");
+let userProfile = $("#profile-picture").attr("src");
+let userNickname = $("#updateform-sec2-userinfo-id").text();
+let userNo = $("input[name='memNo']").val();
+let visitorNo = $("input[name='visitor']").val();
+let followCnt = $("input[name='follow']").val();
+let followerCnt = $("input[name='follower']").val();
+let recipeCnt = $("input[name='recipeCnt']").val();
+let followStatus = $("input[name='followStatus']").val();
+
 var camera, scene, renderer;
 var selectBox;
 var textMesh;
@@ -212,33 +222,14 @@ function update() {
 		recipeArea.rotation.x = 0;
 	});
 
-	// var selectBoxM1 = new THREE.LineDashedMaterial( { linewidth : 6, color: 0x01f123, dashSize: 3, gapSize: 1} );
-	var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
-	var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
 	
-	
-	// selectBox = new THREE.LineSegments( selectBoxG, selectBoxM2 );
-	// selectBox.computeLineDistances();
-	// selectBoxG = new THREE.EdgesGeometry( selectBoxG );
-	selectBox = new THREE.Mesh( selectBoxG, selectBoxM2 );
-
-	selectBox.on("mouseover",function(){
-		selectBoxFlag = true;
-	}).on("pointerout",function(){
-		selectBoxFlag = false;
-
-	});
-	selectBox.position.x = -21;
-	selectBox.position.y = -15;
-	selectBox.position.z = 11;
-	selectBox.rotation.y = -1.2;
-
 	
 	scene.add( book1 );
 	scene.add( book2 );
 	scene.add( book3 );
 	scene.add( recipeArea );
-	scene.add( selectBox );
+
+	
 	//-------------------------- Geometry loading part------------------------------//
 	
 	var loader = new THREE.GLTFLoader();
@@ -370,6 +361,7 @@ function update() {
 				textMesh.scale.z = size;
 				textMesh.rotation.y = 0.1;
 			}).on('click',function(){
+				location.href="/babmukja/recipe/main.do";
 			});
 		},
 		// called while loading is progressing
@@ -390,20 +382,26 @@ function update() {
 		'/babmukja/resources/images/apron.gltf',
 		// called when the resource is loaded
 		function ( gltf ) {
-			scene.add( gltf.scene );
-			console.dir(gltf.scene.position);
+			apronMesh = gltf.scene;
+			scene.add( apronMesh );
+			console.dir(apronMesh.position);
 			let size = 20;
-			gltf.scene.position.x = 2;
-			gltf.scene.position.y = -3;
-			gltf.scene.position.z = -3;
-			gltf.scene.scale.x = size;
-			gltf.scene.scale.y = size;
-			gltf.scene.scale.z = size;
-			console.dir(gltf.scene.scale);
+			apronMesh.position.x = 2;
+			apronMesh.position.y = -3;
+			apronMesh.position.z = -3;
+			apronMesh.scale.x = size;
+			apronMesh.scale.y = size;
+			apronMesh.scale.z = size;
 							
-			gltf.scene.rotation.x = 0;
-			gltf.scene.rotation.y = -1.5;
-			gltf.scene.rotation.z = 0;
+			apronMesh.rotation.x = 0;
+			apronMesh.rotation.y = -1.5;
+			apronMesh.rotation.z = 0;
+			apronMesh.on("click",function(){
+				apronMeshFlag = true;
+			}).on("pointerout",function(){
+				apronMeshFlag = false;
+				apronMesh.rotation.x = 0;
+			});
 
 		},
 		// called while loading is progressing
@@ -455,39 +453,96 @@ function update() {
 
 		}
 	);
-	loader.load(
-		// resource URL
-		'/babmukja/resources/images/scrapbooktext.gltf',
-		// called when the resource is loaded
-		function ( gltf ) {
-			scrapbookTextMesh = gltf.scene;
-			scene.add( scrapbookTextMesh );
-			console.dir(scrapbookTextMesh.position);
-			let size = 5;
-			scrapbookTextMesh.position.x = -23.5;
-			scrapbookTextMesh.position.y = -13;
-			scrapbookTextMesh.position.z = 12.5;
-			scrapbookTextMesh.scale.x = size;
-			scrapbookTextMesh.scale.y = size;
-			scrapbookTextMesh.scale.z = size;	
-			scrapbookTextMesh.rotation.y = 2;
-			scrapbookTextFlagKey = true;
 
+	let scrapbookAlreadyFlag = false;
+
+	if(visitorNo == userNo){
+		var selectBoxM2 = new THREE.MeshBasicMaterial( { color: 0x00ffaa,transparent :true, opacity:0.4} );
+		var selectBoxG = new THREE.BoxGeometry(4, 5, 1);
 		
-		},
-		// called while loading is progressing
-		function ( xhr ) {
+		selectBox = new THREE.Mesh( selectBoxG, selectBoxM2 );
 
-			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		selectBox.on("mouseover",function(){
+			selectBoxFlag = true;
+		}).on("pointerout",function(){
+			selectBoxFlag = false;
+		}).on("click",function(){
+			$("#modal-scrapbook").modal("show");
+			if(!scrapbookAlreadyFlag){
+					$.ajax({
+						url : "scrapbookAjax.do",
+						data : {memNo : userNo}
+					}).done(function(list){
+						let i = 0;
+						for(let book of list){
+							let html = "";
+							html +='<div class="scrapbook-content">';
+							html +=		'<div class="scrapbooks-title-conatiner">';
+							html +=			'<p>'+book.title+'</p>';
+							html +=		'</div>';
+							html +=     '<div class="scrapbooks-turn" id="scrapbooks-turn'+i+'">'; 
+							html +=			'<div class="scrapbooks hard" style="background:url('+ book.imgPath +')"></div>';
+							html +=			'<div class="hard" style="background : rgb(230,230,230);">'+book.title+'</div>';
+							html +=          book.content;
+							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg)"></div>';
+							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-outercover.jpg)"></div>';
+							html +=     '</div>'; 
+							html +='</div>';
+							$("#scrapbook-wrapper").append(html);
+							
+							$("#scrapbooks-turn" + i).turn({
+								width : 850,
+								height : 580,
+								elevation : 50   
+							}).css({marginBottom : "15px;"}).find(".scrapbooks").css({backgroundSize:"cover" });
+							
+							i++;
+						}
+						
+					});
+					scrapbookAlreadyFlag = true;
+			}
+		});
+		selectBox.position.x = -21;
+		selectBox.position.y = -15;
+		selectBox.position.z = 11;
+		selectBox.rotation.y = -1.2;
 
-		},
-		// called when loading has errors
-		function ( error ) {
-
-			console.log( 'An error happened' );
-
-		}
-	);
+		scene.add( selectBox );
+		loader.load(
+				// resource URL
+				'/babmukja/resources/images/scrapbooktext.gltf',
+				// called when the resource is loaded
+				function ( gltf ) {
+					scrapbookTextMesh = gltf.scene;
+					scene.add( scrapbookTextMesh );
+					console.dir(scrapbookTextMesh.position);
+					let size = 5;
+					scrapbookTextMesh.position.x = -23.5;
+					scrapbookTextMesh.position.y = -13;
+					scrapbookTextMesh.position.z = 12.5;
+					scrapbookTextMesh.scale.x = size;
+					scrapbookTextMesh.scale.y = size;
+					scrapbookTextMesh.scale.z = size;	
+					scrapbookTextMesh.rotation.y = 2;
+					scrapbookTextFlagKey = true;
+					
+					
+				},
+				// called while loading is progressing
+				function ( xhr ) {
+					
+					console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+					
+				},
+				// called when loading has errors
+				function ( error ) {
+					
+					console.log( 'An error happened' );
+					
+				}
+		);
+	}
 	loader.load(
 		// resource URL
 		'/babmukja/resources/images/updateusertext.gltf',
@@ -553,13 +608,14 @@ function update() {
 		}
 	);
 //------------------------plane ---------------------------------------//
-var planeG = new THREE.PlaneGeometry( 150, 150, 1 );
+var planeG = new THREE.PlaneGeometry( 60, 30, 1 );
 var planeM = new THREE.MeshBasicMaterial( {transparent: true, opacity: 0} );
+//var planeM = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 var plane = new THREE.Mesh( planeG, planeM );
 scene.add( plane );
-plane.position.x = -100;
-plane.position.y = -30;
-plane.position.z = -70;
+plane.position.x = -110;
+plane.position.y = -8;
+plane.position.z = -50;
 plane.rotation.y = 1.4;
 //------------------------lighting ------------------------------------//
 // var pointLight = new THREE.PointLight( 0xffff95, 6, 150 );
@@ -647,18 +703,20 @@ function animate() {
 		}
 	
 	}
-	if(scrapbookTextFlag){
-		
-		scrapbookTextMesh.position.y += 0.006;
-		if(scrapbookTextMesh.position.y > -12){
-			scrapbookTextFlag = false;
+	if(visitorNo == userNo){		
+		if(scrapbookTextFlag){
+			
+			scrapbookTextMesh.position.y += 0.006;
+			if(scrapbookTextMesh.position.y > -12){
+				scrapbookTextFlag = false;
+			}
+		}else if(recipeTextFlagKey && !scrapbookTextFlag){
+			scrapbookTextMesh.position.y -= 0.006;
+			if(scrapbookTextMesh.position.y < -13.2){
+				scrapbookTextFlag = true;
+			}
+			
 		}
-	}else if(recipeTextFlagKey && !scrapbookTextFlag){
-		scrapbookTextMesh.position.y -= 0.006;
-		if(scrapbookTextMesh.position.y < -13.2){
-			scrapbookTextFlag = true;
-		}
-	
 	}
 	if(updateuserTextFlag){
 		
@@ -686,6 +744,10 @@ function animate() {
 		}
 	
 	}
+	
+	if(apronMeshFlag){
+		$("#modal-user-detail").modal("show");
+	}
 	update();
 }
 
@@ -697,3 +759,215 @@ function dateFormat(date){
     }
     return date.getFullYear() + '.' + pad(date.getMonth()+1) + '.' + pad(date.getDate());
 }
+
+
+for(let i=1;i<=2;i++){
+    $("#updateform-sec1-menu"+i).click(function(){
+        $(this).css({background:"white"});
+        $(this).siblings().css({background:"lightgray"});
+        let html = "";
+        switch(i){
+            case 1:
+            	
+            	html+= '<div id="check-userinfo">';
+	            html+= 	'<div id="updateform-sec2-imgSelector">';
+	            html+= 	'<img id="profile-picture" src="'+userProfile+'">';
+	            html+= 	'</div>';
+	            html+= 	'<div id="updateform-sec2-userinfo">';
+	            html+= 		'<p id="updateform-sec2-userinfo-id">'+ userNickname +'</p>';
+	            html+= 		'<div id="updateform-sec2-userinfo-opt">';
+
+	            if(followStatus == 'Y'){
+	            	html+=     	'<button id="follow-button">팔로우 해제</button>';
+	            	html+=     	'<p>팔로우 중</p>';	            	
+	            }else if(followStatus == 'N'){
+	            	html+=     	'<button id="follow-button" class="follow-needed">팔로우</button>';	            	
+	            }else if(followStatus == 'M'){	            	
+	            	html+=     	'<button id="profile-change-button">프로필 사진 변경</button>';	            	
+	            }
+	            html+= 		'</div>';
+	            html+= 		'<p id="updateform-sec2-userinfo-info">';
+			    html+=         	'작성한 레시피<b>'+ recipeCnt + '</b>';
+			    html+=         	'팔로우<b>'+ followCnt +'</b>';
+			    html+=         	'팔로워<b>'+ followerCnt +'</b>';
+		        html+=     	'</p>';
+	            html+= 	'</div>';
+            	html+= '</div>';
+            $sec2.html(html);
+            break;
+            case 2:
+                $sec2.html(
+                    `<div id="change-pass">
+                        <p id="change-pass-notice1">영어, 숫자 특수문자 합쳐서 8자리 이상 입력해주세요.</p>
+                        <input type="password" name="pass1">
+                        <p id="change-pass-notice2"></p>
+                        <input type="password" name="pass2">
+                        <p id="change-pass-notice3"></p>
+                        <div id="change-pass-button">비밀번호 변경</div>
+                    </div>`
+                );
+        }
+    
+    });
+}
+
+
+
+$(document).on("click","#profile-change-button",function(){
+	$("input[name='profile-picture']").click();
+});
+$(document).on("change","input[name='profile-picture']",function (e) {
+   	let fileData = new FormData();
+	let path = $(this).val();
+   	console.dir(e.target.files[0]);
+
+	var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    fileData.append("attach",e.target.files[0]);
+    fileData.append("memNickname", userNickname);
+    
+/*     reader.onload = function () {
+         var tempImage = new Image();
+         tempImage.src = reader.result;
+         
+         tempImage.onload = function () {
+             var canvas = document.createElement('canvas');
+             var canvasContext = canvas.getContext("2d");
+
+             canvas.width = 200;
+             canvas.height = 200;
+             canvasContext.drawImage(this, 0, 0, 200, 200);
+                 
+             var dataURI = canvas.toDataURL("image/jpeg");
+             var imgTag = "<img id='profile-picture' class='preview_img' src='"+dataURI+"'/>";
+				 $("#updateform-sec2-imgSelector").html(imgTag);
+         };
+     };*/
+     var result = confirm("프로필 사진을 변경하시겠습니까?");
+     if(result){
+    	 $.ajax({
+    		 url: 'upload.do',
+             type: "post",
+          	 processData: false,
+             contentType: false,
+             data: fileData
+    	 }).done(function(result){
+    		 alert("프로필 사진이 성공적으로 변경되었습니다.");
+    		 location.href="/babmukja/member/mypage.do?memNickname=" + result;
+    	 });
+     }else{
+    	 alert("프로필 사진 변경이 취소되었습니다.");
+//    	 $("#updateform-sec2-imgSelector").html(`<img src='<c:url value='/resources/images/default/userdefault.png'/>'>`);
+    	 return;
+     }
+     
+});
+
+let passFlag = false;
+let pass2Flag = false;
+let pass = "";
+$(document).on("keyup","input[name='pass1']",function(){			
+    let $notice2 = $("#change-pass-notice2");
+    let $this = $(this);
+    if(this == ""){
+        return;            				
+    }
+    if($this.val().length >= 13) {
+
+        $this.val($this.val().substring(0, 13));
+
+    }
+    
+    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test($this.val())){ 
+    	$notice2.text("8자 이상 입력해주세요.");
+    	$notice2.css({color: "red"});
+    }    
+    var checkNumber = $this.val().search(/[0-9]/g);
+    var checkEnglish = $this.val().search(/[a-z]/ig);
+    
+    if(checkNumber <0 || checkEnglish <0){
+        $notice2.text("숫자와 영문자를 혼용하여야 합니다.");
+        $notice2.css({color: "red"});
+    }else if(/(\w)\1\1\1/.test($this.val())){
+        $notice2.text ("같은 문자를 4번 이상 사용하실 수 없습니다.");
+        $notice2.css({color: "red"});
+    }else if($this.val().length < 8){
+    	$notice2.text ("너무 짧습니다.");
+    	$notice2.css({color: "red"});
+    	
+    }else{
+        $notice2.text("사용가능한 비밀번호입니다.");									            				
+        $notice2.css({"color" : "springgreen"});	
+        passFlag = true;
+    }
+});
+
+$(document).on("keyup","input[name='pass2']",function(){		
+    let $notice3 = $("#change-pass-notice3");
+    let $pass1 = $("input[name='pass1']");
+    let $pass2 = $(this);
+    if($pass1.val().length == 0 || $pass2.val().length == 0){
+        return;            				
+    }
+    if($pass2.val().length >= 13) {
+
+        $pass2.val($pass2.val().substring(0, 13));
+
+    }
+    if($pass1.val() != $pass2.val() || !passFlag){
+                $notice3.text("비밀번호를 확인해주세요.");									
+                $notice3.css({"color" : "red"});	
+    }else{
+                $notice3.html("확인했습니다.");									            				
+                $notice3.css({"color" : "springgreen"});	
+                pass2Flag = true;
+                pass = $pass1.val();
+    }
+    
+    }            		
+);
+
+$(document).on("click","#change-pass-button",function(){
+    if(!passFlag || !pass2Flag){
+        alert("입력한 비밀번호를 다시 확인해주세요.");
+        return;
+    }
+    $.ajax({
+        url:"repass.do",
+        type:"POST",
+        data:{memPass: pass,
+        	  memEmail:$("input[name='memEmail']").val()}
+    }).done(function(result){
+    	alert("변경되었습니다.");
+    	location.href = "/babmukja/member/mypage.do?memNickname=" + encodeURI(userNickname , "UTF-8");;
+    });
+});
+
+
+// 팔로우 기능
+$(document).on("click","#follow-button",function () { 
+	if(visitorNo != userNo) {
+	    	$.ajax({
+	    		url : "/babmukja/recipe/follow.do",
+	    		data : {
+	    			'followMemNo': userNo,
+	    			'followerMemNo': visitorNo
+	    		},
+	    		success : function(result) {		    		
+	    			if(result == 1) {
+	    				followerCnt++;
+	    				$("#follower-cnt").text(followerCnt);
+		    			$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우 해제</button><p>팔로우 중</p>");
+	    			} else if(result == 0) {
+	    				
+	    				followerCnt--;
+	    				$("#follower-cnt").text(followerCnt);
+	    				$("#updateform-sec2-userinfo-opt").html("<button id='follow-button'>팔로우</button>");
+	    			} else alert("로그인 후 이용가능합니다.");
+	    		}
+	    	});
+		} 
+	if(visitorNo == userNo) {
+		alert("같은 회원은 팔로우 할 수 없습니다.");
+	}
+});

@@ -174,6 +174,7 @@
 	                        <div class="info_line">${meetup.title}</div>
 	                        <div class="info_monthly_fee">
 	                            <span>${meetup.fee}</span>
+	                           
 	                        </div>
 	
 	                        <div class="info_bottom">
@@ -375,8 +376,9 @@
                             <div></div>
                             <!--방장과 방장번호 자동 선택  -->
                             <input type="hidden"  name="hostName" value="${sessionScope.user.memName}">
- 							<input type="hidden"  name="hostNo" value="${sessionScope.user.memNo}">
-                           
+ 							<input type="hidden"  name="hostNo" id="hiddenHostNo" value="${sessionScope.user.memNo}">
+ 							<input type="hidden"  name="hostEmail" id="hiddenHostEmail" value="${sessionScope.user.memEmail}">
+ 							
                             <div class="modal_meetup_category">
                                 <select name="category" class="food_nation_category">
                                     <option value="카테고리">카테고리</option>
@@ -397,12 +399,26 @@
                         
                         <!-- model tag 부분 -->
                         <div class="modal_meetup_tag_container">
-                            <div id="modal_meetup_tag">태그</div>
-                            <div></div>
+                            <div class="tag1" id="modal_meetup_tag">태그</div>
+                            <div class="tag2"></div>
+                            
                             <div class="modal_meetup_tag_box">
-                                <input type="text" name="tag" class="meetup_tag" placeholder="#모임을 표현할 태그명를 입력해주세요" />
+                                <input type="text" name="tag" class="meetup_tag" value="#"/>
+                                <input type="hidden" name="hiddenTag" class="meetup_hiddenTag" value=""/>
                             </div>
+                         
                         </div>
+                      
+                      <!--  tagSelected-->
+                      
+                      <div class="modal_meetup_tagSelected_container">
+                            <div id="modal_meetup_tagSelected"></div>
+                            <div></div>
+                            <div class="modal_meetup_tagSelected_box">
+                            	
+                           </div>
+                      
+                      </div>
 
                         <div class="modal_meetup_location_container">
                             <div class="location">활동지역</div>

@@ -13,8 +13,10 @@
 
     <title>Document</title>
     <style>
+        .host_meetup_atag{
+	text-decoration: no	
+}
         
-
     </style>
 </head>
 
@@ -114,7 +116,18 @@
         </div>
    <!--tab panel 끝  -->
         <div class="tabPanel">자유게시판</div>
-        <div class="tabPanel">사진첩</div>
+        <div class="tabPanel">
+            <div class="album_container">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
         <div class="tabPanel">회원</div>
 
     </div>
@@ -177,6 +190,13 @@
         <div id="introSave">저장</div>
         </div>`);
         });
+
+
+        $(".meetup_tag").keyup(function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault;
+    }
+});
 
     </script>
 

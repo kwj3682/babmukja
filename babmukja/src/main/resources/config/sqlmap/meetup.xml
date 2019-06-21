@@ -15,18 +15,21 @@
 		<result column="location" property="location" />
 		<result column="host_name" property="hostName" />
 		<result column="host_no" property="hostNo" />
+		<result column="manage_no" property="manageNo" />
+		<result column="tag" property="tag" />
 	</resultMap>	
     
     <select id="selectIntro" parameterType="int" resultType="String">
     	select intro from tb_meetup WHERE meet_no= #{meetNo}
     </select>
     
+    
     <insert id="insertMeetupBoard" parameterType="meetup">
     	<selectKey keyProperty="meetNo" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no)
-    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostName},#{hostNo})
+    	insert into tb_meetup(meet_no,fee,title,day,category,file_dir,location,host_name,host_no,tag)
+    	 			   values(#{meetNo},#{fee},#{title},#{day},#{category},#{fileDir},#{location},#{hostName},#{hostNo},#{tag})
     </insert>
     
     <insert id="insertMeetupLocation" parameterType="meetupLocation">
@@ -34,6 +37,10 @@
     	 			   values(#{meetNo},#{city},#{town})
     </insert>
     
+    <insert id="insertMeetupMember" parameterType="meetupMember">
+    	insert into tb_meetup_member(mem_no,mem_name,meet_no,status,mem_email)
+    	 			   values(#{memNo},#{memName},#{meetNo},#{status},#{memEmail})
+    </insert>
     
     
     <update id= "updateIntro" parameterType="meetupIntro" >
@@ -59,19 +66,34 @@
 	</when>
 	<when test="fee == 0">
 	and  REPLACE(fee, ',', '') <![CDATA[ >=]]>  #{fee}
-
 	</when>
 	</choose>
-	and ( (location like concat('%',#{city1},'%') and location like concat('%',#{town1},'%')) or 
+	and ( (location like concat('%',#{city1},'%') and location like concat('%',#{town1},'%')) or
 		   (location like concat('%',#{city2},'%') and location like concat('%',#{town2},'%')) or
 		   (location like concat('%',#{city3},'%') and location like concat('%',#{town3},'%'))
 	)
 		 limit #{begin}, #{end}	
 	</select>
 	
-	<select id="selectAllMeetupCount" resultType="int">
-		select count(*)
-		  from tb_meetup
+	<select id="selectAllMeetupCount" resultType="int" parameterType="pageAfterSearch">
+		select count(*) from tb_meetup
+		where title like concat('%',#{search},'%') and category like concat('%',#{category},'%') 
+	  <choose>
+	  <when test="fee != 0">
+		and  REPLACE(fee, ',', '') <![CDATA[ <=]]>  #{fee}
+
+		</when>
+		<when test="fee == 0">
+		and  REPLACE(fee, ',', '') <![CDATA[ >=]]>  #{fee}
+
+	</when>
+	</choose>
+		and ( (location like concat('%',#{city1},'%') and location like concat('%',#{town1},'%')) or 
+		   (location like concat('%',#{city2},'%') and location like concat('%',#{town2},'%')) or
+		   (location like concat('%',#{city3},'%') and location like concat('%',#{town3},'%'))
+	)
+		
+
 	</select>
     
     <select id="selectRecommendAll" resultMap="meetupMap">
@@ -105,16 +127,74 @@
 		order by view_cnt desc
 		limit 0,3
 	</select>
+	
 	<select id="selectRecommendEastAsia" resultMap="meetupMap">
 		select * from tb_meetup
 		where category like '%동남아시아%'
 		order by view_cnt desc
 		limit 0,3
 	</select>
+	
 		
 	<select id="selectBoard" parameterType="int" resultMap="meetupMap">
 	   select * from tb_meetup
 		where meet_no =#{meet_No};
 	</select>
 
+	<select id="createdBoardByMe" parameterType="int" resultMap="meetupMap">
+	   select * from tb_meetup
+		where host_no =#{hostNo}
+	</select>
+
+	<select id="selectManageMemberBoard" parameterType="int" resultType="meetupMember">
+	select * from tb_meetup_member
+	where meet_no = #{meetNo}
+	and status =1;
+	</select>
+
+   
+    <select id="selectMeetupMemberList" parameterType="int" resultType="meetupMember">
+	select * from tb_meetup_member
+	where meet_no = #{meetNo}
+	and status =2;
+	</select>
+	
+	<select id="selectMeetupMemberStatus" parameterType="meetupMember" resultType="meetupMember">
+	select * from tb_meetup_member
+	where meet_no = #{meetNo} and mem_no = #{memNo}
+	</select>
+	
+	<select id="selectFollowMeetup" parameterType="int" resultMap="meetupMap">
+		select meet.* from tb_meetup meet
+		inner join tb_meetup_member member
+		on mem_no
+		where member.status = 2 and member.meet_no = meet.meet_no and  member.mem_no =#{memNo};
+	</select>
+
+	
+
+    <update id= "updateApprovalStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 2 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+    
+    <update id= "updateBanStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 3 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+    
+    <update id= "updateWidthdrawlStatus" parameterType="int" >
+      UPDATE tb_meetup_member SET status = 0 WHERE meet_no = #{meetNo} and status =2;
+
+    </update>
+    
+    <!-- 관리자 거절 처리 -->
+    <update id= "updateRejectStatus" parameterType="int" >
+    UPDATE tb_meetup_member SET status = 4 WHERE meet_mem_no = #{meetMemNo}     
+    </update>
+ 
+	<update id= "updateViewCnt" parameterType="int" >
+    update tb_meetup
+	set view_cnt = view_cnt +1
+	where meet_no = #{meetNo};     
+    </update>
+	
 </mapper>

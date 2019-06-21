@@ -12,14 +12,14 @@
 		<result column="addr_default" property="addrDefault" />
 		<result column="addr_detail" property="addrDetail" />
 		<result column="manager_at" property="managerAt" />
-		<result column="img_orgname" property="imgOrgname" />
-		<result column="img_sysname" property="imgSysname" />
+		<result column="mem_img_orgname" property="memImgOrgname" />
+		<result column="mem_img_sysname" property="memImgSysname" />
 		<result column="sign_date" property="signDate" />
 		<result column="last_date" property="lastDate" />
 		<result column="social_at" property="socialAt" />
 		<result column="point" property="point" />
 		<result column="grade_no" property="gradeNo" />
-		<result column="img_path" property="imgPath" />
+		<result column="mem_img_path" property="memImgPath" />
 		<result column="recipe_Cnt" property="recipeCnt" />
 		<result column="selling_Cnt" property="sellingCnt" />
 		<result column="total_buy" property="totalBuy" />
@@ -110,7 +110,8 @@
 	<update id="updateCertification" parameterType="member">
 		update tb_member
 		set certification = #{certification}
-		where mem_email = #{memEmail}
+		where mem_email = #{memEmail} 
+		   or mem_phone = #{memPhone}
 	</update>
 
 	<!-- 인증번호 확인 -->
@@ -118,14 +119,28 @@
 		select count(*)
 		from tb_member
 		where certification = #{certification}
-		and mem_email = #{memEmail}
+		and mem_phone = #{memPhone} 
+		 or mem_email = #{memEmail}
+	</select>
+	
+	<select id="selectConfirmCertificationByEmail" parameterType="int" resultType="int">
+		select certification
+		  from tb_member
+		 where mem_no = #{memNo}
+	</select>
+
+	<select id="selectMemnoByEmail" parameterType="String" resultType="int">
+		select mem_no
+		  from tb_member
+		 where mem_email = #{memEamil}
 	</select>
 
 	<!-- 비밀번호 재설정 -->
 	<update id="updateResetPass" parameterType="member">
 		update tb_member
 		   set mem_pass = #{memPass}
-		 where mem_email = #{memEmail}
+		 where mem_email = #{memEmail} 
+		    or mem_phone = #{memPhone}
 	</update>
 	
 	<select id="searchMemberByNick" parameterType="String" resultMap="memberMap">
@@ -134,4 +149,38 @@
 		 where mem_nickname like concat('%',#{nick},'%')
 
 	</select>
+	
+	<!-- 우중 -->
+	<select id="searchMemberByNickForMypage" parameterType="String" resultMap="memberMap">
+		SELECT *,
+		    (select count(*) from tb_recipe r where r.mem_no = m.mem_no and m.mem_nickname = #{nick}) `recipe_cnt`,
+		    (select count(*) from tb_recipe_follow f where f.follow_mem_no = m.mem_no and m.mem_nickname = #{nick} and f.follow_status = 'Y') `follower`,
+		    (select count(*) from tb_recipe_follow f where f.follower_mem_no = m.mem_no and m.mem_nickname = #{nick} and f.follow_status = 'Y') `follow`
+		  FROM tb_member m
+		 where mem_nickname = #{nick}
+	</select>
+	
+	<update id="updateMemberProfile" parameterType="member">
+		update tb_member
+		  set mem_img_orgname = #{memImgOrgname},
+		      mem_img_sysname = #{memImgSysname},
+		      mem_img_path = 	#{memImgPath}
+		where mem_nickname = #{memNickname}
+	</update>
+	
+	<select id="selectFollowStatus" parameterType="recipefollow" resultType="String">
+		select follow_status
+		  from tb_recipe_follow
+		 where follow_mem_no = #{followMemNo}
+           and follower_mem_no = #{followerMemNo}
+	</select>
+	
+	<insert id="insertScrapbook" parameterType="Scrapbook">
+		insert into tb_scrap (mem_no, imgpath, title) values(#{memNo},#{imgPath},#{title});
+	</insert>
+	
+	<select id="selectScrapbookListByNo" parameterType="int" resultType="Scrapbook">
+		select * from tb_scrap where mem_no = #{memNo}
+	</select>
+	
 </mapper>

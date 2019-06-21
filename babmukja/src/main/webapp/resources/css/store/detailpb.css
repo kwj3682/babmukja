@@ -118,8 +118,8 @@
 }
 
 #select_product_count button {
-    outline: 0;
     font-size: 10px;
+    outline: 0;
     background-color: white;
     color: rgb(81, 81, 81);
 }
@@ -203,10 +203,6 @@
     border-right: 3px solid gainsboro;
 }
 
-#detail_product_inquire {
-    border-right: 3px solid gainsboro;
-}
-
 /*
 #detail_product_refund {
     border: 2px solid gainsboro;
@@ -276,24 +272,27 @@
 }
 
 .pb_review_profile_img img {
-    width: 110px;
-    height: 110px;
+    width: 65px;
+    height: 65px;
     border-radius: 55px;
 }
 
 .pb_review_user_info {
 	display :grid;
 	grid-template-rows : 50% 50%;
+	margin-left: -25px;
+    margin-top: 5px;
 }
-
 
 .review_user_nickname {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 15px;
     float: left;
+    margin-right: 15px;
 }
 .reviewBUTTON{
 	margin-left : 15px;
+	display: flex;
 }
 .pb_review_select {
 	height: auto;
@@ -307,7 +306,6 @@
 
 .pb_review_select_img{
     width: 600px;
-    height: 112px;
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-gap : 5px;
@@ -366,14 +364,8 @@
     color: #7db341;
 }
 
-#pb_inquire_profile {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
-
 #pb_inquire_user_nickname {
-    font-size: 20px;
-    width: 250px;
+    font-size: 15px;
     font-weight: bold;
     color: rgb(81, 81, 81);
 }
@@ -396,12 +388,12 @@
 }
 
 #pb_inquire_admin_msg {
-    margin-left: 30px;
+    margin-left: 35px;
     color: rgb(81, 81, 81);
 }
 
 #pb_inquire_answer_content {
-    margin-left: 30px;
+    margin-left: 35px;
     color: rgb(81, 81, 81);
 }
 
@@ -522,6 +514,7 @@
 
 .pb_product_content textarea {
     width: 500px;
+    margin-top: 30px;
 }
 
 #preview_img_div {
@@ -781,7 +774,7 @@
   
   .reviewUpdateBTN {
   	border: none;
-  	color: black;
+  	color: gray;
   	background: white;
   }
   
@@ -790,8 +783,8 @@
   }
  
   .reviewDeleteBTN {
-  	  	border: none;
-  	color: black;
+  	border: none;
+  	color: gray;
   	background: white;
   }
   
@@ -861,8 +854,6 @@
     outline: none;
     border: none;
     background: white;
-    font-size: 15px;
-    margin-left: 8px;
     color: gray;
 }
 
@@ -873,7 +864,6 @@
 .inq_delete_btn {
     outline: none;
     border: none;
-    font-size: 15px;
     background: white;
     color: gray;
 }
@@ -884,9 +874,9 @@
 }
 
 #pb_inquire_user_regdate {
-	font-size: 15px;
     color: gray;
     letter-spacing: 1px;
+    margin-left: 25px;
 }
 
 .cartmodal_msg {
@@ -964,6 +954,7 @@
     grid-template-columns: 100%;
     width:120px;
     margin-bottom: 15px;
+    margin-top: -3px;
 }
 .backStar{
     background: url(/babmukja/resources/images/star5-gray.png);
@@ -1006,4 +997,299 @@
 .user_info_sec1{
 	display:grid;
 	grid-template-columns : 90% 10%;
+}
+
+.pb_product_like {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px;
+    border: 1px solid;
+    /* width: 50px; */
+    border-radius: 8px;
+    color: gainsboro;
+}
+
+#like_icon {
+    font-weight: lighter;
+    color: gainsboro;
+}
+
+#like_icon:hover {
+	color: red;
+}
+
+.likeheart {
+	width: 30px;
+	cursor: pointer;
+}
+
+.review_date {
+	color: gray;
+}
+
+.pb_inquire_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pb_inq_flex {
+    display: flex;
+}
+
+#pb_inquire_state {
+    margin-top: 15px;
+    color: gray
+}
+
+#pb_inquire_state2 {
+    margin-top: 15px;
+    color: gray
+}
+
+.pb_inq_icon {
+    margin-top: 15px;
+    color: gray;
+}
+
+#pb_inquire_updatebtn {
+    margin-top: 15px;
+    color: gray;
+}
+
+#pb_inquire_delbtn {
+    margin-top: 15px;
+    color: gray;
+}
+
+#pb_inquire_nickname {
+    display: flex;
+}
+
+.pb_inquire_q {
+    color: #7db341;
+    font-weight: bold;
+}
+
+.pb_inquire_a {
+    color:#7db341;
+    font-weight: bold;
+}
+
+.pb_inquire_admin_answer {
+    display: flex;   
+}
+
+.pb_inquire_admin {
+    margin-left: 23px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(81, 81, 81);
+}
+
+.pb_inquire_answer_regdate {
+    margin-left: 25px;
+    color: gray;
+}
+
+.pb_inq_admin_answer_btn {
+    margin-top: 3px;
+    color: gray;
+    outline: 0;
+    background-color: white;
+    border: 0;
+}
+
+.pb_inq_admin_answer_btn:hover {
+    color: #7db341;
+}
+
+.answer_mem_nickname {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(81, 81, 81);
+}
+
+.pb_inq_content_text {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.pb_inq_content_val {
+	font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.pb_inq_info {
+   	display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 600px; */
+    justify-content: center;
+    text-align: center;
+}
+
+/* .pagination { */
+/* 	font-size: 15px; */
+/* } */
+
+/* .pagination:hover { */
+
+/* 	} */
+/* .pagination:hover a{ */
+
+/* 	} */
+
+#review-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.review-pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.review-pagination > a {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.review-pagination > a:link {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.review-pagination > a:visited {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.review-pagination:hover a{
+	color : #7db341;
+}
+
+
+
+.this-review-page {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+}
+.this-review-page > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.this-review-page > a:hover {
+	color: white;
+}
+
+.this-inq-pagination {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :#7db341;
+	color : white;
+	border-radius: 5px;
+}
+.this-inq-pagination > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.this-inq-pagination > a:hover {
+	color: white;
+}
+.inq-pagination {
+	display: inline-block;
+    border: 1px solid #7db341;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inq-pagination > a {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.inq-pagination > a:link {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.inq-pagination > a:visited {
+    text-decoration: none;
+    color: #7db341;
+}
+
+.inq-pagination:hover a{
+	color : #7db341;
+}
+
+#inq-page {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.right-arrow, .left-arrow {
+	width : 15px;
+	position : relative;
+	top : 2px;
+	left : 10px;
+}
+
+.comment-prev,.comment-next {
+	display: inline-block;
+	width : 35px;
+	height : 25px;
+	margin: 5px;
+    margin-bottom: 10px;
+}
+
+#pb_review_move {
+    height: 30px;
+    width: 10px;
+}
+#pb_inq_move {
+    height: 30px;
+    width: 10px;
+}
+
+.pb_answer_item {
+    margin-left: 65px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+    justify-content: center;
 }

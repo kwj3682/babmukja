@@ -18,6 +18,10 @@
 <link href="<c:url value="/resources/css/meetup/meetup-detail.css"/>"
 	rel="stylesheet" type="text/css">
 
+<!-- lightbox -->
+<link rel="stylesheet"
+	href="<c:url value="/resources/js/dist/css/lightbox.css"/>">
+<script src="<c:url value="/resources/js/dist/js/lightbox.js"/>"></script>
 <!-- include libraries(jQuery, bootstrap) -->
 <link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
@@ -41,7 +45,7 @@
 
 	<div class="header">
 		<div class="headerLeft">
-			<div class=title>오늘은 내가 짜파게티 요리사</div>
+			<div class=title>${meetup.title}</div>
 			<div class="subInfo">
 				<div class="infoTagContainer">
 					<span class="infoTag">요일</span>
@@ -83,8 +87,13 @@
 				<div class="tagBottom">1</div>
 
 			</div>
-			<div class="tag">#짜파게티&nbsp; #치즈 짜파게티 &nbsp;#불닭 짜파게티</div>
-
+			<div class="tag">
+			<c:forEach var ="meetupTag" items="${meetupTags}">
+			
+			${meetupTag} &nbsp;&nbsp;
+			</c:forEach>
+			</div>
+			
 		</div>
 		<div class="headerRight">
 			<div class="area">
@@ -102,34 +111,74 @@
 				<td>자유게시판</td>
 				<td>사진첩</td>
 				<td>회원</td>
-			</tr>
 		</table>
 
 		<div class="tabPanel" id="tabPanel1">
 			<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>
 
 		</div>
-		<div class="tabPanel">모임공지
-			${sessionScope.user.memNo}, ${sessionScope.user.memName}
+		<div class="tabPanel">
+	${memberStatus.status}${memberStatus.status}${memberStatus.status}	
+			<c:set var="status"  value="${memberStatus.status}"/>  
+		<c:choose>
+		<c:when test = "${status == 0}"> 
 		<div class="requestPermissionContainer">
+		<br>
 		내용을 확인하시려면 모임을 먼저 가입해 주세요^^
 		<span class="requestPermission">모임 가입 신청</span>
 		</div>
-		<Script>
+		</c:when>
+		<c:when test = "${status == 1}"> 
+		<div class="requestPermissionContainer">
+		<br>
+			가입 승인요청을 기다리는 중입니다.		
+		</div>
+		</c:when>
+		<c:when test = "${status == 3}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		 	당신은 방장에 의해 강퇴되어 더이상  활동하실 수 없습니다.
+		<span class="requestPermission">재가입 신청</span>
+		 			
+		</div>
+		</c:when>
+		<c:when test = "${status == 4}"> 
+		<div class="requestPermissionContainer">
+		<br>
+		 	승인이 거절되어 모임에서 활동하실 수 없습니다.
+		<span class="requestPermission">재가입 신청</span>
+		 			
+		</div>
+		</c:when>
+		</c:choose>
 		
-		</Script>
+	
 	
 			
 		</div><!--tab panel 끝  -->
 		<div class="tabPanel">자유게시판</div>
-		<div class="tabPanel">사진첩</div>
+		<div class="tabPanel">
+		
+		  <div class="album_container">
+		  			<c:forEach var="filePath" items="${filesPath}">
+   		  	<div>
+   		  		<a href="<c:url value='/meetup/download.do' />?path=${filePath}" data-lightbox="gallery">
+   		  			<img src="<c:url value='/meetup/download.do' />?path=${filePath}" width="287.5px" height="285px">
+				</a>
+				</div>
+					</c:forEach>
+               
+                
+            </div>
+		
+		</div>
 		<div class="tabPanel">회원</div>
 	</div>
 
 	<script>
 
 	$(".area").click(function () {
-		$(".area").animate({ left: -600 }, 1000);
+		$(".area").animate({ left: -60 }, 1000);
 	});
 
 
@@ -361,6 +410,7 @@
 		// 파일 전송을 위한 폼생성
 		console.log("전달가나 확인");
 		data = new FormData();
+		data.append("meetNo", ${meetup.meetNo});
 		data.append("file", file);
 		console.log("file" + file);
 		console.log(data);
@@ -373,6 +423,7 @@
 			cache: false,
 			contentType: false,
 			processData: false,
+			enctype: 'multipart/form-data',
 			success: function (url) { // 처리가 성공할 경우
 				//                                    alert("sendFile함수 들어옴")
 				// 에디터에 이미지 출력
@@ -381,12 +432,41 @@
 				let sysFileName = url.sysFileName;
 
 				tempFileDirectory.push(url.filePath + url.sysFileName);
-				$("#summernote").summernote('editor.insertImage', "<c:url value='/meetup/download.do' />" + "?path=" + path + sysFileName);
+				$("#summernote").summernote('editor.insertImage', "<c:url value='/meetup/download.do' />" + "?path=" + 
+						path + sysFileName);
 
 			}
 		});
 	}
+	
+	
+	$(".requestPermission").click(function(){
+		
+		
+		
+		meetupMember={};
+		meetupMember.memName = '${sessionScope.user.memName}';
+		meetupMember.memEmail = '${sessionScope.user.memEmail}';
+		meetupMember.memNo = ${sessionScope.user.memNo};
+		meetupMember.meetNo = ${meetup.meetNo};
+		meetupMember.status = 1;
+		
+		$.ajax({ // ajax를 통해 파일 업로드 처리
+			data: meetupMember,
+			type: 'POST',
+			url: "<c:url value='/meetup/requestAdmission.do' />",
+			cache: false,
+			success: function (data) { // 처리가 성공할 경우
+				$(".requestPermissionContainer").html(`
+						<br>
 
+						가입신청이 완료되었습니다. 방장이 승인하면 모임 가입이 완료됩니다.
+						`);
+			}
+		});
+		
+		
+	});
 
 
 	</script>

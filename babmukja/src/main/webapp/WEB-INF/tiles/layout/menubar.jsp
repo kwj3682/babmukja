@@ -37,7 +37,8 @@
             <i class="fas fa-caret-up fa-3x" style="display: none;"></i>
             <c:if test="${sessionScope.user ne null}">
 		        <a id="nickName" href="#">${user.memNickname}</a>
-		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>">장바구니</a>
+		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>">결제내역</a>
+		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/cart.png'/>"></a>
 	         	<a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
 	        </c:if>
 	        
@@ -59,14 +60,14 @@
 
             </ul>
         </div>
-        <div id="optionalMenu2" class="optionalMenubar opacity">
-            <ul>
-                <li><a href="#">스토어메뉴1</a></li>
-                <li><a href="#">스토어메뉴2</a></li>
-                <li><a href="#">스토어메뉴3</a></li>
-                <li><a href="#">스토어메뉴4</a></li>
-            </ul>
-        </div>
+		<c:if test="${user.memNo == 578}">
+	        <div id="optionalMenu2" class="optionalMenubar opacity">
+		            <ul>
+		                <li><a href="<c:url value="/admin/pbstoreselectlist.do"/>">상품조회</a></li>
+		                <li><a href="<c:url value="/admin/insertformpb.do"/>">상품등록</a></li>
+		            </ul>
+	        </div>
+		</c:if>
         <div id="optionalMenu3" class="optionalMenubar opacity">
             <ul>
                 <li><a href="#">쿠킹미팅1</a></li>
@@ -104,7 +105,16 @@
     <!-- <script src="http://192.168.0.53:10001/socket.io/socket.io.js"></script> -->
 
     <script>
-    
+	    window.onload = function(){
+	    	if($(".swiper-container").height() == undefined){
+		         menubarCon.removeClass("opacity");        
+		         optCon.removeClass("opacity");         
+		         menubarCon.addClass("non-opacity");
+		    	 optCon.addClass("non-opacity");
+	
+		      }
+	    }
+
 	
 	    
         let menu = [$("#menu1"),$("#menu2"),$("#menu3")];
@@ -136,6 +146,7 @@
 		
 	    let menubarCon = $("#menubarContainer");
 	    let optCon = $(".optionalMenubar"); 
+
 	    $(window).scroll(function() {
 
 	      if($(this).scrollTop() < $(".swiper-container").height()){
@@ -299,7 +310,6 @@
 	        		url : "/babmukja/member/searchmember.do",
 	        		data: {nick : $("input[name='member']").val()}
 	        	}).done(function(response){
-	        		console.dir(response);	
 	        		let chatListWrapper = $("#chatProfile-wrapper");
 	        			let profiles = "";
 	        		for(let member of response){
