@@ -275,7 +275,7 @@
        $("#resultImage").css({background:$(this).css("backgroundImage"),
          backgroundSize: "cover",
          backgroundRepeat : "no-repeat"});
-      console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
+         console.log("키 랭크 값 : " + $("input[name='countryrank']").val());
        $.ajax({
           type:"GET",
           url: "recipekeyword.do",
@@ -284,88 +284,9 @@
              }
        }).done(function(response){
           let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';
-          
-
-         let i = 1;
+          let i = 1;
           for(let res of response){
              console.log("res : " + res);
-//              html +="<div id='page"+i+"' class='pageX'></div>";
-//              console.log("page : " + i);
-              let editor = new EditorJS({
-                  holderId: 'page'+i,
-                  autofocus: false,
-                  data: JSON.parse(res.content),
-                  tools: { 
-                      warning: {
-                          class: Warning,
-                          inlineToolbar: true,
-                      },
-           
-                      table: {
-                          class: Table,
-                          inlineToolbar: true,
-                      },                       
-                      quote: {
-                          class: Quote,
-                          inlineToolbar: true,
-                      },
-                   image: {
-                          class: ImageTool,
-                      },            
-   
-                      header: {
-                          class: Header,
-                      }, 
-                      checklist: {
-                          class: Checklist,
-                      },
-                      linkTool: {
-                          class: LinkTool,
-                      },
-                      marker: {
-                          class: Marker,
-                      },
-                      list: {
-                          class: List,
-                      },
-                      embed: {
-                          class: Embed,
-                      }
-                  }
-              });
-              i++;
-          }
-//           html+= '<div ignore="1" class="previous-button"></div>';
-//           $("#turnJs").append(html);
-       });
-
-
-      $("#turnModal").modal("show");      
-      
-      $("#turnJsDiv").css(
-      "display", "block"                
-      ); 
-      
-       loadApp("#turnJs");       
-       
-    });    
-    // 레시피 메인  - turn.js 적용부분
-    $("#recipe-book2").click(function () {   
-       $("#resultImage").css({background:$(this).css("backgroundImage"),
-         backgroundSize: "cover",
-         backgroundRepeat : "no-repeat"});
-      console.log("키 랭크 값 : " + $("input[name='situationrank']").val());
-       $.ajax({
-          type:"GET",
-          url: "recipekeyword.do",
-          data:{
-             keywordNo : $("input[name='situationrank']").val()
-             }
-       }).done(function(response){
-          let html = '<div ignore="1" class="next-button"></div><div class="hard" id="resultImage"></div>';
-  
-         let i = 1;
-          for(let res of response){
               let editor = new EditorJS({
                   holderId: 'page'+i,
                   autofocus: false,
@@ -422,6 +343,7 @@
        loadApp("#turnJs");       
        
     });    
+     
 
     $(document).ready(function () {
        $("#turnModal").modal("hide");

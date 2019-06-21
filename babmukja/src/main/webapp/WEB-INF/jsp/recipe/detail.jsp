@@ -215,12 +215,6 @@
                     </div><!-- writer-post end -->
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
                 </div><!-- writer-info end -->
-                
-                <div id="share-button">
-                    <i class="fab fa-facebook-f fa-3x"></i>
-                    <i class="fab fa-instagram fa-3x"></i>
-                </div>
-            
             </div><!-- content-wrapper end -->            
         </div><!-- right;body end -->
     </div> <!-- 전체 body end -->
@@ -371,7 +365,7 @@
 	    	 	     			+'</div></div>';
 		    	 	     				 	 
 		    	 	 $(".comment-input").val("");		
-		    	 	 $("#h3").html("");
+		    	 	 $("#h4").html("");
 		    	 	 $("#comment-other").prepend(html);
 		    	 	 $("#comment-other").html("");
 					commentList(1);
@@ -394,7 +388,7 @@
 		 	.done(function (result) {
 		 		let loginMemNo = '${sessionScope.user.memNo}';
 		 		if(result.comment.length == 0) {	 			
-		 			$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+		 			$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
 		 		}
 		 		let html = "";	
 		 		for(let i = 0; i < result.comment.length; i++) {
@@ -523,11 +517,10 @@
  		}).done(function (result) {    		
  			if($(".other-content").length == 1 ) {
  				$("#"+ num).html("");
- 				$("#comment-other").html("<h3 id='h3'>댓글을 작성해주세요.</h3>");
+ 				$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
  			}
  		
 	    	$("#"+ num).html("");
-	    	$("#comment-other").html("");
 			commentList(result.pageNo);
  		})  
  	});
