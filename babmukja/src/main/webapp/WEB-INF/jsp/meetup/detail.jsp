@@ -160,7 +160,7 @@
 			</div>
 
 			<div class="list_insert_button">
-				모임 공지를 작성하고 싶다면 <a href="<c:url value="/meetup/detailNoticeWriteform.do"/>">글등록 하러가기</a>
+				모임 공지를 작성하고 싶다면 <a href="<c:url value="/meetup/detailNoticeWriteform.do?meetNo=${meetup.meetNo}"/>">글등록 하러가기</a>
 			</div>
 
 			<div class="board_list_count_insert">
@@ -256,7 +256,7 @@
 			</div>
 
 			<div class="list_insert_button">
-				글을 작성하고 싶으시면  <a href="<c:url value="/meetup/detailFreeWriteform.do"/>">글등록 하러가기</a>
+				글을 작성하고 싶으시면  <a href="<c:url value="/meetup/detailFreeWriteform.do?meetNo=${meetup.meetNo}"/>">글등록 하러가기</a>
 			</div>
 
 			<div class="board_list_count_insert">

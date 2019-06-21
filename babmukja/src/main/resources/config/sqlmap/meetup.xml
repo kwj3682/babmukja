@@ -135,7 +135,6 @@
 		limit 0,3
 	</select>
 	
-		
 	<select id="selectBoard" parameterType="int" resultMap="meetupMap">
 	   select * from tb_meetup
 		where meet_no =#{meet_No};
@@ -210,20 +209,23 @@
 		<result column="imgpath" property="imgpath" />
 		<result column="img_orgname" property="imgOrgname" />
 		<result column="img_sysname" property="imgSysname" />
+		<result column="meet_no" property="meetNo" />
 	</resultMap>
 
 	<!-- 글목록 -->
-	<select id="selectNoticeBoard" parameterType="page" resultMap="boardMap">
+	<select id="selectNoticeBoard" parameterType="meetupDetailNoticePage" resultMap="boardMap">
 		select *
 		from tb_board
+		where meet_no=#{meetNo}
 		order by board_no desc
 		limit #{begin},#{end}
 	</select>
 
 	<!-- 페이징 -->
-	<select id="selectBoardCount" resultType="int">
+	<select id="selectBoardCount" parameterType="int" resultType="int">
 		select count(*)
 		from tb_board
+		where meet_no = #{meetNo}
 	</select>
 
 	<!-- 글번호 -->
@@ -235,8 +237,8 @@
 
 	<!-- 글등록 -->
 	<insert id="insertBoard" parameterType="board">
-		insert into tb_board (title, writer, content, imgpath, img_orgname, img_sysname)
-		values (#{title}, #{writer}, #{content},#{imgpath}, #{imgOrgname}, #{imgSysname})
+		insert into tb_board (title, writer, content, imgpath, img_orgname, img_sysname,meet_no)
+		values (#{title}, #{writer}, #{content},#{imgpath}, #{imgOrgname}, #{imgSysname},#{meetNo})
 	</insert>
 
 	<!-- 글삭제 -->
@@ -338,9 +340,11 @@
 	</select>
 
 	<!-- 페이징 -->
-	<select id="selectFreeBoardCount" resultType="int">
+	<select id="selectFreeBoardCount" parameterType="int" resultType="int">
 		select count(*)
 		from tb_free_board
+		where meet_no = #{meetNo}
+		
 	</select>
 
 	<!-- 글번호 -->
@@ -352,8 +356,8 @@
 
 	<!-- 글등록 -->
 	<insert id="insertFreeBoard" parameterType="board">
-		insert into tb_free_board (title, writer, content, imgpath, img_orgname, img_sysname)
-		values (#{title}, #{writer}, #{content},#{imgpath}, #{imgOrgname}, #{imgSysname})
+		insert into tb_free_board (title, writer, content, imgpath, img_orgname, img_sysname,meet_no)
+		values (#{title}, #{writer}, #{content},#{imgpath}, #{imgOrgname}, #{imgSysname},#{meetNo})
 	</insert>
 
 	<!-- 글삭제 -->

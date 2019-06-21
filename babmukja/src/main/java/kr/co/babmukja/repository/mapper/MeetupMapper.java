@@ -51,7 +51,7 @@ public void updateWidthdrawlStatus(int meetNo);
 // 공지 list 부분
 public List<Board> selectNoticeBoard(MeetupDetailNoticePage page); // 글목록
 
-public int selectBoardCount(); // 페이징
+public int selectBoardCount(int meetNo); // 페이징
 
 Board selectBoardByNo(int boardNo); // 글번호
 
@@ -82,7 +82,7 @@ public void updateBoardView(BoardReview boardReview); // 댓글 수정
 //자유게시판 부분
 public List<Board> selectFreeBoard(MeetupDetailFreePage page); // 글목록
 
-public int selectFreeBoardCount(); // 페이징
+public int selectFreeBoardCount(int meetNo); // 페이징
 
 Board selectFreeBoardByNo(int boardNo); // 글번호
 

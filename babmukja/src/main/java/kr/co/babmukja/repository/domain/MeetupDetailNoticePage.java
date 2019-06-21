@@ -1,6 +1,13 @@
 package kr.co.babmukja.repository.domain;
 
 public class MeetupDetailNoticePage {
+	private int meetNo;
+	public int getMeetNo() {
+		return meetNo;
+	}
+	public void setMeetNo(int meetNo) {
+		this.meetNo = meetNo;
+	}
 	private int noticePageNo = 1;
 	public int getNoticePageNo() {
 		return noticePageNo;

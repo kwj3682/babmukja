@@ -174,7 +174,7 @@ public class MeetupServiceImpl implements MeetupService{
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectNoticeBoard(page));
 		//수정된 부분
-		result.put("pageResult", new PageResult(page.getNoticePageNo(), mapper.selectBoardCount()));
+		result.put("pageResult", new PageResult(page.getNoticePageNo(), mapper.selectBoardCount(page.getMeetNo())));
 		return result;
 	}
 	
@@ -264,7 +264,7 @@ public class MeetupServiceImpl implements MeetupService{
 	public Map<String, Object> freeList(MeetupDetailFreePage page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectFreeBoard(page));
-		result.put("pageResult", new PageResult(page.getFreePageNo(), mapper.selectFreeBoardCount()));
+		result.put("pageResult", new PageResult(page.getFreePageNo(), mapper.selectFreeBoardCount(page.getMeetNo())));
 		return result;
 	}
 	

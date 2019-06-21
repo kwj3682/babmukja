@@ -486,6 +486,7 @@ public class MeetupController {
 	model.addAttribute("filesPath", filePath);
 	
 	//notice 부분
+			noticePage.setMeetNo(meetNo);
 			Map<String, Object> result = service.list(noticePage);
 			model.addAttribute("noticeList", result.get("list"));
 		
@@ -496,6 +497,7 @@ public class MeetupController {
 			model.addAttribute("noticePageResult", result.get("pageResult"));
 			
 	////free 부분
+			freePage.setMeetNo(meetNo);
 			Map<String, Object> freeResult = service.freeList(freePage);
 			model.addAttribute("freeList", freeResult.get("list"));
 		
@@ -671,12 +673,16 @@ public class MeetupController {
 
 	@RequestMapping("/detailNoticeWriteform.do")
 	// 글등록 폼
-	public void writeForm() {}
+	public void writeForm(int meetNo,Model model) {
+		model.addAttribute("meetNo", meetNo);
+	}
 
 	@RequestMapping("/write.do")
 	// 글등록 처리
 	public Object write(Board board) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+		//board에 모임 번호 추가해주기
+		//board.setMeetNo(meetNo);
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/board" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
@@ -818,7 +824,10 @@ public class MeetupController {
 
 		@RequestMapping("/detailFreeWriteform.do")
 		// 글등록 폼
-		public void detailFreeWriteform() {}
+		public void detailFreeWriteform(int meetNo, Model model) {
+			model.addAttribute("meetNo", meetNo);
+
+		}
 
 		@RequestMapping("/writeFreeBoard.do")
 		// 글등록 처리

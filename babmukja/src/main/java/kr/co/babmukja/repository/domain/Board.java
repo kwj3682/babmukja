@@ -8,6 +8,15 @@ import org.springframework.web.multipart.MultipartFile;
 public class Board {
 
 	// board
+	private int meetNo;
+	public int getMeetNo() {
+		return meetNo;
+	}
+
+	public void setMeetNo(int meetNo) {
+		this.meetNo = meetNo;
+	}
+
 	private int BoardNo;
 	private String title;
 	private String content;

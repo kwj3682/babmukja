@@ -25,6 +25,9 @@
 			<form id="writeform" action="writeFreeBoard.do" method="POST" enctype="multipart/form-data">
 			<div class="board_insert_title">
 				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." />
+				<!--모임번호  -->
+				<input type="hidden" id="meetNo" name="meetNo" value="${meetNo}"/>
+				
 			</div>
 
 			<div class="board_insert_writer">
