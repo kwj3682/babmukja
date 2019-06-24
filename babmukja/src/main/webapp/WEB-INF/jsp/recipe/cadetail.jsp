@@ -115,11 +115,11 @@
                 <img src="<c:url value="/resources/images/icons/meal.png"/>">  
                 <div class="selectmenuContent-detail">조리시간
                     <div class="hiddenMenu">
-                        <input type="radio" id="five" name="taketime" value="33" <c:if test="${param.time == 33}">checked</c:if>><label for="five">5분 이내</label>
-                        <input type="radio" id="fifteen" name="taketime" value="34" <c:if test="${param.time == 34}">checked</c:if>><label for="fifteen">15분 이내</label>
-                        <input type="radio" id="thirty" name="taketime" value="35" <c:if test="${param.time == 35}">checked</c:if>><label for="thirty">30분 이내</label>
-                        <input type="radio" id="hour" name="taketime" value="36" <c:if test="${param.time == 36}">checked</c:if>><label for="hour">1시간 이내</label>
-                        <input type="radio" id="overhour" name="taketime" value="37" <c:if test="${param.time == 37}">checked</c:if>><label for="overhour">1시간 초과</label>
+                        <input type="radio" id="five" name="time" value="33" <c:if test="${param.time == 33}">checked</c:if>><label for="five">5분 이내</label>
+                        <input type="radio" id="fifteen" name="time" value="34" <c:if test="${param.time == 34}">checked</c:if>><label for="fifteen">15분 이내</label>
+                        <input type="radio" id="thirty" name="time" value="35" <c:if test="${param.time == 35}">checked</c:if>><label for="thirty">30분 이내</label>
+                        <input type="radio" id="hour" name="time" value="36" <c:if test="${param.time == 36}">checked</c:if>><label for="hour">1시간 이내</label>
+                        <input type="radio" id="overhour" name="time" value="37" <c:if test="${param.time == 37}">checked</c:if>><label for="overhour">1시간 초과</label>
                     </div>
                 </div>
                 <div class="selectmenuContentFold"><i class="fas fa-chevron-right"></i></div>
@@ -129,27 +129,27 @@
                 <img src="<c:url value="/resources/images/icons/dish.png"/>">  
                 <div class="selectmenuContent-detail">종류
                     <div class="hiddenMenu">
-                        <input type="radio" id="koreansoup" name="foodtype" value="38" <c:if test="${param.type == 38}">checked</c:if>><label for="koreansoup">국/탕류</label>
-                        <input type="radio" id="jjigae" name="foodtype" value="39" <c:if test="${param.type == 39}">checked</c:if>><label for="jjigae">찌개</label>
-                        <input type="radio" id="sidedish" name="foodtype" value="40" <c:if test="${param.type == 40}">checked</c:if>><label for="sidedish">반찬</label>
-                        <input type="radio" id="noodle" name="foodtype" value="41" <c:if test="${param.type == 41}">checked</c:if>><label for="noodle">면</label>
-                        <input type="radio" id="dumpling" name="foodtype" value="42" <c:if test="${param.type == 42}">checked</c:if>><label for="dumpling">만두</label>
-                        <input type="radio" id="rice" name="foodtype" value="43" <c:if test="${param.type == 43}">checked</c:if>><label for="rice">밥</label>
-                        <input type="radio" id="salad" name="foodtype" value="44" <c:if test="${param.type == 44}">checked</c:if>><label for="salad">샐러드</label>
-                        <input type="radio" id="soup" name="foodtype" value="45" <c:if test="${param.type == 45}">checked</c:if>><label for="soup">스프</label><br>
-                        <input type="radio" id="beverage" name="foodtype" value="46" <c:if test="${param.type == 46}">checked</c:if>><label for="beverage">음료</label>
-                        <input type="radio" id="bread" name="foodtype" value="47" <c:if test="${param.type == 47}">checked</c:if>><label for="bread">빵/디저트</label>
-                        <input type="radio" id="hardboiled" name="foodtype" value="48" <c:if test="${param.type == 48}">checked</c:if>><label for="hardboiled">조림</label>
-                        <input type="radio" id="easymixed" name="foodtype" value="49" <c:if test="${param.type == 49}">checked</c:if>><label for="easymixed">무침</label>
-                        <input type="radio" id="hardmixed" name="foodtype" value="50" <c:if test="${param.type == 50}">checked</c:if>><label for="hardmixed">비빔</label>
-                        <input type="radio" id="steamed" name="foodtype" value="51" <c:if test="${param.type == 51}">checked</c:if>><label for="steamed">찜</label>
-                        <input type="radio" id="pickled" name="foodtype" value="52" <c:if test="${param.type == 52}">checked</c:if>><label for="pickled">절임</label>
-                        <input type="radio" id="fried" name="foodtype" value="53" <c:if test="${param.type == 53}">checked</c:if>><label for="fried">튀김</label><br>
-                        <input type="radio" id="boiled" name="foodtype" value="54" <c:if test="${param.type == 54}">checked</c:if>><label for="boiled">삶기</label>
-                        <input type="radio" id="cooked" name="foodtype" value="55" <c:if test="${param.type == 55}">checked</c:if>><label for="cooked">굽기</label>
-                        <input type="radio" id="blanch" name="foodtype" value="56" <c:if test="${param.type == 56}">checked</c:if>><label for="blanch">데치기</label>
-                        <input type="radio" id="row" name="foodtype" value="57" <c:if test="${param.type == 57}">checked</c:if>><label for="row">회</label>
-                        <input type="radio" id="foodtypeetc" name="foodtype" value="58" <c:if test="${param.type == 58}">checked</c:if>><label for="foodtypeetc">기타</label>
+                        <input type="radio" id="koreansoup" name="type" value="38" <c:if test="${param.type == 38}">checked</c:if>><label for="koreansoup">국/탕류</label>
+                        <input type="radio" id="jjigae" name="type" value="39" <c:if test="${param.type == 39}">checked</c:if>><label for="jjigae">찌개</label>
+                        <input type="radio" id="sidedish" name="type" value="40" <c:if test="${param.type == 40}">checked</c:if>><label for="sidedish">반찬</label>
+                        <input type="radio" id="noodle" name="type" value="41" <c:if test="${param.type == 41}">checked</c:if>><label for="noodle">면</label>
+                        <input type="radio" id="dumpling" name="type" value="42" <c:if test="${param.type == 42}">checked</c:if>><label for="dumpling">만두</label>
+                        <input type="radio" id="rice" name="type" value="43" <c:if test="${param.type == 43}">checked</c:if>><label for="rice">밥</label>
+                        <input type="radio" id="salad" name="type" value="44" <c:if test="${param.type == 44}">checked</c:if>><label for="salad">샐러드</label>
+                        <input type="radio" id="soup" name="type" value="45" <c:if test="${param.type == 45}">checked</c:if>><label for="soup">스프</label><br>
+                        <input type="radio" id="beverage" name="type" value="46" <c:if test="${param.type == 46}">checked</c:if>><label for="beverage">음료</label>
+                        <input type="radio" id="bread" name="type" value="47" <c:if test="${param.type == 47}">checked</c:if>><label for="bread">빵/디저트</label>
+                        <input type="radio" id="hardboiled" name="type" value="48" <c:if test="${param.type == 48}">checked</c:if>><label for="hardboiled">조림</label>
+                        <input type="radio" id="easymixed" name="type" value="49" <c:if test="${param.type == 49}">checked</c:if>><label for="easymixed">무침</label>
+                        <input type="radio" id="hardmixed" name="type" value="50" <c:if test="${param.type == 50}">checked</c:if>><label for="hardmixed">비빔</label>
+                        <input type="radio" id="steamed" name="type" value="51" <c:if test="${param.type == 51}">checked</c:if>><label for="steamed">찜</label>
+                        <input type="radio" id="pickled" name="type" value="52" <c:if test="${param.type == 52}">checked</c:if>><label for="pickled">절임</label>
+                        <input type="radio" id="fried" name="type" value="53" <c:if test="${param.type == 53}">checked</c:if>><label for="fried">튀김</label><br>
+                        <input type="radio" id="boiled" name="type" value="54" <c:if test="${param.type == 54}">checked</c:if>><label for="boiled">삶기</label>
+                        <input type="radio" id="cooked" name="type" value="55" <c:if test="${param.type == 55}">checked</c:if>><label for="cooked">굽기</label>
+                        <input type="radio" id="blanch" name="type" value="56" <c:if test="${param.type == 56}">checked</c:if>><label for="blanch">데치기</label>
+                        <input type="radio" id="row" name="type" value="57" <c:if test="${param.type == 57}">checked</c:if>><label for="row">회</label>
+                        <input type="radio" id="typeetc" name="type" value="58" <c:if test="${param.type == 58}">checked</c:if>><label for="typeetc">기타</label>
                     </div>
                 </div>
                 <div class="selectmenuContentFold"><i class="fas fa-chevron-right"></i></div>
@@ -215,150 +215,12 @@
 	            <div id="sector3-header"></div>
 	        </div>
 	    </div>
-	
-    <script>    
-    let arrow = $("#fa-arrow");
-	let $selectBoxSelector = $("#selectBoxSelector");
-	let $selectBoxWrapper = $("#selectBox-wrapper");
-	let offLeft = $selectBoxSelector.offset().left;
-	
-	
-    $("#submitBtn").css({
-    	position: "absolute",
-    	top: 15,
-    	left: 220
-    });
-    $selectBoxWrapper.css({
-    	position: "fixed",
-    	top: 55,
-    	left: offLeft
-    });
-    let openFlag = false;
-    $selectBoxSelector.click(function(e){
-    	if(!openFlag){
-    		openFlag = true;
-    	}else{	    		
-    		openFlag = false;
-    		$(".selectmenuContent").children(".selectmenuContentFold").children().attr({class:"fas fa-chevron-right"});
-    	}
-        $selectBoxWrapper.slideToggle(150);
-        
-        if(arrow.attr("class") == "fas fa-caret-down") arrow.attr({class : "fas fa-caret-up"});
-        else{
-            arrow.attr({class : "fas fa-caret-down"});
-            $(".selectmenuContent").css({width:"190px"});
-            $(".selectmenuContent").find(".hiddenMenu").css({display:"none"});
-        } 
-    });
-    
-    $(".selectmenuContent").click(function(){
-        let $this = $(this);
-        let $hiddenMenu = $this.children(".selectmenuContent-detail").children();
-        let $fold = $this.children(".selectmenuContentFold");
-        
-        if($this.width() < 220){
-            $this.animate({width: "700px"},180);
-            setTimeout(function(){
-                $hiddenMenu.css({display:"inline-block"});
-            }, 200);
-            $fold.children().attr({class:"fas fa-chevron-left"});
-        }
-        $fold.click(function(){
-            if($hiddenMenu.css("display") == 'none'){
-                return;
-            }
-            $this.animate({width: "190px"},180);
-            $hiddenMenu.css({display:"none"});
-            $fold.children().attr({class:"fas fa-chevron-right"});
-        });
-    });
-
-     $("#submitBtn").click(function () {
-    		 $("form[name='searhForm']").submit();
-     });
-     
-    
-    // 무한스크롤
-    let pageNo = 0;
-    $(window).scroll( 
-      function () {
-        let sh = $(window).scrollTop() + $(window).height();
-        let dh = $(document).height(); 
-       
-        if(sh >= dh-10) {
-       	 
-          pageNo = pageNo+12;
-	       let cautions = [];
-	       $("input[name='caution']:checked").each(function(){
-	       	 cautions.push($(this).val());
-	       });
-	       
-	       let data = {
-	    		   pageNo : pageNo,
-	    		   country : $("input[name='country']").val(),
-	    		   searchTitle : $("input[name='searchTitle']").val(),
-	    		   searchNickname : $("input[name='searchNickname']").val(),
-                   caution : cautions,
-                   situation : $("input[name='situation']:checked").val(),
-                   level : $("input[name='level']:checked").val(),
-                   time : $("input[name='taketime']:checked").val(),
-                   type : $("input[name='foodtype']:checked").val()
-	       }
-          
-          $.ajax({               
-	                data : data,
-	                url : "cadetailScroll.do"
-    
-          }).done(function (result) {            	   
-       	   if(result.length != 0) {
-   			 let html = "";
-     		 for(let i = 0 ; i < result.length ; i ++) {
-     			 html += '<div class="profile-container">'
-                        + '<div class="profile-pic-box">'
-                     	+ '<div>'
-                     	
-         		 if(result[i].memImgPath == null || result[i].memImgPath == "") {
-         			html += '<img class="profile-picture" src="<c:url value="/resources/images/default/userdefault.png"/>">';				                	
-         		 } else {
-         			html += '<img class="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path='+ result[i].memImgPath + '&sysname='+ result[i].memImgSysname+ '">';
-         		 }
-                  html += `</div>
-                  			<div class="profile-name">
-                         			<p>
-	                    	  			<span>평점 :` + result[i].rating + ` </span>
-                    			 <br>
-                        			 ` +  result[i].title + `
-                    			 <br>
-                         			 ` +  result[i].memNickname + `
-                         			</p>
-                     			</div>
-                 			</div>
-	                        <div class="recipe-pic-box">
-	                           <a href = "detail.do?no=` + result[i].recipeNo + `">`;
-	                           
-                 if(result[i].imgPath == null || result[i].imgPath == "") {
-         			html += '<img src="<c:url value="/resources/images/default.png"/>"></a>';				                	
-         		  } else {
-         			html += '<img src="'+ result[i].imgPath + '"></a>';
-         		  }
-	                html += `</div>
-	                        <div class="recipe-info">
-	                           <i class="fas fa-heart fa-2x">` + result[i].likeCnt + `</i>
-	                           <i class="fas fa-scroll fa-2x">`+ result[i].scrapCnt + ` </i>
-	                           <i class="fas fa-eye fa-2x">` + result[i].viewCnt + `</i>
-	                        </div>
-	                    </div>`;
-     			 
-     		 	}
-                   	 $("#sector3-body").append(html);
-            	} 
-       	  
-         }).fail(function(xhr){	               
-              console.dir(xhr);
-         })
-        }
-      });
-         
-    </script>
+	    
+<script>
+	let userDefault = "<c:url value='/resources/images/default/userdefault.png'/>";
+	let pageContext = "${pageContext.request.contextPath}/member/download.do?path=";
+	let imgDefault = "<c:url value='/resources/images/default.png'/>";
+</script>
+<script src="<c:url value="/resources/js/recipe/cadetail.js"/>"></script>
 </body>
 </html>

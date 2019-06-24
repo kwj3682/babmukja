@@ -107,12 +107,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public Map selectReviewByNo(Page page) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("list", mapper.selectReviewByNo(page));
-		System.out.println("pageNo"+ page.getPageNo());
-		System.out.println("index" + page.getIndex());
-		System.out.println(mapper.selectReviewCount(page));
 		PageResult pageResult = new PageResult(page.getPageNo(), mapper.selectReviewCount(page));
-		System.out.println(pageResult.getEndPage());
-		System.out.println(pageResult.getBeginPage());
 		result.put("pageResult", pageResult);
 		return result;
 	}

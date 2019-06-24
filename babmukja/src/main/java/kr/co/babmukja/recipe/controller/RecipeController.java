@@ -60,7 +60,6 @@ public class RecipeController {
 		model.addAttribute("situationrank", service.selectKeywordMost("situation").getSituation());
 		model.addAttribute("levelrank", service.selectKeywordMost("level").getLevel());
 		model.addAttribute("typerank", service.selectKeywordMost("type").getType());
-
 		model.addAttribute("win", service.selectWinRecipe());
 		model.addAttribute("winner", service.selectMemRecipeByRate());
 		model.addAttribute("comment",service.selectReviewByRate());
@@ -145,7 +144,6 @@ public class RecipeController {
 		Recipe recipe = service.selectRecipeByNo(no);
 		service.addViewCnt(no);
 		if (recipe == null) {
-			System.out.println("recipe is null at no." + no);
 			mav.setViewName("recipe/main");
 			return mav;
 		}
@@ -189,7 +187,6 @@ public class RecipeController {
 			checker.setFollowMemNo(recipe.getMemNo());
 			checker.setFollowerMemNo(user.getMemNo());
 
-//			RecipeLike like = new RecipeLike();
 			checker.setMemNo(user.getMemNo());
 			checker.setRecipeNo(recipe.getRecipeNo());
 			
@@ -210,7 +207,6 @@ public class RecipeController {
 					resultChecker.setScrapStatus("X");
 				}
 			}
-			System.out.println("follow : "+resultChecker.getFollowStatus() + ", " + "like : "+resultChecker.getLikeStatus() + ", " + "scrap : "+resultChecker.getScrapStatus());
 			mav.addObject("followStatus", resultChecker.getFollowStatus());
 			mav.addObject("likeStatus", resultChecker.getLikeStatus());
 			mav.addObject("scrapStatus",resultChecker.getScrapStatus());
@@ -273,7 +269,6 @@ public class RecipeController {
 	@RequestMapping("/commentDelete.do")
 	@ResponseBody
 	public void commentDelete(int no) {
-		System.out.println(no);
 		service.deleteRecipeReview(no);
 	}
 
@@ -463,7 +458,6 @@ public class RecipeController {
      @RequestMapping("/capture.do")
      @ResponseBody
      public void screenCapture(String radioVal, String base64String,int recipeNo,int memNo) {
-    	 System.out.println("radioVal :" + radioVal +" / recipeNo : " + recipeNo + " memNo : " + memNo);
     	 String data = base64String.replaceAll("data:image/png;base64,", ""); 
     	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 
