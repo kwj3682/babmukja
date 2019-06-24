@@ -21,6 +21,8 @@
 			<form id="updateform" action="updateFreeBoard.do" method="POST" enctype="multipart/form-data">
 			<input type='hidden' name='boardNo' value='${board.boardNo}' />
 			<div class="board_update_title">
+			<input type="hidden" id="meetNo" name="meetNo" value="${meetNo}"/>
+				<input type="hidden" id="memNo" name="memNo" value="${memNo}" />
 				<input type="text" id="title" name="title" value="${board.title}" placeholder="제목을 입력해주세요." />
 			</div>
 
@@ -37,7 +39,7 @@
 				<i class="material-icons">attach_file</i> 
 					<span class="title">Add File</span>
 					<div class="board_update_file_div">
-						<img src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>" id="board_update_img">
+						<img width="150px" height="150px" src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>" id="board_update_img">
 					</div>
 				</label>
 			</div>

@@ -110,7 +110,7 @@
 			<tr>
 				<td>모임소개</td>
 				<td id="noticeTap">모임공지</td>
-				<td>자유게시판</td>
+				<td id="freeTap">자유게시판</td>
 				<td>사진첩</td>
 				<td>회원</td>
 		</table>
@@ -160,7 +160,7 @@
 			</div>
 
 			<div class="list_insert_button">
-				모임 공지를 작성하고 싶다면 <a href="<c:url value="/meetup/detailNoticeWriteform.do?meetNo=${meetup.meetNo}"/>">글등록 하러가기</a>
+				모임 공지를 작성하고 싶다면 <a href="<c:url value="/meetup/detailNoticeWriteform.do?meetNo=${meetup.meetNo}&memNo=${sessionScope.user.memNo}"/>">글등록 하러가기</a>
 			</div>
 
 			<div class="board_list_count_insert">
@@ -184,7 +184,7 @@
 						<c:forEach var="board" items="${noticeList}">
 							<tr>
 								<td>${board.boardNo}</td>
-								<td><a href="<c:url value='/meetup/detailNoticeDetail.do?boardNo=${board.boardNo}&memName=${sessionScope.user.memName}'/>">${board.title}</a></td>
+								<td><a href="<c:url value='/meetup/detailNoticeDetail.do?boardNo=${board.boardNo}&memName=${sessionScope.user.memName}&meetNo=${meetup.meetNo}&memNo=${sessionScope.user.memNo}'/>">${board.title}</a></td>
 								<td>${board.writer}</td>
 								<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" /></td>
 								<td>${board.viewcnt}</td>
@@ -207,6 +207,7 @@
 	    
 	   
   		</c:otherwise>
+		
 		
 		</c:choose>
 		
@@ -251,12 +252,12 @@
 		<!-- noticeList 부분 -->
 	<div class="board_list_container">
 		<div class="board_list_wrapper">
-			<div class="board_list_title">
+			<div class="board_list_title" id="free_board_list_title">
 				모임 자유게시판
 			</div>
 
 			<div class="list_insert_button">
-				글을 작성하고 싶으시면  <a href="<c:url value="/meetup/detailFreeWriteform.do?meetNo=${meetup.meetNo}"/>">글등록 하러가기</a>
+				글을 작성하고 싶으시면  <a href="<c:url value="/meetup/detailFreeWriteform.do?meetNo=${meetup.meetNo}&memNo=${sessionScope.user.memNo}"/>">글등록 하러가기</a>
 			</div>
 
 			<div class="board_list_count_insert">
@@ -280,7 +281,7 @@
 						<c:forEach var="board" items="${freeList}">
 							<tr>
 								<td>${board.boardNo}</td>
-								<td><a href="<c:url value='/meetup/detailFreeDetail.do?boardNo=${board.boardNo}'/>">${board.title}</a></td>
+								<td><a href="<c:url value='/meetup/detailFreeDetail.do?boardNo=${board.boardNo}&meetNo=${meetup.meetNo}&memNo=${sessionScope.user.memNo}'/>">${board.title}</a></td>
 								<td>${board.writer}</td>
 								<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" /></td>
 								<td>${board.viewcnt}</td>
@@ -674,6 +675,17 @@
 			
 			$("#noticeTap").trigger("click");
 			$(window).scrollTop($('.board_list_title').offset().top);
+
+			 
+		}
+	});
+	
+	//페이지 처리
+	$(document).ready(function(){
+		if(${freeClicked}==1){
+			
+			$("#freeTap").trigger("click");
+			$(window).scrollTop($('#free_board_list_title').offset().top);
 
 			 
 		}

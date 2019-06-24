@@ -27,7 +27,7 @@
 				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." />
 				<!--모임번호  -->
 				<input type="hidden" id="meetNo" name="meetNo" value="${meetNo}"/>
-				
+				<input type="hidden" id="memNo" name="memNo" value="${memNo}"/>
 			</div>
 
 			<div class="board_insert_writer">

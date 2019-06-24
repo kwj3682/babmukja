@@ -128,7 +128,7 @@
             </div>
 
 
-            <div class="tabPanel">전체
+            <div class="tabPanel">
                 <!-- 추천모임 박스 -->
                 <div class="info_block_container">
                     <!--1 추천모임 박스 복사시작 -->
@@ -167,7 +167,7 @@
             </div>
             
            <!--한식모임 시작  --> 
-         <div class="tabPanel">한식
+         <div class="tabPanel">
                 <!-- 추천모임 박스 -->
                 <div class="info_block_container">
                     <!--1 추천모임 박스 복사시작 -->
@@ -204,7 +204,7 @@
             </div>
         
            <!--양식모임 시작  --> 
-         <div class="tabPanel">양식
+         <div class="tabPanel">
                 <!-- 추천모임 박스 -->
                 <div class="info_block_container">
                     <!--1 추천모임 박스 복사시작 -->
@@ -242,7 +242,7 @@
         
         
 	     <!--일식모임 시작  --> 
-         <div class="tabPanel">일식
+         <div class="tabPanel">
                 <!-- 추천모임 박스 -->
                 <div class="info_block_container">
                     <!--1 추천모임 박스 복사시작 -->
@@ -281,7 +281,7 @@
             
                
 	     <!--양식모임 시작  --> 
-         <div class="tabPanel">양식
+         <div class="tabPanel">
                 <!-- 추천모임 박스 -->
                 <div class="info_block_container">
                     <!--1 추천모임 박스 복사시작 -->
@@ -359,7 +359,7 @@
     <!-- 추천모임 박스 복사끝 -->
 
     <!-- 모달 부분 아래시작 -->
-    <form action="<c:url value='/meetup/createMeetup.do'/>" method="POST" enctype="multipart/form-data">
+    <form id="modalForm" action="<c:url value='/meetup/createMeetup.do'/>" method="POST" enctype="multipart/form-data">
         <div id="write_modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -397,7 +397,7 @@
                             </div>
                             <div></div>
                             <div class="modal_meetup_name">
-                                <input type="text" name="title" class="meetup_title" placeholder="모임명을 입력해주세요" />
+                                <input type="text" name="title" class="meetup_title" id="meetup_title" placeholder="모임명을 입력해주세요" />
                             </div>
 
                         </div>
@@ -505,8 +505,8 @@
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                        <button class="btn btn-primary" id="modalSave">등록하기</button>
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-primary" id="modalSave">등록하기</button>
                     </div>
 
                 </div>

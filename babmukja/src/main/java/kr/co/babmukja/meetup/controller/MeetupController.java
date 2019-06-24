@@ -665,21 +665,24 @@ public class MeetupController {
 	
 	@RequestMapping("/detailNoticeDetail.do")
 	// 글상세
-	public void detailNoticeDetail(int boardNo,String memName, Model model) {
+	public void detailNoticeDetail(int boardNo,String memName, int meetNo, int memNo, Model model) {
 		service.updateBoardViewCnt(boardNo);
 		model.addAttribute("memName", memName);
+		model.addAttribute("meetNo", meetNo);
+		model.addAttribute("memNo", memNo);
 		model.addAttribute("board", service.detail(boardNo));
 	}
 
 	@RequestMapping("/detailNoticeWriteform.do")
 	// 글등록 폼
-	public void writeForm(int meetNo,Model model) {
+	public void writeForm(int meetNo,int memNo, Model model) {
 		model.addAttribute("meetNo", meetNo);
+		model.addAttribute("memNo", memNo);
 	}
 
 	@RequestMapping("/write.do")
 	// 글등록 처리
-	public Object write(Board board) throws Exception {
+	public Object write(Board board, int memNo, int meetNo) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		//board에 모임 번호 추가해주기
 		//board.setMeetNo(meetNo);
@@ -702,7 +705,7 @@ public class MeetupController {
 		board.setImgSysname(uName);
 
 		service.write(board);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo=34&memNo=8";
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo="+meetNo+"&memNo="+memNo+"&noticeClicked=1";
 	}
 	
 	@RequestMapping("/imgdownload.do")
@@ -741,13 +744,15 @@ public class MeetupController {
 	
 	@RequestMapping("/detailNoticeUpdateform.do")
 	// 글수정 폼
-	public void updateForm(int boardNo, Model model) {
+	public void updateForm(int boardNo,int meetNo,int memNo, Model model) {
 		model.addAttribute("board", service.updateBoardForm(boardNo));
+		model.addAttribute("meetNo", meetNo);
+		model.addAttribute("memNo", memNo);
 	}
 	
 	@RequestMapping("/update.do")
 	// 글수정
-	public String update(Board board) throws Exception {
+	public String update(Board board, int meetNo, int memNo) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/board" + sdf.format(new Date());
@@ -767,7 +772,7 @@ public class MeetupController {
 		board.setImgOrgname(bFile.getOriginalFilename());
 		board.setImgSysname(uName);
 		service.updateBoard(board);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo="+meetNo+"&memNo="+memNo+"&noticeClicked=1";
 	}
 	
 	/** 댓글 부분*/
@@ -817,21 +822,23 @@ public class MeetupController {
 	
 		@RequestMapping("/detailFreeDetail.do")
 		// 글상세
-		public void detailFreeDetail(int boardNo, Model model) {
+		public void detailFreeDetail(int boardNo, Model model,int meetNo,int memNo) {
 			service.updateBoardViewCnt(boardNo);
 			model.addAttribute("board", service.freeDetail(boardNo));
+			model.addAttribute("meetNo", meetNo);
+			model.addAttribute("memNo", memNo);
 		}
 
 		@RequestMapping("/detailFreeWriteform.do")
 		// 글등록 폼
-		public void detailFreeWriteform(int meetNo, Model model) {
+		public void detailFreeWriteform(int meetNo,int memNo, Model model) {
 			model.addAttribute("meetNo", meetNo);
-
+			model.addAttribute("memNo", memNo);
 		}
 
 		@RequestMapping("/writeFreeBoard.do")
 		// 글등록 처리
-		public Object writeFreeBoard(Board board) throws Exception {
+		public Object writeFreeBoard(Board board, int meetNo, int memNo) throws Exception {
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 			String uploadRoot = "C:/bit2019/upload";
 			String path = "/board" + sdf.format(new Date());
@@ -852,7 +859,7 @@ public class MeetupController {
 			board.setImgSysname(uName);
 
 			service.freeWrite(board);
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo=34&memNo=8";
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo="+meetNo+"&memNo="+memNo+"&freeClicked=1";
 		}
 		
 	
@@ -865,13 +872,15 @@ public class MeetupController {
 		
 		@RequestMapping("/detailFreeUpdateform.do")
 		// 글수정 폼
-		public void detailFreeUpdateform(int boardNo, Model model) {
+		public void detailFreeUpdateform(int boardNo,int meetNo,int memNo, Model model) {
 			model.addAttribute("board", service.updateFreeBoardForm(boardNo));
+			model.addAttribute("meetNo", meetNo);
+			model.addAttribute("memNo", memNo);
 		}
 		
 		@RequestMapping("/updateFreeBoard.do")
 		// 글수정
-		public String updateFreeBoard(Board board) throws Exception {
+		public String updateFreeBoard(Board board, int meetNo, int memNo) throws Exception {
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 			String uploadRoot = "C:/bit2019/upload";
 			String path = "/board" + sdf.format(new Date());
@@ -891,7 +900,8 @@ public class MeetupController {
 			board.setImgOrgname(bFile.getOriginalFilename());
 			board.setImgSysname(uName);
 			service.updateFreeBoard(board);
-			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/board/list.do";
+			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo="+meetNo+"&memNo="+memNo+"&freeClicked=1";
+
 		}
 		
 		/** 댓글 부분*/

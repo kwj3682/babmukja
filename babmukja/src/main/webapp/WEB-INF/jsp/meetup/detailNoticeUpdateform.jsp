@@ -22,6 +22,8 @@
 			<input type='hidden' name='boardNo' value='${board.boardNo}' />
 			<div class="board_update_title">
 				<input type="text" id="title" name="title" value="${board.title}" placeholder="제목을 입력해주세요." />
+				<input type="hidden" id="meetNo" name="meetNo" value="${meetNo}"/>
+				<input type="hidden" id="memNo" name="memNo" value="${memNo}" />
 			</div>
 
 			<div class="board_update_writer">
@@ -36,8 +38,8 @@
 				<label class="label"> <input type="file" name="boardfile" id="update_file" value="${board.boardfile}"/> 
 				<i class="material-icons">attach_file</i> 
 					<span class="title">Add File</span>
-					<div class="board_update_file_div">
-						<img src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>" id="board_update_img">
+						<div class="board_update_file_div">
+						<img id="board_update_img" width="150" height="150" src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
 					</div>
 				</label>
 			</div>
