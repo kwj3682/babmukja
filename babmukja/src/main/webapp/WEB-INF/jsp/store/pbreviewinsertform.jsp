@@ -34,31 +34,8 @@
         	<button id="pb_insert_cancle_button">취소</button>
     </div>
     <script>
-	    $(function() {
-	        $("#product_img_file").on("change", function(){
-	            var files = !!this.files ? this.files : [];
-	            if (!files.length || !window.FileReader) return; 
-	            if (/^image/.test( files[0].type)){ 
-	                var reader = new FileReader(); 
-	                reader.readAsDataURL(files[0]); 
-	                reader.onloadend = function(){ 
-	                 $('.image_container').css({
-	                     "background-image":
-	                         "url(" + this.result + ")",
-	                         "background-size":
-	                         "contain",
-	                         "background-repeat":
-	                         "no-repeat",
-	                       }
-	                    );
-	                };
-	            }
-	        });
-	    });
-	    
-	    $("#pb_insert_cancle_button").click(function () {
-	    	window.location.href="<c:url value='/admin/main.do'/>";
-	    });
+		let url = "<c:url value='/admin/main.do'/>";
     </script>
+    <script src="<c:url value="/resources/js/store/pbreviewinsertform.js"/>"></script>
 </body>
 </html>

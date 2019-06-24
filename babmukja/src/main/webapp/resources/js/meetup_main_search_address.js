@@ -5,7 +5,7 @@ $(document).ready(function(){
 	   $("#location_position").append(
 	            ` <div class="area_container" id="search_area_container">
 
-	<select name="city${modalNum}" class="select_modal_city" id="select_modal_city${modalNum}">
+	<select name="city${modalNum}" class="select_search_city" id="select_search_city${modalNum}">
 
 	    <option>-선택-</option>
 

@@ -14,6 +14,7 @@
 		<result column="thumnail" property="thumnail" />
 	</resultMap>
 	
+	<!-- PB MAIN 페이지 -->
 	<select id="selectPBStore" resultMap="storepbMap">
 		select *
           from tb_pb
@@ -33,6 +34,7 @@
 		 where pb_no = #{pbNo}
 	</update>
 		
+	<!-- PB LIST 페이지  -->
 	<sql id="searchSQL">
 	  <if test="searchName != null and searchName != ''">
  			and name like concat('%', #{searchName}, '%')
@@ -80,7 +82,6 @@
 	<select id="selectPBStoreByNo" parameterType="int" resultMap="storepbMap">
 		select *
 		  from tb_pb
-		  
 		 where pb_no = #{pbNo}
 	</select>
 	
@@ -100,6 +101,7 @@
 		<result column="pb_review_no" property="pbReviewNo"/>
 	</resultMap>
 	
+	<!-- PB REVIEW -->
 	<insert id="insertPBReview" parameterType="storePBReview"
 			useGeneratedKeys="true" keyProperty="pbReviewNo">
 		insert into tb_pb_review(
@@ -133,20 +135,6 @@
 		)
 	</insert>
 	
-	<update id="updatePBReview" parameterType="storePBReview">
-		update tb_pb_review
-   		   set content = ${content}
-         where pb_review_no = #{pbReviewNo}
-	</update>
-	
-	<update id="updatePBReviewImage" parameterType="ReviewFileVO">
-		update tb_file
-		   set sysname = #{sysname}, 
-		   	   orgname = #{orgname}, 
-		   	   path = #{path}
-		 where file_no = #{fileNo}
-	</update>
-		 
  	<resultMap id="MemberMap" type="Member">
 		<result column="mem_no" property="memNo" />
 		<result column="mem_name" property="memName" />
@@ -196,14 +184,7 @@
 		<collection property="reviewFile" column="pb_review_no" select="selectReviewFile"/>
 	</resultMap>
 	
-<!-- 	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="PagePbReview"> -->
-<!-- 		select *  -->
-<!-- 		  from tb_pb_review  -->
-<!-- 		 where pb_no = #{pbNo} -->
-<!-- 		 order by pb_review_no desc -->
-<!-- 		 limit #{pageNo},3 -->
-<!-- 	</select> -->
-	
+	<!-- PB REVIEW  -->
 	<select id="selectReview" resultMap="pbReviewSelectMap" parameterType="PagePbReview">
 		select * 
 		  from tb_pb_review 
@@ -251,7 +232,7 @@
 		 where pb_review_no = #{pbReviewNo}
 	</delete>
 
-<!-- pb store 문의 부분 -->	
+	<!-- PB STORE 문의 부분 -->	
 	<resultMap id="pbInquireMap" type="StorePBInquire" >
 		<result column="inquiry_no" property="inquiryNo"/>
 		<result column="pb_no" property="pbNo"/>

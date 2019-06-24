@@ -129,19 +129,6 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/dist/js/swiper.min.js"/>"></script>
-    <script>
-        
-        var swiper = new Swiper('.swiper-container', {
-            loop:true,
-            autoplay: {
-            delay: 4500,
-            disableOnInteraction: false,
-            },
-            scrollbar: {
-            el: '.swiper-scrollbar',
-            hide: true,
-            },
-        });
-    </script>
+	<script src="<c:url value="/resources/js/store/mainpb.js"/>"></script>
 </body>
 </html>

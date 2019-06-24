@@ -25,6 +25,8 @@
 					${board.writer}님 <i class="fas fa-user"></i>
 				</div>
 				<div class="board_detail_title">${board.title}</div>
+				<input type="hidden" id="meetNo" name="meetNo" value="${meetNo}"/>
+				<input type="hidden" id="memNo" name="memNo" value="${memNo}" />
 				<div class="board_detail_info_button">
 					<div class="board_detail_info">
 						<span class="board_regDate"> <i class="far fa-calendar-alt"></i>&nbsp;
@@ -34,7 +36,7 @@
 					<div class="board_detail_button">
 						<span class="board_update_button"> <i class="far fa-edit"></i>
 							<a
-							href="<c:url value='/board/updateform.do?boardNo=${board.boardNo}'/>">수정</a></span>&nbsp;
+							href="<c:url value='/meetup/detailFreeUpdateform.do?boardNo=${board.boardNo}&memNo=${memNo}&meetNo=${meetNo}'/>">수정</a></span>&nbsp;
 						<span class="board_delete_button"> <i
 							class="far fa-trash-alt"></i> <a
 							href="<c:url value='/board/delete.do?boardNo=${board.boardNo}'/>">삭제</a></span>

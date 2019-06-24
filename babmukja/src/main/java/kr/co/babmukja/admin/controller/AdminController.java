@@ -46,16 +46,11 @@ public class AdminController {
 		return service.selectMemberByNo(memNo);
 		
 	}
-
-	// PB 스토어 index (상품조회 / 상품등록)
-	@RequestMapping("/pbstoreindex.do")
-	public void pbstoreindex() {}
 	
 	// PB 스토어 목록조회  (관리자전용)
 	@RequestMapping("/pbstoreselectlist.do")
 	public void pbstoreselectlist(Model model, Pagepb page) {
 		Map<String, Object> result = service.selectAdminPBList(page);
-		
 		model.addAttribute("pbAdminList", result.get("pbAdminList"));
 		model.addAttribute("pageResult", result.get("pageResult"));
 	}

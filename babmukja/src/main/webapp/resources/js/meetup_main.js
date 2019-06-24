@@ -224,15 +224,97 @@ $(document).on("click","#modal_location_minus",function(){
 });
 var tagVal="";
 $('#modalSave').click(function(){
-	
-	
+	//태그 넣어주기
 	for(let i=0; i<=4; i++ ){
 
-	if($(".selected_tag_container"+i+ "> .tag_letter").text() !=""){
-	tagVal = $(".selected_tag_container"+i+ "> .tag_letter").text() +"," +tagVal;
-		}//if
-	}
-	$(".meetup_hiddenTag").val(tagVal);
-	alert($(".meetup_hiddenTag").val());
-	alert("모임이 등록되었습니다. 당신의 멋진 음식 여정을 응원합니다.");
-});
+		if($(".selected_tag_container"+i+ "> .tag_letter").text() !=""){
+		tagVal = $(".selected_tag_container"+i+ "> .tag_letter").text() +"," +tagVal;
+			}//if
+		}
+		$(".meetup_hiddenTag").val(tagVal);
+			alert("hidden tag" +$(".meetup_hiddenTag").val());
+
+	//예외처리 카테고리
+	if($(".food_nation_category").val() == "카테고리"){
+		$(".food_nation_category").focus();
+		alert("카테고리를 선택해 주세요.");
+		 $("#modalForm").submit(function(e){
+			 e.preventDefault();
+         });
+	}else if($("#meetup_title").val() == ""){
+		$("#meetup_title").focus();
+		 $("#modalForm").submit(function(e){
+			 alert("모임명을 입력해 주세요.");
+			 e.preventDefault();
+         });	 
+		//태그 미입력시 예외처리
+		 
+	}else if($(".meetup_hiddenTag").val() == ""){
+		$(".meetup_tag").focus();
+		alert("태그를 입략해주세요");
+		 $("#modalForm").submit(function(e){
+			 e.preventDefault();
+         });
+ 
+	//지역 예외처리	 
+	}else if($("#select_modal_city1 option:selected").text() == "-선택-"){
+		$("#select_modal_city1").focus();
+		alert("지역을 입력해 주세요");
+		alert("도시1번"+$("#select_modal_city1 option:selected").text());
+		 $("#modalForm").submit(function(e){
+			 e.preventDefault();
+         });
+ 
+	//지역 시, 동 예외처리	 
+	}else if($("#select_modal_town1 option:selected").text() == "-선택-"){
+		$("#select_modal_town1").focus();
+		alert("지역을 입력해 주세요");
+		alert("읍면"+$("#select_modal_town1 option:selected").text());
+		 $("#modalForm").submit(function(e){
+			 e.preventDefault();
+         });
+ 
+	//요일 예외처리
+	}else if($("input[name='day']").is(':checked') == false){
+		alert("요일예외" + $("input[name='day']").is(':checked'));
+		$("#search_area_container").focus();
+		alert("요일을 선택해 주세요");
+		 $("#modalForm").submit(function(e){
+			 e.preventDefault();
+         });
+ 
+	//월회비 예외처리
+	}else if($("input[name='fee']").is(':checked') == false){
+		$("#search_area_container").focus();
+		alert("월 회비를 선택해 주세요");
+		 $("#modalForm").submit(function(e){
+			 e.preventDefault();
+         });
+ 
+	//월회비 특정값 예외처리	 
+	}else if($("input[name='fee']:checked").val()=="personal" && $(".modal_fee_input").val()==""){
+		alert("무엇이 선택되었는지" + $("input[type='fee']:checked").val());
+		alert("액수값" +$(".modal_fee_input").val());
+		
+		$("#search_area_container").focus();
+		alert("월 회비를 선택해 주세요");
+		
+			 return false;
+        
+		
+		 
+	}else if($(".file-upload-input").val() =="" ){
+		alert("사진을 첨부해 주세요");
+		return false;
+		
+		 
+	}else{
+	  alert("모임이 등록되었습니다. 당신의 멋진 음식 여정을 응원합니다.");
+	  $("#modalForm").submit();
+
+	}//else
+	});
+
+
+
+
