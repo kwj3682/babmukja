@@ -27,8 +27,9 @@ public class MemberServiceImpl implements MemberService {
 	public void insertMember(Member member) {
 		mapper.insertMember(member);
 	}
-	@Override
 	
+	@Override
+	// 소셜 로그인 여부
 	public Member selectCheckSocialAt(String memEmail) {
 		return mapper.selectCheckSocialAt(memEmail);
 	}
@@ -106,6 +107,7 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.selectMemnoByEmail(memEmail);
 	}
 	
+	
 	//----------------------------------------우중------------------------------------------------//
 	public List<Member> searchMemberByNick(String nick){
 		return mapper.searchMemberByNick(nick);
@@ -113,7 +115,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateMemberProfile(Member member) {
-		// TODO Auto-generated method stub
 		mapper.updateMemberProfile(member);
 	}
 
@@ -125,9 +126,11 @@ public class MemberServiceImpl implements MemberService {
 	public String selectFollowStatus(RecipeFollow follow) {
 		return mapper.selectFollowStatus(follow);
 	}
+	
 	public void insertScrapbook(Scrapbook book) {
 		mapper.insertScrapbook(book);
 	}
+	
 	public List<Scrapbook> selectScrapbookListByNo(int memNo){
 		return mapper.selectScrapbookListByNo(memNo); 
 	}

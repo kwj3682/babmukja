@@ -65,10 +65,6 @@
         $("#menu5").click(function(){
         	location.href="<c:url value='/admin/pbstoreindex.do'/>";
         });
-        
-        $("#logout").click(function() {
-			alert("로그아웃 하시겠습니까 ?");
-		});
     </script>
 </body>
 </html>
