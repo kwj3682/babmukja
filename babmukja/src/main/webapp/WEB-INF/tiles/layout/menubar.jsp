@@ -14,7 +14,7 @@
     
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>BABMUKJA</title>
 </head>
 <body>
 
