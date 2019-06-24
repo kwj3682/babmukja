@@ -61,7 +61,7 @@
             </ul>
         </div>
         <input type="hidden" name="hiddenmanager" value="${sessionScope.user.managerAt}"/>
-		<c:if test="${sessionScope.user.memNo == 587}">
+		<c:if test="${sessionScope.user.managerAt == 1}">
 	        <div id="optionalMenu2" class="optionalMenubar opacity">
 	            <ul>
 	                <li><a href="<c:url value="/admin/pbstoreselectlist.do"/>">상품조회</a></li>

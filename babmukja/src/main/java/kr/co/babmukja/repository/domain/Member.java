@@ -12,7 +12,7 @@ public class Member {
 	private String postNo;
 	private String addrDefault;
 	private String addrDetail;
-	private char managerAt;
+	private int managerAt;
 	
 	private String memImgOrgname;
 	private String memImgSysname;
@@ -224,11 +224,11 @@ public class Member {
 		this.addrDetail = addrDetail;
 	}
 
-	public char getManagerAt() {
+	public int getManagerAt() {
 		return managerAt;
 	}
 
-	public void setManagerAt(char managerAt) {
+	public void setManagerAt(int managerAt) {
 		this.managerAt = managerAt;
 	}
 
