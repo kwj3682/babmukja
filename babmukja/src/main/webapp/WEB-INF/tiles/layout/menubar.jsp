@@ -140,10 +140,6 @@
 			location.href="<c:url value="/recipe/main.do"/>";
 		});
 		
-		$("#logout").click(function() {
-			alert("로그아웃 하시겠습니까 ?");
-		});
-		
 	    let menubarCon = $("#menubarContainer");
 	    let optCon = $(".optionalMenubar"); 
 

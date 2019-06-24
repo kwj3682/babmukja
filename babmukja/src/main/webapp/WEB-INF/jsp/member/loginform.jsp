@@ -11,12 +11,9 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/member/style.css"/>" />
 <link rel="stylesheet"
-	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous" />
-<link
-	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
-	rel="stylesheet" />
+	  href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
+	  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	  crossorigin="anonymous" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
@@ -118,7 +115,7 @@
 				
 				switch(code){
 				case 0:
-					alert("로그인 완료.");
+					alert("로그인 성공!");
 					location.href="/babmukja/recipe/main.do";
 					break;
 				case 1:
@@ -131,7 +128,7 @@
 					location.href="/babmukja/member/emailform.do";
 					break;					
 				case 3:
-					alert("로그인에 실패하였습니다.");
+					alert("이메일과 비밀번호가 일치하지 않습니다.");
 					$("#pass").val("");
 					$("#email").val("").focus();
 					break;
@@ -140,7 +137,7 @@
 		});
 		
 		// 카카오톡 로그인
-		Kakao.init('kako app_key');
+		Kakao.init('6d1d12aeec7199df6e42d9c90c771a35');
         function loginKakao() {
           // 로그인 창을 띄웁니다.
           Kakao.Auth.loginForm({
@@ -155,6 +152,7 @@
     						data: "memEmail="+res.id,
     						url:"checksocialemail.do",
     					 }).done(function(result){
+    						 alert("카카오톡 로그인 성공");
     						if(result == 0){
     							 $("#socialsigupform #memEmail").val(res.id);
     		    			     $("#socialsigupform #memName").val(res.properties['nickname']);
