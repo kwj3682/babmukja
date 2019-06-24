@@ -6,12 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<c:url value="/resources/css/member/style.css"/>" />
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/member/style.css"/>" />
-<link rel="stylesheet"
-	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous" />
+	  href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
+	  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	  crossorigin="anonymous" />
 <link
 	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
 	rel="stylesheet" />
@@ -29,7 +28,12 @@
 				<div class="kakao_login_reset">
 					<input type="text" name="memNickname" id="memNickname" placeholder="닉네임" />
 				</div>
+				
+				<div class="kakao_signup_result">
+					<div class="kakao_check"></div>
+				</div>
 			</div>
+			
 
 			<div class="input_hidden">
 				<input type="hidden" id="memEmail" name="memEmail" value="${memEmail}"> 
@@ -38,11 +42,11 @@
 			</div>
 
 			<div class="kakao_reset_button">
-				<button>확인</button>
+				<button id="kakao_signup_button">확인</button>
 			</div>
 		</form>
-
 	</div>
 	</main>
+	<script src="<c:url value="/resources/js/member/socialsignupform.js"/>"></script>
 </body>
 </html>

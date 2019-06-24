@@ -99,10 +99,12 @@ public class MemberServiceImpl implements MemberService {
 		mapper.updateResetPass(member);
 	}
 	
+	// 이메일 찾기
 	public int selectConfirmCertificationByEmail(int memNo) {
 		return mapper.selectConfirmCertificationByEmail(memNo);
 	}
 	
+	// 이메일 찾기
 	public int selectMemnoByEmail(String memEmail) {
 		return mapper.selectMemnoByEmail(memEmail);
 	}
