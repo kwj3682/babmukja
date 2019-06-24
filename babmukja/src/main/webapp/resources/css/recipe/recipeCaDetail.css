@@ -37,14 +37,14 @@ input[type='text']:focus {
 
 .boundary{
     background: url(../../images/wood.png);
+    background-size: contain;
     box-shadow: 0px 10px 15px 2px white;
     height:100px;
     margin-top:60px;
 }
 #sector3{
     width: 1200px;
-    background:url(../../images/marble.jpg) no-repeat;
-    background-size: cover;
+    background:url(../../images/chalkboardback.jpg);
     display: grid;
     grid-template-rows: 60% 40%;
 }
@@ -54,7 +54,6 @@ input[type='text']:focus {
 }
 #sector3-body>div{
     margin: 5px;
-    box-shadow: 1px 1px 10px 1px black;
 }
 #sector3-body>div:nth-child(n){
     background:url(../../images/note4.png) no-repeat;
@@ -213,3 +212,8 @@ li {
 
 .selectmenuContent::-webkit-scrollbar-button {display:none}
 
+.chalkheader{
+	background: url(../../images/chalklistheader.jpg);
+	width: 100%;
+	height: 400px;
+}

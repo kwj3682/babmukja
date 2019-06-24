@@ -83,7 +83,7 @@ public interface RecipeMapper {
 	public RecipeKeywordCode selectKeywordByRecipe(int no);
 
 	public List<Recipe> selectRecipeByMemNo(int memNo);
-	public void updateScrapbookContent(Scrapbook book);
+	public void insertScrapbookContent(Scrapbook book);
 	public void insertRecipeScrap(RecipeScrap sb);
 	
 	//status checker

@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -74,7 +73,7 @@ public class MemberController {
 		String pass = passEncoder.encode(member.getMemPass());
 		Member mem = service.selectLogin(member);
 		if(mem == null) {
-			System.out.println("아예 잘못된 아이디");
+			// 잘못된 아이디일 때
 			map.put("code",1);
 			return map;
 		}
@@ -83,26 +82,68 @@ public class MemberController {
 		if (mem != null && passMatch) {
 			System.out.println(mem.getVerify());
 			if (mem.getVerify() == '0') {
-				System.out.println("회원 이메일 인증안함");
+				// 회원 이메일 인증 안했을 때
 				map.put("code", 2);
 				return map;
-//				return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?email=0";
 			} else {
-				System.out.println("이메일 인증 함");
+				// 회원 이메일 인증 했을 때
 				session.setAttribute("user", mem);
 			}
-			
 			map.put("code", 0);
 			return map;
-//			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
 		} else {
-			System.out.println("로그인 실패");
-//			return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do?fail=1";
+			// 로그인 실패했을 때
 			map.put("code", 3);
 			return map;
-			// complete라는 변수를 만들어서 성공했을 때 1을 넘겨주고 화면에 alert창이 보여지지 않게
-			// 1이 넘어오지 않았을 때는 실패 했으니까 화면에 alert창을 보여주게
 		}
+	}
+	
+	// 카카오 로그인 처음 했을 때
+	@RequestMapping("/socialsignup.do")
+	public String signupSocial(HttpSession session, Member member, Model model) {
+		try {
+			service.insertSocialMember(member); // 회원가입
+			
+			Member mem = service.selectLogin(member);
+			session.setAttribute("user", mem);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
+	}
+
+	// 카카오 로그인 폼
+	@RequestMapping("/socialsignupform.do")
+	public void signupSocialForm(HttpSession session, Member member, Model model) {
+		// DB에 저장
+		model.addAttribute("memName", member.getMemName());
+		model.addAttribute("memEmail", member.getMemEmail());
+		model.addAttribute("socialAt", member.getSocialAt());
+		model.addAttribute("profileImageUrl", member.getProfileImageUrl());
+		model.addAttribute("thumbnailUrl", member.getThumbnailUrl());
+	}
+
+	// 카카오 로그인 처리
+	@RequestMapping("/sociallogin.do")
+	public String socialLogin(HttpSession session, Member member) {
+		Member mem = service.selectLogin(member);
+		mem.setAccessToken(member.getAccessToken());
+		session.setAttribute("user", mem);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
+	}
+
+	// 카카오 이메일 중복체크
+	@RequestMapping("/checksocialemail.do")
+	@ResponseBody
+	public int checkSocialEmail(String memEmail) {
+		// 소셜 로그인 이메일이라면 -> result 1
+		// 처음은 0
+		Member mem = service.selectCheckSocialAt(memEmail);
+		int result = 0;
+		if(mem != null) {
+			result = 1;
+		}
+		return result;
 	}
 
 	// 로그아웃 처리
@@ -114,7 +155,7 @@ public class MemberController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+		session.removeAttribute("user");
 		session.invalidate(); // 세션 삭제
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
 	}
@@ -214,7 +255,6 @@ public class MemberController {
 	@RequestMapping("/findid.do")
 	@ResponseBody
 	public String searchId(Member member) {
-		System.out.println(service.selectSearchId(member));
 		return service.selectSearchId(member);
 	}
 
@@ -235,8 +275,7 @@ public class MemberController {
 		// From -> 보내는 메일 주소
 		// To -> 받는 메일 주소
 		sendMail.setSubject("[밥먹자] 이메일 인증번호");
-		sendMail.setText(sb.append("<h2>밥먹자 이메일 인증번호 입니다!</h2>").append("밥먹자 이메일 인증번호는 " + '[' + cert + ']' + " 입니다.")
-				.toString());
+		sendMail.setText(sb.append("<h2>밥먹자 이메일 인증번호 입니다!</h2>").append("밥먹자 이메일 인증번호는 " + '[' + cert + ']' + " 입니다.").toString());
 		sendMail.setFrom("babmukja@babmukja.com", "밥먹자");
 		sendMail.setTo(member.getMemEmail());
 
@@ -300,13 +339,14 @@ public class MemberController {
 		}
 	}
 
-	// 인증번호 확인
+	// sms 인증번호 확인
 	@RequestMapping("/checknum.do")
 	@ResponseBody
 	public int certificationCheck(Member member) {
 		return service.selectConfirmCertification(member);
 	}
 
+	// 이메일 인증번호 확인
 	@RequestMapping("/emailchecknum.do")
 	@ResponseBody
 	public int emailcertificationCheck(Member member) {
@@ -327,14 +367,12 @@ public class MemberController {
 	public void resetPass(Member member, Model model) {
 		model.addAttribute("email", member.getMemEmail());
 		model.addAttribute("memPhone", member.getMemPhone());
-	
 	}
 	
 
 	// 비밀번호 재설정(암호화)
 	@RequestMapping("/repass.do")
 	public String rePass(Member member) {
-		System.out.println("shit"+member.getMemPhone());
 		// 암호화
 		String inputPass = member.getMemPass();
 		String pass = passEncoder.encode(inputPass);
@@ -344,56 +382,7 @@ public class MemberController {
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/loginform.do";
 	}
 
-	// 카카오 로그인 처음 했을 때
-	@RequestMapping("/socialsignup.do")
-	public String signupSocial(HttpSession session, Member member, Model model) {
-		try {
-			System.out.println("socialsignup");
-			service.insertSocialMember(member); // 회원가입
-			
-			// 로그인해야지
-			Member mem = service.selectLogin(member);
-			session.setAttribute("user", mem);
-		} catch (Exception e) {
-
-		}
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
-		// 새로운 user
-	}
-
-	// 카카오 로그인 폼
-	@RequestMapping("/socialsignupform.do")
-	public void signupSocialForm(HttpSession session, Member member, Model model) {
-		// DB에 저장
-		model.addAttribute("memName", member.getMemName());
-		model.addAttribute("memEmail", member.getMemEmail());
-		model.addAttribute("socialAt", member.getSocialAt());
-		model.addAttribute("profileImageUrl", member.getProfileImageUrl());
-		model.addAttribute("thumbnailUrl", member.getThumbnailUrl());
-	}
-
-	// 카카오 로그인 처리
-	@RequestMapping("/sociallogin.do")
-	public String socialLogin(HttpSession session, Member member) {
-		Member mem = service.selectLogin(member);
-		mem.setAccessToken(member.getAccessToken());
-		session.setAttribute("user", mem);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/recipe/main.do";
-	}
-
-	// 카카오 이메일 중복체크
-	@RequestMapping("/checksocialemail.do")
-	@ResponseBody
-	public int checkSocialEmail(String memEmail) {
-		// 소셜 로그인 이메일이라면... result 1, 처음 0
-		System.out.println(memEmail);
-		Member mem = service.selectCheckSocialAt(memEmail);
-		int result = 0;
-		if(mem != null) {
-			result = 1;
-		}
-		return result;
-	}
+	
 
 	// 회원 수정
 	@RequestMapping("/membermodify.do")
@@ -424,7 +413,6 @@ public class MemberController {
 			Member searchUser = service.searchMemberByNickForMypage( member.getMemNickname() );
 			
 			RecipeFollow follow = new RecipeFollow();
-			System.out.println(searchUser.getMemNo());
 			follow.setFollowMemNo(searchUser.getMemNo());
 			follow.setFollowerMemNo(user.getMemNo());
 			
@@ -564,6 +552,7 @@ public class MemberController {
 	@RequestMapping("scrapbookAjax.do")
 	@ResponseBody
 	public List<Scrapbook> selectScrapbookList (int memNo){
+		
 		return service.selectScrapbookListByNo(memNo);
 	}
 }

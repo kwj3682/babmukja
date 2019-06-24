@@ -42,3 +42,6 @@
 .kakao_reset_button button:hover {
   background-color: #749e45;
 }
+.kakao_signup_result .kakao_check {
+  font-weight: bold;
+}

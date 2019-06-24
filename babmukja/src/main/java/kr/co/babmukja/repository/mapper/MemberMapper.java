@@ -15,7 +15,7 @@ public interface MemberMapper {
 	
 	void updateSocialNickname(Member member); // 카카오톡 이름 설정
 	
-	Member selectCheckSocialAt(String memEmail);
+	Member selectCheckSocialAt(String memEmail); // 소셜 로그인 여부
 
 	int selectCheckNickName(String memNickname); // 닉네임 중복체크
 
@@ -35,9 +35,9 @@ public interface MemberMapper {
 
 	void updateResetPass(Member member); // 비밀번호 재설정
 	
-	int selectConfirmCertificationByEmail(int memNo);
+	int selectConfirmCertificationByEmail(int memNo); // email 인증번호 확인
 	
-	int selectMemnoByEmail(String memEmail);
+	int selectMemnoByEmail(String memEmail); // email 인증번호 확인
 	
 	//----------------------------우중---------------------------//
 	List<Member> searchMemberByNick(String nick);

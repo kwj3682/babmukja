@@ -36,6 +36,7 @@
 </head>
 <input type="hidden" value="${sessionScope.user.memNo}" name="memNo">
 <body onload="myTimeWait()">
+	
 <%--     <input id="hiddenValue" type="text" value="${inputData}"/> --%>
 	
     <div id="body"><!-- 전체 body start -->
@@ -107,7 +108,7 @@
 								</div>
 							</div>
 							
-		                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
+		                    <input type="hidden" name="no" value="${recipe.recipeNo}"/>     
                             <textarea class="comment-input"></textarea>
                         <c:choose>
                         	<c:when test="${sessionScope.user ne null}">
@@ -244,6 +245,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script src="<c:url value="/resources/js/html2canvas/recipe-capture.js"/>"></script>
     <script>      
     $("#more-post").click(function () {
@@ -326,7 +328,11 @@
     });
     
     // 댓글 등록하기
-     $("#comment-submit").click(function () {   
+     $("#comment-submit").click(function () { 
+    	 if($(".comment-input").val() == null || $(".comment-input").val() == '') {
+    		 alert("댓글 내용을 입력해주세요.");
+    		 return;
+    	 }
     	$.ajax({
 	    		type: "post",
 	    		url : "recipeCommentWrite.do",
@@ -365,7 +371,7 @@
 	    	 	     			+'</div></div>';
 		    	 	     				 	 
 		    	 	 $(".comment-input").val("");		
-		    	 	 $("#h4").html("");
+		    	 	 $("#h5").html("");
 		    	 	 $("#comment-other").prepend(html);
 		    	 	 $("#comment-other").html("");
 					commentList(1);
@@ -388,7 +394,7 @@
 		 	.done(function (result) {
 		 		let loginMemNo = '${sessionScope.user.memNo}';
 		 		if(result.comment.length == 0) {	 			
-		 			$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
+		 			$("#comment-other").html("<h5 id='h5'>댓글을 작성해주세요.</h5>");
 		 		}
 		 		let html = "";	
 		 		for(let i = 0; i < result.comment.length; i++) {
@@ -515,13 +521,12 @@
  			url : "commentDelete.do",
  			data :"no=" + num
  		}).done(function (result) {    		
+	    	$("#"+ num).html("");
+			commentList(1);
  			if($(".other-content").length == 1 ) {
  				$("#"+ num).html("");
- 				$("#comment-other").html("<h4 id='h4'>댓글을 작성해주세요.</h4>");
- 			}
- 		
-	    	$("#"+ num).html("");
-			commentList(result.pageNo);
+ 				$("#comment-other").html("<h5 id='h5'>댓글을 작성해주세요.</h5>");
+ 			} 		
  		})  
  	});
  		

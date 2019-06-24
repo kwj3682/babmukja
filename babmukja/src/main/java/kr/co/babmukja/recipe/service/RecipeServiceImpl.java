@@ -236,8 +236,8 @@ public class RecipeServiceImpl implements RecipeService {
 		return mapper.selectRecipeByMemNo(memNo);
 	}
 	
-	public void updateScrapbookContent(Scrapbook book) {
-		mapper.updateScrapbookContent(book);
+	public void insertScrapbookContent(Scrapbook book) {
+		mapper.insertScrapbookContent(book);
 	}
 
 	@Override

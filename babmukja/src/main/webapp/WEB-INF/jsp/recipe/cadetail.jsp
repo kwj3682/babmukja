@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,7 +159,9 @@
    </div> 
             
     <!-- 레시피 목록 부분 -->
+    	
 	    <div class="boundary"></div>  
+	    <div class="chalkheader"></div>
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
@@ -181,7 +184,7 @@
 	                           </div>
 	                           <div class="profile-name">
 	                               <p>
-			                    	  <span>평점 : ${ca.rating }</span>
+			                    	  <span>평점 : <fmt:formatNumber value="${ca.rating}" pattern="#.##"/></span>
 	                           <br>
 	                                  ${ca.title}
 	                           <br>
@@ -191,14 +194,15 @@
 	                       </div>
 	                       <div class="recipe-pic-box">
 	                           <a href = "detail.do?no=${ca.recipeNo }">
-	                           <c:choose>
-				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
-				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
-				                	</c:when>
-				                	<c:otherwise>					                	
-			                           <img src="${ca.imgPath}"></a>
-				                	</c:otherwise>
-		                		</c:choose>
+		                           <c:choose>
+					                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+					                    	<img src="<c:url value="/resources/images/default.png"/>">		                	
+					                	</c:when>
+					                	<c:otherwise>					                	
+				                           <img src="${ca.imgPath}">
+					                	</c:otherwise>
+			                		</c:choose>
+		                		</a>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt}</i>

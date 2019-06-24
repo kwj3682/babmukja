@@ -6,12 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<c:url value="/resources/css/member/style.css"/>">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/member/style.css"/>">
-<link rel="stylesheet"
-	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous">
+	  href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
+	  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	  crossorigin="anonymous">
 </head>
 <body>
 	<main>
@@ -27,8 +26,7 @@
 				<input type="password" name="memPass" id="memPass" placeholder="변경할 비밀번호" />
 			</div>
 			<div class="change_pass">
-				<input type="password" name="checkmemPass" id="checkmemPass"
-					placeholder="비밀번호 확인" />
+				<input type="password" name="checkmemPass" id="checkmemPass" placeholder="비밀번호 확인" />
 				<input type="hidden" id="iemail" value="${email}" name="memEmail">
 			</div>
 		</div>
