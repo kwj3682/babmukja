@@ -16,39 +16,34 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <h6>About</h6>
-            <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+            <p class="text-justify">
+				밥먹자 컴퍼니는 쉽게 레시피를 관리하고 레시피에 맞는 재료를 손쉽게 구매할 수 있는 서비스를 제공하고자 만들어졌습니다.
+				<br>
+				<b style="font-size: 15px; color:white;">BABMUKJA COMPANY</b>
+				<br>밥먹자컴퍼니(주)
+				<br>대표 : <b style="color:gold;">데이비드빛찬황</b>
+				<br>이메일 : kwj3682@naver.com
+				<br>서울특별시 마포구 서울특별시 마포구 백범로 23 구프라자 3층 2호
+			</p>
           </div>
 
           <div class="col-xs-6 col-md-3">
             <h6>Categories</h6>
             <ul class="footer-links">
-              <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-              <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-              <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-              <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-              <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-              <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+              <li><a href="<c:url value="/babmukja/recipe/main.do"/>">레시피 메인</a></li>
+              <li><a href="<c:url value="/babmukja/store/mainpb.do"/>">스토어 메인</a></li>
+              <li><a href="<c:url value="/babmukja/meetup/main.do"/>">쿠킹미팅 메인</a></li>
             </ul>
           </div>
 
-          <div class="col-xs-6 col-md-3">
-            <h6>Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="http://scanfcode.com/about/">About Us</a></li>
-              <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-              <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-              <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-              <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
-            </ul>
-          </div>
         </div>
         <hr>
       </div>
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
-         <a href="#">Scanfcode</a>.
+            <p class="copyright-text">Copyright &copy; 2019 All Rights Reserved by 
+         <a href="#">BABMUKJA</a>.
             </p>
           </div>
 

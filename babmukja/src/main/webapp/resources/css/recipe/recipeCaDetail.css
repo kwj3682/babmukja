@@ -45,7 +45,6 @@ input[type='text']:focus {
 #sector3{
     width: 1200px;
     background:url(../../images/chalkboardback.jpg);
-    background-size: contain;
     display: grid;
     grid-template-rows: 60% 40%;
 }
