@@ -35,9 +35,9 @@ public interface MemberService {
 	
 	void updateResetPass(Member member); // 비밀번호 재설정
 	
-	public int selectConfirmCertificationByEmail(int memNo);
+	public int selectConfirmCertificationByEmail(int memNo); // email 인증번호 확인
 	
-	int selectMemnoByEmail(String memEmail);
+	int selectMemnoByEmail(String memEmail); // email 인증번호 확인
 	
 //----------------------------------------우중------------------------------------------------//
 	List<Member> searchMemberByNick(String nick);

@@ -61,7 +61,7 @@
             </ul>
         </div>
         <input type="hidden" name="hiddenmanager" value="${sessionScope.user.managerAt}"/>
-		<c:if test="${sessionScope.user.memNo == 587}">
+		<c:if test="${sessionScope.user.managerAt == 1}">
 	        <div id="optionalMenu2" class="optionalMenubar opacity">
 	            <ul>
 	                <li><a href="<c:url value="/admin/pbstoreselectlist.do"/>">상품조회</a></li>
@@ -139,10 +139,6 @@
         
 		$("#home").click(function(){
 			location.href="<c:url value="/recipe/main.do"/>";
-		});
-		
-		$("#logout").click(function() {
-			alert("로그아웃 하시겠습니까 ?");
 		});
 		
 	    let menubarCon = $("#menubarContainer");

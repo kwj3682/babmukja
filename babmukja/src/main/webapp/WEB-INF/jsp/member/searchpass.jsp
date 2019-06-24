@@ -14,9 +14,6 @@
 	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
 	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
 	crossorigin="anonymous" />
-<link
-	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
-	rel="stylesheet" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
@@ -24,6 +21,7 @@
 	<div class="search_pass_container">
 		<div class="search_pass_title">
 			비밀번호 재설정 인증 <i class="fas fa-utensils"></i>
+		<div class="search_pass_explanation">햄버거와 피자 아이콘을 누르시면 비밀번호 찾기가 가능합니다.</div>
 		</div>
 
 		<div class="search_pass_search">
