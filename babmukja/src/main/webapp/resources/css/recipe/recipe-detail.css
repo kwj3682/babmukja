@@ -8,9 +8,6 @@
     min-height: 1000px;
     margin-top:130px;
 }
-a {
-	color : #7db341;
-}
 #left-body{
     height: 100%;
     border-right: 1px solid gainsboro;
@@ -31,33 +28,6 @@ a {
 }
 #share-button{
     padding-top : 10px;
-}
-.fa-facebook-f{
-    color: white;
-    background : #3b5998;
-    width: 50px;
-    text-align: center;
-    border-radius : 50px;
-    padding: 5px;
-    cursor: pointer;
-    transition: .3s;
-}
-.fa-facebook-f:hover{
-    background: #7db341;
-}
-.fa-instagram{
-    transition: .3s;
-    cursor: pointer;
-    margin-left : 10px;
-    color: white;
-    width: 50px;
-    text-align: center;
-    border-radius : 50px;
-    padding : 5px;
-    background : linear-gradient( 180deg, #864c9e, #de2b78,#f79734  );
-}
-.fa-instagram:hover{
-    background: #7db341;
 }
 .recipeScrap {
 	width: 120px;
@@ -151,7 +121,7 @@ a {
 .follow:focus {
 	outline : none;
 }
-#follow{
+#follow {
     height: 35px;
     width:52px;
     margin-top: 20px;
@@ -232,7 +202,6 @@ a {
     height: 60px;
 }
 #post-info{
-    height: 33px;
     display: flex;
     align-content: space-between;
     justify-content: space-between;
@@ -480,20 +449,33 @@ a {
     margin-top: 10px;
 }
 #comment-page {
-	text-align : center;
-	font-size : 16px;
+	display: flex;
+    justify-content: center;
 }
+
 .pagination {
-    display: inline-block;
     border: 1px solid #7db341;
     width: 25px;
     height: 25px;
     margin: 5px;
     margin-bottom: 10px;
     border-radius: 5px;
-    font-weight: bold;
 }
-
+.pagination > a {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-left: 6px;
+}
+.pagination a:link {
+	text-decoration: none;
+    color: #7db341;
+}
+.pagination a:visited {
+    text-decoration: none;
+    color: #7db341;
+}
 .pagination:hover {
 	background : #7db341;	
 }
@@ -515,18 +497,27 @@ a {
 }
 .current-page {
 	display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
     margin: 5px;
     margin-bottom: 10px;
     background: #7db341;
     color: white;
     border-radius: 5px;
+}
+
+.current-page > a{
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
     font-weight: bold;
 }
-.current-page > a{
-	color : white;
+
+.current-page > a:hover {
+	color: white;
 }
+
 .other-profile{
     width: 70px;
     height: 70px;
