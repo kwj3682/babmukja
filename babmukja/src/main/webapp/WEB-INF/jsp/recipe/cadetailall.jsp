@@ -158,6 +158,8 @@
    
     <!-- 레시피 목록 부분 -->
 	    <div class="boundary"></div>  
+	    <div class="chalkheader"></div>
+	    
 	        <div id="sector3-mid">
 	        </div>
 	        <div id="sector3">
@@ -191,14 +193,15 @@
 	                       </div>
 	                       <div class="recipe-pic-box">
 	                           <a href = "detail.do?no=${ca.recipeNo }">
-	                           <c:choose>
-				                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
-				                    	<img src="<c:url value="/resources/images/default.png"/>"></a>				                	
-				                	</c:when>
-				                	<c:otherwise>					                	
-			                           <img src="${ca.imgPath}"></a>
-				                	</c:otherwise>
-		                		</c:choose>
+		                           <c:choose>
+					                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+					                    	<img src="<c:url value="/resources/images/default.png"/>">				                	
+					                	</c:when>
+					                	<c:otherwise>					                	
+				                           <img src="${ca.imgPath}">
+					                	</c:otherwise>
+			                		</c:choose>
+		                		</a>
 	                       </div>
 	                       <div class="recipe-info">
 	                           <i class="fas fa-heart fa-2x">${ca.likeCnt }</i>
