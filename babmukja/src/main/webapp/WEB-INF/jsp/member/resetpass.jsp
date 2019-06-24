@@ -14,9 +14,6 @@
 	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
 	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
 	crossorigin="anonymous">
-<link
-	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
-	rel="stylesheet" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>

@@ -87,7 +87,7 @@ public interface RecipeService {
 	public List<Recipe> selectRecipeByMemNo(int memNo); 
 	
 	//scrapbook content 
-	public void updateScrapbookContent(Scrapbook book);
+	public void insertScrapbookContent(Scrapbook book);
 	public void insertRecipeScrap(RecipeScrap sb);
 	
 	public StatusChecker selectStatusAll(StatusChecker checker);

@@ -53,6 +53,7 @@
          <mvc:exclude-mapping path="/member/loginform.do"/>
          <mvc:exclude-mapping path="/recipe/main.do"/>
          <mvc:exclude-mapping path="/store/mainpb.do"/>
+         <mvc:exclude-mapping path="/**/download.do"/>
          <bean class="kr.co.babmukja.member.controller.AuthInterceptor"/>
       </mvc:interceptor>
    </mvc:interceptors>

@@ -10,7 +10,6 @@
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 30px;
-  font-family: "Jua", sans-serif;
 }
 .search_pass_search {
   font-size: 20px;
@@ -95,7 +94,12 @@
 .certification_check2 .certification_result2 {
 	font-weight: bold;
 }
-
+.search_pass_explanation {
+	font-weight: bold;
+	font-size : 10px;
+	color: rgb(81, 81, 81);
+	text-align: center;
+}
 .search_pass_input {
   display: none;
 }

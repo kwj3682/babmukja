@@ -7,16 +7,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>Babmukja</title>
+<title>BABMUKJA</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/member/style.css"/>" />
 <link rel="stylesheet"
-	href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-	crossorigin="anonymous" />
-<link
-	href="<c:url value="https://fonts.googleapis.com/css?family=Jua"/>"
-	rel="stylesheet" />
+	  href="<c:url value="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>"
+	  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+	  crossorigin="anonymous" />
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
@@ -118,7 +115,7 @@
 				
 				switch(code){
 				case 0:
-// 					alert("로그인 완료.");
+					alert("로그인 성공!");
 					location.href="/babmukja/recipe/main.do";
 					break;
 				case 1:
@@ -131,7 +128,7 @@
 					location.href="/babmukja/member/emailform.do";
 					break;					
 				case 3:
-					alert("로그인에 실패하였습니다.");
+					alert("이메일과 비밀번호가 일치하지 않습니다.");
 					$("#pass").val("");
 					$("#email").val("").focus();
 					break;
@@ -155,6 +152,7 @@
     						data: "memEmail="+res.id,
     						url:"checksocialemail.do",
     					 }).done(function(result){
+    						 alert("카카오톡 로그인 성공");
     						if(result == 0){
     							 $("#socialsigupform #memEmail").val(res.id);
     		    			     $("#socialsigupform #memName").val(res.properties['nickname']);

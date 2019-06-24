@@ -486,7 +486,7 @@ public class RecipeController {
     	 rs.setRecipeNo(recipeNo);
     	 rs.setScrapNo(book.getScrapNo());
     	 
-    	 service.updateScrapbookContent(book);
+    	 service.insertScrapbookContent(book);
     	 service.insertRecipeScrap(rs);
     	 service.updateRecipeScrapCnt(recipeNo);
      }
