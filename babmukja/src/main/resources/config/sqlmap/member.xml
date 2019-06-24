@@ -180,7 +180,9 @@
 	</insert>
 	
 	<select id="selectScrapbookListByNo" parameterType="int" resultType="Scrapbook">
-		select * from tb_scrap where mem_no = #{memNo}
+		select *,(select group_concat(c.content SEPARATOR  ' ') from tb_scrap_content c where c.scrap_no = s.scrap_no) 'content'
+		  from tb_scrap s
+		 where mem_no = #{memNo}
 	</select>
 	
 </mapper>

@@ -36,6 +36,7 @@
 </head>
 <input type="hidden" value="${sessionScope.user.memNo}" name="memNo">
 <body onload="myTimeWait()">
+	
 <%--     <input id="hiddenValue" type="text" value="${inputData}"/> --%>
 	
     <div id="body"><!-- 전체 body start -->
@@ -107,7 +108,7 @@
 								</div>
 							</div>
 							
-		                    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
+		                    <input type="hidden" name="no" value="${recipe.recipeNo}"/>     
                             <textarea class="comment-input"></textarea>
                         <c:choose>
                         	<c:when test="${sessionScope.user ne null}">
@@ -244,6 +245,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script src="<c:url value="/resources/js/html2canvas/recipe-capture.js"/>"></script>
     <script>      
     $("#more-post").click(function () {

@@ -564,6 +564,7 @@ public class MemberController {
 	@RequestMapping("scrapbookAjax.do")
 	@ResponseBody
 	public List<Scrapbook> selectScrapbookList (int memNo){
+		
 		return service.selectScrapbookListByNo(memNo);
 	}
 }

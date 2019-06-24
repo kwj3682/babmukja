@@ -1,4 +1,5 @@
 let scrapbookFlag = false;
+let captureFlag = false;
 var img = "";
 
 $(".recipeScrap").click(function(){
@@ -32,7 +33,10 @@ $(".recipeScrap").click(function(){
 		});
 		
 	}
-	capture();
+	if(!captureFlag){
+		capture();
+	}
+	captureFlag = true;
 	scrapbookFlag = true;
 	
 	
@@ -41,14 +45,14 @@ $("#scrapbook-wrapper-sec4-button2").click(function(){
 	$("#modal-scrap").modal("hide");
 //	scrapbookFlag = false;
 });
-$("#scrapbook-wrapper-sec4-button1").click(function(){
+$(document).on("click","#scrapbook-wrapper-sec4-button1",function(){
 	let radioVal = $("input[name='scrapbook-radio']:checked").val();
 	let loginMemNo = $("input[name='memNo']").val();
 	if(radioVal == undefined){
 		alert("스크랩한 자료를 저장할 책자를 선택해주세요.");
 		return;
 	}
-	
+	$("body").append('<div id="waitLoading"><p>스크랩 중입니다<b>...</b></p></div>').css({margin: "0 auto"});
 	$.ajax({
 		url:"capture.do",
 		type:"POST",
@@ -64,6 +68,7 @@ $("#scrapbook-wrapper-sec4-button1").click(function(){
 		let $recipeScrap = $(".recipeScrap");
 		$recipeScrap.css({background:"#7db341",color:"white"});
 		$recipeScrap.children("b").text(Number($recipeScrap.children("b").text()) + 1);
+		$("#modal-scrap").modal("hide");
 	});
 });
 
@@ -76,7 +81,6 @@ function capture() {
     onrendered: function (canvas) {  
       img = canvas.toDataURL("image/png");
       $('#img_val').val(img);  
-      console.log(img);
       $("#scrapbook-wrapper-sec2").html('<img id="sec2-img-container" src=' + img + '>'); 
     }  
   });  

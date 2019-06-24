@@ -394,11 +394,9 @@
 	</select>
 	
 	<!-- (우중) 스크랩북 content 추가 -->
-	<update id="updateScrapbookContent" parameterType="Scrapbook">
-		update tb_scrap
-		   set content = concat(content,#{content})
-		 where scrap_no = #{scrapNo}
-	</update>
+	<insert id="insertScrapbookContent" parameterType="Scrapbook">
+		insert into tb_scrap_content (scrap_no, content) values(#{scrapNo},#{content})
+	</insert>
 	<insert id="insertRecipeScrap" parameterType="RecipeScrap">
 		insert into tb_recipe_scrap (mem_no, recipe_no, scrap_no) values(#{memNo},#{recipeNo},#{scrapNo})
 	</insert>
