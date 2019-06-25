@@ -304,7 +304,9 @@ function update() {
 			basketMesh.on('mouseover',function(ev){
 				// alert("오 개신기"+ev);
 			}).on('click',function(){
-				basketMeshFlag = true;
+				if(visitorNo == userNo){
+					basketMeshFlag = true;					
+				}
 			});
 			sphereMesh.on('click',function(){
 				basketMesh.scale.y = boxSize;
@@ -644,7 +646,7 @@ function animate() {
 		}
 		if(basketMesh.position.y > -40){
 			basketMesh.position.y = -40;
-			location.href = "";
+			location.href = "/babmukja/store/cartpb.do?memNo=" + userNo;
 		}
 	}
 	
