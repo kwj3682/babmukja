@@ -646,7 +646,7 @@ function animate() {
 		}
 		if(basketMesh.position.y > -40){
 			basketMesh.position.y = -40;
-			location.href = "/babmukja/store/cartpb.do?memNo=" + userNo;
+			location.href = "/babmukja/store/buyList.do?memNo=" + userNo;
 		}
 	}
 	

@@ -38,7 +38,7 @@
             <c:if test="${sessionScope.user ne null}">
 		        <a id="nickName" href="#">${user.memNickname}</a>
 	         	<a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
-		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/payment.png'/>"></a>
+<%-- 		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/payment.png'/>"></a> --%>
 		        <a id="pbcart" href="<c:url value='/store/cartpb.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/cart.png'/>"></a>
 	            <a href="<c:url value='/member/mypage.do?memNickname=${user.memNickname}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/mykitchen.png'/>"></a>
 	        </c:if>
