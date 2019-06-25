@@ -215,6 +215,8 @@
                     </c:forEach>
                     </div><!-- writer-post end -->
                     <button id="more-post">더 보기 <i class="fas fa-caret-down fa-1x"></i> </button>
+                    <br>
+                    <button id="go-back">메뉴로 돌아가기 </button>
                 </div><!-- writer-info end -->
             </div><!-- content-wrapper end -->            
         </div><!-- right;body end -->
@@ -250,6 +252,7 @@
     <script>
     	console.log("hihi");
 	    let url = "<c:url value='/member/mypage.do?memNickname=${recipe.memNickname}'/>";
+	    let menu = "<c:url value='/recipe/cadetail.do}'/>";
 	    let session = '${sessionScope.user}';
 	    let recipeNo = '${recipe.recipeNo}';
 	    let memNo = '${sessionScope.user.memNo}';

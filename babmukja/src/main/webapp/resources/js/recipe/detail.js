@@ -1,9 +1,12 @@
 /**
  * 레시피 상세
  */
-
+	
     $("#more-post").click(function () {
     	location.href = url;
+    });
+    $("#go-back").click(function () {
+    	location.href = menu;
     });
     // 좋아요 기능
     $(".recipeLike").click(function () {

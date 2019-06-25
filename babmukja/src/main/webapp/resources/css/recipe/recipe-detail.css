@@ -197,9 +197,24 @@
     cursor: pointer;
     transition : .3s;
 }
+#go-back{
+	margin-top : 60px;
+    width: 100%;
+    background : white;
+    border : none;
+    height: 40px;
+    font-size: 16px;
+    color : rgb(81,81,81);
+    cursor: pointer;
+    transition : .3s;
+	text-align : right;
+}
 #more-post:hover{
     background: tomato;
     height: 60px;
+}
+#go-back:hover{
+	color : #7db341;
 }
 #post-info{
     display: flex;
