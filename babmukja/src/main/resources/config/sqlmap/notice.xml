@@ -29,14 +29,14 @@
 	select *
 	from tb_notice
 	order by notice_no desc
-	</select> -->
+	</select>  -->
 	
 	<select id="selectNotice" parameterType="page" resultMap="noticeMap">
 		select *
 		from tb_notice
 		order by notice_no desc
-		limit #{begin},#{end}
-	</select>
+		limit #{begin}, #{end}
+	</select> 
 
 	<insert id="insertNotice" parameterType="notice">
 		insert into tb_notice(

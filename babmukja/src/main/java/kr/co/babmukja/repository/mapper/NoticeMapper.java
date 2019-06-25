@@ -9,7 +9,7 @@ import kr.co.babmukja.repository.domain.PageNotice;
 
 public interface NoticeMapper {
 //	public List<Notice> selectNotice(Page page);
-//	List<Notice> selectNoticeList();
+	List<Notice> selectNoticeList() throws Exception;
 	public List<Notice> selectNotice(PageNotice page) throws Exception; // 글목록
 	public int selectNoticeCount() throws Exception;
 	void insertNotice(Notice notice) throws Exception;
