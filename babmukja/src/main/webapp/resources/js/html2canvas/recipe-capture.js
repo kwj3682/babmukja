@@ -53,8 +53,7 @@ $(document).on("click","#scrapbook-wrapper-sec4-button1",function(){
 		alert("스크랩한 자료를 저장할 책자를 선택해주세요.");
 		return;
 	}
-	$("body").append('<div id="waitLoading"><p>스크랩 중입니다<b>...</b></p></div>').css({margin: "0 auto"});
-	alert(radioValue + " " + loginMemNo + " " + $("input[name='no']").val() + img.substring(0, 30));
+	$("body").append('<div id="waitLoading"></div>').css({margin: "0 auto"});
 	$.ajax({
 		url:"capture.do",
 		type:"POST",
@@ -66,11 +65,12 @@ $(document).on("click","#scrapbook-wrapper-sec4-button1",function(){
 		}
 	}).done(function(){
 		alert("레시피 정보가 스크랩 되었습니다.");
+		$("#modal-scrap").modal("hide");
+		$("#waitLoading").css({display:"none"});
 		$("input[name='scrap-status']").val("Y");
 		let $recipeScrap = $(".recipeScrap");
 		$recipeScrap.css({background:"#7db341",color:"white"});
 		$recipeScrap.children("b").text(Number($recipeScrap.children("b").text()) + 1);
-		$("#modal-scrap").modal("hide");
 	});
 });
 
