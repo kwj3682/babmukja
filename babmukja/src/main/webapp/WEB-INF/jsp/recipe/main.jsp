@@ -93,7 +93,7 @@
                     <div>"이달의 레시피"</div>
                     <div>
                         <div id="sticker"></div>
-                        	<a href="detail.do?no=${win.recipeNo }"><img src="${win.imgPath }"></a> 
+                        	<a href="detail.do?no=${win.recipeNo }" id="sec1-content1-wrapper-img" style="display:block; width:100%; height:400px; background:url(${win.imgPath});"></a> 
                         <div id="sticker2"></div>
                     </div>                    
                     <div id="monthrecipe-keyword">#${win.keyword}</div>
