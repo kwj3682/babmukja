@@ -204,8 +204,9 @@ $("#submitComment").click(function() {
          console.log(commentAreaId);
          
          $(this).parent().parent().parent().html('<br><div class="input-group">'
-	   		   	 + '<input type="text" class="form-control" placeholder="수정할 내용을 입력하세요." style="width:95%;border-radius:5px 5px 5px 5px;" name="content_'+noticeCommentNo+'" value="'+content+'"/>'
-	   		   	 + '<span class="input-group-btn">&nbsp;<button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+', '+commentAreaId+');">수정</button>&nbsp;</span>'
+	   		   	 + '<input type="text" class="form-control" placeholder="수정할 내용을 입력하세요." style="width:90%;border-radius:5px 5px 5px 5px;" name="content_'+noticeCommentNo+'" value="'+content+'"/>'
+	   		   	 + '<span class="input-group-btn">&nbsp;&nbsp;&nbsp;<button class="btn btn-default" type="button" onclick="commentUpdate('+noticeCommentNo+', '+commentAreaId+');">수정</button>&nbsp;</span>'
+	   		   	 + '<span class="input-group-btn">&nbsp;<button class="comment_cancel" type="button">취소</button>&nbsp;</span>'
 	   		   	 + '</div>');
 		 return false; 
 	     }); 
@@ -238,6 +239,11 @@ $("#submitComment").click(function() {
   } 
 }
 
+ // 댓글 수정취소
+	$(document).on("click", ".comment_cancel", function() {
+		commentList();	
+	});
+
 //댓글 삭제 
  function commentDelete(noticeCommentNo){
 	 alert("noticeCommentNo" + noticeCommentNo)
@@ -258,7 +264,7 @@ $("#submitComment").click(function() {
 	   success : function(data){
 	       if(data == 1) {
     	   alert("삭제되었습니다.");
-           //commentList(); //댓글 삭제후 목록 출력 
+           commentList(); //댓글 삭제후 목록 출력 
 	    }
 	   }     
 	 });
