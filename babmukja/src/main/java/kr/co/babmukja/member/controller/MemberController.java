@@ -80,7 +80,6 @@ public class MemberController {
 		boolean passMatch = passEncoder.matches(member.getMemPass(), mem.getMemPass());
 
 		if (mem != null && passMatch) {
-			System.out.println(mem.getVerify());
 			if (mem.getVerify() == '0') {
 				// 회원 이메일 인증 안했을 때
 				map.put("code", 2);
@@ -195,7 +194,7 @@ public class MemberController {
 				e.printStackTrace();
 			}
 		});
-		System.out.println(sb.toString());
+		// System.out.println(sb.toString());
 
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/member/emailform.do";
 	}
@@ -288,7 +287,7 @@ public class MemberController {
 				e.printStackTrace();
 			}
 		});
-		System.out.println(sb.toString());
+		// System.out.println(sb.toString());
 
 		// 인증번호 값 DB에 넣기
 		member.setCertification(Integer.parseInt(cert));
@@ -332,10 +331,10 @@ public class MemberController {
 
 		try {
 			JSONObject obj = (JSONObject) coolsms.send(params);
-			System.out.println(obj.toString());
+			// System.out.println(obj.toString());
 		} catch (CoolsmsException e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getCode());
+			// System.out.println(e.getMessage());
+			// System.out.println(e.getCode());
 		}
 	}
 
@@ -400,7 +399,6 @@ public class MemberController {
 	@RequestMapping("/searchmember.do")
 	@ResponseBody
 	public List<Member> searchMemberByNick(String nick) {
-		System.out.println("Nick: "+ nick);
 		return service.searchMemberByNick(nick);
 	}
 	
@@ -409,7 +407,6 @@ public class MemberController {
 		Member user = (Member) session.getAttribute("user");
 		
 		if (user != null) {
-			System.out.println(member.getMemNickname()  + "왜 안됨 ㅎㅎㅎㅎㅎ");
 			Member searchUser = service.searchMemberByNickForMypage( member.getMemNickname() );
 			
 			RecipeFollow follow = new RecipeFollow();
@@ -442,19 +439,14 @@ public class MemberController {
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 		
 		MultipartFile mFile = fileVO.getAttach();
 		
 		if (mFile.isEmpty()) {
-			System.out.println("is empty");
 		}
-		System.out.println(mFile.getOriginalFilename());
 		
 		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
 		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
-		
-		System.out.println("what the file name : " + file.getPath() +":::: " +  uName);
 		
 		Thumbnails.of(new File(file.getPath(),uName))
 		.size(400,400)
@@ -472,8 +464,6 @@ public class MemberController {
 		fileVO.setPath(path);
 		fileVO.setOrgname(mFile.getOriginalFilename());
 		fileVO.setSysname(uName);
-		System.out.println("file upload succeed.");
-		System.out.println(fileVO.getMemNickname());
 		
 		session.setAttribute("user", service.searchMemberByNickForMypage(fileVO.getMemNickname()));
 		
@@ -483,7 +473,6 @@ public class MemberController {
 	}
 	@RequestMapping("/download.do")
 	public void profileDownload(MemberFileVO fileVO, HttpServletResponse response) throws Exception {
-		System.out.println("profileDownload.do 실행");
 		String uploadRoot = "c:/bit2019/upload";
 		File f = new File( uploadRoot
 							+ fileVO.getPath() 
@@ -515,8 +504,6 @@ public class MemberController {
 	@RequestMapping("insertscrapbook.do")
 	@ResponseBody
 	public String insertScrapbook(ScrapbookFileVO fileVO) throws IOException {
-		System.out.println(fileVO.getTitle());
-
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
@@ -524,19 +511,15 @@ public class MemberController {
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
-		System.out.println("create root : " + uploadRoot + path + "/ <- file name here");
 		
 		MultipartFile mFile = fileVO.getAttach();
 		
 		if (mFile.isEmpty()) {
-			System.out.println("is empty");
 		}
-		System.out.println(mFile.getOriginalFilename());
 		
 		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
 		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
 		
-		System.out.println("what the file name : " + file.getPath() +":::: " +  uName);
 		
 		Scrapbook book = new Scrapbook();
 		book.setMemNo(fileVO.getMemNo());
@@ -544,7 +527,6 @@ public class MemberController {
 		book.setTitle(fileVO.getTitle());
 		
 		service.insertScrapbook(book);
-		System.out.println(fileVO.getMemNickname());
 		return fileVO.getMemNickname();
 	}
 	
@@ -552,7 +534,6 @@ public class MemberController {
 	@RequestMapping("scrapbookAjax.do")
 	@ResponseBody
 	public List<Scrapbook> selectScrapbookList (int memNo){
-		
 		return service.selectScrapbookListByNo(memNo);
 	}
 }
