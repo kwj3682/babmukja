@@ -47,18 +47,19 @@ $("#scrapbook-wrapper-sec4-button2").click(function(){
 //	scrapbookFlag = false;
 });
 $(document).on("click","#scrapbook-wrapper-sec4-button1",function(){
-	let radioVal = $("input[name='scrapbook-radio']:checked").val();
+	let radioValue = $("input[name='scrapbook-radio']:checked").val();
 	let loginMemNo = $("input[name='memNo']").val();
-	if(radioVal == undefined){
+	if(radioValue == undefined){
 		alert("스크랩한 자료를 저장할 책자를 선택해주세요.");
 		return;
 	}
 	$("body").append('<div id="waitLoading"><p>스크랩 중입니다<b>...</b></p></div>').css({margin: "0 auto"});
+	alert(radioValue + " " + loginMemNo + " " + $("input[name='no']").val() + img.substring(0, 30));
 	$.ajax({
 		url:"capture.do",
 		type:"POST",
 		data:{
-			radioVal : radioVal,
+			radioVal : radioValue,
 			base64String : img,
 			recipeNo : $("input[name='no']").val(),
 			memNo : loginMemNo
