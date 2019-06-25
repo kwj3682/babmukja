@@ -156,7 +156,7 @@
 				 			if (result.comment[i].memImgPath == null) {
 		 						html += '<img class="other-profile" src=' + userDefault + '>';
 		 					} else {
-		 						html += '<img class="other-profile" src=' + result.comment[i].memImgPath + '&sysname=' + result.comment[i].memImgSysname + '>';
+		 						html += '<img class="other-profile" src="/babmukja/member/download.do?path=' + result.comment[i].memImgPath + '&sysname=' + result.comment[i].memImgSysname + '">';
 		 					}		 			
 		 			html	+='<div class="other-content-wrapper">'
 		 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
