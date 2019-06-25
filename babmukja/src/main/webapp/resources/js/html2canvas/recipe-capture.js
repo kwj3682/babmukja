@@ -5,6 +5,7 @@ var img = "";
 $(".recipeScrap").click(function(){
 	
 	if($("input[name='scrap-status']").val() == 'Y'){
+		
 		alert("이미 스크랩한 게시물입니다.");
 		return;
 	}

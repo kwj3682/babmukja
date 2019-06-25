@@ -247,7 +247,8 @@
 	</div>
 	
 	<script src="<c:url value="/resources/js/html2canvas/recipe-capture.js"/>"></script>
-    <script>      
+    <script>
+    	console.log("hihi");
 	    let url = "<c:url value='/member/mypage.do?memNickname=${recipe.memNickname}'/>";
 	    let session = '${sessionScope.user}';
 	    let recipeNo = '${recipe.recipeNo}';
