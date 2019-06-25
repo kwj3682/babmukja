@@ -89,7 +89,7 @@
 	                            <p>${listpb.name}</p>
 	                        </div>
 	                        <div class="pb_list_product_price">
-	                            <p><fmt:formatNumber value="${listpb.price}" groupingUsed="true"/></p>
+	                            <p><fmt:formatNumber value="${listpb.price}" groupingUsed="true"/>원</p>
 	                        </div>
 	                        <div class="pb_list_product_rating">
 	                            <span id="pb_store_popular_product_rating_star"></span>
