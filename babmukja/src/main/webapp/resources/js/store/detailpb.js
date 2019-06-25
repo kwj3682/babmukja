@@ -464,7 +464,6 @@
 						 } else if (result.status == 'N') {
 							 $(".likeheart").attr("src", likeImg1);
 						 } else {
-							 alert("좋아요");
 							 $(".likeheart").attr("src", likeImg2);
 						 }
 					 }
@@ -521,7 +520,7 @@
 							html+='	</div>';
 							html+='	<div class="reviewBUTTON">';
 							html+='		<input type="hidden" name="pbReviewNo" value="'+result.list[i].pbReviewNo+'">';
-							if(sessionMemNo == result.list[i].member.memNo){
+							if(MemNo == result.list[i].member.memNo){
 								html+='				<button class="reviewDeleteBTN">삭제하기</button>';
 							}
 							html+='	</div>';
