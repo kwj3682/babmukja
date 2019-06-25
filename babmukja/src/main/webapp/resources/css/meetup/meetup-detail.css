@@ -193,18 +193,20 @@
 #introEdit {
 	display: inline-block;
 	margin-bottom: 10px;
-	border: 1px solid #7db341;
 	width: 70px;
 	height: 30px;
 	text-align: center;
 	line-height: 30px;
+}
+#temp_bar{
+	display: inline-block;
+	height:30px;
 }
 
 #introDelete {
 	margin-left: 10px;
 	display: inline-block;
 	margin-bottom: 10px;
-	border: 1px solid #7db341;
 	width: 70px;
 	height: 30px;
 	text-align: center;

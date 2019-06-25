@@ -54,7 +54,6 @@
 
 	}//for
 	//intro 를 넘겨 받아서...             
-	var intro = $('#el_intro').val();
 
 	dataProcess();
 
@@ -182,8 +181,7 @@
 
 
 	function dataProcess() {
-
-		if (intro == "") { // intro가 null 이면 등록 폼 버튼 을 불러준다.
+		if ($("#el_hostNo").val()==$("#el_memNo").val()&&intro == "") { // intro가 null 이면 등록 폼 버튼 을 불러준다.
 
 
 			console.log("intro가 null 입니다.");
@@ -219,10 +217,13 @@
 
 
 
-		} else { //null 이 아니면 원래 자료를 뿌려준다.
+		} 
+		if($("#el_hostNo").val()==$("#el_memNo").val()&&intro != ""){ //null 이 아니면 원래 자료를 뿌려준다.
+			alert("hostNo" +$("#el_hostNo").val());
+			alert("memNo" +$("#el_memNo").val());
 			console.log("intro 는 :" + intro + "정래");
 			console.log("intro가 null 이 아닙니다.");
-			$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div>` + intro +`</div>`);
+			$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div></div>` + intro);
 
 
 

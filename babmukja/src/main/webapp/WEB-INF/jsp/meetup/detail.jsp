@@ -92,7 +92,8 @@
 			<div class="tag">
 			<c:forEach var ="meetupTag" items="${meetupTags}">
 				${meetupTag} &nbsp;
-
+		<c:out value='${sessionScope.user.memNo}'/><c:out value='${sessionScope.user.memNo}'/>
+		 <c:out value='${meetup.hostNo}'/><c:out value='${meetup.hostNo}'/>
 			</c:forEach>
 			</div>
 			
@@ -100,7 +101,7 @@
 		<div class="headerRight">
 			<div class="area">
 				<img src="<c:url value='/meetup/download.do' />?path=${meetup.fileDir}">
-				
+		
 			</div>
 		</div>
 	</div>
@@ -114,10 +115,26 @@
 				<td>사진첩</td>
 				<td>회원</td>
 		</table>
-
+		
+		<c:set var="intro_memNo"  value="${sessionScope.user.memNo}"/>
+		<c:set var="intro_hostNo"  value="${meetup.hostNo}"/>
 		<div class="tabPanel" id="tabPanel1">
+		<c:choose>
+		<c:when test = "${intro_memNo == intro_hostNo}"> 
 			<span class="writeIntro"> <i class="fas fa-plus-circle fa-3x"></i></span>
-
+		
+     	 </c:when>
+		
+		<c:otherwise>
+		  <div class="editDelete">
+		  	<div id=temp_bar></div>
+		  </div>
+		    	${meetup.intro}
+		 
+		 
+		</c:otherwise>
+		</c:choose>
+		
 		</div>
 		<div class="tabPanel" >
 		<c:set var="status"  value="${memberStatus.status}"/>  
@@ -400,10 +417,11 @@
 		</c:when>
 		 <c:otherwise>
 		
-		  <c:forEach var ="meetupMember" items="${meetupMemberList}">
+		 
 		
 			<div class="detail_member_container">
-                <div class="detail_member_info">
+			 	<c:forEach var ="meetupMember" items="${meetupMemberList}">
+                	<div class="detail_member_info">
                     <div class="profile_picture_container">
                     <c:choose>
                     <c:when test="${meetupMember.memImgSysname == null}">
@@ -426,25 +444,25 @@
                     </div>
                 </div>
                
-                
-            </div>
-		</c:forEach>
+      			  </c:forEach>        
+            </div><!--detail_member_container -->
+		
 		 </c:otherwise>
 		</c:choose>	
 		</div><!--회원테이블  -->
 	</div>
 	  <!--el 값 받아주기  -->	
-	  <input type="hidden" id="el_intro" name="intro" value="${meetup.intro}" />
 	  <input type="hidden" id="el_meetNo" name="meetNo" value="${meetup.meetNo}" />
 	  <input type="hidden" id="el_memName" name="memName" value="${sessionScope.user.memName}" />
 	  <input type="hidden" id="el_memEmail" name="memEmail" value="${sessionScope.user.memEmail}" />
 	  <input type="hidden" id="el_memNo" name="memNo" value="${sessionScope.user.memNo}" />
+	  <input type="hidden" id="el_hostNo" name="memNo" value="${meetup.hostNo}" />
 	  <input type="hidden" id="el_noticeClicked" name="noticeClicked" value="${noticeClicked}" />
 	  <input type="hidden" id="el_freeClicked" name="freeClicked" value="${freeClicked}" />
 	
 	<script>
 	  var downloadUrl= '<c:url value='/meetup/download.do' />'
-	
+	  var intro ='${meetup.intro}';
 
 	</script>
 	
