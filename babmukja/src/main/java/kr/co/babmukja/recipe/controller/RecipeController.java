@@ -31,6 +31,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import com.google.gson.Gson;
 
 import kr.co.babmukja.recipe.service.RecipeService;
+import kr.co.babmukja.repository.domain.Capture;
 import kr.co.babmukja.repository.domain.FileVO;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Page;
@@ -455,8 +456,8 @@ public class RecipeController {
      
      @RequestMapping("/capture.do")
      @ResponseBody
-     public void screenCapture(String radioVal, String base64String,int recipeNo,int memNo) {
-    	 String data = base64String.replaceAll("data:image/png;base64,", ""); 
+     public void screenCapture(Capture capture) {
+    	 String data = capture.getBase64String().replaceAll("data:image/png;base64,", ""); 
     	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 
     	 String uploadRoot = "C:/bit2019/upload";
@@ -470,17 +471,17 @@ public class RecipeController {
     	 
     	 Scrapbook book = new Scrapbook();
     	 book.setContent(content);
-    	 book.setScrapNo(Integer.parseInt(radioVal));
+    	 book.setScrapNo(capture.getRadioVal());
     	 
     	 RecipeScrap rs = new RecipeScrap();
     	 
-    	 rs.setMemNo(memNo);
-    	 rs.setRecipeNo(recipeNo);
+    	 rs.setMemNo(capture.getMemNo());
+    	 rs.setRecipeNo(capture.getRecipeNo());
     	 rs.setScrapNo(book.getScrapNo());
     	 
     	 service.insertScrapbookContent(book);
     	 service.insertRecipeScrap(rs);
-    	 service.updateRecipeScrapCnt(recipeNo);
+    	 service.updateRecipeScrapCnt(capture.getRecipeNo());
      }
      
 
