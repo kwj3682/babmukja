@@ -55,6 +55,9 @@ table.inlined{
     font-weight: bold;
     color: blue;
 }
+.inlined a:hover{
+	text-decoration: underline;
+}
 
 #pageNav ul{
     padding:50px 30px 30px 0px;
