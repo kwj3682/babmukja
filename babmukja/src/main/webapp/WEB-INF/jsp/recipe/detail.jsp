@@ -249,13 +249,13 @@
 	
 	<script src="<c:url value="/resources/js/html2canvas/recipe-capture.js"/>"></script>
     <script>
-    	console.log("hihi");
 	    let url = "<c:url value='/member/mypage.do?memNickname=${recipe.memNickname}'/>";
 	    let menu = "<c:url value='/recipe/cadetail.do}'/>";
 	    let session = '${sessionScope.user}';
 	    let recipeNo = '${recipe.recipeNo}';
 	    let memNo = '${sessionScope.user.memNo}';
 	    let recipememNo = '${recipe.memNo}';
+	    let comments = "<c:url value='/resources/images/comments.png'/>";
 	    let userDefault = "<c:url value='/resources/images/default/userdefault.png'/>";
 	    let leftArrow = "<c:url value='/resources/images/icons/left-arrow.png'/>";
 	    let rightArrow = "<c:url value='/resources/images/icons/right-arrow.png'/>";

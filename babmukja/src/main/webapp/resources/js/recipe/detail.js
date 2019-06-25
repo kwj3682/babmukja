@@ -156,7 +156,7 @@
 				 			if (result.comment[i].memImgPath == null) {
 		 						html += '<img class="other-profile" src=' + userDefault + '>';
 		 					} else {
-		 						html += '<img class="other-profile" src=' + profile + '>';
+		 						html += '<img class="other-profile" src=' + result.comment[i].memImgPath + '&sysname=' + result.comment[i].memImgSysname + '>';
 		 					}		 			
 		 			html	+='<div class="other-content-wrapper">'
 		 					+'<input type="hidden" class="reviewNo" value=' + result.comment[i].recipeReviewNo + '>' 
@@ -219,10 +219,10 @@
  			data : "no=" + no
  		}).done (function (data) {
  			 $("#c" + no).html(` <input type="hidden" name="reviewNo" class="reviewNo" value= `+ data.recipeReviewNo + `>
-	                    	    <input type="hidden" name="no" value="${recipe.recipeNo }"/>     
+	                    	    <input type="hidden" name="no" value="`+ recipeNo + `"/>     
 	                    		<textarea class="comment-updateform">`+data.content+`</textarea>                			  
 	                  			 <button class="comment-update">
-	                  			 	<img src="<c:url value='/resources/images/comments.png'/>">
+	                  			 	<img src=` + comments + `>
 	                  			 </button>                  			
                   			 	<button class="comment-exit">
                   			 		<i class="far fa-times-circle"></i>
@@ -274,6 +274,7 @@
  			data :"no=" + num
  		}).done(function (result) {    		
 	    	$("#"+ num).html("");
+	    	$("#comment-other").html("");
 			commentList(1);
  			if($(".other-content").length == 1 ) {
  				$("#"+ num).html("");
