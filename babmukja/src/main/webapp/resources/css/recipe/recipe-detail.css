@@ -216,6 +216,9 @@
 #go-back:hover{
 	color : #7db341;
 }
+#go-back:focus{
+	outline : none;
+}
 #post-info{
     display: flex;
     align-content: space-between;
