@@ -139,7 +139,7 @@
    <!-- modal 끝 -->
 
 
-   <script src='<c:url value="/resources/js/meetup_manage.js"/>'> </script>
+   <script src='<c:url value="/resources/js/meetup/meetup_manage.js"/>'> </script>
 
    
 </body>

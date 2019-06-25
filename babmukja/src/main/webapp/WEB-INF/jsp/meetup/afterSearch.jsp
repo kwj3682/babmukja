@@ -21,7 +21,7 @@
 
     
     <script src='<c:url value="/resources/js/jquery-3.1.1.min.js"/>'> </script>
-    <script src='<c:url value="/resources/js/meetup_afterSearch.js"/>'> </script>
+    <script src='<c:url value="/resources/js/meetup/meetup_afterSearch.js"/>'> </script>
    
 
 
@@ -133,8 +133,8 @@
     
 
 
-      <script src='<c:url value="/resources/js/meetup_afterSearch.js"/>'> </script>
-      <script src='<c:url value="/resources/js/meetup_main_search_address.js"/>'> </script>
+      <script src='<c:url value="/resources/js/meetup/meetup_afterSearch.js"/>'> </script>
+      <script src='<c:url value="/resources/js/meetup/meetup_main_search_address.js"/>'> </script>
 
 
 
