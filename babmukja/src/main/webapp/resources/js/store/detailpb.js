@@ -456,7 +456,7 @@
 					 url : "pblike.do",
 					 data : {
 						 'pbNo' : pbNum,
-						 'memNo' : session.memNo
+						 'memNo' : sessionMemNo
 					 },
 					 success : function (result) {
 						 if (result.status == 'Y') {
@@ -497,13 +497,14 @@
 					 index : index
 				 },
 				 success : function (result) {
+					 console.dir(result);
 					 let html = '';
 						for(let i=0; i < result.list.length;i++){
 							html+='<div class="pb_review_body" id="'+result.list[i].pbReviewNo+'">'
 							html+='		<div class="pb_review_profile">';
 							html+='			<div class="pb_review_profile_img">';
 							if (session != null) {
-								if (session.memImgPath == null || session.memImgPath == '') {
+								if (result.list[i].member.memImgPath == null || result.list[i].member.memImgPath == '') {
 									html+='<img id="default_profile_imges" src="'+userDefault+'">';
 								} else {
 									html+='<img id="user_profile_imges" src="/babmukja/member/download.do?path='+result.list[i].member.memImgPath+'&sysname='+result.list[i].member.memImgSysname+'">';
@@ -520,7 +521,7 @@
 							html+='	</div>';
 							html+='	<div class="reviewBUTTON">';
 							html+='		<input type="hidden" name="pbReviewNo" value="'+result.list[i].pbReviewNo+'">';
-							if(session.memNo == result.list[i].member.memNo){
+							if(sessionMemNo == result.list[i].member.memNo){
 								html+='				<button class="reviewDeleteBTN">삭제하기</button>';
 							}
 							html+='	</div>';
@@ -653,6 +654,7 @@
 	    			   index : index
 	    		   },
 	    		   success : function (result) {
+	    			   console.dir(result);
 	    			   let html = '';
 	    			   	for (let i = 0; i < result.list.length; i++) {
 							html +='<div class="pb_inquire_body" id="'+result.list[i].inquiryNo+'">';
@@ -668,12 +670,12 @@
                          	html += '</div>';
 							html +='			<div class="pb_inq_flex">';		
                             html +='			<input type="hidden" name="inquiryNo" value="'+result.list[i].inquiryNo+'">';
-                           	if (session.managerAt == 1) {
+                           	if (managerAt == 1) {
                            		if (result.list[i].answerStatus == 'N') {
                            			html +='<button class="pb_inq_admin_answer_btn">답변하기</button>';
                            		}
                            	}
-                            if (session.memNo == result.list[i].member.memNo) {
+                            if (sessionMemNo == result.list[i].member.memNo) {
                             	html+='<button class="inq_update_btn">수정</button>';
                             	html+='<p class="pb_inq_icon">ㅣ</p>';
                             	html+='<button class="inq_delete_btn">삭제</button>';

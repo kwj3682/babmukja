@@ -373,6 +373,8 @@
 	</div>
 	<script>
 		let session = '${sessionScope.user}';
+		let sessionMemNo = '${sessionScope.user.memNo}';
+		let managerAt = '${sessionScope.user.managerAt}';
 		let pbNum = '${storepb.pbNo}';
 		let likeImg2 = "<c:url value='/resources/images/icons/like2.png'/>";
 		let likeImg1 = "<c:url value='/resources/images/icons/like1.png'/>";
