@@ -90,7 +90,7 @@ public class RecipeController {
 		MultipartFile mFile = fileVO.getAttach();
 
 		if (mFile.isEmpty()) {
-			System.out.println("is empty");
+			return null;			
 		}
 		String uName = UUID.randomUUID().toString() + mFile.getOriginalFilename();
 		mFile.transferTo(new File(uploadRoot + path + "/" + uName));
@@ -98,7 +98,6 @@ public class RecipeController {
 		fileVO.setPath(path);
 		fileVO.setOrgname(mFile.getOriginalFilename());
 		fileVO.setSysname(uName);
-		System.out.println("file upload succeed.");
 
 		return new Gson().toJson(fileVO);
 	}
@@ -449,7 +448,6 @@ public class RecipeController {
     	        fos.write(b64dec);
     	        fos.close();
     	    } catch (IOException e) {
-    	        System.out.println("Exception position : FileUtil - binaryToFile(String binaryFile, String filePath, String fileName)");
     	    }
     	 
     	    return destFile;
@@ -459,8 +457,6 @@ public class RecipeController {
      @RequestMapping("/capture.do")
      @ResponseBody
      public void screenCapture(Capture capture) {
-    	 System.out.println("capture.do들어옴");
-    	 
     	 String data = capture.getBase64String().replaceAll("data:image/png;base64,", ""); 
     	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 

@@ -185,7 +185,6 @@
 	                	</c:choose>
                         <div id="profile-id">
                             <div>${recipe.memNickname }</div>
-                            <div>#level9</div>
                         </div>                   
                         <c:choose>
                         	<c:when test="${followStatus eq 'Y' }">
