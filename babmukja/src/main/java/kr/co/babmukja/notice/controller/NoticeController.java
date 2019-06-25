@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,6 +25,7 @@ import kr.co.babmukja.notice.service.NoticeService;
 import kr.co.babmukja.repository.domain.Member;
 import kr.co.babmukja.repository.domain.Notice;
 import kr.co.babmukja.repository.domain.NoticeFileVO;
+import kr.co.babmukja.repository.domain.Page;
 import kr.co.babmukja.repository.domain.PageNotice;
 
 @Controller("kr.co.babmukja.notice.controller.NoticeController")
@@ -122,13 +124,13 @@ public class NoticeController {
 	public void index() {}
 
 //	@RequestMapping("/list.do")
-//	public void list(Page page, Model model) {
+//	public void list(Page page, Model model) throws Exception {
 //		List<Notice> list = service.selectNoticeList();
 //		for (Notice notice : list) {
 //			System.out.println(notice.getWriter());
 //			System.out.println(notice.getNoticeNo());
-//			System.out.println(notice.getRegDate());
-//			System.out.println(notice.getViewCnt());
+//			System.out.println(notice.getRegdate());
+//			System.out.println(notice.getViewcnt());
 //		}
 //		model.addAttribute("list", service.selectNoticeList());
 //	}

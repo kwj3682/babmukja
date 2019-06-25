@@ -54,7 +54,7 @@
             <%-- <c:if test="{sessionScope.user.memNo != null}">  --%>
                 <button input type="button">
 				<a href='updateForm.do?noticeNo=${notice.noticeNo}'>수정</a></button>
-		        <button input type="button"> <a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
+		        <button input type="button"><a href='delete.do?noticeNo=${notice.noticeNo}'>삭제</a></button>
             <%-- </c:if> --%>
             </td>
          </tr>
@@ -62,19 +62,19 @@
              </table><hr>
                <nav id="pageNav">
                    <ul>
-                   <div><li>
+                   <li>
+                   <div>
 				      <c:if test="${pageResult.count != 0}">
 					<jsp:include page="/WEB-INF/jsp/include/pagetype.jsp">
 						<jsp:param name="link" value="list.do" />
 					</jsp:include>
 				       </c:if>
-			        </li>
 			        </div>   
+			        </li>
                 <!--  <div><li><a href='index.do'>MAIN</a></li></div> -->
                    </ul>
                </nav>
-        </table>
-       
+        </table>   
     </div>
     <footer>
             <h2>BABMUKJA COMPANY</h2>

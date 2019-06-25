@@ -1,6 +1,7 @@
 package kr.co.babmukja.notice.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.selectNoticeByNo(no);
 	}
 	
-//	public List<Notice> selectNoticeList(){
+//	public List<Notice> selectNoticeList() throws Exception{
 //		return mapper.selectNoticeList();
 //	}
 	
