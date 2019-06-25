@@ -520,7 +520,7 @@
 							html+='	</div>';
 							html+='	<div class="reviewBUTTON">';
 							html+='		<input type="hidden" name="pbReviewNo" value="'+result.list[i].pbReviewNo+'">';
-							if(MemNo == result.list[i].member.memNo){
+							if(sessionMemNo == result.list[i].member.memNo){
 								html+='				<button class="reviewDeleteBTN">삭제하기</button>';
 							}
 							html+='	</div>';
