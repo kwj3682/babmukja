@@ -104,6 +104,24 @@ public class NoticeController {
 		System.out.println("no:" + notice.getNoticeNo());
 		System.out.println("title:" + notice.getTitle());
 		System.out.println("content:" + notice.getContent());
+//		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+//		String uploadRoot = "C:/bit2019/upload";
+//		String path = "/notice" + sdf.format(new Date());
+//		File file = new File(uploadRoot + path);
+//		if (file.exists() == false)
+//			file.mkdirs();
+//
+//		MultipartFile nFile = notice.getNoticefile();
+//
+//		if (nFile.isEmpty()) {
+//			System.out.println("is empty");
+//		}
+//		String uName = UUID.randomUUID().toString() + nFile.getOriginalFilename();
+//		nFile.transferTo(new File(uploadRoot + path + "/" + uName));
+//		
+//		notice.setImgpath(path);
+//		notice.setImgOrgname(nFile.getOriginalFilename());
+//		notice.setImgSysname(uName);
 		service.update(notice);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.do";
 	}
