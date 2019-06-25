@@ -133,8 +133,12 @@
                         	</a>
                         </div>    
                  </c:forEach>
-                        <div>더 보기 <b>↓</b>
-                        	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>">
+                        <div>
+                        	더 보기 
+                        	<b>↓</b>
+                        	<div>
+	                        	<img id="bottle" src="<c:url value="/resources/images/bottle.png"/>" style="width:40px; height: 110px;">
+                        	</div>
                         </div>
                     </div>
                     <div>${win.memNickname }</div>
