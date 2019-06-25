@@ -458,6 +458,7 @@ public class RecipeController {
      @RequestMapping("/capture.do")
      @ResponseBody
      public void screenCapture(String radioVal, String base64String,int recipeNo,int memNo) {
+    	 System.out.println("capture.do들어옴");
     	 String data = base64String.replaceAll("data:image/png;base64,", ""); 
     	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 

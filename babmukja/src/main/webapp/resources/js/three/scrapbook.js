@@ -53,6 +53,7 @@ $(document).on("click","#book-create",function(){
 		return;
 	}
 	if(readFile == null){
+		
 		alert("사진을 업로드해주세요.");
 		return;
 	}

@@ -968,6 +968,7 @@ $(document).on("click","#follow-button",function () {
 	    	});
 		} 
 	if(visitorNo == userNo) {
+		
 		alert("같은 회원은 팔로우 할 수 없습니다.");
 	}
 });
