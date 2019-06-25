@@ -6,7 +6,7 @@
     	location.href = url;
     });
     $("#go-back").click(function () {
-    	location.href = menu;
+    	location.href = remenu;
     });
     // 좋아요 기능
     $(".recipeLike").click(function () {

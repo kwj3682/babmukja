@@ -26,7 +26,6 @@
 			
 			switch(code){
 			case 0:
-				alert("로그인 성공!");
 				location.href = loginUrl;
 				break;
 			case 1:
