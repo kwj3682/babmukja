@@ -92,8 +92,7 @@
 			<div class="tag">
 			<c:forEach var ="meetupTag" items="${meetupTags}">
 				${meetupTag} &nbsp;
-		<c:out value='${sessionScope.user.memNo}'/><c:out value='${sessionScope.user.memNo}'/>
-		 <c:out value='${meetup.hostNo}'/><c:out value='${meetup.hostNo}'/>
+		
 			</c:forEach>
 			</div>
 			
@@ -431,6 +430,7 @@
                      <c:otherwise>
                         <img src="${pageContext.request.contextPath}/meetup/download.do?path=${meetupMember.memImgSysname}">
                      </c:otherwise>
+                    
                      </c:choose>    
                     </div>
              			<div class="detail_member_name">${meetupMember.memName}</div>

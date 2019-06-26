@@ -432,6 +432,7 @@ public class MeetupController {
 	
 	@RequestMapping("/detail.do")
 	public void meetupDetail(Model model, int meetNo, int memNo,MeetupDetailFreePage freePage, MeetupDetailNoticePage noticePage, @RequestParam(required=true,defaultValue="0")int noticeClicked, @RequestParam(required=true,defaultValue="0")int freeClicked) {
+		
 		System.out.println("meetNo" + meetNo +  memNo );
 		//view cnt 관리
 		service.updateViewCnt(meetNo);
@@ -463,19 +464,20 @@ public class MeetupController {
 
 		//모임의 사진 뿌려주기
 		
-		File dir = new File("C:/bit2019/upload/meetup/2019/06");
-		File[] files = dir.listFiles(new FilenameFilter() {
-
-		public boolean accept(File dir, String name) {
-			// TODO Auto-generated method stub
-			return name.contains("meetNo="+meetNo);
-		}});
+		List<File> pictureList = new ArrayList<>();
+		
+		File dir = new File("C:/bit2019/upload/meetup/2019");
+		File[] files = dir.listFiles();
+		for (File f : files) {
+			checkPictureName(f, meetNo, pictureList);
+		}
+		
+		
+	System.out.println("파일 오나확인" +pictureList.size());
 	
-	System.out.println("파일 오나확인" +files.length);
-	
-	model.addAttribute("images", files);
+	model.addAttribute("images", pictureList);
 	ArrayList<String> filePath = new ArrayList<>();	
-	for(File file : files) {
+	for(File file : pictureList) {
 		System.out.println("file :" + file);
 	
 	
@@ -510,7 +512,20 @@ public class MeetupController {
 			
 	}//detail.do
 	
-
+	private void checkPictureName(File f, int meetNo, List<File> pictureList) {
+		
+		if (f.isFile()) {
+			if (f.getName().contains("meetNo="+meetNo)) {
+				pictureList.add(f);
+			}
+			return;
+		} 
+		// 디렉토리 인 경우
+		File[] childList = f.listFiles();
+		for (File child : childList) {
+			checkPictureName(child, meetNo,pictureList);
+		}
+	}
 
 	@RequestMapping("/meetupAddress.do")
 	public void meetupAddress() {
@@ -521,7 +536,7 @@ public class MeetupController {
 	@RequestMapping("/uploadImage.do")
 	@ResponseBody
 	public MeetupFile uploadImage(MultipartFile file, int meetNo) {
-		System.out.println("들어왔음");
+		System.out.println("업로드 이미지들어왔음");
 		System.out.println("meetNo왔나 확인 " +meetNo);
 		System.out.println("file 들어왔나 확인" + file);
 		// service.updateIntro(data);
@@ -688,7 +703,7 @@ public class MeetupController {
 		//board에 모임 번호 추가해주기
 		//board.setMeetNo(meetNo);
 		String uploadRoot = "C:/bit2019/upload";
-		String path = "/board" + sdf.format(new Date());
+		String path = "/meetup" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
@@ -698,7 +713,7 @@ public class MeetupController {
 		if (bFile.isEmpty()) {
 			System.out.println("is empty");
 		}
-		String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+		String uName = UUID.randomUUID().toString() +"meetNo="+meetNo+ bFile.getOriginalFilename();
 		bFile.transferTo(new File(uploadRoot + path + "/" + uName));
 		
 		board.setImgpath(path);
@@ -711,13 +726,41 @@ public class MeetupController {
 	
 	@RequestMapping("/imgdownload.do")
 	public void download(int boardNo, HttpServletResponse response) throws Exception {
+		System.out.println("imgdownload에 들어옴");
 		Board board = service.detail(boardNo);
 		String uploadRoot = "c:/bit2019/upload";
 		String path = board.getImgpath();
 		String sysname = board.getImgSysname();
 		File f = new File(uploadRoot + path + "/" + sysname);
 		response.setHeader("Content-Type", "image/jpg");
-	
+		System.out.println("파일경로 잘 들어오나 확인해보자 :" + uploadRoot + path + "/" + sysname);
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+
+		OutputStream out = response.getOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		while (true) {
+			int ch = bis.read();
+			if (ch == -1)
+				break;
+			bos.write(ch);
+		}
+
+		bis.close();
+		fis.close();
+		bos.close();
+		out.close();
+	}
+	@RequestMapping("/imgFreeBoardDownload.do")
+	public void imgFreeBoarddownload(int boardNo, HttpServletResponse response) throws Exception {
+		System.out.println("imgdownload에 들어옴");
+		Board board = service.freeDetail(boardNo);
+		String uploadRoot = "c:/bit2019/upload";
+		String path = board.getImgpath();
+		String sysname = board.getImgSysname();
+		File f = new File(uploadRoot + path + "/" + sysname);
+		response.setHeader("Content-Type", "image/jpg");
+		System.out.println("파일경로 잘 들어오나 확인해보자 :" + uploadRoot + path + "/" + sysname);
 		FileInputStream fis = new FileInputStream(f);
 		BufferedInputStream bis = new BufferedInputStream(fis);
 
@@ -756,7 +799,7 @@ public class MeetupController {
 	public String update(Board board, int meetNo, int memNo) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String uploadRoot = "C:/bit2019/upload";
-		String path = "/board" + sdf.format(new Date());
+		String path = "/meetup" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
 		if (file.exists() == false)
 			file.mkdirs();
@@ -766,7 +809,7 @@ public class MeetupController {
 		if (bFile.isEmpty()) {
 			System.out.println("is empty");
 		}
-		String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+		String uName = UUID.randomUUID().toString() +"meetNo="+meetNo+ bFile.getOriginalFilename();
 		bFile.transferTo(new File(uploadRoot + path + "/" + uName));
 		
 		board.setImgpath(path);
@@ -842,7 +885,7 @@ public class MeetupController {
 		public Object writeFreeBoard(Board board, int meetNo, int memNo) throws Exception {
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 			String uploadRoot = "C:/bit2019/upload";
-			String path = "/board" + sdf.format(new Date());
+			String path = "/meetup" + sdf.format(new Date());
 			File file = new File(uploadRoot + path);
 			if (file.exists() == false)
 				file.mkdirs();
@@ -852,7 +895,7 @@ public class MeetupController {
 			if (bFile.isEmpty()) {
 				System.out.println("is empty");
 			}
-			String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+			String uName = UUID.randomUUID().toString() +"meetNo="+meetNo+ bFile.getOriginalFilename();
 			bFile.transferTo(new File(uploadRoot + path + "/" + uName));
 			
 			board.setImgpath(path);
@@ -884,7 +927,7 @@ public class MeetupController {
 		public String updateFreeBoard(Board board, int meetNo, int memNo) throws Exception {
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 			String uploadRoot = "C:/bit2019/upload";
-			String path = "/board" + sdf.format(new Date());
+			String path = "/meetup" + sdf.format(new Date());
 			File file = new File(uploadRoot + path);
 			if (file.exists() == false)
 				file.mkdirs();
@@ -894,7 +937,7 @@ public class MeetupController {
 			if (bFile.isEmpty()) {
 				System.out.println("is empty");
 			}
-			String uName = UUID.randomUUID().toString() + bFile.getOriginalFilename();
+			String uName = UUID.randomUUID().toString() + "meetNo="+meetNo+ bFile.getOriginalFilename();
 			bFile.transferTo(new File(uploadRoot + path + "/" + uName));
 			
 			board.setImgpath(path);

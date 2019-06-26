@@ -44,7 +44,7 @@
 				<div class="board_img_content">
 					<div class="board_detail_img">
 						<c:choose>
-							<c:when test = "${board.imgpath == null}">
+							<c:when test = "${board.imgpath != null}">
 								<img
 								src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
 							</c:when>
