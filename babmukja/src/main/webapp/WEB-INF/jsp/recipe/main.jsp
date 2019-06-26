@@ -232,7 +232,7 @@
                            <a href = "detail.do?no=${list.recipeNo }">
                             <c:choose>
 			                	<c:when test='${list.imgPath == "" || list.imgPath == null}'>
-			                    	<img src="<c:url value="/resources/images/default.png"/>">					                	
+			                    	<img src="<c:url value="/resources/images/default.png"/>" onerror='this.src="${pageContext.request.contextPath}/resources/images/default.png"'/>					                	
 			                	</c:when>
 			                	<c:otherwise>					                	
 		                           	<img src="${list.imgPath}">

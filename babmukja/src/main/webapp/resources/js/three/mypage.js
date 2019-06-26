@@ -664,9 +664,13 @@ function animate() {
 					htmlData += 
 							"<tr>" 
 						  	+"<td>" + recipe.title +"</td>"
-						  	+"<td>" + dateFormat(new Date(recipe.regDate)) +"</td>"
-						  	+"<td><img src='" +recipe.imgPath +"'></td>"
-						  	+"<td>" + recipe.rating+"</td>"
+						  	+"<td>" + dateFormat(new Date(recipe.regDate)) +"</td>";
+					htmlData +='<td><img src="';
+					htmlData += recipe.imgPath;
+					htmlData += '"';
+					htmlData += 'onerror=\'this.src="/babmukja/resources/images/default.png"\'></td>';						
+					htmlData +=
+						  	"<td>" + recipe.rating+"</td>"
 						  	+"<td>" + recipe.likeCnt+"</td>"
 						  	+"<td>" + recipe.scrapCnt+"</td>"
 							+"</tr>";
