@@ -18,7 +18,7 @@
 	height: 400px;
 	margin-right: 60px;
 	font-family: 'Nanum Gothic', sans-serif;	
-	;
+	background-image: url(../../images/chalkboardback.jpg);
 }
 
 .infoTagContainer {
@@ -34,6 +34,7 @@
 	width: 60%;
 	background: white;
 	border-radius: .4em;
+	background-color:transparent;
 }
 
 .infoTag::after {
@@ -84,6 +85,7 @@
 .title {
 	margin-top: 50px;
 	font-size: 30px;
+	color:white;
 }
 
 .subInfo {
@@ -150,6 +152,7 @@
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 25px;
 	margin-top: 25px;
+	color:white;
 }
 
 .writeIntro {

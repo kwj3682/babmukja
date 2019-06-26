@@ -132,6 +132,8 @@ public class MeetupController {
 		System.out.println("승인 상태 :" + meetupMember.getStatus());
 		System.out.println("이메일 :" + meetupMember.getMemEmail());
 		System.out.println("meetNo :" + meetupMember.getStatus());
+		System.out.println("getMemImgPath()" + meetupMember.getMemImgPath());
+		System.out.println("sysname" + meetupMember.getMemImgSysname());
 		service.insertMeetupMember(meetupMember);
 		
 	

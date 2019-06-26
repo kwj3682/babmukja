@@ -38,8 +38,8 @@
     </insert>
     
     <insert id="insertMeetupMember" parameterType="meetupMember">
-    	insert into tb_meetup_member(mem_no,mem_name,meet_no,status,mem_email)
-    	 			   values(#{memNo},#{memName},#{meetNo},#{status},#{memEmail})
+    	insert into tb_meetup_member(mem_no,mem_name,meet_no,status,mem_email,mem_img_path,mem_img_sysname)
+    	 			   values(#{memNo},#{memName},#{meetNo},#{status},#{memEmail},#{memImgPath},#{memImgSysname})
     </insert>
     
     

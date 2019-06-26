@@ -264,7 +264,6 @@ accessibleTabs6.init({
 	//거절 처리
 	$(document).on("click",".manage_reject",function(){
 		let afterComplete = $(this).parent();
-			alert($(".meetMemNo").val());
 			data={};
 			data.meetMemNo =$(".meetMemNo").val();
 			$.ajax({ 
@@ -280,7 +279,6 @@ accessibleTabs6.init({
 	
 	$(document).on("click",".manage_approval",function(){
 	let afterComplete = $(this).parent();
-		alert($(".meetMemNo").val());
 		data={};
 		data.meetMemNo =$(".meetMemNo").val();
 		$.ajax({ 
@@ -296,7 +294,6 @@ accessibleTabs6.init({
 	
 	$(document).on("click",".manage_ban",function(){
 		let afterComplete = $(this).parent();
-			alert($(".listMeetMemNo").val());
 			data={};
 			data.meetMemNo =$(".listMeetMemNo").val();
 			$.ajax({ 

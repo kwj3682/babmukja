@@ -278,8 +278,19 @@
 	$(".requestPermission").click(function(){
 		
 		
-		
 		meetupMember={};
+		if($('#el_memImgPath').val() ==""){
+			meetupMember.memImgPath ="";
+		}else{
+			meetupMember.memImgPath= $('#el_memImgPath').val();
+		};
+		
+		if($('#el_memImgSysname').val() ==""){
+			meetupMember.memImgSysname ="";
+		}else{
+			meetupMember.memImgSysname = $('#el_memImgSysname').val();
+		};
+		
 		meetupMember.memName  = $('#el_memName').val();
 		meetupMember.memEmail = $('#el_memEmail').val();
 		meetupMember.memNo =  $('#el_memNo').val();

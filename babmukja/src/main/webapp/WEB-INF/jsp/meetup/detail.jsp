@@ -453,9 +453,12 @@
 	</div>
 	  <!--el 값 받아주기  -->	
 	  <input type="hidden" id="el_meetNo" name="meetNo" value="${meetup.meetNo}" />
-	  <input type="hidden" id="el_memName" name="memName" value="${sessionScope.user.memName}" />
+	  <input type="hidden" id="el_memName" name="memName" value="${sessionScope.user.memNickname}" />
 	  <input type="hidden" id="el_memEmail" name="memEmail" value="${sessionScope.user.memEmail}" />
 	  <input type="hidden" id="el_memNo" name="memNo" value="${sessionScope.user.memNo}" />
+	  <input type="hidden" id="el_memImgSysname" name="memImgSysname" value="${sessionScope.user.memImgSysname}" />
+	  	  <input type="hidden" id="el_memImgPath" name="memImgPath" value="${sessionScope.user.memImgPath}" />
+	  
 	  <input type="hidden" id="el_hostNo" name="memNo" value="${meetup.hostNo}" />
 	  <input type="hidden" id="el_noticeClicked" name="noticeClicked" value="${noticeClicked}" />
 	  <input type="hidden" id="el_freeClicked" name="freeClicked" value="${freeClicked}" />

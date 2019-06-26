@@ -1,3 +1,4 @@
+
 $( document ).ready(function() {
    	if($("#hiddenHostName").val()==""){
   	alert("먼저 로그인을 먼저 진행해 주세요^^");

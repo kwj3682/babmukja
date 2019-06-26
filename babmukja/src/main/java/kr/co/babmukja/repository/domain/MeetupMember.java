@@ -12,6 +12,13 @@ int status;
 String memEmail;
 int admissionNum;
 String memImgSysname;
+String memImgPath;
+public String getMemImgPath() {
+	return memImgPath;
+}
+public void setMemImgPath(String memImgPath) {
+	this.memImgPath = memImgPath;
+}
 String regDate;
 Date joinDate;
 
