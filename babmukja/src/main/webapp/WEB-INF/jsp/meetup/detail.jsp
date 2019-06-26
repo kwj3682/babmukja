@@ -430,6 +430,7 @@
                      <c:otherwise>
                         <img src="${pageContext.request.contextPath}/meetup/download.do?path=${meetupMember.memImgSysname}">
                      </c:otherwise>
+                    
                      </c:choose>    
                     </div>
              			<div class="detail_member_name">${meetupMember.memName}</div>
