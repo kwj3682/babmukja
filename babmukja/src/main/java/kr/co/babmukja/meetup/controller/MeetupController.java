@@ -220,7 +220,7 @@ public class MeetupController {
 
 	
 	@RequestMapping("/createMeetup.do")
-	public void CreateMeetup(MultipartFile file, String tag, String title,
+	public void CreateMeetup(MultipartFile file,Model model, String tag, String title,
 		String category, String cityModal1, String cityModal2, String cityModal3,	
 		String townModal1,String townModal2,String townModal3, String[] day, String fee, String detailFee,
 		String hostName, int hostNo, String hostEmail,String hiddenTag
@@ -392,7 +392,8 @@ public class MeetupController {
 		member.setMeetNo(meetupBoard.getMeetNo());
 		member.setStatus(5);
 		service.insertMeetupMember(member);
-		
+	
+		model.addAttribute("hostNo", hostNo);
 	}//createMeetup
 	
 	@RequestMapping("/manage.do")

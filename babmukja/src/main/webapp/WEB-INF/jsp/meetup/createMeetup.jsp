@@ -9,8 +9,10 @@
 <body>
 
 <script>
-location.href="/babmukja/meetup/main.do";
-</script>
+location.href="/babmukja/meetup/manage.do?hostNo=${hostNo}";
+/* http://localhost/babmukja/meetup/hostNo=5
+ */
+ </script>
 
 </body>
 </html>
