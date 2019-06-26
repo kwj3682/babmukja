@@ -231,11 +231,11 @@
                        <div class="recipe-pic-box">
                            <a href = "detail.do?no=${list.recipeNo }">
                             <c:choose>
-			                	<c:when test='${list.imgPath == "" || list.imgPath == null}'>
-			                    	<img src="<c:url value="/resources/images/default.png"/>" onerror='this.src="${pageContext.request.contextPath}/resources/images/default.png"'/>					                	
+			                	<c:when test='${list.imgPath == "" || list.imgPath == null || list.imgPath == "undefined"}'>
+			                    	<img src="<c:url value='/resources/images/default.png'/>">					                	
 			                	</c:when>
 			                	<c:otherwise>					                	
-		                           	<img src="${list.imgPath}">
+		                           	<img src="${list.imgPath}" onerror='this.src="${pageContext.request.contextPath}/resources/images/default.png"'>
 			                	</c:otherwise>
 	                		</c:choose>
                            	</a>
