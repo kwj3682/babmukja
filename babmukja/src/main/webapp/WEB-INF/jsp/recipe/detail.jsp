@@ -207,7 +207,7 @@
 			                    	<img id="post-img1" src="<c:url value="/resources/images/default.png"/>">					                	
 			                	</c:when>
 			                	<c:otherwise>					                	
-			                    	<img id="post-img1" src="${m.imgPath }">
+			                    	<img id="post-img1" src="${m.imgPath }" onerror='this.src="${pageContext.request.contextPath}/resources/images/default.png"'>
 			                	</c:otherwise>
 	                		</c:choose>
                         </a>
