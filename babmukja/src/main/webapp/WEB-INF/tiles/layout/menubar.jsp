@@ -14,7 +14,6 @@
     
     <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="<c:url value='/resources/images/favicon.png'/>">
     <title>BABMUKJA</title>
 </head>
 <body>
