@@ -44,9 +44,18 @@
 				</div>
 
 				<div class="board_img_content">
+				
 					<div class="board_detail_img">
-						<img
-							src="<c:url value='imgdownload.do?boardNo=${board.boardNo}'/>">
+						<c:choose>
+							<c:when test = "${board.imgpath != null}">
+								<img
+								src="<c:url value='imgFreeBoardDownload.do?boardNo=${board.boardNo}'/>">
+							</c:when>
+						
+							<c:otherwise>	
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 					<div class="board_detail_content">${board.content}</div>
 				</div>

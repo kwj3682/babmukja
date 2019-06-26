@@ -751,6 +751,33 @@ public class MeetupController {
 		bos.close();
 		out.close();
 	}
+	@RequestMapping("/imgFreeBoardDownload.do")
+	public void imgFreeBoarddownload(int boardNo, HttpServletResponse response) throws Exception {
+		System.out.println("imgdownload에 들어옴");
+		Board board = service.freeDetail(boardNo);
+		String uploadRoot = "c:/bit2019/upload";
+		String path = board.getImgpath();
+		String sysname = board.getImgSysname();
+		File f = new File(uploadRoot + path + "/" + sysname);
+		response.setHeader("Content-Type", "image/jpg");
+		System.out.println("파일경로 잘 들어오나 확인해보자 :" + uploadRoot + path + "/" + sysname);
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+
+		OutputStream out = response.getOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		while (true) {
+			int ch = bis.read();
+			if (ch == -1)
+				break;
+			bos.write(ch);
+		}
+
+		bis.close();
+		fis.close();
+		bos.close();
+		out.close();
+	}
 
 	@RequestMapping("/delete.do")
 	// 글삭제
