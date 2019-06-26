@@ -195,7 +195,7 @@
 	                       <div class="recipe-pic-box">
 	                           <a href = "detail.do?no=${ca.recipeNo }">
 		                           <c:choose>
-					                	<c:when test="${ca.imgPath == '' || ca.imgPath == null}">
+					                	<c:when test="${ca.imgPath == '' || ca.imgPath == null || ca.imgPath == 'undefined'}">
 					                    	<img src="<c:url value="/resources/images/default.png"/>">		                	
 					                	</c:when>
 					                	<c:otherwise>					                	

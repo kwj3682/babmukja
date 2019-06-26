@@ -203,7 +203,7 @@
                     <c:forEach var="m" items="${memRecipe}">
                         <a href="detail.do?no=${m.recipeNo }">
 	                        <c:choose>
-			                	<c:when test="${m.imgPath == null || m.imgPath == ''}">
+			                	<c:when test="${m.imgPath == null || m.imgPath == '' || m.imgPath == 'undefined'}">
 			                    	<img id="post-img1" src="<c:url value="/resources/images/default.png"/>">					                	
 			                	</c:when>
 			                	<c:otherwise>					                	
