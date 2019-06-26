@@ -202,7 +202,7 @@ body{
 }
 #scrapbook-add{
     width: 200px;
-    height: 650px;
+    height: 750px;
     border: 5px dashed gainsboro;
     transition: .3s;
     display: grid;
@@ -233,12 +233,12 @@ body{
     font-weight: lighter;
 }
 #scrapbook-wrapper{
-    height: 640px;
+    height: 750px;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
     padding: 15px;
-	width : 900px;
+	width : 1300px;
     margin-left: 30px;
 }
 .scrapbooks{
@@ -375,4 +375,11 @@ input[name='scrapbook-title']:focus{
 .pageAjax > img{
 	width: 100%;
 	
+}
+.inner-cover-text{
+	background: rgb(150,150,150);
+	text-align:center;
+	line-height: 600px;
+	color:white;
+	font-size:20px;
 }

@@ -484,17 +484,21 @@ function update() {
 							html +=		'</div>';
 							html +=     '<div class="scrapbooks-turn" id="scrapbooks-turn'+i+'">'; 
 							html +=			'<div class="scrapbooks hard" style="background:url('+ book.imgPath +')"></div>';
-							html +=			'<div class="hard" style="background : rgb(230,230,230);">'+book.title+'</div>';
+							html +=			'<div class="hard inner-cover-text" >'+book.title+'</div>';
 							html +=          book.content;
-							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg)"></div>';
-							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-outercover.jpg)"></div>';
+							let count = (book.content.match(/div/g) || []).length/2;
+							if(count % 2 != 0){
+								html +=			'<div style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg);background-size:cover;"></div>';
+							}
+							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg);background-size:cover;"></div>';
+							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-outercover.jpg);background-size:cover;"></div>';
 							html +=     '</div>'; 
 							html +='</div>';
 							$("#scrapbook-wrapper").append(html);
 							
 							$("#scrapbooks-turn" + i).turn({
-								width : 850,
-								height : 580,
+								width : 950,
+								height : 630,
 								elevation : 50   
 							}).css({marginBottom : "15px;"}).find(".scrapbooks").css({backgroundSize:"cover" });
 							
