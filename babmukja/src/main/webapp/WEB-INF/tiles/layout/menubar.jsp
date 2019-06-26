@@ -69,14 +69,14 @@
 	            </ul>
 	        </div>
 		</c:if>
-        <div id="optionalMenu3" class="optionalMenubar opacity">
-            <ul>
-                <li><a href="#">쿠킹미팅1</a></li>
-                <li><a href="#">쿠킹미팅2</a></li>
-                <li><a href="#">쿠킹미팅3</a></li>
-                <li><a href="#">쿠킹미팅4</a></li>
-            </ul>
-        </div>
+<!--         <div id="optionalMenu3" class="optionalMenubar opacity"> -->
+<!--             <ul> -->
+<!--                 <li><a href="#">쿠킹미팅1</a></li> -->
+<!--                 <li><a href="#">쿠킹미팅2</a></li> -->
+<!--                 <li><a href="#">쿠킹미팅3</a></li> -->
+<!--                 <li><a href="#">쿠킹미팅4</a></li> -->
+<!--             </ul> -->
+<!--         </div> -->
     </div>
     <div id="chatContainer">
         <div id="memberSearchForChat">
@@ -119,11 +119,11 @@
 	
 	    
         let menu = [$("#menu1"),$("#menu2"),$("#menu3")];
-        let opMenu = [$("#optionalMenu1"),$("#optionalMenu2"),$("#optionalMenu3")];
+        let opMenu = [$("#optionalMenu1"),$("#optionalMenu2")];
 
         let loginUser = $("#nickName").text();
         
-        for(let i=0;i<=2;i++){
+        for(let i=0;i<=1;i++){
             menu[i].mouseenter(function(){
                 opMenu[i].css({top:"60px"});
                 for(let j=0; j<=2;j++){
