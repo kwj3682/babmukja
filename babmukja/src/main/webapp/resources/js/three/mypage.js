@@ -486,9 +486,11 @@ function update() {
 							html +=			'<div class="scrapbooks hard" style="background:url('+ book.imgPath +')"></div>';
 							html +=			'<div class="hard inner-cover-text" >'+book.title+'</div>';
 							html +=          book.content;
-							let count = (book.content.match(/div/g) || []).length/2;
-							if(count % 2 != 0){
-								html +=			'<div style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg);background-size:cover;"></div>';
+							if(book.content){
+								let count = (book.content.match(/div/g) || []).length/2;
+								if(count % 2 != 0){
+									html +=			'<div style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg);background-size:cover;"></div>';
+								}								
 							}
 							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-innercover.jpg);background-size:cover;"></div>';
 							html +=			'<div class="hard" style="background:url(/babmukja/resources/images/scrapbookdefault-outercover.jpg);background-size:cover;"></div>';
