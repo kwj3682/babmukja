@@ -219,8 +219,6 @@
 
 		} 
 		if($("#el_hostNo").val()==$("#el_memNo").val()&&intro != ""){ //null 이 아니면 원래 자료를 뿌려준다.
-			alert("hostNo" +$("#el_hostNo").val());
-			alert("memNo" +$("#el_memNo").val());
 			console.log("intro 는 :" + intro + "정래");
 			console.log("intro가 null 이 아닙니다.");
 			$("#tabPanel1").html(`<div class="editDelete"><div id="introEdit">수정</div><div id="introDelete">삭제</div></div>` + intro);

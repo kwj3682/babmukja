@@ -92,8 +92,7 @@
 			<div class="tag">
 			<c:forEach var ="meetupTag" items="${meetupTags}">
 				${meetupTag} &nbsp;
-		<c:out value='${sessionScope.user.memNo}'/><c:out value='${sessionScope.user.memNo}'/>
-		 <c:out value='${meetup.hostNo}'/><c:out value='${meetup.hostNo}'/>
+		
 			</c:forEach>
 			</div>
 			
