@@ -92,8 +92,9 @@
                 <div id="sec1-content1-wrapper">
                     <div>"이달의 레시피"</div>
                     <div>
+                    
                         <div id="sticker"></div>
-                        	<a href="detail.do?no=${win.recipeNo }" id="sec1-content1-wrapper-img" style="display:block; width:100%; height:400px; background:url(${win.imgPath});"></a> 
+                        	<a href="detail.do?no=${win.recipeNo }" id="sec1-content1-wrapper-img" style="display:block; width:600px; height:400px; background:url(${win.imgPath});background-size:cover;background-repeat: no-repeat;box-shadow: 7px 7px 9px 1px black;"></a> 
                         <div id="sticker2"></div>
                     </div>                    
                     <div id="monthrecipe-keyword">#${win.keyword}</div>
@@ -115,7 +116,10 @@
                     </div>
                     <div id="paragraph">
                     	<c:forEach var="c" items="${comment }">
-	                    	<p>${c.content}</p> - ${c.memNickname} -                    	
+                    		<div style="background:url(/babmukja/resources/images/chalkstar.png); width:${30 * c.score}px; height:34px; float:right;"></div>
+	                    	
+	                    	<p>${c.content}</p> - ${c.memNickname} -     
+	                    	<br>               	
                     	</c:forEach>
                     </div>
                     <div>
