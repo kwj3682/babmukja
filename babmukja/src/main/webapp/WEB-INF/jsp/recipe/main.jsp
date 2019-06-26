@@ -133,7 +133,7 @@
                         	</a>
                         </div>    
                  </c:forEach>
-                        <div>
+                        <div style="margin-left:10px;">
                         	더 보기 
                         	<b>↓</b>
                         	<div>
