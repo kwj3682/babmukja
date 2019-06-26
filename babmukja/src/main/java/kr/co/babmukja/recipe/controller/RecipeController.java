@@ -456,7 +456,39 @@ public class RecipeController {
      
      @RequestMapping("/capture.do")
      @ResponseBody
-     public void screenCapture(Capture capture) {
+     public void screenCapture(Capture capture) throws Exception {
+    	 
+    	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+
+    	 String uploadRoot = "C:/bit2019/upload";
+ 		 String path = "/scrapbook" + sdf.format(new Date());
+ 		 String uName = UUID.randomUUID().toString() + ".png";
+ 		 try {
+ 			 capture.getFile().transferTo(new File(uploadRoot + path + "/", uName));
+ 		 } catch (Exception e) {
+ 			 e.printStackTrace();
+ 			 throw e;
+ 		 }
+    	 String content = "<div class='pageAjax'><img src='/babmukja/recipe/download.do?path="+path+"&sysname="+uName+"'></div>";
+    	 
+    	 Scrapbook book = new Scrapbook();
+    	 book.setContent(content);
+    	 book.setScrapNo(capture.getRadioVal());
+    	 
+    	 RecipeScrap rs = new RecipeScrap();
+    	 
+    	 rs.setMemNo(capture.getMemNo());
+    	 rs.setRecipeNo(capture.getRecipeNo());
+    	 rs.setScrapNo(book.getScrapNo());
+    	 
+    	 service.insertScrapbookContent(book);
+    	 service.insertRecipeScrap(rs);
+    	 service.updateRecipeScrapCnt(capture.getRecipeNo());
+    	 
+    	 
+    	 
+    	 /*
+    	 System.out.println(capture.getBase64String());
     	 String data = capture.getBase64String().replaceAll("data:image/png;base64,", ""); 
     	 SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 
@@ -482,6 +514,7 @@ public class RecipeController {
     	 service.insertScrapbookContent(book);
     	 service.insertRecipeScrap(rs);
     	 service.updateRecipeScrapCnt(capture.getRecipeNo());
+    	 */
      }
      
 
