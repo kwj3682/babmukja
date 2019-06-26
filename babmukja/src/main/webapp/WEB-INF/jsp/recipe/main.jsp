@@ -235,7 +235,7 @@
 			                    	<img src="<c:url value='/resources/images/default.png'/>">					                	
 			                	</c:when>
 			                	<c:otherwise>					                	
-		                           	<img src="${list.imgPath}">
+		                           	<img src="${list.imgPath}" onerror='this.src="${pageContext.request.contextPath}/resources/images/default.png"'>
 			                	</c:otherwise>
 	                		</c:choose>
                            	</a>
