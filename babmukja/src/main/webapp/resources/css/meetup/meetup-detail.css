@@ -8,6 +8,8 @@
 }
 
 .headerLeft {
+	
+	/*  background-image:url();*/
 	display: inline-block;
 	border: 1px solid gray;
 	overflow: hidden;
@@ -15,8 +17,7 @@
 	width: 560px;
 	height: 400px;
 	margin-right: 60px;
-	font-family: 'Dokdo', cursive;
-	
+	font-family: 'Nanum Gothic', sans-serif;	
 	;
 }
 
@@ -113,7 +114,7 @@
 
 .area img {
 	float: left;
-	width: 600px;
+	width: 560px;
 	height: 400px;
 }
 
@@ -146,9 +147,9 @@
 }
 
 .tag {
-	font-family: 'East Sea Dokdo', cursive;
-	font-size: 30px;
-	margin-top: 30px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 25px;
+	margin-top: 25px;
 }
 
 .writeIntro {
@@ -192,18 +193,20 @@
 #introEdit {
 	display: inline-block;
 	margin-bottom: 10px;
-	border: 1px solid #7db341;
 	width: 70px;
 	height: 30px;
 	text-align: center;
 	line-height: 30px;
+}
+#temp_bar{
+	display: inline-block;
+	height:30px;
 }
 
 #introDelete {
 	margin-left: 10px;
 	display: inline-block;
 	margin-bottom: 10px;
-	border: 1px solid #7db341;
 	width: 70px;
 	height: 30px;
 	text-align: center;

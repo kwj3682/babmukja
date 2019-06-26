@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="<c:url value="/resources/js/jquery-3.2.1.js"/>"> </script> <script
-        src='<c:url value="/resources/js/meetup_address.js"/>'> </script>
+        src='<c:url value="/resources/js/meetup/meetup_address.js"/>'> </script>
     <!--     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
@@ -27,12 +27,12 @@
         crossorigin="anonymous"></script>
     <!-- modal address js -->
     <!--<script type="text/javascript" src="/resources/js/meetup_main_modal_address.js"></script>-->
-    <script src='<c:url value="/resources/js/meetup_main_search_address.js"/>'> </script>
+    <script src='<c:url value="/resources/js/meetup/meetup_main_search_address.js"/>'> </script>
 
     <!-- maincss -->
     <link href="<c:url value="/resources/css/meetup/meetup_main.css"/>" rel="stylesheet" type="text/css">
 
-    <script src='<c:url value="/resources/js/meetup_main_comma.js"/>'> </script>
+    <script src='<c:url value="/resources/js/meetup/meetup_main_comma.js"/>'> </script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
@@ -359,7 +359,7 @@
     <!-- 추천모임 박스 복사끝 -->
 
     <!-- 모달 부분 아래시작 -->
-    <form id="modalForm" action="<c:url value='/meetup/createMeetup.do'/>" method="POST" enctype="multipart/form-data">
+    <form id="modalForm" action="<c:url value='/meetup/createMeetup.do?hostNo=${sessionScope.user.memNo}'/>" method="POST" enctype="multipart/form-data">
         <div id="write_modal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -521,9 +521,9 @@
     <!--메인 컨테이너 끝 -->
     </div>
     <!--  <script type="text/javascript" src="/resources/js/meetup_main.js"></script>-->
-    <script src='<c:url value="/resources/js/meetup_main.js"/>'> </script>
+    <script src='<c:url value="/resources/js/meetup/meetup_main.js"/>'> </script>
 	<!--주소 불러오기  -->
-    <script src='<c:url value="/resources/js/meetup_main_modal_address.js"/>'> </script>
+    <script src='<c:url value="/resources/js/meetup/meetup_main_modal_address.js"/>'> </script>
 
 
     </body>

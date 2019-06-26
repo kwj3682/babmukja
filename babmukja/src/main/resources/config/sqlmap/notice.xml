@@ -56,6 +56,9 @@
 		update tb_notice
 		set title = #{title},
 		content = #{content}
+		<!-- imgpath = #{imgpath},
+		img_orgname = #{imgOrgname},
+		img_sysname = #{imgSysname} -->
 		where notice_no = #{noticeNo}
 	</update>
 
@@ -82,4 +85,11 @@
 			#{noticeNo}
 		)
 	 </insert> 
+	 <update id="updateNoticeImage" parameterType="NoticeFileVO">
+		update tb_file
+		   set img_sysname = #{imgSysname}, 
+		   	   img_orgname = #{imgOrgname}, 
+		   	   imgpath = #{imgpath}
+		 where file_no = #{fileNo}
+	</update>
 </mapper>

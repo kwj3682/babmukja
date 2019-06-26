@@ -172,7 +172,6 @@ $(document).ready(function() {
 			  
 			  tagNum++;
 			  
-			  alert(tagNum);
 			  
 			  if(tagNum<5){
 			  		$('.modal_meetup_tagSelected_box').append(`
@@ -204,7 +203,6 @@ $(document).on("click",'#tag_X_Icon',function(){
 		tagNum--;
 	}
 	
-	alert(tagNum);
 	
 	if (tagNum<=0){
 	tagNum=0;
@@ -232,7 +230,6 @@ $('#modalSave').click(function(){
 			}//if
 		}
 		$(".meetup_hiddenTag").val(tagVal);
-			alert("hidden tag" +$(".meetup_hiddenTag").val());
 
 	//예외처리 카테고리
 	if($(".food_nation_category").val() == "카테고리"){
@@ -251,7 +248,7 @@ $('#modalSave').click(function(){
 		 
 	}else if($(".meetup_hiddenTag").val() == ""){
 		$(".meetup_tag").focus();
-		alert("태그를 입략해주세요");
+		alert("태그를 입력해주세요");
 		 $("#modalForm").submit(function(e){
 			 e.preventDefault();
          });
@@ -260,7 +257,6 @@ $('#modalSave').click(function(){
 	}else if($("#select_modal_city1 option:selected").text() == "-선택-"){
 		$("#select_modal_city1").focus();
 		alert("지역을 입력해 주세요");
-		alert("도시1번"+$("#select_modal_city1 option:selected").text());
 		 $("#modalForm").submit(function(e){
 			 e.preventDefault();
          });
@@ -269,14 +265,12 @@ $('#modalSave').click(function(){
 	}else if($("#select_modal_town1 option:selected").text() == "-선택-"){
 		$("#select_modal_town1").focus();
 		alert("지역을 입력해 주세요");
-		alert("읍면"+$("#select_modal_town1 option:selected").text());
 		 $("#modalForm").submit(function(e){
 			 e.preventDefault();
          });
  
 	//요일 예외처리
 	}else if($("input[name='day']").is(':checked') == false){
-		alert("요일예외" + $("input[name='day']").is(':checked'));
 		$("#search_area_container").focus();
 		alert("요일을 선택해 주세요");
 		 $("#modalForm").submit(function(e){
@@ -293,8 +287,6 @@ $('#modalSave').click(function(){
  
 	//월회비 특정값 예외처리	 
 	}else if($("input[name='fee']:checked").val()=="personal" && $(".modal_fee_input").val()==""){
-		alert("무엇이 선택되었는지" + $("input[type='fee']:checked").val());
-		alert("액수값" +$(".modal_fee_input").val());
 		
 		$("#search_area_container").focus();
 		alert("월 회비를 선택해 주세요");
