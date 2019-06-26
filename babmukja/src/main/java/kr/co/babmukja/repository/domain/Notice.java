@@ -18,16 +18,11 @@ public class Notice {
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}
-	public MultipartFile getFile() {
-		return file;
-	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
+	
 	 private String imgpath;
  	 private String imgOrgname;
  	 private String imgSysname;
- 	 private MultipartFile file;
+ 	 private MultipartFile noticefile;
 
 	public String getImgpath() {
 		return imgpath;
@@ -47,11 +42,12 @@ public class Notice {
 	public void setImgSysname(String imgSysname) {
 		this.imgSysname = imgSysname;
 	}
+	
 	public MultipartFile getNoticefile() {
-		return file;
+		return noticefile;
 	}
 	public void setNoticefile(MultipartFile noticefile) {
-		this.file = noticefile;
+		this.noticefile = noticefile;
 	}
 	public int getNoticeNo() {
 		return noticeNo;

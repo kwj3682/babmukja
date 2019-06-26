@@ -85,8 +85,7 @@ $(".payment_btn").click(function () {
           msg += "카드 승인번호 : " + rsp.apply_num;
         } else {
           // 실패시
-          var msg = "결제에 실패하였습니다.";
-          msg += "에러내용 : " + rsp.error_msg;
+          var msg = "결제를 취소하였습니다.";
           alert (msg);
         }
       }

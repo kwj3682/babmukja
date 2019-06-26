@@ -6,7 +6,11 @@ let fileList="";
 const editor = new EditorJS({
     holderId: 'editorjs',
     autofocus: false,
-    data: {"time":1557295973064,"blocks":[{"type":"quote","data":{"title":"","message":""}},{"type":"warning","data":{"title":"","message":""}}],"version":"2.13.0"},
+    data: {"time":1557295973064,
+    	"blocks":[
+    		{"type":"image","data":{"name":"","message":""}}
+    		]
+			,"version":"2.13.0"},
     tools: { 
         warning: {
             class: Warning,
