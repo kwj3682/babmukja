@@ -107,7 +107,7 @@ let offLeft = $selectBoxSelector.offset().left;
                             html += `</div>
                             			<div class="profile-name">
                                    			<p>
-          	                    	  			<span>평점 :` + result[i].rating + ` </span>
+          	                    	  			<span>평점 :` + Math.floor(result[i].rating * 100)/100 + ` </span>
                               			 <br>
                                   			 ` +  result[i].title + `
                               			 <br>

@@ -54,15 +54,19 @@ $(document).on("click","#scrapbook-wrapper-sec4-button1",function(){
 		return;
 	}
 	$("body").append('<div id="waitLoading"></div>').css({margin: "0 auto"});
+	
+	var f = new FormData();
+    f.append("file", img, "test.png");
+    f.append("radioVal", radioValue);
+    f.append("recipeNo", $("input[name='no']").val());
+    f.append("memNo", loginMemNo);
+	
 	$.ajax({
 		url:"capture.do",
 		type:"POST",
-		data:{
-			radioVal : radioValue,
-			base64String : img,
-			recipeNo : $("input[name='no']").val(),
-			memNo : loginMemNo
-		}
+		data: f,
+	    processData: false,
+	    contentType: false
 	}).done(function(){
 		alert("레시피 정보가 스크랩 되었습니다.");
 		$("#modal-scrap").modal("hide");
@@ -81,12 +85,26 @@ function capture() {
   
   $(content).html2canvas({  
     onrendered: function (canvas) {  
-      img = canvas.toDataURL("image/png");
+      var dataUrl = canvas.toDataURL("image/png");
+      img = dataURItoBlob(dataUrl);
       $('#img_val').val(img);  
-      $("#scrapbook-wrapper-sec2").html('<img id="sec2-img-container" src=' + img + '>'); 
+      $("#scrapbook-wrapper-sec2").html('<img id="sec2-img-container" src=' + window.URL.createObjectURL(img) + '>'); 
     }  
   });  
-  
 } 
 
+function dataURItoBlob(dataURI)
+{
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++)
+    {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    var bb = new Blob([ab], { "type": mimeString });
+    return bb;
+}
 
