@@ -665,13 +665,8 @@ function animate() {
 				url: "/babmukja/recipe/recipebyno.do",
 				data: {memNo : memNo}
 			}).done(function(response){
-				if(!dataTableFlag){
-					var table = $('#writtenrecipe').DataTable({
-						"order":[[0,"asc"]]
-					});
-					dataTableFlag = true;
-				}
 				let htmlData = "";
+				let i = 0;
 				for(let recipe of response){
 					htmlData += 
 							"<tr>" 
@@ -686,8 +681,15 @@ function animate() {
 						  	+"<td>" + recipe.likeCnt+"</td>"
 						  	+"<td>" + recipe.scrapCnt+"</td>"
 							+"</tr>";
+					i++;
 				}
-				$("#tbody").html(htmlData);
+				if(!dataTableFlag){
+					$("#tbody").html(htmlData);
+					var table = $('#writtenrecipe').DataTable({
+						"order":[[1,"desc"]]
+					});
+					dataTableFlag = true;
+				}
 				
 
 			});
