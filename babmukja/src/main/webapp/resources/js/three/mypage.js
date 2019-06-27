@@ -686,7 +686,7 @@ function animate() {
 				if(!dataTableFlag){
 					$("#tbody").html(htmlData);
 					var table = $('#writtenrecipe').DataTable({
-						"order":[[0,"asc"]]
+						"order":[[1,"desc"]]
 					});
 					dataTableFlag = true;
 				}
