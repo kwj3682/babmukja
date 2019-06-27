@@ -136,4 +136,10 @@ public class MemberServiceImpl implements MemberService {
 	public List<Scrapbook> selectScrapbookListByNo(int memNo){
 		return mapper.selectScrapbookListByNo(memNo); 
 	}
+	public List<String> selectFollowList(int memNo){
+		return mapper.selectFollowList(memNo);
+	}
+	public List<String> selectFollowerList(int memNo){
+		return mapper.selectFollowerList(memNo);
+	}
 }
