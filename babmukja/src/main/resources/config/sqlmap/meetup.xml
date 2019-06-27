@@ -295,8 +295,8 @@
 	
 	<!-- 댓글 등록 -->
 	<insert id="insertBoardReview" parameterType="boardReview">
-		insert into tb_board_review (board_no, content)
-		values (#{boardNo}, #{content})
+		insert into tb_board_review (board_no, content,comment_writer)
+		values (#{boardNo}, #{content},#{commentWriter})
 	<selectKey keyProperty="boardReviewNo" resultType="int" order="AFTER">
     	SELECT LAST_INSERT_ID()
   	</selectKey>
@@ -408,8 +408,8 @@
 	
 	<!-- 댓글 등록 -->
 	<insert id="insertFreeBoardReview" parameterType="boardReview">
-		insert into tb_free_board_review (board_no, content)
-		values (#{boardNo}, #{content})
+		insert into tb_free_board_review (board_no, content,comment_writer)
+		values (#{boardNo}, #{content},#{commentWriter})
 	<selectKey keyProperty="boardReviewNo" resultType="int" order="AFTER">
     	SELECT LAST_INSERT_ID()
   	</selectKey>

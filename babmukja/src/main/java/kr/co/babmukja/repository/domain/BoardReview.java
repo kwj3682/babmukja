@@ -8,7 +8,14 @@ public class BoardReview {
 	private String content;
 	private Date regdate;
 	private int viewcnt;
+	private String commentWriter;
 	
+	public String getCommentWriter() {
+		return commentWriter;
+	}
+	public void setCommentWriter(String commentWriter) {
+		this.commentWriter = commentWriter;
+	}
 	public int getBoardReviewNo() {
 		return boardReviewNo;
 	}

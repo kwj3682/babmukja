@@ -103,7 +103,7 @@
 			pageNo = pageNo - 1;
 			let index = pageNo * 5;
 			$.ajax({
-				url : "boardreviewList.do",
+				url : "freeBoardReviewList.do",
 				data : { 
 					boardNo : $("input[name='boardNo']").val(),
 					index : index,
@@ -122,7 +122,7 @@
 					     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
 					     + '<div class="detail_name_content">' 
 					     + '<input type="hidden" class="boardReviewNo" value=' + result.comment[i].boardReviewNo + '>' 
-					     + '<span class="detail_comment_nickname">주부9단빛찬맘</span>'
+					     + '<span class="detail_comment_nickname">'+result.comment[i].commentWriter+'</span>'
 					     + '<span class="detail_comment_content" id=content'+ result.comment[i].boardReviewNo +'>'+ result.comment[i].content + '</span>'
 					     + '<div class="board_detail_info">'
 					     + '<span class="comment_regDate">'+ dateFormat(date)+ '</span>'
@@ -177,9 +177,11 @@
 		$(".detail_comment_button").click(function() {
 			$.ajax({
 				type: "post",
-				url: "boardreviewWrite.do",
+				url: "freeBoardReviewWrite.do",
 				data: { boardNo : $("input[name='boardNo']").val(),
-						content: $("input[name='board_detail_content']").val() },
+						content: $("input[name='board_detail_content']").val(),
+						commentWriter: '${sessionScope.user.memNickname}'
+				 },
 			    success : function(result) {
 			    	let html = "";
 			    	
@@ -188,7 +190,7 @@
 				     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
 				     + '<div class="detail_name_content">' 
 				     + '<input type="hidden" class="boardReviewNo" value=' + result.boardReviewNo + '>' 
-				     + '<span class="detail_comment_nickname">주부9단빛찬맘</span>'
+				     + '<span class="detail_comment_nickname">'+result.commentWriter+'</span>'
 				     + '<span class="detail_comment_content" id=content'+ result.boardReviewNo +'>'+ result.content + '</span>'
 				     + '<div class="board_detail_info">'
 				     + '<span class="comment_regDate">'+ dateFormat(new Date(result.regdate))+ '</span>'
