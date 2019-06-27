@@ -665,6 +665,12 @@ function animate() {
 				url: "/babmukja/recipe/recipebyno.do",
 				data: {memNo : memNo}
 			}).done(function(response){
+				if(!dataTableFlag){
+					var table = $('#writtenrecipe').DataTable({
+						"order":[[0,"asc"]]
+					});
+					dataTableFlag = true;
+				}
 				let htmlData = "";
 				for(let recipe of response){
 					htmlData += 
@@ -683,12 +689,7 @@ function animate() {
 				}
 				$("#tbody").html(htmlData);
 				
-				if(!dataTableFlag){
-					var table = $('#writtenrecipe').DataTable({
-						"order":[[0,"asc"]]
-					});
-					dataTableFlag = true;
-				}
+
 			});
 		}
 	}
