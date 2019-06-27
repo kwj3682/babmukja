@@ -423,13 +423,13 @@
                 	<div class="detail_member_info">
                     <div class="profile_picture_container">
                     <c:choose>
-                    <c:when test="${meetupMember.memImgSysname == null}">
+                    <c:when test="${meetupMember.memImgSysname == null || meetupMember.memImgSysname == ''}">
                         <img id="profile_picture" src="<c:url value="/resources/images/default/userdefault.png"/>">
                      </c:when>
                      
                      <c:otherwise>
                         <img src="${pageContext.request.contextPath}/meetup/download.do?path=${meetupMember.memImgSysname}">
-                        <img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${meetupMember.memImgPath}&sysname=${meetupMember.memImgSysname}">
+                        <img id="profile_picture" src="${pageContext.request.contextPath}/member/download.do?path=${meetupMember.memImgPath}&sysname=${meetupMember.memImgSysname}">
                      </c:otherwise>
                     
                      </c:choose>    
