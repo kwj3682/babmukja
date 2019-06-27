@@ -989,6 +989,7 @@ $(document).on("click","#follow-button",function () {
 });
 $(document).on("click","#follower-cnt",function(){
 	$("#modal-follow").modal("show");
+	$(".modal-header").text("팔로워");
 	$.ajax({
 		url:"followAjax.do",
 		data:{memNo : userNo}
@@ -1005,6 +1006,7 @@ $(document).on("click","#follower-cnt",function(){
 });
 $(document).on("click","#follow-cnt",function(){
 	$("#modal-follow").modal("show");
+	$(".modal-header").text("팔로우");
 	$.ajax({
 		url:"followerAjax.do",
 		data:{memNo : userNo}

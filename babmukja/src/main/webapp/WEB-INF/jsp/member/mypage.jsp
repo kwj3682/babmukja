@@ -126,7 +126,7 @@
 	<!-- scrapbook -->
 	<div class="modal fade" id="modal-scrapbook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document" style="margin: 0;">
-			<div class="modal-content" id="scrapbook-content" style="width:1500px; height: 800px;margin:0 auto;">
+			<div class="modal-content" id="scrapbook-content" style="width:1500px; min-height: 500px;margin:0 auto;">
 					
 				<div class="modal-body">
 				
@@ -179,7 +179,9 @@
 	</div>
 	<div class="modal fade" id="modal-follow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
-			<div class="modal-content" style="width:700px; height: 700px;margin:0 auto;border-radius: 10px;">
+			<div class="modal-content" style="width:300px; height: 700px;margin:0 auto;border-radius: 10px;">
+			
+					<div class="modal-header" style="text-align:center; font-szie: 20px; font-weight: bold; color:rgb(81,81,81);"></div>
 					<div id="follow-list" style="padding:20px; margin-top: 30px;height:600px; overflow-y:scroll;">
 					</div>
 			</div>
