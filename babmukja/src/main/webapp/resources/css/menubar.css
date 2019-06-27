@@ -565,3 +565,15 @@ input[name='member']:focus{
 	width : 30px;
 	margin-top: 7px;
 }
+
+#user_profile_images {
+	width: 45px;
+    border-radius: 50%;
+    height: 45px;
+}
+
+#profile-picture {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}

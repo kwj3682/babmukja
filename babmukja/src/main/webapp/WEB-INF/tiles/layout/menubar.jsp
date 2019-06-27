@@ -30,12 +30,20 @@
         </div>
         
         <span id="sign">
-            <span id="profilePic-wrapper">
-                <i class="fas fa-user-circle fa-3x"></i>
-            </span>
             
             <i class="fas fa-caret-up fa-3x" style="display: none;"></i>
             <c:if test="${sessionScope.user ne null}">
+            	<c:choose>
+            		<c:when test="${user.memImgPath ne null}">
+	            		<img id="user_profile_images" src="/babmukja/member/download.do?path=${user.memImgPath}&sysname=${user.memImgSysname}">
+            		</c:when>
+            		<c:otherwise>
+            			<img id="profile-picture" src="/babmukja/resources/images/default/userdefault.png">
+<!-- 			            <span id="profilePic-wrapper"> -->
+<!-- 			                <i class="fas fa-user-circle fa-3x"></i> -->
+<!-- 			            </span> -->
+            		</c:otherwise>
+            	</c:choose>
 		        <a id="nickName" href="#">${user.memNickname}</a>
 	         	<a id="logout" href="<c:url value="/member/logout.do"/>">로그아웃</a>
 <%-- 		        <a id="pbcart" href="<c:url value='/store/buyList.do?memNo=${user.memNo}'/>"><img class="cartIcon" src="<c:url value='/resources/images/icons/payment.png'/>"></a> --%>
