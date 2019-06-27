@@ -429,6 +429,7 @@
                      
                      <c:otherwise>
                         <img src="${pageContext.request.contextPath}/meetup/download.do?path=${meetupMember.memImgSysname}">
+                        <img id="profile-picture" src="${pageContext.request.contextPath}/member/download.do?path=${meetupMember.memImgPath}&sysname=${meetupMember.memImgSysname}">
                      </c:otherwise>
                     
                      </c:choose>    

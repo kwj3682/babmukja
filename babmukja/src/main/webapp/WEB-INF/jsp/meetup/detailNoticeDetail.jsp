@@ -118,7 +118,7 @@
 					     + '<img src="<c:url value="/resources/images/짱구사진.jpg"/>">' 
 					     + '<div class="detail_name_content">' 
 					     + '<input type="hidden" class="boardReviewNo" value=' + result.comment[i].boardReviewNo + '>' 
-					     + '<span class="detail_comment_nickname">${memName}</span>'
+					     + '<span class="detail_comment_nickname">'+result.comment[i].commentWriter+'</span>'
 					     + '<span class="detail_comment_content" id=content'+ result.comment[i].boardReviewNo +'>'+ result.comment[i].content + '</span>'
 					     + '<div class="board_detail_info">'
 					     + '<span class="comment_regDate">'+ dateFormat(date)+ '</span>'
@@ -175,7 +175,9 @@
 				type: "post",
 				url: "boardreviewWrite.do",
 				data: { boardNo : $("input[name='boardNo']").val(),
-						content: $("input[name='board_detail_content']").val() },
+						content: $("input[name='board_detail_content']").val(),
+						commentWriter: '${sessionScope.user.memNickname}'
+				},
 			    success : function(result) {
 			    	let html = "";
 			    	

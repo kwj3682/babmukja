@@ -12,6 +12,7 @@
 	/*  background-image:url();*/
 	display: inline-block;
 	border: 1px solid gray;
+	border-radius:10px;
 	overflow: hidden;
 	position: relative;
 	width: 560px;
@@ -35,6 +36,7 @@
 	background: white;
 	border-radius: .4em;
 	background-color:transparent;
+	color:transparent;
 }
 
 .infoTag::after {
@@ -45,10 +47,12 @@
 	width: 0;
 	height: 0;
 	border: 10px solid transparent;
-	border-top-color: white;
+	
 	border-bottom: 0;
 	margin-left: -10px;
 	margin-bottom: -10px;
+	color:transparent;
+	background-color:transparent;
 }
 
 .pseudo {
@@ -77,13 +81,13 @@
 
 .tagBottom {
 	margin-bottom: 30px;
-	color: #7db341;
+	color: white;
 	font-size: 16px;
 	margin-top: 5px;
 }
 
 .title {
-	margin-top: 50px;
+	margin-top: 55px;
 	font-size: 30px;
 	color:white;
 }
@@ -96,11 +100,12 @@
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .subInfo i{
-	color: #7db341;
+	color: white;
 }
 
 .headerRight {
 	display: inline-block;
+	border-radius:10px;
 	border: 1px solid gray;
 	overflow: hidden;
 	position: relative;
@@ -151,7 +156,7 @@
 .tag {
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 25px;
-	margin-top: 25px;
+	margin-top: 35px;
 	color:white;
 }
 
