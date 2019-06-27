@@ -704,6 +704,7 @@ public class MeetupController {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		//board에 모임 번호 추가해주기
 		//board.setMeetNo(meetNo);
+		
 		String uploadRoot = "C:/bit2019/upload";
 		String path = "/meetup" + sdf.format(new Date());
 		File file = new File(uploadRoot + path);
@@ -716,12 +717,16 @@ public class MeetupController {
 			System.out.println("is empty");
 		}
 		String uName = UUID.randomUUID().toString() +"meetNo="+meetNo+ bFile.getOriginalFilename();
-		bFile.transferTo(new File(uploadRoot + path + "/" + uName));
-		
-		board.setImgpath(path);
-		board.setImgOrgname(bFile.getOriginalFilename());
-		board.setImgSysname(uName);
-
+		if(bFile.isEmpty()) {
+	
+		}else {
+			System.out.println("보드 파일은 무엇인가" +board.getBoardfile());
+			bFile.transferTo(new File(uploadRoot + path + "/" + uName));
+			
+			board.setImgpath(path);
+			board.setImgOrgname(bFile.getOriginalFilename());
+			board.setImgSysname(uName);
+		}
 		service.write(board);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo="+meetNo+"&memNo="+memNo+"&noticeClicked=1";
 	}
