@@ -99,10 +99,14 @@
 			
 		</div>
 		<div class="headerRight">
-			<div class="area">
-				<img src="<c:url value='/meetup/download.do' />?path=${meetup.fileDir}">
-		
-			</div>
+			
+				<div class="area">
+<%-- 				<c:forEach var="filePath" items="${filesPath}">
+ --%>				<img src="<c:url value='/meetup/download.do' />?path=${meetup.fileDir}">
+		   			<%--  <img src="<c:url value='/meetup/download.do' />?path=${filePath}">
+				</c:forEach> --%>
+				</div>
+				
 		</div>
 	</div>
 

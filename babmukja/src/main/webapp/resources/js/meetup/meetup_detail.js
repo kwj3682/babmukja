@@ -10,12 +10,16 @@
 	    return date.getFullYear() + '년' + pad(date.getMonth()+1) + '월' + pad(date.getDate() +'일');
 	}
 	
-/*	$(".area").click(function () {
-		$(".area").animate({ left: -60 }, 1000);
-	});*/
+	
+/*	//슬라이드
+	let index=1;
+	$(".area").click(function () {
+		$(".area").animate({ left:index*: -600 }, 1000);
+		index++;
+	});
+	 
 
-
-
+*/
 	//상세 메뉴텝
 	for (let i = 0; i <= 4; i++) {
 		let number = i;
