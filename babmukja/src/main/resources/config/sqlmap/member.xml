@@ -184,5 +184,19 @@
 		  from tb_scrap s
 		 where mem_no = #{memNo}
 	</select>
+	<select id="selectFollowList" parameterType="int" resultType="String">
+		select m.mem_nickname 
+		  from tb_recipe_follow rf, tb_member m 
+		 where rf.follow_mem_no = #{memNo} 
+		   and rf.follow_status = 'Y'
+		   and rf.follower_mem_no = m.mem_no
+	</select>
+	<select id="selectFollowerList" parameterType="int" resultType="String">
+		select m.mem_nickname
+		  from tb_recipe_follow rf, tb_member m 
+		 where rf.follower_mem_no = #{memNo} 
+		   and rf.follow_status = 'Y' 
+		   and rf.follow_mem_no = m.mem_no
+	</select>
 	
 </mapper>

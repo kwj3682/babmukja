@@ -984,3 +984,37 @@ $(document).on("click","#follow-button",function () {
 		alert("같은 회원은 팔로우 할 수 없습니다.");
 	}
 });
+$(document).on("click","#follower-cnt",function(){
+	$("#modal-follow").modal("show");
+	$.ajax({
+		url:"followAjax.do",
+		data:{memNo : userNo}
+	}).done(function(list){
+		let html = "";
+		for(let str of list){
+			html += "<p style='font-size: 17px; color: rgb(81,81,81); border-bottom: gainsboro; text-align: left;'>";
+			html += "<a class='nickname-link' href='/babmukja/member/mypage.do?memNickname=" + str + "'>" + str + "</a>";
+			html +="</p>";
+		}
+		
+		$("#follow-list").html(html);
+	});
+});
+$(document).on("click","#follow-cnt",function(){
+	$("#modal-follow").modal("show");
+	$.ajax({
+		url:"followerAjax.do",
+		data:{memNo : userNo}
+	}).done(function(list){
+		let html = "";
+		for(let str of list){
+			html += "<p style='font-size: 17px; color: rgb(81,81,81); border-bottom: gainsboro; text-align: left;'>";
+			html += "<a class='nickname-link' href='/babmukja/member/mypage.do?memNickname=" + str + "'>" + str + "</a>";
+			html +="</p>";
+		}
+		
+		$("#follow-list").html(html);
+	});
+});
+
+

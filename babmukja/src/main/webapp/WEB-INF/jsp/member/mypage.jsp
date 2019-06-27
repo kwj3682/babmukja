@@ -113,7 +113,7 @@
 					                    <p id="updateform-sec2-userinfo-info">
 								                        작성한 레시피<b>${user.recipeCnt}</b>
 								                        팔로워<b id="follower-cnt">${user.follower}</b>
-								                        팔로우<b>${user.follow}</b>
+								                        팔로우<b id="follow-cnt">${user.follow}</b>
 					                    </p>
 					                </div>
 					            </div>
@@ -174,6 +174,14 @@
 			            <button id="book-create">생성</button>
 			            <button id="book-cancel">취소</button>
 			        </div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modal-follow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog" role="document" style="min-width:1100px;margin:0 auto;margin-top:70px;">
+			<div class="modal-content" style="width:700px; height: 700px;margin:0 auto;border-radius: 10px;">
+					<div id="follow-list" style="padding:20px; margin-top: 30px;height:600px; overflow-y:scroll;">
+					</div>
 			</div>
 		</div>
 	</div>

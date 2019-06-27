@@ -383,3 +383,23 @@ input[name='scrapbook-title']:focus{
 	color:white;
 	font-size:20px;
 }
+.nickname-link{
+	text-decoration : none;
+	color:rgb(81,81,81);
+	transition: .4s;
+	underline: none;
+}
+.nickname-link:visited{
+	color: rgb(81,81,81);
+	underline: none;
+}
+.nickname-link:focus{
+	text-decoration : none;
+	color:rgb(81,81,81);
+	underline: none;	
+}
+.nickname-link:hover{
+	underline: none;
+	text-decoration : none !important;
+	color: #7db341;
+}

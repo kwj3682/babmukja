@@ -48,4 +48,7 @@ public interface MemberMapper {
 	
 	public void insertScrapbook(Scrapbook book);
 	public List<Scrapbook> selectScrapbookListByNo(int memNo);
+	
+	public List<String> selectFollowList(int memNo);
+	public List<String> selectFollowerList(int memNo);
 }

@@ -536,4 +536,16 @@ public class MemberController {
 	public List<Scrapbook> selectScrapbookList (int memNo){
 		return service.selectScrapbookListByNo(memNo);
 	}
+	
+	@RequestMapping("followAjax.do")
+	@ResponseBody
+	public List<String> selectFollowList(int memNo){
+		return service.selectFollowList(memNo);
+	}
+	@RequestMapping("followerAjax.do")
+	@ResponseBody
+	public List<String> selectFollowerList(int memNo){
+		return service.selectFollowerList(memNo);
+	}
+	
 }
