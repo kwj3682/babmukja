@@ -112,8 +112,8 @@
 					                    </div>
 					                    <p id="updateform-sec2-userinfo-info">
 								                        작성한 레시피<b>${user.recipeCnt}</b>
-								                        팔로워<b id="follower-cnt">${user.follower}</b>
-								                        팔로우<b id="follow-cnt">${user.follow}</b>
+								                        팔로워<b id="follower-cnt" style="cursor:pointer;">${user.follower}</b>
+								                        팔로우<b id="follow-cnt" style="cursor:pointer;">${user.follow}</b>
 					                    </p>
 					                </div>
 					            </div>
