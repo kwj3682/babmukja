@@ -349,6 +349,10 @@ public class MeetupServiceImpl implements MeetupService{
 	public List<MeetupMember> selectMeeupMemberList(int meetNo){
 		return mapper.selectMeetupMemberList(meetNo);
 	}
+
+	public int selectMeetupMemberCount(int meetNo){
+		return mapper.selectMeetupMemberCount(meetNo);
+	}
 }
 
 

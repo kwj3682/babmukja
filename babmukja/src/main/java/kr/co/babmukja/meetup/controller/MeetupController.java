@@ -442,6 +442,9 @@ public class MeetupController {
 		meetupMember.setMeetNo(meetNo);
 		meetupMember.setMemNo(memNo);
 		
+		//회원수 보여주기
+		
+		model.addAttribute("meetupMemberCount", service.selectMeetupMemberCount(meetNo));
 		//회원 명단 보내주기
 		
 		model.addAttribute("meetupMemberList", service.selectMeetupMemberList(meetNo));
@@ -816,12 +819,20 @@ public class MeetupController {
 		if (bFile.isEmpty()) {
 			System.out.println("is empty");
 		}
-		String uName = UUID.randomUUID().toString() +"meetNo="+meetNo+ bFile.getOriginalFilename();
-		bFile.transferTo(new File(uploadRoot + path + "/" + uName));
 		
-		board.setImgpath(path);
-		board.setImgOrgname(bFile.getOriginalFilename());
-		board.setImgSysname(uName);
+		
+		String uName = UUID.randomUUID().toString() +"meetNo="+meetNo+ bFile.getOriginalFilename();
+		
+		if (bFile.isEmpty()) {
+			
+		}else {
+			bFile.transferTo(new File(uploadRoot + path + "/" + uName));
+			
+			board.setImgpath(path);
+			board.setImgOrgname(bFile.getOriginalFilename());
+			board.setImgSysname(uName);	
+		}
+		
 		service.updateBoard(board);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/meetup/detail.do?meetNo="+meetNo+"&memNo="+memNo+"&noticeClicked=1";
 	}

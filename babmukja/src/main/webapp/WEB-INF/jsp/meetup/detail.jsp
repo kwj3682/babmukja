@@ -62,7 +62,8 @@
 					<span class="infoTag">회원수</span>
 				</div>
 				<div class="subInfoPic">
-					<i class="fas fa-user-shield fa-3x"></i>
+					<i class="fas fa-calendar-day fa-3x"></i>
+
 				</div>
 				<div class="subInfoPic">
 					<i class="fas fa-map-marker-alt fa-3x"></i>
@@ -86,7 +87,7 @@
 				</c:choose>
 				<div class="tagBottom">${meetup.location}</div>
 				<div class="tagBottom">${meetup.fee}</div>
-				<div class="tagBottom">1</div>
+				<div class="tagBottom">${meetupMemberCount}</div>
 
 			</div>
 			<div class="tag">

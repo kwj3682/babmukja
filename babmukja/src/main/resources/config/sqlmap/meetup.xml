@@ -212,6 +212,13 @@
 		<result column="meet_no" property="meetNo" />
 	</resultMap>
 
+	<!--모임 회원수 -->
+	<select id="selectMeetupMemberCount" parameterType="int" resultType="int">
+	select count(*)
+		  from tb_meetup_member
+		 where meet_no=#{meetNo} and status = 2;
+	</select>
+
 	<!-- 글목록 -->
 	<select id="selectNoticeBoard" parameterType="meetupDetailNoticePage" resultMap="boardMap">
 		select *
@@ -401,9 +408,7 @@
 	
 	<!-- 페이징 -->
 	<select id="selectFreeBoardReviewCount" parameterType="page" resultType="int">
-		select count(*)
-		  from tb_free_board_review
-		 where board_no = #{boardNo}
+	
 	</select>
 	
 	<!-- 댓글 등록 -->

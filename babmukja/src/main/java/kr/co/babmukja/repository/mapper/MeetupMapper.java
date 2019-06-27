@@ -76,7 +76,7 @@ public void deleteBoardReview(int boardReviewNo); // 댓글 삭제
  
 public void updateBoardView(BoardReview boardReview); // 댓글 수정
 
-
+public int selectMeetupMemberCount(int meetNo);
 
 
 //자유게시판 부분

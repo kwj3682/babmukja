@@ -52,7 +52,9 @@ public interface MeetupService {
 	
 	//모임 탈퇴하기
 	public void updateWidthdrawlStatus(int meetNo);
-
+	
+	//모임멤버 수
+	public int selectMeetupMemberCount(int meetNo);
 
 	//모임 공지부분
 	public Map<String, Object> list(MeetupDetailNoticePage page); // 글목록
