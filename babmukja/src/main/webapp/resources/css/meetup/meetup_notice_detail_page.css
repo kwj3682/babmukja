@@ -1,0 +1,22 @@
+.pageLink {
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    margin-bottom: 10px;
+	background :white;
+	color : rgb(81,81,81);
+	border-radius: 5px;
+}
+.pageLink>a {
+	color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.pageLink:hover{
+	color:white;
+	background :#7db341;
+}
