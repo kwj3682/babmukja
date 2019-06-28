@@ -1,6 +1,7 @@
 package kr.co.babmukja.repository.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,11 +23,12 @@ public class Notice {
 	 private String imgpath;
  	 private String imgOrgname;
  	 private String imgSysname;
- 	 private MultipartFile noticefile;
+ 	 private MultipartFile imageList;
 
 	public String getImgpath() {
 		return imgpath;
 	}
+	
 	public void setImgpath(String imgpath) {
 		this.imgpath = imgpath;
 	}
@@ -43,11 +45,13 @@ public class Notice {
 		this.imgSysname = imgSysname;
 	}
 	
-	public MultipartFile getNoticefile() {
-		return noticefile;
+	
+	
+	public MultipartFile getImageList() {
+		return imageList;
 	}
-	public void setNoticefile(MultipartFile noticefile) {
-		this.noticefile = noticefile;
+	public void setImageList(MultipartFile imageList) {
+		this.imageList = imageList;
 	}
 	public int getNoticeNo() {
 		return noticeNo;

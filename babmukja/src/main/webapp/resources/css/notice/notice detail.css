@@ -8,6 +8,7 @@
  .notice_content_img {
 	border: 1px solid gainsboro;
 	text-align: center;
+	background: beige;
 	border-radius: 5px 5px 5px 5px;
 	margin-top: 10px;
 	width: 600px;
