@@ -12,17 +12,17 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/notice/notice list.css"/>">
        <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"> </script>
     <title>전체조회</title>
-   <!--  <script type="text/javascript">
+   <!-- <script type="text/javascript">
         $(document).ready(function(){
         	$(".noticelist > #tableDesign").css("background-color", "wheat");
         });  
-    </script> -->
+    </script>  -->
     <!-- <script type="text/javascript">
         $(document).ready(function(){
         	$(".noticelist > #tableDesign > tbody > tr:nth-child(odd)").css("background-color", "red");
         	$(".noticelist > #tableDesign > tbody > tr:nth-child(even)").css("background-color", "blue");
         });  
-    </script>  -->
+    </script>   -->
 </head>
 <body style="background: white;">
     <div class="noticelist">
@@ -48,7 +48,7 @@
          <tr>
             <td class="noticeNo">${notice.noticeNo}</td>
             <td class="leftstyle2"><a href='detail.do?no=${notice.noticeNo}'>${notice.title}</a></td>   
-            <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${notice.regdate}"/></td>
+            <td class="inquirelist2"><fmt:formatDate pattern="yyyy년 MM월 dd일 HH시" value="${notice.regdate}"/></td>
             <td class="inquirelist2">${notice.viewcnt}</td>
             <td class="inquirelist2">
             <%-- <c:if test="{sessionScope.user.memNo != null}">  --%>

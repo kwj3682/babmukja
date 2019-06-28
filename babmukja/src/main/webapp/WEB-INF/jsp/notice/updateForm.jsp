@@ -49,7 +49,7 @@
             <td class="notice_td5">
             <c:if test="${notice.imgSysname != null}">
             <img src="<c:url value='download.do?path=${notice.imgSysname}'/>" id="notice_update_img"> 
-            <input type="file" name="imageList" id="update_file" value="${notice.noticefile}"/> 
+            <input type="file" name="imageList" id="update_file"/> 
             </td>            
             </c:if>
           </tr> 

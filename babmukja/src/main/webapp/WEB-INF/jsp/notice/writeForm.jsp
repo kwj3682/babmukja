@@ -47,7 +47,7 @@
           <tr>
             <th class="notice_th2">첨부파일</th>
             <td class="notice_td5"><img src="" id="notice_img">      
-            <input type="file" name="imageList" id="notice_file"/>                        
+            <input type="file" name="imageList" id="notice_file" multiple="multiple"/>                                                
             </td>
           </tr>
          <!--  <tr>
@@ -76,8 +76,9 @@
 	$('#notice_file').change(function() {
 		let fileList = file.files;
 		// 읽기
+		for(let i = 0; i < file.length; i++){
 		let reader = new FileReader();
-		reader.readAsDataURL(fileList[0]);
+		reader.readAsDataURL(fileList[i]);
 		//로드 한 후
 		reader.onload = function() {
 			//로컬 이미지를 보여주기
@@ -98,6 +99,7 @@
 				let dataURI = canvas.toDataURL("image/jpeg");
 				//썸네일 이미지 보여주기
 				document.querySelector("#notice_img").src = dataURI;
+			  };
 			};
 		};
 	}); 
