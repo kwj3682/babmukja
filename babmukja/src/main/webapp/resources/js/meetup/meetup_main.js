@@ -283,7 +283,8 @@ $('#modalSave').click(function(){
 		$("#search_area_container").focus();
 		alert("월 회비를 선택해 주세요");
 		 $("#modalForm").submit(function(e){
-			 e.preventDefault();
+			 return false;
+
          });
  
 	//월회비 특정값 예외처리	 

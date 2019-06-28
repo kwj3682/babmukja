@@ -317,7 +317,7 @@
             <!--양식  추천모임 박스 복사끝 -->
             
              <!--동남아시아 모임 시작  --> 
-         <div class="tabPanel">동남 아시아
+         <div class="tabPanel">
                 <!-- 추천모임 박스 -->
                 <div class="info_block_container">
                     <!--1 추천모임 박스 복사시작 -->
