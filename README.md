@@ -20,4 +20,4 @@
 ### 주요 기능
 1. 레시피 작성(Editor.js)
 * 레시피를 상징하는 키워드를 선택할 수 있으며, 직관적인 블럭 형태로 본문을 작성할 수 있음.
-<img src="/img/reicpewrite.gif" width="100px" height="100px">
+<img src="/img/reicpewrite.gif" width="1000px" height="500px">
