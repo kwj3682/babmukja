@@ -22,4 +22,9 @@
 * 레시피를 상징하는 키워드를 선택할 수 있으며, 직관적인 블럭 형태로 본문을 작성할 수 있음.
 * 키워드 선택
 <img src="/img/reicpewrite.gif" width="700px" height="300px">
-* Editor.js를 이용한 블럭 형태의 게시글 작성
+  * Editor.js를 이용한 블럭 형태의 게시글 작성
+<img src="/img/recipewirte-body.jpg" width="700px" height="400px">
+  * 메뉴바 활성
+<img src="/img/editor-menubar.gif" width="700px" height="100px">
+  * 이미지 업로드
+<img src="/img/editor-imgupload.gif" width="700px" height="250px">
