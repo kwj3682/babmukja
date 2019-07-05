@@ -28,7 +28,7 @@
 <img src="/img/editor-imgupload.gif" width="700px" height="250px">
 
 2. 레시피 검색
-* 메뉴바에서 나라별로 구분 가능
+* 메뉴바에서 나라별로 구분 기능
 * 무한 스크롤로 페이징
 * 키워드로 검색
 <img src="/img/main-menubar.gif" width="700px" height="100px">
@@ -45,4 +45,13 @@
 * 상품 검색 및 정렬 기능
 <img src="/img/storelist.gif" width="700px" height="350px">
 <img src="/img/storelistsearch.gif" width="700px" height="350px">
+
+5. 상품 상세 조회
+* 상품에 대한 좋아요 기능
+* 상품에 대한 후기(별점)와 문의를 남길 수 있음
+* 상품 수량 변경 후 장바구니에 추가 기능
+* 장바구니 추가 후, 계속 쇼핑하거나 장바구니로 이동할 수 있음 (장바구니는 상단 메뉴바의 오른쪽 장바구니 버튼을 클릭해도 이동할 수 있다)
+* 결제 완료 시 결제 내역화면으로 이동 (결제 내역은 마이페이지에서 확인 가능)
+<img src="/img/storedetail.gif" width="700px" height="350px">
+<img src="/img/payment.gif" width="700px" height="350px">
 
