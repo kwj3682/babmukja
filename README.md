@@ -54,4 +54,5 @@
 * 결제 완료 시 결제 내역화면으로 이동 (결제 내역은 마이페이지에서 확인 가능)
 <img src="/img/storedetail.gif" width="700px" height="350px">
 <img src="/img/payment.gif" width="700px" height="350px">
+<img src="/img/review.gif" width="700px" height="350px">
 
