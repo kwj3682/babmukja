@@ -41,4 +41,8 @@
 * 댓글과 함께 평점 입력 기능
 <img src="/img/recipedetail.gif" width="700px" height="350px">
 
+4. 상품 조회 및 검색
+* 상품 검색 및 정렬 기능
+<img src="/img/storelist.gif" width="700px" height="350px">
+<img src="/img/storelistsearch.gif" width="700px" height="350px">
 
