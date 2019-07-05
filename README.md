@@ -33,4 +33,12 @@
 * 키워드로 검색
 <img src="/img/main-menubar.gif" width="700px" height="100px">
 <img src="/img/infinitescroll.gif" width="700px" height="250px">
-<img src="/img/searchrecipe.gif" width="700px" height="700px">
+<img src="/img/searchrecipe.gif" width="700px" height="600px">
+
+3. 레시피 상세 조회
+* 작성자에 대한 팔로우 기능
+* 게시글에 대한 좋아요 기능
+* 댓글과 함께 평점 입력 기능
+<img src="/img/recipedetail.gif" width="700px" height="350px">
+
+
