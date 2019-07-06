@@ -11,6 +11,7 @@
 * 7주차 : 코드 리펙토링, 발표 준비 및 발표 후 마무리
 
 ### 프로젝트 영상
+[![Video Label](https://www.youtube.com/watch?v=EgwHpzViGGU&feature=youtu.be%2F0.jpg)](https://youtu.be/EgwHpzViGGU)
 
 ### 프로젝트 기술
 * Back-End : Spring, myBatis, mySQL
@@ -69,3 +70,11 @@
 <img src="/img/meetup-detail.gif" width="700px" height="350px">
 <img src="/img/meetup-member.gif" width="700px" height="350px">
 
+7.마이 페이지(마이키친)
+* 개인 정보 수정 (프로필 사진, 비밀번호) -> 타인의 경우 팔로우 해제 또는 팔로우 기능 활성화
+* 팔로워/팔로우 현황 확인
+* 작성한 게시물 확인
+* 내 스크랩북 확인/ 스크랩북 추가 -> 타인의 경우 확인 불가능
+* 결제 내역 확인 -> 타인의 경우 확인 
+* 레시피 작성으로 이동
+[![Video Label](https://www.youtube.com/watch?v=bPgruR_YFa0&feature=youtu.be/0.jpg)](https://youtu.be/bPgruR_YFa0)
