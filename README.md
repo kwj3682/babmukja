@@ -77,4 +77,5 @@
 * 내 스크랩북 확인/ 스크랩북 추가 -> 타인의 경우 확인 불가능
 * 결제 내역 확인 -> 타인의 경우 확인 
 * 레시피 작성으로 이동
+
 [![Video Label](https://img.youtube.com/vi/bPgruR_YFa0/0.jpg)](https://youtu.be/bPgruR_YFa0)
