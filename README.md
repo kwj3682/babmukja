@@ -11,7 +11,7 @@
 * 7주차 : 코드 리펙토링, 발표 준비 및 발표 후 마무리
 
 ### 프로젝트 영상
-[![Video Label](https://www.youtube.com/watch?v=EgwHpzViGGU&feature=youtu.be%2F0.jpg)](https://youtu.be/EgwHpzViGGU)
+[![Video Label](https://www.img.youtube.com/vi/watch?v=EgwHpzViGGU&feature=youtu.be%2F0.jpg)](https://youtu.be/EgwHpzViGGU)
 
 ### 프로젝트 기술
 * Back-End : Spring, myBatis, mySQL
@@ -77,4 +77,4 @@
 * 내 스크랩북 확인/ 스크랩북 추가 -> 타인의 경우 확인 불가능
 * 결제 내역 확인 -> 타인의 경우 확인 
 * 레시피 작성으로 이동
-[![Video Label](https://www.youtube.com/watch?v=bPgruR_YFa0&feature=youtu.be/0.jpg)](https://youtu.be/bPgruR_YFa0)
+[![Video Label](https://www.img.youtube.com/vi/watch?v=bPgruR_YFa0&feature=youtu.be/0.jpg)](https://youtu.be/bPgruR_YFa0)
