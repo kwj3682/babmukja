@@ -11,7 +11,7 @@
 * 7주차 : 코드 리펙토링, 발표 준비 및 발표 후 마무리
 
 ### 프로젝트 영상
-[![Video Label](https://img.youtube.com/vi/watch?v=EgwHpzViGGU&feature=youtu.be%2F0.jpg)](https://youtu.be/EgwHpzViGGU)
+[![Video Label](https://img.youtube.com/vi/EgwHpzViGGU/0.jpg)](https://youtu.be/EgwHpzViGGU)
 
 ### 프로젝트 기술
 * Back-End : Spring, myBatis, mySQL
