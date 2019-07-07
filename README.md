@@ -14,7 +14,7 @@
 [![Video Label](https://img.youtube.com/vi/EgwHpzViGGU/0.jpg)](https://youtu.be/EgwHpzViGGU)
 
 ### 프로젝트 기술
-* Back-End : Spring, myBatis, mySQL
+* Back-End : Spring, myBatis, mySQL, Ajax
 * Front-End : javascript, html, css, jQuery, jsp
 * 협업 도구 : sourcetree, google spreadsheet
 
